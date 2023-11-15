@@ -1,0 +1,30 @@
+@font-face {
+    font-family: 'Maison Mono';
+    src: url('MaisonMono-Regular.woff2') format('woff2'),
+        url('MaisonMono-Regular.woff') format('woff'),
+        url('MaisonMono-Regular.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: '\' Mono';
+    src: url('MonoBold.woff2') format('woff2'),
+        url('MonoBold.woff') format('woff'),
+        url('MonoBold.ttf') format('truetype');
+    font-weight: 600;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Maison Mono';
+    src: url('MaisonMono-Regular_1.woff2') format('woff2'),
+        url('MaisonMono-Regular_1.woff') format('woff'),
+        url('MaisonMono-Regular_1.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+

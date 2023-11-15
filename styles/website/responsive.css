@@ -1,0 +1,366 @@
+@media (min-width: 1200px)
+{
+    /* Hover Effect */
+    .primary_btn_:hover
+    {
+        background: transparent;
+        color: #006838;
+    }
+    .secondary_btn_:hover
+    {
+        background: #006838;
+        color: #fff;
+    }
+    .login-register-landing:hover{
+        background-color: #006838;
+        color: #fff;
+        border: 1px solid #006838;
+      }
+      .login-register-landing:hover i {
+        color: #fff;
+      }
+      .favorite_jobs:hover{
+        background: #006838;
+        color: #fff;
+    }
+    .favorite:hover span{
+      color: #fff;
+    }
+    .favorite_jobs:hover i{
+      color: #fff;
+  }
+  .talen_outre .btn:hover {
+    border: 1px solid #006838;
+    color: #fff;
+    background: #006838;
+    font-size: 16px;
+    font-weight: 500;
+  }
+  .talen_outre .btn:hover i {
+    color: #fff;
+  }
+}
+@media (max-width:1024px){
+  .about_btn {
+    font-size: 11px;
+}
+}
+@media (min-width:991px){
+    .sidebar_Main {
+      background: transparent !important;
+  }
+    .sidebar_Main .modal-content{
+      display: none;
+    }
+    #kt_aside_toggle {
+      display: block;
+    }
+    .about_btn_interested {
+      padding: 12px 0;
+  }
+  .login-register-landing {
+    padding: 5px 18px;
+}
+.favorite_jobs {
+  margin-right: 10px
+}
+  }
+  @media (min-width:768px) {
+    .network_maintabs {
+      margin-right: 6px;
+      padding: 10px !important;
+  }
+  }
+  @media (max-width:991px){
+    .user_name.Gilroy_font2 {
+      /* white-space: nowrap;
+      width: 50px;
+      overflow: hidden;
+      text-overflow: ellipsis; */
+      display: none;
+      }
+      .navbar-light .navbar-toggler {
+        border-color: transparent;
+        outline: none;
+    }
+      .feature_container, .subtext_2 {
+        max-width: 350px;
+        width: 100%;
+      }
+      .jobseeker {
+        border-bottom: 1px solid #dbdbdb !important;
+        margin-bottom: 15px;
+        border: 0;
+    }
+    .logo_landing {
+    height: 40px;
+    width: 150px;
+}
+  }
+  @media (max-width:767px){
+    .sidebar_Main .modal-dialog {
+      width: 250px;
+  }
+  #kt_header_mobile .logo {
+    width: 25%;
+  }
+  #kt_header_mobile .mr-1 {
+    display: block !important;
+    margin: 0 10px;
+  }
+  .talent_details{
+    margin-bottom: 15px !important;
+  }
+  .talen_outre {
+    text-align: left;
+    float: none;
+    margin-top: 10px;
+  }
+  .left_img5 img {
+    border-radius: 20px 20px 0 0;
+  }
+  .left_img5 {
+    padding:0 15px;
+  }
+  .contact_right7 {
+    margin: 0 15px;
+    border-radius: 0 0 20px 20px;
+  }
+  .app_link {
+    margin: 20px 0;
+  }
+  .network_tabsbox {
+    justify-content: center;
+  }
+  .follow_main {
+    display: flex;
+    justify-content: center;
+  }
+  .button_box {
+    margin-top: 75px;
+    justify-content: center !important;
+  }
+  .skill_box {
+    display: block;
+  }
+  .login_box {
+    margin: 10px 0;
+}
+.top_bar {
+  margin-bottom: 20px;
+}
+.subheading_main {
+  text-align: center;
+  display: block;
+}
+.networkMain_tabbox {
+  justify-content: center;
+}
+.network_tabs{
+  margin-top: 15px;
+}
+.network_maintabs {
+  margin-right: 6px;
+  padding: 10px !important;
+}
+.dashboard {
+  text-align: center;
+}
+.about_btn_interviewing,.about_btn_prospect,.about_btn_hired,.about_btn_interested {
+  font-size: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.jobbtn_ {
+  text-align: center;
+}
+.job_header {
+  flex-wrap: wrap;
+  justify-content: center;
+}
+.searchjob_details {
+  width: 100%;
+  margin-bottom: 15px;
+}
+  }
+  @media (max-width:575px){
+    .interested-list li {
+        width: 50%;
+  }
+  #tab-content {
+    margin: 0px 30px;
+  }
+  .favorite_jobs {
+    margin: 20px 0;
+    max-width: 240px;
+    width: 100%;
+  }
+  .about_Job span {
+    max-width: 60%;
+  }
+  .myScroller {
+    height: 100%;
+    max-height: 400px;
+  }
+  .apply_jobs_area .sliderFormBtn {
+    padding: 8px 9px;
+    font-size: 13px;
+  }
+  .home_main_title {
+    text-align: center;
+    padding-bottom: 0px;
+  }
+  .home_main_title p {
+    font-size: 22px ;
+  }
+  /* .button_padding{
+    padding-top:0px;
+  } */
+  .job_detailsNav {
+    display: block;
+    justify-content: center;
+  }
+  .orgnisation_icon {
+    margin: 10px auto;
+  }
+  .job_detailsNav .jobDescription {
+    text-align: center;
+    margin: 0;
+  }
+  .job_detailsNav .Remove_box {
+    position: relative;
+    right: 0;
+    margin: 10px auto;
+  }
+  #header_id .nav-item {
+    margin: 0;
+  }
+  .findjob_deatils {
+    margin: 10px 0;
+  }
+  .logo_main {
+    width: 50%;
+}
+   #kt_header_mobile .logo {
+    width: 60%;
+  }
+  .about_App .btn_app {
+    display: block;
+    width: 60%;
+    margin: 20px auto;
+}
+  .buttonBox {
+    display: block;
+    text-align: center;
+  }
+  .buttonBox .sliderFormBtn {
+    margin: 10px 0;
+  }
+  .btnNext {
+    text-align: center;
+  }
+  .client_say {
+    padding: 50px 20px 40px 20px;
+    text-align: justify;
+  }
+  .subhead_2 {
+    font-size: 24px !important;
+  }
+  .subtitle_2 {
+    font-size: 42px !important;
+  }
+  .sliderContainer {
+    padding: 40px 0 10px;
+  }
+  
+  .telent_heading p {
+    font-size: 18px;
+    text-align: justify;
+  }
+  .find_talent_inner #tab-content {
+    margin: 0px 0px;
+  }
+  .jersey_section h3 {
+    font-size: 24px !important;
+  }
+  .jersey_section .pt-4 {
+    text-align: justify;
+  }
+  .work_way_section h3 {
+    font-size: 22px !important;
+  }
+  .work_way_section .accordion-content {
+    text-align: justify;
+  }
+  .follow_main .mr-2 {
+    padding: 12px !important;
+  }
+  .verified-icon {
+    position: absolute !important;
+    left: 55px !important;
+    top: 70px !important;
+  }
+  .profile_detailsBox {
+    width: 100% !important;
+  }
+  .banner-carousel{
+    background:none;
+    background-size: contain;
+    background-position: 100% 100%;
+    background-repeat: no-repeat;
+    width: 100%;
+  }
+  .banner_bg {
+    height: 200px;  
+  }
+  .booking_tabs{
+    display: block;
+  }
+  .booking_tabs .col{
+    margin: 10px 0;
+  }
+  .noti_Main .modal-dialog {
+    width: 70%;
+}
+.custom-container h3 {
+  font-size: 18px;
+}
+  }
+  @media (max-width:425px){
+    #kt_header_mobile .logo {
+      width: 80%;
+  }
+  .header_links .login-register-landing {
+    margin-bottom: 10px;
+}
+  .download_app .app_link img{
+    margin: 10px 0;
+  }
+  /* .btn.btn-primary{
+    margin-bottom: 15px;
+  } */
+  .job_infoHeading_ {
+    font-size: 12px;
+}
+.about_btn {
+  font-size: 10px;
+}
+.job_box{
+  font-size: 10px;
+}
+
+  
+  }
+  @media (min-width:375px){
+    .addcard_button{
+      margin-bottom: 15px;
+    }
+    .network_maintabs {
+      margin-right: 3px;
+  }
+  .custom-container h3 {
+    font-size: 22px;
+}
+  }
+  

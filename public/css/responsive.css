@@ -1,0 +1,183 @@
+@media screen and (max-width: 1400px) {
+    .navbar-nav .nav-item {
+        padding: 0 30px;
+    }
+
+}
+
+@media screen and (max-width: 1200px) {
+    .dollar {
+        padding: 20px 15px;
+    }
+    .smallImages{
+        max-width: 222px;
+    }
+    .otherAppImage {
+        max-width: 486px;
+      }
+      .navbar-nav .nav-item {
+        padding: 0 12px;
+    }
+    .headingBlue{
+        font-size: 40px;
+    }
+    .headingLight64{
+        font-size: 50px;
+    }
+    .headingBold64{
+        font-size: 50px;
+    }
+    .subHeading20{
+        font-size: 16px;
+    }
+    .heading36{
+        font-size: 30px;
+    }
+    .heading24{
+        font-size: 20px;
+    }
+    .subHeading16{
+        font-size: 14px;
+    }
+    .getApp {
+        padding: 41px 40px;
+        margin-top: 82px;
+        position: relative;
+    }
+    .desclimer {
+        margin-top: 25px;
+    }
+    .getAppInner .primaryBtn{
+        margin-top: 10px;
+        padding:12px 50px;
+    }
+}
+@media screen and (max-width: 1020px) {
+    
+    .customInput{
+        max-width: 400px;
+    }
+    .seemInner img:last-child{
+        margin-top:10px;
+    }
+    
+      .navbar-nav li {
+        padding: 0;
+    }
+    .seemInner{
+        flex-wrap: wrap;
+    }
+    header {
+        padding: 14px 29px;
+    }
+    .navbar-nav .nav-item {
+        padding: 0 10px;
+    }
+    }
+    @media screen and (min-width:991){
+        header .navbar-nav{
+            position: absolute;
+            background: #fff;
+            width: 100%;
+            box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+            align-items: start !important;
+            padding: 10px;
+            border-radius: 0 0 10px 10px;
+            left: 0;
+        }
+        .navbar-expand-lg .navbar-nav {
+            margin-top: 0;
+        }
+    }
+  @media screen and (max-width: 992px){
+  .customInput {
+      max-width: 100%;
+  }
+  .getAppInner .primaryBtn{
+    margin-top:10px;
+  }
+  .allRightReserve {
+    margin-top: 46px !important;
+}
+
+.indedTable td{
+    width: 100%;
+}
+.ourCoreImages{
+    display: none;
+}
+.loginBtnCon{
+    display: none;
+}
+.afterRes{
+    display: block;
+}
+.navbar-expand-lg .navbar-nav {
+    /* flex-direction: row; */
+    align-items: left;
+}
+.navbar-toggler-icon i{
+    padding:5px 0;
+}
+header {
+    padding: 14px 36px;
+}
+.navbar-expand-lg .navbar-nav {
+    margin-top: 0;
+}
+.navbar-nav li {
+    padding: 8px 14px;
+}
+
+header .dropdown-menu{
+    min-width: 320px;
+}
+.navbar-nav .nav-item {
+    padding: 9px 10px;
+}
+}
+@media screen and (max-width: 768px){
+    .driverNavigationCon {
+        flex-wrap: wrap;
+    }
+    
+}
+@media screen and (max-width: 576px){
+    .getApp {
+        padding: 45px 35px;
+    }
+    .headingLight64 {
+        font-size: 50px;
+    }
+    .allAppCard {
+        padding: 34px 15px 0 28px;
+    }
+    .productImg{
+        margin-top:auto;
+    }
+    .extensiveCatInner{
+       
+        flex-wrap: wrap;
+    }
+    .manufacturerInner{
+        flex-wrap: wrap;
+    }
+    header {
+        padding: 14px 0;
+    }
+    .commonCard {
+        margin-top: 44px;
+    }
+    .getApp {
+        margin-top: 40px;
+    }
+    .commonSection {
+        padding: 42px 0;
+    }
+    .primaryBtn {
+        padding: 15px 32px;
+    }
+    .commonCard {
+        padding: 27px 33px 0 33px;
+    }
+}
