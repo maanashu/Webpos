@@ -10,10 +10,8 @@ const VerifyOtp = () => {
         return Math.random().toString(36).substr(2, 10);
     };
     const onComplete = (code) => {
-
         // Validate the input to allow only numeric characters
         const regex = /^[0-9]*$/; // Regular expression to allow only numbers
-
         if (regex.test(code) || code === '') {
             setOtp(code);
         }
@@ -37,7 +35,7 @@ const VerifyOtp = () => {
                                             autoComplete="new-password"
                                             isInputNum={true}
                                             isInputSecure={true}
-                                            renderInput={(props) => <input {...props} type="password" maxLength={5} />}
+                                            renderInput={(props) => <input {...props} type="text" maxLength={5} />}
                                             onChange={onComplete}
                                         // onComplete={(code) => onComplete(code)}
                                         />
@@ -50,7 +48,6 @@ const VerifyOtp = () => {
                                 <Image src={Images.DarkLeft} alt="image" className="img-fluid leftImg" />
                                 Back
                             </button>
-
                             {/* <Link href="#" className='verifyTime w-100'>29s to resend code</Link> */}
                             <Link href="#" className='verifyTime w-100'>Resend</Link>
                         </div>
