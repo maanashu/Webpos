@@ -6,6 +6,7 @@ import FirstStepper from "../public/images/firstStepper.svg"
 import SecondStepper from "../public/images/secondStepper.svg"
 import AlertCircle from "../public/images/alertCircle.svg"
 import CrossCircle from "../public/images/crossCircle.svg"
+import SideLogo from "../public/images/sideLogo.svg"
  
 export{
     ArrowLeft,
@@ -16,4 +17,5 @@ export{
     SecondStepper,
     AlertCircle,
     CrossCircle,
+    SideLogo,
 };

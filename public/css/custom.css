@@ -103,13 +103,25 @@ body {
     left: 0;
     position: fixed;
     top: 0;
-    border-right: 1px solid #D8D8D8;
-    box-shadow: 0 0px 2px rgb(0 0 0 / 23%);
-    padding: 8px;
+    /* border-right: 1px solid #D8D8D8;
+    box-shadow: 0 0px 2px rgb(0 0 0 / 23%); */
+    padding: 16px;
     text-align: center;
+    width: 100%;
+    max-width: 100px;
 }
 .rightWrapper {
-  min-width: calc(100% - 74px);
-  margin-left: 74px;
+  min-width: calc(100% - 100px);
+  margin-left: 100px;
 }
-
+.sidebarAuth {
+  border-radius: 60px;
+  background: #FFF;
+  box-shadow: -1.90817px 3.78304px 25.48148px 0px rgba(50, 80, 127, 0.02), -4.95391px 9.82135px 80px 0px rgba(50, 80, 127, 0.04);
+  height: auto;
+}
+.sidebarMain{
+  border-radius: 60px;
+  background: #FFF;
+  box-shadow: -1.90817px 3.78304px 25.48148px 0px rgba(50, 80, 127, 0.02), -4.95391px 9.82135px 80px 0px rgba(50, 80, 127, 0.04);
+}

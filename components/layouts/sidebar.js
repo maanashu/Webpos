@@ -7,12 +7,15 @@ const Sidebar = () => {
 
     return (
         <div className='main-sidebar' id="myNav">
-            <Link href="/retailHome" className="brandLogo" >
+            <div className='sidebarAuth sidebarMain'>
+                <Image src={Images.SideLogo} alt="image" className="img-fluid"/>
+            </div>
+            {/* <Link href="/retailHome" className="brandLogo" >
                 <Image src={Images.BrandLogo} alt="image" className="footerLogo" />
             </Link>
-            <Link href="#" className="closebtn" ><i className="las la-times"></i></Link>
+            <Link href="#" className="closebtn" ><i className="las la-times"></i></Link> */}
 
-            <ul className="sidebarMenus navbar_overlay_content_">
+            {/* <ul className="sidebarMenus navbar_overlay_content_">
                 <div className='sidebarStaticMenus'>
                     <li className= "sidebarItems active" >
                         <Link href="/dashboard" className="sidebarLinks" >
@@ -75,14 +78,14 @@ const Sidebar = () => {
                         </Link>
                     </li>
                 </div>
-                {/* <div className='sidbarfixedMenus'>
+                <div className='sidbarfixedMenus'>
                     <li className="sidebarItems" onClick={() => { userLogout() }}>
                         <Link to="#" className="sidebarLinks" onClick={() => setActiveData("power")}>
                             <Image src={props?.auth?.userProfile?.user_profiles?.pos_role === null ? power : ''} className="img-fluid" alt="" />
                         </Link>
                     </li>
-                </div> */}
-            </ul>
+                </div>
+            </ul> */}
         </div>
     )
 }
