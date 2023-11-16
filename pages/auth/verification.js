@@ -23,8 +23,8 @@ const Verification = () => {
                     <h4 className='verifySub'>Enter your phone number to get started.</h4>
                     <form>
                         {/* <input class="form-control verifyControl" type="text" placeholder="Default input" /> */}
-                        <div className="phone-numbpart mb-3">
-                            <div className="country-plugin">
+                        <div className="phone-numbpart verifyNumber">
+                            <div className="country-plugin verifySelect">
                                 {/* <label className="form-label">Phone Number</label> */}
                                 <div id="result">
                                     <PhoneInput
