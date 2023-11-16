@@ -565,5 +565,18 @@ body {
     top: 20px;
     cursor: pointer;
 }
+.errorMain{
+    margin-top: 16px;
+    display: flex;
+    align-items: center;
+}
+
+.errorMsg {
+    color: #F04438;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: normal;
+    margin-left: 6px;
+}
 
 /* verification pages css end  */
