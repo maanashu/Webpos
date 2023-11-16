@@ -51,6 +51,9 @@ const Verification = () => {
                         </div>
                     </form>
                 </div>
+                <div className='dottedImg'>
+                <Image src={Images.FirstStepper} alt="image" className="img-fluid" />
+                </div>
             </div>
         </>
     )

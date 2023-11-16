@@ -519,5 +519,14 @@ body {
 .react-tel-input .selected-flag:focus {
     background-color: transparent !important;
 }
-
+.successImg{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    margin: 0  0 24px 0;
+}
+.dottedImg{
+    position: fixed;
+    bottom: 90px;
+}
 /* verification pages css end  */

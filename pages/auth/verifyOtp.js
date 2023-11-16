@@ -22,6 +22,9 @@ const VerifyOtp = () => {
                         </div>
                     </form>
                 </div>
+                <div className='dottedImg'>
+                <Image src={Images.SecondStepper} alt="image" className="img-fluid" />
+                </div>
             </div>
         </>
     )
