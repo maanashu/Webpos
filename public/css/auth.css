@@ -1,4 +1,12 @@
 /* Start login page Css */
+
+@import url('https://fonts.googleapis.com/css2?family=Rubik:wght@300;400;500;600;700;800&display=swap');
+
+body {
+    background: #F5F6FC !important;
+    font-family: 'Rubik', sans-serif;
+}
+
 .form-control {
     display: block;
     width: 100%;
@@ -12,7 +20,7 @@
     border: 1px solid #ced4da;
     appearance: none;
     border-radius: 5px;
-    transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+    transition: border-color .15s ease-in-out, box-shadow .15s ease-in-out;
     border: none;
     font-style: normal;
     margin: 0 auto;
@@ -28,6 +36,7 @@
     display: flex;
     width: 100%;
 }
+
 .loginForm {
     position: relative;
     padding: 55px;
@@ -38,11 +47,13 @@
     min-height: 440px;
     margin: 0 auto;
 }
+
 .logo-part img {
     /* width: 100%; */
     width: 167px !important;
     height: 56px !important;
 }
+
 .loginhorrizontal-form {
     height: calc(100vh - 25px);
     background: #fff;
@@ -53,9 +64,11 @@
     padding: 60px 72px;
     overflow: auto;
 }
+
 .loginForm .react-tel-input .form-control {
-    background: #FFF!important;
+    background: #FFF !important;
 }
+
 .loginForm .customform-control {
     border: 1px solid #fff;
     padding: 15px 0px 15px 15px;
@@ -64,16 +77,19 @@
     background: #fff;
     outline: none;
 }
+
 .loginForm .form-label {
     font-size: 14px;
     color: #14171A;
     font-weight: 600;
 }
+
 .horizontalLogin {
     display: flex;
     align-items: center;
     height: 100vh;
 }
+
 .customform-control {
     background: #F5F6F7;
     border-radius: 5px;
@@ -87,9 +103,11 @@
     color: #14171A;
     outline: none;
 }
-.customform-control::placeholder{
+
+.customform-control::placeholder {
     font-style: italic;
 }
+
 .react-tel-input .form-control {
     position: relative;
     font-size: 14px;
@@ -107,11 +125,13 @@
     outline: none !important;
     width: 100% !important;
     /* height: auto!important; */
-    border:none;
+    border: none;
 }
+
 .loginForm .react-tel-input .form-control:focus {
-    background: #FFF!important;
+    background: #FFF !important;
 }
+
 .forgot {
     text-align: right;
     font-size: 12px;
@@ -120,6 +140,7 @@
     font-weight: 500;
     letter-spacing: 0.3px;
 }
+
 .loginBtnAuth {
     display: block;
     text-align: center;
@@ -133,49 +154,60 @@
     border-radius: 5px;
     transition: all .8s;
 }
+
 .gobacklink {
     font-size: 14px;
     color: #14171A;
     font-weight: 500;
 }
+
 .logo-part {
     display: inline-block;
     width: 100%;
     text-align: center;
     margin-bottom: 47px;
 }
+
 .copyRight {
     position: absolute;
     bottom: 11px;
     left: 15%;
 }
+
 .copyRight p {
     color: #000;
     font-size: 12px;
     margin: 0;
 }
+
 .forgetcommon .loginhorrizontal-form {
     background: #E5F0FF;
     border-radius: 22px;
 }
+
 .forgetcommon {
-    background: rgba(255, 255, 255, 0.58)!important;
+    background: rgba(255, 255, 255, 0.58) !important;
 }
+
 .loginhead {
     text-align: left;
     margin: 0 0 50px;
 }
+
 .textLine {
     font-size: 12px;
     color: #3C444D;
     margin: 2px 0 12px;
 }
+
 .resetcommon {
-    background: #fff!important;
+    background: #fff !important;
 }
+
 .resetcommon .heading {
     font-size: 21px;
 }
+
 .heading {
     font-size: 21px;
     color: #14171A;
@@ -183,33 +215,40 @@
     margin: 0 0 5px;
     font-family: 'Maison Mono';
 }
+
 .smallText {
     color: #3C444D;
     font-size: 12px;
     font-weight: 500;
 }
-.resetcommon .form-control{
+
+.resetcommon .form-control {
     border: 1px solid #ced4da;
     background-color: #fff;
     padding: 16px 20px;
 }
+
 .resetcommon .loginhorrizontal-form {
     background: rgba(142, 169, 255, 0.29);
 }
+
 .leftSect {
     display: flex;
     flex-direction: column;
     min-height: 100%;
     padding: 35px 0px;
 }
+
 .gobacklink {
     font-size: 14px;
     color: #14171A;
     font-weight: 500;
 }
+
 .aboutBusiness {
     margin-top: auto;
 }
+
 .heading_ {
     font-family: "Maison Mono";
     font-style: normal;
@@ -218,26 +257,31 @@
     color: rgb(20, 23, 26);
     margin: 0px;
 }
+
 .innerSubtext {
     font-size: 16px;
     color: rgb(20, 23, 26);
     font-weight: 700;
     margin: 0px;
 }
+
 .gobacklink a {
     font-weight: 600;
     color: rgb(39, 90, 255) !important;
     font-size: 15px;
     margin: 0px 0px 0px 4px;
 }
+
 .verifyFrom {
     padding: 60px 135px;
 }
+
 .gobacklink i {
     color: rgb(39, 90, 255);
     margin-right: 7px;
 }
-.pin-box input{
+
+.pin-box input {
     text-align: center;
     width: 61px !important;
     height: 62px !important;
@@ -251,9 +295,11 @@
     outline: none;
     margin-right: 10px;
 }
-.pin-box input:last-child{
+
+.pin-box input:last-child {
     margin-right: 0;
 }
+
 /* End login page Css */
 
 /*Start ChooseRoles Css*/
@@ -267,45 +313,54 @@
     cursor: pointer;
     transition: all 0.3s;
 }
-.rolesContainer .rolesImgHoverImg
-{
+
+.rolesContainer .rolesImgHoverImg {
     display: none;
 }
-.rolesContainer:hover .rolesImgHoverImg, .rolesContainer.active .rolesImgHoverImg
-{
+
+.rolesContainer:hover .rolesImgHoverImg,
+.rolesContainer.active .rolesImgHoverImg {
     display: block !important;
 }
-.rolesImg
-{
+
+.rolesImg {
     display: block;
 }
-.rolesContainer:hover .rolesImg, .rolesContainer.active .rolesImg
-{
+
+.rolesContainer:hover .rolesImg,
+.rolesContainer.active .rolesImg {
     display: none;
 }
-.rolesContainer:hover, .rolesContainer.active {
+
+.rolesContainer:hover,
+.rolesContainer.active {
     border: 1px solid #275AFF;
 }
-.rolesContainer:hover .mainlightHead, .rolesContainer.active .mainlightHead
-{
+
+.rolesContainer:hover .mainlightHead,
+.rolesContainer.active .mainlightHead {
     font-weight: bold !important;
 }
-.p-13
-{
+
+.p-13 {
     padding: 13px !important;
 }
+
 .leftSect {
     display: flex;
     flex-direction: column;
     min-height: 100%;
     padding: 35px 0;
 }
+
 .aboutBusiness {
     margin-top: auto;
 }
+
 #register {
     cursor: pointer;
 }
+
 .loginBtnDisable {
     display: block;
     text-align: center;
@@ -319,6 +374,7 @@
     border-radius: 5px;
     transition: all .8s;
 }
+
 .select {
     cursor: pointer;
     background-image: url(../images/downArrow.svg) !important;
@@ -329,6 +385,7 @@
     font-weight: 500;
     appearance: none;
 }
+
 .deatilsHead {
     font-family: 'Maison Mono';
     font-style: normal;
@@ -337,4 +394,87 @@
     color: #14171A;
     margin: 0 0 20px;
 }
+
 /*End ChooseRoles Css*/
+
+/* verification pages css start  */
+.verificationSection {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.verifyBox {
+    border-radius: 40px;
+    background: var(--surfaces-s-top, #FFF);
+    padding: 50px 60px 40px 60px;
+    box-shadow: -1.90817px 3.78304px 25.48148px 0px rgba(50, 80, 127, 0.02), -4.95391px 9.82135px 80px 0px rgba(50, 80, 127, 0.04);
+}
+
+.verifyHeading {
+    color: #263682;
+    text-align: center;
+    font-size: 30px;
+    font-weight: 400;
+    letter-spacing: -0.6px;
+}
+
+.verifySub {
+    color: #636E9F;
+    text-align: center;
+    font-size: 18px;
+    font-weight: 400;
+    letter-spacing: -0.36px;
+    margin-top: 18px;
+
+}
+
+.verifyControl {
+    border-radius: 50px;
+    border: 1px solid #D7DEFF !important;
+    background: #FFF;
+    box-shadow: -1.90817px 3.78304px 25.48148px 0px rgba(50, 80, 127, 0.02), -4.95391px 9.82135px 80px 0px rgba(50, 80, 127, 0.04);
+    padding: 18px;
+    margin: 46px 0;
+    color: #263682 !important;
+    font-size: 18px !important;
+    font-weight: 400 !important;
+    letter-spacing: -0.36px !important;
+}
+
+.verifyBtn {
+    display: flex;
+    justify-content: space-between;
+    gap: 36px;
+}
+
+.backverifyBtn {
+    border-radius: 30px;
+    background: #F5F6FC;
+    padding: 18px 20px;
+    color: #B4BEEB;
+    font-size: 18px;
+    font-weight: 400;
+    letter-spacing: -0.36px;
+    border: none;
+}
+
+.nextverifyBtn {
+    border-radius: 30px;
+    background: #263682;
+    color: #F5F6FC;
+    font-size: 18px;
+    font-weight: 400;
+    letter-spacing: -0.36px;
+    border: none;
+    padding: 18px 20px;
+}
+.leftImg{
+    margin-right: 4px;
+}
+.rightImg{
+    margin-left: 4px;
+}
+
+/* verification pages css end  */

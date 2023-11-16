@@ -10,11 +10,11 @@ export default function Layout({ children, isLoggedIn, userType }) {
   const urlpath = location.pathname;
   return (
     <>
-    <Sidebar/>
-      <div className="rightWrapper">
-        <Navbar/>
+    {/* <Sidebar/> */}
+      {/* <div className="rightWrapper"> */}
+        {/* <Navbar/> */}
         <main>{children}</main>
-      </div>
+      {/* </div> */}
     </>
   );
 }

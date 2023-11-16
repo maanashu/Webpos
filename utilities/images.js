@@ -14,8 +14,13 @@ import AddsquarelightDark from "../public/images/Add_square_lightDark.svg";
 // import tray from "../app/public/images/tray.svg";
 // import trayDark from "../app/public/images/trayDark.svg";
 // import customerD from "../app/public/images/customerD.svg";
+import ArrowLeft from "../public/images/arrowLeft.svg";
+import ArrowRight from "../public/images/arrowRight.svg";
+
 export{
     BrandLogo,
     Addsquarelight,
-    AddsquarelightDark
+    AddsquarelightDark,
+    ArrowLeft,
+    ArrowRight,
 };
