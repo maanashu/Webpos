@@ -42,6 +42,10 @@ const VerifyOtp = () => {
                                     </div>
                                 </div>
                             </div>
+                            <div className='errorMain'>
+                                <Image src={Images.CrossCircle} alt="image" className="img-fluid" />
+                                <span className='errorMsg'>Wrong code. Try again or correct your phone number.</span>
+                            </div>
                         </div>
                         <div className='verifyBtn'>
                             <button className='backverifyBtn w-100' type='submit'>
@@ -52,6 +56,9 @@ const VerifyOtp = () => {
                             <Link href="#" className='verifyTime w-100'>Resend</Link>
                         </div>
                     </form>
+                </div>
+                <div className='dottedImg'>
+                    <Image src={Images.SecondStepper} alt="image" className="img-fluid" />
                 </div>
             </div>
         </>
