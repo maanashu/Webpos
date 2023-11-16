@@ -4,6 +4,7 @@ import DarkLeft from "../public/images/DarkLeft.svg"
 import SuccessTick from "../public/images/successTick.svg"
 import FirstStepper from "../public/images/firstStepper.svg"
 import SecondStepper from "../public/images/secondStepper.svg"
+import AlertCircle from "../public/images/alertCircle.svg"
  
 export{
     ArrowLeft,
@@ -11,5 +12,6 @@ export{
     DarkLeft,
     SuccessTick,
     FirstStepper,
-    SecondStepper
+    SecondStepper,
+    AlertCircle,
 };
