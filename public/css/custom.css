@@ -1,4 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
 /* Start Common Css */
 /* Scrollbar-Css */
 .scrollbar {
@@ -6,40 +7,49 @@
   width: 6px;
   height: 10%;
 }
+
 .scrollbar-track {
   background-color: #d9d9d9;
 }
+
 .scrollbar-thumb {
   background-color: #000;
   border-radius: 16px;
   border: 0px solid #d9d9d9;
 }
+
 ::-webkit-scrollbar {
   background-color: #a4bfcb;
   width: 4px;
   height: 10%;
 }
+
 ::-webkit-scrollbar-track {
   background-color: #cae4f0;
 }
+
 ::-webkit-scrollbar-thumb {
   background-color: #a4bfcb;
   border-radius: 16px;
   border: 0px solid #d9d9d9;
 }
+
 ::-moz-scrollbar {
   background-color: #000;
   width: 5px;
   height: 5%;
 }
+
 ::-moz-scrollbar-track {
   background-color: #000;
 }
+
 ::-moz-scrollbar-thumb {
   background-color: #babac0;
   border-radius: 16px;
   border: 0px solid #fff;
 }
+
 /* End Scrollbar Css */
 
 :root {
@@ -47,81 +57,140 @@
   --darkGray: #14171A;
   --lightGray: #626262;
   --blue: #275AFF;
-  --black:#000;
-  --white:#fff;
-  --backgroundFaded:#d9d9d933;
-  --border:#CACACA;
-  --labelColor:#A7A7A7;
-  --lineColor:#D8D8D8;
+  --black: #000;
+  --white: #fff;
+  --backgroundFaded: #d9d9d933;
+  --border: #CACACA;
+  --labelColor: #A7A7A7;
+  --lineColor: #D8D8D8;
 }
 
 body {
-    margin: 0;
-    padding: 0;
-    font-size: 16px;
-    background: var(--white);
-    font-family: "Montserrat";
-  }
-  .fw-500{
-    font-weight: 500 !important;
-  }
-  .fw-semibold{
-    font-weight: 600 !important;
-  }
-  .fw-700{
-    font-weight: 700 !important;
-  }
-  .mainContainer{
-    display: flex;
-    flex-direction: column;
-    height: 100vh;
-  }
-  p {
-    padding: 0;
-    margin: 0;
-  }
-  ul {
-    padding: 0;
-    margin: 0;
-  }
-  ul li {
-    list-style: none;
-  }
-  a {
-    text-decoration: none;
-  }
-  .form-control:focus {
-    outline: 0;
-    box-shadow: none;
-  }
- 
-
-  /*Side bar css*/
-  #myNav {
-    bottom: 0;
-    float: none;
-    left: 0;
-    position: fixed;
-    top: 0;
-    /* border-right: 1px solid #D8D8D8;
-    box-shadow: 0 0px 2px rgb(0 0 0 / 23%); */
-    padding: 16px;
-    text-align: center;
-    width: 100%;
-    max-width: 100px;
+  margin: 0;
+  padding: 0;
+  font-size: 16px;
+  background: var(--white);
+  font-family: "Montserrat";
 }
+
+.fw-500 {
+  font-weight: 500 !important;
+}
+
+.fw-semibold {
+  font-weight: 600 !important;
+}
+
+.fw-700 {
+  font-weight: 700 !important;
+}
+
+.mainContainer {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+}
+
+p {
+  padding: 0;
+  margin: 0;
+}
+
+ul {
+  padding: 0;
+  margin: 0;
+}
+
+ul li {
+  list-style: none;
+}
+
+a {
+  text-decoration: none;
+}
+
+.form-control:focus {
+  outline: 0;
+  box-shadow: none;
+}
+
+
+/*Side bar css*/
+#myNav {
+  bottom: 0;
+  float: none;
+  left: 0;
+  position: fixed;
+  top: 0;
+  /* border-right: 1px solid #D8D8D8;
+    box-shadow: 0 0px 2px rgb(0 0 0 / 23%); */
+  padding: 16px;
+  text-align: center;
+  width: 100%;
+  max-width: 100px;
+}
+
 .rightWrapper {
   min-width: calc(100% - 100px);
   margin-left: 100px;
 }
+
+/*sidebar css start*/
 .sidebarAuth {
   border-radius: 60px;
   background: #FFF;
-  box-shadow: -1.90817px 3.78304px 25.48148px 0px rgba(50, 80, 127, 0.02), -4.95391px 9.82135px 80px 0px rgba(50, 80, 127, 0.04);
+  box-shadow: -2px 4px 25px 0px rgba(50, 80, 127, 0.02), -5px 10px 80px 0px rgba(50, 80, 127, 0.04);
   height: auto;
 }
-.sidebarMain{
+
+.sidebarMain {
   border-radius: 60px;
   background: #FFF;
-  box-shadow: -1.90817px 3.78304px 25.48148px 0px rgba(50, 80, 127, 0.02), -4.95391px 9.82135px 80px 0px rgba(50, 80, 127, 0.04);
+  box-shadow: -2px 4px 25px 0px rgba(50, 80, 127, 0.02), -5px 10px 80px 0px rgba(50, 80, 127, 0.04);
 }
+
+/*sidebar css end*/
+
+/*header css start*/
+.headerSection{
+  padding: 30px 0;
+}
+.timeHeading {
+  color: #636E9F;
+  font-size: 15px;
+  font-weight: 400;
+  line-height: normal;
+  margin: 0 6px;
+}
+.timeNav{
+  display: flex;
+  align-items: center;
+  position: relative;
+}
+.leftHeader{
+  display: flex;
+  align-items: center;
+  gap: 30px;
+}
+.timeNav::before{
+ content: "";
+ position: absolute;
+ width: 1px;
+ height: 16px;
+ background: #B4BEEB;
+ right: -15px;
+}
+.timeHeading span{
+  font-weight: 500;
+}
+.navBtn{
+  color:  #636E9F;
+font-size: 15px;
+font-weight: 400;
+border-radius: 30px;
+background:  #FFF;
+padding: 12px;
+margin-left: 65px;
+border: none;
+}
+/*header css end*/

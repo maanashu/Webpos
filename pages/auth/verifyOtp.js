@@ -22,7 +22,7 @@ const VerifyOtp = () => {
                 <div className='verifyBox'>
                     <h1 className='verifyHeading'> Let’s verify your phone <br /> number.</h1>
                     <h4 className='verifySub'>Enter the code we’ve sent to +1 (438) 000-0000</h4>
-                    <form>
+                    <form className='otpForm'>
                         <div className='otpMain'>
                             <div className="verify-part">
                                 <div className="verify-box text-center">
@@ -43,13 +43,13 @@ const VerifyOtp = () => {
                                 </div>
                             </div>
                             <div className='errorMain'>
-                                <Image src={Images.CrossCircle} alt="image" className="img-fluid" />
+                                <Image src={Images.CrossCircle} alt="crossImage" className="img-fluid" />
                                 <span className='errorMsg'>Wrong code. Try again or correct your phone number.</span>
                             </div>
                         </div>
                         <div className='verifyBtn'>
                             <button className='backverifyBtn w-100' type='submit'>
-                                <Image src={Images.DarkLeft} alt="image" className="img-fluid leftImg" />
+                                <Image src={Images.DarkLeft} alt="leftArrow" className="img-fluid leftImg" />
                                 Back
                             </button>
                             {/* <Link href="#" className='verifyTime w-100'>29s to resend code</Link> */}
@@ -58,7 +58,7 @@ const VerifyOtp = () => {
                     </form>
                 </div>
                 <div className='dottedImg'>
-                    <Image src={Images.SecondStepper} alt="image" className="img-fluid" />
+                    <Image src={Images.SecondStepper} alt="secondStep" className="img-fluid" />
                 </div>
             </div>
         </>

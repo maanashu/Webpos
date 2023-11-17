@@ -21,7 +21,7 @@ const Verification = () => {
                 <div className='verifyBox'>
                     <h1 className='verifyHeading'> Verify your phone <br /> number.</h1>
                     <h4 className='verifySub'>Enter your phone number to get started.</h4>
-                    <form>
+                    <form className='verifyForm'>
                         {/* <input class="form-control verifyControl" type="text" placeholder="Default input" /> */}
                         <div className="phone-numbpart verifyNumber">
                             <div className="country-plugin verifySelect">
@@ -38,22 +38,22 @@ const Verification = () => {
                                     />
                                 </div>
                             </div>
-                            <Image src={Images.AlertCircle} alt="image" className="img-fluid alertImg" />
+                            <Image src={Images.AlertCircle} alt="alertImage" className="img-fluid alertImg" />
                         </div>
                         <div className='verifyBtn'>
                             <button className='backverifyBtn w-100' type='submit'>
-                                <Image src={Images.ArrowLeft} alt="image" className="img-fluid leftImg" />
+                                <Image src={Images.ArrowLeft} alt="leftArrow" className="img-fluid leftImg" />
                                 Back
                             </button>
                             <button className='nextverifyBtn w-100' type='submit'>
                                 Next
-                                <Image src={Images.ArrowRight} alt="image" className="img-fluid rightImg" />
+                                <Image src={Images.ArrowRight} alt="rightArrow" className="img-fluid rightImg" />
                             </button>
                         </div>
                     </form>
                 </div>
                 <div className='dottedImg'>
-                <Image src={Images.FirstStepper} alt="image" className="img-fluid" />
+                <Image src={Images.FirstStepper} alt="firstStep" className="img-fluid" />
                 </div>
             </div>
         </>
