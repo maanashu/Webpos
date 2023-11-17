@@ -1,5 +1,6 @@
 import "../public/css/auth.css";
 import "../public/css/custom.css";
+import "../styles/website/custom_A.css";
 import "../public/css/responsive.css";
 import "../public/font/stylesheet.css";
 import "react-toastify/dist/ReactToastify.css";

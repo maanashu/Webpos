@@ -1,0 +1,10 @@
+.Sidebar{
+    width: 250px;
+    background-color: #0f0f0f40;
+}
+.commanOuter {
+    background: var(--surfaces-s-top, #FFF);
+    box-shadow: -1.90817px 3.78304px 25.48148px 0px rgba(50, 80, 127, 0.02), -4.95391px 9.82135px 80px 0px rgba(50, 80, 127, 0.04);
+    width: calc(100% - 250px);
+    margin-left: 170px;
+}

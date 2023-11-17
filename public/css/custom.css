@@ -116,20 +116,21 @@ a {
 
 
 /*Side bar css*/
-#myNav {
+.main-sidebar {
   bottom: 0;
   float: none;
   left: 0;
   position: fixed;
   top: 0;
-  /* border-right: 1px solid #D8D8D8;
-    box-shadow: 0 0px 2px rgb(0 0 0 / 23%); */
   padding: 16px;
   text-align: center;
-  width: 100%;
-  max-width: 100px;
+  width: 100px;
+  /* max-width: 100px; */
+  background: red;
 }
-
+.main-sidebar.full {
+  width: 250px;
+}
 .rightWrapper {
   min-width: calc(100% - 100px);
   margin-left: 100px;
