@@ -7,7 +7,6 @@ const HomePage = () => {
 
     return (
         <>
-    <Sidebar/>
             <div className='commanOuter'>
                 <h1>Home page</h1>
             </div>

@@ -14,10 +14,17 @@ import { wrapper } from "../redux";
 
 function App({ Component, pageProps }) {
   const router = useRouter()
+  const [activeSidebar, setActiveSidebar] = useState(true)
+
+  const toggleSidebar = () => {
+    setActiveSidebar(prev => !prev)
+    console.log("clicked")
+  };
+
 
   return (
     <>
-        <Layout >
+        <Layout activeSidebar={activeSidebar} toggleSidebar={() =>{toggleSidebar()}}>
           <Component {...pageProps} />
           <ToastContainer
             autoClose={800}
