@@ -4,12 +4,14 @@ import * as Images from "../../utilities/images";
 import Image from "next/image";
 
 const Sidebar = (props) => {
-    const [activeSidebar, setActiveSidebar] = useState(true)
+    console.log(props,"props");
+    const [activeSidebar, setActiveSidebar] = useState(false)
+    props.getSideBar(activeSidebar)
     return (
         <div className={`main-sidebar ${activeSidebar? 'full': 'hide'}`} id="myNav">
             <div className='sidebarAuth sidebarMain'>
                 <Image src={Images.SideLogo} alt="image" className="img-fluid"/>
-                <p onClick={()=> {setActiveSidebar(prev => !prev); props.getSideBar(!activeSidebar);}}>Toggle</p>
+                <p onClick={()=> {activeSidebar == false ? setActiveSidebar(true) : setActiveSidebar(false)}}>Toggle</p>
             </div>
             {/* <Link href="/retailHome" className="brandLogo" >
                 <Image src={Images.BrandLogo} alt="image" className="footerLogo" />
