@@ -1,8 +1,34 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import * as Images from "../../utilities/images";
 import Image from "next/image";
+import { useDispatch } from 'react-redux';
+import { getAllPosUser } from '../../redux/slices/auth';
 
 const Login = () => {
+    const dispatch = useDispatch();
+    const [GetPosUserList, setGetPosUserList] = useState("");
+    const getAllPOSUser = () => {
+        let params = {
+            page: 1,
+            limit: 20,
+            seller_id: "b169ed4d-be27-44eb-9a08-74f997bc6a2j",
+        };
+        dispatch(getAllPosUser({
+            ...params,
+            cb(res) {
+                if (res.status) {
+                    setGetPosUserList(res?.data)
+                }
+            },
+        })
+        );
+    };
+
+    useEffect(() => {
+        getAllPOSUser()
+        document.title = "Dashboard";
+    }, []);
+
     return (
         <>
             <div className='loginSection'>
@@ -88,8 +114,8 @@ const Login = () => {
                         </div>
                         <div className='col-lg-3 col-md-6 '>
                             <div className='newLoginCard'>
-                            <i class="fa-sharp fa-light fa-plus plusIcon"></i>
-                            <h2 className='loginMain'>New user</h2>
+                                <i class="fa-sharp fa-light fa-plus plusIcon"></i>
+                                <h2 className='loginMain'>New user</h2>
                             </div>
                         </div>
                     </div>

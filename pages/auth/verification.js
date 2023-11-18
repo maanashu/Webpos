@@ -2,8 +2,11 @@ import React, { useState } from 'react'
 import * as Images from "../../utilities/images";
 import Image from "next/image";
 import PhoneInput from 'react-phone-input-2';
+import { useRouter } from 'next/router';
+import { toast } from "react-toastify";
 
 const Verification = () => {
+    const router = useRouter();
     const [phoneCode, SetPhoneCode] = useState("");
     const [phoneNo, setPhoneNo] = useState("");
     const generateRandomName = () => {
@@ -14,6 +17,22 @@ const Verification = () => {
         let phoneNumber = value.slice(data.dialCode.length);
         setPhoneNo(phoneNumber);
         SetPhoneCode(phoneCode);
+    }
+
+    // function for submit number(in next button)...............................
+    const enterNumberSubmit = () => {
+        const phoneRegex = /^\d{10}$/;
+        if (!phoneRegex.test(phoneNo)) {
+            toast.error("Please enter valid phone number");
+            return;
+        }
+
+        const dataToSave = {
+            phoneCode: `+${phoneCode}`,
+            phoneNo: phoneNo
+          };
+        localStorage.setItem("PhoneNumber", JSON.stringify(dataToSave));
+        router.push(`/auth/verifyOtp`);
     }
     return (
         <>
@@ -45,7 +64,7 @@ const Verification = () => {
                                 <Image src={Images.ArrowLeft} alt="leftArrow" className="img-fluid leftImg" />
                                 Back
                             </button>
-                            <button className='nextverifyBtn w-100' type='submit'>
+                            <button className='nextverifyBtn w-100' type='button' onClick={() => enterNumberSubmit()}>
                                 Next
                                 <Image src={Images.ArrowRight} alt="rightArrow" className="img-fluid rightImg" />
                             </button>
@@ -53,7 +72,7 @@ const Verification = () => {
                     </form>
                 </div>
                 <div className='dottedImg'>
-                <Image src={Images.FirstStepper} alt="firstStep" className="img-fluid" />
+                    <Image src={Images.FirstStepper} alt="firstStep" className="img-fluid" />
                 </div>
             </div>
         </>

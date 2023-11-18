@@ -7,15 +7,15 @@ import { HYDRATE } from 'next-redux-wrapper';
 })
 
 const rootReducer = (state, action) => {
+  switch (action.type) {
+    case HYDRATE: // Handle the HYDRATE action
+      return {
+        ...state, // Keep any existing state
+          // Merge in the rehydrated state
+      };
+    default:
+      return mainReducer(state, action);
+  }
+};
 
-    switch (action.type) {
-      case HYDRATE: // Handle the HYDRATE action
-        return {
-          ...state, // Keep any existing state
-        };
-      default:
-        return mainReducer(state, action);
-    }
-  };
-  
-  export default rootReducer;
+export default rootReducer;

@@ -2,82 +2,32 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
   userInfo: {},
-  userSignUp: {},
+  allPosUser: {},
   isLoggedIn: false,
   loading: false,
-  userInfoData: {}
+
 };
 
 export const authSlice = createSlice({
   name: "auth",
   initialState,
   reducers: {
-    userLogin: (state) => {
+    userMerchantLogin: (state) => {
       state.loading = true;
     },
-    setUserLogin: (state, action) => {
+    setUserMerchantLogin: (state, action) => {
       state.loading = false;
+      state.isLoggedIn = true;
+      state.userInfo = action?.payload
     },
-    forgotPassword: (state) => {
+    getAllPosUser: (state) => {
       state.loading = true;
     },
-    setForgetPassword: (state, action) => {
+    setGetAllPosUser: (state, action) => {
       state.loading = false;
+      state.allPosUser = action?.payload
     },
-    resetPassword: (state) => {
-      state.loading = true;
-    },
-    setResetPassword: (state, action) => {
-      state.loading = false;
-    },
-    verifyPhoneApi: (state) => {
-      state.loading = true;
-    },
-    setVerifyPhone: (state, action) => {
-      state.loading = false;
-    },
-    verifyPhoneOtp: (state) => {
-      state.loading = true;
-    },
-    setVerifyPhoneOtp: (state, action) => {
-      state.loading = false;
-    },
-    resendPhoneOtp: (state) => {
-      state.loading = true;
-    },
-    setResendPhoneOtp: (state, action) => {
-      state.loading = false;
-    },
-    sendEmailOtp: (state) => {
-      state.loading = true;
-    },
-    setSendEmailOtp: (state, action) => {
-      state.loading = false;
-    },
-    verifyEmailOtp: (state) => {
-      state.loading = true;
-    },
-    setVerifyEmailOtp: (state, action) => {
-      state.loading = false;
-    },
-    getServices: (state) => {
-      state.loading = true;
-    },
-    setGetServices: (state, action) => {
-      state.loading = false;
-    },
-    signUp: (state) => {
-      state.loading = true;
-    },
-    setSignUp: (state, action) => {
-      state.loading = false;
-    },
-    subscriber: (state) => {
-      state.loading = true;
-    },
-    setSubscriber: (state, action) => {
-      state.loading = false;
-    },
+    
     onErrorStopLoad: (state) => {
       state.loading = false;
     }, 
@@ -86,28 +36,10 @@ export const authSlice = createSlice({
 
 // Action creators are generated for each case reducer function
 export const {
-  userLogin,
-  setUserLogin,
-  forgotPassword,
-  setForgetPassword,
-  resetPassword,
-  setResetPassword,
-  verifyPhoneApi,
-  setVerifyPhone,
-  verifyPhoneOtp,
-  setVerifyPhoneOtp,
-  resendPhoneOtp,
-  setResendPhoneOtp,
-  sendEmailOtp,
-  setSendEmailOtp,
-  verifyEmailOtp,
-  setVerifyEmailOtp,
-  getServices,
-  setGetServices,
-  signUp,
-  setSignUp,
-  subscriber,
-  setSubscriber,
+  userMerchantLogin,
+  setUserMerchantLogin,
+  getAllPosUser,
+  setGetAllPosUser,
   onErrorStopLoad
 } = authSlice.actions;
 

@@ -6,7 +6,8 @@ import "../public/font/stylesheet.css";
 import "react-toastify/dist/ReactToastify.css";
 import 'react-phone-input-2/lib/style.css';
 import { ToastContainer } from "react-toastify";
-import Layout from "../components/layouts";
+import Layout from "../components/layouts/layouts";
+import AuthLayout from "../components/layouts/authLayouts";
 import { useEffect, useState } from "react";
 import Router, { useRouter } from "next/router";
 import { wrapper } from "../redux";
@@ -14,16 +15,49 @@ import { wrapper } from "../redux";
 
 function App({ Component, pageProps }) {
   const router = useRouter()
+  console.log(router.pathname,"router");
+  const [activeSidebar, setActiveSidebar] = useState(true)
+
+  const toggleSidebar = () => {
+    setActiveSidebar(prev => !prev)
+    console.log("clicked")
+  };
+
 
   return (
+
     <>
-        <Layout >
-          <Component {...pageProps} />
-          <ToastContainer
-            autoClose={800}
-          />
-        </Layout>
+
+      {router.pathname.includes('auth') || router.pathname.includes('/') ?
+        <>
+          <AuthLayout>
+            <Component {...pageProps} />
+            <ToastContainer
+              autoClose={800}
+            />
+          </AuthLayout>
+        </>
+        :
+        <>
+          <Layout activeSidebar={activeSidebar} toggleSidebar={() => { toggleSidebar() }}>
+            <Component {...pageProps} />
+            <ToastContainer
+              autoClose={800}
+            />
+          </Layout>
+        </>
+
+      }
     </>
+
+
+
+
+
+
+
+
+
   );
 }
 
