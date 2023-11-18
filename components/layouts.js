@@ -18,7 +18,7 @@ export default function Layout({ children, isLoggedIn, userType }) {
     <>
     <Sidebar getSideBar={(e) => getSideBarValue(e)}/>
       <div className="rightWrapper">
-        <Navbar/>
+        {/* <Navbar/> */}
         <main>{children}</main>
       </div>
     </>
