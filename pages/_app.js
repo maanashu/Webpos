@@ -1,5 +1,6 @@
 import "../public/css/auth.css";
 import "../public/css/custom.css";
+import "../public/css/customNew.css";
 import "../styles/website/custom_A.css";
 import "../public/css/responsive.css";
 import "../public/font/stylesheet.css";
@@ -15,10 +16,17 @@ import { wrapper } from "../redux";
 
 function App({ Component, pageProps }) {
   const router = useRouter()
+  const [activeSidebar, setActiveSidebar] = useState(true)
+
+  const toggleSidebar = () => {
+    setActiveSidebar(prev => !prev)
+    console.log("clicked")
+  };
+
 
   return (
     <>
-        <Layout >
+        <Layout activeSidebar={activeSidebar} toggleSidebar={() =>{toggleSidebar()}}>
           <Component {...pageProps} />
           <ToastContainer
             autoClose={800}
