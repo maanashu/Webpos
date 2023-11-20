@@ -162,7 +162,7 @@ figure {
     font-size: 16px !important;
     font-weight: 400 !important;
     padding: 18px 50px;
-}s
+}
 
 .searchControl::placeholder {
     color: #636E9F;
@@ -201,6 +201,7 @@ figure {
 
 .sellingOrder .smallText {
     color: #58C2E8;
+    margin-left: 7px;
 }
 
 .scanText {
@@ -233,11 +234,25 @@ figure {
     right: 16px;
 }
 
+.bellOuter {
+    border-radius: 50px;
+    border: 1px solid #58C2E8;
+    background: rgba(88, 194, 232, 0.10);
+    padding: 10px;
+    position: relative;
+}
+.bellOuter::after{
+    content: "";
+    position: absolute;
+    width: 10px;
+    height: 10px;
+}
+
 .OrderBtn {
     color: #58C2E8;
     font-size: 12px;
     font-weight: 500;
-    padding: 4px 8px;
+    padding: 8px;
     border-radius: 30px;
     border: 1px solid #58C2E8;
     background: rgba(88, 194, 232, 0.10);
@@ -256,19 +271,6 @@ figure {
 
 .profileMainTable {
     margin-top: 24px;
-}
-
-.orderRow {
-    display: flex;
-    justify-content: space-between;
-    margin: 5px;
-    border-radius: 16px;
-    border: 1px solid #E4E6F2;
-    padding: 10px 16px;
-}
-
-.orderRow td {
-    border: 0 !important;
 }
 
 .orderId {
@@ -303,9 +305,8 @@ figure {
     margin-left: 8px;
 }
 
-.deliverTimeData {
+.deliveryTime {
     display: flex;
-    justify-content: center;
     align-items: center;
 }
 
@@ -327,18 +328,156 @@ figure {
     overflow: hidden;
 }
 
+.flexTable {
+    display: flex;
+    align-items: center;
+}
+
+.deliverSubdata {
+    border-bottom: 1px solid #E4E6F2;
+    border-top: 1px solid #E4E6F2;
+    padding: 16px;
+
+}
+
+.deliverSubdata:first-child {
+    border-radius: 10px 0 0 10px !important;
+    border-left: 1px solid #E4E6F2;
+    vertical-align: baseline;
+}
+
+.deliverSubdata:last-child {
+    border-radius: 0 10px 10px 0px;
+    border-right: 1px solid #E4E6F2;
+}
+
+#tableProduct {
+    width: 100%;
+    border-spacing: 0 14px;
+    border-collapse: initial;
+}
+
 /*sessionModal css start*/
 
 #trackingModal {
     width: 100%;
     max-width: 372px;
-    
+
 }
-#trackingModal .modal-content{
+
+#trackingModal .modal-content {
     border-radius: 30px;
-    background:  #FFF;
+    background: #FFF;
     box-shadow: -3px 6px 7px 0px rgba(52, 79, 117, 0.03), -12px 28px 25px 0px rgba(52, 79, 117, 0.04), -31px 74px 80px 0px rgba(52, 79, 117, 0.07);
 }
+
+.modal_cancel {
+    margin-left: auto;
+    cursor: pointer;
+}
+
+#trackingModal .modal-header {
+    border: none;
+    padding-bottom: 0;
+}
+
+#trackingModal .modal-body {
+    padding: 0 24px 24px 24px !important;
+}
+
+.trackingHeading {
+    color: #263682;
+    font-size: 18px;
+    font-weight: 400;
+    text-align: center;
+}
+
+.trackingSub .loginheading {
+    margin: 12px 0;
+    font-size: 24px;
+}
+
+.inputSelect {
+    display: flex;
+    padding: 18px 24px;
+    border-radius: 50px;
+    border: 1px solid #D7DEFF;
+    background: #FFF;
+    box-shadow: -2px 4px 25px 0px rgba(50, 80, 127, 0.02), -5px 10px 80px 0px rgba(50, 80, 127, 0.04);
+}
+
+.trackingSelect {
+    border: none !important;
+    outline: none;
+    background-color: #FFF;
+    color: #263682 !important;
+    font-size: 18px !important;
+    font-weight: 400 !important;
+    padding: 0 !important;
+    width: 65px;
+}
+
+.trackingInput {
+    background-color: #FFF;
+    color: #263682 !important;
+    font-size: 18px !important;
+    font-weight: 400 !important;
+    padding: 0 !important;
+}
+
+.trackingInput::placeholder {
+    color: #263682 !important;
+    font-size: 18px !important;
+    font-weight: 400 !important;
+}
+
+.amountText {
+    color: #263682;
+    font-size: 14px;
+    font-weight: 500;
+    margin-left: 24px;
+}
+
+.trackingForm {
+    margin-top: 24px;
+}
+
+.trackingForm .loginSub {
+    text-align: left;
+    margin: 8px 18px;
+    font-weight: 400;
+}
+
+.textControl {
+    border-radius: 16px;
+    border: 1px solid #D7DEFF !important;
+    background: #FFF !important;
+    box-shadow: -5px 10px 80px 0px rgba(50, 80, 127, 0.04), 0px 0px 0px 5px rgba(38, 54, 130, 0.06), 0px 1px 2px 0px rgba(127, 143, 217, 0.47) !important;
+    outline: none;
+    color: #263682 !important;
+    font-size: 16px !important;
+    font-weight: 400 !important;
+    padding: 18px 18px 18px 40px;
+
+}
+
+.textAreaSection {
+    position: relative;
+    margin-top: 24px;
+}
+
+.commentImg {
+    position: absolute;
+    top: 18px;
+    left: 12px;
+}
+
+.textControl::placeholder {
+    color: #263682 !important;
+    font-size: 16px !important;
+    font-weight: 400 !important;
+}
+
 /*sessionModal css end*/
 
 /* Home page css end*/
