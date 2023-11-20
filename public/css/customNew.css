@@ -234,6 +234,20 @@ figure {
     right: 16px;
 }
 
+.bellOuter {
+    border-radius: 50px;
+    border: 1px solid #58C2E8;
+    background: rgba(88, 194, 232, 0.10);
+    padding: 10px;
+    position: relative;
+}
+.bellOuter::after{
+    content: "";
+    position: absolute;
+    width: 10px;
+    height: 10px;
+}
+
 .OrderBtn {
     color: #58C2E8;
     font-size: 12px;
@@ -257,19 +271,6 @@ figure {
 
 .profileMainTable {
     margin-top: 24px;
-}
-
-.orderRow {
-    display: flex;
-    justify-content: space-between;
-    margin: 5px;
-    border-radius: 16px;
-    border: 1px solid #E4E6F2;
-    padding: 10px 16px;
-}
-
-.orderRow td {
-    border: 0 !important;
 }
 
 .orderId {
@@ -304,9 +305,8 @@ figure {
     margin-left: 8px;
 }
 
-.deliverTimeData {
+.deliveryTime {
     display: flex;
-    justify-content: center;
     align-items: center;
 }
 
@@ -326,6 +326,35 @@ figure {
 .homeOverview {
     height: 100vh;
     overflow: hidden;
+}
+
+.flexTable {
+    display: flex;
+    align-items: center;
+}
+
+.deliverSubdata {
+    border-bottom: 1px solid #E4E6F2;
+    border-top: 1px solid #E4E6F2;
+    padding: 16px;
+
+}
+
+.deliverSubdata:first-child {
+    border-radius: 10px 0 0 10px !important;
+    border-left: 1px solid #E4E6F2;
+    vertical-align: baseline;
+}
+
+.deliverSubdata:last-child {
+    border-radius: 0 10px 10px 0px;
+    border-right: 1px solid #E4E6F2;
+}
+
+#tableProduct {
+    width: 100%;
+    border-spacing: 0 14px;
+    border-collapse: initial;
 }
 
 /*sessionModal css start*/
@@ -353,7 +382,7 @@ figure {
 }
 
 #trackingModal .modal-body {
-    padding:0 24px 24px 24px !important;
+    padding: 0 24px 24px 24px !important;
 }
 
 .trackingHeading {
@@ -431,20 +460,24 @@ figure {
     padding: 18px 18px 18px 40px;
 
 }
-.textAreaSection{
+
+.textAreaSection {
     position: relative;
     margin-top: 24px;
 }
-.commentImg{
+
+.commentImg {
     position: absolute;
     top: 18px;
     left: 12px;
 }
-.textControl::placeholder{
+
+.textControl::placeholder {
     color: #263682 !important;
     font-size: 16px !important;
     font-weight: 400 !important;
 }
+
 /*sessionModal css end*/
 
 /* Home page css end*/
