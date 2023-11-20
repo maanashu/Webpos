@@ -131,6 +131,7 @@ figure {
     display: flex;
     justify-content: space-between;
     margin-top: 16px;
+    cursor: pointer;
 }
 
 .lockScreenBox {
@@ -141,11 +142,17 @@ figure {
     display: flex;
     justify-content: space-between;
     margin-top: 16px;
+    cursor: pointer;
 }
 
 .homeRight {
     background: #FFF;
     padding: 24px;
+    height: 100vh;
+}
+
+.homeLeft {
+    height: 100vh;
 }
 
 .searchControl {
@@ -154,10 +161,8 @@ figure {
     color: #636E9F !important;
     font-size: 16px !important;
     font-weight: 400 !important;
-    line-height: normal;
-    letter-spacing: -0.32px;
-    padding: 10px 24px;
-}
+    padding: 18px 50px;
+}s
 
 .searchControl::placeholder {
     color: #636E9F;
@@ -171,7 +176,7 @@ figure {
     right: 12px;
 }
 
-.searchControl {
+.searchControlBox {
     position: relative;
 }
 
@@ -240,18 +245,100 @@ figure {
 }
 
 .deliverTable {
-    margin-top: 24px;
+    height: calc(60vh - 50px);
+    overflow-y: scroll;
 }
 
-.deliverTable .loginMain {
+.profileMainTable .loginMain {
     margin: 0 0 20px 0;
     text-align: left;
 }
 
-.orderRow {
-    border-radius: 16px !important;
-    border: 1px solid #E4E6F2;
+.profileMainTable {
+    margin-top: 24px;
 }
 
+.orderRow {
+    display: flex;
+    justify-content: space-between;
+    margin: 5px;
+    border-radius: 16px;
+    border: 1px solid #E4E6F2;
+    padding: 10px 16px;
+}
+
+.orderRow td {
+    border: 0 !important;
+}
+
+.orderId {
+    color: #2F3552;
+    font-size: 14px;
+    font-weight: 400;
+}
+
+.nameLocation .orderId,
+.deliveryTime .orderId,
+.itemMoney .orderId,
+.itemTime .orderId {
+    font-weight: 500;
+}
+
+.locateDistance {
+    color: #7233C2;
+    font-size: 12px;
+    font-weight: 500;
+    margin-left: 4px;
+}
+
+.itemMoney .locateDistance {
+    color: #3CAF77;
+}
+
+.itemTime .locateDistance {
+    color: #47B0D6;
+}
+
+.deliveryTime .orderId {
+    margin-left: 8px;
+}
+
+.deliverTimeData {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.profileSaleData {
+    height: calc(63vh - 109px);
+    overflow-y: scroll;
+}
+
+.profileSaleData::-webkit-scrollbar-track {
+    background-color: #F5F6FC;
+}
+
+.deliverTable::-webkit-scrollbar-track {
+    background-color: #FFF;
+}
+
+.homeOverview {
+    height: 100vh;
+    overflow: hidden;
+}
+
+/*sessionModal css start*/
+
+#trackingModal {
+    width: 100%;
+    max-width: 372px;
+    
+}
+#trackingModal .modal-content{
+    border-radius: 30px;
+    background:  #FFF;
+    box-shadow: -3px 6px 7px 0px rgba(52, 79, 117, 0.03), -12px 28px 25px 0px rgba(52, 79, 117, 0.04), -31px 74px 80px 0px rgba(52, 79, 117, 0.07);
+}
+/*sessionModal css end*/
 
 /* Home page css end*/
