@@ -1,0 +1,72 @@
+@import url('https://fonts.googleapis.com/css2?family=Rubik:wght@300;400;500;600;700;800&display=swap');
+/* Common Css */
+.innerHeading {
+color: #263682;
+font-size: 16px;
+font-weight: 600; 
+}  
+.twleve {
+ font-size: 12px;
+ color: #9BA8E3;
+ font-size: 12px;
+ font-weight: 400;
+ }
+
+/* Common Css */
+/* Start Invoice */
+.commonBoxInvoice {
+    padding: 12px;
+    border-radius: 20px;
+    background: #fff;
+    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+ }
+.searchBar{
+position: relative;
+border-radius: 50px ;
+background: #fff ;
+font-size: 16px ;
+font-weight: 400;
+/* padding: 10px 24px; */
+}
+.searchControl {
+    border-radius: 50px !important;
+    background: #fff !important;
+    color: #636E9F !important;
+    font-size: 16px !important;
+    font-weight: 400 !important;
+    padding: 18px 52px;
+    border: 1px solid  #E4E6F2;
+} 
+.searchImg {
+    position: absolute;
+    top: 17px;
+    left: 18px;
+}
+.commonBoxInvoice .scanBox {
+    width: 40px;
+    height: 40px;
+    border-radius: 30px;
+    background: #F5F6FC;
+    position: absolute;
+    top: 12px;
+    right: 15px;
+    text-align: center;
+    padding: 7px;
+}
+.scanIcon {
+    position: absolute;
+    right: 46px;
+    top: 29px;
+}
+.form-control:focus {
+    border-color:#E4E6F2;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+  }
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+    -webkit-box-shadow: none !important;
+}
+/* Start Invoice */

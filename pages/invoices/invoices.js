@@ -1,39 +1,24 @@
 import React from 'react'
-
-
-
+import * as Images from "../../utilities/images"
+import Image from "next/image";
 
 const Invoices = () => {
     return (
         <>
             <div className='invoice'>
-                <div className='container'>
+                <div className='container-fluid'>
                     <div className='row'>
                         <div className='col-sm-12 col-md-6'>
-                            <div className='homePage'>
-                                <div className="table-responsive">
-                                    <table id="tableInvoice" className="Invoice-Table">
-                                        <thead>
-                                            <tr>
-                                                <th className="recent_head">#Invoice</th>
-                                                <th className="recent_head">Customer</th>
-                                                <th className="recent_head">Sale</th>
-                                                <th className="recent_head">items</th>
-                                                <th className="recent_head">Price</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr className="activities_user  activities_">
-                                                <td className="recent_subhead">#7869YZ</td>
-                                                <td className="recent_subhead">
-                                                    <div className="trandTable">
-                                                        {/* <Image src={Images.Tableone} alt="tableImg" className="smallImg_" /> */}
-                                                        <span className="userName">Bitcoin</span>
-                                                    </div>
-                                                </td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
+                            <div className='commonBoxInvoice'>
+                                <div class="searchBar">
+                                    <input type="text" class="form-control searchControl" placeholder="Search here the # of invoice" />
+                                  <figure className='scanBox'>
+                                   <Image src={Images.scanImg} alt="ScanIcon" className="img-fluid " />
+                                   </figure>
+                                    <Image src={Images.SearchIcon} alt="SearchImageIcon" className="img-fluid searchImg" />
+                                </div>
+                                <div className='invoceDetails mt-4 mb-4'>
+                                <h6 className='innerHeading'>Invoices <span className='twleve'>(+1280)</span></h6>
                                 </div>
                             </div>
                         </div>

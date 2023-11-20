@@ -27,8 +27,13 @@ import HomeIcon from "../public/images/homeIcon.svg"
 import ShoppingCart from "../public/images/Shopping_Cart.svg"
 import SearchLight from "../public/images/SearchLight.svg"
 import Bell from "../public/images/bell.svg"
- 
+import scanImg from "../public/images/scanImg.svg"
+
+
+
+
 export{
+    scanImg,
     ArrowLeft,
     ArrowRight,
     DarkLeft,
