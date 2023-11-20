@@ -14,13 +14,15 @@ export default function Layout({ children, isLoggedIn, userType }) {
     setActiveSidebar(value)
   }
 
-  console.log(activeSidebar,"sidebar value")
+  console.log(activeSidebar, "sidebar value")
   return (
     <>
-    <Sidebar sidebarToggle={(e) => sidebarToggle(e)}/>
+      <Sidebar sidebarToggle={(e) => sidebarToggle(e)} />
       <div className="rightWrapper">
-        <Navbar activeSidebar={activeSidebar}/>
-        <main className={activeSidebar? "show": "hide"}>{children}</main>
+        <main className={activeSidebar ? "show" : "hide"}>
+          <Navbar activeSidebar={activeSidebar} />
+          {children}
+        </main>
       </div>
     </>
   );
