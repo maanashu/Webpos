@@ -246,6 +246,11 @@ figure {
     position: absolute;
     width: 10px;
     height: 10px;
+    background-color: #F97066;
+    border-radius: 50%;
+    border: 2px solid #111633;
+    bottom: 3px;
+
 }
 
 .OrderBtn {
