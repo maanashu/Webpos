@@ -18,6 +18,15 @@ import LoginSeven from "../public/images/loginSeven.svg"
 import Lock from "../public/images/lock.svg"
 import CloseEye from "../public/images/closeEye.svg"
 import OpenEye from "../public/images/openEye.svg"
+import HomeProfileImg from "../public/images/homeProfileImg.png"
+import ProductBox from "../public/images/productBox.svg"
+import ProductLock from "../public/images/productLock.svg"
+import Scan from "../public/images/Scan.svg"
+import SearchIcon from "../public/images/SearchIcon.svg"
+import HomeIcon from "../public/images/homeIcon.svg"
+import ShoppingCart from "../public/images/Shopping_Cart.svg"
+import SearchLight from "../public/images/SearchLight.svg"
+import Bell from "../public/images/bell.svg"
  
 export{
     ArrowLeft,
@@ -40,5 +49,13 @@ export{
     Lock,
     CloseEye,
     OpenEye,
-
+    HomeProfileImg,
+    ProductBox,
+    ProductLock,
+    Scan,
+    SearchIcon,
+    HomeIcon,
+    ShoppingCart,
+    SearchLight,
+    Bell,
 };
