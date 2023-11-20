@@ -88,7 +88,7 @@ const Login = () => {
                         </div>
                         <div className='col-lg-3 col-md-6 '>
                             <div className='newLoginCard'>
-                            <i class="fa-sharp fa-light fa-plus plusIcon"></i>
+                            <i className="fa-sharp fa-light fa-plus plusIcon"></i>
                             <h2 className='loginMain'>New user</h2>
                             </div>
                         </div>
