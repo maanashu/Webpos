@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import CustomModal from '../components/modals/CustomModal';
+import CustomModal from '../components/customModal/CustomModal';
 import Link from 'next/link';
 import Image from "next/image";
 import * as Images from "../utilities/images";

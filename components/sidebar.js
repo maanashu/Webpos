@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import Link from 'next/link'
-import * as Images from "../../utilities/images";
+import * as Images from "../utilities/images";
 import Image from "next/image";
 
 const Sidebar = (props) => {

@@ -1,11 +1,17 @@
 import React, { useState } from 'react'
 import * as Images from "../../utilities/images";
 import Image from "next/image";
-import CustomModal from "../../components/modals/CustomModal";
-import SessionModal from './sessionModal';
+import CustomModal from "../../components/customModal/CustomModal";
+import SessionModal from '../../components/modals/homeModals/sessionModal';
+import { logout } from '../../redux/slices/auth';
+import { useDispatch } from 'react-redux';
+import { useRouter } from 'next/router';
+import withAuth from '../../components/withAuth';
 
 
 const Overview = () => {
+    const router = useRouter();
+    const dispatch = useDispatch();
     const [key, setKey] = useState(Math.random());
     const [modalDetail, setModalDetail] = useState({
         show: false,
@@ -13,6 +19,14 @@ const Overview = () => {
         flag: "",
     });
 
+
+    const userLogout = () => {
+        dispatch(logout());
+        localStorage.removeItem('authToken');
+        localStorage.removeItem('persist:root');
+        router.push("/auth/verification")
+    };
+    
     //closeModal
     const handleOnCloseModal = () => {
         setModalDetail({
@@ -99,7 +113,7 @@ const Overview = () => {
                                         handleUserProfile("trackingmodal")
                                     }} />
                                 </div>
-                                <div className='lockScreenBox'>
+                                <div className='lockScreenBox' onClick={() => userLogout()}>
                                     <h4 className='linkHeading'>Lock Screen</h4>
                                     <Image src={Images.ProductLock} alt="LockImage" className="img-fluid " />
                                 </div>
@@ -230,4 +244,4 @@ const Overview = () => {
     )
 }
 
-export default Overview
+export default withAuth(Overview)
