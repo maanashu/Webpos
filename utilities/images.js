@@ -36,6 +36,9 @@ import storeImg from "../public/images/storeImg.svg"
 import OrderLocation from "../public/images/orderLocation.svg"
 import MoneyItem from "../public/images/moneyItem.svg"
 import Time from "../public/images/time.svg"
+import modalCross from "../public/images/modalCross.svg"
+import trackingImage from "../public/images/trackingImage.svg"
+import commentBox from "../public/images/commentBox.svg"
 
  
 export{
@@ -76,4 +79,7 @@ export{
     OrderLocation,
     MoneyItem,
     Time,
+    modalCross,
+    trackingImage,
+    commentBox,
 };

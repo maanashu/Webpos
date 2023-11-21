@@ -108,8 +108,8 @@ const Overview = () => {
                         <div className='col-lg-8 col-md-12'>
                             <div className='homeRight'>
                                 <form className='homeRightForm'>
-                                    <div class="searchControlBox">
-                                        <input type="text" class="form-control searchControl" placeholder="Search here" />
+                                    <div className="searchControlBox">
+                                        <input type="text" className="form-control searchControl" placeholder="Search here" />
                                         <Image src={Images.Scan} alt="ScanImage" className="img-fluid scanSearch" />
                                         <Image src={Images.SearchIcon} alt="SearchImageIcon" className="img-fluid searchImg" />
                                     </div>
@@ -138,8 +138,8 @@ const Overview = () => {
                                 </div>
                                 <div className='profileMainTable'>
                                     <h4 className='loginMain'>Order Deliveries</h4>
-                                    <div class="table-responsive deliverTable">
-                                        <table class="table">
+                                    <div className="table-responsive deliverTable">
+                                        <table className="table">
                                             <tbody>
                                                 <tr className='orderRow'>
                                                     <td>
@@ -170,7 +170,7 @@ const Overview = () => {
                                                     </td>
                                                     <td className='deliverTimeData'>
                                                         <div className='deliveryTime'>
-                                                            <i class="fa-sharp fa-solid fa-chevron-right"></i>
+                                                            <i className="fa-sharp fa-solid fa-chevron-right"></i>
                                                             <span className='orderId'>00:03:06</span>
                                                         </div>
                                                     </td>
@@ -204,7 +204,7 @@ const Overview = () => {
                                                     </td>
                                                     <td className='deliverTimeData'>
                                                         <div className='deliveryTime'>
-                                                            <i class="fa-sharp fa-solid fa-chevron-right"></i>
+                                                            <i className="fa-sharp fa-solid fa-chevron-right"></i>
                                                             <span className='orderId'>00:03:06</span>
                                                         </div>
                                                     </td>
@@ -238,7 +238,7 @@ const Overview = () => {
                                                     </td>
                                                     <td className='deliverTimeData'>
                                                         <div className='deliveryTime'>
-                                                            <i class="fa-sharp fa-solid fa-chevron-right"></i>
+                                                            <i className="fa-sharp fa-solid fa-chevron-right"></i>
                                                             <span className='orderId'>00:03:06</span>
                                                         </div>
                                                     </td>
@@ -272,7 +272,7 @@ const Overview = () => {
                                                     </td>
                                                     <td className='deliverTimeData'>
                                                         <div className='deliveryTime'>
-                                                            <i class="fa-sharp fa-solid fa-chevron-right"></i>
+                                                            <i className="fa-sharp fa-solid fa-chevron-right"></i>
                                                             <span className='orderId'>00:03:06</span>
                                                         </div>
                                                     </td>
@@ -306,7 +306,7 @@ const Overview = () => {
                                                     </td>
                                                     <td className='deliverTimeData'>
                                                         <div className='deliveryTime'>
-                                                            <i class="fa-sharp fa-solid fa-chevron-right"></i>
+                                                            <i className="fa-sharp fa-solid fa-chevron-right"></i>
                                                             <span className='orderId'>00:03:06</span>
                                                         </div>
                                                     </td>
@@ -340,7 +340,7 @@ const Overview = () => {
                                                     </td>
                                                     <td className='deliverTimeData'>
                                                         <div className='deliveryTime'>
-                                                            <i class="fa-sharp fa-solid fa-chevron-right"></i>
+                                                            <i className="fa-sharp fa-solid fa-chevron-right"></i>
                                                             <span className='orderId'>00:03:06</span>
                                                         </div>
                                                     </td>
@@ -369,19 +369,19 @@ const Overview = () => {
                             close={() => handleOnCloseModal()}
                         />
                     ) :
-                            ""
+                        ""
                 }
                 header=
 
                 {modalDetail.flag === "trackingmodal" ?
                     <>
                         <p onClick={handleOnCloseModal} className='modal_cancel'>
-                           <i class="fa-sharp fa-regular fa-xmark"></i>
-                        </p> 
-                        
+                            <Image src={Images.modalCross} alt="modalCross" className="img-fluid" />
+                        </p>
+
                     </>
                     :
-                        ''
+                    ''
                 }
                 onCloseModal={() => handleOnCloseModal()}
             />

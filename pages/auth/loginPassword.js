@@ -17,7 +17,7 @@ const LoginPassword = () => {
                         <h4 className='loginSub'>Store Cashier</h4>
                         <form className='passwordForm'>
                             <div className='passwordControl'>
-                                <input class="form-control verifyControl" type="text" placeholder="Password" />
+                                <input className="form-control verifyControl" type="text" placeholder="Password" />
                                 <Image src={Images.Lock} alt="Lockimage" className="img-fluid lockImg" />
                                 <Image src={Images.CloseEye} alt="OpenEyeimage" className="img-fluid eyeImg " />
                                 <Image src={Images.OpenEye} alt="CloseEyeimage" className="img-fluid eyeImg d-none" />
