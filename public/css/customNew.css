@@ -1,0 +1,450 @@
+/* Home page css start*/
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    margin: 0;
+}
+
+figure {
+    margin: 0;
+}
+
+.homeLeft {
+    display: flex;
+    justify-content: center;
+    padding: 24px;
+    flex-direction: column;
+}
+
+.homeProfileImg {
+    width: 150px;
+    height: 150px;
+    border-radius: 128px;
+    border: 6px solid #FFF;
+}
+
+.cashierHeading {
+    color: #636E9F;
+    font-size: 16px;
+    font-weight: 500;
+    line-height: normal;
+    letter-spacing: -0.32px;
+    margin: 0;
+}
+
+.userIdText {
+    color: #636E9F;
+    font-size: 12px;
+    font-weight: 500;
+    margin: 0 6px;
+}
+
+.cashBox {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 10px;
+}
+
+.IdTextMain {
+    border-radius: 20px;
+    background: #F7F9FF;
+    mix-blend-mode: multiply;
+    padding: 8px 8px 8px 22px;
+    position: relative;
+    margin-left: 10px;
+}
+
+.IdTextMain::before {
+    position: absolute;
+    content: "";
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background-color: #58C2E8;
+    top: 12px;
+    left: 10px;
+}
+
+.homeProfile .loginheading {
+    margin: 0;
+}
+
+.profileImage {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.todaySale {
+    border-radius: 15px;
+    background: #FFF;
+    box-shadow: -2px 4px 25px 0px rgba(50, 80, 127, 0.02), -5px 10px 80px 0px rgba(50, 80, 127, 0.04);
+    padding: 24px;
+    margin-top: 26px;
+}
+
+.flexHeading {
+    display: flex;
+    justify-content: space-between;
+}
+
+.todaySale .loginMain {
+    text-align: left;
+    margin: 0;
+}
+
+.homeProfile .loginheading {
+    font-weight: 600;
+}
+
+.saleHeading {
+    color: #333B42;
+    font-size: 14px;
+    font-weight: 400;
+}
+
+.dayTimeText {
+    color: #172461;
+    font-size: 14px;
+    font-weight: 500;
+}
+
+.cashDraw {
+    margin-top: 14px;
+}
+
+.timedetail {
+    margin-top: 14px;
+    border-radius: 15px;
+    padding: 24px;
+    background: #F5F6FC;
+}
+
+.productReturn {
+    border-radius: 30px;
+    border: 1px solid #263682;
+    padding: 14px 24px;
+    display: flex;
+    justify-content: space-between;
+    margin-top: 16px;
+    cursor: pointer;
+}
+
+.lockScreenBox {
+    border-radius: 30px;
+    border: 0px solid #263682;
+    background: #E4E6F2;
+    padding: 14px 24px;
+    display: flex;
+    justify-content: space-between;
+    margin-top: 16px;
+    cursor: pointer;
+}
+
+.homeRight {
+    background: #FFF;
+    padding: 24px;
+    height: 100vh;
+}
+
+.homeLeft {
+    height: 100vh;
+}
+
+.searchControl {
+    border-radius: 50px !important;
+    background: #F5F6FC !important;
+    color: #636E9F !important;
+    font-size: 16px !important;
+    font-weight: 400 !important;
+    padding: 18px 50px;
+}
+
+.searchControl::placeholder {
+    color: #636E9F;
+    font-size: 16px;
+    font-weight: 400;
+}
+
+.scanSearch {
+    position: absolute;
+    top: 8px;
+    right: 12px;
+}
+
+.searchControlBox {
+    position: relative;
+}
+
+.searchImg {
+    position: absolute;
+    top: 18px;
+    left: 15px;
+}
+
+.startSelling {
+    border-radius: 24px;
+    background: #263682;
+    width: 100%;
+    padding: 30px 0;
+}
+
+.sellingOrder .loginMain {
+    color: rgba(255, 255, 255, 0.95);
+    text-transform: capitalize;
+    margin-top: 15px;
+}
+
+.sellingOrder .smallText {
+    color: #58C2E8;
+    margin-left: 7px;
+}
+
+.scanText {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 10px;
+    padding: 8px;
+}
+
+.sellingOrder {
+    display: flex;
+    justify-content: space-between;
+    gap: 15px;
+    margin-top: 24px;
+}
+
+.onlineOrder {
+    border-radius: 24px;
+    background: #111633;
+    width: 100%;
+    padding: 30px 0;
+    position: relative;
+    text-align: center;
+}
+
+.bellImg {
+    position: absolute;
+    top: 15px;
+    right: 16px;
+}
+
+.OrderBtn {
+    color: #58C2E8;
+    font-size: 12px;
+    font-weight: 500;
+    padding: 8px;
+    border-radius: 30px;
+    border: 1px solid #58C2E8;
+    background: rgba(88, 194, 232, 0.10);
+    margin-top: 10px;
+}
+
+.deliverTable {
+    height: calc(60vh - 50px);
+    overflow-y: scroll;
+}
+
+.profileMainTable .loginMain {
+    margin: 0 0 20px 0;
+    text-align: left;
+}
+
+.profileMainTable {
+    margin-top: 24px;
+}
+
+.orderRow {
+    display: flex;
+    justify-content: space-between;
+    margin: 5px;
+    border-radius: 16px;
+    border: 1px solid #E4E6F2;
+    padding: 10px 16px;
+}
+
+.orderRow td {
+    border: 0 !important;
+}
+
+.orderId {
+    color: #2F3552;
+    font-size: 14px;
+    font-weight: 400;
+}
+
+.nameLocation .orderId,
+.deliveryTime .orderId,
+.itemMoney .orderId,
+.itemTime .orderId {
+    font-weight: 500;
+}
+
+.locateDistance {
+    color: #7233C2;
+    font-size: 12px;
+    font-weight: 500;
+    margin-left: 4px;
+}
+
+.itemMoney .locateDistance {
+    color: #3CAF77;
+}
+
+.itemTime .locateDistance {
+    color: #47B0D6;
+}
+
+.deliveryTime .orderId {
+    margin-left: 8px;
+}
+
+.deliverTimeData {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.profileSaleData {
+    height: calc(63vh - 109px);
+    overflow-y: scroll;
+}
+
+.profileSaleData::-webkit-scrollbar-track {
+    background-color: #F5F6FC;
+}
+
+.deliverTable::-webkit-scrollbar-track {
+    background-color: #FFF;
+}
+
+.homeOverview {
+    height: 100vh;
+    overflow: hidden;
+}
+
+/*sessionModal css start*/
+
+#trackingModal {
+    width: 100%;
+    max-width: 372px;
+
+}
+
+#trackingModal .modal-content {
+    border-radius: 30px;
+    background: #FFF;
+    box-shadow: -3px 6px 7px 0px rgba(52, 79, 117, 0.03), -12px 28px 25px 0px rgba(52, 79, 117, 0.04), -31px 74px 80px 0px rgba(52, 79, 117, 0.07);
+}
+
+.modal_cancel {
+    margin-left: auto;
+    cursor: pointer;
+}
+
+#trackingModal .modal-header {
+    border: none;
+    padding-bottom: 0;
+}
+
+#trackingModal .modal-body {
+    padding:0 24px 24px 24px !important;
+}
+
+.trackingHeading {
+    color: #263682;
+    font-size: 18px;
+    font-weight: 400;
+    text-align: center;
+}
+
+.trackingSub .loginheading {
+    margin: 12px 0;
+    font-size: 24px;
+}
+
+.inputSelect {
+    display: flex;
+    padding: 18px 24px;
+    border-radius: 50px;
+    border: 1px solid #D7DEFF;
+    background: #FFF;
+    box-shadow: -2px 4px 25px 0px rgba(50, 80, 127, 0.02), -5px 10px 80px 0px rgba(50, 80, 127, 0.04);
+}
+
+.trackingSelect {
+    border: none !important;
+    outline: none;
+    background-color: #FFF;
+    color: #263682 !important;
+    font-size: 18px !important;
+    font-weight: 400 !important;
+    padding: 0 !important;
+    width: 65px;
+}
+
+.trackingInput {
+    background-color: #FFF;
+    color: #263682 !important;
+    font-size: 18px !important;
+    font-weight: 400 !important;
+    padding: 0 !important;
+}
+
+.trackingInput::placeholder {
+    color: #263682 !important;
+    font-size: 18px !important;
+    font-weight: 400 !important;
+}
+
+.amountText {
+    color: #263682;
+    font-size: 14px;
+    font-weight: 500;
+    margin-left: 24px;
+}
+
+.trackingForm {
+    margin-top: 24px;
+}
+
+.trackingForm .loginSub {
+    text-align: left;
+    margin: 8px 18px;
+    font-weight: 400;
+}
+
+.textControl {
+    border-radius: 16px;
+    border: 1px solid #D7DEFF !important;
+    background: #FFF !important;
+    box-shadow: -5px 10px 80px 0px rgba(50, 80, 127, 0.04), 0px 0px 0px 5px rgba(38, 54, 130, 0.06), 0px 1px 2px 0px rgba(127, 143, 217, 0.47) !important;
+    outline: none;
+    color: #263682 !important;
+    font-size: 16px !important;
+    font-weight: 400 !important;
+    padding: 18px 18px 18px 40px;
+
+}
+.textAreaSection{
+    position: relative;
+    margin-top: 24px;
+}
+.commentImg{
+    position: absolute;
+    top: 18px;
+    left: 12px;
+}
+.textControl::placeholder{
+    color: #263682 !important;
+    font-size: 16px !important;
+    font-weight: 400 !important;
+}
+/*sessionModal css end*/
+
+/* Home page css end*/

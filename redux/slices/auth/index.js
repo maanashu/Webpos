@@ -3,7 +3,7 @@ import { createSlice } from "@reduxjs/toolkit";
 const initialState = {
   usersInfo: {},
   allPosUser: {},
-  posUserLoginDetails:{},
+  posUserLoginDetails: {},
   isLoggedIn: false,
   loading: false,
 
@@ -35,10 +35,14 @@ export const authSlice = createSlice({
       state.loading = false;
       state.posUserLoginDetails = action?.payload
     },
-    
+    logout: (state, action) => {
+      state.loading = false;
+      state.auth = null
+    },
+   
     onErrorStopLoad: (state) => {
       state.loading = false;
-    }, 
+    },
   },
 });
 
@@ -50,7 +54,13 @@ export const {
   setGetAllPosUser,
   posUserLogin,
   setPosUserLogin,
+  logout,
   onErrorStopLoad
 } = authSlice.actions;
 
+export const selectLoginAuth = (state) => state.auth;
+
 export default authSlice.reducer;
+
+
+

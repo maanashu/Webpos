@@ -16,8 +16,6 @@ function* userMerchantLogin(action) {
   try {
     const resp = yield call(ApiClient.post, (`${AUTH_API_URL}/api/v1/users/merchant/login`),(action.payload = action.payload));
     if (resp.status) {
-      localStorage.setItem("authToken", resp.data?.payload?.token ? resp.data?.payload?.token : "")
-      localStorage.setItem("uniqueId", resp.data?.payload?.uniqe_id ? resp.data?.payload?.uniqe_id : "")
       yield put(setUserMerchantLogin(resp.data));
       yield call(action.payload.cb, (action.res = resp));
       toast.success(resp?.data?.msg);
@@ -35,7 +33,6 @@ function* userMerchantLogin(action) {
 function* getAllPosUser(action) {
   const dataToSend = { ...action.payload }
   delete dataToSend.cb
-  // console.log(action, "action");
   try {
     const resp = yield call(ApiClient.get, (`${AUTH_API_URL}/api/v1/users/merchant/pos-user?seller_id=${action.payload.seller_id}`));
     if (resp.status) {
@@ -58,6 +55,7 @@ function* posUserLogin(action) {
   try {
     const resp = yield call(ApiClient.post, (`${AUTH_API_URL}/api/v1/users/merchant/pos-user/login`),(action.payload = action.payload));
     if (resp.status) {
+      localStorage.setItem("authToken", resp.data?.payload?.token ? resp.data?.payload?.token : "")
       yield put(setPosUserLogin(resp.data));
       yield call(action.payload.cb, (action.res = resp));
       toast.success(resp?.data?.msg);

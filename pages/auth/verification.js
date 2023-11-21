@@ -3,18 +3,24 @@ import * as Images from "../../utilities/images";
 import Image from "next/image";
 import PhoneInput from 'react-phone-input-2';
 import { useRouter } from 'next/router';
-import { useAuthSelector } from "../../redux/selectors/userAuthSelector";
+import { selectLoginAuth } from '../../redux/slices/auth';
 import { toast } from "react-toastify";
+import withAuth from '../../components/withAuth';
+import { useSelector } from 'react-redux';
 
 const Verification = () => {
-    const userAuthSelector = useAuthSelector()
+    const authData = useSelector(selectLoginAuth)
     const toastId = React.useRef(null)
     const router = useRouter();
+
     const [phoneCode, SetPhoneCode] = useState("");
     const [phoneNo, setPhoneNo] = useState("");
+    
     const generateRandomName = () => {
         return Math.random().toString(36).substr(2, 10);
     };
+
+    // function for change the number and save number is state...............................
     const onChangePhoneNumber = (value, data) => {
         let phoneCode = data.dialCode;
         let phoneNumber = value.slice(data.dialCode.length);
@@ -28,17 +34,19 @@ const Verification = () => {
         if (!phoneRegex.test(phoneNo)) {
             if (!toast.isActive(toastId.current)) {
                 toastId.current = toast.error("Please enter valid phone number");
-              }
+            }
             return;
         }
 
+        // function for store the number in local storage...............................
         const dataToSave = {
             phoneCode: `+${phoneCode}`,
             phoneNo: phoneNo
-          };
+        };
         localStorage.setItem("PhoneNumber", JSON.stringify(dataToSave));
         router.push(`/auth/verifyOtp`);
     }
+
     return (
         <>
             <div className='verificationSection'>
@@ -46,7 +54,7 @@ const Verification = () => {
                     <h1 className='verifyHeading'> Verify your phone <br /> number.</h1>
                     <h4 className='verifySub'>Enter your phone number to get started.</h4>
                     <form className='verifyForm'>
-                        {/* <input class="form-control verifyControl" type="text" placeholder="Default input" /> */}
+                        {/* <input className="form-control verifyControl" type="text" placeholder="Default input" /> */}
                         <div className="phone-numbpart verifyNumber">
                             <div className="country-plugin verifySelect">
                                 {/* <label className="form-label">Phone Number</label> */}
@@ -65,11 +73,11 @@ const Verification = () => {
                             <Image src={Images.AlertCircle} alt="alertImage" className="img-fluid alertImg" />
                         </div>
                         <div className='verifyBtn'>
-                            <button className='backverifyBtn w-100' type='submit'>
+                            {/* <button className='backverifyBtn w-100' type='submit'>
                                 <Image src={Images.ArrowLeft} alt="leftArrow" className="img-fluid leftImg" />
                                 Back
-                            </button>
-                            {userAuthSelector.loading ?
+                            </button> */}
+                            {authData.loading ?
                                 <button className='nextverifyBtn w-100' type='button' disabled>
                                     <span className="spinner-border spinner-border-sm"></span>
                                 </button> :
@@ -89,4 +97,4 @@ const Verification = () => {
     )
 }
 
-export default Verification
+export default withAuth(Verification)

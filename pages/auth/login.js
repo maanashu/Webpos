@@ -1,26 +1,24 @@
 import React, { useEffect, useState } from 'react'
 import * as Images from "../../utilities/images";
 import Image from "next/image";
-import { useDispatch } from 'react-redux';
-import { getAllPosUser } from '../../redux/slices/auth';
-import { useAuthSelector } from "../../redux/selectors/userAuthSelector";
+import { useDispatch, useSelector } from 'react-redux';
+import { getAllPosUser, selectLoginAuth } from '../../redux/slices/auth';
 import moment from "moment";
 import { useRouter } from 'next/router';
 
 const Login = () => {
+    const authData = useSelector(selectLoginAuth)
     const router = useRouter();
-    const userAuthSelector = useAuthSelector()
     const dispatch = useDispatch();
     const [GetPosUserList, setGetPosUserList] = useState("");
 
-    var sellerId;
-    if (typeof window !== "undefined") {
-        sellerId = localStorage.getItem("uniqueId");
-    }
+    // find out UniqueId from redux for send in params
+    const UniqueId = authData?.usersInfo?.payload?.uniqe_id
 
+    // API for get all POS users...............................
     const getAllPOSUser = () => {
         let params = {
-            seller_id: sellerId,
+            seller_id: UniqueId,
         };
         dispatch(getAllPosUser({
             ...params,
@@ -35,7 +33,7 @@ const Login = () => {
 
     useEffect(() => {
         getAllPOSUser()
-        document.title = "Dashboard";
+        document.title = "Login";
     }, []);
 
     return (
@@ -44,7 +42,7 @@ const Login = () => {
                 <div className='container'>
                     <div className='loginheading'>Welcome to <span>JOBR POS</span></div>
                     <div className='row'>
-                        {userAuthSelector?.loading ? (
+                        {authData?.loading ? (
                             <>
                                 <div className="loaderOuter">
                                     <div className="spinner-grow loaderSpinner text-center my-5"></div>
@@ -56,7 +54,7 @@ const Login = () => {
                                     {GetPosUserList?.pos_staff.map((data, index) => {
                                         return (
                                             <div className='col-lg-3 col-md-6 ' key={index}>
-                                                <div className='loginCard active' onClick={() => router.push({pathname: '/auth/verify',query: { id: data?.user_id }})}>
+                                                <div className='loginCard active' onClick={() => router.push({ pathname: '/auth/password', query: { id: data?.user_id } })}>
                                                     <figure className='loginIds'>
                                                         <Image src={data?.user?.user_profiles?.profile_photo ? data?.user?.user_profiles?.profile_photo : Images.LoginFirst} alt="LoginIdImage" width="100" height="100" className="img-fluid loginIdImg" />
                                                     </figure>
@@ -75,7 +73,7 @@ const Login = () => {
 
                                                     {data?.user?.api_tokens?.length > 0 ? (
                                                         <>
-                                                            <h4 className='loginPara '>{moment(data?.user?.api_tokens[0]?.created_at).fromNow()} Today</h4>
+                                                            <h4 className='loginPara '>{moment(data?.user?.api_tokens[0]?.created_at).fromNow()}</h4>
                                                             <h4 className='loginPara '>{moment(data?.user?.api_tokens[0]?.created_at).format('LT')}</h4>
                                                         </>
                                                     ) :
@@ -86,7 +84,7 @@ const Login = () => {
                                     })}
                                 </>
                             ) : (
-                                <h2>No Record Found</h2>
+                                <h2>No POS user Found</h2>
                             )
                         )}
 
@@ -156,12 +154,12 @@ const Login = () => {
                                 <h4 className='loginPara '>12:02 pm</h4>
                             </div>
                         </div> */}
-                        <div className='col-lg-3 col-md-6 '>
+                        {/* <div className='col-lg-3 col-md-6 '>
                             <div className='newLoginCard'>
-                                <i class="fa-sharp fa-light fa-plus plusIcon"></i>
-                                <h2 className='loginMain'>New user</h2>
+                            <i className="fa-sharp fa-light fa-plus plusIcon"></i>
+                            <h2 className='loginMain'>New user</h2>
                             </div>
-                        </div>
+                        </div> */}
                     </div>
                 </div>
             </div >

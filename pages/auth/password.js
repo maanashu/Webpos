@@ -1,29 +1,24 @@
 import React, { useState } from 'react'
 import * as Images from "../../utilities/images";
 import Image from "next/image";
-import Link from 'next/link';
 import OTPInput from 'react-otp-input';
 import { useRouter } from 'next/router';
 import { toast } from "react-toastify";
-import { useAuthSelector } from "../../redux/selectors/userAuthSelector";
-import { useDispatch } from 'react-redux';
-import { posUserLogin } from '../../redux/slices/auth';
+import { useDispatch, useSelector } from 'react-redux';
+import { posUserLogin,selectLoginAuth } from '../../redux/slices/auth';
 
 const Verify = () => {
-    const userAuthSelector = useAuthSelector()
+    const authData = useSelector(selectLoginAuth)
     const toastId = React.useRef(null)
     const router = useRouter();
     const { id } = router.query;
+    const UniqueId = authData?.usersInfo?.payload?.uniqe_id
     const dispatch = useDispatch();
     const [posSecurityPin, setPosSecurityPin] = useState("");
+    
     const generateRandomName = () => {
         return Math.random().toString(36).substr(2, 10);
     };
-
-    var merchantId;
-    if (typeof window !== "undefined") {
-        merchantId = localStorage.getItem("uniqueId");
-    }
 
     const onComplete = (code) => {
         // Validate the input to allow only numeric characters
@@ -33,6 +28,8 @@ const Verify = () => {
             return
         }
     }
+
+    // API for POS user login..............................
     const enterPinSubmit = () => {
         if (!posSecurityPin) {
             if (!toast.isActive(toastId.current)) {
@@ -48,7 +45,7 @@ const Verify = () => {
             return
         }
         let params = {
-            merchant_id: merchantId,
+            merchant_id: UniqueId,
             pos_user_id: id,
             pos_security_pin: posSecurityPin
         };
@@ -57,7 +54,8 @@ const Verify = () => {
                 ...params,
                 cb(res) {
                     if (res) {
-                        router.push("/web/dashboard")
+                        router.push("/home/overview")
+                        localStorage.removeItem('PhoneNumber');
                     }
                 },
             })
@@ -93,12 +91,12 @@ const Verify = () => {
 
                         </div>
                         <div className='verifyBtn'>
-                            <button className='backverifyBtn w-100' type='button' onClick={() => router.push(`/auth/verification`)}>
+                            <button className='backverifyBtn w-100' type='button' onClick={() => router.push(`/auth/login`)}>
                                 <Image src={Images.DarkLeft} alt="leftArrow" className="img-fluid leftImg" />
                                 Back
                             </button>
 
-                            {userAuthSelector.loading ?
+                            {authData.loading ?
                                 <button className='nextverifyBtn w-100' type='button' disabled>
                                     <span className="spinner-border spinner-border-sm"></span>
                                 </button> :

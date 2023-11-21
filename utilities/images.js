@@ -18,6 +18,22 @@ import LoginSeven from "../public/images/loginSeven.svg"
 import Lock from "../public/images/lock.svg"
 import CloseEye from "../public/images/closeEye.svg"
 import OpenEye from "../public/images/openEye.svg"
+import HomeProfileImg from "../public/images/homeProfileImg.png"
+import ProductBox from "../public/images/productBox.svg"
+import ProductLock from "../public/images/productLock.svg"
+import Scan from "../public/images/Scan.svg"
+import SearchIcon from "../public/images/SearchIcon.svg"
+import HomeIcon from "../public/images/homeIcon.svg"
+import ShoppingCart from "../public/images/Shopping_Cart.svg"
+import SearchLight from "../public/images/SearchLight.svg"
+import Bell from "../public/images/bell.svg"
+import OrderLocation from "../public/images/orderLocation.svg"
+import MoneyItem from "../public/images/moneyItem.svg"
+import Time from "../public/images/time.svg"
+import modalCross from "../public/images/modalCross.svg"
+import trackingImage from "../public/images/trackingImage.svg"
+import commentBox from "../public/images/commentBox.svg"
+
  
 export{
     ArrowLeft,
@@ -40,5 +56,19 @@ export{
     Lock,
     CloseEye,
     OpenEye,
-
+    HomeProfileImg,
+    ProductBox,
+    ProductLock,
+    Scan,
+    SearchIcon,
+    HomeIcon,
+    ShoppingCart,
+    SearchLight,
+    Bell,
+    OrderLocation,
+    MoneyItem,
+    Time,
+    modalCross,
+    trackingImage,
+    commentBox,
 };
