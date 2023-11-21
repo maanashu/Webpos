@@ -7,58 +7,57 @@ import { useRouter } from 'next/router';
 import { toast } from "react-toastify";
 import { useAuthSelector } from "../../redux/selectors/userAuthSelector";
 import { useDispatch } from 'react-redux';
-import { userMerchantLogin } from '../../redux/slices/auth';
+import { posUserLogin } from '../../redux/slices/auth';
 
-const VerifyOtp = () => {
+const Verify = () => {
     const userAuthSelector = useAuthSelector()
     const toastId = React.useRef(null)
     const router = useRouter();
+    const { id } = router.query;
     const dispatch = useDispatch();
-    const [otp, setOtp] = useState("");
+    const [posSecurityPin, setPosSecurityPin] = useState("");
     const generateRandomName = () => {
         return Math.random().toString(36).substr(2, 10);
     };
 
-    var getPhoneInfo;
+    var merchantId;
     if (typeof window !== "undefined") {
-        const PhoneNumber = localStorage.getItem("PhoneNumber");
-        getPhoneInfo = JSON.parse(PhoneNumber);
+        merchantId = localStorage.getItem("uniqueId");
     }
-    console.log(getPhoneInfo, "getPhoneInfo");
+
     const onComplete = (code) => {
         // Validate the input to allow only numeric characters
         const regex = /^[0-9]*$/; // Regular expression to allow only numbers
         if (regex.test(code) || code === '') {
-            setOtp(code);
+            setPosSecurityPin(code);
             return
         }
     }
-    const enterOtpSubmit = () => {
-        if (!otp) {
+    const enterPinSubmit = () => {
+        if (!posSecurityPin) {
             if (!toast.isActive(toastId.current)) {
-                toastId.current = toast.error("Please enter Otp");
+                toastId.current = toast.error("Please enter POS Security Pin");
             }
 
             return;
         }
-        else if (otp?.length < 4) {
+        else if (posSecurityPin?.length < 4) {
             if (!toast.isActive(toastId.current)) {
-                toastId.current = toast.error("Please enter valid Otp");
+                toastId.current = toast.error("Please enter valid POS Security Pin");
             }
             return
         }
         let params = {
-            type: "phone",
-            phone_code: getPhoneInfo?.phoneCode,
-            phone_number: getPhoneInfo?.phoneNo,
-            security_pin: otp
+            merchant_id: merchantId,
+            pos_user_id: id,
+            pos_security_pin: posSecurityPin
         };
         dispatch(
-            userMerchantLogin({
+            posUserLogin({
                 ...params,
                 cb(res) {
                     if (res) {
-                        router.push("/auth/login")
+                        router.push("/web/dashboard")
                     }
                 },
             })
@@ -69,8 +68,8 @@ const VerifyOtp = () => {
         <>
             <div className='verifyOtpSection verificationSection'>
                 <div className='verifyBox'>
-                    <h1 className='verifyHeading'> Let’s verify your phone <br /> number.</h1>
-                    <h4 className='verifySub'>Enter the code we’ve sent to {getPhoneInfo?.phoneCode} {getPhoneInfo?.phoneNo}</h4>
+                    <h1 className='verifyHeading'> Password</h1>
+                    <h4 className='verifySub'>Please enter the 4 digit code </h4>
                     <form className='otpForm'>
                         <div className='otpMain'>
                             <div className="verify-part">
@@ -78,7 +77,7 @@ const VerifyOtp = () => {
                                     <div className="pin-box d-flex justify-content-center" >
                                         <OTPInput numInputs={4}
                                             className='input_digits_'
-                                            value={otp}
+                                            value={posSecurityPin}
                                             data-cy="pin-field"
                                             name={generateRandomName()}
                                             autoComplete="new-password"
@@ -91,24 +90,19 @@ const VerifyOtp = () => {
                                     </div>
                                 </div>
                             </div>
-                            {/* <div className='errorMain'>
-                                <Image src={Images.CrossCircle} alt="crossImage" className="img-fluid" />
-                                <span className='errorMsg'>Wrong code. Try again or correct your phone number.</span>
-                            </div> */}
+
                         </div>
                         <div className='verifyBtn'>
                             <button className='backverifyBtn w-100' type='button' onClick={() => router.push(`/auth/verification`)}>
                                 <Image src={Images.DarkLeft} alt="leftArrow" className="img-fluid leftImg" />
                                 Back
                             </button>
-                            {/* <Link href="#" className='verifyTime w-100'>29s to resend code</Link> */}
-                            {/* <Link href="#" className='verifyTime w-100'>Resend</Link> */}
 
                             {userAuthSelector.loading ?
                                 <button className='nextverifyBtn w-100' type='button' disabled>
                                     <span className="spinner-border spinner-border-sm"></span>
                                 </button> :
-                                <button className='nextverifyBtn w-100' type='button' onClick={() => enterOtpSubmit()} >
+                                <button className='nextverifyBtn w-100' type='button' onClick={() => enterPinSubmit()} >
                                     Next
                                     <Image src={Images.ArrowRight} alt="rightArrow" className="img-fluid rightImg" />
                                 </button>
@@ -124,4 +118,4 @@ const VerifyOtp = () => {
     )
 }
 
-export default VerifyOtp
+export default Verify

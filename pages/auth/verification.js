@@ -3,9 +3,12 @@ import * as Images from "../../utilities/images";
 import Image from "next/image";
 import PhoneInput from 'react-phone-input-2';
 import { useRouter } from 'next/router';
+import { useAuthSelector } from "../../redux/selectors/userAuthSelector";
 import { toast } from "react-toastify";
 
 const Verification = () => {
+    const userAuthSelector = useAuthSelector()
+    const toastId = React.useRef(null)
     const router = useRouter();
     const [phoneCode, SetPhoneCode] = useState("");
     const [phoneNo, setPhoneNo] = useState("");
@@ -23,7 +26,9 @@ const Verification = () => {
     const enterNumberSubmit = () => {
         const phoneRegex = /^\d{10}$/;
         if (!phoneRegex.test(phoneNo)) {
-            toast.error("Please enter valid phone number");
+            if (!toast.isActive(toastId.current)) {
+                toastId.current = toast.error("Please enter valid phone number");
+              }
             return;
         }
 
@@ -64,10 +69,15 @@ const Verification = () => {
                                 <Image src={Images.ArrowLeft} alt="leftArrow" className="img-fluid leftImg" />
                                 Back
                             </button>
-                            <button className='nextverifyBtn w-100' type='button' onClick={() => enterNumberSubmit()}>
-                                Next
-                                <Image src={Images.ArrowRight} alt="rightArrow" className="img-fluid rightImg" />
-                            </button>
+                            {userAuthSelector.loading ?
+                                <button className='nextverifyBtn w-100' type='button' disabled>
+                                    <span className="spinner-border spinner-border-sm"></span>
+                                </button> :
+                                <button className='nextverifyBtn w-100' type='button' onClick={() => enterNumberSubmit()} >
+                                    Next
+                                    <Image src={Images.ArrowRight} alt="rightArrow" className="img-fluid rightImg" />
+                                </button>
+                            }
                         </div>
                     </form>
                 </div>

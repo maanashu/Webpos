@@ -3,21 +3,30 @@ import * as Images from "../../utilities/images";
 import Image from "next/image";
 import { useDispatch } from 'react-redux';
 import { getAllPosUser } from '../../redux/slices/auth';
+import { useAuthSelector } from "../../redux/selectors/userAuthSelector";
+import moment from "moment";
+import { useRouter } from 'next/router';
 
 const Login = () => {
+    const router = useRouter();
+    const userAuthSelector = useAuthSelector()
     const dispatch = useDispatch();
     const [GetPosUserList, setGetPosUserList] = useState("");
+
+    var sellerId;
+    if (typeof window !== "undefined") {
+        sellerId = localStorage.getItem("uniqueId");
+    }
+
     const getAllPOSUser = () => {
         let params = {
-            page: 1,
-            limit: 20,
-            seller_id: "b169ed4d-be27-44eb-9a08-74f997bc6a2j",
+            seller_id: sellerId,
         };
         dispatch(getAllPosUser({
             ...params,
             cb(res) {
                 if (res.status) {
-                    setGetPosUserList(res?.data)
+                    setGetPosUserList(res?.data?.payload)
                 }
             },
         })
@@ -35,18 +44,53 @@ const Login = () => {
                 <div className='container'>
                     <div className='loginheading'>Welcome to <span>JOBR POS</span></div>
                     <div className='row'>
-                        <div className='col-lg-3 col-md-6 '>
-                            <div className='loginCard active'>
-                                <figure className='loginIds'>
-                                    <Image src={Images.LoginFirst} alt="LoginIdImage" className="img-fluid loginIdImg" />
-                                </figure>
-                                <h2 className='loginMain'>Alice Green</h2>
-                                <h4 className='loginSub'>Admin / Manager</h4>
-                                <h4 className='loginPara '> Today</h4>
-                                <h4 className='loginPara '>18:32 pm</h4>
-                            </div>
-                        </div>
-                        <div className='col-lg-3 col-md-6 '>
+                        {userAuthSelector?.loading ? (
+                            <>
+                                <div className="loaderOuter">
+                                    <div className="spinner-grow loaderSpinner text-center my-5"></div>
+                                </div>
+                            </>
+                        ) : (
+                            GetPosUserList?.pos_staff?.length > 0 ? (
+                                <>
+                                    {GetPosUserList?.pos_staff.map((data, index) => {
+                                        return (
+                                            <div className='col-lg-3 col-md-6 ' key={index}>
+                                                <div className='loginCard active' onClick={() => router.push({pathname: '/auth/verify',query: { id: data?.user_id }})}>
+                                                    <figure className='loginIds'>
+                                                        <Image src={data?.user?.user_profiles?.profile_photo ? data?.user?.user_profiles?.profile_photo : Images.LoginFirst} alt="LoginIdImage" width="100" height="100" className="img-fluid loginIdImg" />
+                                                    </figure>
+                                                    <h2 className='loginMain'>{data?.user?.user_profiles?.firstname} {data?.user?.user_profiles?.lastname}</h2>
+
+                                                    {data?.user?.user_roles.length > 0 ? (
+                                                        data?.user?.user_roles?.map((data, index) => {
+                                                            return (
+                                                                <h4 className='loginSub'>{data?.role?.name}</h4>
+                                                            )
+                                                        })
+                                                    )
+                                                        :
+                                                        <h4 className='loginSub'>Admin / Manager</h4>
+                                                    }
+
+                                                    {data?.user?.api_tokens?.length > 0 ? (
+                                                        <>
+                                                            <h4 className='loginPara '>{moment(data?.user?.api_tokens[0]?.created_at).fromNow()} Today</h4>
+                                                            <h4 className='loginPara '>{moment(data?.user?.api_tokens[0]?.created_at).format('LT')}</h4>
+                                                        </>
+                                                    ) :
+                                                        ""}
+                                                </div>
+                                            </div>
+                                        );
+                                    })}
+                                </>
+                            ) : (
+                                <h2>No Record Found</h2>
+                            )
+                        )}
+
+                        {/* <div className='col-lg-3 col-md-6 '>
                             <div className='loginCard'>
                                 <figure className='loginIds'>
                                     <Image src={Images.LoginSecond} alt="LoginIdImage" className="img-fluid loginIdImg" />
@@ -111,7 +155,7 @@ const Login = () => {
                                 <h4 className='loginPara '> Today </h4>
                                 <h4 className='loginPara '>12:02 pm</h4>
                             </div>
-                        </div>
+                        </div> */}
                         <div className='col-lg-3 col-md-6 '>
                             <div className='newLoginCard'>
                                 <i class="fa-sharp fa-light fa-plus plusIcon"></i>
@@ -120,7 +164,7 @@ const Login = () => {
                         </div>
                     </div>
                 </div>
-            </div>
+            </div >
         </>
     )
 }

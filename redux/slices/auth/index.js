@@ -1,8 +1,9 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-  userInfo: {},
+  usersInfo: {},
   allPosUser: {},
+  posUserLoginDetails:{},
   isLoggedIn: false,
   loading: false,
 
@@ -18,7 +19,7 @@ export const authSlice = createSlice({
     setUserMerchantLogin: (state, action) => {
       state.loading = false;
       state.isLoggedIn = true;
-      state.userInfo = action?.payload
+      state.usersInfo = action?.payload
     },
     getAllPosUser: (state) => {
       state.loading = true;
@@ -26,6 +27,13 @@ export const authSlice = createSlice({
     setGetAllPosUser: (state, action) => {
       state.loading = false;
       state.allPosUser = action?.payload
+    },
+    posUserLogin: (state) => {
+      state.loading = true;
+    },
+    setPosUserLogin: (state, action) => {
+      state.loading = false;
+      state.posUserLoginDetails = action?.payload
     },
     
     onErrorStopLoad: (state) => {
@@ -40,6 +48,8 @@ export const {
   setUserMerchantLogin,
   getAllPosUser,
   setGetAllPosUser,
+  posUserLogin,
+  setPosUserLogin,
   onErrorStopLoad
 } = authSlice.actions;
 
