@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import Link from 'next/link'
 import * as Images from "../utilities/images";
 import Image from "next/image";
+import { ListGroup, ListGroupItem } from 'react-bootstrap';
 
 const Sidebar = (props) => {
     const [activeSidebar, setActiveSidebar] = useState(true)
@@ -10,85 +11,99 @@ const Sidebar = (props) => {
         <div className={`main-sidebar ${activeSidebar ? 'full' : 'hide'}`} id="myNav">
             <div className='sidebarAuth sidebarMain'>
                 <Image src={Images.SideLogo} alt="image" className="img-fluid" />
-                <p onClick={() => setActiveSidebar(prev => !prev)}>Toggle</p>
+                <div onClick={() => setActiveSidebar(prev => !prev)} className='ToggleIcon'>
+                    <Image src={Images.SideLogo} alt="image" className="img-fluid" />
+                </div>
             </div>
-            {/* <Link href="/retailHome" className="brandLogo">
-                <Image src={Images.BrandLogo} alt="image" className="footerLogo" />
-            </Link>
-            <Link href="#" className="closebtn" ><i className="las la-times"></i></Link> */}
-
-            {/* <ul className="sidebarMenus navbar_overlay_content_">
+            <div className='userDetails'>
+                <figure>
+                    <Image src={Images.SideLogo} alt="image" className="img-fluid" />
+                </figure>
+                <article>
+                    <p className='userName'>Eugenia Salas</p>
+                    <p className='userPosition'>POS Cashier</p>
+                </article>
+            </div>
+            <ListGroup className="sidebarMenus navbar_overlay_content_">
                 <div className='sidebarStaticMenus'>
-                    <li className="sidebarItems active" >
+                    <ListGroupItem className="sidebarItems" >
+                        <Link href="/dashboard" className="sidebarLinks active" >
+                            <Image src={Images.SideLogo} alt="image" className="img-fluid showImg" />
+                            <span className='sidebarTxt'>Products & Services</span>
+                        </Link>
+                    </ListGroupItem>
+                    <ListGroupItem className="sidebarItems" >
+                        <Link href="/dashboard" className="sidebarLinks" >
+                            <Image src={Images.SideLogo} alt="image" className="img-fluid showImg" />
+                            <span className='sidebarTxt'>Delivery  Orders</span>
+                        </Link>
+                    </ListGroupItem>
+                    <ListGroupItem className="sidebarItems" >
+                        <Link href="/dashboard" className="sidebarLinks" >
+                            <Image src={Images.SideLogo} alt="image" className="img-fluid showImg" />
+                            <span className='sidebarTxt'>Shipping Orders</span>
+                        </Link>
+                    </ListGroupItem>
+                    <ListGroupItem className="sidebarItems" >
+                        <Link href="/dashboard" className="sidebarLinks" >
+                            <Image src={Images.SideLogo} alt="image" className="img-fluid showImg" />
+                            <span className='sidebarTxt'>Appointments</span>
+                        </Link>
+                    </ListGroupItem>
+                    <ListGroupItem className="sidebarItems" >
+                        <Link href="/dashboard" className="sidebarLinks" >
+                            <Image src={Images.SideLogo} alt="image" className="img-fluid showImg" />
+                            <span className='sidebarTxt'>Analytics</span>
+                        </Link>
+                    </ListGroupItem>
+                    <ListGroupItem className="sidebarItems" >
+                        <Link href="/dashboard" className="sidebarLinks" >
+                            <Image src={Images.SideLogo} alt="image" className="img-fluid showImg" />
+                            <span className='sidebarTxt'>Wallets</span>
+                        </Link>
+                    </ListGroupItem>
+                    <ListGroupItem className="sidebarItems" >
+                        <Link href="/dashboard" className="sidebarLinks" >
+                            <Image src={Images.SideLogo} alt="image" className="img-fluid showImg" />
+                            <span className='sidebarTxt'>Cash Drawer</span>
+                        </Link>
+                    </ListGroupItem>
+                    <ListGroupItem className="sidebarItems" >
+                        <Link href="/dashboard" className="sidebarLinks" >
+                            <Image src={Images.SideLogo} alt="image" className="img-fluid showImg" />
+                            <span className='sidebarTxt'>Customer</span>
+                        </Link>
+                    </ListGroupItem>
+                    <ListGroupItem className="sidebarItems" >
+                        <Link href="/dashboard" className="sidebarLinks" >
+                            <Image src={Images.SideLogo} alt="image" className="img-fluid showImg" />
+                            <span className='sidebarTxt'>Rewards</span>
+
+                        </Link>
+                    </ListGroupItem>
+                    <ListGroupItem className="sidebarItems" >
+                        <Link href="/dashboard" className="sidebarLinks" >
+                            <Image src={Images.SideLogo} alt="image" className="img-fluid showImg" />
+                            <span className='sidebarTxt'>Settings</span>
+                        </Link>
+                    </ListGroupItem>
+                    {/* <ListGroupItem className="sidebarItems" >
                         <Link href="/dashboard" className="sidebarLinks" >
                             <Image src={Images.Addsquarelight} className="img-fluid showImg" alt="" />
                             <Image src={Images.AddsquarelightDark} className="img-fluid hoverImg active" alt="" />
+                            <span className='sidebarTxt'>Settings</span>
                         </Link>
-                    </li>
-                    <li className="sidebarItems">
-                        <Link href="/delivery" className="sidebarLinks" >
-                            <Image src={Images.deliveryOrder} className="img-fluid showImg" alt="" />
-                            <Image src={Images.deliveryOrderDark} className="img-fluid hoverImg" alt="" />
-                        </Link>
-                    </li>
-                    <li className="sidebarItems">
-                        <Link href="/shipping" className="sidebarLinks">
-                            <Image src={Images.shippingOrder} className="img-fluid showImg" alt="" />
-                            <Image src={Images.shippingOrderDark} className="img-fluid hoverImg" alt="" />
-                        </Link>
-                    </li>
-                    <li className="sidebarItems">
-                        <Link href="/calender" className="sidebarLinks" >
-                            <Image src={Images.calendar} className="img-fluid showImg" alt="" />
-                            <Image src={Images.calendars} className="img-fluid hoverImg" alt="" />
-                        </Link>
-                    </li>
-                    <li className="sidebarItems">
-                        <Link href="/analytics" className="sidebarLinks" >
-                            <Image src={Images.analytics} className="img-fluid showImg" alt="" />
-                            <Image src={Images.analyticsDark} className="img-fluid hoverImg" alt="" />
-                        </Link>
-                    </li>
-                    <li className="sidebarItems">
-                        <Link href="/wallet" className="sidebarLinks" >
-                            <Image src={Images.wallet} className="img-fluid showImg" alt="" />
-                            <Image src={Images.walletDark} className="img-fluid hoverImg" alt="" />
-                        </Link>
-                    </li>
-                    <li className="sidebarItems">
-                        <Link href="/drawerCash" className="sidebarLinks" >
-                            <Image src={Images.tray} className="img-fluid showImg" alt="" />
-                            <Image src={Images.trayDark} className="img-fluid hoverImg" alt="" />
-                        </Link>
-                    </li>
-                    <li className="sidebarItems">
-                        <Link href="/customers" className="sidebarLinks" >
-                            <Image src={Images.customerD} className="img-fluid showImg" alt="" />
-                            <Image src={Images.EditCustomer} className="img-fluid hoverImg" alt="" />
-                        </Link>
-                    </li>
-                    <li className="sidebarItems">
-                        <Link href="/rewards" className="sidebarLinks" >
-                            <Image src={Images.reward} className="img-fluid showImg" alt="" />
-                            <Image src={Images.editRewards} className="img-fluid hoverImg" alt="" />
-                        </Link>
-                    </li>
-                    <li className="sidebarItems">
-                        <Link href="/settings" className="sidebarLinks" >
-                            <Image src={Images.Subtract} className="img-fluid showImg" alt="" />
-                            <Image src={Images.Editsetting} className="img-fluid hoverImg" alt="" />
-                        </Link>
-                    </li>
+                    </ListGroupItem> */}
                 </div>
-                                            <div className='sidbarfixedMenus'>
-                    <li className="sidebarItems" onClick={() => { userLogout() }}>
-                        <Link to="#" className="sidebarLinks" onClick={() => setActiveData("power")}>
+                <div className='sidbarfixedMenus'>
+                    <ListGroupItem className="sidebarItems" onClick={() => { userLogout() }}>
+                        <Link href="#" className="sidebarLinks" onClick={() => setActiveData("power")}>
                             <Image src={props?.auth?.userProfile?.user_profiles?.pos_role === null ? power : ''} className="img-fluid" alt="" />
                         </Link>
-                    </li>
-                </div> 
+                    </ListGroupItem>
+                </div>
 
-            </ul> */}
+            </ListGroup>
 
         </div>
     )
