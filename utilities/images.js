@@ -39,6 +39,7 @@ import Time from "../public/images/time.svg"
 import modalCross from "../public/images/modalCross.svg"
 import trackingImage from "../public/images/trackingImage.svg"
 import commentBox from "../public/images/commentBox.svg"
+import bellIcon from "../public/images/bellIcon.svg"
 
  
 export{
@@ -82,4 +83,5 @@ export{
     modalCross,
     trackingImage,
     commentBox,
+    bellIcon,
 };

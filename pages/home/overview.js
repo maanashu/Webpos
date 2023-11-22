@@ -147,212 +147,53 @@ const Overview = () => {
                                         </figure>
                                         <h4 className='loginMain'>Online Orders</h4>
                                         <button className='OrderBtn'>12 New Orders</button>
-                                        <Image src={Images.Bell} alt="BellImage" className="img-fluid bellImg " />
+                                        <div className='bellImg'>
+                                            <figure className='bellOuter'>
+                                            <Image src={Images.bellIcon} alt="BellImage" className="img-fluid " />
+                                            </figure>
+                                        </div>
+
                                     </div>
                                 </div>
                                 <div className='profileMainTable'>
                                     <h4 className='loginMain'>Order Deliveries</h4>
                                     <div className="table-responsive deliverTable">
-                                        <table className="table">
+                                        <table id="tableProduct" className="product_table">
                                             <tbody>
-                                                <tr className='orderRow'>
-                                                    <td>
+                                                <tr >
+                                                    <td className='deliverSubdata'>
                                                         <div className='orderFirstId'>
                                                             <h4 className='orderId'>#7869YZ</h4>
                                                         </div>
                                                     </td>
-                                                    <td>
+                                                    <td className='deliverSubdata'>
                                                         <div className='nameLocation'>
                                                             <h4 className='orderId'>Jeremy McFlan</h4>
-                                                            <Image src={Images.OrderLocation} alt="location Image" className="img-fluid ms-1" />
-                                                            <span className='locateDistance'>2.5 miles</span>
+                                                            <div className='flexTable'>
+                                                                <Image src={Images.OrderLocation} alt="location Image" className="img-fluid ms-1" />
+                                                                <span className='locateDistance'>2.5 miles</span>
+                                                            </div>
                                                         </div>
                                                     </td>
-                                                    <td>
+                                                    <td className='deliverSubdata'>
                                                         <div className='itemMoney'>
                                                             <h4 className='orderId'>3 items</h4>
-                                                            <Image src={Images.MoneyItem} alt="MoneyItemImage " className="img-fluid ms-1" />
-                                                            <span className='locateDistance'>$500.50</span>
+                                                            <div className='flexTable'>
+                                                                <Image src={Images.MoneyItem} alt="MoneyItemImage " className="img-fluid ms-1" />
+                                                                <span className='locateDistance'>$500.50</span>
+                                                            </div>
                                                         </div>
                                                     </td>
-                                                    <td>
+                                                    <td className='deliverSubdata'>
                                                         <div className='itemTime'>
                                                             <h4 className='orderId'>1 hour delivery window</h4>
-                                                            <Image src={Images.Time} alt="MoneyItemImage " className="img-fluid ms-1" />
-                                                            <span className='locateDistance'>Immediately</span>
+                                                            <div className='flexTable'>
+                                                                <Image src={Images.Time} alt="MoneyItemImage " className="img-fluid ms-1" />
+                                                                <span className='locateDistance'>Immediately</span>
+                                                            </div>
                                                         </div>
                                                     </td>
-                                                    <td className='deliverTimeData'>
-                                                        <div className='deliveryTime'>
-                                                            <i className="fa-sharp fa-solid fa-chevron-right"></i>
-                                                            <span className='orderId'>00:03:06</span>
-                                                        </div>
-                                                    </td>
-                                                </tr>
-                                                <tr className='orderRow'>
-                                                    <td>
-                                                        <div className='orderFirstId'>
-                                                            <h4 className='orderId'>#7869YZ</h4>
-                                                        </div>
-                                                    </td>
-                                                    <td>
-                                                        <div className='nameLocation'>
-                                                            <h4 className='orderId'>Jeremy McFlan</h4>
-                                                            <Image src={Images.OrderLocation} alt="location Image" className="img-fluid ms-1" />
-                                                            <span className='locateDistance'>2.5 miles</span>
-                                                        </div>
-                                                    </td>
-                                                    <td>
-                                                        <div className='itemMoney'>
-                                                            <h4 className='orderId'>3 items</h4>
-                                                            <Image src={Images.MoneyItem} alt="MoneyItemImage " className="img-fluid ms-1" />
-                                                            <span className='locateDistance'>$500.50</span>
-                                                        </div>
-                                                    </td>
-                                                    <td>
-                                                        <div className='itemTime'>
-                                                            <h4 className='orderId'>1 hour delivery window</h4>
-                                                            <Image src={Images.Time} alt="MoneyItemImage " className="img-fluid ms-1" />
-                                                            <span className='locateDistance'>Immediately</span>
-                                                        </div>
-                                                    </td>
-                                                    <td className='deliverTimeData'>
-                                                        <div className='deliveryTime'>
-                                                            <i className="fa-sharp fa-solid fa-chevron-right"></i>
-                                                            <span className='orderId'>00:03:06</span>
-                                                        </div>
-                                                    </td>
-                                                </tr>
-                                                <tr className='orderRow'>
-                                                    <td>
-                                                        <div className='orderFirstId'>
-                                                            <h4 className='orderId'>#7869YZ</h4>
-                                                        </div>
-                                                    </td>
-                                                    <td>
-                                                        <div className='nameLocation'>
-                                                            <h4 className='orderId'>Jeremy McFlan</h4>
-                                                            <Image src={Images.OrderLocation} alt="location Image" className="img-fluid ms-1" />
-                                                            <span className='locateDistance'>2.5 miles</span>
-                                                        </div>
-                                                    </td>
-                                                    <td>
-                                                        <div className='itemMoney'>
-                                                            <h4 className='orderId'>3 items</h4>
-                                                            <Image src={Images.MoneyItem} alt="MoneyItemImage " className="img-fluid ms-1" />
-                                                            <span className='locateDistance'>$500.50</span>
-                                                        </div>
-                                                    </td>
-                                                    <td>
-                                                        <div className='itemTime'>
-                                                            <h4 className='orderId'>1 hour delivery window</h4>
-                                                            <Image src={Images.Time} alt="MoneyItemImage " className="img-fluid ms-1" />
-                                                            <span className='locateDistance'>Immediately</span>
-                                                        </div>
-                                                    </td>
-                                                    <td className='deliverTimeData'>
-                                                        <div className='deliveryTime'>
-                                                            <i className="fa-sharp fa-solid fa-chevron-right"></i>
-                                                            <span className='orderId'>00:03:06</span>
-                                                        </div>
-                                                    </td>
-                                                </tr>
-                                                <tr className='orderRow'>
-                                                    <td>
-                                                        <div className='orderFirstId'>
-                                                            <h4 className='orderId'>#7869YZ</h4>
-                                                        </div>
-                                                    </td>
-                                                    <td>
-                                                        <div className='nameLocation'>
-                                                            <h4 className='orderId'>Jeremy McFlan</h4>
-                                                            <Image src={Images.OrderLocation} alt="location Image" className="img-fluid ms-1" />
-                                                            <span className='locateDistance'>2.5 miles</span>
-                                                        </div>
-                                                    </td>
-                                                    <td>
-                                                        <div className='itemMoney'>
-                                                            <h4 className='orderId'>3 items</h4>
-                                                            <Image src={Images.MoneyItem} alt="MoneyItemImage " className="img-fluid ms-1" />
-                                                            <span className='locateDistance'>$500.50</span>
-                                                        </div>
-                                                    </td>
-                                                    <td>
-                                                        <div className='itemTime'>
-                                                            <h4 className='orderId'>1 hour delivery window</h4>
-                                                            <Image src={Images.Time} alt="MoneyItemImage " className="img-fluid ms-1" />
-                                                            <span className='locateDistance'>Immediately</span>
-                                                        </div>
-                                                    </td>
-                                                    <td className='deliverTimeData'>
-                                                        <div className='deliveryTime'>
-                                                            <i className="fa-sharp fa-solid fa-chevron-right"></i>
-                                                            <span className='orderId'>00:03:06</span>
-                                                        </div>
-                                                    </td>
-                                                </tr>
-                                                <tr className='orderRow'>
-                                                    <td>
-                                                        <div className='orderFirstId'>
-                                                            <h4 className='orderId'>#7869YZ</h4>
-                                                        </div>
-                                                    </td>
-                                                    <td>
-                                                        <div className='nameLocation'>
-                                                            <h4 className='orderId'>Jeremy McFlan</h4>
-                                                            <Image src={Images.OrderLocation} alt="location Image" className="img-fluid ms-1" />
-                                                            <span className='locateDistance'>2.5 miles</span>
-                                                        </div>
-                                                    </td>
-                                                    <td>
-                                                        <div className='itemMoney'>
-                                                            <h4 className='orderId'>3 items</h4>
-                                                            <Image src={Images.MoneyItem} alt="MoneyItemImage " className="img-fluid ms-1" />
-                                                            <span className='locateDistance'>$500.50</span>
-                                                        </div>
-                                                    </td>
-                                                    <td>
-                                                        <div className='itemTime'>
-                                                            <h4 className='orderId'>1 hour delivery window</h4>
-                                                            <Image src={Images.Time} alt="MoneyItemImage " className="img-fluid ms-1" />
-                                                            <span className='locateDistance'>Immediately</span>
-                                                        </div>
-                                                    </td>
-                                                    <td className='deliverTimeData'>
-                                                        <div className='deliveryTime'>
-                                                            <i className="fa-sharp fa-solid fa-chevron-right"></i>
-                                                            <span className='orderId'>00:03:06</span>
-                                                        </div>
-                                                    </td>
-                                                </tr>
-                                                <tr className='orderRow'>
-                                                    <td>
-                                                        <div className='orderFirstId'>
-                                                            <h4 className='orderId'>#7869YZ</h4>
-                                                        </div>
-                                                    </td>
-                                                    <td>
-                                                        <div className='nameLocation'>
-                                                            <h4 className='orderId'>Jeremy McFlan</h4>
-                                                            <Image src={Images.OrderLocation} alt="location Image" className="img-fluid ms-1" />
-                                                            <span className='locateDistance'>2.5 miles</span>
-                                                        </div>
-                                                    </td>
-                                                    <td>
-                                                        <div className='itemMoney'>
-                                                            <h4 className='orderId'>3 items</h4>
-                                                            <Image src={Images.MoneyItem} alt="MoneyItemImage " className="img-fluid ms-1" />
-                                                            <span className='locateDistance'>$500.50</span>
-                                                        </div>
-                                                    </td>
-                                                    <td>
-                                                        <div className='itemTime'>
-                                                            <h4 className='orderId'>1 hour delivery window</h4>
-                                                            <Image src={Images.Time} alt="MoneyItemImage " className="img-fluid ms-1" />
-                                                            <span className='locateDistance'>Immediately</span>
-                                                        </div>
-                                                    </td>
-                                                    <td className='deliverTimeData'>
+                                                    <td className='deliverSubdata'>
                                                         <div className='deliveryTime'>
                                                             <i className="fa-sharp fa-solid fa-chevron-right"></i>
                                                             <span className='orderId'>00:03:06</span>

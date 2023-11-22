@@ -18,29 +18,17 @@ import { wrapper } from "../redux";
 
 function App({ Component, pageProps }) {
   const router = useRouter()
-  console.log(router.pathname,"router");
+  console.log(router.pathname, "router");
   const [activeSidebar, setActiveSidebar] = useState(true)
 
   const toggleSidebar = () => {
     setActiveSidebar(prev => !prev)
-    console.log("clicked")
   };
-
 
   return (
 
     <>
-
-      {router.pathname.includes('auth') || router.pathname.includes('/') ?
-        <>
-          <AuthLayout>
-            <Component {...pageProps} />
-            <ToastContainer
-              autoClose={800}
-            />
-          </AuthLayout>
-        </>
-        :
+      {router.pathname.includes('home') ||router.pathname.includes('Product') ?
         <>
           <Layout activeSidebar={activeSidebar} toggleSidebar={() => { toggleSidebar() }}>
             <Component {...pageProps} />
@@ -49,18 +37,18 @@ function App({ Component, pageProps }) {
             />
           </Layout>
         </>
+        :
+        <>
+          <AuthLayout>
+            <Component {...pageProps} />
+            <ToastContainer
+              autoClose={800}
+            />
+          </AuthLayout>
+        </>
 
       }
     </>
-
-
-
-
-
-
-
-
-
   );
 }
 
