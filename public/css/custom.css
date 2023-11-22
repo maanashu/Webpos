@@ -125,7 +125,7 @@ a {
   padding: 16px;
   text-align: center;
   width: 100px;
-  max-width: 100px;
+  /* max-width: 100px; */
   /* background: red; */
 }
 .main-sidebar.full {
