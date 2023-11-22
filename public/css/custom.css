@@ -126,6 +126,8 @@ a {
   width: 100px;
   background: #FFFFFF;
   border-radius: 30px;
+  margin: 20px 0 20px 10px;
+  transition: .5s;
 }
 /*sidebar css start*/
 .sidebarAuth {
