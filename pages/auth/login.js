@@ -13,8 +13,8 @@ const Login = () => {
     const [GetPosUserList, setGetPosUserList] = useState("");
 
     // find out UniqueId from redux for send in params
-    const UniqueId = authData?.usersInfo?.payload?.uniqe_id
-
+    const UniqueId = authData?.usersInfo?.payload?.uniqe_id ? authData?.usersInfo?.payload?.uniqe_id :""
+console.log(UniqueId,"UniqueId");
     // API for get all POS users...............................
     const getAllPOSUser = () => {
         let params = {

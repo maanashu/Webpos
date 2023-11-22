@@ -131,7 +131,7 @@ const Footer = (props) => {
                                     </li>
                                     <li>
                                         <Link href="#" className="subHeading16">
-                                        Sales Support </Link>
+                                        Sales Support track </Link>
                                     </li>
                                     </ul>
                             

@@ -27,6 +27,12 @@ import HomeIcon from "../public/images/homeIcon.svg"
 import ShoppingCart from "../public/images/Shopping_Cart.svg"
 import SearchLight from "../public/images/SearchLight.svg"
 import Bell from "../public/images/bell.svg"
+import scanImg from "../public/images/scanImg.svg"
+import arrowIcon from "../public/images/arrowIcon.svg"
+import moneyImg from "../public/images/moneyImg.svg"
+import jokerImg from "../public/images/jokerImg.svg"
+import storeImg from "../public/images/storeImg.svg"
+
 import OrderLocation from "../public/images/orderLocation.svg"
 import MoneyItem from "../public/images/moneyItem.svg"
 import Time from "../public/images/time.svg"
@@ -37,6 +43,11 @@ import bellIcon from "../public/images/bellIcon.svg"
 
  
 export{
+    storeImg,
+    jokerImg,
+    moneyImg,
+    arrowIcon,
+    scanImg,
     ArrowLeft,
     ArrowRight,
     DarkLeft,

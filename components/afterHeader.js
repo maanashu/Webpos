@@ -6,7 +6,7 @@ import * as Images from "../utilities/images";
 import SignUpModal from './signUpModal';
 
 const AfterHeader = () => {
-  const [key, setKey] = useState(Math.random());
+  const [key, setKey] = useState(Math.random( ));
   const [modalDetail, setModalDetail] = useState({
     show: false,
     title: "",
