@@ -39,56 +39,57 @@ console.log(UniqueId,"UniqueId");
     return (
         <>
             <div className='loginSection'>
-                <div className='container'>
-                    <div className='loginheading'>Welcome to <span>JOBR POS</span></div>
-                    <div className='row'>
-                        {authData?.loading ? (
-                            <>
-                                <div className="loaderOuter">
-                                    <div className="spinner-grow loaderSpinner text-center my-5"></div>
-                                </div>
-                            </>
-                        ) : (
-                            GetPosUserList?.pos_staff?.length > 0 ? (
+                <div className='loginheading'>Welcome to <span>JOBR POS</span></div>
+                <div className='authLoginSection'>
+                    <div className='container'>
+                        <div className='row'>
+                            {authData?.loading ? (
                                 <>
-                                    {GetPosUserList?.pos_staff.map((data, index) => {
-                                        return (
-                                            <div className='col-lg-3 col-md-6 ' key={index}>
-                                                <div className='loginCard active' onClick={() => router.push({ pathname: '/auth/password', query: { id: data?.user_id } })}>
-                                                    <figure className='loginIds'>
-                                                        <Image src={data?.user?.user_profiles?.profile_photo ? data?.user?.user_profiles?.profile_photo : Images.LoginFirst} alt="LoginIdImage" width="100" height="100" className="img-fluid loginIdImg" />
-                                                    </figure>
-                                                    <h2 className='loginMain'>{data?.user?.user_profiles?.firstname} {data?.user?.user_profiles?.lastname}</h2>
-
-                                                    {data?.user?.user_roles.length > 0 ? (
-                                                        data?.user?.user_roles?.map((data, index) => {
-                                                            return (
-                                                                <h4 className='loginSub'>{data?.role?.name}</h4>
-                                                            )
-                                                        })
-                                                    )
-                                                        :
-                                                        <h4 className='loginSub'>Admin / Manager</h4>
-                                                    }
-
-                                                    {data?.user?.api_tokens?.length > 0 ? (
-                                                        <>
-                                                            <h4 className='loginPara '>{moment(data?.user?.api_tokens[0]?.created_at).fromNow()}</h4>
-                                                            <h4 className='loginPara '>{moment(data?.user?.api_tokens[0]?.created_at).format('LT')}</h4>
-                                                        </>
-                                                    ) :
-                                                        ""}
-                                                </div>
-                                            </div>
-                                        );
-                                    })}
+                                    <div className="loaderOuter">
+                                        <div className="spinner-grow loaderSpinner text-center my-5"></div>
+                                    </div>
                                 </>
                             ) : (
-                                <h2>No POS user Found</h2>
-                            )
-                        )}
+                                GetPosUserList?.pos_staff?.length > 0 ? (
+                                    <>
+                                        {GetPosUserList?.pos_staff.map((data, index) => {
+                                            return (
+                                                <div className='col-lg-3 col-md-6 mt-4' key={index}>
+                                                    <div className='loginCard active' onClick={() => router.push({ pathname: '/auth/password', query: { id: data?.user_id } })}>
+                                                        <figure className='loginIds'>
+                                                            <Image src={data?.user?.user_profiles?.profile_photo ? data?.user?.user_profiles?.profile_photo : Images.LoginFirst} alt="LoginIdImage" width="100" height="100" className="img-fluid loginIdImg" />
+                                                        </figure>
+                                                        <h2 className='loginMain'>{data?.user?.user_profiles?.firstname} {data?.user?.user_profiles?.lastname}</h2>
 
-                        {/* <div className='col-lg-3 col-md-6 '>
+                                                        {data?.user?.user_roles.length > 0 ? (
+                                                            data?.user?.user_roles?.map((data, index) => {
+                                                                return (
+                                                                    <h4 className='loginSub'>{data?.role?.name}</h4>
+                                                                )
+                                                            })
+                                                        )
+                                                            :
+                                                            <h4 className='loginSub'>Admin / Manager</h4>
+                                                        }
+
+                                                        {data?.user?.api_tokens?.length > 0 ? (
+                                                            <>
+                                                                <h4 className='loginPara '>{moment(data?.user?.api_tokens[0]?.created_at).fromNow()}</h4>
+                                                                <h4 className='loginPara '>{moment(data?.user?.api_tokens[0]?.created_at).format('LT')}</h4>
+                                                            </>
+                                                        ) :
+                                                            ""}
+                                                    </div>
+                                                </div>
+                                            );
+                                        })}
+                                    </>
+                                ) : (
+                                    <h2>No POS user Found</h2>
+                                )
+                            )}
+
+                            {/* <div className='col-lg-3 col-md-6 '>
                             <div className='loginCard'>
                                 <figure className='loginIds'>
                                     <Image src={Images.LoginSecond} alt="LoginIdImage" className="img-fluid loginIdImg" />
@@ -154,15 +155,16 @@ console.log(UniqueId,"UniqueId");
                                 <h4 className='loginPara '>12:02 pm</h4>
                             </div>
                         </div> */}
-                        {/* <div className='col-lg-3 col-md-6 '>
+                            {/* <div className='col-lg-3 col-md-6 '>
                             <div className='newLoginCard'>
                             <i className="fa-sharp fa-light fa-plus plusIcon"></i>
                             <h2 className='loginMain'>New user</h2>
                             </div>
                         </div> */}
+                        </div>
                     </div>
                 </div>
-            </div >
+            </div>
         </>
     )
 }

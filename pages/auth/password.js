@@ -108,9 +108,6 @@ const Verify = () => {
                         </div>
                     </form>
                 </div>
-                <div className='dottedImg'>
-                    <Image src={Images.SecondStepper} alt="secondStep" className="img-fluid" />
-                </div>
             </div>
         </>
     )
