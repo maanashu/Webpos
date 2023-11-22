@@ -10,6 +10,7 @@ export default function Layout({ children, isLoggedIn, userType }) {
   const location = useRouter();
   const urlpath = location.pathname;
   const [activeSidebar, setActiveSidebar] = useState(true)
+  console.log(activeSidebar,"activeSidebar");
   const sidebarToggle = (value) => {
     setActiveSidebar(value)
   }
@@ -19,7 +20,7 @@ export default function Layout({ children, isLoggedIn, userType }) {
       <Sidebar sidebarToggle={(e) => sidebarToggle(e)} />
       <div className="rightWrapper">
         <main className={activeSidebar ? "show" : "hide"}>
-          <Navbar activeSidebar={activeSidebar} />
+          {/* <Navbar activeSidebar={activeSidebar} /> */}
           {children}
         </main>
       </div>
