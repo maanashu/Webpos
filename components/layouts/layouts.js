@@ -20,7 +20,7 @@ export default function Layout({ children, isLoggedIn, userType }) {
       <Sidebar sidebarToggle={(e) => sidebarToggle(e)} />
       <div className= {`rightWrapper ${activeSidebar ? 'show' : 'hide'}`}>
         <main>
-          {/* <Navbar activeSidebar={activeSidebar} /> */}
+          <Navbar activeSidebar={activeSidebar} />
           {children}
         </main>
       </div>

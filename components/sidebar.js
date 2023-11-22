@@ -17,7 +17,7 @@ const Sidebar = (props) => {
             </div>
             <div className='userDetails'>
                 <figure>
-                    <Image src={Images.SideLogo} alt="image" className="img-fluid" />
+                    <Image src={Images.HomeProfileImg} alt="image" className="img-fluid sidebarProfile" />
                 </figure>
                 <article>
                     <p className='userName'>Eugenia Salas</p>
