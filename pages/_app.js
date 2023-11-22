@@ -4,6 +4,8 @@ import "../public/css/customNew.css";
 import "../styles/website/custom_A.css";
 import "../public/css/responsive.css";
 import "../public/font/stylesheet.css";
+import "../public/css/custom_R.css";
+import "../public/css/deliveries.css";
 import "react-toastify/dist/ReactToastify.css";
 import 'react-phone-input-2/lib/style.css';
 import { ToastContainer } from "react-toastify";
