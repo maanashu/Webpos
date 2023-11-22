@@ -55,10 +55,11 @@ console.log(UniqueId,"UniqueId");
                                         {GetPosUserList?.pos_staff.map((data, index) => {
                                             return (
                                                 <div className='col-lg-3 col-md-6 mt-4' key={index}>
-                                                    <div className='loginCard active' onClick={() => router.push({ pathname: '/auth/password', query: { id: data?.user_id } })}>
+                                                    <div className='loginCard' onClick={() => router.push({ pathname: '/auth/password', query: { id: data?.user_id } })}>
                                                         <figure className='loginIds'>
                                                             <Image src={data?.user?.user_profiles?.profile_photo ? data?.user?.user_profiles?.profile_photo : Images.LoginFirst} alt="LoginIdImage" width="100" height="100" className="img-fluid loginIdImg" />
                                                         </figure>
+                                                        <div className='login'>
                                                         <h2 className='loginMain'>{data?.user?.user_profiles?.firstname} {data?.user?.user_profiles?.lastname}</h2>
 
                                                         {data?.user?.user_roles.length > 0 ? (
@@ -79,6 +80,7 @@ console.log(UniqueId,"UniqueId");
                                                             </>
                                                         ) :
                                                             ""}
+                                                            </div>
                                                     </div>
                                                 </div>
                                             );
