@@ -24,11 +24,19 @@ function App({ Component, pageProps }) {
   const toggleSidebar = () => {
     setActiveSidebar(prev => !prev)
   };
+  const LayoutPaths = [
+    '/home',
+    '/invoices',
+    '/mainDeliveries',
+    '/Product',
+    '/service',
+    '/web'
 
+  ]
   return (
 
     <>
-      {router.pathname.includes('home') ?
+      {LayoutPaths.some(path => router.pathname.includes(path)) ?
         <>
           <Layout activeSidebar={activeSidebar} toggleSidebar={() => { toggleSidebar() }}>
             <Component {...pageProps} />

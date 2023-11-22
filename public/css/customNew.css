@@ -83,7 +83,7 @@ figure {
     border-radius: 15px;
     background: #FFF;
     box-shadow: -2px 4px 25px 0px rgba(50, 80, 127, 0.02), -5px 10px 80px 0px rgba(50, 80, 127, 0.04);
-    padding: 24px;
+    padding: 18px;
     margin-top: 26px;
 }
 
@@ -103,7 +103,7 @@ figure {
 
 .saleHeading {
     color: #333B42;
-    font-size: 14px;
+    font-size: 13px;
     font-weight: 400;
 }
 
@@ -246,6 +246,11 @@ figure {
     position: absolute;
     width: 10px;
     height: 10px;
+    background-color: #F97066;
+    border-radius: 50%;
+    border: 2px solid #111633;
+    bottom: 3px;
+
 }
 
 .OrderBtn {

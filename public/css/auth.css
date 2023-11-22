@@ -599,16 +599,19 @@ body {
     border-radius: 30px;
     background: #FFF;
     padding: 30px 24px;
-    margin-top: 24px;
+    /* margin-top: 24px; */
+    height: 100%;
+    max-height: 260px;
 }
 
-.loginCard.active {
+.loginCard:hover{
     box-shadow: -3px 6px 7px 0px rgba(52, 79, 117, 0.03), -12px 28px 25px 0px rgba(52, 79, 117, 0.04), -31px 74px 80px 0px rgba(52, 79, 117, 0.07);
 }
 
 .loginIdImg {
-    height: 50px;
-    width: 50px;
+    height: 47px;
+    width: 47px;
+    border-radius: 50%;
 }
 
 .loginIds {
@@ -738,5 +741,30 @@ body {
 .passwordForm .errorMain {
     margin-top: 8px;
     margin-left: 18px;
+}
+.authLoginSection {
+    height: 66vh;
+    overflow: scroll;
+}
+.loaderOuter{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 66vh;
+}
+
+.loginSection::-webkit-scrollbar {
+  display: none !important;
+}
+.loginPasswordOtp{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.loginOtpSub{
+    margin-top: 24px;
+}
+.loginPasswordOtp .verifyBox{
+    margin-top: 65px;
 }
 /*login page css end*/
