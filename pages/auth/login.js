@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import * as Images from "../../utilities/images";
 import Image from "next/image";
 import { useDispatch, useSelector } from 'react-redux';
-import { getAllPosUser, selectLoginAuth } from '../../redux/slices/auth';
+import { getAllPosUser, logout, selectLoginAuth } from '../../redux/slices/auth';
 import moment from "moment";
 import { useRouter } from 'next/router';
 
@@ -11,10 +11,10 @@ const Login = () => {
     const router = useRouter();
     const dispatch = useDispatch();
     const [GetPosUserList, setGetPosUserList] = useState("");
-
+  
     // find out UniqueId from redux for send in params
-    const UniqueId = authData?.usersInfo?.payload?.uniqe_id ? authData?.usersInfo?.payload?.uniqe_id :""
-console.log(UniqueId,"UniqueId");
+    const UniqueId = authData?.usersInfo?.payload?.uniqe_id
+
     // API for get all POS users...............................
     const getAllPOSUser = () => {
         let params = {
@@ -24,17 +24,21 @@ console.log(UniqueId,"UniqueId");
             ...params,
             cb(res) {
                 if (res.status) {
-                    setGetPosUserList(res?.data?.payload)
+                    setGetPosUserList(res?.data?.payload?.pos_staff)
                 }
+               
             },
         })
         );
     };
 
     useEffect(() => {
-        getAllPOSUser()
+        if (UniqueId) {
+            getAllPOSUser();
+        }
+
         document.title = "Login";
-    }, []);
+    }, [UniqueId]);
 
     return (
         <>
@@ -42,16 +46,16 @@ console.log(UniqueId,"UniqueId");
                 <div className='container'>
                     <div className='loginheading'>Welcome to <span>JOBR POS</span></div>
                     <div className='row'>
-                        {authData?.loading ? (
+                        {!GetPosUserList ? (
                             <>
                                 <div className="loaderOuter">
                                     <div className="spinner-grow loaderSpinner text-center my-5"></div>
                                 </div>
                             </>
                         ) : (
-                            GetPosUserList?.pos_staff?.length > 0 ? (
+                            GetPosUserList?.length > 0 && GetPosUserList ?
                                 <>
-                                    {GetPosUserList?.pos_staff.map((data, index) => {
+                                    {GetPosUserList?.map((data, index) => {
                                         return (
                                             <div className='col-lg-3 col-md-6 ' key={index}>
                                                 <div className='loginCard active' onClick={() => router.push({ pathname: '/auth/password', query: { id: data?.user_id } })}>
@@ -83,9 +87,9 @@ console.log(UniqueId,"UniqueId");
                                         );
                                     })}
                                 </>
-                            ) : (
-                                <h2>No POS user Found</h2>
-                            )
+                                : (
+                                    <h2>No POS user Found</h2>
+                                )
                         )}
 
                         {/* <div className='col-lg-3 col-md-6 '>
