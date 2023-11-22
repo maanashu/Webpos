@@ -1,5 +1,5 @@
 import React from 'react'
-import * as Images from "../../utilities/images";
+import * as Images from "../../../utilities/images";
 import Image from "next/image";
 
 const SessionModal = () => {

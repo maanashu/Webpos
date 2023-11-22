@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import Image from "next/image";
 import * as Images from "../../utilities/images";
-import Sidebar from '../../components/layouts/sidebar';
+import Sidebar from '../../components/sidebar';
 
-const HomePage = () => {
+const Dashboard = () => {
 
     return (
         <>
@@ -14,4 +14,4 @@ const HomePage = () => {
     );
 };
 
-export default HomePage;
+export default Dashboard;

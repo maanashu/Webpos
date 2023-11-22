@@ -1,10 +1,10 @@
 // import Navbar from "./navbar.js";
-import Footer from "./footer.js";
+import Footer from "../footer.js";
 import { useRouter } from "next/router";
-import AfterHeader from './afterHeader.js';
-import Sidebar from "./layouts/sidebar.js";
+import AfterHeader from '../afterHeader.js';
+import Sidebar from "../sidebar.js";
 // import { Navbar } from "react-bootstrap";
-import Navbar from "./navbar.js";
+import Navbar from "../navbar.js";
 import { useState } from "react";
 export default function Layout({ children, isLoggedIn, userType }) {
   const location = useRouter();
@@ -14,7 +14,6 @@ export default function Layout({ children, isLoggedIn, userType }) {
     setActiveSidebar(value)
   }
 
-  console.log(activeSidebar, "sidebar value")
   return (
     <>
       <Sidebar sidebarToggle={(e) => sidebarToggle(e)} />

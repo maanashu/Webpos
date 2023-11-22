@@ -2,19 +2,51 @@ import React, { useState } from 'react'
 import * as Images from "../../utilities/images";
 import Image from "next/image";
 import PhoneInput from 'react-phone-input-2';
+import { useRouter } from 'next/router';
+import { selectLoginAuth } from '../../redux/slices/auth';
+import { toast } from "react-toastify";
+import withAuth from '../../components/withAuth';
+import { useSelector } from 'react-redux';
 
 const Verification = () => {
+    const authData = useSelector(selectLoginAuth)
+    const toastId = React.useRef(null)
+    const router = useRouter();
+
     const [phoneCode, SetPhoneCode] = useState("");
     const [phoneNo, setPhoneNo] = useState("");
+    
     const generateRandomName = () => {
         return Math.random().toString(36).substr(2, 10);
     };
+
+    // function for change the number and save number is state...............................
     const onChangePhoneNumber = (value, data) => {
         let phoneCode = data.dialCode;
         let phoneNumber = value.slice(data.dialCode.length);
         setPhoneNo(phoneNumber);
         SetPhoneCode(phoneCode);
     }
+
+    // function for submit number(in next button)...............................
+    const enterNumberSubmit = () => {
+        const phoneRegex = /^\d{10}$/;
+        if (!phoneRegex.test(phoneNo)) {
+            if (!toast.isActive(toastId.current)) {
+                toastId.current = toast.error("Please enter valid phone number");
+            }
+            return;
+        }
+
+        // function for store the number in local storage...............................
+        const dataToSave = {
+            phoneCode: `+${phoneCode}`,
+            phoneNo: phoneNo
+        };
+        localStorage.setItem("PhoneNumber", JSON.stringify(dataToSave));
+        router.push(`/auth/verifyOtp`);
+    }
+
     return (
         <>
             <div className='verificationSection'>
@@ -41,23 +73,28 @@ const Verification = () => {
                             <Image src={Images.AlertCircle} alt="alertImage" className="img-fluid alertImg" />
                         </div>
                         <div className='verifyBtn'>
-                            <button className='backverifyBtn w-100' type='submit'>
+                            {/* <button className='backverifyBtn w-100' type='submit'>
                                 <Image src={Images.ArrowLeft} alt="leftArrow" className="img-fluid leftImg" />
                                 Back
-                            </button>
-                            <button className='nextverifyBtn w-100' type='submit'>
-                                Next
-                                <Image src={Images.ArrowRight} alt="rightArrow" className="img-fluid rightImg" />
-                            </button>
+                            </button> */}
+                            {authData.loading ?
+                                <button className='nextverifyBtn w-100' type='button' disabled>
+                                    <span className="spinner-border spinner-border-sm"></span>
+                                </button> :
+                                <button className='nextverifyBtn w-100' type='button' onClick={() => enterNumberSubmit()} >
+                                    Next
+                                    <Image src={Images.ArrowRight} alt="rightArrow" className="img-fluid rightImg" />
+                                </button>
+                            }
                         </div>
                     </form>
                 </div>
                 <div className='dottedImg'>
-                <Image src={Images.FirstStepper} alt="firstStep" className="img-fluid" />
+                    <Image src={Images.FirstStepper} alt="firstStep" className="img-fluid" />
                 </div>
             </div>
         </>
     )
 }
 
-export default Verification
+export default withAuth(Verification)

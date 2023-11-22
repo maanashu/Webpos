@@ -1,6 +1,7 @@
 import Head from 'next/head'
 import { Inter } from '@next/font/google'
-import HomePage from './web/home-page'
+// import HomePage from './web/home-page'
+import Verification from './auth/verification'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -14,7 +15,7 @@ export default function Home({pageData, meta , isLoggedIn}) {
          <meta name="keywords" content={meta.keywords} /> */}
         <meta name="viewport" content="width=device-width, initial-scale=1" />
       </Head>
-      <HomePage/>
+      <Verification/>
     </>
   )
 }
