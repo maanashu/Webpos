@@ -59,7 +59,7 @@ console.log(UniqueId,"UniqueId");
                                                         <figure className='loginIds'>
                                                             <Image src={data?.user?.user_profiles?.profile_photo ? data?.user?.user_profiles?.profile_photo : Images.LoginFirst} alt="LoginIdImage" width="100" height="100" className="img-fluid loginIdImg" />
                                                         </figure>
-                                                        <div className='login'>
+                                                        <div className='loginMainHead'>
                                                         <h2 className='loginMain'>{data?.user?.user_profiles?.firstname} {data?.user?.user_profiles?.lastname}</h2>
 
                                                         {data?.user?.user_roles.length > 0 ? (
@@ -70,17 +70,17 @@ console.log(UniqueId,"UniqueId");
                                                             })
                                                         )
                                                             :
-                                                            <h4 className='loginSub'>Admin / Manager</h4>
+                                                            <h4 className='loginSub mt-3'>Admin / Manager</h4>
                                                         }
 
                                                         {data?.user?.api_tokens?.length > 0 ? (
                                                             <>
-                                                                <h4 className='loginPara '>{moment(data?.user?.api_tokens[0]?.created_at).fromNow()}</h4>
+                                                                <h4 className='loginPara mt-3'>{moment(data?.user?.api_tokens[0]?.created_at).fromNow()}</h4>
                                                                 <h4 className='loginPara '>{moment(data?.user?.api_tokens[0]?.created_at).format('LT')}</h4>
                                                             </>
                                                         ) :
                                                             ""}
-                                                            </div>
+                                                        </div>
                                                     </div>
                                                 </div>
                                             );

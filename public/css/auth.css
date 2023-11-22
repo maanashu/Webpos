@@ -767,4 +767,10 @@ body {
 .loginPasswordOtp .verifyBox{
     margin-top: 65px;
 }
+.loginMainHead {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
 /*login page css end*/
