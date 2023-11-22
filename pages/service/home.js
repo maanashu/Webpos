@@ -7,7 +7,7 @@ const Home = () => {
         <>
             <div className='serviceSection'>
                 <div className='container-fluid'>
-
+                 
                 </div>
             </div>
         </>
