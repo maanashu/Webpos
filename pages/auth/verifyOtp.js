@@ -61,7 +61,7 @@ const VerifyOtp = () => {
                 ...params,
                 cb(res) {
                     if (res) {
-                        router.push("/auth/login")
+                        router.push("/auth/successVerify")
                     }
                 },
             })

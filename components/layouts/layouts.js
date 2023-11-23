@@ -10,7 +10,6 @@ export default function Layout({ children, isLoggedIn, userType }) {
   const router = useRouter();
   const urlpath = router.pathname;
   const [activeSidebar, setActiveSidebar] = useState(true)
-  console.log(activeSidebar,"activeSidebar");
   const sidebarToggle = (value) => {
     setActiveSidebar(value)
   }

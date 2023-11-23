@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import * as Images from "../../utilities/images";
 import Image from "next/image";
 import { useDispatch, useSelector } from 'react-redux';
-import { getAllPosUser, logout, selectLoginAuth } from '../../redux/slices/auth';
+import { getAllPosUser, selectLoginAuth } from '../../redux/slices/auth';
 import moment from "moment";
 import { useRouter } from 'next/router';
 
@@ -26,7 +26,6 @@ const Login = () => {
                 if (res.status) {
                     setGetPosUserList(res?.data?.payload?.pos_staff)
                 }
-               
             },
         })
         );
@@ -36,8 +35,6 @@ const Login = () => {
         if (UniqueId) {
             getAllPOSUser();
         }
-
-        document.title = "Login";
     }, [UniqueId]);
 
     return (
@@ -91,7 +88,7 @@ const Login = () => {
                                         })}
                                     </>
                                 ) : (
-                                    <h2>No POS user Found</h2>
+                                    <h2 className='text-center my-5'>No POS user Found</h2>
                                 )
                             )}
 

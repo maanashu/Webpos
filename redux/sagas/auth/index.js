@@ -38,7 +38,7 @@ function* getAllPosUser(action) {
     if (resp.status) {
       yield put(setGetAllPosUser(resp.data));
       yield call(action.payload.cb, (action.res = resp));
-      toast.success(resp?.data?.msg);
+      // toast.success(resp?.data?.msg);
     }
     else {
       throw resp

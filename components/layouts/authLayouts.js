@@ -7,6 +7,7 @@ export default function AuthLayout({ children, isLoggedIn }) {
   const loginPaths = [
     '/',
     '/auth/verifyOtp',
+    '/auth/successVerify',
   ]
   return (
     <>
