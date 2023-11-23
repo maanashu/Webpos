@@ -28,7 +28,7 @@ function App({ Component, pageProps }) {
   return (
 
     <>
-      {router.pathname.includes('home') ||router.pathname.includes('Product') ?
+      {router.pathname.includes('home') ||router.pathname.includes('Product') ||router.pathname.includes('mainDeliveries') ? 
         <>
           <Layout activeSidebar={activeSidebar} toggleSidebar={() => { toggleSidebar() }}>
             <Component {...pageProps} />
