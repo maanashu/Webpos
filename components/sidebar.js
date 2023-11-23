@@ -8,7 +8,7 @@ const Sidebar = (props) => {
     const [activeSidebar, setActiveSidebar] = useState(true)
     props?.sidebarToggle(activeSidebar)
     return (
-        <div className={`main-sidebar ${activeSidebar ? 'full' : 'hide'}`} id="myNav">
+        <div className={`main-sidebar ${activeSidebar ? 'hide' : 'full'}`} id="myNav">
             <div className='sidebarAuth sidebarMain'>
                 <Image src={Images.SideLogo} alt="image" className="img-fluid" />
                 <div onClick={() => setActiveSidebar(prev => !prev)} className='ToggleIcon'>

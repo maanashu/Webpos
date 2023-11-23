@@ -12,7 +12,7 @@ const Product = () => {
                     <div className='row'>
                         {products && products.map((val, i) => {
                             return (
-                                <div className='col-lg-2'>
+                                <div className='col-xl-2 col-lg-3 col-md-4'>
                                     <div className='productsCard'>
                                         <figure>
                                             <Image src={Images.Marlboro} alt="image" className="img-fluid ProductIcon" />
