@@ -6,6 +6,7 @@ import { useRouter } from 'next/router';
 import { toast } from "react-toastify";
 import { useDispatch, useSelector } from 'react-redux';
 import { userMerchantLogin, selectLoginAuth } from '../../redux/slices/auth';
+import ProtectedRoute from '../../components/ProtectedRoute';
 
 
 const VerifyOtp = () => {
@@ -70,6 +71,7 @@ const VerifyOtp = () => {
 
     return (
         <>
+        <ProtectedRoute>
             <div className='verifyOtpSection verificationSection'>
                 <div className='verifyBox'>
                     <h1 className='verifyHeading'> Let’s verify your phone <br /> number.</h1>
@@ -123,6 +125,7 @@ const VerifyOtp = () => {
                     <Image src={Images.SecondStepper} alt="secondStep" className="img-fluid" />
                 </div>
             </div>
+           </ProtectedRoute>
         </>
     )
 }

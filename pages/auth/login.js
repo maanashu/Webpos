@@ -49,6 +49,7 @@ const Login = () => {
 
     return (
         <>
+        <ProtectedRoute>
             <div className='loginSection'>
                 <div className='loginheading'>Welcome to <span>JOBR POS</span></div>
                 <div className='authLoginSection'>
@@ -180,6 +181,7 @@ const Login = () => {
                     </div>
                 </div>
             </div>
+            </ProtectedRoute>
         </>
     )
 }

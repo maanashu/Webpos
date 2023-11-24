@@ -15,12 +15,13 @@ export default function Layout({ children, isLoggedIn, userType }) {
     setActiveSidebar(value)
   }
   const navbarPaths = [
-    '/home/overview'
+    '/home/overview',
   ]
   return (
     <>
       <Sidebar sidebarToggle={(e) => sidebarToggle(e)} />
-      <div className= {`rightWrapper ${activeSidebar ? 'show' : 'hide'}`}>
+      {/* <div className= {`rightWrapper ${activeSidebar ? 'show' : 'hide'}`}> */}
+      <div className='rightWrapper'>
         <main>
         {navbarPaths.includes(router.pathname) ? "" : <Navbar activeSidebar={activeSidebar} />}
           {children}

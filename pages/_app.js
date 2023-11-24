@@ -16,6 +16,7 @@ import Router, { useRouter } from "next/router";
 import { wrapper } from "../redux";
 import { useSelector } from "react-redux";
 import auth, { selectLoginAuth } from "../redux/slices/auth";
+import ProtectedRoute from "../components/ProtectedRoute";
 // import "animate.css/animate.min.css";
 
 function App({ Component, pageProps }) {
@@ -28,20 +29,20 @@ function App({ Component, pageProps }) {
     setActiveSidebar(prev => !prev)
   };
 
-  const LayoutPaths = [
-    '/home',
-    '/invoices',
-    '/mainDeliveries',
-    '/Product',
-    '/service',
-    '/web'
+  // const LayoutPaths = [
+  //   '/home',
+  //   '/invoices',
+  //   '/mainDeliveries',
+  //   '/Product',
+  //   '/service',
+  //   '/web'
 
-  ]
+  // ]
   return (
 
     <>
-      {LayoutPaths.some(path => router.pathname.includes(path)) ?
-  
+      {/* {LayoutPaths.some(path => router.pathname.includes(path)) ? */}
+      {authData?.posUserLoginDetails?.payload?.token ? 
         <>
           <Layout activeSidebar={activeSidebar} toggleSidebar={() => { toggleSidebar() }}>
             <Component {...pageProps} />

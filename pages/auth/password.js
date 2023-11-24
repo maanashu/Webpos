@@ -6,6 +6,7 @@ import { useRouter } from 'next/router';
 import { toast } from "react-toastify";
 import { useDispatch, useSelector } from 'react-redux';
 import { posUserLogin, selectLoginAuth } from '../../redux/slices/auth';
+import ProtectedRoute from '../../components/ProtectedRoute';
 
 const Verify = () => {
     const authData = useSelector(selectLoginAuth)
@@ -64,6 +65,7 @@ const Verify = () => {
 
     return (
         <>
+        <ProtectedRoute>
             <div className='verifyOtpSection loginPasswordOtp'>
                 <div className='loginOtpSub'>
                     <div className='loginheading'>Welcome to <span>JOBR POS</span></div>
@@ -112,6 +114,7 @@ const Verify = () => {
                     </div>
                 </div>
             </div>
+            </ProtectedRoute>
         </>
     )
 }
