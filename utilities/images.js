@@ -41,9 +41,18 @@ import trackingImage from "../public/images/trackingImage.svg"
 import commentBox from "../public/images/commentBox.svg"
 import bellIcon from "../public/images/bellIcon.svg"
 import Marlboro from "../public/images/marlboro.svg"
+import moneyTransactions from "../public/images/moneyTransactions.svg"
+import analticsImg from "../public/images/analticsImg.svg"
+import coinImg  from  "../public/images/coinImg.svg"
+import visaGreen  from  "../public/images/visaGreen.svg"
 
- 
+
+
 export{
+    visaGreen,
+    coinImg,
+    analticsImg,
+    moneyTransactions,
     storeImg,
     jokerImg,
     moneyImg,
