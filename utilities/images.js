@@ -60,9 +60,18 @@ import Add from "../public/images/Add.svg"
 import Shopping_Outline from "../public/images/Shopping_Outline.svg"
 import Services from "../public/images/Services.svg"
 import FilterIcon from "../public/images/FilterIcon.svg"
+import moneyTransactions from "../public/images/moneyTransactions.svg"
+import analticsImg from "../public/images/analticsImg.svg"
+import coinImg  from  "../public/images/coinImg.svg"
+import visaGreen  from  "../public/images/visaGreen.svg"
 
- 
+
+
 export{
+    visaGreen,
+    coinImg,
+    analticsImg,
+    moneyTransactions,
     storeImg,
     jokerImg,
     moneyImg,

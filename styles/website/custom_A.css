@@ -172,7 +172,9 @@
     border: 2px solid #e4e6f1;
     padding: 5px;
 }
-
+.main-sidebar.hide .sidebarProfile {
+    margin-left:10px;
+}
 .sidbarfixedMenus {
     margin-top: auto;
 }
