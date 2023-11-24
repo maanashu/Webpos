@@ -3,10 +3,20 @@ import * as Images from "../utilities/images";
 import Image from "next/image";
 
 const Navbar = () => {
+  let token
+    if (typeof window !== 'undefined') {  
+      token = localStorage.getItem("authToken") ? localStorage.getItem("authToken")  : "";
+    }
+    console.log(token,"tokentoken");
+
+   console.log(token ? "" :"container","testinggggggg");
+
   return (
     <>
+   
       <div className='headerSection'>
-        <div className='container'>
+      {console.log(token ? "" :"container","tokentoken1111")}
+        <div className={token ? "":"container"}>
           <div className='row'>
             <div className='col-lg-6 col-md-6 d-flex align-items-center '>
               <div className='leftHeader'>
