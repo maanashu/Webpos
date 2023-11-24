@@ -5,13 +5,14 @@ import { useDispatch, useSelector } from 'react-redux';
 import { getAllPosUser, logout, selectLoginAuth } from '../../redux/slices/auth';
 import moment from "moment";
 import { useRouter } from 'next/router';
+import ProtectedRoute from '../../components/ProtectedRoute';
 
 const Login = () => {
     const authData = useSelector(selectLoginAuth)
     const router = useRouter();
     const dispatch = useDispatch();
     const [GetPosUserList, setGetPosUserList] = useState("");
-  
+
     // find out UniqueId from redux for send in params
     const UniqueId = authData?.usersInfo?.payload?.uniqe_id
 
@@ -26,7 +27,7 @@ const Login = () => {
                 if (res.status) {
                     setGetPosUserList(res?.data?.payload?.pos_staff)
                 }
-               
+
             },
         })
         );
@@ -34,11 +35,17 @@ const Login = () => {
 
     useEffect(() => {
         if (UniqueId) {
+            // Client-side code here
             getAllPOSUser();
         }
-
-        document.title = "Login";
     }, [UniqueId]);
+    // useEffect(() => {
+    //     if (UniqueId) {
+    //         getAllPOSUser();
+    //     }
+
+    //     document.title = "Login";
+    // }, [UniqueId]);
 
     return (
         <>
@@ -64,27 +71,29 @@ const Login = () => {
                                                             <Image src={data?.user?.user_profiles?.profile_photo ? data?.user?.user_profiles?.profile_photo : Images.LoginFirst} alt="LoginIdImage" width="100" height="100" className="img-fluid loginIdImg" />
                                                         </figure>
                                                         <div className='login'>
-                                                        <h2 className='loginMain'>{data?.user?.user_profiles?.firstname} {data?.user?.user_profiles?.lastname}</h2>
+                                                            <h2 className='loginMain'>{data?.user?.user_profiles?.firstname} {data?.user?.user_profiles?.lastname}</h2>
 
-                                                        {data?.user?.user_roles.length > 0 ? (
-                                                            data?.user?.user_roles?.map((data, index) => {
-                                                                return (
-                                                                    <h4 className='loginSub'>{data?.role?.name}</h4>
-                                                                )
-                                                            })
-                                                        )
-                                                            :
-                                                            <h4 className='loginSub'>Admin / Manager</h4>
-                                                        }
+                                                            {data?.user?.user_roles.length > 0 ? (
+                                                                data?.user?.user_roles?.map((data, index) => {
+                                                                    return (
+                                                                        <div>
+                                                                        <h4 className='loginSub'>{data?.role?.name}</h4>
+                                                                         </div>
+                                                                    )
+                                                                })
+                                                            )
+                                                                :
+                                                                <h4 className='loginSub'>Admin / Manager</h4>
+                                                            }
 
-                                                        {data?.user?.api_tokens?.length > 0 ? (
-                                                            <>
-                                                                <h4 className='loginPara '>{moment(data?.user?.api_tokens[0]?.created_at).fromNow()}</h4>
-                                                                <h4 className='loginPara '>{moment(data?.user?.api_tokens[0]?.created_at).format('LT')}</h4>
-                                                            </>
-                                                        ) :
-                                                            ""}
-                                                            </div>
+                                                            {data?.user?.api_tokens?.length > 0 ? (
+                                                                <>
+                                                                    <h4 className='loginPara '>{moment(data?.user?.api_tokens[0]?.created_at).fromNow()}</h4>
+                                                                    <h4 className='loginPara '>{moment(data?.user?.api_tokens[0]?.created_at).format('LT')}</h4>
+                                                                </>
+                                                            ) :
+                                                                ""}
+                                                        </div>
                                                     </div>
                                                 </div>
                                             );

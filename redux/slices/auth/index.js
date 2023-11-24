@@ -36,8 +36,9 @@ export const authSlice = createSlice({
       state.posUserLoginDetails = action?.payload
     },
     logout: (state, action) => {
+      console.log(state,"state");
       state.loading = false;
-      state.auth = null
+      return initialState;
     },
    
     onErrorStopLoad: (state) => {

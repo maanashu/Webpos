@@ -14,16 +14,20 @@ import AuthLayout from "../components/layouts/authLayouts";
 import { useEffect, useState } from "react";
 import Router, { useRouter } from "next/router";
 import { wrapper } from "../redux";
+import { useSelector } from "react-redux";
+import auth, { selectLoginAuth } from "../redux/slices/auth";
 // import "animate.css/animate.min.css";
 
 function App({ Component, pageProps }) {
   const router = useRouter()
-  console.log(router.pathname, "router");
   const [activeSidebar, setActiveSidebar] = useState(true)
+  const authData = useSelector(selectLoginAuth)
+  console.log(authData?.posUserLoginDetails?.payload?.token,"jaiiiiiiiiii");
 
   const toggleSidebar = () => {
     setActiveSidebar(prev => !prev)
   };
+
   const LayoutPaths = [
     '/home',
     '/invoices',
@@ -37,6 +41,7 @@ function App({ Component, pageProps }) {
 
     <>
       {LayoutPaths.some(path => router.pathname.includes(path)) ?
+  
         <>
           <Layout activeSidebar={activeSidebar} toggleSidebar={() => { toggleSidebar() }}>
             <Component {...pageProps} />

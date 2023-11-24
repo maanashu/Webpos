@@ -1,4 +1,5 @@
 
+import ProtectedRoute from '../ProtectedRoute';
 import Navbar from '../navbar'
 import { useRouter } from 'next/router';
 
@@ -9,11 +10,13 @@ export default function AuthLayout({ children, isLoggedIn }) {
     '/auth/verifyOtp',
   ]
   return (
+    <ProtectedRoute>
     <>
     {loginPaths.includes(router.pathname) ? "" : <Navbar />}
       <div className='main_box loginBox_'>
         <main>{children}</main>
       </div>
     </>
+    </ProtectedRoute>
   )
 }

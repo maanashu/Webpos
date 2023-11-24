@@ -1,14 +1,19 @@
 import { useRouter } from "next/router";
 import { useEffect } from "react";
+import { useSelector } from "react-redux";
+import { selectLoginAuth } from "../redux/slices/auth";
 
 export default function withAuth(Component) {
   return function WithAuth(props) {
     const router = useRouter();
-    let token
-    if (typeof window !== 'undefined') {  
-      token = localStorage.getItem("authToken") ? localStorage.getItem("authToken")  : "";
-    }
-    console.log(token,"token");
+    const authData = useSelector(selectLoginAuth)
+    const token = authData?.posUserLoginDetails?.payload?.token
+    // let token
+    // if (typeof window !== 'undefined') {  
+    //   token = localStorage.getItem("authToken") ? localStorage.getItem("authToken")  : "";
+    // }
+    // console.log(token,"token");
+
     useEffect(() => {
       async function checkAuth() {
         if (token ) {
