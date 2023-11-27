@@ -1,0 +1,61 @@
+@import url('https://fonts.googleapis.com/css2?family=Rubik:wght@300;400;500;600;700;800&display=swap');
+
+/* Common Css */
+.textSmall {
+    color: #93370D;
+    font-size: 14px;
+    font-weight: 500;
+}
+.textBig {
+    color: #93370D;
+    font-size: 24px;
+    font-weight: 600;
+}
+
+/* Common Css */
+
+
+
+/*  Start Deliveries */
+.deliverBox {
+    border-radius: 16px;
+    border: #F79009;
+    background: #FFEEB3;
+    padding: 30px 20px ;
+}
+.deliverBox.boxDeliverBlue {
+    background: #D7DEFF;
+}
+.boxDeliverBlue .textSmall {
+    color: #172461;
+}
+.boxDeliverBlue .textBig {
+    color: #172461;
+
+}
+.boxDeliverGreen{
+border:#039855;
+background:#D1FADF;
+}
+.boxDeliverGreen .textSmall {
+    color:#003921;
+}
+.boxDeliverGreen .textBig {
+    color: #003921;
+   
+}
+.boxDeliversky {
+    border: #58C2E8;
+    background:#BFEEFF;
+}
+.boxDeliversky .textSmall {
+    color: #1F6A84;
+}
+.boxDeliversky .textBig {
+    color:#1F6A84;
+   
+}
+.totalIcons {
+    margin-bottom: 18px;
+}
+/* End Deliveries */

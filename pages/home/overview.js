@@ -1,15 +1,17 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import * as Images from "../../utilities/images";
 import Image from "next/image";
 import CustomModal from "../../components/customModal/CustomModal";
 import SessionModal from '../../components/modals/homeModals/sessionModal';
-import { logout } from '../../redux/slices/auth';
-import { useDispatch } from 'react-redux';
+import { logout, selectLoginAuth } from '../../redux/slices/auth';
+import { useDispatch, useSelector } from 'react-redux';
 import { useRouter } from 'next/router';
 import withAuth from '../../components/withAuth';
 
 
 const Overview = () => {
+    const authData = useSelector(selectLoginAuth)
+    const token = authData?.posUserLoginDetails?.payload?.token
     const router = useRouter();
     const dispatch = useDispatch();
     const [key, setKey] = useState(Math.random());
@@ -22,9 +24,9 @@ const Overview = () => {
 
     const userLogout = () => {
         dispatch(logout());
+        router.push("/auth/verification")
         localStorage.removeItem('authToken');
         localStorage.removeItem('persist:root');
-        router.push("/auth/verification")
     };
     
     //closeModal
@@ -46,6 +48,19 @@ const Overview = () => {
         });
         setKey(Math.random());
     };
+
+    useEffect(() => {
+        // Check if the user is logged in
+        // const isLoggedIn = /* your authentication check here */;
+    
+        if (router.pathname ==='/home/overview') {
+          // Redirect to the dashboard
+          router.push('/home/overview');
+        }
+      }, []);
+
+
+
     return (
         <>
             <div className='homeOverview'>

@@ -1,4 +1,3 @@
-
 import Navbar from '../navbar'
 import { useRouter } from 'next/router';
 
