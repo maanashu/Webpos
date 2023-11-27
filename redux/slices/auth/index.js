@@ -6,7 +6,6 @@ const initialState = {
   posUserLoginDetails: {},
   isLoggedIn: false,
   loading: false,
-
 };
 
 export const authSlice = createSlice({

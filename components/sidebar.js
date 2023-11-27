@@ -1,16 +1,23 @@
-import React, { useState } from 'react'
+import React, { use, useState } from 'react'
 import Link from 'next/link'
 import * as Images from "../utilities/images";
 import Image from "next/image";
 import { ListGroup, ListGroupItem } from 'react-bootstrap';
+import { useRouter } from 'next/router';
+import { selectLoginAuth } from '../redux/slices/auth';
+import { useSelector } from 'react-redux';
 
 const Sidebar = (props) => {
     const [activeSidebar, setActiveSidebar] = useState(true)
+    const authData = useSelector(selectLoginAuth)
+
+    console.log(authData, "auth dataa")
+    const router = useRouter()
     props?.sidebarToggle(activeSidebar)
     return (
         <div className={`main-sidebar ${activeSidebar ? 'hide' : 'full'}`} id="myNav">
             <div className='sidebarAuth sidebarMain'>
-                <Image src={Images.SideLogo} alt="image" className="img-fluid SideLogo" />
+                <Image src={Images.SideLogo} alt="image" className="img-fluid SideLogo" style={{ cursor: "pointer" }} onClick={() => router.push('/home/overview')} />
                 <Image src={Images.Logo} alt="image" className="img-fluid Logo" />
                 <div onClick={() => setActiveSidebar(prev => !prev)} className='ToggleIcon'>
                     <Image src={Images.sideToggle} alt="image" className="img-fluid sideToggle" />
@@ -18,11 +25,24 @@ const Sidebar = (props) => {
             </div>
             <div className='userDetails'>
                 <figure>
-                    <Image src={Images.LoginSecond} alt="image" className="img-fluid sidebarProfile" />
+                    <Image src={authData?.posUserLoginDetails?.payload?.user_profiles?.profile_photo ? authData?.posUserLoginDetails?.payload?.user_profiles?.profile_photo : Images.HomeProfileImg} alt="image" width={100} height={100} className="img-fluid sidebarProfile" />
                 </figure>
                 <article>
-                    <p className='userName'>Eugenia Salas</p>
-                    <p className='userPosition'>POS Cashier</p>
+                    <p className='userName'>{`${authData?.posUserLoginDetails?.payload?.user_profiles?.firstname} ${authData?.posUserLoginDetails?.payload?.user_profiles?.lastname}`}</p>
+                    <p className='userPosition'>
+                        {authData?.posUserLoginDetails?.payload?.user_roles.length > 0 ? (
+                            authData?.posUserLoginDetails?.payload?.user_roles?.map((data, index) => {
+                                return (
+                                    <div>
+                                        <h4 className='loginSub'>{data?.role?.name}</h4>
+                                    </div>
+                                )
+                            })
+                        )
+                            :
+                            <h4 className='loginSub'>Admin / Manager</h4>
+                        }
+                    </p>
                 </article>
             </div>
             <ListGroup className="sidebarMenus navbar_overlay_content_">
