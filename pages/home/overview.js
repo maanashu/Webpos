@@ -3,7 +3,7 @@ import * as Images from "../../utilities/images";
 import Image from "next/image";
 import CustomModal from "../../components/customModal/CustomModal";
 import SessionModal from '../../components/modals/homeModals/sessionModal';
-import { logout, selectLoginAuth } from '../../redux/slices/auth';
+import { selectLoginAuth } from '../../redux/slices/auth';
 import { useDispatch, useSelector } from 'react-redux';
 import { useRouter } from 'next/router';
 import withAuth from '../../components/withAuth';
@@ -21,14 +21,6 @@ const Overview = () => {
         flag: "",
     });
 
-
-    const userLogout = () => {
-        dispatch(logout());
-        router.push("/auth/verification")
-        localStorage.removeItem('authToken');
-        localStorage.removeItem('persist:root');
-    };
-    
     //closeModal
     const handleOnCloseModal = () => {
         setModalDetail({
@@ -52,12 +44,12 @@ const Overview = () => {
     useEffect(() => {
         // Check if the user is logged in
         // const isLoggedIn = /* your authentication check here */;
-    
-        if (router.pathname ==='/home/overview') {
-          // Redirect to the dashboard
-          router.push('/home/overview');
+
+        if (router.pathname === '/home/overview') {
+            // Redirect to the dashboard
+            router.push('/home/overview');
         }
-      }, []);
+    }, []);
 
 
 
@@ -132,7 +124,7 @@ const Overview = () => {
                                         handleUserProfile("trackingmodal")
                                     }} />
                                 </div>
-                                <div className='lockScreenBox' onClick={() => userLogout()}>
+                                <div className='lockScreenBox'>
                                     <h4 className='linkHeading'>Lock Screen</h4>
                                     <Image src={Images.ProductLock} alt="LockImage" className="img-fluid " />
                                 </div>
@@ -168,7 +160,7 @@ const Overview = () => {
                                         <button className='OrderBtn'>12 New Orders</button>
                                         <div className='bellImg'>
                                             <figure className='bellOuter'>
-                                            <Image src={Images.bellIcon} alt="BellImage" className="img-fluid bellImage_" />
+                                                <Image src={Images.bellIcon} alt="BellImage" className="img-fluid bellImage_" />
                                             </figure>
                                         </div>
 
