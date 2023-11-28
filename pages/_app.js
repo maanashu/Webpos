@@ -23,27 +23,36 @@ function App({ Component, pageProps }) {
   const router = useRouter()
   const [activeSidebar, setActiveSidebar] = useState(true)
   const authData = useSelector(selectLoginAuth)
-  console.log(authData?.posUserLoginDetails?.payload?.token,"jaiiiiiiiiii");
+  console.log(authData?.posUserLoginDetails?.payload?.token, "reduxtoken");
 
   const toggleSidebar = () => {
     setActiveSidebar(prev => !prev)
   };
 
-  // const LayoutPaths = [
-  //   '/home',
-  //   '/invoices',
-  //   '/mainDeliveries',
-  //   '/Product',
-  //   '/service',
-  //   '/web'
+  const LayoutPaths = [
+    '/home',
+    '/invoices',
+    '/mainDeliveries',
+    '/Product',
+    '/service',
+    '/web'
 
-  // ]
+  ]
   return (
 
     <>
       {/* {LayoutPaths.some(path => router.pathname.includes(path)) ? */}
-      {authData?.posUserLoginDetails?.payload?.token ? 
-        <>
+      {authData?.posUserLoginDetails?.payload?.token === undefined ?
+          <>
+            <AuthLayout>
+              <Component {...pageProps} />
+              <ToastContainer
+                autoClose={800}
+              />
+            </AuthLayout>
+          </>
+          : 
+          <>
           <Layout activeSidebar={activeSidebar} toggleSidebar={() => { toggleSidebar() }}>
             <Component {...pageProps} />
             <ToastContainer
@@ -51,16 +60,7 @@ function App({ Component, pageProps }) {
             />
           </Layout>
         </>
-        :
-        <>
-          <AuthLayout>
-            <Component {...pageProps} />
-            <ToastContainer
-              autoClose={800}
-            />
-          </AuthLayout>
-        </>
-
+        
       }
     </>
   );

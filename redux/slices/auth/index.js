@@ -2,7 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
   usersInfo: {},
-  allPosUser: {},
+  // allPosUser: {},
   posUserLoginDetails: {},
   isLoggedIn: false,
   loading: false,
@@ -25,7 +25,7 @@ export const authSlice = createSlice({
     },
     setGetAllPosUser: (state, action) => {
       state.loading = false;
-      state.allPosUser = action?.payload
+      // state.allPosUser = action?.payload
     },
     posUserLogin: (state) => {
       state.loading = true;
