@@ -74,6 +74,8 @@ import appointmentCalender  from  "../public/images/appointmentCalender.svg"
 import Appointmenttime  from  "../public/images/Appointmenttime.svg"
 import CardIcons  from  "../public/images/CardIcons.png"
 import cardThree  from  "../public/images/cardThree.png"
+import plusCircleOutline  from  "../public/images/plus-circle_Outline.svg"
+import commentText  from  "../public/images/comment-text.svg"
 
 
 
@@ -153,5 +155,7 @@ export{
     appointmentCalender,
     Appointmenttime,
     CardIcons,
-    cardThree
+    cardThree,
+    plusCircleOutline,
+    commentText
 };

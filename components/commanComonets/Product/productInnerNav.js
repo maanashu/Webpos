@@ -30,44 +30,202 @@ const ProductInnerNav = () => {
                             <div className='FilterMultiSelect'>
                                 <div class="accordion" id="accordionExample">
                                     <div class="accordion-item">
-                                        <h2 class="accordion-header" id="headingOne">
-                                            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                        <h2 class="accordion-header" id="Category">
+                                            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#CategoryBox" aria-expanded="true" aria-controls="CategoryBox">
                                                 Category
                                             </button>
                                         </h2>
-                                        <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+                                        <div id="CategoryBox" class="accordion-collapse collapse show" aria-labelledby="Category" data-bs-parent="#accordionExample">
                                             <div class="accordion-body">
-                                                <label><input type='checkbox'/>Health</label>
-                                                <label><input type='checkbox'/>Health</label>
-                                                <label><input type='checkbox'/>Health</label>
-                                                <label><input type='checkbox'/>Health</label>
-                                                <label><input type='checkbox'/>Health</label>
-                                                <label><input type='checkbox'/>Health</label>
-                                                <label><input type='checkbox'/>Health</label>
-                                                <label><input type='checkbox'/>Health</label>
-                                                <label><input type='checkbox'/>Health</label>
+                                                <label class="custom-checkbox">
+                                                    <input type="checkbox" />
+                                                    <span class="checkmark"></span>
+                                                    <span className='filteredheading'>Health</span>
+                                                </label>
+                                                <label class="custom-checkbox">
+                                                    <input type="checkbox" />
+                                                    <span class="checkmark"></span>
+                                                    <span className='filteredheading'>Music</span>
+                                                </label>
+                                                <label class="custom-checkbox">
+                                                    <input type="checkbox" />
+                                                    <span class="checkmark"></span>
+                                                    <span className='filteredheading'>Food</span>
+                                                </label>
+                                                <label class="custom-checkbox">
+                                                    <input type="checkbox" />
+                                                    <span class="checkmark"></span>
+                                                    <span className='filteredheading'>Pets</span>
+                                                </label>
+                                                <label class="custom-checkbox">
+                                                    <input type="checkbox" />
+                                                    <span class="checkmark"></span>
+                                                    <span className='filteredheading'>Nutrition</span>
+                                                </label>
+                                                <label class="custom-checkbox">
+                                                    <input type="checkbox" />
+                                                    <span class="checkmark"></span>
+                                                    <span className='filteredheading'>Cars</span>
+                                                </label>
+                                                <label class="custom-checkbox">
+                                                    <input type="checkbox" />
+                                                    <span class="checkmark"></span>
+                                                    <span className='filteredheading'>Building</span>
+                                                </label>
+                                                <label class="custom-checkbox">
+                                                    <input type="checkbox" />
+                                                    <span class="checkmark"></span>
+                                                    <span className='filteredheading'>Laws</span>
+                                                </label>
+                                                <label class="custom-checkbox">
+                                                    <input type="checkbox" />
+                                                    <span class="checkmark"></span>
+                                                    <span className='filteredheading'>Love</span>
+                                                </label>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="accordion-item">
-                                        <h2 class="accordion-header" id="headingTwo">
-                                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-                                                Accordion Item #2
+                                        <h2 class="accordion-header" id="Availability">
+                                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#AvailabilityBox" aria-expanded="false" aria-controls="AvailabilityBox">
+                                                Availability
                                             </button>
                                         </h2>
-                                        <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
+                                        <div id="AvailabilityBox" class="accordion-collapse collapse show" aria-labelledby="Availability" data-bs-parent="#accordionExample">
                                             <div class="accordion-body">
+                                                <label class="custom-checkbox">
+                                                    <input type="checkbox" />
+                                                    <span class="checkmark"></span>
+                                                    <span className='filteredheading'>Today</span>
+                                                </label>
+                                                <label class="custom-checkbox">
+                                                    <input type="checkbox" />
+                                                    <span class="checkmark"></span>
+                                                    <span className='filteredheading'>Tomorrow</span>
+                                                </label>
+                                                <label class="custom-checkbox">
+                                                    <input type="checkbox" />
+                                                    <span class="checkmark"></span>
+                                                    <span className='filteredheading'>This Week</span>
+                                                </label>
+                                                <label class="custom-checkbox">
+                                                    <input type="checkbox" />
+                                                    <span class="checkmark"></span>
+                                                    <span className='filteredheading'>This Month</span>
+                                                </label>
+                                                <label class="custom-checkbox">
+                                                    <input type="checkbox" />
+                                                    <span class="checkmark"></span>
+                                                    <span className='filteredheading'>Anytime</span>
+                                                </label>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="accordion-item">
-                                        <h2 class="accordion-header" id="headingThree">
-                                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-                                                Accordion Item #3
+                                        <h2 class="accordion-header" id="Duration">
+                                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#DurationBox" aria-expanded="false" aria-controls="DurationBox">
+                                                Duration
                                             </button>
                                         </h2>
-                                        <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#accordionExample">
+                                        <div id="DurationBox" class="accordion-collapse collapse" aria-labelledby="Duration" data-bs-parent="#accordionExample">
                                             <div class="accordion-body">
+                                                <label class="custom-checkbox">
+                                                    <input type="checkbox" />
+                                                    <span class="checkmark"></span>
+                                                    <span className='filteredheading'>Today</span>
+                                                </label>
+                                                <label class="custom-checkbox">
+                                                    <input type="checkbox" />
+                                                    <span class="checkmark"></span>
+                                                    <span className='filteredheading'>Tomorrow</span>
+                                                </label>
+                                                <label class="custom-checkbox">
+                                                    <input type="checkbox" />
+                                                    <span class="checkmark"></span>
+                                                    <span className='filteredheading'>This Week</span>
+                                                </label>
+                                                <label class="custom-checkbox">
+                                                    <input type="checkbox" />
+                                                    <span class="checkmark"></span>
+                                                    <span className='filteredheading'>This Month</span>
+                                                </label>
+                                                <label class="custom-checkbox">
+                                                    <input type="checkbox" />
+                                                    <span class="checkmark"></span>
+                                                    <span className='filteredheading'>Anytime</span>
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="accordion-item">
+                                        <h2 class="accordion-header" id="Location">
+                                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#LocationBox" aria-expanded="false" aria-controls="LocationBox">
+                                                Location
+                                            </button>
+                                        </h2>
+                                        <div id="LocationBox" class="accordion-collapse collapse" aria-labelledby="Location" data-bs-parent="#accordionExample">
+                                            <div class="accordion-body">
+                                                <label class="custom-checkbox">
+                                                    <input type="checkbox" />
+                                                    <span class="checkmark"></span>
+                                                    <span className='filteredheading'>Today</span>
+                                                </label>
+                                                <label class="custom-checkbox">
+                                                    <input type="checkbox" />
+                                                    <span class="checkmark"></span>
+                                                    <span className='filteredheading'>Tomorrow</span>
+                                                </label>
+                                                <label class="custom-checkbox">
+                                                    <input type="checkbox" />
+                                                    <span class="checkmark"></span>
+                                                    <span className='filteredheading'>This Week</span>
+                                                </label>
+                                                <label class="custom-checkbox">
+                                                    <input type="checkbox" />
+                                                    <span class="checkmark"></span>
+                                                    <span className='filteredheading'>This Month</span>
+                                                </label>
+                                                <label class="custom-checkbox">
+                                                    <input type="checkbox" />
+                                                    <span class="checkmark"></span>
+                                                    <span className='filteredheading'>Anytime</span>
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="accordion-item">
+                                        <h2 class="accordion-header" id="Pricing">
+                                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#PricingBox" aria-expanded="false" aria-controls="PricingBox">
+                                                Pricing
+                                            </button>
+                                        </h2>
+                                        <div id="PricingBox" class="accordion-collapse collapse" aria-labelledby="Pricing" data-bs-parent="#accordionExample">
+                                            <div class="accordion-body">
+                                                <label class="custom-checkbox">
+                                                    <input type="checkbox" />
+                                                    <span class="checkmark"></span>
+                                                    <span className='filteredheading'>Today</span>
+                                                </label>
+                                                <label class="custom-checkbox">
+                                                    <input type="checkbox" />
+                                                    <span class="checkmark"></span>
+                                                    <span className='filteredheading'>Tomorrow</span>
+                                                </label>
+                                                <label class="custom-checkbox">
+                                                    <input type="checkbox" />
+                                                    <span class="checkmark"></span>
+                                                    <span className='filteredheading'>This Week</span>
+                                                </label>
+                                                <label class="custom-checkbox">
+                                                    <input type="checkbox" />
+                                                    <span class="checkmark"></span>
+                                                    <span className='filteredheading'>This Month</span>
+                                                </label>
+                                                <label class="custom-checkbox">
+                                                    <input type="checkbox" />
+                                                    <span class="checkmark"></span>
+                                                    <span className='filteredheading'>Anytime</span>
+                                                </label>
                                             </div>
                                         </div>
                                     </div>
