@@ -64,6 +64,16 @@ import moneyTransactions from "../public/images/moneyTransactions.svg"
 import analticsImg from "../public/images/analticsImg.svg"
 import coinImg  from  "../public/images/coinImg.svg"
 import visaGreen  from  "../public/images/visaGreen.svg"
+import AddProduct  from  "../public/images/addProduct.svg"
+import ShoppingOutline  from  "../public/images/Shopping-Outline.svg"
+import Cancelproduct  from  "../public/images/Cancelproduct.svg"
+import PauseCircleOutline  from  "../public/images/Pause Circle_Outline.svg"
+import RightArrow  from  "../public/images/RightArrow.svg"
+import productService  from  "../public/images/productService.svg"
+import appointmentCalender  from  "../public/images/appointmentCalender.svg"
+import Appointmenttime  from  "../public/images/Appointmenttime.svg"
+import CardIcons  from  "../public/images/CardIcons.png"
+import cardThree  from  "../public/images/cardThree.png"
 
 
 
@@ -134,4 +144,14 @@ export{
     Shopping_Outline,
     Services,
     FilterIcon,
+    AddProduct,
+    ShoppingOutline,
+    Cancelproduct,
+    PauseCircleOutline,
+    RightArrow,
+    productService,
+    appointmentCalender,
+    Appointmenttime,
+    CardIcons,
+    cardThree
 };

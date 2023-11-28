@@ -172,9 +172,11 @@
     border: 2px solid #e4e6f1;
     padding: 5px;
 }
+
 .main-sidebar.hide .sidebarProfile {
-    margin-left:10px;
+    margin-left: 10px;
 }
+
 .sidbarfixedMenus {
     margin-top: auto;
 }
@@ -203,7 +205,45 @@
 }
 
 /* End Sidebar Css*/
+/* Start Filter Multiselect */
+.filterDropSelect{
+    position: relative;
+}
+.FilterMultiSelect {
+    position: absolute;
+    right: 0;
+    z-index: 99;
+    width: 300px;
+    max-width: 300px;
+    border-radius: 20px;
+    padding: 10px 18px;
+    border: 1px solid var(--primary-p-50-main, #F5F6FC);
+    background: var(--surfaces-s-top, #FFF);
+    box-shadow:-31.03472px 73.73497px 80px 0px rgba(52, 79, 117, 0.07);
+}
+.FilterMultiSelect .accordion-item{
+    border: none !important;
+}
+.FilterMultiSelect .accordion-button:focus {
+    z-index: 3;
+    border-color:transparent;
+    outline: 0;
+    box-shadow: none;
+}
+.accordion-button:not(.collapsed) {
+    color: #263682;
+    background-color: transparent;
+    box-shadow: inset 0 -1px 0 rgba(0,0,0,.125);
+}
+.accordion-button::after {
+    background-image: url("../../public/images/Arrow_Down.svg");
 
+}
+.accordion-button:not(.collapsed)::after {
+    background-image: url("../../public/images/Arrow_Down.svg");
+    transform: rotate(-180deg);
+}
+/* Start Filter Multiselect */
 /* Start Product  */
 .productNavbar {
     display: flex;
@@ -212,17 +252,20 @@
     margin: 0 22px 15px 11px;
 
 }
+
 .ProductAbout {
     color: #263682;
     font-size: 16px;
     font-weight: 500;
     letter-spacing: -0.32px;
 }
+
 .productCount {
-    color:#9BA8E3;
+    color: #9BA8E3;
     font-size: 12px;
     font-weight: 400;
 }
+
 .ProductsearchBar {
     position: relative;
 }
@@ -279,7 +322,8 @@
     border-radius: var(--main-system-12-px, 12px);
     mix-blend-mode: multiply;
     max-width: 250px;
-    object-fit: fill;
+    max-height: 150px;
+    object-fit: cover;
 }
 
 .productDetails {
@@ -321,9 +365,22 @@
 .rightSidebarIcon {
     width: 50px;
 }
-.rightSidebarItems{
-   text-align: center;
+
+.rightSidebarItems {
+    text-align: center;
 }
+
+.rightSidebarItems:last-child {
+    position: fixed;
+    bottom: 32px;
+    right: 30px;
+}
+
+.rightSidebarItems.active img {
+    background: #F5F6FC;
+    border-radius: 12px;
+}
+
 .productImageBox {
     position: relative;
 }
@@ -355,5 +412,96 @@
     border: 1px solid #fff;
     box-shadow: -2.52875px 6.00803px 6.51852px 0px rgba(52, 79, 117, 0.03), -11.95411px 28.40162px 25.48148px 0px rgba(52, 79, 117, 0.04), -31.03472px 73.73497px 80px 0px rgba(52, 79, 117, 0.07), 4px -8px 30px 0px rgba(52, 79, 117, 0.08);
 }
-
 /* End Product  */
+/* Start Product Service */
+.Tomorrowappointment {
+    padding: 3px 6px 4px 6px;
+    margin:5px 12px;
+    border-radius: 20px;
+    background: #EFFBFF;
+    display: inline-block;
+}
+.productserviceName {
+    color: #263682;
+    font-size: 12px;
+    font-weight: 500;
+    padding: 7px 0;
+}
+.productsCard svg {
+    width: 16px;
+    height: 16px;
+    margin-right: 5px;
+}
+
+.Ontime {
+    font-size: 12px;
+    font-weight: 500;
+}
+
+.Tomorrowappointment path, .Tomorrowappointment .Ontime {
+    fill: #47B0D6;
+    color: #47B0D6;
+
+}
+
+.Timezone {
+    margin: 5px 12px 0;
+}
+
+.AppointmentEstTime {
+    color: #4659B5;
+    font-size: 12px;
+    font-weight: 500;
+}
+
+.AppointmenttimeIcon {
+    width: 16px;
+    height: 16px;
+    margin-right: 5px;
+}
+.Appointmentusers {
+    margin: 10px 12px !important;
+}
+.Appointmentusers .CardIcons {
+    width: 24px;
+    height: 24px;
+    object-fit: fill;
+    border-radius: 50%;
+    border: 1.5px solid  #FFF;
+    background: lightgray 50%;
+    margin-right: -5px;
+}
+.Todayappointment {
+    padding: 3px 6px 4px 6px;
+    margin:5px 12px;
+    border-radius: 20px;
+    background: #D1FADF;
+    display: inline-block;
+}
+.Todayappointment path, .Todayappointment .Ontime {
+    fill: #039855;
+    color: #039855;
+}
+.afterSomeappointment {
+    padding: 3px 6px 4px 6px;
+    margin:5px 12px;
+    border-radius: 20px;
+    background: #FFF7D7;
+    display: inline-block;
+}
+.afterSomeappointment path, .afterSomeappointment .Ontime {
+    fill: #DC6803;
+    color: #DC6803;
+}
+.DayTomorrowappointment {
+    padding: 3px 6px 4px 6px;
+    margin:5px 12px;
+    border-radius: 20px;
+    background: #F5EDFF;
+    display: inline-block;
+}
+.DayTomorrowappointment path, .DayTomorrowappointment .Ontime {
+    fill: #7233C2;
+    color: #7233C2;
+}
+/* End Product Service */
