@@ -10,6 +10,8 @@
 
 .scrollbar-track {
   background-color: #d9d9d9;
+  margin-left: 10px;
+
 }
 
 .scrollbar-thumb {
@@ -19,17 +21,17 @@
 }
 
 ::-webkit-scrollbar {
-  background-color: #a4bfcb;
-  width: 4px;
+  background-color: #EAECF0;
+  width: 10px;
   height: 10%;
 }
 
 ::-webkit-scrollbar-track {
-  background-color: #cae4f0;
+  background-color: #ffffff;
 }
 
 ::-webkit-scrollbar-thumb {
-  background-color: #a4bfcb;
+  background-color: #EAECF0;
   border-radius: 16px;
   border: 0px solid #d9d9d9;
 }
@@ -85,12 +87,6 @@ body {
   font-weight: 700 !important;
 }
 
-.mainContainer {
-  display: flex;
-  flex-direction: column;
-  height: 100vh;
-}
-
 p {
   padding: 0;
   margin: 0;
@@ -113,42 +109,11 @@ a {
   outline: 0;
   box-shadow: none;
 }
-
-
-/*Side bar css*/
-.main-sidebar {
-  bottom: 0;
-  float: none;
-  left: 0;
-  position: fixed;
-  top: 0;
-  padding: 16px;
-  width: 100px;
-  background: #FFFFFF;
-  border-radius: 30px;
-  margin: 20px 0 20px 10px;
-  transition: .5s;
-}
-/*sidebar css start*/
-.sidebarAuth {
-  border-radius: 60px;
-  background: #FFF;
-  /* box-shadow: -2px 4px 25px 0px rgba(50, 80, 127, 0.02), -5px 10px 80px 0px rgba(50, 80, 127, 0.04); */
-  height: auto;
-}
-
-.sidebarMain {
-  border-radius: 60px;
-  /* background: #FFF; */
-  /* box-shadow: -2px 4px 25px 0px rgba(50, 80, 127, 0.02), -5px 10px 80px 0px rgba(50, 80, 127, 0.04); */
-}
-
-/*sidebar css end*/
-
 /*header css start*/
-.headerSection{
+.headerSection {
   padding: 30px 0;
 }
+
 .timeHeading {
   color: #636E9F;
   font-size: 15px;
@@ -156,35 +121,41 @@ a {
   line-height: normal;
   margin: 0 6px;
 }
-.timeNav{
+
+.timeNav {
   display: flex;
   align-items: center;
   position: relative;
 }
-.leftHeader{
+
+.leftHeader {
   display: flex;
   align-items: center;
   gap: 30px;
 }
-.timeNav::before{
- content: "";
- position: absolute;
- width: 1px;
- height: 16px;
- background: #B4BEEB;
- right: -15px;
+
+.timeNav::before {
+  content: "";
+  position: absolute;
+  width: 1px;
+  height: 16px;
+  background: #B4BEEB;
+  right: -15px;
 }
-.timeHeading span{
+
+.timeHeading span {
   font-weight: 500;
 }
-.navBtn{
-  color:  #636E9F;
-font-size: 15px;
-font-weight: 400;
-border-radius: 30px;
-background:  #FFF;
-padding: 12px;
-margin-left: 65px;
-border: none;
+
+.navBtn {
+  color: #636E9F;
+  font-size: 15px;
+  font-weight: 400;
+  border-radius: 30px;
+  background: #FFF;
+  padding: 12px;
+  margin-left: 65px;
+  border: none;
 }
+
 /*header css end*/

@@ -6,7 +6,6 @@ const initialState = {
   posUserLoginDetails: {},
   isLoggedIn: false,
   loading: false,
-
 };
 
 export const authSlice = createSlice({
@@ -36,8 +35,7 @@ export const authSlice = createSlice({
       state.posUserLoginDetails = action?.payload
     },
     logout: (state, action) => {
-      state.loading = false;
-      state.auth = null
+      return initialState;
     },
    
     onErrorStopLoad: (state) => {

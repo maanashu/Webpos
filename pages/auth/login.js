@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { getAllPosUser, selectLoginAuth } from '../../redux/slices/auth';
 import moment from "moment";
 import { useRouter } from 'next/router';
+import ProtectedRoute from '../../components/ProtectedRoute';
 
 const Login = () => {
     const authData = useSelector(selectLoginAuth)
@@ -13,8 +14,8 @@ const Login = () => {
     const [GetPosUserList, setGetPosUserList] = useState("");
 
     // find out UniqueId from redux for send in params
-    const UniqueId = authData?.usersInfo?.payload?.uniqe_id ? authData?.usersInfo?.payload?.uniqe_id :""
-console.log(UniqueId,"UniqueId");
+    const UniqueId = authData?.usersInfo?.payload?.uniqe_id
+
     // API for get all POS users...............................
     const getAllPOSUser = () => {
         let params = {
@@ -24,7 +25,7 @@ console.log(UniqueId,"UniqueId");
             ...params,
             cb(res) {
                 if (res.status) {
-                    setGetPosUserList(res?.data?.payload)
+                    setGetPosUserList(res?.data?.payload?.pos_staff)
                 }
             },
         })
@@ -32,12 +33,22 @@ console.log(UniqueId,"UniqueId");
     };
 
     useEffect(() => {
-        getAllPOSUser()
-        document.title = "Login";
-    }, []);
+        if (UniqueId) {
+            // Client-side code here
+            getAllPOSUser();
+        }
+    }, [UniqueId]);
+    // useEffect(() => {
+    //     if (UniqueId) {
+    //         getAllPOSUser();
+    //     }
+
+    //     document.title = "Login";
+    // }, [UniqueId]);
 
     return (
         <>
+        <ProtectedRoute>
             <div className='loginSection'>
                 <div className='loginheading'>Welcome to <span>JOBR POS</span></div>
                 <div className='authLoginSection'>
@@ -50,9 +61,9 @@ console.log(UniqueId,"UniqueId");
                                     </div>
                                 </>
                             ) : (
-                                GetPosUserList?.pos_staff?.length > 0 ? (
+                                GetPosUserList?.length > 0 ? (
                                     <>
-                                        {GetPosUserList?.pos_staff.map((data, index) => {
+                                        {GetPosUserList?.map((data, index) => {
                                             return (
                                                 <div className='col-lg-3 col-md-6 mt-4' key={index}>
                                                     <div className='loginCard' onClick={() => router.push({ pathname: '/auth/password', query: { id: data?.user_id } })}>
@@ -87,7 +98,7 @@ console.log(UniqueId,"UniqueId");
                                         })}
                                     </>
                                 ) : (
-                                    <h2>No POS user Found</h2>
+                                    <h2 className='text-center my-5'>No POS user Found</h2>
                                 )
                             )}
 
@@ -167,6 +178,7 @@ console.log(UniqueId,"UniqueId");
                     </div>
                 </div>
             </div>
+            </ProtectedRoute>
         </>
     )
 }

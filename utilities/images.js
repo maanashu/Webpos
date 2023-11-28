@@ -32,7 +32,6 @@ import arrowIcon from "../public/images/arrowIcon.svg"
 import moneyImg from "../public/images/moneyImg.svg"
 import jokerImg from "../public/images/jokerImg.svg"
 import storeImg from "../public/images/storeImg.svg"
-
 import OrderLocation from "../public/images/orderLocation.svg"
 import MoneyItem from "../public/images/moneyItem.svg"
 import Time from "../public/images/time.svg"
@@ -40,9 +39,39 @@ import modalCross from "../public/images/modalCross.svg"
 import trackingImage from "../public/images/trackingImage.svg"
 import commentBox from "../public/images/commentBox.svg"
 import bellIcon from "../public/images/bellIcon.svg"
+import Marlboro from "../public/images/marlboro.svg"
+import sideToggle from "../public/images/sideToggle.svg"
+import Logo from "../public/images/Logo.svg"
+import ProductsServices from "../public/images/ProductsServices.svg"
+import DeliveryOrders from "../public/images/DeliveryOrders.svg"
+import ShippingOrders from "../public/images/ShippingOrders.svg"
+import Settings from "../public/images/Settings.svg"
+import Rewards from "../public/images/Rewards.svg"
+import Customer from "../public/images/Customer.svg"
+import CashDrawer from "../public/images/CashDrawer.svg"
+import Wallets from "../public/images/Wallets.svg"
+import Analytics from "../public/images/Analytics.svg"
+import Appointments from "../public/images/Appointments.svg"
+import LogOut from "../public/images/LogOut.svg"
+import ProductIcon from "../public/images/ProductIcon.svg"
+import ProductIconOne from "../public/images/ProductIconOne.svg"
+import ProductIconTwo from "../public/images/ProductIconTwo.svg"
+import Add from "../public/images/Add.svg"
+import Shopping_Outline from "../public/images/Shopping_Outline.svg"
+import Services from "../public/images/Services.svg"
+import FilterIcon from "../public/images/FilterIcon.svg"
+import moneyTransactions from "../public/images/moneyTransactions.svg"
+import analticsImg from "../public/images/analticsImg.svg"
+import coinImg  from  "../public/images/coinImg.svg"
+import visaGreen  from  "../public/images/visaGreen.svg"
 
- 
+
+
 export{
+    visaGreen,
+    coinImg,
+    analticsImg,
+    moneyTransactions,
     storeImg,
     jokerImg,
     moneyImg,
@@ -84,4 +113,25 @@ export{
     trackingImage,
     commentBox,
     bellIcon,
+    Marlboro,
+    sideToggle,
+    Logo,
+    ProductsServices,
+    DeliveryOrders,
+    ShippingOrders,
+    Appointments,
+    Settings,
+    Rewards,
+    Customer,
+    CashDrawer,
+    Wallets,
+    Analytics,
+    LogOut,
+    ProductIcon,
+    ProductIconOne,
+    ProductIconTwo,
+    Add,
+    Shopping_Outline,
+    Services,
+    FilterIcon,
 };

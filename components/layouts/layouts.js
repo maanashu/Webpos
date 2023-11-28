@@ -7,20 +7,22 @@ import Sidebar from "../sidebar.js";
 import Navbar from "../navbar.js";
 import { useState } from "react";
 export default function Layout({ children, isLoggedIn, userType }) {
-  const location = useRouter();
-  const urlpath = location.pathname;
+  const router = useRouter();
+  const urlpath = router.pathname;
   const [activeSidebar, setActiveSidebar] = useState(true)
-  console.log(activeSidebar,"activeSidebar");
   const sidebarToggle = (value) => {
     setActiveSidebar(value)
   }
-
+  const navbarPaths = [
+    '/home/overview',
+  ]
   return (
     <>
       <Sidebar sidebarToggle={(e) => sidebarToggle(e)} />
-      <div className= {`rightWrapper ${activeSidebar ? 'show' : 'hide'}`}>
+      {/* <div className= {`rightWrapper ${activeSidebar ? 'show' : 'hide'}`}> */}
+      <div className='rightWrapper'>
         <main>
-          <Navbar activeSidebar={activeSidebar} />
+        {navbarPaths.includes(router.pathname) ? "" : <Navbar activeSidebar={activeSidebar} />}
           {children}
         </main>
       </div>
