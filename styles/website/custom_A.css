@@ -341,7 +341,8 @@
     border-radius: 12px;
     border: 1px solid #F5F6FC;
     background-color: #F5F6FC;
-    margin-bottom: 16px;
+    /* margin-bottom: 16px; */
+    height: 100%;
 }
 
 .ProductIcon {
