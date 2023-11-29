@@ -80,6 +80,9 @@ import TomorrowCalender  from  "../public/images/TomorrowCalender.svg"
 import TodayCalender  from  "../public/images/TodayCalender.svg"
 import DayTomorrowCalender  from  "../public/images/DayTomorrowCalender.svg"
 import afterSomeCalender  from  "../public/images/afterSomeCalender.svg"
+import cartFood  from  "../public/images/cartFood.svg"
+import cartProfile  from  "../public/images/cartProfile.svg"
+
 
 
 
@@ -165,5 +168,7 @@ export{
     TomorrowCalender,
     TodayCalender,
     DayTomorrowCalender,
-    afterSomeCalender
+    afterSomeCalender,
+    cartFood,
+    cartProfile,
 };

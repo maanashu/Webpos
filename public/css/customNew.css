@@ -513,6 +513,8 @@ figure {
     border: 1px solid #F5F6FC;
     padding: 8px 16px;
     align-items: center;
+    justify-content: space-between;
+    margin: 10px 0;
 }
 
 .cartFoodImg {
@@ -532,14 +534,6 @@ figure {
 
 }
 
-.AddtoCart .Tomorrowappointment {
-    padding: 3px 6px 4px 6px;
-    margin: 5px 0px;
-    border-radius: 7px;
-    background: #EFFBFF;
-    display: inline-block;
-}
-
 .cartProfileImg {
     border-radius: 50%;
     border: 1.25px solid #FFF;
@@ -550,11 +544,105 @@ figure {
 
 .cartMoney {
     color: #000;
-    font-size: 12px;
+    font-size: 13px;
     font-weight: 400;
 }
 .orderCalculate{
     display: flex;
     align-items: center;
+    gap: 12px;
+}
+.tomorrowCart .appointmentDate{
+background-color: #EFFBFF !important;
+color: #47B0D6 !important;
+}
+.AddtoCart .appointmentDate{
+    margin: 4px 0 !important;
+    border-radius: 6px !important;
+    display: flex !important;
+}
+.todayCart .appointmentDate{
+    background-color: #D1FADF;
+    color: #039855;
+}
+.afterCart  .appointmentDate{
+    background-color: #FFF7D7;
+    color: #DC6803;
+}
+.incrementBtn{
+    border-radius: 8px;
+border: 1px solid  #F5F6FC;
+display: flex;
+align-items: center;
+}
+.plusMinus{
+    color: #263682;
+    cursor: pointer;
+    padding: 5px 10px;
+}
+.addBtnControl{
+    color:  #636E9F !important;
+text-align: center !important;
+font-size: 14px !important;
+font-weight: 400 !important;
+border-left: 1px solid #D7DEFF;
+border-right: 1px solid #D7DEFF ;
+background-color: #fff !important;
+border-radius: 0 !important;
+max-width: 25px;
+padding: 5px 7px !important;
+appearance: none !important;
+}
+.addBtnControl::placeholder{
+    color:  #636E9F;
+}
+.cartSubInfo .checkmark {
+    top: -7px;
+}
+.cartSubInfo.active{
+border: 1px solid #D7DEFF;
+background: #FFF;
+box-shadow: -2px 4px 25px 0px rgba(50, 80, 127, 0.02), -5px 10px 80px 0px rgba(50, 80, 127, 0.04);
+}
+.addBtnControl::-webkit-outer-spin-button,
+.addBtnControl::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+.dividesection {
+    padding: 0 30px;
+}
+.cartTotalsection{
+    padding: 25px;
+}
+.cartTotal{
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+}
+.cartTotalsection .nextverifyBtn{
+    margin-top: 30px;
+    padding: 14px 16px;
+}
+.divideBorder{
+    background-color: #E4E6F2;
+}
+.subFooter {
+    position: fixed;
+    margin: 0 auto;
+    width: 100%;
+    max-width: 455px;
+    bottom: 32px;
+}
+.cartInfo {
+    height: 295px;
+    overflow-y: scroll;
 }
 /*service pages css end*/
+/*media query start*/
+@media (max-width:1280px){
+    .cartInfo {
+        height: 200px;
+        overflow-y: scroll;
+    }
+}
