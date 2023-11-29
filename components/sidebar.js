@@ -38,7 +38,7 @@ const Sidebar = (props) => {
                 </div>
             </div>
             <div className='userDetails'>
-                <figure>ListGroupItem
+                <figure>
                     <Image src={authData?.posUserLoginDetails?.payload?.user_profiles?.profile_photo ? authData?.posUserLoginDetails?.payload?.user_profiles?.profile_photo : Images.HomeProfileImg} alt="image" width={100} height={100} className="img-fluid sidebarProfile" />
                 </figure>
                 <article>

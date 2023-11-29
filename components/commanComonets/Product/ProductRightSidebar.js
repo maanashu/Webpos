@@ -3,7 +3,7 @@ import * as Images from "../../../utilities/images"
 import Image from "next/image";
 import { ListGroup, ListGroupItem } from 'react-bootstrap';
 import CustomModal from '../../customModal/CustomModal';
-import AddProduct from './addProduct';
+import AddProduct from './ProductModal/addProduct';
 
 
 const ProductRightSidebar = () => {
@@ -122,7 +122,7 @@ const ProductRightSidebar = () => {
                 footer={
                     <>
                         <div className='modal-footer'>
-                            <button className='cancelBtn'>Cancel</button>
+                            <button className='cancelBtn' onClick={() => handleOnCloseModal()}>Cancel</button>
                             <button className='ModalBlue'>Add to the cart
                                 <Image src={Images.plusCircleOutline} alt="image" className="img-fluid BtnIcon" />
                             </button>

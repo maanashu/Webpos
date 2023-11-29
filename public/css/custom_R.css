@@ -42,7 +42,7 @@ font-weight: 400;
     top: 17px;
     left: 18px;
 }
-.commonBoxInvoice .scanBox {
+.scanBox {
     width: 40px;
     height: 40px;
     border-radius: 30px;
