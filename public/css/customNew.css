@@ -241,7 +241,8 @@ figure {
     padding: 10px;
     position: relative;
 }
-.bellOuter::after{
+
+.bellOuter::after {
     content: "";
     position: absolute;
     width: 10px;
@@ -282,6 +283,10 @@ figure {
     color: #2F3552;
     font-size: 14px;
     font-weight: 400;
+    max-width: 20ch;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
 }
 
 .nameLocation .orderId,
@@ -341,7 +346,7 @@ figure {
 .deliverSubdata {
     border-bottom: 1px solid #E4E6F2;
     border-top: 1px solid #E4E6F2;
-    padding: 16px;
+    padding: 14px;
 
 }
 
@@ -486,3 +491,70 @@ figure {
 /*sessionModal css end*/
 
 /* Home page css end*/
+
+/*service pages css start*/
+.AddtoCart {
+    position: absolute;
+    right: 108px;
+    top: 183px;
+    height: calc(100vh - 214px);
+    border-radius: 20px;
+    border: 1px solid #F5F6FC;
+    padding: 24px 16px;
+    background: #FFF;
+    width: 100%;
+    max-width: 475px;
+    box-shadow: -3px 6px 7px 0px rgba(52, 79, 117, 0.03), -12px 28px 25px 0px rgba(52, 79, 117, 0.04), -31px 74px 80px 0px rgba(52, 79, 117, 0.07), -152px 0px 90px 62px rgba(52, 79, 117, 0.10);
+}
+
+.cartSubInfo {
+    display: flex;
+    border-radius: 8px;
+    border: 1px solid #F5F6FC;
+    padding: 8px 16px;
+    align-items: center;
+}
+
+.cartFoodImg {
+    height: 34px;
+    width: 34px;
+    border-radius: 6px;
+}
+
+.cartText {
+    color: #2F3552;
+    font-size: 12px;
+    font-weight: 500;
+}
+
+.orderTime {
+    display: flex;
+
+}
+
+.AddtoCart .Tomorrowappointment {
+    padding: 3px 6px 4px 6px;
+    margin: 5px 0px;
+    border-radius: 7px;
+    background: #EFFBFF;
+    display: inline-block;
+}
+
+.cartProfileImg {
+    border-radius: 50%;
+    border: 1.25px solid #FFF;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+}
+
+.cartMoney {
+    color: #000;
+    font-size: 12px;
+    font-weight: 400;
+}
+.orderCalculate{
+    display: flex;
+    align-items: center;
+}
+/*service pages css end*/

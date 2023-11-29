@@ -76,10 +76,14 @@ import CardIcons  from  "../public/images/CardIcons.png"
 import cardThree  from  "../public/images/cardThree.png"
 import plusCircleOutline  from  "../public/images/plus-circle_Outline.svg"
 import commentText  from  "../public/images/comment-text.svg"
+import cartFood from "../public/images/cartFood.svg"
+import cartProfile from "../public/images/cartProfile.svg"
 
 
 
 export{
+    cartProfile,
+    cartFood,
     visaGreen,
     coinImg,
     analticsImg,

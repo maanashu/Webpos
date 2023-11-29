@@ -12,7 +12,7 @@ const Productservice = () => {
           <ProductInnerNav />
           <div className='commanscrollBar'>
             <div className='row'>
-              <div className='col-xl-2 col-lg-3 col-md-4'>
+              <div className='col-xl-2 col-lg-3 col-md-4 mb-3'>
                 <div className='productsCard'>
                   <figure className='productImageBox'>
                     <Image src={Images.productService} alt="image" className="img-fluid ProductIcon" />
@@ -50,7 +50,7 @@ const Productservice = () => {
                   </figure>
                 </div>
               </div>
-              <div className='col-xl-2 col-lg-3 col-md-4'>
+              <div className='col-xl-2 col-lg-3 col-md-4 mb-3'>
                 <div className='productsCard active'>
                   <figure className='productImageBox'>
                     <Image src={Images.productService} alt="image" className="img-fluid ProductIcon" />
@@ -88,7 +88,7 @@ const Productservice = () => {
                   </figure>
                 </div>
               </div>
-              <div className='col-xl-2 col-lg-3 col-md-4'>
+              <div className='col-xl-2 col-lg-3 col-md-4 mb-3'>
                 <div className='productsCard'>
                   <figure className='productImageBox'>
                     <Image src={Images.CardIcons} alt="image" className="img-fluid ProductIcon" />
@@ -126,7 +126,7 @@ const Productservice = () => {
                   </figure>
                 </div>
               </div>
-              <div className='col-xl-2 col-lg-3 col-md-4'>
+              <div className='col-xl-2 col-lg-3 col-md-4 mb-3'>
                 <div className='productsCard'>
                   <figure className='productImageBox'>
                     <Image src={Images.cardThree} alt="image" className="img-fluid ProductIcon" />
@@ -164,7 +164,7 @@ const Productservice = () => {
                   </figure>
                 </div>
               </div>
-              <div className='col-xl-2 col-lg-3 col-md-4'>
+              <div className='col-xl-2 col-lg-3 col-md-4 mb-3'>
                 <div className='productsCard'>
                   <figure className='productImageBox'>
                     <Image src={Images.CardIcons} alt="image" className="img-fluid ProductIcon" />
@@ -202,7 +202,7 @@ const Productservice = () => {
                   </figure>
                 </div>
               </div>
-              <div className='col-xl-2 col-lg-3 col-md-4'>
+              <div className='col-xl-2 col-lg-3 col-md-4 mb-3'>
                 <div className='productsCard'>
                   <figure className='productImageBox'>
                     <Image src={Images.cardThree} alt="image" className="img-fluid ProductIcon" />
@@ -240,7 +240,7 @@ const Productservice = () => {
                   </figure>
                 </div>
               </div>
-              <div className='col-xl-2 col-lg-3 col-md-4'>
+              <div className='col-xl-2 col-lg-3 col-md-4 mb-3'>
                 <div className='productsCard'>
                   <figure className='productImageBox'>
                     <Image src={Images.productService} alt="image" className="img-fluid ProductIcon" />
@@ -278,7 +278,7 @@ const Productservice = () => {
                   </figure>
                 </div>
               </div>
-              <div className='col-xl-2 col-lg-3 col-md-4'>
+              <div className='col-xl-2 col-lg-3 col-md-4 mb-3'>
                 <div className='productsCard'>
                   <figure className='productImageBox'>
                     <Image src={Images.productService} alt="image" className="img-fluid ProductIcon" />
@@ -316,7 +316,7 @@ const Productservice = () => {
                   </figure>
                 </div>
               </div>
-              <div className='col-xl-2 col-lg-3 col-md-4'>
+              <div className='col-xl-2 col-lg-3 col-md-4 mb-3'>
                 <div className='productsCard'>
                   <figure className='productImageBox'>
                     <Image src={Images.productService} alt="image" className="img-fluid ProductIcon" />
@@ -354,7 +354,7 @@ const Productservice = () => {
                   </figure>
                 </div>
               </div>
-              <div className='col-xl-2 col-lg-3 col-md-4'>
+              <div className='col-xl-2 col-lg-3 col-md-4 mb-3'>
                 <div className='productsCard'>
                   <figure className='productImageBox'>
                     <Image src={Images.productService} alt="image" className="img-fluid ProductIcon" />
@@ -392,7 +392,7 @@ const Productservice = () => {
                   </figure>
                 </div>
               </div>
-              <div className='col-xl-2 col-lg-3 col-md-4'>
+              <div className='col-xl-2 col-lg-3 col-md-4 mb-3'>
                 <div className='productsCard'>
                   <figure className='productImageBox'>
                     <Image src={Images.CardIcons} alt="image" className="img-fluid ProductIcon" />
@@ -430,7 +430,7 @@ const Productservice = () => {
                   </figure>
                 </div>
               </div>
-              <div className='col-xl-2 col-lg-3 col-md-4'>
+              <div className='col-xl-2 col-lg-3 col-md-4 mb-3'>
                 <div className='productsCard'>
                   <figure className='productImageBox'>
                     <Image src={Images.cardThree} alt="image" className="img-fluid ProductIcon" />
@@ -468,7 +468,7 @@ const Productservice = () => {
                   </figure>
                 </div>
               </div>
-              <div className='col-xl-2 col-lg-3 col-md-4'>
+              <div className='col-xl-2 col-lg-3 col-md-4 mb-3'>
                 <div className='productsCard'>
                   <figure className='productImageBox'>
                     <Image src={Images.CardIcons} alt="image" className="img-fluid ProductIcon" />
@@ -506,7 +506,7 @@ const Productservice = () => {
                   </figure>
                 </div>
               </div>
-              <div className='col-xl-2 col-lg-3 col-md-4'>
+              <div className='col-xl-2 col-lg-3 col-md-4 mb-3'>
                 <div className='productsCard'>
                   <figure className='productImageBox'>
                     <Image src={Images.cardThree} alt="image" className="img-fluid ProductIcon" />
@@ -544,7 +544,7 @@ const Productservice = () => {
                   </figure>
                 </div>
               </div>
-              <div className='col-xl-2 col-lg-3 col-md-4'>
+              <div className='col-xl-2 col-lg-3 col-md-4 mb-3'>
                 <div className='productsCard'>
                   <figure className='productImageBox'>
                     <Image src={Images.productService} alt="image" className="img-fluid ProductIcon" />
@@ -582,7 +582,7 @@ const Productservice = () => {
                   </figure>
                 </div>
               </div>
-              <div className='col-xl-2 col-lg-3 col-md-4'>
+              <div className='col-xl-2 col-lg-3 col-md-4 mb-3'>
                 <div className='productsCard'>
                   <figure className='productImageBox'>
                     <Image src={Images.productService} alt="image" className="img-fluid ProductIcon" />
@@ -620,7 +620,7 @@ const Productservice = () => {
                   </figure>
                 </div>
               </div>
-              <div className='col-xl-2 col-lg-3 col-md-4'>
+              <div className='col-xl-2 col-lg-3 col-md-4 mb-3'>
                 <div className='productsCard'>
                   <figure className='productImageBox'>
                     <Image src={Images.cardThree} alt="image" className="img-fluid ProductIcon" />
@@ -658,7 +658,7 @@ const Productservice = () => {
                   </figure>
                 </div>
               </div>
-              <div className='col-xl-2 col-lg-3 col-md-4'>
+              <div className='col-xl-2 col-lg-3 col-md-4 mb-3'>
                 <div className='productsCard'>
                   <figure className='productImageBox'>
                     <Image src={Images.productService} alt="image" className="img-fluid ProductIcon" />
@@ -696,7 +696,7 @@ const Productservice = () => {
                   </figure>
                 </div>
               </div>
-              <div className='col-xl-2 col-lg-3 col-md-4'>
+              <div className='col-xl-2 col-lg-3 col-md-4 mb-3'>
                 <div className='productsCard'>
                   <figure className='productImageBox'>
                     <Image src={Images.productService} alt="image" className="img-fluid ProductIcon" />
@@ -734,7 +734,7 @@ const Productservice = () => {
                   </figure>
                 </div>
               </div>
-              <div className='col-xl-2 col-lg-3 col-md-4'>
+              <div className='col-xl-2 col-lg-3 col-md-4 mb-3'>
                 <div className='productsCard'>
                   <figure className='productImageBox'>
                     <Image src={Images.productService} alt="image" className="img-fluid ProductIcon" />
@@ -772,7 +772,7 @@ const Productservice = () => {
                   </figure>
                 </div>
               </div>
-              <div className='col-xl-2 col-lg-3 col-md-4'>
+              <div className='col-xl-2 col-lg-3 col-md-4 mb-3'>
                 <div className='productsCard'>
                   <figure className='productImageBox'>
                     <Image src={Images.productService} alt="image" className="img-fluid ProductIcon" />
@@ -810,7 +810,7 @@ const Productservice = () => {
                   </figure>
                 </div>
               </div>
-              <div className='col-xl-2 col-lg-3 col-md-4'>
+              <div className='col-xl-2 col-lg-3 col-md-4 mb-3'>
                 <div className='productsCard'>
                   <figure className='productImageBox'>
                     <Image src={Images.CardIcons} alt="image" className="img-fluid ProductIcon" />
@@ -848,7 +848,7 @@ const Productservice = () => {
                   </figure>
                 </div>
               </div>
-              <div className='col-xl-2 col-lg-3 col-md-4'>
+              <div className='col-xl-2 col-lg-3 col-md-4 mb-3'>
                 <div className='productsCard'>
                   <figure className='productImageBox'>
                     <Image src={Images.cardThree} alt="image" className="img-fluid ProductIcon" />
@@ -886,7 +886,7 @@ const Productservice = () => {
                   </figure>
                 </div>
               </div>
-              <div className='col-xl-2 col-lg-3 col-md-4'>
+              <div className='col-xl-2 col-lg-3 col-md-4 mb-3'>
                 <div className='productsCard'>
                   <figure className='productImageBox'>
                     <Image src={Images.CardIcons} alt="image" className="img-fluid ProductIcon" />
@@ -924,7 +924,7 @@ const Productservice = () => {
                   </figure>
                 </div>
               </div>
-              <div className='col-xl-2 col-lg-3 col-md-4'>
+              <div className='col-xl-2 col-lg-3 col-md-4 mb-3'>
                 <div className='productsCard'>
                   <figure className='productImageBox'>
                     <Image src={Images.cardThree} alt="image" className="img-fluid ProductIcon" />
@@ -962,7 +962,7 @@ const Productservice = () => {
                   </figure>
                 </div>
               </div>
-              <div className='col-xl-2 col-lg-3 col-md-4'>
+              <div className='col-xl-2 col-lg-3 col-md-4 mb-3'>
                 <div className='productsCard'>
                   <figure className='productImageBox'>
                     <Image src={Images.productService} alt="image" className="img-fluid ProductIcon" />
@@ -1000,7 +1000,7 @@ const Productservice = () => {
                   </figure>
                 </div>
               </div>
-              <div className='col-xl-2 col-lg-3 col-md-4'>
+              <div className='col-xl-2 col-lg-3 col-md-4 mb-3'>
                 <div className='productsCard'>
                   <figure className='productImageBox'>
                     <Image src={Images.productService} alt="image" className="img-fluid ProductIcon" />
