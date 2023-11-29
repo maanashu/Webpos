@@ -18,7 +18,8 @@ const Navbar = () => {
     <>
    
       <div className='headerSection'>
-        <div {...(!token && {className: 'container'})}>
+        {/* <div {...(!token && {className: 'container'})}> */}
+        <div className={!token ? 'container':""}>
           <div className='row'>
             <div className='col-lg-6 col-md-6 d-flex align-items-center '>
               <div className='leftHeader'>
