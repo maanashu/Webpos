@@ -4,16 +4,30 @@ import * as Images from "../utilities/images";
 import Image from "next/image";
 import { ListGroup, ListGroupItem } from 'react-bootstrap';
 import { useRouter } from 'next/router';
-import { selectLoginAuth } from '../redux/slices/auth';
-import { useSelector } from 'react-redux';
+import { logout,selectLoginAuth } from '../redux/slices/auth';
+import { useDispatch, useSelector } from 'react-redux';
+import { toast } from 'react-toastify';
 
 const Sidebar = (props) => {
+    const dispatch = useDispatch();
     const [activeSidebar, setActiveSidebar] = useState(true)
     const authData = useSelector(selectLoginAuth)
 
     console.log(authData, "auth dataa")
     const router = useRouter()
     props?.sidebarToggle(activeSidebar)
+
+
+    const userLogout = (e) => {
+        e.preventDefault();
+        dispatch(logout());
+        setTimeout(() => {
+        toast.success("Logout successfully");
+        }, 200);
+        router.push("/auth/verification")
+        localStorage.removeItem('authToken');
+        localStorage.removeItem('persist:root');
+    };
     return (
         <div className={`main-sidebar ${activeSidebar ? 'hide' : 'full'}`} id="myNav">
             <div className='sidebarAuth sidebarMain'>
@@ -127,8 +141,8 @@ const Sidebar = (props) => {
                 </div> */}
                 <div className='sidbarfixedMenus '>
                     <ListGroupItem>
-                        <Link href="" className="sidebarLinks" >
-                            <button className='logOut'>
+                        <Link href="#" className="sidebarLinks" >
+                            <button className='logOut' type="button" onClick={(e) => userLogout(e)}>
                                 <Image src={Images.LogOut} alt="image" className="img-fluid showImg" />
                                 <span className='sidebarTxt'>LogOut</span>
                             </button>
