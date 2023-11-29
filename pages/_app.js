@@ -22,15 +22,16 @@ function App({ Component, pageProps }) {
   const [activeSidebar, setActiveSidebar] = useState(true)
   const [loading, setLoading] = useState(true);
   const authData = useSelector(selectLoginAuth)
-
+console.log(authData?.posUserLoginDetails?.payload?.token ,
+  'token');
   const toggleSidebar = () => {
     setActiveSidebar(prev => !prev)
   };
-  let token
-  if (typeof window !== 'undefined') {
-    token = localStorage.getItem("authToken") ? localStorage.getItem("authToken") : null;
-  }
 
+  let token
+    if (typeof window !== 'undefined') {  
+      token = localStorage.getItem("authToken") ? localStorage.getItem("authToken")  : "";
+    }
   // useEffect(() => {
   //   // Check if authentication data is available
   //   if (authData !== undefined) {
@@ -65,6 +66,7 @@ function App({ Component, pageProps }) {
           <Component {...pageProps} />
           <ToastContainer autoClose={800} />
         </AuthLayout>
+      
       </>
       }
     </>
