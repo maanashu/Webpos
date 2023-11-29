@@ -24,7 +24,7 @@ const Sidebar = (props) => {
                 </div>
             </div>
             <div className='userDetails'>
-                <figure>
+                <figure>ListGroupItem
                     <Image src={authData?.posUserLoginDetails?.payload?.user_profiles?.profile_photo ? authData?.posUserLoginDetails?.payload?.user_profiles?.profile_photo : Images.HomeProfileImg} alt="image" width={100} height={100} className="img-fluid sidebarProfile" />
                 </figure>
                 <article>
@@ -100,7 +100,6 @@ const Sidebar = (props) => {
                         <Link href="/dashboard" className="sidebarLinks" >
                             <Image src={Images.Rewards} alt="image" className="img-fluid showImg" />
                             <span className='sidebarTxt'>Rewards</span>
-
                         </Link>
                     </ListGroupItem>
                     <ListGroupItem className="sidebarItems" >
