@@ -19,25 +19,20 @@ import auth, { selectLoginAuth } from "../redux/slices/auth";
 
 function App({ Component, pageProps }) {
   const dispatch = useDispatch();
+
+
   const [activeSidebar, setActiveSidebar] = useState(true)
-  const [loading, setLoading] = useState(true);
   const authData = useSelector(selectLoginAuth)
-console.log(authData?.posUserLoginDetails?.payload?.token ,
-  'token');
+  const tokens = authData?.posUserLoginDetails?.payload?.token ? authData?.posUserLoginDetails?.payload?.token :""
+console.log(tokens,"authtokens");
+  const [loading, setLoading] = useState(true);
+
+  
+
   const toggleSidebar = () => {
     setActiveSidebar(prev => !prev)
   };
 
-  let token
-    if (typeof window !== 'undefined') {  
-      token = localStorage.getItem("authToken") ? localStorage.getItem("authToken")  : "";
-    }
-  // useEffect(() => {
-  //   // Check if authentication data is available
-  //   if (authData !== undefined) {
-  //     setLoading(false); // Set loading to false when data is available
-  //   }
-  // }, [authData]);
 
   const LayoutPaths = [
     '/home',
@@ -48,26 +43,24 @@ console.log(authData?.posUserLoginDetails?.payload?.token ,
     '/web'
   ]
 
-  // if (loading) {
-  //   return <></>;
-  // }
+
   return (
-<>
-      {token ? 
-      <>
-        <Layout activeSidebar={activeSidebar} toggleSidebar={toggleSidebar}>
-          <Component {...pageProps} />
-          <ToastContainer autoClose={800} />
-        </Layout>
+    <>
+      {tokens ?
+        <>
+          <Layout activeSidebar={activeSidebar} toggleSidebar={toggleSidebar}>
+            <Component {...pageProps} />
+            <ToastContainer autoClose={800} />
+          </Layout>
         </>
-       : 
-       <>
-        <AuthLayout>
-          <Component {...pageProps} />
-          <ToastContainer autoClose={800} />
-        </AuthLayout>
-      
-      </>
+        :
+        <>
+          <AuthLayout>
+            <Component {...pageProps} />
+            <ToastContainer autoClose={800} />
+          </AuthLayout>
+
+        </>
       }
     </>
   );
