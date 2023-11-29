@@ -13,14 +13,13 @@ const Sidebar = (props) => {
     const [activeSidebar, setActiveSidebar] = useState(true)
     const authData = useSelector(selectLoginAuth)
 
-    console.log(authData, "auth dataa")
     const router = useRouter()
     props?.sidebarToggle(activeSidebar)
 
 
-    const userLogout = (e) => {
+    const userLogout = async(e) => {
         e.preventDefault();
-        dispatch(logout());
+        await dispatch(logout());
         setTimeout(() => {
         toast.success("Logout successfully");
         }, 200);
@@ -38,7 +37,7 @@ const Sidebar = (props) => {
                 </div>
             </div>
             <div className='userDetails'>
-                <figure>
+                <figure>ListGroupItem
                     <Image src={authData?.posUserLoginDetails?.payload?.user_profiles?.profile_photo ? authData?.posUserLoginDetails?.payload?.user_profiles?.profile_photo : Images.HomeProfileImg} alt="image" width={100} height={100} className="img-fluid sidebarProfile" />
                 </figure>
                 <article>
@@ -114,7 +113,6 @@ const Sidebar = (props) => {
                         <Link href="/dashboard" className="sidebarLinks" >
                             <Image src={Images.Rewards} alt="image" className="img-fluid showImg" />
                             <span className='sidebarTxt'>Rewards</span>
-
                         </Link>
                     </ListGroupItem>
                     <ListGroupItem className="sidebarItems" >

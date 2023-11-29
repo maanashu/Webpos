@@ -14,20 +14,29 @@ import AuthLayout from "../components/layouts/authLayouts";
 import { useEffect, useState } from "react";
 import Router, { useRouter } from "next/router";
 import { wrapper } from "../redux";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from 'react-redux';
 import auth, { selectLoginAuth } from "../redux/slices/auth";
-import ProtectedRoute from "../components/ProtectedRoute";
-// import "animate.css/animate.min.css";
 
 function App({ Component, pageProps }) {
-  const router = useRouter()
+  const dispatch = useDispatch();
   const [activeSidebar, setActiveSidebar] = useState(true)
+  const [loading, setLoading] = useState(true);
   const authData = useSelector(selectLoginAuth)
-  console.log(authData?.posUserLoginDetails?.payload?.token, "reduxtoken");
 
   const toggleSidebar = () => {
     setActiveSidebar(prev => !prev)
   };
+  let token
+  if (typeof window !== 'undefined') {
+    token = localStorage.getItem("authToken") ? localStorage.getItem("authToken") : null;
+  }
+
+  // useEffect(() => {
+  //   // Check if authentication data is available
+  //   if (authData !== undefined) {
+  //     setLoading(false); // Set loading to false when data is available
+  //   }
+  // }, [authData]);
 
   const LayoutPaths = [
     '/home',
@@ -36,31 +45,27 @@ function App({ Component, pageProps }) {
     '/Product',
     '/service',
     '/web'
-
   ]
-  return (
 
-    <>
-      {/* {LayoutPaths.some(path => router.pathname.includes(path)) ? */}
-      {authData?.posUserLoginDetails?.payload?.token === undefined ?
-          <>
-            <AuthLayout>
-              <Component {...pageProps} />
-              <ToastContainer
-                autoClose={800}
-              />
-            </AuthLayout>
-          </>
-          : 
-          <>
-          <Layout activeSidebar={activeSidebar} toggleSidebar={() => { toggleSidebar() }}>
-            <Component {...pageProps} />
-            <ToastContainer
-              autoClose={800}
-            />
-          </Layout>
+  // if (loading) {
+  //   return <></>;
+  // }
+  return (
+<>
+      {token ? 
+      <>
+        <Layout activeSidebar={activeSidebar} toggleSidebar={toggleSidebar}>
+          <Component {...pageProps} />
+          <ToastContainer autoClose={800} />
+        </Layout>
         </>
-        
+       : 
+       <>
+        <AuthLayout>
+          <Component {...pageProps} />
+          <ToastContainer autoClose={800} />
+        </AuthLayout>
+      </>
       }
     </>
   );
