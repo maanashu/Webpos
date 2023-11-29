@@ -1,9 +1,9 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-  usersInfo: {},
+  usersInfo: "",
   // allPosUser: {},
-  posUserLoginDetails: {},
+  posUserLoginDetails: "",
   isLoggedIn: false,
   loading: false,
 };
@@ -34,8 +34,11 @@ export const authSlice = createSlice({
       state.loading = false;
       state.posUserLoginDetails = action?.payload
     },
-    logout: (state, action) => {
-      return initialState;
+    logout: (state) => {
+      state.isLoggedIn = false;
+      state.usersInfo = "";
+      state.posUserLoginDetails = "";
+      state.loading= false;
     },
    
     onErrorStopLoad: (state) => {

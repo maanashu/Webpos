@@ -13,14 +13,13 @@ const Sidebar = (props) => {
     const [activeSidebar, setActiveSidebar] = useState(true)
     const authData = useSelector(selectLoginAuth)
 
-    console.log(authData, "auth dataa")
     const router = useRouter()
     props?.sidebarToggle(activeSidebar)
 
 
-    const userLogout = (e) => {
+    const userLogout = async(e) => {
         e.preventDefault();
-        dispatch(logout());
+        await dispatch(logout());
         setTimeout(() => {
         toast.success("Logout successfully");
         }, 200);

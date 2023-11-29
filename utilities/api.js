@@ -3,8 +3,6 @@ import BaseUrl from "../constants/baseUrl";
 import { toast } from "react-toastify";
 import Router from "next/router";
 
-// console.log("url", BaseUrl.API_URL);
-
 const axiosInstance = axios.create({
   baseURL: '',
   headers: {
@@ -28,7 +26,6 @@ axiosInstance.interceptors.response.use(
   (error) => {
     if (error.response.status === 401) {
       // handle 401 errors here
-      console.log("Unauthorized access");
       localStorage.clear();
       Router.push("/");
       toast.warning("Session expired");
