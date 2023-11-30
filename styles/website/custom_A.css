@@ -17,6 +17,7 @@
     height: 100%;
     overflow: auto;
     padding: 0 10px;
+    margin-bottom: 20px;
 }
 
 .commanscrollBar::-webkit-scrollbar-track {
@@ -739,20 +740,50 @@
     color: #7E8AC1;
     font-size: 12px;
     font-weight: 500;
+    padding: 4px 12px;
+
 }
+
 #invoiceProduct {
     width: 100%;
     border-collapse: separate;
+    border-spacing: 0 6px;
+    padding: 0 1px;
 }
+
+.invoiceHeadingBox {
+    position: sticky;
+    top: 0;
+}
+
 .product_invoice {
     border-radius: 12px;
-    border: 11px solid #5c74f9;
+    border-radius: 12px;
+    outline: 1px solid #F5F6FC;
+    background: #f5f6fc80;
+    cursor: pointer;
+}
+
+.product_invoice.active {
+    outline: 1.5px solid #D7DEFF;
+
+
+
+}
+
+.invoice_subhead:first-child {
+    border-radius: 12px 0 0 12px;
+}
+
+.invoice_subhead:last-child {
+    border-radius: 0 12px 12px 0;
 }
 
 .invoice_subhead {
     color: #263682;
     font-size: 12px;
     font-weight: 400;
+    padding: 4px 12px;
 }
 
 .invoice_subhead img {
@@ -771,6 +802,7 @@
 .inStoreBtn {
     border-radius: 20px;
     background: #F5F6FC;
+    border:1px solid #F5F6FC;
     mix-blend-mode: multiply;
     padding: 3px 6px;
     color: #263682;
@@ -778,7 +810,8 @@
     font-weight: 500;
     display: inline-block;
 }
-.priceBtn{
+
+.priceBtn {
     border-radius: 20px;
     background: #D1FADF;
     mix-blend-mode: multiply;
@@ -788,7 +821,8 @@
     font-weight: 500;
     display: inline-block;
 }
-.onlineBtn{
+
+.onlineBtn {
     border-radius: 20px;
     background: #EFFBFF;
     mix-blend-mode: multiply;
@@ -797,4 +831,13 @@
     font-size: 12px;
     font-weight: 500;
     display: inline-block;
+}
+.Custompagination {
+    position: fixed;
+    width: 100%;
+    bottom: 49px;
+    background: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
 }
