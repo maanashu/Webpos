@@ -92,6 +92,12 @@ figure {
     justify-content: space-between;
 }
 
+.flexDiv {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
 .todaySale .loginMain {
     text-align: left;
     margin: 0;
@@ -547,86 +553,104 @@ figure {
     font-size: 13px;
     font-weight: 400;
 }
-.orderCalculate{
+
+.orderCalculate {
     display: flex;
     align-items: center;
     gap: 12px;
 }
-.tomorrowCart .appointmentDate{
-background-color: #EFFBFF !important;
-color: #47B0D6 !important;
+
+.tomorrowCart .appointmentDate {
+    background-color: #EFFBFF !important;
+    color: #47B0D6 !important;
 }
-.AddtoCart .appointmentDate{
+
+.AddtoCart .appointmentDate {
     margin: 4px 0 !important;
     border-radius: 6px !important;
     display: flex !important;
 }
-.todayCart .appointmentDate{
+
+.todayCart .appointmentDate {
     background-color: #D1FADF;
     color: #039855;
 }
-.afterCart  .appointmentDate{
+
+.afterCart .appointmentDate {
     background-color: #FFF7D7;
     color: #DC6803;
 }
-.incrementBtn{
+
+.incrementBtn {
     border-radius: 8px;
-border: 1px solid  #F5F6FC;
-display: flex;
-align-items: center;
+    border: 1px solid #F5F6FC;
+    display: flex;
+    align-items: center;
 }
-.plusMinus{
+
+.plusMinus {
     color: #263682;
     cursor: pointer;
     padding: 5px 10px;
 }
-.addBtnControl{
-    color:  #636E9F !important;
-text-align: center !important;
-font-size: 14px !important;
-font-weight: 400 !important;
-border-left: 1px solid #D7DEFF;
-border-right: 1px solid #D7DEFF ;
-background-color: #fff !important;
-border-radius: 0 !important;
-max-width: 25px;
-padding: 5px 7px !important;
-appearance: none !important;
+
+.addBtnControl {
+    color: #636E9F !important;
+    text-align: center !important;
+    font-size: 14px !important;
+    font-weight: 400 !important;
+    border-left: 1px solid #D7DEFF;
+    border-right: 1px solid #D7DEFF;
+    background-color: #fff !important;
+    border-radius: 0 !important;
+    max-width: 25px;
+    padding: 5px 7px !important;
+    appearance: none !important;
 }
-.addBtnControl::placeholder{
-    color:  #636E9F;
+
+.addBtnControl::placeholder {
+    color: #636E9F;
 }
+
 .cartSubInfo .checkmark {
     top: -7px;
 }
-.cartSubInfo.active{
-border: 1px solid #D7DEFF;
-background: #FFF;
-box-shadow: -2px 4px 25px 0px rgba(50, 80, 127, 0.02), -5px 10px 80px 0px rgba(50, 80, 127, 0.04);
+
+.cartSubInfo.active {
+    border: 1px solid #D7DEFF;
+    background: #FFF;
+    box-shadow: -2px 4px 25px 0px rgba(50, 80, 127, 0.02), -5px 10px 80px 0px rgba(50, 80, 127, 0.04);
 }
+
 .addBtnControl::-webkit-outer-spin-button,
 .addBtnControl::-webkit-inner-spin-button {
-  -webkit-appearance: none;
-  margin: 0;
+    -webkit-appearance: none;
+    margin: 0;
 }
+
 .dividesection {
     padding: 0 30px;
 }
-.cartTotalsection{
+
+.cartTotalsection {
     padding: 25px;
 }
-.cartTotal{
+
+.cartTotal {
     display: flex;
     justify-content: space-between;
     margin-bottom: 10px;
 }
-.cartTotalsection .nextverifyBtn{
+
+.cartTotalsection .nextverifyBtn {
     margin-top: 30px;
     padding: 14px 16px;
 }
-.divideBorder{
+
+.divideBorder {
     background-color: #E4E6F2;
 }
+
 .subFooter {
     position: fixed;
     margin: 0 auto;
@@ -634,13 +658,208 @@ box-shadow: -2px 4px 25px 0px rgba(50, 80, 127, 0.02), -5px 10px 80px 0px rgba(5
     max-width: 455px;
     bottom: 32px;
 }
+
 .cartInfo {
     height: 295px;
     overflow-y: scroll;
 }
+
+.addServiceSection {
+    padding: 0 24px 0 0;
+}
+
+.commonSubOuter {
+    overflow-y: scroll !important;
+}
+.newServiceSection{
+    padding: 30px 26px !important;
+}
+.addServicePara {
+    color: #636E9F;
+    font-size: 14px;
+    font-weight: 400;
+    margin-top: 8px;
+}
+
+.newServiceDetail {
+    display: flex;
+    align-items: flex-start;
+}
+
+.addSeviceImg {
+    height: 100%;
+    max-height: 200px;
+    width: 100%;
+    border-radius: 16px;
+}
+
+.serviceProfile {
+    margin: 24px 0;
+    position: relative;
+}
+
+.rotateImage {
+    position: absolute;
+    background-color: #fff;
+    border-radius: 30px;
+    padding: 6px;
+    bottom: -14px;
+    right: -3px;
+}
+
+.consultInfo .userIdText {
+    margin: 16px 0;
+}
+
+.consultInfo .Timezone {
+    border-radius: 20px;
+    background: rgba(228, 230, 242, 0.50);
+    display: flex;
+    align-items: center;
+}
+
+.providerSection {
+    padding: 0 12px;
+    margin: 24px 0;
+}
+
+.addServiceProfile {
+    border-radius: 16px;
+    border: 1px solid #D7DEFF;
+    padding: 12px 10px;
+    margin-top: 12px;
+    text-align: center;
+}
+
+.addServiceProfile.active {
+    border: 1px solid #6F84E8;
+    background: #F5F6FC;
+    box-shadow: -2px 4px 25px 0px rgba(50, 80, 127, 0.02), -5px 10px 80px 0px rgba(50, 80, 127, 0.04);
+}
+
+.providerImage {
+    border: 3px solid #E4E6F2;
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+}
+
+.providerSubText {
+    color: #7E8AC1;
+    font-size: 12px;
+    font-weight: 500;
+    text-align: center;
+    margin-top: 2px;
+}
+
+.addServiceProfile .amountText {
+    margin: 10px 0 0 0 !important;
+    text-align: center;
+}
+
+.appointmentSub {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    
+}
+
+.appointMain {
+    color: #263682;
+    font-size: 24px;
+    font-weight: 500;
+}
+
+.appointSub {
+    color: #263682;
+    font-size: 14px;
+    font-weight: 400;
+    margin-top: 10px;
+}
+
+.appointmenMonth {
+    border-radius: 50px;
+    border: 1px solid #D7DEFF;
+    background: #FFF;
+    box-shadow: -2px 4px 25px 0px rgba(50, 80, 127, 0.02), -5px 10px 80px 0px rgba(50, 80, 127, 0.04);
+    padding: 10px;
+}
+
+.monthText {
+    color: #263682;
+    font-size: 16px;
+    font-weight: 400;
+}
+
+.scheduleSection {
+    text-align: center;
+    margin: 24px 0;
+}
+
+.daycalendar {
+    margin: 20px 0;
+}
+
+.scheduleTime {
+    border-radius: 8px;
+    border: 1px solid #D7DEFF;
+    padding: 12px 10px;
+    text-align: center;
+    width: 100%;
+}
+
+.scheduleTimeImg {
+    border-radius: 8px;
+    border: 1px solid #D7DEFF;
+    padding: 12px 10px;
+    width: 100%;
+    height: 45px;
+}
+
+.scheduleDay {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 6px;
+    margin-top: 10px;
+}
+
+.serviceFooter {
+    position: absolute;
+    bottom: 24px;
+    width: 100%;
+    right: 0;
+    margin: 0 auto;
+    padding: 0 24px;
+}
+
+.appointmentSection {
+    position: relative;
+    padding: 30px 26px !important;
+
+}
+.fullCartSection{
+    padding: 0 24px 0 0;
+}
+.fullCartLeft{
+    padding: 24px !important;
+}
+.fullCartInfo{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.fullCartInfo .appointmentHeading{
+    display: flex;
+    align-items: center;
+}
+.cartDivide{
+    background-color:  #D7DEFF;
+    margin: 30px 0;
+}
 /*service pages css end*/
 /*media query start*/
-@media (max-width:1280px){
+@media (max-width:1280px) {
     .cartInfo {
         height: 200px;
         overflow-y: scroll;

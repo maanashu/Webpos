@@ -602,6 +602,7 @@ body {
     /* margin-top: 24px; */
     height: 100%;
     max-height: 260px;
+    cursor: pointer;
 }
 
 .loginCard:hover{
@@ -752,6 +753,7 @@ body {
 .authLoginSection {
     height: 66vh;
     overflow: scroll;
+    padding: 24px 24px 50px 24px;
 }
 .loaderOuter{
     display: flex;

@@ -7,19 +7,61 @@ import { selectLoginAuth } from '../../redux/slices/auth';
 import { useDispatch, useSelector } from 'react-redux';
 import { useRouter } from 'next/router';
 import withAuth from '../../components/withAuth';
+import { dashboardDetails, getAllOrderDeliveries, getTodaySales } from '../../redux/slices/dashboard';
+import Login from '../auth/login';
+import moment from 'moment-timezone';
 
 
 const Overview = () => {
     const authData = useSelector(selectLoginAuth)
-    const token = authData?.posUserLoginDetails?.payload?.token
+    console.log(authData, "authData");
+    const dashboardData = useSelector(dashboardDetails)
+
+    const UniqueId = authData?.usersInfo?.payload?.uniqe_id ? authData?.usersInfo?.payload?.uniqe_id : ""
+    console.log(UniqueId, "UniqueId");
     const router = useRouter();
     const dispatch = useDispatch();
     const [key, setKey] = useState(Math.random());
+    const [orderDeliveriesInfo, setOrderDeliveriesInfo] = useState("");
+    const [getTodaySale, setGetTodaySale] = useState("");
     const [modalDetail, setModalDetail] = useState({
         show: false,
         title: "",
         flag: "",
     });
+
+    // API for get all oder deliveries...............................
+    const allOrderDeliveriesInfo = () => {
+        let params = {
+            seller_id: UniqueId,
+        };
+        dispatch(getAllOrderDeliveries({
+            ...params,
+            cb(res) {
+                if (res.status) {
+                    setOrderDeliveriesInfo(res?.data?.payload?.data)
+                }
+            },
+        })
+        );
+    };
+
+    // API for get today sales...............................
+    const todaySaleInfo = () => {
+        let params = {
+            seller_id: UniqueId,
+            filter: "today"
+        };
+        dispatch(getTodaySales({
+            ...params,
+            cb(res) {
+                if (res.status) {
+                    setGetTodaySale(res?.data?.payload)
+                }
+            },
+        })
+        );
+    };
 
     //closeModal
     const handleOnCloseModal = () => {
@@ -42,15 +84,11 @@ const Overview = () => {
     };
 
     useEffect(() => {
-        // Check if the user is logged in
-        // const isLoggedIn = /* your authentication check here */;
-
-        if (router.pathname === '/home/overview') {
-            // Redirect to the dashboard
-            router.push('/home/overview');
+        if (UniqueId) {
+            todaySaleInfo()
+            allOrderDeliveriesInfo()
         }
     }, []);
-
 
 
     return (
@@ -58,13 +96,13 @@ const Overview = () => {
             <div className='homeOverview'>
                 <div className='container-fluid'>
                     <div className='row'>
-                        <div className='col-lg-5 col-md-12'>
+                        <div className='col-lg-4 col-md-12'>
                             <div className='homeLeft'>
                                 <div className='homeProfile'>
                                     <figure className='profileImage'>
-                                        <Image src={Images.HomeProfileImg} alt="HomeProfileImage" className="img-fluid homeProfileImg" />
+                                        <Image src={authData?.posUserLoginDetails?.payload?.user_profiles?.profile_photo ? authData?.posUserLoginDetails?.payload?.user_profiles?.profile_photo : Images.HomeProfileImg} alt="HomeProfileImage" className="img-fluid homeProfileImg" />
                                     </figure>
-                                    <h2 className='loginheading mt-2'>Eugenia Salas</h2>
+                                    <h2 className='loginheading mt-2'>{`${authData?.posUserLoginDetails?.payload?.user_profiles?.firstname} ${authData?.posUserLoginDetails?.payload?.user_profiles?.lastname}`}</h2>
                                     <div className='cashBox'>
                                         <h4 className='cashierHeading'>POS Cashier</h4>
                                         <div className='IdTextMain'>
@@ -75,22 +113,34 @@ const Overview = () => {
                                 <div className='profileSaleData'>
                                     <div className='todaySale '>
                                         <h4 className='loginMain'>Today’s Sales</h4>
-                                        <div className='flexHeading mt-4'>
+                                        {dashboardData?.loading ? (
+                                            <>
+                                                <div className="loaderOuter">
+                                                    <div className="spinner-grow loaderSpinner text-center my-2"></div>
+                                                </div>
+                                            </>
+                                        ) : (
+                                            getTodaySale && getTodaySale?.map((data, index) => {
+                                                return (
+                                                    <div className='flexHeading mt-4'>
+                                                        <h4 className='saleHeading'>{data?.mode_of_payment} Sales amount</h4>
+                                                        <h4 className='saleHeading'>${data?.total_sale_amount?.toFixed(2)}</h4>
+                                                    </div>)
+                                            }))}
+                                        {/* // <div className='flexHeading mt-2'>
+                                        //     <h4 className='saleHeading'>Card Sales amount</h4>
+                                        //     <h4 className='saleHeading'>$400.50</h4>
+                                        // </div> */}
+                                        {/* <div className='flexHeading mt-2'>
                                             <h4 className='saleHeading'>Cash Sales amount</h4>
                                             <h4 className='saleHeading'>$400.50</h4>
-                                        </div>
-                                        <div className='flexHeading mt-2'>
-                                            <h4 className='saleHeading'>Cash Sales amount</h4>
-                                            <h4 className='saleHeading'>$400.50</h4>
-                                        </div>
-                                        <div className='flexHeading mt-2'>
-                                            <h4 className='saleHeading'>Cash Sales amount</h4>
-                                            <h4 className='saleHeading'>$400.50</h4>
-                                        </div>
-                                        <div className='flexHeading mt-2'>
-                                            <h4 className='saleHeading'>JOBR Coin Sales amount</h4>
-                                            <h4 className='saleHeading'>JOBR 400.50</h4>
-                                        </div>
+                                        </div> */}
+                                        {/* // <div className='flexHeading mt-2'>
+                                        //     <h4 className='saleHeading'>JOBR Coin Sales amount</h4>
+                                        //     <h4 className='saleHeading'>JOBR 400.50</h4>
+                                        // </div> */}
+
+
                                     </div>
                                     <div className='todaySale cashDraw'>
                                         <h4 className='loginMain'>Cash Drawer</h4>
@@ -130,7 +180,7 @@ const Overview = () => {
                                 </div>
                             </div>
                         </div>
-                        <div className='col-lg-7 col-md-12'>
+                        <div className='col-lg-8 col-md-12'>
                             <div className='homeRight'>
                                 <form className='homeRightForm'>
                                     <div className="searchControlBox">
@@ -170,328 +220,358 @@ const Overview = () => {
                                     <h4 className='loginMain'>Order Deliveries</h4>
                                     <div className="table-responsive deliverTable">
                                         <table id="tableProduct" className="product_table">
-                                            <tbody>
-                                                <tr >
-                                                    <td className='deliverSubdata'>
-                                                        <div className='orderFirstId'>
-                                                            <h4 className='orderId'>#7869YZ</h4>
+                                            {dashboardData?.loading ? (
+                                                <>
+                                                    <tbody>
+                                                        <div className="loaderOuter">
+                                                            <div className="spinner-grow loaderSpinner text-center my-5"></div>
                                                         </div>
-                                                    </td>
-                                                    <td className='deliverSubdata'>
-                                                        <div className='nameLocation'>
-                                                            <h4 className='orderId'>Jeremy McFlan</h4>
-                                                            <div className='flexTable'>
-                                                                <Image src={Images.OrderLocation} alt="location Image" className="img-fluid ms-1" />
-                                                                <span className='locateDistance'>2.5 miles</span>
-                                                            </div>
-                                                        </div>
-                                                    </td>
-                                                    <td className='deliverSubdata'>
-                                                        <div className='itemMoney'>
-                                                            <h4 className='orderId'>3 items</h4>
-                                                            <div className='flexTable'>
-                                                                <Image src={Images.MoneyItem} alt="MoneyItemImage " className="img-fluid ms-1" />
-                                                                <span className='locateDistance'>$500.50</span>
-                                                            </div>
-                                                        </div>
-                                                    </td>
-                                                    <td className='deliverSubdata'>
-                                                        <div className='itemTime'>
-                                                            <h4 className='orderId'>1 hour delivery window</h4>
-                                                            <div className='flexTable'>
-                                                                <Image src={Images.Time} alt="MoneyItemImage " className="img-fluid ms-1" />
-                                                                <span className='locateDistance'>Immediately</span>
-                                                            </div>
-                                                        </div>
-                                                    </td>
-                                                    <td className='deliverSubdata'>
-                                                        <div className='deliveryTime'>
-                                                            <i className="fa-sharp fa-solid fa-chevron-right"></i>
-                                                            <span className='orderId'>00:03:06</span>
-                                                        </div>
-                                                    </td>
-                                                </tr>
-                                                <tr >
-                                                    <td className='deliverSubdata'>
-                                                        <div className='orderFirstId'>
-                                                            <h4 className='orderId'>#7869YZ</h4>
-                                                        </div>
-                                                    </td>
-                                                    <td className='deliverSubdata'>
-                                                        <div className='nameLocation'>
-                                                            <h4 className='orderId'>Jeremy McFlan</h4>
-                                                            <div className='flexTable'>
-                                                                <Image src={Images.OrderLocation} alt="location Image" className="img-fluid ms-1" />
-                                                                <span className='locateDistance'>2.5 miles</span>
-                                                            </div>
-                                                        </div>
-                                                    </td>
-                                                    <td className='deliverSubdata'>
-                                                        <div className='itemMoney'>
-                                                            <h4 className='orderId'>3 items</h4>
-                                                            <div className='flexTable'>
-                                                                <Image src={Images.MoneyItem} alt="MoneyItemImage " className="img-fluid ms-1" />
-                                                                <span className='locateDistance'>$500.50</span>
-                                                            </div>
-                                                        </div>
-                                                    </td>
-                                                    <td className='deliverSubdata'>
-                                                        <div className='itemTime'>
-                                                            <h4 className='orderId'>1 hour delivery window</h4>
-                                                            <div className='flexTable'>
-                                                                <Image src={Images.Time} alt="MoneyItemImage " className="img-fluid ms-1" />
-                                                                <span className='locateDistance'>Immediately</span>
-                                                            </div>
-                                                        </div>
-                                                    </td>
-                                                    <td className='deliverSubdata'>
-                                                        <div className='deliveryTime'>
-                                                            <i className="fa-sharp fa-solid fa-chevron-right"></i>
-                                                            <span className='orderId'>00:03:06</span>
-                                                        </div>
-                                                    </td>
-                                                </tr>
-                                                <tr >
-                                                    <td className='deliverSubdata'>
-                                                        <div className='orderFirstId'>
-                                                            <h4 className='orderId'>#7869YZ</h4>
-                                                        </div>
-                                                    </td>
-                                                    <td className='deliverSubdata'>
-                                                        <div className='nameLocation'>
-                                                            <h4 className='orderId'>Jeremy McFlan</h4>
-                                                            <div className='flexTable'>
-                                                                <Image src={Images.OrderLocation} alt="location Image" className="img-fluid ms-1" />
-                                                                <span className='locateDistance'>2.5 miles</span>
-                                                            </div>
-                                                        </div>
-                                                    </td>
-                                                    <td className='deliverSubdata'>
-                                                        <div className='itemMoney'>
-                                                            <h4 className='orderId'>3 items</h4>
-                                                            <div className='flexTable'>
-                                                                <Image src={Images.MoneyItem} alt="MoneyItemImage " className="img-fluid ms-1" />
-                                                                <span className='locateDistance'>$500.50</span>
-                                                            </div>
-                                                        </div>
-                                                    </td>
-                                                    <td className='deliverSubdata'>
-                                                        <div className='itemTime'>
-                                                            <h4 className='orderId'>1 hour delivery window</h4>
-                                                            <div className='flexTable'>
-                                                                <Image src={Images.Time} alt="MoneyItemImage " className="img-fluid ms-1" />
-                                                                <span className='locateDistance'>Immediately</span>
-                                                            </div>
-                                                        </div>
-                                                    </td>
-                                                    <td className='deliverSubdata'>
-                                                        <div className='deliveryTime'>
-                                                            <i className="fa-sharp fa-solid fa-chevron-right"></i>
-                                                            <span className='orderId'>00:03:06</span>
-                                                        </div>
-                                                    </td>
-                                                </tr>
-                                                <tr >
-                                                    <td className='deliverSubdata'>
-                                                        <div className='orderFirstId'>
-                                                            <h4 className='orderId'>#7869YZ</h4>
-                                                        </div>
-                                                    </td>
-                                                    <td className='deliverSubdata'>
-                                                        <div className='nameLocation'>
-                                                            <h4 className='orderId'>Jeremy McFlan</h4>
-                                                            <div className='flexTable'>
-                                                                <Image src={Images.OrderLocation} alt="location Image" className="img-fluid ms-1" />
-                                                                <span className='locateDistance'>2.5 miles</span>
-                                                            </div>
-                                                        </div>
-                                                    </td>
-                                                    <td className='deliverSubdata'>
-                                                        <div className='itemMoney'>
-                                                            <h4 className='orderId'>3 items</h4>
-                                                            <div className='flexTable'>
-                                                                <Image src={Images.MoneyItem} alt="MoneyItemImage " className="img-fluid ms-1" />
-                                                                <span className='locateDistance'>$500.50</span>
-                                                            </div>
-                                                        </div>
-                                                    </td>
-                                                    <td className='deliverSubdata'>
-                                                        <div className='itemTime'>
-                                                            <h4 className='orderId'>1 hour delivery window</h4>
-                                                            <div className='flexTable'>
-                                                                <Image src={Images.Time} alt="MoneyItemImage " className="img-fluid ms-1" />
-                                                                <span className='locateDistance'>Immediately</span>
-                                                            </div>
-                                                        </div>
-                                                    </td>
-                                                    <td className='deliverSubdata'>
-                                                        <div className='deliveryTime'>
-                                                            <i className="fa-sharp fa-solid fa-chevron-right"></i>
-                                                            <span className='orderId'>00:03:06</span>
-                                                        </div>
-                                                    </td>
-                                                </tr>
-                                                <tr >
-                                                    <td className='deliverSubdata'>
-                                                        <div className='orderFirstId'>
-                                                            <h4 className='orderId'>#7869YZ</h4>
-                                                        </div>
-                                                    </td>
-                                                    <td className='deliverSubdata'>
-                                                        <div className='nameLocation'>
-                                                            <h4 className='orderId'>Jeremy McFlan</h4>
-                                                            <div className='flexTable'>
-                                                                <Image src={Images.OrderLocation} alt="location Image" className="img-fluid ms-1" />
-                                                                <span className='locateDistance'>2.5 miles</span>
-                                                            </div>
-                                                        </div>
-                                                    </td>
-                                                    <td className='deliverSubdata'>
-                                                        <div className='itemMoney'>
-                                                            <h4 className='orderId'>3 items</h4>
-                                                            <div className='flexTable'>
-                                                                <Image src={Images.MoneyItem} alt="MoneyItemImage " className="img-fluid ms-1" />
-                                                                <span className='locateDistance'>$500.50</span>
-                                                            </div>
-                                                        </div>
-                                                    </td>
-                                                    <td className='deliverSubdata'>
-                                                        <div className='itemTime'>
-                                                            <h4 className='orderId'>1 hour delivery window</h4>
-                                                            <div className='flexTable'>
-                                                                <Image src={Images.Time} alt="MoneyItemImage " className="img-fluid ms-1" />
-                                                                <span className='locateDistance'>Immediately</span>
-                                                            </div>
-                                                        </div>
-                                                    </td>
-                                                    <td className='deliverSubdata'>
-                                                        <div className='deliveryTime'>
-                                                            <i className="fa-sharp fa-solid fa-chevron-right"></i>
-                                                            <span className='orderId'>00:03:06</span>
-                                                        </div>
-                                                    </td>
-                                                </tr>
-                                                <tr >
-                                                    <td className='deliverSubdata'>
-                                                        <div className='orderFirstId'>
-                                                            <h4 className='orderId'>#7869YZ</h4>
-                                                        </div>
-                                                    </td>
-                                                    <td className='deliverSubdata'>
-                                                        <div className='nameLocation'>
-                                                            <h4 className='orderId'>Jeremy McFlan</h4>
-                                                            <div className='flexTable'>
-                                                                <Image src={Images.OrderLocation} alt="location Image" className="img-fluid ms-1" />
-                                                                <span className='locateDistance'>2.5 miles</span>
-                                                            </div>
-                                                        </div>
-                                                    </td>
-                                                    <td className='deliverSubdata'>
-                                                        <div className='itemMoney'>
-                                                            <h4 className='orderId'>3 items</h4>
-                                                            <div className='flexTable'>
-                                                                <Image src={Images.MoneyItem} alt="MoneyItemImage " className="img-fluid ms-1" />
-                                                                <span className='locateDistance'>$500.50</span>
-                                                            </div>
-                                                        </div>
-                                                    </td>
-                                                    <td className='deliverSubdata'>
-                                                        <div className='itemTime'>
-                                                            <h4 className='orderId'>1 hour delivery window</h4>
-                                                            <div className='flexTable'>
-                                                                <Image src={Images.Time} alt="MoneyItemImage " className="img-fluid ms-1" />
-                                                                <span className='locateDistance'>Immediately</span>
-                                                            </div>
-                                                        </div>
-                                                    </td>
-                                                    <td className='deliverSubdata'>
-                                                        <div className='deliveryTime'>
-                                                            <i className="fa-sharp fa-solid fa-chevron-right"></i>
-                                                            <span className='orderId'>00:03:06</span>
-                                                        </div>
-                                                    </td>
-                                                </tr>
-                                                <tr >
-                                                    <td className='deliverSubdata'>
-                                                        <div className='orderFirstId'>
-                                                            <h4 className='orderId'>#7869YZ</h4>
-                                                        </div>
-                                                    </td>
-                                                    <td className='deliverSubdata'>
-                                                        <div className='nameLocation'>
-                                                            <h4 className='orderId'>Jeremy McFlan</h4>
-                                                            <div className='flexTable'>
-                                                                <Image src={Images.OrderLocation} alt="location Image" className="img-fluid ms-1" />
-                                                                <span className='locateDistance'>2.5 miles</span>
-                                                            </div>
-                                                        </div>
-                                                    </td>
-                                                    <td className='deliverSubdata'>
-                                                        <div className='itemMoney'>
-                                                            <h4 className='orderId'>3 items</h4>
-                                                            <div className='flexTable'>
-                                                                <Image src={Images.MoneyItem} alt="MoneyItemImage " className="img-fluid ms-1" />
-                                                                <span className='locateDistance'>$500.50</span>
-                                                            </div>
-                                                        </div>
-                                                    </td>
-                                                    <td className='deliverSubdata'>
-                                                        <div className='itemTime'>
-                                                            <h4 className='orderId'>1 hour delivery window</h4>
-                                                            <div className='flexTable'>
-                                                                <Image src={Images.Time} alt="MoneyItemImage " className="img-fluid ms-1" />
-                                                                <span className='locateDistance'>Immediately</span>
-                                                            </div>
-                                                        </div>
-                                                    </td>
-                                                    <td className='deliverSubdata'>
-                                                        <div className='deliveryTime'>
-                                                            <i className="fa-sharp fa-solid fa-chevron-right"></i>
-                                                            <span className='orderId'>00:03:06</span>
-                                                        </div>
-                                                    </td>
-                                                </tr>
-                                                <tr >
-                                                    <td className='deliverSubdata'>
-                                                        <div className='orderFirstId'>
-                                                            <h4 className='orderId'>#7869YZ</h4>
-                                                        </div>
-                                                    </td>
-                                                    <td className='deliverSubdata'>
-                                                        <div className='nameLocation'>
-                                                            <h4 className='orderId'>Jeremy McFlan</h4>
-                                                            <div className='flexTable'>
-                                                                <Image src={Images.OrderLocation} alt="location Image" className="img-fluid ms-1" />
-                                                                <span className='locateDistance'>2.5 miles</span>
-                                                            </div>
-                                                        </div>
-                                                    </td>
-                                                    <td className='deliverSubdata'>
-                                                        <div className='itemMoney'>
-                                                            <h4 className='orderId'>3 items</h4>
-                                                            <div className='flexTable'>
-                                                                <Image src={Images.MoneyItem} alt="MoneyItemImage " className="img-fluid ms-1" />
-                                                                <span className='locateDistance'>$500.50</span>
-                                                            </div>
-                                                        </div>
-                                                    </td>
-                                                    <td className='deliverSubdata'>
-                                                        <div className='itemTime'>
-                                                            <h4 className='orderId'>1 hour delivery window</h4>
-                                                            <div className='flexTable'>
-                                                                <Image src={Images.Time} alt="MoneyItemImage " className="img-fluid ms-1" />
-                                                                <span className='locateDistance'>Immediately</span>
-                                                            </div>
-                                                        </div>
-                                                    </td>
-                                                    <td className='deliverSubdata'>
-                                                        <div className='deliveryTime'>
-                                                            <i className="fa-sharp fa-solid fa-chevron-right"></i>
-                                                            <span className='orderId'>00:03:06</span>
-                                                        </div>
-                                                    </td>
-                                                </tr>
-                                            </tbody>
+                                                    </tbody>
+                                                </>
+                                            ) : (
+                                                <tbody>
+                                                    {orderDeliveriesInfo?.length > 0 ? (
+                                                        <>
+                                                            {orderDeliveriesInfo?.map((data, index) => {
+                                                                return (
+                                                                    <tr >
+                                                                        <td className='deliverSubdata' key={index}>
+                                                                            <div className='orderFirstId'>
+                                                                                <h4 className='orderId'>#{data?.id}</h4>
+                                                                            </div>
+                                                                        </td>
+                                                                        <td className='deliverSubdata'>
+                                                                            <div className='nameLocation'>
+                                                                                <h4 className='orderId'>{data?.user_details ? data?.user_details?.firstname + " " + data?.user_details?.lastname : ""}</h4>
+                                                                                <div className='flexTable'>
+                                                                                    <Image src={Images.OrderLocation} alt="location Image" className="img-fluid ms-1" />
+                                                                                    <span className='locateDistance'>{data?.distance} miles</span>
+                                                                                </div>
+                                                                            </div>
+                                                                        </td>
+                                                                        <td className='deliverSubdata'>
+                                                                            <div className='itemMoney'>
+                                                                                <h4 className='orderId'>{data?.order_details?.length} items</h4>
+                                                                                <div className='flexTable'>
+                                                                                    <Image src={Images.MoneyItem} alt="MoneyItemImage " className="img-fluid ms-1" />
+                                                                                    <span className='locateDistance'>{data?.payable_amount ? data?.payable_amount : 0}</span>
+                                                                                </div>
+                                                                            </div>
+                                                                        </td>
+                                                                        <td className='deliverSubdata'>
+                                                                            <div className='itemTime'>
+                                                                                <h4 className='orderId'>{data?.delivery_details?.title}</h4>
+                                                                                {data?.preffered_delivery_start_time ?
+                                                                                    <div className='flexTable'>
+                                                                                        <Image src={Images.Time} alt="MoneyItemImage " className="img-fluid ms-1" />
+                                                                                        <span className='locateDistance'>{data?.preffered_delivery_start_time} - {data?.preffered_delivery_end_time}</span>
+                                                                                    </div> :
+                                                                                    ""}
+                                                                            </div>
+                                                                        </td>
+                                                                        <td className='deliverSubdata'>
+                                                                            <div className='deliveryTime'>
+                                                                                <i className="fa-sharp fa-solid fa-chevron-right"></i>
+                                                                                <span className='orderId'>{data?.estimated_preparation_time === null ? '00:00:00' : moment(data?.estimated_preparation_time).format('LTS')}</span>
+                                                                            </div>
+                                                                        </td>
+                                                                    </tr>
+                                                                    // <tr >
+                                                                    //     <td className='deliverSubdata'>
+                                                                    //         <div className='orderFirstId'>
+                                                                    //             <h4 className='orderId'>#7869YZ</h4>
+                                                                    //         </div>
+                                                                    //     </td>
+                                                                    //     <td className='deliverSubdata'>
+                                                                    //         <div className='nameLocation'>
+                                                                    //             <h4 className='orderId'>Jeremy McFlan</h4>
+                                                                    //             <div className='flexTable'>
+                                                                    //                 <Image src={Images.OrderLocation} alt="location Image" className="img-fluid ms-1" />
+                                                                    //                 <span className='locateDistance'>2.5 miles</span>
+                                                                    //             </div>
+                                                                    //         </div>
+                                                                    //     </td>
+                                                                    //     <td className='deliverSubdata'>
+                                                                    //         <div className='itemMoney'>
+                                                                    //             <h4 className='orderId'>3 items</h4>
+                                                                    //             <div className='flexTable'>
+                                                                    //                 <Image src={Images.MoneyItem} alt="MoneyItemImage " className="img-fluid ms-1" />
+                                                                    //                 <span className='locateDistance'>$500.50</span>
+                                                                    //             </div>
+                                                                    //         </div>
+                                                                    //     </td>
+                                                                    //     <td className='deliverSubdata'>
+                                                                    //         <div className='itemTime'>
+                                                                    //             <h4 className='orderId'>1 hour delivery window</h4>
+                                                                    //             <div className='flexTable'>
+                                                                    //                 <Image src={Images.Time} alt="MoneyItemImage " className="img-fluid ms-1" />
+                                                                    //                 <span className='locateDistance'>Immediately</span>
+                                                                    //             </div>
+                                                                    //         </div>
+                                                                    //     </td>
+                                                                    //     <td className='deliverSubdata'>
+                                                                    //         <div className='deliveryTime'>
+                                                                    //             <i className="fa-sharp fa-solid fa-chevron-right"></i>
+                                                                    //             <span className='orderId'>00:03:06</span>
+                                                                    //         </div>
+                                                                    //     </td>
+                                                                    // </tr>
+                                                                    // <tr >
+                                                                    //     <td className='deliverSubdata'>
+                                                                    //         <div className='orderFirstId'>
+                                                                    //             <h4 className='orderId'>#7869YZ</h4>
+                                                                    //         </div>
+                                                                    //     </td>
+                                                                    //     <td className='deliverSubdata'>
+                                                                    //         <div className='nameLocation'>
+                                                                    //             <h4 className='orderId'>Jeremy McFlan</h4>
+                                                                    //             <div className='flexTable'>
+                                                                    //                 <Image src={Images.OrderLocation} alt="location Image" className="img-fluid ms-1" />
+                                                                    //                 <span className='locateDistance'>2.5 miles</span>
+                                                                    //             </div>
+                                                                    //         </div>
+                                                                    //     </td>
+                                                                    //     <td className='deliverSubdata'>
+                                                                    //         <div className='itemMoney'>
+                                                                    //             <h4 className='orderId'>3 items</h4>
+                                                                    //             <div className='flexTable'>
+                                                                    //                 <Image src={Images.MoneyItem} alt="MoneyItemImage " className="img-fluid ms-1" />
+                                                                    //                 <span className='locateDistance'>$500.50</span>
+                                                                    //             </div>
+                                                                    //         </div>
+                                                                    //     </td>
+                                                                    //     <td className='deliverSubdata'>
+                                                                    //         <div className='itemTime'>
+                                                                    //             <h4 className='orderId'>1 hour delivery window</h4>
+                                                                    //             <div className='flexTable'>
+                                                                    //                 <Image src={Images.Time} alt="MoneyItemImage " className="img-fluid ms-1" />
+                                                                    //                 <span className='locateDistance'>Immediately</span>
+                                                                    //             </div>
+                                                                    //         </div>
+                                                                    //     </td>
+                                                                    //     <td className='deliverSubdata'>
+                                                                    //         <div className='deliveryTime'>
+                                                                    //             <i className="fa-sharp fa-solid fa-chevron-right"></i>
+                                                                    //             <span className='orderId'>00:03:06</span>
+                                                                    //         </div>
+                                                                    //     </td>
+                                                                    // </tr>
+                                                                    // <tr >
+                                                                    //     <td className='deliverSubdata'>
+                                                                    //         <div className='orderFirstId'>
+                                                                    //             <h4 className='orderId'>#7869YZ</h4>
+                                                                    //         </div>
+                                                                    //     </td>
+                                                                    //     <td className='deliverSubdata'>
+                                                                    //         <div className='nameLocation'>
+                                                                    //             <h4 className='orderId'>Jeremy McFlan</h4>
+                                                                    //             <div className='flexTable'>
+                                                                    //                 <Image src={Images.OrderLocation} alt="location Image" className="img-fluid ms-1" />
+                                                                    //                 <span className='locateDistance'>2.5 miles</span>
+                                                                    //             </div>
+                                                                    //         </div>
+                                                                    //     </td>
+                                                                    //     <td className='deliverSubdata'>
+                                                                    //         <div className='itemMoney'>
+                                                                    //             <h4 className='orderId'>3 items</h4>
+                                                                    //             <div className='flexTable'>
+                                                                    //                 <Image src={Images.MoneyItem} alt="MoneyItemImage " className="img-fluid ms-1" />
+                                                                    //                 <span className='locateDistance'>$500.50</span>
+                                                                    //             </div>
+                                                                    //         </div>
+                                                                    //     </td>
+                                                                    //     <td className='deliverSubdata'>
+                                                                    //         <div className='itemTime'>
+                                                                    //             <h4 className='orderId'>1 hour delivery window</h4>
+                                                                    //             <div className='flexTable'>
+                                                                    //                 <Image src={Images.Time} alt="MoneyItemImage " className="img-fluid ms-1" />
+                                                                    //                 <span className='locateDistance'>Immediately</span>
+                                                                    //             </div>
+                                                                    //         </div>
+                                                                    //     </td>
+                                                                    //     <td className='deliverSubdata'>
+                                                                    //         <div className='deliveryTime'>
+                                                                    //             <i className="fa-sharp fa-solid fa-chevron-right"></i>
+                                                                    //             <span className='orderId'>00:03:06</span>
+                                                                    //         </div>
+                                                                    //     </td>
+                                                                    // </tr>
+                                                                    // <tr >
+                                                                    //     <td className='deliverSubdata'>
+                                                                    //         <div className='orderFirstId'>
+                                                                    //             <h4 className='orderId'>#7869YZ</h4>
+                                                                    //         </div>
+                                                                    //     </td>
+                                                                    //     <td className='deliverSubdata'>
+                                                                    //         <div className='nameLocation'>
+                                                                    //             <h4 className='orderId'>Jeremy McFlan</h4>
+                                                                    //             <div className='flexTable'>
+                                                                    //                 <Image src={Images.OrderLocation} alt="location Image" className="img-fluid ms-1" />
+                                                                    //                 <span className='locateDistance'>2.5 miles</span>
+                                                                    //             </div>
+                                                                    //         </div>
+                                                                    //     </td>
+                                                                    //     <td className='deliverSubdata'>
+                                                                    //         <div className='itemMoney'>
+                                                                    //             <h4 className='orderId'>3 items</h4>
+                                                                    //             <div className='flexTable'>
+                                                                    //                 <Image src={Images.MoneyItem} alt="MoneyItemImage " className="img-fluid ms-1" />
+                                                                    //                 <span className='locateDistance'>$500.50</span>
+                                                                    //             </div>
+                                                                    //         </div>
+                                                                    //     </td>
+                                                                    //     <td className='deliverSubdata'>
+                                                                    //         <div className='itemTime'>
+                                                                    //             <h4 className='orderId'>1 hour delivery window</h4>
+                                                                    //             <div className='flexTable'>
+                                                                    //                 <Image src={Images.Time} alt="MoneyItemImage " className="img-fluid ms-1" />
+                                                                    //                 <span className='locateDistance'>Immediately</span>
+                                                                    //             </div>
+                                                                    //         </div>
+                                                                    //     </td>
+                                                                    //     <td className='deliverSubdata'>
+                                                                    //         <div className='deliveryTime'>
+                                                                    //             <i className="fa-sharp fa-solid fa-chevron-right"></i>
+                                                                    //             <span className='orderId'>00:03:06</span>
+                                                                    //         </div>
+                                                                    //     </td>
+                                                                    // </tr>
+                                                                    // <tr >
+                                                                    //     <td className='deliverSubdata'>
+                                                                    //         <div className='orderFirstId'>
+                                                                    //             <h4 className='orderId'>#7869YZ</h4>
+                                                                    //         </div>
+                                                                    //     </td>
+                                                                    //     <td className='deliverSubdata'>
+                                                                    //         <div className='nameLocation'>
+                                                                    //             <h4 className='orderId'>Jeremy McFlan</h4>
+                                                                    //             <div className='flexTable'>
+                                                                    //                 <Image src={Images.OrderLocation} alt="location Image" className="img-fluid ms-1" />
+                                                                    //                 <span className='locateDistance'>2.5 miles</span>
+                                                                    //             </div>
+                                                                    //         </div>
+                                                                    //     </td>
+                                                                    //     <td className='deliverSubdata'>
+                                                                    //         <div className='itemMoney'>
+                                                                    //             <h4 className='orderId'>3 items</h4>
+                                                                    //             <div className='flexTable'>
+                                                                    //                 <Image src={Images.MoneyItem} alt="MoneyItemImage " className="img-fluid ms-1" />
+                                                                    //                 <span className='locateDistance'>$500.50</span>
+                                                                    //             </div>
+                                                                    //         </div>
+                                                                    //     </td>
+                                                                    //     <td className='deliverSubdata'>
+                                                                    //         <div className='itemTime'>
+                                                                    //             <h4 className='orderId'>1 hour delivery window</h4>
+                                                                    //             <div className='flexTable'>
+                                                                    //                 <Image src={Images.Time} alt="MoneyItemImage " className="img-fluid ms-1" />
+                                                                    //                 <span className='locateDistance'>Immediately</span>
+                                                                    //             </div>
+                                                                    //         </div>
+                                                                    //     </td>
+                                                                    //     <td className='deliverSubdata'>
+                                                                    //         <div className='deliveryTime'>
+                                                                    //             <i className="fa-sharp fa-solid fa-chevron-right"></i>
+                                                                    //             <span className='orderId'>00:03:06</span>
+                                                                    //         </div>
+                                                                    //     </td>
+                                                                    // </tr>
+                                                                    // <tr >
+                                                                    //     <td className='deliverSubdata'>
+                                                                    //         <div className='orderFirstId'>
+                                                                    //             <h4 className='orderId'>#7869YZ</h4>
+                                                                    //         </div>
+                                                                    //     </td>
+                                                                    //     <td className='deliverSubdata'>
+                                                                    //         <div className='nameLocation'>
+                                                                    //             <h4 className='orderId'>Jeremy McFlan</h4>
+                                                                    //             <div className='flexTable'>
+                                                                    //                 <Image src={Images.OrderLocation} alt="location Image" className="img-fluid ms-1" />
+                                                                    //                 <span className='locateDistance'>2.5 miles</span>
+                                                                    //             </div>
+                                                                    //         </div>
+                                                                    //     </td>
+                                                                    //     <td className='deliverSubdata'>
+                                                                    //         <div className='itemMoney'>
+                                                                    //             <h4 className='orderId'>3 items</h4>
+                                                                    //             <div className='flexTable'>
+                                                                    //                 <Image src={Images.MoneyItem} alt="MoneyItemImage " className="img-fluid ms-1" />
+                                                                    //                 <span className='locateDistance'>$500.50</span>
+                                                                    //             </div>
+                                                                    //         </div>
+                                                                    //     </td>
+                                                                    //     <td className='deliverSubdata'>
+                                                                    //         <div className='itemTime'>
+                                                                    //             <h4 className='orderId'>1 hour delivery window</h4>
+                                                                    //             <div className='flexTable'>
+                                                                    //                 <Image src={Images.Time} alt="MoneyItemImage " className="img-fluid ms-1" />
+                                                                    //                 <span className='locateDistance'>Immediately</span>
+                                                                    //             </div>
+                                                                    //         </div>
+                                                                    //     </td>
+                                                                    //     <td className='deliverSubdata'>
+                                                                    //         <div className='deliveryTime'>
+                                                                    //             <i className="fa-sharp fa-solid fa-chevron-right"></i>
+                                                                    //             <span className='orderId'>00:03:06</span>
+                                                                    //         </div>
+                                                                    //     </td>
+                                                                    // </tr>
+                                                                    // <tr >
+                                                                    //     <td className='deliverSubdata'>
+                                                                    //         <div className='orderFirstId'>
+                                                                    //             <h4 className='orderId'>#7869YZ</h4>
+                                                                    //         </div>
+                                                                    //     </td>
+                                                                    //     <td className='deliverSubdata'>
+                                                                    //         <div className='nameLocation'>
+                                                                    //             <h4 className='orderId'>Jeremy McFlan</h4>
+                                                                    //             <div className='flexTable'>
+                                                                    //                 <Image src={Images.OrderLocation} alt="location Image" className="img-fluid ms-1" />
+                                                                    //                 <span className='locateDistance'>2.5 miles</span>
+                                                                    //             </div>
+                                                                    //         </div>
+                                                                    //     </td>
+                                                                    //     <td className='deliverSubdata'>
+                                                                    //         <div className='itemMoney'>
+                                                                    //             <h4 className='orderId'>3 items</h4>
+                                                                    //             <div className='flexTable'>
+                                                                    //                 <Image src={Images.MoneyItem} alt="MoneyItemImage " className="img-fluid ms-1" />
+                                                                    //                 <span className='locateDistance'>$500.50</span>
+                                                                    //             </div>
+                                                                    //         </div>
+                                                                    //     </td>
+                                                                    //     <td className='deliverSubdata'>
+                                                                    //         <div className='itemTime'>
+                                                                    //             <h4 className='orderId'>1 hour delivery window</h4>
+                                                                    //             <div className='flexTable'>
+                                                                    //                 <Image src={Images.Time} alt="MoneyItemImage " className="img-fluid ms-1" />
+                                                                    //                 <span className='locateDistance'>Immediately</span>
+                                                                    //             </div>
+                                                                    //         </div>
+                                                                    //     </td>
+                                                                    //     <td className='deliverSubdata'>
+                                                                    //         <div className='deliveryTime'>
+                                                                    //             <i className="fa-sharp fa-solid fa-chevron-right"></i>
+                                                                    //             <span className='orderId'>00:03:06</span>
+                                                                    //         </div>
+                                                                    //     </td>
+                                                                    // </tr>
+                                                                );
+                                                            })}
+                                                        </>
+                                                    ) : (
+                                                        <tr>
+                                                            <td
+                                                                className="colorBlue text text-center py-3"
+                                                                colSpan={8}
+                                                            >
+                                                                No Record Found
+                                                            </td>
+                                                        </tr>
+                                                    )}
+                                                </tbody>
+                                            )}
+                                            {/* // </tbody> */}
                                         </table>
                                     </div>
                                 </div>

@@ -452,11 +452,13 @@
     font-weight: 500;
     padding: 7px 0;
 }
-.appointmentCalender{
+
+.appointmentCalender {
     width: 16px;
     height: 16px;
     margin-right: 5px;
 }
+
 .appointmentDate {
     padding: 3px 6px;
     font-size: 12px;
@@ -465,6 +467,7 @@
     display: inline-block;
     border-radius: 20px;
 }
+
 .Timezone {
     color: #4659B5;
     font-size: 12px;
@@ -472,6 +475,7 @@
     margin: 4px 0 !important;
     padding: 3px 6px;
 }
+
 .Appointmentusers .CardIcons {
     width: 24px;
     height: 24px;
@@ -482,22 +486,27 @@
     margin-right: -5px;
     margin-top: 4px;
 }
-.Tomorrowappointment .appointmentDate{
+
+.Tomorrowappointment .appointmentDate {
     color: #47B0D6;
     background-color: #EFFBFF;
 }
-.Todayappointment .appointmentDate{
+
+.Todayappointment .appointmentDate {
     color: #039855;
     background-color: #D1FADF;
 }
-.DayTomorrowappointment .appointmentDate{
+
+.DayTomorrowappointment .appointmentDate {
     color: #7233C2;
     background-color: #F5EDFF;
 }
-.afterappointment .appointmentDate{
+
+.afterappointment .appointmentDate {
     color: #DC6803;
     background-color: #FFF7D7;
 }
+
 /* End Product Service */
 
 /*Start Custom Checkbox css */
@@ -627,9 +636,11 @@
     outline: none;
     box-shadow: -4.95391px 9.82135px 80px 0px rgba(50, 80, 127, 0.04), 0px 0px 0px 5px rgba(38, 54, 130, 0.06), 0px 1px 2px 0px rgba(127, 143, 217, 0.47);
 }
+
 .custominput:focus-visible {
     box-shadow: -4.95391px 9.82135px 80px 0px rgba(50, 80, 127, 0.04), 0px 0px 0px 5px rgba(38, 54, 130, 0.06), 0px 1px 2px 0px rgba(127, 143, 217, 0.47);
 }
+
 .form-group {
     position: relative;
 }
@@ -707,16 +718,83 @@
     max-width: 120px;
     color: #263682;
 }
+
 /*End Add Product modal */
 
 /*Start  Product Invoice */
-.productInvoice{
+.productInvoice {
     margin: 0 16px;
 }
+
 .productInvoice .commanOuter {
     margin: 0;
     width: auto;
 }
-.invoiceHeading {
+
+.invoiceHeader {
     margin: 21px 28px 26px;
+}
+
+.invoiceHeading {
+    color: #7E8AC1;
+    font-size: 12px;
+    font-weight: 500;
+}
+#invoiceProduct {
+    width: 100%;
+    border-collapse: separate;
+}
+.product_invoice {
+    border-radius: 12px;
+    border: 11px solid #5c74f9;
+}
+
+.invoice_subhead {
+    color: #263682;
+    font-size: 12px;
+    font-weight: 400;
+}
+
+.invoice_subhead img {
+    margin-right: 4px;
+}
+
+.costumerImg {
+    width: 30px;
+    height: 30px;
+    padding: 5.986px 6.66px 5.986px 6.658px;
+    border-radius: 50px;
+    border: 0px solid #E4E6F2;
+    background: #F5F6FC;
+}
+
+.inStoreBtn {
+    border-radius: 20px;
+    background: #F5F6FC;
+    mix-blend-mode: multiply;
+    padding: 3px 6px;
+    color: #263682;
+    font-size: 12px;
+    font-weight: 500;
+    display: inline-block;
+}
+.priceBtn{
+    border-radius: 20px;
+    background: #D1FADF;
+    mix-blend-mode: multiply;
+    padding: 3px 6px;
+    color: #027547;
+    font-size: 12px;
+    font-weight: 500;
+    display: inline-block;
+}
+.onlineBtn{
+    border-radius: 20px;
+    background: #EFFBFF;
+    mix-blend-mode: multiply;
+    padding: 3px 6px;
+    color: #47B0D6;
+    font-size: 12px;
+    font-weight: 500;
+    display: inline-block;
 }

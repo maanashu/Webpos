@@ -82,7 +82,17 @@ import DayTomorrowCalender  from  "../public/images/DayTomorrowCalender.svg"
 import afterSomeCalender  from  "../public/images/afterSomeCalender.svg"
 import cartFood  from  "../public/images/cartFood.svg"
 import cartProfile  from  "../public/images/cartProfile.svg"
-
+import ShoppingSolid  from  "../public/images/Shopping-Solid.svg"
+import boldLeftArrow from "../public/images/boldLeftArrow.svg"
+import addServiceImg from "../public/images/addServiceImg.png"
+import rotateArrow from "../public/images/rotateArrow.svg"
+import providerImg from "../public/images/providerImg.svg"
+import paginationImg from "../public/images/paginationImg.svg"
+import calendarLight from "../public/images/calendarLight.svg"
+import arrowDown from "../public/images/arrowDown.svg"
+import calendarDark from "../public/images/calendarDark.svg"
+import calendarCell from "../public/images/calendarCell.svg"
+import serviceCart from "../public/images/serviceCart.svg"
 
 
 
@@ -171,4 +181,15 @@ export{
     afterSomeCalender,
     cartFood,
     cartProfile,
+    ShoppingSolid,
+    boldLeftArrow,
+    addServiceImg,
+    rotateArrow,
+    providerImg,
+    paginationImg,
+    calendarLight,
+    arrowDown,
+    calendarDark,
+    calendarCell,
+    serviceCart,
 };
