@@ -3,7 +3,9 @@ import { ApiClient } from "../../../utilities/api";
 import {
   onErrorStopLoad,
   setGetAllOrderDeliveries,
-  setGetTodaySales
+  setGetTodaySales,
+  setGetDrawerSessionInfo,
+  setGetPosLoginDetails
 } from "../../slices/dashboard";
 import { toast } from "react-toastify";
 import { ORDER_API_URL, AUTH_API_URL } from "../../../utilities/config"
@@ -49,12 +51,31 @@ function* getTodaySales(action) {
 }
 
 function* getDrawerSessionInfo(action) {
+  // const dataToSend = { ...action.payload }
+  // delete dataToSend.cb
+  try {
+    const resp = yield call(ApiClient.post, (`${AUTH_API_URL}/api/v1/drawer_management/drawer-session`),(action.payload = action.payload))
+    if (resp.status) {
+      yield put(setGetDrawerSessionInfo(resp.data));
+      yield call(action.payload.cb, (action.res = resp));
+      // toast.success(resp?.data?.msg);
+    }
+    else {
+      throw resp
+    }
+  } catch (e) {
+    yield put(onErrorStopLoad())
+    toast.error(e?.error?.response?.data?.msg);
+  }
+}
+
+function* getPosLoginDetails(action) {
   const dataToSend = { ...action.payload }
   delete dataToSend.cb
   try {
-    const resp = yield call(ApiClient.get, (`${AUTH_API_URL}/api/v1/drawer_management/drawer-session/history?filter_date=${action.payload.filter}`));
+    const resp = yield call(ApiClient.get, (`${AUTH_API_URL}/api/v1/users/pos/login-details`))
     if (resp.status) {
-      yield put(setGetTodaySales(resp.data));
+      yield put(setGetPosLoginDetails(resp.data));
       yield call(action.payload.cb, (action.res = resp));
       // toast.success(resp?.data?.msg);
     }
@@ -72,6 +93,7 @@ function* dashboardSaga() {
     takeLatest("dashboard/getAllOrderDeliveries", getAllOrderDeliveries),
     takeLatest("dashboard/getTodaySales", getTodaySales),
     takeLatest("dashboard/getDrawerSessionInfo", getDrawerSessionInfo),
+    takeLatest("dashboard/getPosLoginDetails", getPosLoginDetails),
   ]);
 }
 

@@ -1,9 +1,9 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-    orderDeliveries: {},
-    todaySales:{},
-    drawerSession:{},
+    orderDeliveries: "",
+    todaySales:"",
+    drawerSession:"",
     loading: false,
 };
 
@@ -32,6 +32,18 @@ export const dashboardSlice = createSlice({
             state.loading = false;
             state.drawerSession = action?.payload
         },
+        getPosLoginDetails: (state) => {
+            state.loading = true;
+        },
+        setGetPosLoginDetails: (state, action) => {
+            state.loading = false;
+        },
+        dashboardLogout: (state) => {
+            state.orderDeliveries = "";
+            state.todaySales = "";
+            state.drawerSession = "";
+            state.loading= false;
+          },
         onErrorStopLoad: (state) => {
             state.loading = false;
         },
@@ -46,6 +58,9 @@ export const {
     setGetTodaySales,
     getDrawerSessionInfo,
     setGetDrawerSessionInfo,
+    getPosLoginDetails,
+    setGetPosLoginDetails,
+    dashboardLogout,
     onErrorStopLoad
 } = dashboardSlice.actions;
 

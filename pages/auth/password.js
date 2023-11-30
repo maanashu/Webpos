@@ -36,7 +36,6 @@ const Verify = () => {
             if (!toast.isActive(toastId.current)) {
                 toastId.current = toast.error("Please enter POS Security Pin");
             }
-
             return;
         }
         else if (posSecurityPin?.length < 4) {

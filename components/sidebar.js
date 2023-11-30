@@ -5,6 +5,7 @@ import Image from "next/image";
 import { ListGroup, ListGroupItem } from 'react-bootstrap';
 import { useRouter } from 'next/router';
 import { logout,selectLoginAuth } from '../redux/slices/auth';
+import { dashboardLogout } from '../redux/slices/dashboard';
 import { useDispatch, useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
 
@@ -20,6 +21,7 @@ const Sidebar = (props) => {
     const userLogout = async(e) => {
         e.preventDefault();
         await dispatch(logout());
+        await dispatch(dashboardLogout());
         setTimeout(() => {
         toast.success("Logout successfully");
         }, 200);
