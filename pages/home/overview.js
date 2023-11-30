@@ -143,7 +143,7 @@ const Overview = () => {
             <div className='homeOverview'>
                 <div className='container-fluid'>
                     <div className='row'>
-                        <div className='col-lg-5 col-md-12'>
+                        <div className='col-lg-4 col-md-12'>
                             <div className='homeLeft'>
                                 <div className='homeProfile'>
                                     <figure className='profileImage'>
@@ -243,7 +243,7 @@ const Overview = () => {
                                 </div>
                             </div>
                         </div>
-                        <div className='col-lg-7 col-md-12'>
+                        <div className='col-lg-8 col-md-12'>
                             <div className='homeRight'>
                                 <form className='homeRightForm'>
                                     <div className="searchControlBox">
