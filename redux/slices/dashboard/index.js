@@ -3,6 +3,7 @@ import { createSlice } from "@reduxjs/toolkit";
 const initialState = {
     orderDeliveries: {},
     todaySales:{},
+    drawerSession:{},
     loading: false,
 };
 
@@ -24,6 +25,13 @@ export const dashboardSlice = createSlice({
             state.loading = false;
             state.todaySales = action?.payload
         },
+        getDrawerSessionInfo: (state) => {
+            state.loading = true;
+        },
+        setGetDrawerSessionInfo: (state, action) => {
+            state.loading = false;
+            state.drawerSession = action?.payload
+        },
         onErrorStopLoad: (state) => {
             state.loading = false;
         },
@@ -36,6 +44,8 @@ export const {
     setGetAllOrderDeliveries,
     getTodaySales,
     setGetTodaySales,
+    getDrawerSessionInfo,
+    setGetDrawerSessionInfo,
     onErrorStopLoad
 } = dashboardSlice.actions;
 
