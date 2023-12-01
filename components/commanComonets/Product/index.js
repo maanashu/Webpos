@@ -4,6 +4,7 @@ import AfterSomeappointment from './afterSomedays'
 import DayTomorrowappointment from './dayTomorrow'
 import ProductRightSidebar from './ProductRightSidebar'
 import ProductInnerNav from './productInnerNav'
+import ProductDetail from './productDetail'
 
 
 
@@ -14,4 +15,5 @@ export {
     DayTomorrowappointment,
     ProductRightSidebar,
     ProductInnerNav,
+    ProductDetail,
 }
