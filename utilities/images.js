@@ -93,10 +93,11 @@ import arrowDown from "../public/images/arrowDown.svg"
 import calendarDark from "../public/images/calendarDark.svg"
 import calendarCell from "../public/images/calendarCell.svg"
 import serviceCart from "../public/images/serviceCart.svg"
-
+import userSale from '../public/images/usersale.png'
 
 
 export{
+    userSale,
     visaGreen,
     coinImg,
     analticsImg,

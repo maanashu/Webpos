@@ -1,0 +1,196 @@
+.flex-row-space-between {
+    display: flex;
+    justify-content: space-between;
+}
+
+.main-container {
+    margin: 16px;
+    border-radius: 20px;
+    background-color: #fff;
+}
+
+.header {
+    display: flex;
+    margin: 0 24px;
+    padding: 16px 0;
+    justify-content: space-between;
+}
+
+.header-title {
+    color: #263682;
+    font-size: 24px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+    letter-spacing: -0.48px;
+    margin-bottom: 10px;
+}
+
+.header-descrip {
+    color: #636E9F;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+}
+
+.day-tabs {
+    gap: 8px;
+    height: 40px;
+    padding: 6px 8px;
+    align-items: center;
+    border-radius: 30px;
+    background: #F5F6FC;
+    justify-content: center;
+    margin-right: 16px;
+}
+
+.tab-item {
+    padding: 6px 12px;
+    border-radius: 30px;
+    vertical-align: bottom;
+    color: #263682;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+}
+
+.selected-tab {
+    background-color: #263682;
+    color: #F5F6FC;
+}
+
+.extras {
+    height: 40px;
+    align-items: center;
+}
+
+.extra-item {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    align-items: center;
+    justify-content: center;
+}
+
+/* stats */
+.stats {
+    margin: 16px;
+    gap: 16px;
+}
+
+.stat-box {
+    border-radius: 16px;
+    flex: 1 1 0;
+    padding: 22px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.stat-box-title {
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+    margin-bottom: 5px;
+}
+
+.stat-box-count {
+    font-size: 24px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+    letter-spacing: -0.48px;
+}
+
+/* stats on charts */
+
+.chart-header-title {
+    color: #263682;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+    letter-spacing: -0.32px;
+}
+
+.chart-header-count {
+    color: #263682;
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+    letter-spacing: -0.4px;
+}
+
+.chart-header-btn {
+    display: flex;
+    padding: 4px 8px;
+    justify-content: center;
+    align-items: center;
+    gap: 4px;
+    border-radius: 30px;
+    background: #263682;
+}
+
+.chart-header-btn-text {
+    color: #58C2E8;
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+}
+
+.checkbox-label {
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+}
+
+.checkbox-cnt input[type="checkbox"] {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    width: 16px;
+    height: 16px;
+    border: 2px solid #3498db;
+    background-color: #fff;
+    border-radius: 4px;
+    outline: none;
+}
+
+.checkbox-cnt input[type="checkbox"]:checked::before {
+    content: '\2713';
+    font-size: 16px;
+    position: absolute;
+    top: 13px;
+    left: 9px;
+    transform: translate(-50%, -50%);
+}
+
+.checkbox-jbrCoin[type="checkbox"] {
+    border: 2px solid #263682 !important;
+}
+
+.checkbox-jbrCoin[type="checkbox"]:checked::before {
+    color: #263682;
+}
+
+.checkbox-cash[type="checkbox"] {
+    border: 2px solid #039855 !important;
+}
+
+.checkbox-cash[type="checkbox"]:checked::before {
+    color: #039855;
+}
+
+.checkbox-cc[type="checkbox"] {
+    border: 2px solid #47B0D6 !important;
+}
+
+.checkbox-cc[type="checkbox"]:checked::before {
+    color: #47B0D6;
+}
