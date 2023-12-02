@@ -7,7 +7,6 @@ import { toast } from 'react-toastify';
 import { selectLoginAuth } from '../../../redux/slices/auth';
 
 const SessionModal = (props) => {
-    console.log(props,"propssss");
     const dispatch = useDispatch();
     const toastId = React.useRef(null)
     const authData = useSelector(selectLoginAuth)

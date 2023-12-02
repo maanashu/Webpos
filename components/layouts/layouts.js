@@ -15,6 +15,8 @@ export default function Layout({ children, isLoggedIn, userType }) {
   }
   const navbarPaths = [
     '/home/overview',
+    '/customers',
+    '/customers/users',
   ]
   return (
     <>

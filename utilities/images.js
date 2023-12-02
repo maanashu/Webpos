@@ -95,8 +95,33 @@ import calendarCell from "../public/images/calendarCell.svg"
 import serviceCart from "../public/images/serviceCart.svg"
 import userSale from '../public/images/usersale.png'
 
+// customer route
+import customerScan from '../public/images/dark_scan_cust.svg'
+import customerUsers from '../public/images/dark_users_cust.svg'
+import customerWallet from '../public/images/dark_wallet_cust.svg'
+import customerNotification from '../public/images/dark_notification_cust.svg'
+import customerSearch from '../public/images/dark_search_cust.svg'
+import customerCalendar from '../public/images/dark_calendar_cust.svg'
+import newCustomers from '../public/images/cust_home_1.svg'
+import returningCustomers from '../public/images/cust_home_2.svg'
+import onlineCustomers from '../public/images/cust_home_3.svg'
+import walkInCustomers from '../public/images/cust_home_4.svg'
+import arrowRightDouble from "../public/images/arrow_double_right.svg";
+import customersCross from "../public/images/customers_cross.svg"
 
 export{
+    customersCross,
+    arrowRightDouble,
+    newCustomers,
+    returningCustomers,
+    onlineCustomers,
+    walkInCustomers,
+    customerScan,
+    customerUsers,
+    customerWallet,
+    customerNotification,
+    customerSearch,
+    customerCalendar,
     userSale,
     visaGreen,
     coinImg,

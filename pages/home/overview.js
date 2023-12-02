@@ -16,7 +16,6 @@ import { toast } from 'react-toastify';
 const Overview = () => {
     const moment = require('moment');
     const authData = useSelector(selectLoginAuth)
-    console.log(authData, "authData");
     const dashboardData = useSelector(dashboardDetails)
     const trackingSession = dashboardData?.drawerSession?.payload
     const UniqueId = authData?.usersInfo?.payload?.uniqe_id ? authData?.usersInfo?.payload?.uniqe_id : ""

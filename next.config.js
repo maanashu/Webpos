@@ -5,7 +5,7 @@ module.exports = (phase, { defaultConfig }) => {
   const nextConfig = {
     reactStrictMode: false,
     images: {
-      domains: ['apichat.jobr.com' ],
+      domains: ['apichat.jobr.com', 'images.unsplash.com' ],
     },
     env: {
       BASE_URL: process.env.BASE_URL,

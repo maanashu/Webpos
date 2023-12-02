@@ -1,50 +1,48 @@
 import Image from "next/image";
 import React, { useState } from "react";
 import {
-  scanImg,
-  Wallets,
   userSale,
-  bellIcon,
-  SearchLight,
-  Appointments,
+  customerWallet,
+  customerCalendar,
+  customerNotification,
+  customerSearch,
+  customerScan,
+  newCustomers,
+  returningCustomers,
+  onlineCustomers,
+  walkInCustomers,
 } from "../../utilities/images";
 import { Line } from "react-chartjs-2";
-import {
-  Chart as ChartJS,
-  ArcElement,
-  Tooltip,
-  Legend,
-  CategoryScale,
-  registerables,
-} from "chart.js";
+import { Chart as ChartJS, registerables } from "chart.js";
+import Link from "next/link";
 
 const Customers = () => {
   const [selectedTimeSpan, setSelectedTimeSpan] = useState(1);
 
   const STATS = [
     {
-      icon: userSale,
+      icon: newCustomers,
       title: "New Customers",
       count: 2984,
       bgColor: "#FFEEB3",
       textColor: "#93370D",
     },
     {
-      icon: userSale,
+      icon: returningCustomers,
       title: "Returning Customers",
       count: 3541,
       bgColor: "#D7DEFF",
       textColor: "#172461",
     },
     {
-      icon: userSale,
+      icon: onlineCustomers,
       title: "Online Customers",
       count: "$5560",
       bgColor: "#D1FADF",
       textColor: "#003921",
     },
     {
-      icon: userSale,
+      icon: walkInCustomers,
       title: "Walk-in Customers",
       count: 4045,
       bgColor: "#BFEEFF",
@@ -55,11 +53,16 @@ const Customers = () => {
   ChartJS.register(...registerables);
 
   return (
-    <div className="main-container">
+    <div className="main-container-customers">
       {/* headers */}
-      <div className="header flex-row-space-between">
+      <div className="cust-header flex-row-space-between">
         <div className="right-hand flex-row-space-between">
-          <Image src={Wallets} />
+          <Image
+            src={customerWallet}
+            width={24}
+            height={24}
+            style={{ marginTop: "3px" }}
+          />
           <div style={{ marginLeft: "6px" }}>
             <h2 className="header-title">Total Customers</h2>
             <p className="header-descrip">
@@ -78,6 +81,7 @@ const Customers = () => {
           <div className="day-tabs flex-row-space-between">
             {["Today", "Weekly", "Month", "Yearly"].map((el, idx) => (
               <p
+                key={idx + "day-tabs"}
                 onClick={() => setSelectedTimeSpan(idx)}
                 className={`tab-item${
                   selectedTimeSpan == idx ? " selected-tab" : ""
@@ -88,8 +92,14 @@ const Customers = () => {
             ))}
           </div>
           <div className="extras flex-row-space-between">
-            {[Appointments, bellIcon, SearchLight, scanImg]?.map((el, idx) => (
+            {[
+              customerCalendar,
+              customerNotification,
+              customerSearch,
+              customerScan,
+            ]?.map((el, idx) => (
               <div
+                key={idx + "extras"}
                 className="extra-item flex-row-space-between"
                 style={{
                   backgroundColor: idx == "0" ? "#F5F6FC" : "transparent",
@@ -99,6 +109,7 @@ const Customers = () => {
                   width={24}
                   height={24}
                   src={el}
+                  objectFit="cover"
                 />
               </div>
             ))}
@@ -110,6 +121,7 @@ const Customers = () => {
       <div className="stats flex-row-space-between">
         {STATS.map(({ bgColor, icon, title, count, textColor }, idx) => (
           <div
+            key={idx + "stats"}
             className="stat-box"
             style={{ backgroundColor: bgColor }}
           >
@@ -152,7 +164,9 @@ const Customers = () => {
             <p className="chart-header-title">Total Customers</p>
             <p className="chart-header-count">4590</p>
             <div className="chart-header-btn">
-              <p className="chart-header-btn-text">View All</p>
+              <Link href="/customers/users">
+                <p className="chart-header-btn-text">View All</p>
+              </Link>
             </div>
           </div>
           <div
@@ -165,6 +179,7 @@ const Customers = () => {
               { textColor: "#47B0D6", text: "Credit Card", id: "cc" },
             ]?.map(({ text, textColor, id }) => (
               <div
+                key={text + id}
                 style={{
                   gap: "6px",
                   alignItems: "center",
@@ -189,47 +204,89 @@ const Customers = () => {
           </div>
         </div>
 
-        <Line
-          datasetIdKey="id"
-          data={{
-            labels: [
-              "Monday",
-              "Tuesday",
-              "Wednesday",
-              "Thursday",
-              "Friday",
-              "Saturday",
-              "Sunday",
-            ],
-            datasets: [
-              {
-                id: 1,
-                label: "",
-                data: [1, 3, 6, 8, 9],
+        <div style={{ margin: "0px 16px", padding: "12px 0" }}>
+          <Line
+            datasetIdKey="id"
+            options={{
+              scales: {
+                y: {
+                  title: {
+                    display: true,
+                    text: "Customer Number",
+                    color: "#7E8AC1",
+                  },
+                  border: {
+                    dash: [2, 2],
+                    display: false,
+                    color: "rgba(180, 190, 235, 1)",
+                  }, // for the grid lines
+                  beginAtZero: true,
+                  ticks: {
+                    color: "#7E8AC1",
+                    callback: (value) => `${value}%`,
+                  },
+                },
+                x: {
+                  grid: {
+                    display: false,
+                  },
+                  border: {
+                    display: false,
+                  },
+                  ticks: {
+                    color: "#7E8AC1",
+                  },
+                },
               },
-              {
-                id: 2,
-                label: "",
-                data: [1, 2, 3, 4, 5],
+              plugins: {
+                legend: {
+                  display: false,
+                },
               },
-              {
-                id: 3,
-                label: "",
-                data: [8, 9, 2, 4, 5],
-              },
-              {
-                id: 4,
-                label: "",
-                data: [5, 7, 4, 3, 1],
-              },
-              {
-                id: 5,
-                label: "",
-                data: [3, 2, 1, 5, 0],
-              },
-            ],
-          }}
-        />
+            }}
+            data={{
+              labels: [
+                "Monday",
+                "Tuesday",
+                "Wednesday",
+                "Thursday",
+                "Friday",
+                "Saturday",
+                "Sunday",
+              ],
+              datasets: [
+                {
+                  id: 1,
+                  data: [34, 30, 67, 40, 96, 4, 44, 45],
+                  borderColor: "rgba(70, 89, 181, 1)",
+                  borderWidth: 2,
+                  pointRadius: 0,
+                },
+                {
+                  id: 2,
+                  data: [10, 30, 60, 80, 90, 75, 34, 76],
+                  borderColor: "rgba(240, 192, 26, 1)",
+                  borderWidth: 2,
+                  pointRadius: 0,
+                },
+                {
+                  id: 3,
+                  data: [15, 33, 64, 83, 20, 45, 34, 89],
+                  borderColor: "rgba(18, 183, 106, 1)",
+                  borderWidth: 2,
+                  pointRadius: 0,
+                },
+                {
+                  id: 3,
+                  data: [16, 56, 34, 78, 34, 90, 34, 23],
+                  borderColor: "rgba(71, 176, 214, 1)",
+                  borderWidth: 2,
+                  pointRadius: 0,
+                },
+              ],
+            }}
+          />
+        </div>
       </div>
     </div>
   );
