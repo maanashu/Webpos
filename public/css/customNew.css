@@ -981,6 +981,7 @@ figure {
 .cartOfferSection {
     border-radius: 20px;
     border: 1.5px solid #FFD74B;
+    margin-top: 16px;
 }
 
 .availablePercent {
@@ -993,7 +994,7 @@ figure {
 .offerImg {
     display: flex;
     justify-content: start;
-    width: 30%;
+    width: 40%;
 }
 
 .offerHeading {
@@ -1002,11 +1003,155 @@ figure {
     font-weight: 500;
 }
 
+.offerCartImg {
+    border-radius: 7.5px;
+    background: #FFF7D7;
+    padding: 5px 10px;
+}
+
+.offerCartImg.active {
+    border: 1.25px solid #FFEEB3;
+}
+
+.availableoffer {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    padding: 8px 8px 16px 8px;
+    border-bottom: 1px solid #FEEFC6;
+
+}
+
+.offerdata {
+    margin: 8px 4px 8px 8px;
+    height: calc(40vh - 120px);
+    overflow-y: scroll;
+}
+
+.cartOfferInfo {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+}
+
+.availablemain {
+    overflow: hidden;
+    color: #5D4800;
+    text-overflow: ellipsis;
+    font-size: 12px;
+    font-weight: 500;
+    white-space: nowrap;
+    overflow: hidden;
+    max-width: 28ch;
+}
+
+.availableTime {
+    color: #C29613;
+    font-size: 12px;
+    font-weight: 500;
+    margin-top: 4px;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+    max-width: 22ch;
+}
+
+.availablePrice {
+    color: #C29613;
+    font-size: 12px;
+    font-weight: 400;
+    margin-top: 16px;
+}
+
+.actualPrice {
+    color: #5D4800;
+    font-size: 12px;
+    font-weight: 400;
+    margin: 16px 0 0 16px;
+}
+
+.offerdata::-webkit-scrollbar-thumb {
+    background-color: #FFEEB3 !important;
+}
+
+.discountBtn {
+    border-radius: 12px;
+    background: #FFD74B;
+    padding: 10px 24px;
+    border: none;
+    color: #5D4800;
+    font-size: 16px;
+    font-weight: 500;
+    outline: none;
+}
+
+.discountOfferMain {
+    margin: 20px 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.notesBtn {
+    border-radius: 12px;
+    background: #F5F6FC;
+    padding: 10px 16px;
+    color: #263682;
+    font-size: 16px;
+    font-weight: 400;
+    border: none;
+    outline: none;
+}
+
+.totalCheckout {
+    border-radius: 16px;
+    background: #F5F6FC;
+    padding: 16px;
+}
+
+.lightOfferText {
+    color: #7E8AC1;
+    font-size: 14px;
+    font-weight: 400;
+}
+
+.offerCartTotal {
+    border-bottom: 2px dotted #7E8AC1;
+    padding-bottom: 10px;
+}
+
+.totalText {
+    color: #2F3552;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.totalSubText {
+    color: #263682;
+    font-size: 14px;
+    font-weight: 600;
+}
+
 /*service pages css end*/
 /*media query start*/
+@media (max-width:1366px) {
+
+    .offerImg {
+        display: flex;
+        justify-content: start;
+        width: 35%;
+    }
+}
+
 @media (max-width:1280px) {
     .cartInfo {
         height: 200px;
         overflow-y: scroll;
+    }
+
+    .offerImg {
+        display: flex;
+        justify-content: start;
+        width: 30%;
     }
 }

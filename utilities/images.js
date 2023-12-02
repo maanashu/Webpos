@@ -93,10 +93,31 @@ import arrowDown from "../public/images/arrowDown.svg"
 import calendarDark from "../public/images/calendarDark.svg"
 import calendarCell from "../public/images/calendarCell.svg"
 import serviceCart from "../public/images/serviceCart.svg"
-
+import redCross from "../public/images/redCross.svg"
+import addUser from "../public/images/addUser.svg"
+import pauseImg from "../public/images/pauseImg.svg"
+import addProductImg from "../public/images/addProductImg.svg"
+import crossProduct from '../public/images/crossProduct.svg'
+import deleteProduct from "../public/images/deleteProduct.svg"
+import discount from "../public/images/discount.svg"
+import darkOfferCart from "../public/images/darkOfferCart.svg"
+import lightOfferCart from "../public/images/lightOfferCart.svg"
+import noteImg from "../public/images/noteImg.svg"
+import ticketImg from "../public/images/ticketImg.svg"
 
 
 export{
+    noteImg,
+    ticketImg,
+    darkOfferCart,
+    lightOfferCart,
+    discount,
+    deleteProduct,
+    crossProduct,
+    addProductImg,
+    pauseImg,
+    addUser,
+    redCross,
     visaGreen,
     coinImg,
     analticsImg,
