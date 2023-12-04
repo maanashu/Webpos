@@ -23,12 +23,7 @@ const HeaderUtils = () => {
             backgroundColor: idx == "0" ? "#F5F6FC" : "transparent",
           }}
         >
-          <Image
-            width={24}
-            height={24}
-            src={el}
-            objectFit="cover"
-          />
+          <Image width={24} height={24} src={el} objectFit="cover" />
         </div>
       ))}
     </div>

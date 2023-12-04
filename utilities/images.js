@@ -107,6 +107,10 @@ import ticketImg from "../public/images/ticketImg.svg";
 
 import userSale from "../public/images/usersale.png";
 
+//Cash Drawer
+import salesTracking from "../public/images/salesTracking.svg";
+import DrawerID from "../public/images/drawerId.svg";
+
 // customer route
 import customerScan from "../public/images/dark_scan_cust.svg";
 import customerUsers from "../public/images/dark_users_cust.svg";
@@ -251,4 +255,6 @@ export {
   calendarDark,
   calendarCell,
   serviceCart,
+  salesTracking,
+  DrawerID,
 };
