@@ -732,6 +732,11 @@
     width: auto;
 }
 
+.InvoiceTableBox {
+    max-height: 560px;
+    margin-bottom: 10px;
+}
+
 .invoiceHeader {
     margin: 21px 28px 26px;
 }
@@ -802,7 +807,7 @@
 .inStoreBtn {
     border-radius: 20px;
     background: #F5F6FC;
-    border:1px solid #F5F6FC;
+    border: 1px solid #F5F6FC;
     mix-blend-mode: multiply;
     padding: 3px 6px;
     color: #263682;
@@ -832,12 +837,280 @@
     font-weight: 500;
     display: inline-block;
 }
+
 .Custompagination {
-    position: fixed;
     width: 100%;
-    bottom: 49px;
     background: #fff;
     display: flex;
     align-items: center;
     justify-content: space-between;
+    padding: 8px 28px;
+    margin-bottom: 10px;
+}
+
+.paginatinationBtn {
+    color: #7E8AC1;
+    font-size: 12px;
+    font-weight: 500;
+    background: transparent;
+    border: none;
+}
+
+.paginatinationBtn.active {
+    color: #263682;
+}
+
+.invoiceSearchBox {
+    border-bottom: 1px solid #E4E6F2;
+}
+
+.selectedProductDetails {
+    border-radius: 8px;
+    border: 1px solid var(--primary-p-50-main, #F5F6FC);
+    padding: 8px;
+    margin-bottom: 8px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.productColor {
+    display: flex;
+    align-items: center;
+    margin-right: -3px;
+}
+
+.boderdManualButton {
+    border-radius: 30px;
+    border: 1px solid #E4E6F2;
+    background: transparent;
+    color: #263682;
+    font-size: 14px;
+    font-weight: 400;
+    padding: 8px 10px;
+    width: 100%;
+}
+
+.coloredManualButton {
+    border-radius: 30px;
+    border: 1px solid #263682;
+    background: #F5F6FC;
+    color: #263682;
+    font-size: 14px;
+    font-weight: 400;
+    padding: 8px 10px;
+    width: 100%;
+}
+
+.productColor span {
+    margin-right: -3px;
+    border: 1px solid #fff;
+    width: 10px;
+    height: 10px;
+    border-radius: 6px;
+}
+
+.Yellow {
+    background-color: #F2C64D;
+}
+
+.Red {
+    background-color: #E66868;
+}
+
+.Pink {
+    background-color: #FAB4CD;
+}
+
+.Blue {
+    background-color: #47B0D6;
+}
+
+.Black {
+    background-color: #14171A;
+}
+
+.White {
+    background-color: #FFFFFF;
+    border: 1px solid #14171A !important;
+}
+
+.productBoxDetails {
+    max-height: 350px;
+}
+
+.aboutProduct {
+    color: #2F3552;
+    font-size: 12px;
+    font-weight: 400;
+}
+
+.productPriceinvoice {
+    color: #000;
+    font-size: 12px;
+    font-weight: 400;
+}
+
+.productSize {
+    color: #636E9F;
+    font-size: 12px;
+    font-weight: 400;
+    padding-left: 4px;
+}
+
+.orderHeading {
+    color: #7E8AC1;
+    font-size: 14px;
+    font-weight: 400;
+}
+
+.orderSubHeading {
+    color: #263682;
+    font-size: 14px;
+    font-weight: 500;
+}
+
+.OrderBox {
+    padding: 12px 16px;
+}
+
+.OrderCheckoutBox {
+    padding: 4px 0;
+    border-bottom: 1px solid #E4E6F2;
+}
+
+.productBilling {
+    border-radius: 10px;
+    background: #F5F6FC;
+    padding: 16px;
+}
+
+.OrderDiscountBox {
+    padding-bottom: 16px;
+    border-bottom: 1px dotted #7E8AC1;
+}
+
+.productBilling .flexBox {
+    justify-content: space-between;
+    padding: 4px 0;
+}
+
+.OrderTotal {
+    padding: 14px 0;
+}
+
+.priceHeading {
+    color: #263682;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.ProductsearchBar .scanImg {
+    right: 10px;
+    position: absolute;
+    top: 10px;
+}
+
+.productInvoice .ProductsearchBar .searchControl {
+    padding: 8px 38px;
+}
+
+.SearchinvoiceBox {
+    width: 50%;
+}
+
+.invoiceButtonBox {
+    width: 40%;
+}
+
+.invoiceButtonBox {
+    width: 40%;
+}
+
+.ManualsearchBar {
+    position: relative;
+}
+
+/*End  Product Invoice */
+
+
+/* Start manual entry search */
+
+.manualEntrysearch {
+    margin: 0 16px;
+}
+
+.manualEntrysearch .invoiceSearchBox {
+    border-bottom: none;
+}
+
+.manualOrderedProduct {
+    border-radius: 20px;
+    border: 1px solid #E4E6F2;
+    padding: 10px;
+    height: auto;
+}
+
+.ManualsearchBar .searchControl {
+    padding: 18px 52px;
+    border: none !important;
+    border-bottom: 1px solid #E4E6F2 !important;
+    background: #FFF;
+    border-radius: 0 !important;
+    box-shadow: 0px 10px 20px 0px rgba(38, 54, 130, 0.05);
+}
+
+.manualSelectedProduct {
+    height: 100%;
+    max-height: 484px;
+    min-height: 484px;
+    overflow: auto;
+    padding-right: 10px;
+    margin-bottom: 10px;
+}
+
+.manualSelectedProduct .selectedProductDetails {
+    margin-top: 10px;
+}
+
+.selectedProductDetails.active {
+    border: 1.5px solid #D7DEFF;
+}
+
+.buttonBox .cancelBtn {
+    width: 49%;
+    margin-right: 10px;
+    padding: 8px 20px;
+    font-size: 14px;
+}
+
+.buttonBox .BlueBtn {
+    width: 49%;
+    margin-left: 10px;
+}
+
+/* Start manual entry search */
+
+/* Start manual entry config */
+.manual-entryColor {
+    display: flex;
+}
+
+.manual-entryColor span {
+    border: 1px solid #fff;
+    width: 24px;
+    height: 24px;
+    border-radius: 12px;
+    display: block;
+}
+
+.manual-entryColor span.active {
+    width: 110px;
+}
+
+.productSize {
+    border-radius: 10px;
+    border: 1px solid #D7DEFF;
+    background:  #FFF;
+    padding: 12px;
+
 }

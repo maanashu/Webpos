@@ -3,34 +3,31 @@ import * as Images from "../../utilities/images";
 import Image from "next/image";
 import CustomModal from "../../components/customModal/CustomModal";
 import SessionModal from '../../components/modals/homeModals/sessionModal';
-import { logout, selectLoginAuth } from '../../redux/slices/auth';
+import { selectLoginAuth } from '../../redux/slices/auth';
 import { useDispatch, useSelector } from 'react-redux';
 import { useRouter } from 'next/router';
 import withAuth from '../../components/withAuth';
-import { dashboardDetails, dashboardLogout, getAllOrderDeliveries, getPosLoginDetails, getTodaySales } from '../../redux/slices/dashboard';
+import { dashboardDetails, getAllOrderDeliveries, getTodaySales } from '../../redux/slices/dashboard';
 import Login from '../auth/login';
 import moment from 'moment-timezone';
-import { toast } from 'react-toastify';
 
 
 const Overview = () => {
-    const moment = require('moment');
     const authData = useSelector(selectLoginAuth)
     const dashboardData = useSelector(dashboardDetails)
-    const trackingSession = dashboardData?.drawerSession?.payload
+
     const UniqueId = authData?.usersInfo?.payload?.uniqe_id ? authData?.usersInfo?.payload?.uniqe_id : ""
+    console.log(UniqueId, "UniqueId");
     const router = useRouter();
     const dispatch = useDispatch();
     const [key, setKey] = useState(Math.random());
     const [orderDeliveriesInfo, setOrderDeliveriesInfo] = useState("");
     const [getTodaySale, setGetTodaySale] = useState("");
-    const [posLoginDetail, setPosLoginDetail] = useState("");
     const [modalDetail, setModalDetail] = useState({
         show: false,
         title: "",
         flag: "",
     });
-
 
     // API for get all oder deliveries...............................
     const allOrderDeliveriesInfo = () => {
@@ -65,21 +62,8 @@ const Overview = () => {
         );
     };
 
-
-    // API for get user Pos Login Info...............................
-    const userLoginDetails = () => {
-        dispatch(getPosLoginDetails({
-            cb(res) {
-                if (res.status) {
-                    setPosLoginDetail(res?.data?.payload)
-                }
-            },
-        })
-        );
-    };
     //closeModal
-
-    const handleOnCloseModal = async () => {
+    const handleOnCloseModal = () => {
         setModalDetail({
             show: false,
             title: "",
@@ -88,54 +72,23 @@ const Overview = () => {
         setKey(Math.random());
     };
 
-    const closeModal = async () => {
-        await dispatch(logout());
-        await dispatch(dashboardLogout());
-        setTimeout(() => {
-            toast.success("Logout successfully");
-        }, 200);
-        router.push("/auth/verification")
-        localStorage.removeItem('authToken');
-        localStorage.removeItem('persist:root');
+    const handleUserProfile = (flag) => {
+
+        setModalDetail({
+            show: true,
+            flag: flag,
+            type: flag,
+        });
+        setKey(Math.random());
     };
-
-
-    // Get the current time as a moment object
-    const currentTime = new Date();
-
-    // Parse the input strings into moment objects
-    const currentMoment = moment(currentTime);
-    const loginMoment = moment(posLoginDetail?.updated_at);
-
-    // Calculate the difference in milliseconds
-    const timeDifference = currentMoment.diff(loginMoment);
-
-    // Convert the difference to a moment duration
-    const sessionDuration = moment.duration(timeDifference);
-
-    // Get the individual components of the duration
-    const hours = sessionDuration.hours();
-    const minutes = sessionDuration.minutes();
-
-
-    useEffect(() => {
-        if (UniqueId && !trackingSession?.start_session) {
-            setModalDetail({
-                show: true,
-                flag: "trackingmodal",
-                type: "trackingmodal",
-            });
-            setKey(Math.random());
-        }
-    }, []);
 
     useEffect(() => {
         if (UniqueId) {
             todaySaleInfo()
             allOrderDeliveriesInfo()
-            userLoginDetails()
         }
     }, []);
+
 
     return (
         <>
@@ -146,24 +99,13 @@ const Overview = () => {
                             <div className='homeLeft'>
                                 <div className='homeProfile'>
                                     <figure className='profileImage'>
-                                        <Image src={authData?.posUserLoginDetails?.payload?.user_profiles?.profile_photo ? authData?.posUserLoginDetails?.payload?.user_profiles?.profile_photo : Images.HomeProfileImg} alt="HomeProfileImage" width={100} height={100} className="img-fluid homeProfileImg" />
+                                        <Image src={authData?.posUserLoginDetails?.payload?.user_profiles?.profile_photo ? authData?.posUserLoginDetails?.payload?.user_profiles?.profile_photo : Images.HomeProfileImg} alt="HomeProfileImage" className="img-fluid homeProfileImg" />
                                     </figure>
                                     <h2 className='loginheading mt-2'>{`${authData?.posUserLoginDetails?.payload?.user_profiles?.firstname} ${authData?.posUserLoginDetails?.payload?.user_profiles?.lastname}`}</h2>
                                     <div className='cashBox'>
-                                        <h4 className='cashierHeading'>
-                                            {authData?.posUserLoginDetails?.payload?.user_roles.length > 0 ? (
-                                                authData?.posUserLoginDetails?.payload?.user_roles?.map((data, index) => {
-                                                    return (
-                                                        <h4 className='loginSub'>{data?.role?.name}</h4>
-                                                    )
-                                                })
-                                            )
-                                                :
-                                                <h4 className='loginSub mt-3'>Admin / Manager</h4>
-                                            }
-                                        </h4>
+                                        <h4 className='cashierHeading'>POS Cashier</h4>
                                         <div className='IdTextMain'>
-                                            <h4 className='userIdText'>ID : {authData?.posUserLoginDetails?.payload?.id}</h4>
+                                            <h4 className='userIdText'>ID: 3890EN</h4>
                                         </div>
                                     </div>
                                 </div>
@@ -203,38 +145,33 @@ const Overview = () => {
                                         <h4 className='loginMain'>Cash Drawer</h4>
                                         <div className='flexHeading mt-4'>
                                             <h4 className='saleHeading'>Opening Balance</h4>
-                                            <h4 className='saleHeading'>{trackingSession?.opening_balance}</h4>
+                                            <h4 className='saleHeading'>$900.50</h4>
                                         </div>
                                         <div className='flexHeading mt-2'>
                                             <h4 className='saleHeading'>Closing Balance</h4>
-                                            <h4 className='saleHeading'>{trackingSession?.cash_balance}</h4>
+                                            <h4 className='saleHeading'>$450.00</h4>
                                         </div>
                                     </div>
                                     <div className='timedetail'>
                                         <div className='flexHeading mt-2'>
-                                            <h4 className='dayTimeText'>{
-                                                `Today ${moment().format("DD MMMM, YYYY")}`}
-                                            </h4>
-                                            <h4 className='dayTimeText'>
-                                                {moment().format('hh:mm:ss a')}
-                                            </h4>
+                                            <h4 className='dayTimeText'>Today 25 April, 2023</h4>
+                                            <h4 className='dayTimeText'>11:15:23 am</h4>
                                         </div>
                                         <div className='flexHeading mt-2'>
                                             <h4 className='dayTimeText'>Log in Time:</h4>
-                                            <h4 className='dayTimeText'>{moment(posLoginDetail?.updated_at).format('hh:mm:ss a')}</h4>
+                                            <h4 className='dayTimeText'>10:15:03 am</h4>
                                         </div>
                                         <div className='flexHeading mt-2'>
                                             <h4 className='dayTimeText'>Session:</h4>
-                                            <h4 className='dayTimeText'>{`${hours} h: ${minutes} minutes`}</h4>
+                                            <h4 className='dayTimeText'>01h:03 min</h4>
                                         </div>
                                     </div>
                                 </div>
                                 <div className='productReturn'>
                                     <h4 className='linkHeading'>Product Returns</h4>
-                                    <Image src={Images.ProductBox} alt="BoxImage" className="img-fluid "
-                                    // onClick={() => { handleUserProfile("trackingmodal") }} 
-
-                                    />
+                                    <Image src={Images.ProductBox} alt="BoxImage" className="img-fluid " onClick={() => {
+                                        handleUserProfile("trackingmodal")
+                                    }} />
                                 </div>
                                 <div className='lockScreenBox'>
                                     <h4 className='linkHeading'>Lock Screen</h4>
@@ -654,7 +591,7 @@ const Overview = () => {
                 child={
                     modalDetail.flag === "trackingmodal" ? (
                         <SessionModal
-                            close={(e) => handleOnCloseModal(e)}
+                            close={() => handleOnCloseModal()}
                         />
                     ) :
                         ""
@@ -663,7 +600,7 @@ const Overview = () => {
 
                 {modalDetail.flag === "trackingmodal" ?
                     <>
-                        <p onClick={() => closeModal()} className='modal_cancel'>
+                        <p onClick={handleOnCloseModal} className='modal_cancel'>
                             <Image src={Images.modalCross} alt="modalCross" className="img-fluid" />
                         </p>
 
@@ -671,7 +608,7 @@ const Overview = () => {
                     :
                     ''
                 }
-                onCloseModal={(e) => handleOnCloseModal(e)}
+                onCloseModal={() => handleOnCloseModal()}
             />
         </>
     )

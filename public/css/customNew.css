@@ -588,6 +588,20 @@ figure {
     align-items: center;
 }
 
+.incrementBtn.active {
+    border-radius: 6px;
+    border: 1px solid #D7DEFF !important;
+    background: #FFF;
+    box-shadow: 0px 0px 0px 4px rgba(127, 143, 217, 0.05);
+}
+
+.unitPriceControl.active {
+    border-radius: 6px;
+    border: 1px solid #D7DEFF !important;
+    background: #FFF;
+    box-shadow: 0px 0px 0px 4px rgba(127, 143, 217, 0.05);
+}
+
 .plusMinus {
     color: #263682;
     cursor: pointer;
@@ -624,6 +638,18 @@ figure {
 
 .addBtnControl::-webkit-outer-spin-button,
 .addBtnControl::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+.trackingInput::-webkit-outer-spin-button,
+.trackingInput::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+.unitPriceControl::-webkit-outer-spin-button,
+.unitPriceControl::-webkit-inner-spin-button {
     -webkit-appearance: none;
     margin: 0;
 }
@@ -671,9 +697,11 @@ figure {
 .commonSubOuter {
     overflow-y: scroll !important;
 }
-.newServiceSection{
+
+.newServiceSection {
     padding: 30px 26px !important;
 }
+
 .addServicePara {
     color: #636E9F;
     font-size: 14px;
@@ -761,7 +789,7 @@ figure {
     display: flex;
     align-items: flex-start;
     justify-content: space-between;
-    
+
 }
 
 .appointMain {
@@ -838,25 +866,142 @@ figure {
     padding: 30px 26px !important;
 
 }
-.fullCartSection{
+
+.fullCartSection {
     padding: 0 24px 0 0;
 }
-.fullCartLeft{
+
+.fullCartLeft {
     padding: 24px !important;
 }
-.fullCartInfo{
+
+.fullCartInfo {
     display: flex;
     align-items: center;
     justify-content: space-between;
 }
-.fullCartInfo .appointmentHeading{
+
+.fullCartInfo .appointmentHeading {
     display: flex;
     align-items: center;
 }
-.cartDivide{
-    background-color:  #D7DEFF;
+
+.cartDivide {
+    background-color: #D7DEFF;
     margin: 30px 0;
 }
+
+.modal-backdrop.show {
+    opacity: 1.5 !important;
+    background-color: rgba(255, 255, 255, 0.5) !important;
+    backdrop-filter: blur(10px) !important;
+}
+
+.cartDetails {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 30px;
+}
+
+.cartItemDetail {
+    display: flex;
+    align-items: flex-start;
+}
+
+.fullCartSection .cartSubInfo {
+    padding: 9px 12px;
+    align-items: flex-start;
+}
+
+.cartDetails {
+    padding: 9px 12px;
+}
+
+.unitPriceControl {
+    border-radius: 6px;
+    border: 1px solid #E4E6F2;
+    background: #F5F6FC;
+    padding: 8px !important;
+    width: 70px !important;
+    margin: 0 !important;
+    color: #263682 !important;
+    font-size: 12px !important;
+    font-weight: 400 !important;
+}
+
+.unitPriceControl::placeholder {
+    color: #263682 !important;
+    font-size: 12px !important;
+    font-weight: 400 !important;
+}
+
+.cartInfoText {
+    color: #172461;
+    font-size: 12px;
+    font-weight: 500;
+}
+
+.fullCartSection .appointmentDate {
+    display: flex;
+}
+
+.insertProductSection {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.fullCartRight {
+    padding: 16px !important;
+}
+
+.addproductCart {
+    border-radius: 12px;
+    background: #F5F6FC;
+    padding: 10px 16px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.deleteProductCart {
+    border-radius: 12px;
+    background: #FEE4E2;
+    padding: 10px 16px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.deleteProductCart .monthText {
+    color: #D92D20;
+}
+
+.cartOfferSection {
+    border-radius: 20px;
+    border: 1.5px solid #FFD74B;
+}
+
+.availablePercent {
+    border-radius: 12px 12px 0px 0px;
+    background: #FFD74B;
+    padding: 12px 16px;
+    display: flex;
+}
+
+.offerImg {
+    display: flex;
+    justify-content: start;
+    width: 30%;
+}
+
+.offerHeading {
+    color: #5D4800;
+    font-size: 20px;
+    font-weight: 500;
+}
+
 /*service pages css end*/
 /*media query start*/
 @media (max-width:1280px) {

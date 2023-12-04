@@ -4,11 +4,10 @@ import Image from "next/image";
 import SearchInvoice from '../../components/commanComonets/InvoiceSearch/Search'
 import * as Product from '../../components/commanComonets/Product';
 
-
-const ProductInvoice = () => {
+const Manualinvoice = () => {
     return (
         <>
-            <div className='productInvoice'>
+            <div className='manualInvoice'>
                 <div className='row'>
                     <div className='col-lg-6'>
                         <div className='commanOuter'>
@@ -716,85 +715,89 @@ const ProductInvoice = () => {
                                     </div>
                                 </div>
                                 <div className='invoiceButtonBox'>
-                                    <button type='button' className='boderdManualButton'>Manual Entry
+                                    <button type='button' className='coloredManualButton'>Manual Entry
                                         <Image src={Images.scanImg} alt="SearchImageIcon" className="img-fluid" />
                                     </button>
                                 </div>
                             </div>
-                            <div className='commanscrollBar productBoxDetails mt-3'>
-                                <Product.ProductDetail />
-                                <Product.ProductDetail />
-                                <Product.ProductDetail />
-                                <Product.ProductDetail />
-                                <Product.ProductDetail />
-                                <Product.ProductDetail />
-                                <Product.ProductDetail />
-                                <Product.ProductDetail />
-                                <Product.ProductDetail />
-                                <Product.ProductDetail />
-                                <Product.ProductDetail />
-                                <Product.ProductDetail />
-                                <Product.ProductDetail />
-                                <Product.ProductDetail />
-                                <Product.ProductDetail />
-                                <Product.ProductDetail />
-                            </div>
-                            <div className='row'>
-                                <div className='col-lg-4'>
-                                    <div className='OrderBox'>
-                                        <div class="OrderCheckoutBox">
-                                            <p className='orderHeading'>Total Items</p>
-                                            <p className='orderSubHeading'>7</p>
-                                        </div>
-                                        <div class="OrderCheckoutBox">
-                                            <p className='orderHeading'>Order Date</p>
-                                            <p className='orderSubHeading'>10/10/2023</p>
-                                        </div>
-                                        <div class="OrderCheckoutBox">
-                                            <p className='orderHeading'>Order ID#</p>
-                                            <p className='orderSubHeading'>JOBR00001</p>
-                                        </div>
-                                        <div class="OrderCheckoutBox">
-                                            <p className='orderHeading'>Payment Method</p>
-                                            <figure className='priceBtn'>
-                                                <Image src={Images.moneyImg} alt="money" className="moneyImg" />
-                                                <span >Cash</span>
+                            <div className='commanscrollBar manualOrderedProduct mt-3'>
+                                <div class="ManualsearchBar">
+                                    <input type="text" class="form-control searchControl" placeholder="0199 - 322" />
+                                    <Image src={Images.SearchIcon} alt="SearchImageIcon" className="img-fluid searchImg" />
+                                </div>
+                                <div className='manualSelectedProduct'>
+                                    <div className='selectedProductDetails active'>
+                                        <div className='d-flex'>
+                                            <figure>
+                                                <Image src={Images.jokerImg} alt="tableImg" className="costumerImg" />
                                             </figure>
+                                            <div className='ps-1'>
+                                                <p className='aboutProduct'>Name Product Gender and Quality</p>
+                                                <div className='d-flex'>
+                                                    <article className='productColor'>
+                                                        <span className='Yellow'></span>
+                                                        <span className='Red'></span>
+                                                        <span className='Pink'></span>
+                                                        <span className='Blue'></span>
+                                                        <span className='Black'></span>
+                                                        <span className='White'></span>
+                                                    </article>
+                                                    <span className='productSize'>Colors / Size</span>
+                                                </div>
+                                            </div>
                                         </div>
+                                        <p className='productPriceinvoice'>$90.00</p>
+                                    </div>
+                                    <div className='selectedProductDetails'>
+                                        <div className='d-flex'>
+                                            <figure>
+                                                <Image src={Images.jokerImg} alt="tableImg" className="costumerImg" />
+                                            </figure>
+                                            <div className='ps-1'>
+                                                <p className='aboutProduct'>Name Product Gender and Quality</p>
+                                                <div className='d-flex'>
+                                                    <article className='productColor'>
+                                                        <span className='Yellow'></span>
+                                                        <span className='Red'></span>
+                                                        <span className='Pink'></span>
+                                                        <span className='Blue'></span>
+                                                        <span className='Black'></span>
+                                                        <span className='White'></span>
+                                                    </article>
+                                                    <span className='productSize'>Colors / Size</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <p className='productPriceinvoice'>$90.00</p>
+                                    </div>
+                                    <div className='selectedProductDetails'>
+                                        <div className='d-flex'>
+                                            <figure>
+                                                <Image src={Images.jokerImg} alt="tableImg" className="costumerImg" />
+                                            </figure>
+                                            <div className='ps-1'>
+                                                <p className='aboutProduct'>Name Product Gender and Quality</p>
+                                                <div className='d-flex'>
+                                                    <article className='productColor'>
+                                                        <span className='Yellow'></span>
+                                                        <span className='Red'></span>
+                                                        <span className='Pink'></span>
+                                                        <span className='Blue'></span>
+                                                        <span className='Black'></span>
+                                                        <span className='White'></span>
+                                                    </article>
+                                                    <span className='productSize'>Colors / Size</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <p className='productPriceinvoice'>$90.00</p>
                                     </div>
                                 </div>
-                                <div className='col-lg-8'>
-                                    <div className="productBilling">
-                                        <div className='OrderDiscountBox'>
-                                            <div className='flexBox '>
-                                                <p className='orderHeading'>Sub Total</p>
-                                                <p className='orderSubHeading'>$2,396.50</p>
-                                            </div>
-                                            <div className='flexBox'>
-                                                <p className='orderHeading'>Discount</p>
-                                                <p className='orderSubHeading'>-$19.00</p>
-                                            </div>
-                                            <div className='flexBox'>
-                                                <p className='orderHeading'>Other Fees</p>
-                                                <p className='orderSubHeading'>$14,000</p>
-                                            </div>
-                                            <div className='flexBox'>
-                                                <p className='orderHeading'>Fax</p>
-                                                <p className='orderSubHeading'>$236</p>
-                                            </div>
-                                        </div>
-                                        <div className='OrderTotal'>
-                                            <div className='flexBox'>
-                                                <p className='priceHeading'>Total</p>
-                                                <p className='priceHeading'>$254.60</p>
-                                            </div>
-                                            <button type='button' className='BlueBtn w-100'>
-                                                Next
-                                                <Image src={Images.scanImg} alt="SearchImageIcon" className="img-fluid" />
-                                            </button>
-                                        </div>
-                                    </div>
-
+                                <div className='flexBox buttonBox'>
+                                    <button type='button' className='cancelBtn'>Cancel</button>
+                                    <button type='button' className='BlueBtn'>Next
+                                        <Image src={Images.scanImg} alt="SearchImageIcon" className="img-fluid" />
+                                    </button>
                                 </div>
                             </div>
                         </div>
@@ -805,4 +808,4 @@ const ProductInvoice = () => {
     )
 }
 
-export default ProductInvoice
+export default Manualinvoice

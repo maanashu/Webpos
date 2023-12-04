@@ -19,7 +19,6 @@ const AddProduct = () => {
                 <button className='removeProductBtn'>-</button>
                 <input className="form-control customTextarea" type="text" placeholder="1" />
                 <button className='addProductBtn'>+</button>
-
             </div>
         </>
     )

@@ -68,7 +68,7 @@ const ProductRightSidebar = () => {
                                 </div>
                                 <div className='orderCalculate'>
                                     <h4 className='cartMoney'>$90.00</h4>
-                                    <div className='incrementBtn'>
+                                    <div className='incrementBtn '>
                                         <i class="fa-solid fa-minus plusMinus"></i>
                                         <input className="form-control addBtnControl" type="number" placeholder="1" />
                                         <i class="fa-solid fa-plus plusMinus"></i>
@@ -96,7 +96,7 @@ const ProductRightSidebar = () => {
                                 </div>
                                 <div className='orderCalculate'>
                                     <h4 className='cartMoney'>$90.00</h4>
-                                    <div className='incrementBtn'>
+                                    <div className='incrementBtn active'>
                                         <i class="fa-solid fa-minus plusMinus"></i>
                                         <input className="form-control addBtnControl" type="number" placeholder="1" />
                                         <i class="fa-solid fa-plus plusMinus"></i>
