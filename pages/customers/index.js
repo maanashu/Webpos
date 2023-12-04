@@ -164,7 +164,7 @@ const Customers = () => {
             <p className="chart-header-title">Total Customers</p>
             <p className="chart-header-count">4590</p>
             <div className="chart-header-btn">
-              <Link href="/customers/users">
+              <Link href="customers/users">
                 <p className="chart-header-btn-text">View All</p>
               </Link>
             </div>

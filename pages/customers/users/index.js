@@ -12,11 +12,12 @@ import {
   customerCalendar,
   customerNotification,
   ArrowRight,
-} from "../../utilities/images";
+} from "../../../utilities/images";
 import Image from "next/image";
 import ReactDatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import ReactSelect from "react-select";
+import Link from "next/link";
 
 const ExampleCustomInput = forwardRef(({ value, onClick }, ref) => (
   <p
@@ -32,7 +33,7 @@ const Users = () => {
   const [selectedTab, setSelectedTab] = useState(0);
 
   const options = [
-    { value: "Place 1", label: "Place 1" },
+    { value: "Area", label: "Area" },
     { value: "Place 2", label: "Place 2" },
     { value: "Place 3", label: "Place 3" },
   ];
@@ -56,6 +57,15 @@ const Users = () => {
     { text: "Online Customers", count: 190 },
     { text: "Waliing Customers", count: 190 },
   ];
+
+  const reactSelectCustomStyles = (defaultStyles) => ({
+    ...defaultStyles,
+    color: "#263682",
+    fontSize: "14px",
+    fontStyle: "normal",
+    fontWeight: "400",
+    lineHeight: "normal",
+  });
 
   return (
     <div
@@ -128,26 +138,8 @@ const Users = () => {
               classNamePrefix="react-select"
               className="react-select-container"
               styles={{
-                placeholder: (defaultStyles) => {
-                  return {
-                    ...defaultStyles,
-                    color: "#263682",
-                    fontSize: "14px",
-                    fontStyle: "normal",
-                    fontWeight: "400",
-                    lineHeight: "normal",
-                  };
-                },
-                option: (defaultStyles) => {
-                  return {
-                    ...defaultStyles,
-                    color: "#263682",
-                    fontSize: "14px",
-                    fontStyle: "normal",
-                    fontWeight: "400",
-                    lineHeight: "normal",
-                  };
-                },
+                option: reactSelectCustomStyles,
+                placeholder: reactSelectCustomStyles,
               }}
               components={{
                 DropdownIndicator: () => (
@@ -248,12 +240,18 @@ const Users = () => {
             </p>
             <p className="users-tab-count">({count})</p>
             {selectedTab === idx && (
-              <Image
-                onClick={() => setSelectedTab(-1)}
-                width={16}
-                height={16}
-                src={customersCross}
-              />
+              <div
+                onClick={() => {
+                  console.log(idx);
+                  setSelectedTab(-1);
+                }}
+              >
+                <Image
+                  width={16}
+                  height={16}
+                  src={customersCross}
+                />
+              </div>
             )}
           </div>
         ))}
@@ -302,50 +300,52 @@ const Users = () => {
         </tr>
         {[1, 2, 34, 5, 6, 6, 7, 8, 34, 5, 2, 1, 12, 4, 2, 34, 34].map(
           (_, idx) => (
-            <tr
-              key={"td-" + idx}
-              className="flex-row-space-between users-stats-table-row"
-            >
-              <td className="users-stats-row-num">
-                {(idx > 8 ? "" : "0") + (idx + 1)}
-              </td>
-              <td className="users-stats-row-name">
-                <Image
-                  width={36}
-                  height={36}
-                  style={{
-                    borderRadius: 50,
-                  }}
-                  src={
-                    "https://images.unsplash.com/photo-1633332755192-727a05c4013d?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8dXNlcnxlbnwwfHwwfHx8MA%3D%3D"
-                  }
-                />
-                <div
-                  style={{
-                    gap: "6px",
-                    display: "flex",
-                    flexDirection: "column",
-                  }}
-                >
-                  <p className="user-stats-row-name-text">
-                    Mary Jane: The Spide Girl
-                  </p>
-                  <div>
-                    <Image
-                      width={12}
-                      height={12}
-                      src={OrderLocation}
-                    />
-                    <span className="user-stats-row-name-address">
-                      4318 Daffodil Lane, Savage,Virginia(VA), 20763
-                    </span>
+            <Link href={"users/user-profile"}>
+              <tr
+                key={"td-" + idx}
+                className="flex-row-space-between users-stats-table-row"
+              >
+                <td className="users-stats-row-num">
+                  {(idx > 8 ? "" : "0") + (idx + 1)}
+                </td>
+                <td className="users-stats-row-name">
+                  <Image
+                    width={36}
+                    height={36}
+                    style={{
+                      borderRadius: 50,
+                    }}
+                    src={
+                      "https://images.unsplash.com/photo-1633332755192-727a05c4013d?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8dXNlcnxlbnwwfHwwfHx8MA%3D%3D"
+                    }
+                  />
+                  <div
+                    style={{
+                      gap: "6px",
+                      display: "flex",
+                      flexDirection: "column",
+                    }}
+                  >
+                    <p className="user-stats-row-name-text">
+                      Mary Jane: The Spide Girl
+                    </p>
+                    <div>
+                      <Image
+                        width={12}
+                        height={12}
+                        src={OrderLocation}
+                      />
+                      <span className="user-stats-row-name-address">
+                        4318 Daffodil Lane, Savage,Virginia(VA), 20763
+                      </span>
+                    </div>
                   </div>
-                </div>
-              </td>
-              <td className="users-stats-row-total-orders">60</td>
-              <td className="users-stats-row-total-orders">81</td>
-              <td className="users-stats-row-total-orders">$7600.00</td>
-            </tr>
+                </td>
+                <td className="users-stats-row-total-orders">60</td>
+                <td className="users-stats-row-total-orders">81</td>
+                <td className="users-stats-row-total-orders">$7600.00</td>
+              </tr>
+            </Link>
           )
         )}
       </table>
