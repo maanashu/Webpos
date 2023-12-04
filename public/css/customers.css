@@ -7,6 +7,7 @@
     margin: 16px;
     border-radius: 20px;
     background-color: #fff;
+    min-height: 100vh;
 }
 
 .cust-header {
@@ -407,6 +408,51 @@
 .pagination-footer-text {
     color: #263682;
     font-size: 12px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+}
+
+/* user profile */
+.user-profile-title {
+    color: #263682;
+    font-size: 24px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+    letter-spacing: -0.48px;
+}
+
+.user-profile-banner {
+    border-radius: 20px;
+    margin: 18px 24px;
+    padding: 16px 28px;
+    align-items: center;
+    align-self: stretch;
+    background-color: #D7DEFF;
+}
+
+.gift-card-cnt {
+    padding: 6px 12px;
+    gap: 4px;
+    align-items: center;
+    border-radius: 30px;
+    border: 1px solid #F79009;
+    background: #FFEEB3;
+}
+
+.gift-card-points-text {
+    color: #DC6803;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+    letter-spacing: -0.32px;
+}
+
+.label-text-style {
+    color: #263682;
+    font-size: 14px;
     font-style: normal;
     font-weight: 500;
     line-height: normal;

@@ -109,6 +109,7 @@ a {
   outline: 0;
   box-shadow: none;
 }
+
 /*header css start*/
 .headerSection {
   padding: 30px 0;
@@ -160,3 +161,60 @@ a {
 }
 
 /*header css end*/
+
+/* SwitchToggle.css */
+.switch-container {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 10px;
+}
+
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 36px;
+  height: 22px;
+  padding: 2px 4px;
+}
+
+.switch input {
+  display: none;
+}
+
+.switch-slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #B4BEEB;
+  -webkit-transition: 0.4s;
+  transition: 0.4s;
+  border-radius: 34px;
+}
+
+.switch-slider:before {
+  position: absolute;
+  content: '';
+  width: 14px;
+  height: 14px;
+  flex-shrink: 0;
+  left: 4px;
+  bottom: 4px;
+  background-color: white;
+  -webkit-transition: 0.4s;
+  transition: 0.4s;
+  border-radius: 50%;
+}
+
+input:checked+.switch-slider {
+  background-color: #4659B5;
+}
+
+input:checked+.switch-slider:before {
+  -webkit-transform: translateX(14px);
+  -ms-transform: translateX(14px);
+  transform: translateX(14px);
+}

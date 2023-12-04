@@ -1,12 +1,7 @@
 import Image from "next/image";
-import React, { useState } from "react";
+import React from "react";
 import {
-  userSale,
   customerWallet,
-  customerCalendar,
-  customerNotification,
-  customerSearch,
-  customerScan,
   newCustomers,
   returningCustomers,
   onlineCustomers,
@@ -15,10 +10,9 @@ import {
 import { Line } from "react-chartjs-2";
 import { Chart as ChartJS, registerables } from "chart.js";
 import Link from "next/link";
+import TCRHeader from "../../components/commanComonets/TCRHeader";
 
 const Customers = () => {
-  const [selectedTimeSpan, setSelectedTimeSpan] = useState(1);
-
   const STATS = [
     {
       icon: newCustomers,
@@ -55,67 +49,10 @@ const Customers = () => {
   return (
     <div className="main-container-customers">
       {/* headers */}
-      <div className="cust-header flex-row-space-between">
-        <div className="right-hand flex-row-space-between">
-          <Image
-            src={customerWallet}
-            width={24}
-            height={24}
-            style={{ marginTop: "3px" }}
-          />
-          <div style={{ marginLeft: "6px" }}>
-            <h2 className="header-title">Total Customers</h2>
-            <p className="header-descrip">
-              ALl the following data is gathered{" "}
-              <span
-                style={{
-                  fontWeight: "600",
-                }}
-              >
-                weekly
-              </span>
-            </p>
-          </div>
-        </div>
-        <div className="left-hand flex-row-space-between">
-          <div className="day-tabs flex-row-space-between">
-            {["Today", "Weekly", "Month", "Yearly"].map((el, idx) => (
-              <p
-                key={idx + "day-tabs"}
-                onClick={() => setSelectedTimeSpan(idx)}
-                className={`tab-item${
-                  selectedTimeSpan == idx ? " selected-tab" : ""
-                }`}
-              >
-                {el}
-              </p>
-            ))}
-          </div>
-          <div className="extras flex-row-space-between">
-            {[
-              customerCalendar,
-              customerNotification,
-              customerSearch,
-              customerScan,
-            ]?.map((el, idx) => (
-              <div
-                key={idx + "extras"}
-                className="extra-item flex-row-space-between"
-                style={{
-                  backgroundColor: idx == "0" ? "#F5F6FC" : "transparent",
-                }}
-              >
-                <Image
-                  width={24}
-                  height={24}
-                  src={el}
-                  objectFit="cover"
-                />
-              </div>
-            ))}
-          </div>
-        </div>
-      </div>
+      <TCRHeader
+        mainIcon={customerWallet}
+        title="Total Customers"
+      />
 
       {/* stats */}
       <div className="stats flex-row-space-between">
@@ -130,7 +67,6 @@ const Customers = () => {
               width={30}
               height={30}
               src={icon}
-              color={textColor}
               style={{ marginBottom: "35px" }}
             />
             <div>

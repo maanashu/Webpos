@@ -1,54 +1,19 @@
-import React, { forwardRef, useState } from "react";
+import React, { useState } from "react";
 import {
-  arrowDown,
-  arrowIcon,
   ArrowLeft,
+  ArrowRight,
   OrderLocation,
   customersCross,
-  arrowRightDouble,
-  customerScan,
   customerUsers,
-  customerSearch,
-  customerCalendar,
-  customerNotification,
-  ArrowRight,
 } from "../../../utilities/images";
 import Image from "next/image";
-import ReactDatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-import ReactSelect from "react-select";
 import Link from "next/link";
-
-const ExampleCustomInput = forwardRef(({ value, onClick }, ref) => (
-  <p
-    onClick={onClick}
-    className="users-selected-date"
-  >
-    {value || "Date"}
-  </p>
-));
+import TCRHeader from "../../../components/commanComonets/TCRHeader";
+import PaginationHeader from "../../../components/commanComonets/PaginationHeader";
 
 const Users = () => {
-  const [startDate, setStartDate] = useState();
   const [selectedTab, setSelectedTab] = useState(0);
-
-  const options = [
-    { value: "Area", label: "Area" },
-    { value: "Place 2", label: "Place 2" },
-    { value: "Place 3", label: "Place 3" },
-  ];
-
-  const paginationBts = (icon, imgClass) => (
-    <div className="pagination-btn">
-      <Image
-        height={24}
-        width={24}
-        style={{ marginTop: "-1px" }}
-        src={icon}
-        className={imgClass}
-      />
-    </div>
-  );
 
   const TABS = [
     { text: "All", count: 190 },
@@ -57,16 +22,6 @@ const Users = () => {
     { text: "Online Customers", count: 190 },
     { text: "Waliing Customers", count: 190 },
   ];
-
-  const reactSelectCustomStyles = (defaultStyles) => ({
-    ...defaultStyles,
-    color: "#263682",
-    fontSize: "14px",
-    fontStyle: "normal",
-    fontWeight: "400",
-    lineHeight: "normal",
-  });
-
   return (
     <div
       style={{
@@ -76,152 +31,12 @@ const Users = () => {
       }}
       className="main-container-customers"
     >
-      <div className="cust-header flex-row-space-between">
-        <div className="right-hand flex-row-space-between">
-          <Image
-            src={customerUsers}
-            width={24}
-            height={24}
-          />
-          <div style={{ marginLeft: "6px" }}>
-            <h2 className="header-title">Users</h2>
-          </div>
-        </div>
-        <div className="left-hand flex-row-space-between">
-          <div className="extras flex-row-space-between">
-            {[
-              customerCalendar,
-              customerNotification,
-              customerSearch,
-              customerScan,
-            ]?.map((el, idx) => (
-              <div
-                key={idx + "extraicon"}
-                className="extra-item flex-row-space-between"
-                style={{
-                  backgroundColor: idx == "0" ? "#F5F6FC" : "transparent",
-                }}
-              >
-                <Image
-                  width={24}
-                  height={24}
-                  src={el}
-                />
-              </div>
-            ))}
-          </div>
-        </div>
-      </div>
-
-      <div className="users-pagination-header">
-        <div className="flex-row-space-between">
-          <div
-            style={{ gap: "16px" }}
-            className="flex-row-space-between"
-          >
-            <div className="customer-calendar-cnt">
-              <Image
-                width={24}
-                height={24}
-                src={customerCalendar}
-              />
-              <ReactDatePicker
-                selected={startDate}
-                onChange={(date) => setStartDate(date)}
-                customInput={<ExampleCustomInput />}
-              />
-              <Image src={arrowDown} />
-            </div>
-            <ReactSelect
-              options={options}
-              placeholder="Area"
-              classNamePrefix="react-select"
-              className="react-select-container"
-              styles={{
-                option: reactSelectCustomStyles,
-                placeholder: reactSelectCustomStyles,
-              }}
-              components={{
-                DropdownIndicator: () => (
-                  <Image
-                    src={arrowDown}
-                    width={24}
-                    height={24}
-                  />
-                ),
-              }}
-            />
-          </div>
-          <div
-            style={{
-              gap: "16px",
-            }}
-            className="flex-row-space-between"
-          >
-            <div
-              style={{
-                alignItems: "center",
-                gap: "12px",
-              }}
-              className="flex-row-space-between"
-            >
-              <p className="users-showing-results">Showing results</p>
-              <ReactSelect
-                options={[
-                  { value: "50", label: "50" },
-                  { value: "49", label: "49" },
-                  { value: "48", label: "48" },
-                ]}
-                placeholder="50"
-                classNamePrefix="react-select"
-                className="react-select-container"
-                styles={{
-                  placeholder: (defaultStyles) => {
-                    return {
-                      ...defaultStyles,
-                      color: "#263682",
-                      fontSize: "14px",
-                      fontStyle: "normal",
-                      fontWeight: "400",
-                      lineHeight: "normal",
-                    };
-                  },
-                  option: (defaultStyles) => {
-                    return {
-                      ...defaultStyles,
-                      color: "#263682",
-                      fontSize: "14px",
-                      fontStyle: "normal",
-                      fontWeight: "400",
-                      lineHeight: "normal",
-                    };
-                  },
-                }}
-                components={{
-                  DropdownIndicator: () => (
-                    <Image
-                      src={arrowDown}
-                      width={24}
-                      height={24}
-                    />
-                  ),
-                }}
-              />
-            </div>
-            <div
-              style={{ alignItems: "center", gap: "6px" }}
-              className="flex-row-space-between"
-            >
-              {paginationBts(arrowIcon, "roate-180deg")}
-              {paginationBts(arrowRightDouble, "roate-180deg")}
-              <p className="pagination-numbers">1-20 of 1550</p>
-              {paginationBts(arrowIcon)}
-              {paginationBts(arrowRightDouble)}
-            </div>
-          </div>
-        </div>
-        <div></div>
-      </div>
+      <TCRHeader
+        title="Users"
+        descrip={" "}
+        withTimeTabs={false}
+        mainIcon={customerUsers}
+      />
 
       {/*  TABS*/}
       <div className="users-tabs flex-row-space-between">
@@ -334,7 +149,7 @@ const Users = () => {
                         width={12}
                         height={12}
                         src={OrderLocation}
-                      />
+                      />{" "}
                       <span className="user-stats-row-name-address">
                         4318 Daffodil Lane, Savage,Virginia(VA), 20763
                       </span>

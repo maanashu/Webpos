@@ -17,6 +17,7 @@ export default function Layout({ children, isLoggedIn, userType }) {
     '/home/overview',
     '/customers',
     '/customers/users',
+    '/customers/users/user-profile',
   ]
   return (
     <>
