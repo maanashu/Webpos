@@ -8,11 +8,11 @@ import {
   walkInCustomers,
   salesTracking,
   DrawerID,
+  arrowDown,
 } from "../../utilities/images";
 import { Line } from "react-chartjs-2";
 import { Chart as ChartJS, registerables } from "chart.js";
 import Link from "next/link";
-import TCRHeader from "../../components/commanComonets/TCRHeader";
 import Header from "../../components/commanComonets/cashdrawer/Header";
 
 const CashDrawer = () => {
@@ -49,39 +49,51 @@ const CashDrawer = () => {
 
   ChartJS.register(...registerables);
 
+  const statBoxTitleStyle = { color: "#636E9F" };
+  const drawerIDTitleStyle = { color: "#914BEB", marginTop: "3px" };
+
   return (
     <div className="main-container-customers">
-      {/* headers */}
       <Header mainIcon={salesTracking} title="Sales Tracking" />
-      <div className="sessionHistory">
+
+      <div className="batchView">
         <div className="batchBox">
-          <h4 className="stat-box-title" style={{ color: "#636E9F" }}>
-            {"Batch"}
+          <h4 className="stat-box-title" style={statBoxTitleStyle}>
+            Batch
           </h4>
         </div>
+
         <div className="left-hand flex-row-space-between">
           <Image
             src={DrawerID}
             width={15}
             height={15}
-            style={{ marginTop: "3px" }}
+            style={drawerIDTitleStyle}
           />
-          <h4 className="stat-box-title" style={{ color: "#914BEB" }}>
-            {"Drawer ID 1"}
+          <h4 className="stat-box-title" style={drawerIDTitleStyle}>
+            Drawer ID 1
           </h4>
         </div>
+
         <div className="viewSession">
-          <div className="viewSessionButton">
-            <h4 className="stat-box-title" style={{ color: "#636E9F" }}>
-              {"View Session"}
-            </h4>
-          </div>
+          <Link href="cashDrawer/viewSession">
+            <button className="viewSessionButton">
+              <p className="viewSessionText">View Session</p>
+            </button>
+          </Link>
         </div>
       </div>
+
+      <div className="divider"></div>
+
       <div className="sessionHistory">
-        <h4 className="stat-box-title" style={{ color: "#636E9F" }}>
-          {"Session History"}
+        <h4 className="stat-box-title" style={statBoxTitleStyle}>
+          Session History
         </h4>
+        <div className="dividerHorizontal"></div>
+        <Link href="cashDrawer/sessionHistory">
+          <Image src={arrowDown} width="24px" height="24px" />
+        </Link>
       </div>
     </div>
   );

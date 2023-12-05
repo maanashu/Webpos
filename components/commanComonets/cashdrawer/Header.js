@@ -23,9 +23,18 @@ const Header = ({ mainIcon, title }) => {
           height={30}
           style={{ marginTop: "3px" }}
         />
+        {/* <Image
+          src={customerNotification}
+          width={30}
+          height={30}
+          style={{ marginTop: "3px" }}
+        />
         <div className="searchBox">
           <p className="header-descrip">Search</p>
-        </div>
+        </div> */}
+        <form>
+          <input type="text" className="searchBox" placeholder="Search here" />
+        </form>
       </div>
     </div>
   );

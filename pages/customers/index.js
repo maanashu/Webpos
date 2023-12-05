@@ -49,10 +49,7 @@ const Customers = () => {
   return (
     <div className="main-container-customers">
       {/* headers */}
-      <TCRHeader
-        mainIcon={customerWallet}
-        title="Total Customers"
-      />
+      <TCRHeader mainIcon={customerWallet} title="Total Customers" />
 
       {/* stats */}
       <div className="stats flex-row-space-between">
@@ -70,16 +67,10 @@ const Customers = () => {
               style={{ marginBottom: "35px" }}
             />
             <div>
-              <h4
-                className="stat-box-title"
-                style={{ color: textColor }}
-              >
+              <h4 className="stat-box-title" style={{ color: textColor }}>
                 {title}
               </h4>
-              <p
-                className="stat-box-count"
-                style={{ color: textColor }}
-              >
+              <p className="stat-box-count" style={{ color: textColor }}>
                 {count}
               </p>
             </div>
@@ -89,10 +80,7 @@ const Customers = () => {
 
       {/* stats on chart */}
       <div>
-        <div
-          style={{ margin: "12px 16px" }}
-          className="flex-row-space-between"
-        >
+        <div style={{ margin: "12px 16px" }} className="flex-row-space-between">
           <div
             style={{ gap: "10px", alignItems: "center" }}
             className="flex-row-space-between"
@@ -105,10 +93,7 @@ const Customers = () => {
               </Link>
             </div>
           </div>
-          <div
-            style={{ gap: "24px" }}
-            className="flex-row-space-between"
-          >
+          <div style={{ gap: "24px" }} className="flex-row-space-between">
             {[
               { textColor: "#263682", text: "JBR Coin", id: "jbrCoin" },
               { textColor: "#039855", text: "Cash", id: "cash" },
@@ -123,11 +108,7 @@ const Customers = () => {
                 }}
                 className="checkbox-cnt flex-row-space-between"
               >
-                <input
-                  id={id}
-                  type="checkbox"
-                  className={"checkbox-" + id}
-                />
+                <input id={id} type="checkbox" className={"checkbox-" + id} />
                 <label
                   htmlFor={id}
                   className="checkbox-label"

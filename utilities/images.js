@@ -110,6 +110,13 @@ import userSale from "../public/images/usersale.png";
 //Cash Drawer
 import salesTracking from "../public/images/salesTracking.svg";
 import DrawerID from "../public/images/drawerId.svg";
+import Clock from "../public/images/clock.svg";
+import AddCashPlus from "../public/images/AddCashPlus.svg";
+import RemoveCash from "../public/images/RemoveCash.svg";
+import DrawerIcon from "../public/images/DrawerIcon.svg";
+import Cross from "../public/images/Cross.svg";
+import DrawerBlue from "../public/images/DrawerBlue.svg";
+import LogOutSky from "../public/images/LogOutSky.svg";
 
 // customer route
 import customerScan from "../public/images/dark_scan_cust.svg";
@@ -257,4 +264,11 @@ export {
   serviceCart,
   salesTracking,
   DrawerID,
+  Clock,
+  AddCashPlus,
+  RemoveCash,
+  DrawerIcon,
+  Cross,
+  DrawerBlue,
+  LogOutSky,
 };
