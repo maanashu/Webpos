@@ -104,9 +104,7 @@ import darkOfferCart from "../public/images/darkOfferCart.svg";
 import lightOfferCart from "../public/images/lightOfferCart.svg";
 import noteImg from "../public/images/noteImg.svg";
 import ticketImg from "../public/images/ticketImg.svg";
-
 import userSale from "../public/images/usersale.png";
-
 // customer route
 import customerScan from "../public/images/dark_scan_cust.svg";
 import customerUsers from "../public/images/dark_users_cust.svg";
@@ -125,6 +123,10 @@ import customerLocationDark from "../public/images/new_location_dark.svg";
 import phoneDark from "../public/images/phone_dark.svg";
 import emailDark from "../public/images/email_dark.svg";
 import giftCard from "../public/images/gift_card.svg";
+import serviceLeft from "../public/images/serviceLeft.svg"
+import serviceRight from "../public/images/serviceRight.svg"
+import addCutomer from "../public/images/addCutomer.svg"
+import plusRound from "../public/images/plusRound.svg"
 
 export {
   phoneDark,
@@ -251,4 +253,8 @@ export {
   calendarDark,
   calendarCell,
   serviceCart,
+  serviceLeft,
+  serviceRight,
+  addCutomer,
+  plusRound,
 };

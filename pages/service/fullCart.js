@@ -1,10 +1,38 @@
-import React from 'react'
+import React, { useState } from 'react'
 import * as Images from "../../utilities/images";
 import Image from "next/image";
 import ProductSearch from '../../components/commanComonets/Product/productSearch';
+import CustomModal from '../../components/customModal/CustomModal';
+import AddCustomerModal from '../../components/modals/homeModals/service/addCustomerModal';
 
 
 const FullCart = () => {
+    const [key, setKey] = useState(Math.random());
+    const [modalDetail, setModalDetail] = useState({
+        show: false,
+        title: "",
+        flag: "",
+    });
+
+    //closeModal
+    const handleOnCloseModal = () => {
+        setModalDetail({
+            show: false,
+            title: "",
+            flag: "",
+        });
+        setKey(Math.random());
+    };
+
+    const handleUserProfile = (flag) => {
+
+        setModalDetail({
+            show: true,
+            flag: flag,
+            type: flag,
+        });
+        setKey(Math.random());
+    };
     return (
         <>
             <div className='fullCartSection'>
@@ -228,7 +256,8 @@ const FullCart = () => {
                                     <h4 className='totalText'>Total</h4>
                                     <h4 className='totalSubText'>$236</h4>
                                 </div>
-                                <button className='nextverifyBtn w-100 mt-3' type='submit'>
+                                <button className='nextverifyBtn w-100 mt-3' type='submit' onClick={() => {
+                                    handleUserProfile("addCustomer")}}>
                                     Proceed to checkout
                                     <Image src={Images.ArrowRight} alt="rightArrow" className="img-fluid rightImg" />
                                 </button>
@@ -237,6 +266,45 @@ const FullCart = () => {
                     </div>
                 </div>
             </div>
+            <CustomModal
+                key={key}
+                show={modalDetail.show}
+                backdrop="static"
+                showCloseBtn={false}
+                isRightSideModal={true}
+                mediumWidth={false}
+                className={modalDetail.flag === "addCustomer" ? "commonWidth customContent" : ""}
+                ids={modalDetail.flag === "addCustomer" ? "addCustomerModal" : ""}
+                child={
+                    modalDetail.flag === "addCustomer" ? (
+                        <AddCustomerModal
+                            close={() => handleOnCloseModal()}
+                        />
+                    ) :
+                        ""
+                }
+                header=
+
+                {modalDetail.flag === "addCustomer" ?
+                    <>
+
+                        <div className='trackingSub headerModal'>
+                            <figure className='profileImage '>
+                                <Image src={Images.addCutomer} alt="trackingImage" className="img-fluid " />
+                            </figure>
+                            <h4 className='loginheading mt-2'>Add a customer</h4>
+                            <h4 className='trackingHeading'>Search a costumer or <span className='fw-bold'>create a new one. </span></h4>
+                            <p onClick={handleOnCloseModal} className='crossModal'>
+                                <Image src={Images.modalCross} alt="modalCross" className="img-fluid" />
+                            </p>
+                        </div>
+
+                    </>
+                    :
+                    ''
+                }
+                onCloseModal={() => handleOnCloseModal()}
+            />
         </>
     )
 }
