@@ -125,8 +125,12 @@ import customerLocationDark from "../public/images/new_location_dark.svg";
 import phoneDark from "../public/images/phone_dark.svg";
 import emailDark from "../public/images/email_dark.svg";
 import giftCard from "../public/images/gift_card.svg";
+import barCodeScanImg from "../public/images/bar_code_scan.png"
+import jobrFullIcon from "../public/images/jobr_full_icon.png"
 
 export {
+  barCodeScanImg,
+  jobrFullIcon,
   phoneDark,
   emailDark,
   giftCard,

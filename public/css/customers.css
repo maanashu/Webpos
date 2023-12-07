@@ -3,11 +3,19 @@
     justify-content: space-between;
 }
 
+.main-text-color-styles-customers {
+    color: #263682;
+    font-size: 24px;
+    font-weight: 600;
+    letter-spacing: -0.48px;
+}
+
 .main-container-customers {
     margin: 16px;
     border-radius: 20px;
     background-color: #fff;
     min-height: 100vh;
+    padding-bottom: 15px;
 }
 
 .cust-header {
@@ -357,7 +365,6 @@
 
 .users-stats-row-name {
     display: flex;
-    padding: 6px 28px;
     align-items: center;
     gap: 12px;
     flex: 1 0 0;
@@ -379,6 +386,14 @@
 
 .users-stats-table-head-text {
     color: #7E8AC1;
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+}
+
+.users-stats-table-body-text {
+    color: #2F3552;
     font-size: 12px;
     font-style: normal;
     font-weight: 500;
@@ -456,4 +471,57 @@
     font-style: normal;
     font-weight: 500;
     line-height: normal;
+}
+
+.user-stats-row-responsible-tag {
+    color: #4659B5;
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+    padding: 2px 4px 3px 4px;
+}
+
+.google-map-container {
+    right: 0px;
+    position: absolute;
+    top: 0px;
+    height: 100vh;
+    z-index: -1;
+    width: 100%;
+}
+
+.invoice-container {
+    margin-left: 16px;
+    width: 320px;
+    padding: 24px 0;
+    height: 732px;
+    flex-direction: column;
+    align-items: center;
+    flex-shrink: 0;
+    border-radius: 20px;
+    background: #FFF;
+    box-shadow: -1.908px 3.783px 25.481px 0px rgba(50, 80, 127, 0.02), -4.954px 9.821px 80px 0px rgba(50, 80, 127, 0.04);
+}
+
+.invoice-header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+    padding:  0px 24px;
+}
+
+.invoice-dotted-hr {
+    width: 100%;
+    height: 1px;
+    border-bottom: #D7DEFF dotted 1px;
+}
+
+.invoice-list-item-customer {
+    display: flex;
+    padding: 8px;
+    align-items: flex-start;
+    gap: 16px;
+    align-self: stretch;
 }
