@@ -105,9 +105,146 @@ const AddService = () => {
                 <h4 className='trackingHeading mt-2'>Schedule of <strong className='fw-bold'> Dr. Africa Zwarawi</strong></h4>
               </div>
               <div className='daycalendar'>
-
+                <div className='serviceArrow'>
+                  <Image src={Images.serviceLeft} alt='calendarimage' className='img-fluid' />
+                </div>
+                <div className='daysubCalendar'>
+                  <div className='serviceDate'>
+                    <h4 className='productName'>Tomorrow</h4>
+                    <h4 className='dateText'>28</h4>
+                  </div>
+                  <div className='serviceDate'>
+                    <h4 className='productName'>Tomorrow</h4>
+                    <h4 className='dateText'>28</h4>
+                  </div>
+                  <div className='serviceDate'>
+                    <h4 className='productName'>Tomorrow</h4>
+                    <h4 className='dateText'>28</h4>
+                  </div>
+                  <div className='serviceDate active'>
+                    <h4 className='productName'>Tomorrow</h4>
+                    <h4 className='dateText'>28</h4>
+                  </div>
+                </div>
+                <div className='serviceArrow'>
+                  <Image src={Images.serviceRight} alt='calendarimage' className='img-fluid' />
+                </div>
               </div>
               <div className='serviceDayTime'>
+                <div className='scheduleDay'>
+                  <div className='scheduleTimeImg'>
+                  </div>
+                  <div className='scheduleTime active'>
+                    <h4 className='addServicePara m-0'>
+                      11:00 — 11:30
+                    </h4>
+                  </div>
+                  <div className='scheduleTime'>
+                    <h4 className='addServicePara m-0'>
+                      11:00 — 11:30
+                    </h4>
+                  </div>
+                  <div className='scheduleTime'>
+                    <h4 className='addServicePara m-0'>
+                      11:00 — 11:30
+                    </h4>
+                  </div>
+                </div>
+                <div className='scheduleDay'>
+                  <div className='scheduleTimeImg'>
+                  </div>
+                  <div className='scheduleTime'>
+                    <h4 className='addServicePara m-0'>
+                      11:00 — 11:30
+                    </h4>
+                  </div>
+                  <div className='scheduleTime'>
+                    <h4 className='addServicePara m-0'>
+                      11:00 — 11:30
+                    </h4>
+                  </div>
+                  <div className='scheduleTime'>
+                    <h4 className='addServicePara m-0'>
+                      11:00 — 11:30
+                    </h4>
+                  </div>
+                </div>
+                <div className='scheduleDay'>
+                  <div className='scheduleTimeImg'>
+                  </div>
+                  <div className='scheduleTime'>
+                    <h4 className='addServicePara m-0'>
+                      11:00 — 11:30
+                    </h4>
+                  </div>
+                  <div className='scheduleTime'>
+                    <h4 className='addServicePara m-0'>
+                      11:00 — 11:30
+                    </h4>
+                  </div>
+                  <div className='scheduleTime'>
+                    <h4 className='addServicePara m-0'>
+                      11:00 — 11:30
+                    </h4>
+                  </div>
+                </div>
+                <div className='scheduleDay'>
+                  <div className='scheduleTimeImg'>
+                  </div>
+                  <div className='scheduleTime'>
+                    <h4 className='addServicePara m-0'>
+                      11:00 — 11:30
+                    </h4>
+                  </div>
+                  <div className='scheduleTime'>
+                    <h4 className='addServicePara m-0'>
+                      11:00 — 11:30
+                    </h4>
+                  </div>
+                  <div className='scheduleTime'>
+                    <h4 className='addServicePara m-0'>
+                      11:00 — 11:30
+                    </h4>
+                  </div>
+                </div>
+                <div className='scheduleDay'>
+                  <div className='scheduleTimeImg'>
+                  </div>
+                  <div className='scheduleTime'>
+                    <h4 className='addServicePara m-0'>
+                      11:00 — 11:30
+                    </h4>
+                  </div>
+                  <div className='scheduleTime'>
+                    <h4 className='addServicePara m-0'>
+                      11:00 — 11:30
+                    </h4>
+                  </div>
+                  <div className='scheduleTime'>
+                    <h4 className='addServicePara m-0'>
+                      11:00 — 11:30
+                    </h4>
+                  </div>
+                </div>
+                <div className='scheduleDay'>
+                  <div className='scheduleTimeImg'>
+                  </div>
+                  <div className='scheduleTime'>
+                    <h4 className='addServicePara m-0'>
+                      11:00 — 11:30
+                    </h4>
+                  </div>
+                  <div className='scheduleTime'>
+                    <h4 className='addServicePara m-0'>
+                      11:00 — 11:30
+                    </h4>
+                  </div>
+                  <div className='scheduleTime'>
+                    <h4 className='addServicePara m-0'>
+                      11:00 — 11:30
+                    </h4>
+                  </div>
+                </div>
                 <div className='scheduleDay'>
                   <div className='scheduleTimeImg'>
                   </div>
@@ -187,8 +324,8 @@ const AddService = () => {
               </div>
               <div className='serviceFooter'>
                 <button className='nextverifyBtn w-100' type='submit'>
-                  Proceed to checkout
-                  <Image src={Images.serviceCart} alt="rightArrow" className="img-fluid rightImg" />
+                Confirm and Add to Cart
+                  <Image src={Images.serviceCart} alt="rightArrow" className="img-fluid rightImg ms-2" />
                 </button>
               </div>
             </div>
