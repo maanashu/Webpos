@@ -1,0 +1,13 @@
+.settings-main-container {
+  margin: 16px;
+  border-radius: 20px;
+  background-color: red;
+  min-height: calc(100vh - 36px);
+}
+.settings-options-container {
+  width: 100px;
+  background-color: green;
+  /* min-height: calc(100vh - 36px); */
+  min-height: 100vh;
+  min-width: 223px;
+}
