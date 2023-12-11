@@ -6,7 +6,7 @@
 .main-text-color-styles-customers {
     color: #263682;
     font-size: 24px;
-    font-weight: 600;
+    font-weight: 500;
     letter-spacing: -0.48px;
 }
 
@@ -524,4 +524,24 @@
     align-items: flex-start;
     gap: 16px;
     align-self: stretch;
+}
+
+/* status dots */
+
+.status-dots-container-customers {
+
+}
+
+.status-outer-dot-customers {
+    width: 15px;
+    height: 15px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.status-inner-dot-customers {
+    width: 15px;
+    height: 15px;
+    border-radius: 50%;
 }

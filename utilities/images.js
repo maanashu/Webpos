@@ -129,8 +129,10 @@ import serviceLeft from "../public/images/serviceLeft.svg"
 import serviceRight from "../public/images/serviceRight.svg"
 import addCutomer from "../public/images/addCutomer.svg"
 import plusRound from "../public/images/plusRound.svg"
+import orderBike from '../public/images/order_bike.svg'
 
 export {
+  orderBike,
   barCodeScanImg,
   jobrFullIcon,
   phoneDark,

@@ -123,7 +123,9 @@ const Users = () => {
                 <td className="users-stats-row-num">
                   {(idx > 8 ? "" : "0") + (idx + 1)}
                 </td>
-                <td className="users-stats-row-name">
+                <td style={{
+                  padding: "6px 0px"
+                }} className="users-stats-row-name">
                   <Image
                     width={36}
                     height={36}

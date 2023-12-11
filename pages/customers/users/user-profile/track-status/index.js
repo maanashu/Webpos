@@ -7,13 +7,18 @@ const TrackStatus = () => {
   return (
     <>
       <GoogleMap></GoogleMap>
-      <div
-        style={{
-        }}
-      >
+      <div style={{ position: "absolute", bottom: "15px" }}>
         <Invoice />
       </div>
-      <FlowDiagramOrderStatus />
+      <div
+        style={{
+          position: "absolute",
+          bottom: "15px",
+          left: '50%'
+        }}
+      >
+        <FlowDiagramOrderStatus />
+      </div>
     </>
   );
 };

@@ -8,7 +8,12 @@ const Invoice = () => {
   return (
     <div className="flex-row-space-between invoice-container">
       <div className="invoice-header">
-        <p className="main-text-color-styles-customers">Maple Inc.</p>
+        <p
+          style={{ fontWeight: "600" }}
+          className="main-text-color-styles-customers"
+        >
+          Maple Inc.
+        </p>
         <div
           style={{
             display: "flex",
@@ -20,7 +25,6 @@ const Invoice = () => {
           <p
             style={{
               fontSize: "10px",
-              fontWeight: "500",
             }}
             className="main-text-color-styles-customers"
           >
@@ -29,7 +33,6 @@ const Invoice = () => {
           <p
             style={{
               fontSize: "10px",
-              fontWeight: "500",
             }}
             className="main-text-color-styles-customers"
           >
@@ -104,7 +107,6 @@ const Invoice = () => {
           <td
             style={{
               fontSize: "10px",
-              fontWeight: "500",
               paddingRight: "22px",
               paddingBottom: "12px",
             }}
@@ -115,7 +117,6 @@ const Invoice = () => {
           <td
             style={{
               fontSize: "10px",
-              fontWeight: "500",
               paddingRight: "22px",
               paddingBottom: "12px",
             }}
@@ -126,7 +127,6 @@ const Invoice = () => {
           <td
             style={{
               fontSize: "10px",
-              fontWeight: "500",
               paddingBottom: "12px",
             }}
             className="main-text-color-styles-customers"
@@ -140,6 +140,7 @@ const Invoice = () => {
               fontSize: "10px",
               paddingRight: "22px",
               paddingBottom: "18px",
+              fontWeight: "600",
             }}
             className="main-text-color-styles-customers"
           >
@@ -150,13 +151,18 @@ const Invoice = () => {
               fontSize: "10px",
               paddingRight: "22px",
               paddingBottom: "18px",
+              fontWeight: "600",
             }}
             className="main-text-color-styles-customers"
           >
             Wed 10/05/2023
           </td>
           <td
-            style={{ fontSize: "10px", paddingBottom: "18px" }}
+            style={{
+              fontSize: "10px",
+              paddingBottom: "18px",
+              fontWeight: "600",
+            }}
             className="main-text-color-styles-customers"
           >
             Walk-in
@@ -166,7 +172,6 @@ const Invoice = () => {
           <td
             style={{
               fontSize: "10px",
-              fontWeight: "500",
               paddingRight: "22px",
               paddingBottom: "12px",
             }}
@@ -177,7 +182,6 @@ const Invoice = () => {
           <td
             style={{
               fontSize: "10px",
-              fontWeight: "500",
               paddingRight: "22px",
               paddingBottom: "12px",
             }}
@@ -188,7 +192,6 @@ const Invoice = () => {
           <td
             style={{
               fontSize: "10px",
-              fontWeight: "500",
               paddingBottom: "12px",
             }}
             className="main-text-color-styles-customers"
@@ -198,19 +201,27 @@ const Invoice = () => {
         </tr>
         <tr>
           <td
-            style={{ fontSize: "10px", paddingRight: "22px" }}
+            style={{
+              fontSize: "10px",
+              paddingRight: "22px",
+              fontWeight: "600",
+            }}
             className="main-text-color-styles-customers"
           >
             # 9845-1234
           </td>
           <td
-            style={{ fontSize: "10px", paddingRight: "22px" }}
+            style={{
+              fontSize: "10px",
+              paddingRight: "22px",
+              fontWeight: "600",
+            }}
             className="main-text-color-styles-customers"
           >
             # Front-CCO43
           </td>
           <td
-            style={{ fontSize: "10px" }}
+            style={{ fontSize: "10px", fontWeight: "600" }}
             className="main-text-color-styles-customers"
           >
             ***31
@@ -240,7 +251,6 @@ const Invoice = () => {
           >
             <p
               style={{
-                fontWeight: "500",
                 fontSize: text == "Total" ? "18px" : "12px",
                 width: "150px",
               }}
@@ -250,7 +260,6 @@ const Invoice = () => {
             </p>
             <p
               style={{
-                fontWeight: "500",
                 fontSize: text == "Total" ? "18px" : "12px",
                 ...(text == "Total" && {
                   width: "100px",
