@@ -74,7 +74,6 @@ import appointmentCalender from "../public/images/appointmentCalender.svg";
 import Appointmenttime from "../public/images/Appointmenttime.svg";
 import CardIcons from "../public/images/CardIcons.png";
 import cardThree from "../public/images/cardThree.png";
-import plusCircleOutline from "../public/images/plus-circle_Outline.svg";
 import commentText from "../public/images/comment-text.svg";
 import TomorrowCalender from "../public/images/TomorrowCalender.svg";
 import TodayCalender from "../public/images/TodayCalender.svg";
@@ -130,6 +129,9 @@ import serviceRight from "../public/images/serviceRight.svg"
 import addCutomer from "../public/images/addCutomer.svg"
 import plusRound from "../public/images/plusRound.svg"
 import orderBike from '../public/images/order_bike.svg'
+import ItemImage from '../public/images/Item_Image.png'
+import AddedIcon from '../public/images/AddedIcon.svg'
+import ShoppingReturn from '../public/images/Shopping-Return.svg'
 
 export {
   orderBike,
@@ -240,7 +242,6 @@ export {
   Appointmenttime,
   CardIcons,
   cardThree,
-  plusCircleOutline,
   commentText,
   TomorrowCalender,
   TodayCalender,
@@ -263,4 +264,7 @@ export {
   serviceRight,
   addCutomer,
   plusRound,
+  ItemImage,
+  AddedIcon,
+  ShoppingReturn
 };

@@ -6,7 +6,6 @@
     border-radius: 20px;
     margin: 0 16px;
     padding: 20px;
-    width: 100%;
 }
 
 .commanOuter::-webkit-scrollbar {
@@ -328,6 +327,29 @@
     color: #F5F6FC;
     font-size: 14px;
     font-weight: 400;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-left: 10px;
+}
+
+.AddedBtn {
+    padding: 8px 12px;
+    border-radius: 30px;
+    background: #12B76A;
+    border: 1px solid #12B76A;
+    color: #F5F6FC;
+    font-size: 14px;
+    font-weight: 400;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.serviceCart {
+    width: 16px;
+    height: 16px;
+    margin-left: 5px;
 }
 
 .GreyBtn {
@@ -508,6 +530,12 @@
     background-color: #FFF7D7;
 }
 
+.ArrowRight {
+    width: 16px;
+    height: 16px;
+    margin-left: 5px;
+}
+
 /* End Product Service */
 
 /*Start Custom Checkbox css */
@@ -572,7 +600,7 @@
 /*End Custom Checkbox css */
 
 /*Start Add Product modal */
-#AddProduct .modal-content {
+.modal-content {
     border-radius: 30px;
     background: var(--surfaces-s-top, #FFF);
     box-shadow: -2.52875px 6.00803px 6.51852px 0px rgba(52, 79, 117, 0.03), -11.95411px 28.40162px 25.48148px 0px rgba(52, 79, 117, 0.04), -31.03472px 73.73497px 80px 0px rgba(52, 79, 117, 0.07);
@@ -580,13 +608,13 @@
     padding: 30px 36px;
 }
 
-#AddProduct .modal-body {
+.modal-body {
     padding: 0 !important;
     padding-bottom: 30px !important;
 
 }
 
-#AddProduct .modal-header {
+.modal-header {
     justify-content: center;
     border: none !important;
     padding: 0 !important;
@@ -656,12 +684,12 @@
     color: #636E9F !important;
 }
 
-#AddProduct .modal-footer {
+.modal-footer {
     padding: 0 !important;
     border: none !important;
 }
 
-#AddProduct .modal-footer {
+.modal-footer {
     justify-content: center;
 }
 
@@ -685,24 +713,20 @@
     border: none;
 }
 
-.flexBox .customTextarea {
+.addCart .customTextarea {
     padding: 18px 10px;
-    width: 45%;
     border-radius: 0;
     text-align: center;
+    border-left: none !important;
+    border-right: none !important;
 }
 
 .addProductBtn {
     border-radius: 0px 16px 16px 0px;
     border: 1px solid #D7DEFF;
     background: #F5F6FC;
-    position: absolute;
-    right: 0;
-    padding: 14px 30px;
-    font-size: 24px;
-    top: 0;
-    width: 100%;
-    max-width: 120px;
+    padding: 18px 60px;
+    font-size: 18px;
     color: #263682;
 }
 
@@ -710,13 +734,8 @@
     border-radius: 16px 0px 0px 16px;
     border: 1px solid #D7DEFF;
     background: transparent;
-    position: absolute;
-    left: 0;
-    padding: 14px 30px;
-    font-size: 24px;
-    top: 0;
-    width: 100%;
-    max-width: 120px;
+    padding: 18px 60px;
+    font-size: 18px;
     color: #263682;
 }
 
@@ -860,6 +879,22 @@
     color: #263682;
 }
 
+.ArrowRight {
+    width: 16px;
+    height: 16px;
+    margin-left: 5px;
+}
+
+.ArrowLeft {
+    width: 16px;
+    height: 16px;
+    margin-right: 5px;
+}
+
+.paginatinationBtn.active path {
+    stroke: #58C2E8;
+}
+
 .invoiceSearchBox {
     border-bottom: 1px solid #E4E6F2;
 }
@@ -935,7 +970,8 @@
 }
 
 .productBoxDetails {
-    max-height: 350px;
+    max-height: 343px;
+    overflow: auto;
 }
 
 .aboutProduct {
@@ -995,7 +1031,7 @@
 }
 
 .OrderTotal {
-    padding: 14px 0;
+    padding: 14px 0 0;
 }
 
 .priceHeading {
@@ -1060,12 +1096,19 @@
 }
 
 .manualSelectedProduct {
-    height: 100%;
+    height: 484px;
     max-height: 484px;
-    min-height: 484px;
     overflow: auto;
     padding-right: 10px;
     margin-bottom: 10px;
+    align-content: center;
+}
+
+.manualSelectedItems {
+    width: 400px;
+    margin: 0 auto;
+    display: grid;
+    align-content: space-evenly;
 }
 
 .manualSelectedProduct .selectedProductDetails {
@@ -1083,16 +1126,31 @@
     font-size: 14px;
 }
 
-.buttonBox .BlueBtn {
+.buttonBox button {
     width: 49%;
-    margin-left: 10px;
 }
 
 /* Start manual entry search */
 
 /* Start manual entry config */
+.ItemImage {
+    width: 150px;
+    height: 150px;
+    max-width: 150px;
+    max-height: 150px;
+    margin-right: 24px;
+}
+
 .manual-entryColor {
     display: flex;
+    justify-content: space-between;
+    margin-top: 12px;
+}
+
+.productSizeBtnBox {
+    justify-content: space-between;
+    display: flex;
+    margin-top: 12px;
 }
 
 .manual-entryColor span {
@@ -1105,12 +1163,127 @@
 
 .manual-entryColor span.active {
     width: 110px;
+    border: 2px solid #eef0fa;
 }
 
-.productSize {
+.productSizeBtn {
     border-radius: 10px;
     border: 1px solid #D7DEFF;
-    background:  #FFF;
-    padding: 12px;
+    background: #FFF;
+    padding: 12px 25px;
+    color: #263682;
+    font-size: 12px;
+    font-weight: 400;
+}
+
+.productSizeBtn.disable {
+    border: 1px solid #F7F9FF;
+    color: #D7DEFF;
+}
+
+.productSizeBtn.active {
+    background: #263682;
+    color: #E4E6F2;
+    border: 1px solid #263682;
+}
+
+.selectedproductDetails {
+    color: #263682;
+    font-size: 18px;
+    font-weight: 500;
+}
+
+.productId {
+    padding: 4px 8px;
+    border-radius: 20px;
+    border: 1px solid rgba(228, 235, 241, 0.60);
+    background: transparent;
+    color: #535E68;
+    font-size: 12px;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    margin: 11px 0;
+}
+
+.productDot {
+    background: #535E68;
+    height: 10px;
+    width: 10px;
+    display: block;
+    border-radius: 5px;
+    margin-right: 10px;
+}
+
+/* End manual entry config */
+
+/*Start  Return Inventory Modal*/
+
+#ReturnInventory .modal-header{
+    padding-bottom: 0 !important;
+}
+.closeButton {
+    position: absolute;
+    right: 12px;
+    top: 15px;
+    background: transparent;
+    border: none;
+}
+.productcartBox {
+    display: flex;
+    border-radius: 8px;
+    border: 1px solid var(--primary-p-50-main, #F5F6FC);
+    padding: 8px 16px;
+}
+.ShoppingReturn{
+    width: 48px;
+    height: 48px;
+    margin-bottom: 16px;
+}
+#ReturnInventory .addCart {
+    max-width: 100px;
+}
+
+.productcartBox article {
+    margin: 0 15px;
+}
+
+#ReturnInventory .customTextarea {
+    padding: 8px 10px;
+    font-size: 16px;
+}
+
+#ReturnInventory .removeProductBtn {
+    padding: 8px 10px;
+    border-radius: 8px 0px 0px 8px;
+    font-size: 16px;
+}
+
+#ReturnInventory .addProductBtn {
+    padding: 8px 10px;
+    border-radius: 0px 8px 8px 0px;
+    font-size: 16px;
 
 }
+#ReturnInventory .priceHeading{
+    font-weight: 400;
+}
+#ReturnInventory .productSize{
+    padding: 0;
+}
+.inventorySubheading{
+    font-size: 18px;
+    font-weight: 400;
+    color: #636E9F;
+    margin: 0;
+    padding: 12px 0 24px 0;
+}
+/*End  Return Inventory Modal*/
+
+/* Start refunds Page */
+.refundsBox {
+    display: grid;
+    align-content: space-between;
+    height: 100%;
+}
+/* End refunds Page */

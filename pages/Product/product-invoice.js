@@ -3,6 +3,7 @@ import * as Images from "../../utilities/images"
 import Image from "next/image";
 import SearchInvoice from '../../components/commanComonets/InvoiceSearch/Search'
 import * as Product from '../../components/commanComonets/Product';
+import Pagination from '../../components/commanComonets/pagination';
 
 
 const ProductInvoice = () => {
@@ -684,15 +685,7 @@ const ProductInvoice = () => {
                                     </table>
                                 </div>
                             </div>
-                            <div className='Custompagination'>
-                                <button type='button' className='paginatinationBtn'>
-                                    <Image src={Images.scanImg} alt="SearchImageIcon" className="img-fluid" />
-                                    pre</button>
-                                <button type='button' className='paginatinationBtn'>Page no. 1 to 8</button>
-                                <button type='button' className='paginatinationBtn active'>Next
-                                    <Image src={Images.scanImg} alt="SearchImageIcon" className="img-fluid" />
-                                </button>
-                            </div>
+                            <Pagination/>
                         </div>
                     </div>
                     <div className='col-lg-6'>
@@ -717,7 +710,7 @@ const ProductInvoice = () => {
                                 </div>
                                 <div className='invoiceButtonBox'>
                                     <button type='button' className='boderdManualButton'>Manual Entry
-                                        <Image src={Images.scanImg} alt="SearchImageIcon" className="img-fluid" />
+                                        <Image src={Images.plusRound} alt="SearchImageIcon" className="img-fluid ms-2" />
                                     </button>
                                 </div>
                             </div>
@@ -790,7 +783,7 @@ const ProductInvoice = () => {
                                             </div>
                                             <button type='button' className='BlueBtn w-100'>
                                                 Next
-                                                <Image src={Images.scanImg} alt="SearchImageIcon" className="img-fluid" />
+                                                <Image src={Images.ArrowRight} alt="ArrowRight" className="img-fluid ArrowRight" />
                                             </button>
                                         </div>
                                     </div>
