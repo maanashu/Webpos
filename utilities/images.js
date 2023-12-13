@@ -135,8 +135,12 @@ import dotOrderDelivered from '../public/images/dot_order_delivered.svg'
 import dotOrderPickup from '../public/images/dot_order_pickup.svg'
 import dotAssignDriver from "../public/images/dot_assign_driver.svg";
 import packageBoxPurplish from "../public/images/pinkish_purple_box.svg";
+import mailBox from "../public/images/mailBox.svg"
+import Visa from "../public/images/Visa.svg"
 
 export {
+  Visa,
+  mailBox,
   packageBoxPurplish,
   dotOrderAccepted,
   dotOrderDelivered,
