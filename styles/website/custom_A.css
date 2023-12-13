@@ -1219,9 +1219,10 @@
 
 /*Start  Return Inventory Modal*/
 
-#ReturnInventory .modal-header{
+#ReturnInventory .modal-header {
     padding-bottom: 0 !important;
 }
+
 .closeButton {
     position: absolute;
     right: 12px;
@@ -1229,17 +1230,20 @@
     background: transparent;
     border: none;
 }
+
 .productcartBox {
     display: flex;
     border-radius: 8px;
     border: 1px solid var(--primary-p-50-main, #F5F6FC);
     padding: 8px 16px;
 }
-.ShoppingReturn{
+
+.ShoppingReturn {
     width: 48px;
     height: 48px;
     margin-bottom: 16px;
 }
+
 #ReturnInventory .addCart {
     max-width: 100px;
 }
@@ -1265,19 +1269,23 @@
     font-size: 16px;
 
 }
-#ReturnInventory .priceHeading{
+
+#ReturnInventory .priceHeading {
     font-weight: 400;
 }
-#ReturnInventory .productSize{
+
+#ReturnInventory .productSize {
     padding: 0;
 }
-.inventorySubheading{
+
+.inventorySubheading {
     font-size: 18px;
     font-weight: 400;
     color: #636E9F;
     margin: 0;
     padding: 12px 0 24px 0;
 }
+
 /*End  Return Inventory Modal*/
 
 /* Start refunds Page */
@@ -1286,4 +1294,341 @@
     align-content: space-between;
     height: 100%;
 }
+
+.refundItems {
+    color: #263682;
+    font-size: 24px;
+    font-weight: 500;
+    padding-bottom: 10px;
+}
+
+.refundCount {
+    color: #9BA8E3;
+}
+
+.refundPrice {
+    color: #636E9F;
+    font-size: 16px;
+    font-weight: 400;
+    padding: 3px 3rem 3px 0;
+    align-items: center;
+    display: flex;
+}
+
+.priceFilterBtn.active {
+    background: #263682;
+    font-size: 16px;
+    padding: 5px 14px;
+    border-radius: 8px 0 0 8px;
+    color: #ffffff;
+}
+
+.priceFilterBtn {
+    background: #E4E6F2;
+    font-size: 16px;
+    padding: 5px 14px;
+    border-radius: 0 8px 8px 0;
+    color: #263682;
+}
+
+.refundPricebox {
+    border-radius: 12px;
+    border: 1px solid #D7DEFF;
+    box-shadow: -1.908px 3.783px 25.481px 0px rgba(50, 80, 127, 0.02), -4.954px 9.821px 80px 0px rgba(50, 80, 127, 0.04);
+    padding: 6px 8px 6px 14px;
+    justify-content: space-between;
+}
+
+.refundproduct_table .recent_head {
+    width: auto;
+}
+
+.refundproduct_table .recent_subhead {
+    padding: 8px 22px;
+}
+
+.refundproduct_table .custom-checkbox {
+    top: -9px;
+}
+
+.recent_head .checkmark:after {
+    left: 4px;
+    top: 8px;
+    width: 10px;
+    height: 0;
+    border-width: 2px 0px 0px 0;
+    -webkit-transform: rotate(180deg);
+}
+
+.tablecustomInput {
+    border-radius: 6px;
+    border: 1px solid #E4E6F2;
+    background: #F5F6FC;
+    text-align: center;
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 400;
+    color: #263682;
+    padding: 8px 16px;
+}
+
+.tablecustomInput::placeholder {
+    text-align: left;
+    justify-content: left;
+    font-size: 12px;
+    font-weight: 400;
+    color: #263682;
+}
+
+.recent_subhead .productPrice {
+    font-weight: 500;
+}
+
+.recent_subhead .paginatinationBtn {
+    font-weight: 400;
+}
+
+.recent_subhead .productDot {
+    background: #D7DEFF;
+}
+
+.tablecustomInput:focus-visible {
+    outline: none;
+}
+
+.refundItemImage {
+    width: 35px;
+    height: 35px;
+    margin-right: 10px;
+}
+
+.refundedItems {
+    border-radius: 20px;
+    background: #F5F6FC;
+    padding: 24px;
+}
+
+.itemsRefundedBox {
+    padding-bottom: 20px;
+    border-bottom: 1px dotted #7E8AC1;
+}
+
+.itemsRefundedsubTotal {
+    padding: 20px 0;
+    border-bottom: 1px dotted #7E8AC1;
+}
+
+.itemsRefundedTotal {
+    padding: 20px 0;
+
+}
+
+button.comfirmatiopnBtn {
+    border-radius: 30px;
+    background: #B4BEEB;
+    color: #F5F6FC;
+    font-size: 14px;
+    font-weight: 400;
+    padding: 8px 30px;
+    border: none;
+}
+
+.Arrowtopright {
+    margin-left: 6px;
+}
+
 /* End refunds Page */
+/* Start Refunds Confirmation */
+.backButton {
+    color: #4659B5;
+    font-size: 14px;
+    font-weight: 400;
+    background: transparent;
+    border: none;
+    display: flex;
+    align-items: center;
+}
+
+.backBtnIcon {
+    width: 18px;
+    margin-right: 4px;
+}
+
+.refundMethod {
+    margin-top: 46px;
+    text-align: center;
+}
+
+.totalRefund {
+    color: #263682;
+    font-size: 20px;
+    font-weight: 500;
+}
+
+.totalrefundAmount {
+    color: #263682;
+    font-size: 30px;
+    font-weight: 500;
+    padding: 10px 0 20px;
+}
+
+.refundMethod .userPosition {
+    font-weight: 400;
+    padding-bottom: 26px;
+}
+
+.debitCreditBox {
+    border-radius: 16px;
+    border: 1.5px solid #BFEEFF;
+    background: #EFFBFF;
+    padding: 16px;
+    color: #1F6A84;
+    height: 100%;
+    display: grid;
+    align-content: space-between;
+}
+
+.refundCashBox {
+    border-radius: 16px;
+    border: 1.5px solid #D1FADF;
+    background: #ECFDF3;
+    padding: 16px;
+    color: #027547;
+    height: 100%;
+    display: grid;
+    align-content: space-between;
+}
+
+.jobrCoinBox {
+    border-radius: 16px;
+    border: 1.5px solid #D7DEFF;
+    background: #F5F6FC;
+    padding: 16px;
+    color: #263682;
+    height: 100%;
+    display: grid;
+    align-content: space-between;
+}
+
+.receiptDetails {
+    margin: 50px 0;
+    text-align: center;
+}
+
+.ReceiptOutline {
+    width: 30px;
+    height: 30px;
+    margin-bottom: 8px;
+}
+
+.receiptDetails .selectedproductDetails {
+    padding-bottom: 26px;
+}
+
+.receiptCard {
+    border-radius: 16px;
+    border: 1.5px solid var(--alarm-warning-w-100, #FEEFC6);
+    background: rgba(255, 250, 235, 0.80);
+    padding: 16px;
+    color: #93370D;
+    text-align: center;
+    font-size: 18px;
+    font-weight: 500;
+    letter-spacing: -0.36px;
+}
+
+.ConfirmReturn {
+    border-radius: 30px;
+    border: 1px solid #B4BEEB;
+    padding: 14px 16px;
+    color: #B4BEEB;
+    font-size: 16px;
+    font-weight: 400;
+    background-color: transparent;
+}
+
+.ShoppingReturnLite {
+    margin-left: 6px;
+}
+
+.MapleBox {
+    display: grid;
+    align-content: space-between;
+    height: 100%;
+}
+
+.mapleHeader {
+    text-align: center;
+    border-bottom: 1px dotted #D7DEFF;
+}
+
+.mapleHeading {
+    color: #263682;
+    font-size: 24px;
+    font-weight: 600;
+    padding-bottom: 16px;
+}
+
+.mapleAddress {
+    color: #263682;
+    font-size: 10px;
+    font-weight: 500;
+    padding-bottom: 4px;
+}
+
+.mapleProductDetails {
+    border-bottom: 1px dotted #D7DEFF;
+}
+
+.mapleProductDetailsBox {
+    border-radius: 8px;
+    border: 0px dashed #263682;
+    padding: 8px;
+    margin-bottom: 8px;
+    justify-content: space-between;
+    align-items: baseline;
+}
+
+.mapleProductHeading {
+    color: #263682;
+    font-size: 10px;
+    font-weight: 600;
+}
+
+.mapleProductcount {
+    color: #263682;
+    font-size: 10px;
+    font-weight: 400;
+}
+
+.mapleProductPrice {
+    color: #263682;
+    font-size: 10px;
+    font-weight: 500;
+}
+
+.mapleInvoiceBox {
+    border-bottom: 1px dotted #D7DEFF;
+    justify-content: space-between;
+}
+
+.mapleInvoiceBox .mapleProductPrice {
+    padding: 8px;
+    margin-bottom: 8px;
+}
+
+.mapleInvoiceBox .mapleProductHeading {
+    padding: 8px;
+    margin-bottom: 8px;
+}
+
+.maplePriceBox {
+    justify-content: space-between;
+    padding: 0 8px;
+}
+.maplePriceBox .productName {
+    padding: 6px;
+    margin-bottom: 8px;
+}
+
+/* End Refunds Confirmation */

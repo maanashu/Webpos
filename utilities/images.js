@@ -132,8 +132,27 @@ import orderBike from '../public/images/order_bike.svg'
 import ItemImage from '../public/images/Item_Image.png'
 import AddedIcon from '../public/images/AddedIcon.svg'
 import ShoppingReturn from '../public/images/Shopping-Return.svg'
+import dotOrderAccepted from '../public/images/dot_order_accept.svg'
+import dotOrderDelivered from '../public/images/dot_order_delivered.svg'
+import dotOrderPickup from '../public/images/dot_order_pickup.svg'
+import dotAssignDriver from "../public/images/dot_assign_driver.svg";
+import packageBoxPurplish from "../public/images/pinkish_purple_box.svg";
+import Arrowtopright from "../public/images/arrowtopright.svg";
+import Mastercard from "../public/images/Mastercard.svg";
+import MoneyOutline from "../public/images/MoneyOutline.svg";
+import JOBRCoinOutline from "../public/images/JOBR-Coin_Outline.svg";
+import ReceiptOutline from "../public/images/Receipt_Outline.svg";
+import Email from "../public/images/Email.svg";
+import Like from "../public/images/Like.svg";
+import Sms from "../public/images/Sms.svg";
+import ShoppingReturnLite from "../public/images/ShoppingReturn.svg";
 
 export {
+  packageBoxPurplish,
+  dotOrderAccepted,
+  dotOrderDelivered,
+  dotOrderPickup,
+  dotAssignDriver,
   orderBike,
   barCodeScanImg,
   jobrFullIcon,
@@ -266,5 +285,14 @@ export {
   plusRound,
   ItemImage,
   AddedIcon,
-  ShoppingReturn
+  ShoppingReturn,
+  Arrowtopright,
+  Mastercard,
+  MoneyOutline,
+  JOBRCoinOutline,
+  ReceiptOutline,
+  Email,
+  Like,
+  Sms,
+  ShoppingReturnLite
 };
