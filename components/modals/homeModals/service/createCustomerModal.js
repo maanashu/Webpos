@@ -21,7 +21,7 @@ const CreateCustomerModal = () => {
     return (
         <div className='createCustomerSection'>
             <form className='addCustomerForm createCustomForm'>
-                {/* <div className="phone-numbpart verifyNumber">
+                <div className="phone-numbpart verifyNumber">
                     <div className="country-plugin verifySelect">
                         <label className="form-label">Phone Number</label>
                         <div id="result">
@@ -37,7 +37,7 @@ const CreateCustomerModal = () => {
                             <Image src={Images.AlertCircle} alt="alertImage" className="img-fluid alertImg" />
                         </div>
                     </div>
-                </div> */}
+                </div>
                 <div className='addCustomerBtn mt-4'>
                     <button className='serviceCancel ' type='submit'>
                         Cancel
