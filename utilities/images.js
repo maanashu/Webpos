@@ -130,8 +130,18 @@ import serviceRight from "../public/images/serviceRight.svg"
 import addCutomer from "../public/images/addCutomer.svg"
 import plusRound from "../public/images/plusRound.svg"
 import orderBike from '../public/images/order_bike.svg'
+import dotOrderAccepted from '../public/images/dot_order_accept.svg'
+import dotOrderDelivered from '../public/images/dot_order_delivered.svg'
+import dotOrderPickup from '../public/images/dot_order_pickup.svg'
+import dotAssignDriver from "../public/images/dot_assign_driver.svg";
+import packageBoxPurplish from "../public/images/pinkish_purple_box.svg";
 
 export {
+  packageBoxPurplish,
+  dotOrderAccepted,
+  dotOrderDelivered,
+  dotOrderPickup,
+  dotAssignDriver,
   orderBike,
   barCodeScanImg,
   jobrFullIcon,

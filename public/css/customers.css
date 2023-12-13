@@ -509,7 +509,7 @@
     flex-direction: column;
     align-items: center;
     gap: 16px;
-    padding:  0px 24px;
+    padding: 0px 24px;
 }
 
 .invoice-dotted-hr {
@@ -526,22 +526,11 @@
     align-self: stretch;
 }
 
-/* status dots */
-
-.status-dots-container-customers {
-
-}
-
-.status-outer-dot-customers {
-    width: 15px;
-    height: 15px;
-    border-radius: 50%;
-    display: flex;
-    justify-content: center;
+.order-status-pickup-customer {
+    padding: 4px 6px;
     align-items: center;
-}
-.status-inner-dot-customers {
-    width: 15px;
-    height: 15px;
-    border-radius: 50%;
+    gap: 4px;
+    border-radius: 20px;
+    background: #F5EDFF;
+    mix-blend-mode: multiply;
 }
