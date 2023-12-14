@@ -16,9 +16,13 @@ const ReturnInventory = () => {
                         <p className='productSize'>Yellow / M</p>
                     </article>
                     <div className='form-group flexBox addCart '>
-                        <button className='removeProductBtn'>-</button>
+                        <button className='removeProductBtn'>
+                            <i class="fa-solid fa-minus plusMinus"></i>
+                        </button>
                         <input className="form-control customTextarea" type="text" placeholder="1" />
-                        <button className='addProductBtn'>+</button>
+                        <button className='addProductBtn'>
+                            <i class="fa-solid fa-plus plusMinus"></i>
+                        </button>
                     </div>
                 </div>
                 <div className='productcartBox mb-2'>
@@ -28,9 +32,13 @@ const ReturnInventory = () => {
                         <p className='productSize'>Yellow / M</p>
                     </article>
                     <div className='form-group flexBox addCart '>
-                        <button className='removeProductBtn'>-</button>
+                        <button className='removeProductBtn'>
+                            <i class="fa-solid fa-minus plusMinus"></i>
+                        </button>
                         <input className="form-control customTextarea" type="text" placeholder="1" />
-                        <button className='addProductBtn'>+</button>
+                        <button className='addProductBtn'>
+                            <i class="fa-solid fa-plus plusMinus"></i>
+                        </button>
                     </div>
                 </div>
                 <div className='productcartBox mb-2'>
@@ -40,9 +48,13 @@ const ReturnInventory = () => {
                         <p className='productSize'>Yellow / M</p>
                     </article>
                     <div className='form-group flexBox addCart '>
-                        <button className='removeProductBtn'>-</button>
+                        <button className='removeProductBtn'>
+                            <i class="fa-solid fa-minus plusMinus"></i>
+                        </button>
                         <input className="form-control customTextarea" type="text" placeholder="1" value={2} />
-                        <button className='addProductBtn'>+</button>
+                        <button className='addProductBtn'>
+                            <i class="fa-solid fa-plus plusMinus"></i>
+                        </button>
                     </div>
                 </div>
             </div>

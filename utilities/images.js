@@ -140,14 +140,17 @@ import packageBoxPurplish from "../public/images/pinkish_purple_box.svg";
 import Arrowtopright from "../public/images/arrowtopright.svg";
 import Mastercard from "../public/images/Mastercard.svg";
 import MoneyOutline from "../public/images/MoneyOutline.svg";
+import ActiveMoneyOutline from "../public/images/ActiveMoneyOutline.svg";
 import JOBRCoinOutline from "../public/images/JOBR-Coin_Outline.svg";
 import ReceiptOutline from "../public/images/Receipt_Outline.svg";
 import Email from "../public/images/Email.svg";
 import Like from "../public/images/Like.svg";
+import Like_Solid from "../public/images/Like_Solid.svg";
 import Sms from "../public/images/Sms.svg";
 import ShoppingReturnLite from "../public/images/ShoppingReturn.svg";
 import mailBox from "../public/images/mailBox.svg"
 import Visa from "../public/images/Visa.svg"
+import InvoiceIcon from "../public/images/InvoiceIcon.svg"
 
 export {
   Visa,
@@ -297,6 +300,9 @@ export {
   ReceiptOutline,
   Email,
   Like,
+  Like_Solid,
   Sms,
-  ShoppingReturnLite
+  ShoppingReturnLite,
+  ActiveMoneyOutline,
+  InvoiceIcon
 };

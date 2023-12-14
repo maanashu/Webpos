@@ -407,10 +407,10 @@
 }
 
 .sidebarRight {
-    width: 60px;
+    width: 160px;
     border-radius: 50px;
     margin: 0 10px;
-    background: var(--surfaces-s-top, #FFF);
+    background: #FFF;
     box-shadow: -1.90817px 3.78304px 25.48148px 0px rgba(50, 80, 127, 0.02), -4.95391px 9.82135px 80px 0px rgba(50, 80, 127, 0.04);
     height: calc(100vh - 129px);
 }
@@ -622,7 +622,9 @@
 
 
 }
-
+#AddProduct .plusMinus{
+    padding: 0;
+}
 .addProductHeading {
     color: #263682;
     text-align: center;
@@ -720,7 +722,9 @@
     border-left: none !important;
     border-right: none !important;
 }
-
+.addCart .plusMinus {
+    padding: 0;
+}
 .addProductBtn {
     border-radius: 0px 16px 16px 0px;
     border: 1px solid #D7DEFF;
@@ -1222,7 +1226,11 @@
 #ReturnInventory .modal-header {
     padding-bottom: 0 !important;
 }
-
+#ReturnInventory .plusMinus {
+    color: #263682;
+    cursor: pointer;
+    padding: 0;
+}
 .closeButton {
     position: absolute;
     right: 12px;
@@ -1499,6 +1507,19 @@ button.comfirmatiopnBtn {
     align-content: space-between;
 }
 
+.refundCashBox.active {
+    background: #12B76A;
+    color: #ECFDF3;
+}
+
+.refundCashBox.active .MoneyOutline {
+    display: none;
+}
+
+.refundCashBox.active .showImg {
+    display: block !important;
+}
+
 .jobrCoinBox {
     border-radius: 16px;
     border: 1.5px solid #D7DEFF;
@@ -1537,6 +1558,20 @@ button.comfirmatiopnBtn {
     letter-spacing: -0.36px;
 }
 
+.receiptCard.active {
+    background: #FDB022;
+    color: #fff;
+}
+
+.receiptCard.active .Like {
+    display: none;
+}
+
+.receiptCard.active .showImg {
+    display: block !important;
+    margin: 0 auto;
+}
+
 .ConfirmReturn {
     border-radius: 30px;
     border: 1px solid #B4BEEB;
@@ -1547,8 +1582,24 @@ button.comfirmatiopnBtn {
     background-color: transparent;
 }
 
+.ConfirmReturn.active {
+    background-color: #263682;
+    color: #F5F6FC;
+    display: flex;
+    margin: 0 auto;
+    align-items: center;
+}
+
 .ShoppingReturnLite {
     margin-left: 6px;
+}
+
+.ConfirmReturn.active .ShoppingReturnLite {
+    display: none;
+}
+
+.ConfirmReturn.active .showImg {
+    display: block !important;
 }
 
 .MapleBox {
@@ -1571,7 +1622,7 @@ button.comfirmatiopnBtn {
 
 .mapleAddress {
     color: #263682;
-    font-size: 10px;
+    font-size: 14px;
     font-weight: 500;
     padding-bottom: 4px;
 }
@@ -1591,19 +1642,19 @@ button.comfirmatiopnBtn {
 
 .mapleProductHeading {
     color: #263682;
-    font-size: 10px;
+    font-size: 14px;
     font-weight: 600;
 }
 
 .mapleProductcount {
     color: #263682;
-    font-size: 10px;
+    font-size: 14px;
     font-weight: 400;
 }
 
 .mapleProductPrice {
     color: #263682;
-    font-size: 10px;
+    font-size: 14px;
     font-weight: 500;
 }
 
@@ -1626,9 +1677,44 @@ button.comfirmatiopnBtn {
     justify-content: space-between;
     padding: 0 8px;
 }
-.maplePriceBox .productName {
+
+.maplePriceBox .productName,
+.maplePriceBox .userName {
     padding: 6px;
     margin-bottom: 8px;
 }
 
+.refundTotalBtn {
+    border-radius: 30px;
+    border: 0px solid var(--Primary-P-600-Main, #263682);
+    background: #F5F6FC;
+    padding: 8px 20px !important;
+}
+
 /* End Refunds Confirmation */
+/* Start Return Confirmed */
+.ReturnConfirmed {
+    display: grid;
+    align-content: center;
+    height: 100%;
+    justify-content:center;
+}
+
+.ReturnConfirmedBox {
+    border-radius: 40px;
+    background: var(--Surfaces-S-Soft-Surface, #F5F6FC);
+    padding: 60px 50px;
+    width: 375px;
+    text-align: center;
+}
+.returnConfirmedHeading {
+    color: #4659B5;
+    font-size: 30px;
+    font-weight: 400;
+    padding: 24px 0;
+}
+.ReturnConfirmedBox .userPosition{
+
+font-weight: 400;
+}
+/* End Return Confirmed */
