@@ -3,6 +3,11 @@
     justify-content: space-between;
 }
 
+.disable-element {
+  pointer-events: none;
+  opacity: 0.7;
+}
+
 .main-text-color-styles-customers {
     color: #263682;
     font-size: 24px;
@@ -181,11 +186,11 @@
 }
 
 .checkbox-jbrCoin[type="checkbox"] {
-    border: 2px solid #263682 !important;
+    border: 2px solid #F0C01A !important;
 }
 
 .checkbox-jbrCoin[type="checkbox"]:checked::before {
-    color: #263682;
+    color: #F0C01A;
 }
 
 .checkbox-cash[type="checkbox"] {
