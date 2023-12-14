@@ -154,11 +154,22 @@ import coins from "../public/images/Coins.svg"
 import Visa from "../public/images/Visa.svg"
 import InvoiceIcon from "../public/images/InvoiceIcon.svg"
 import giftOffer from "../public/images/giftOffer.svg"
+import bookImg from "../public/images/bookImg.svg"
+import calendarBlue from "../public/images/calendarBlue.svg"
+import notification from "../public/images/notification.svg"
+import listImg from "../public/images/listImg.svg"
+
+
 
 export {
   giftOffer,
   coins,
   visa,
+  listImg,
+  notification,
+  calendarBlue,
+  bookImg,
+  Visa,
   mailBox,
   packageBoxPurplish,
   dotOrderAccepted,
