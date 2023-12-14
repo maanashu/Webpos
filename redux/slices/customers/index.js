@@ -3,6 +3,9 @@ import { createSlice } from "@reduxjs/toolkit";
 const initialState = {
   allCustomersData: {},
   allCustomersList: {},
+  sellerAreaList: {},
+  userDetailsAndOrder: {},
+  userMarketingStatus: { userId: null, status: false },
   loading: false,
 };
 
@@ -24,6 +27,27 @@ export const customersSlice = createSlice({
       state.loading = false;
       state.allCustomersList = action?.payload;
     },
+    getSellerAreaList: (state) => {
+      state.loading = true;
+    },
+    setSellerAreaList: (state, action) => {
+      state.loading = true;
+      state.sellerAreaList = action.payload;
+    },
+    getUserDetailsAndOrders: (state) => {
+      state.loading = true;
+    },
+    setUserDetailsAndOrders: (state, action) => {
+      state.loading = false;
+      state.userDetailsAndOrder = action.payload;
+    },
+    getUserMarketingStatus: (state) => {
+      state.loading = true;
+    },
+    setUserMarketingStatus: (state, action) => {
+      state.loading = false;
+      state.userMarketingStatus = action.payload;
+    },
     onErrorStopLoad: (state) => {
       state.loading = false;
     },
@@ -35,8 +59,14 @@ export const {
   getAllCustomers,
   setAllCustomers,
   onErrorStopLoad,
-  setAllCustomersList,
+  getSellerAreaList,
+  setSellerAreaList,
   getAllCustomersList,
+  setAllCustomersList,
+  getUserDetailsAndOrders,
+  setUserDetailsAndOrders,
+  getUserMarketingStatus,
+  setUserMarketingStatus,
 } = customersSlice.actions;
 
 export const selectCustomersData = (state) => state.customers;

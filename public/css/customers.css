@@ -4,8 +4,8 @@
 }
 
 .disable-element {
-  pointer-events: none;
-  opacity: 0.7;
+    pointer-events: none;
+    opacity: 0.7;
 }
 
 .main-text-color-styles-customers {
@@ -293,6 +293,7 @@
     align-items: center;
     border-radius: 12px;
     background: #F5F6FC;
+    cursor: pointer;
 }
 
 .users-tabs {
@@ -538,4 +539,41 @@
     border-radius: 20px;
     background: #F5EDFF;
     mix-blend-mode: multiply;
+}
+
+.customers-stats-table {
+    width: 98%;
+    margin: 16px;
+    border-spacing: 0 8px;
+    border-collapse: initial;
+}
+
+.customers-table-row {}
+
+.customers-table-row:hover .customers-table-data {
+    border-color: #D7DEFF;
+
+}
+
+.customers-table-data {
+    text-align: center;
+    padding: 6px 20px;
+    border-top: 1px solid #F5F6FC;
+    border-bottom: 1px solid #F5F6FC;
+    color: #2F3552;
+    font-size: 12px;
+    font-weight: 500;
+    cursor: pointer;
+}
+
+.customers-table-data:first-child {
+    border-left: 1px solid #F5F6FC;
+    border-top-left-radius: 30px;
+    border-bottom-left-radius: 30px;
+}
+
+.customers-table-data:last-child {
+    border-right: 1px solid #F5F6FC;
+    border-top-right-radius: 30px;
+    border-bottom-right-radius: 30px;
 }
