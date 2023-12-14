@@ -148,8 +148,21 @@ import Sms from "../public/images/Sms.svg";
 import ShoppingReturnLite from "../public/images/ShoppingReturn.svg";
 import mailBox from "../public/images/mailBox.svg"
 import Visa from "../public/images/Visa.svg"
+import bookImg from "../public/images/bookImg.svg"
+import calendarBlue from "../public/images/calendarBlue.svg"
+import notification from "../public/images/notification.svg"
+import listImg from "../public/images/listImg.svg"
+
+
+
+
+
 
 export {
+  listImg,
+  notification,
+  calendarBlue,
+  bookImg,
   Visa,
   mailBox,
   packageBoxPurplish,
