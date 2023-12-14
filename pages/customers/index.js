@@ -1,5 +1,5 @@
 import Image from "next/image";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import {
   customerWallet,
   newCustomers,
@@ -11,38 +11,68 @@ import { Line } from "react-chartjs-2";
 import { Chart as ChartJS, registerables } from "chart.js";
 import Link from "next/link";
 import TCRHeader from "../../components/commanComonets/TCRHeader";
+import { selectLoginAuth } from "../../redux/slices/auth";
+import { useDispatch, useSelector } from "react-redux";
+import { useRouter } from "next/router";
+import {
+  getAllCustomers,
+  selectCustomersData,
+} from "../../redux/slices/customers";
 
 const Customers = () => {
+  const [timeSpan, setTimeSpan] = useState("week");
+  const [selectedLines, setSelectedLines] = useState([1, 2, 3]);
+
+  const dispatch = useDispatch();
+  const authData = useSelector(selectLoginAuth);
+  const customersData = useSelector(selectCustomersData);
+  const graphData = customersData?.allCustomersData?.payload?.graphData;
+  const totalCustomers =
+    customersData?.allCustomersData?.payload?.total_customers;
+
+
+  const uniqueId = authData?.usersInfo?.payload?.uniqe_id;
+
   const STATS = [
     {
       icon: newCustomers,
       title: "New Customers",
-      count: 2984,
+      count: totalCustomers?.newCustomer,
       bgColor: "#FFEEB3",
       textColor: "#93370D",
     },
     {
       icon: returningCustomers,
       title: "Returning Customers",
-      count: 3541,
+      count: totalCustomers?.onlineCustomers,
       bgColor: "#D7DEFF",
       textColor: "#172461",
     },
     {
       icon: onlineCustomers,
       title: "Online Customers",
-      count: "$5560",
+      count: totalCustomers?.returningCustomer,
       bgColor: "#D1FADF",
       textColor: "#003921",
     },
     {
       icon: walkInCustomers,
       title: "Walk-in Customers",
-      count: 4045,
+      count: totalCustomers?.walkingCustomers,
       bgColor: "#BFEEFF",
       textColor: "#1F6A84",
     },
   ];
+
+  useEffect(() => {
+    if (uniqueId) {
+      let params = {
+        seller_id: uniqueId,
+        filter: timeSpan,
+      };
+      dispatch(getAllCustomers(params));
+    }
+  }, [uniqueId, timeSpan]);
 
   ChartJS.register(...registerables);
 
@@ -50,6 +80,8 @@ const Customers = () => {
     <div className="main-container-customers">
       {/* headers */}
       <TCRHeader
+        timeSpan={timeSpan}
+        onTimeSpanSelect={setTimeSpan}
         mainIcon={customerWallet}
         title="Total Customers"
       />
@@ -98,9 +130,16 @@ const Customers = () => {
             className="flex-row-space-between"
           >
             <p className="chart-header-title">Total Customers</p>
-            <p className="chart-header-count">4590</p>
+            <p className="chart-header-count">
+              {totalCustomers?.totalCustomer}
+            </p>
             <div className="chart-header-btn">
-              <Link href="customers/users">
+              <Link
+                href={{
+                  pathname: "customers/users",
+                  query: { "time-span": timeSpan }, // the data
+                }}
+              >
                 <p className="chart-header-btn-text">View All</p>
               </Link>
             </div>
@@ -110,12 +149,24 @@ const Customers = () => {
             className="flex-row-space-between"
           >
             {[
-              { textColor: "#263682", text: "JBR Coin", id: "jbrCoin" },
-              { textColor: "#039855", text: "Cash", id: "cash" },
-              { textColor: "#47B0D6", text: "Credit Card", id: "cc" },
-            ]?.map(({ text, textColor, id }) => (
+              {
+                textColor: "#F0C01A",
+                text: "New Customers",
+                id: "jbrCoin",
+              },
+              {
+                textColor: "#039855",
+                text: "Online Customers",
+                id: "cash",
+              },
+              {
+                textColor: "#47B0D6",
+                text: "Walking Customers",
+                id: "cc",
+              },
+            ]?.map(({ text, textColor, id }, idx) => (
               <div
-                key={text + id}
+                key={text + id + idx}
                 style={{
                   gap: "6px",
                   alignItems: "center",
@@ -124,7 +175,19 @@ const Customers = () => {
                 className="checkbox-cnt flex-row-space-between"
               >
                 <input
+                  checked={selectedLines.includes(idx + 1)}
+                  value={selectedLines.includes(idx + 1)}
                   id={id}
+                  onChange={() => {
+                    setSelectedLines((prev) => {
+                      if (prev?.includes(idx + 1)) {
+                        const filterd = prev.filter((el) => el !== idx + 1);
+                        return filterd;
+                      } else {
+                        return [...prev, idx + 1];
+                      }
+                    });
+                  }}
                   type="checkbox"
                   className={"checkbox-" + id}
                 />
@@ -148,7 +211,7 @@ const Customers = () => {
                 y: {
                   title: {
                     display: true,
-                    text: "Customer Number",
+                    text: "Customer Numbers",
                     color: "#7E8AC1",
                   },
                   border: {
@@ -159,7 +222,7 @@ const Customers = () => {
                   beginAtZero: true,
                   ticks: {
                     color: "#7E8AC1",
-                    callback: (value) => `${value}%`,
+                    callback: (value) => `${(value * 10).toFixed()}%`,
                   },
                 },
                 x: {
@@ -181,45 +244,30 @@ const Customers = () => {
               },
             }}
             data={{
-              labels: [
-                "Monday",
-                "Tuesday",
-                "Wednesday",
-                "Thursday",
-                "Friday",
-                "Saturday",
-                "Sunday",
-              ],
+              labels: [...graphData?.labels] || [],
               datasets: [
                 {
+                  color: "#F0C01A",
+                  data: [...graphData?.datasets?.[0]?.data],
+                },
+                {
+                  color: "#12B76A",
+                  data: [...graphData?.datasets?.[1]?.data],
+                },
+                {
+                  color: "#47B0D6",
+                  data: [...graphData?.datasets?.[2]?.data],
+                },
+              ]
+                .map((el) => ({
                   id: 1,
-                  data: [34, 30, 67, 40, 96, 4, 44, 45],
-                  borderColor: "rgba(70, 89, 181, 1)",
+                  data: el.data,
+                  borderColor: el.color,
                   borderWidth: 2,
                   pointRadius: 0,
-                },
-                {
-                  id: 2,
-                  data: [10, 30, 60, 80, 90, 75, 34, 76],
-                  borderColor: "rgba(240, 192, 26, 1)",
-                  borderWidth: 2,
-                  pointRadius: 0,
-                },
-                {
-                  id: 3,
-                  data: [15, 33, 64, 83, 20, 45, 34, 89],
-                  borderColor: "rgba(18, 183, 106, 1)",
-                  borderWidth: 2,
-                  pointRadius: 0,
-                },
-                {
-                  id: 3,
-                  data: [16, 56, 34, 78, 34, 90, 34, 23],
-                  borderColor: "rgba(71, 176, 214, 1)",
-                  borderWidth: 2,
-                  pointRadius: 0,
-                },
-              ],
+                  lineTension: 0.3,
+                }))
+                .filter((el, idx) => selectedLines.includes(idx + 1)),
             }}
           />
         </div>
