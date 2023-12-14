@@ -1211,23 +1211,26 @@ figure {
     padding: 0 !important;
 }
 
-#createCustomerModal{
+#createCustomerModal {
     width: 100%;
     max-width: 430px;
 }
 
-#customerFoundModal{
+#customerFoundModal {
     width: 100%;
     max-width: 470px;
 }
-#createCustomerModal .modal-content ,#customerFoundModal .modal-content {
+
+#createCustomerModal .modal-content,
+#customerFoundModal .modal-content {
     border-radius: 30px !important;
     background: #FFF !important;
     box-shadow: -3px 6px 6px 0px rgba(52, 79, 117, 0.03), -12px 28px 25px 0px rgba(52, 79, 117, 0.04), -31px 74px 80px 0px rgba(52, 79, 117, 0.07) !important;
-    padding:24px;
+    padding: 24px;
 }
 
-#createCustomerModal .modal-header ,#customerFoundModal .modal-header {
+#createCustomerModal .modal-header,
+#customerFoundModal .modal-header {
     border: none;
     padding: 0 !important;
 }
@@ -1324,31 +1327,47 @@ figure {
     font-size: 18px !important;
     font-weight: 400 !important;
 }
-.nameControl::placeholder{
+
+.nameControl::placeholder {
     color: #636E9F !important;
     font-size: 18px !important;
     font-weight: 400 !important;
 }
-.emailField .verifyControl{
+
+.emailField .verifyControl {
     padding: 12px 50px;
 }
+
 .emailField .lockImg {
     top: 12px;
 }
-.phoneDetail{
+
+.phoneDetail {
     margin: 24px 0 16px 0;
 }
-.emailDetailSub{
+
+.emailDetailSub {
     display: flex;
     align-items: center;
     gap: 12px;
 }
-.emailDetail{
+
+.emailDetail {
     margin-bottom: 16px;
 }
-.payDetail{
-    margin-top: 16px;
 
+.payDetail {
+    margin-top: 16px;
+}
+
+.confirmBack {
+    color: #4659B5;
+    font-size: 14px;
+    font-weight: 400;
+}
+.arrowShort{
+    width: 18px !important;
+    height: 18px !important;
 }
 /*service pages css end*/
 /*media query start*/
