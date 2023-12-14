@@ -147,10 +147,12 @@ import Like from "../public/images/Like.svg";
 import Sms from "../public/images/Sms.svg";
 import ShoppingReturnLite from "../public/images/ShoppingReturn.svg";
 import mailBox from "../public/images/mailBox.svg"
-import Visa from "../public/images/Visa.svg"
+import visa from "../public/images/Visa.svg"
+import coins from "../public/images/Coins.svg"
 
 export {
-  Visa,
+  coins,
+  visa,
   mailBox,
   packageBoxPurplish,
   dotOrderAccepted,

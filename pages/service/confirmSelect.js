@@ -2,49 +2,38 @@ import React from 'react'
 import * as Images from "../../utilities/images";
 import Image from "next/image";
 
-const Confirmation = () => {
+const ConfirmSelect = () => {
     return (
         <>
-            <div className='confirmationSection'>
+            <div className='confirmSelectSection'>
                 <div className='row'>
                     <div className='col-lg-7 col-md-7'>
-                        <div className='commanOuter me-0 commonSubOuter confirmLeft p-0'>
-                            <div className='fullCartInfo backArrow'>
+                        <div className='commanOuter me-0 commonSubOuter p-0 confirmSelectLeft'>
+                            <div className='fullCartInfo'>
                                 <div className='appointmentHeading'>
-                                    <Image src={Images.boldLeftArrow} alt="leftarrow image" className="img-fluid arrowShort" />
+                                    <Image src={Images.boldLeftArrow} alt="leftarrow image" className="img-fluid" />
                                     <h4 className='confirmBack ms-2'>Back</h4>
                                 </div>
                             </div>
-                            <div className='confirmationSub'>
-                                <Image src={Images.coins} alt="coin Images" className="img-fluid" />
-                                <p className='customerLink'>How we did it?, What about a tip?</p>
-                                <div className='coinInfoSection'>
-                                    <div className='coinAverage'>
-                                        <div className='coinAverageSub active'>
-                                            <div className='coinPercent'>
-                                                <h2 className='coinHeading'>10%</h2>
-                                                <h6 className='coinSubText mt-1'>$3.00</h6>
-                                            </div>
+                            <div className='confirmStep'>
+                                <div className='confirmFirst'>
+                                    <p className='customerLink'>1. Did we do it well?, Give us a <span className='fw-bold'>tip.</span></p>
+                                    <div className='coinAverageSelect'>
+                                        <div className='coinPercentSelect'>
+                                            <h2 className='coinHeading'>10%</h2>
+                                            <h6 className='coinSubText mt-1'>$3.00</h6>
                                         </div>
-                                        <div className='coinAverageSub'>
-                                            <div className='coinPercent'>
-                                                <h2 className='coinHeading'>15%</h2>
-                                                <h6 className='coinSubText mt-1'>$6.00</h6>
-                                            </div>
+                                        <div className='coinPercentSelect'>
+                                            <h2 className='coinHeading'>15%</h2>
+                                            <h6 className='coinSubText mt-1'>$6.00</h6>
                                         </div>
-                                    </div>
-                                    <div className='coinAverage mt-3'>
-                                        <div className='coinAverageSub'>
-                                            <div className='coinPercent'>
-                                                <h2 className='coinHeading'>20%</h2>
-                                                <h6 className='coinSubText mt-1'>$12.00</h6>
-                                            </div>
+                                        <div className='coinPercentSelect'>
+                                            <h2 className='coinHeading'>20%</h2>
+                                            <h6 className='coinSubText mt-1'>$12.00</h6>
                                         </div>
-                                        <div className='coinAverageSub active'>
-                                            <div className='coinPercent'>
-                                                <h2 className='coinHeading'>No, thanks</h2>
-                                                <h6 className='coinSubText mt-1'>$0.00</h6>
-                                            </div>
+                                        <div className='coinPercentSelect'>
+                                            <h2 className='coinHeading'>No, thanks</h2>
+                                            <h6 className='coinSubText mt-1'>$0.00</h6>
                                         </div>
                                     </div>
                                 </div>
@@ -132,9 +121,8 @@ const Confirmation = () => {
                     </div>
                 </div>
             </div>
-
         </>
     )
 }
 
-export default Confirmation
+export default ConfirmSelect

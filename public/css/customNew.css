@@ -378,12 +378,12 @@ figure {
 #trackingModal {
     width: 100%;
     max-width: 372px;
-
 }
 
 #trackingModal .modal-content {
     border-radius: 30px;
     background: #FFF;
+    padding: 0 !important;
     box-shadow: -3px 6px 7px 0px rgba(52, 79, 117, 0.03), -12px 28px 25px 0px rgba(52, 79, 117, 0.04), -31px 74px 80px 0px rgba(52, 79, 117, 0.07);
 }
 
@@ -394,7 +394,7 @@ figure {
 
 #trackingModal .modal-header {
     border: none;
-    padding-bottom: 0;
+    padding: 24px 24px 0 24px !important;
 }
 
 #trackingModal .modal-body {
@@ -1211,6 +1211,11 @@ figure {
     padding: 0 !important;
 }
 
+#addCustomerModal .modal-body,
+#createCustomerModal .modal-body {
+    padding: 0 !important;
+}
+
 #createCustomerModal {
     width: 100%;
     max-width: 430px;
@@ -1365,10 +1370,152 @@ figure {
     font-size: 14px;
     font-weight: 400;
 }
-.arrowShort{
+
+.arrowShort {
     width: 18px !important;
     height: 18px !important;
 }
+
+.confirmLeft {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+}
+
+.backArrow {
+    position: absolute;
+    top: 16px;
+    left: 16px;
+}
+
+.confirmationSub {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+}
+
+.coinInfoSection {
+    margin-top: 60px;
+    width: 100%;
+}
+
+.coinAverageSub {
+    border-radius: 16px;
+    border: 1.5px solid #D8B9FF;
+    background: rgba(245, 237, 255, 0.50);
+    padding: 16px;
+    width: 100%;
+    max-width: 200px;
+    height: 100%;
+    min-height: 140px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.coinAverage {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+}
+
+.coinHeading {
+    color: #7233C2;
+    text-align: center;
+    font-size: 30px;
+    font-weight: 500;
+}
+
+.coinSubText {
+    color: #7233C2;
+    text-align: center;
+    font-size: 12px;
+    font-weight: 500;
+}
+
+.confirmRightSub {
+    padding: 24px !important;
+    border-bottom: 2px dashed #D7DEFF !important;
+}
+
+.confirmRight .maplePriceBox {
+    padding: 24px;
+}
+
+.confirmFooter {
+    padding: 0px 24px 24px 24px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#customerFoundModal .modal-body {
+    padding: 0 !important;
+}
+
+.coinAverageSub.active {
+    border-radius: 16px;
+    background: #552099;
+    box-shadow: 0px 0px 0px 4px rgba(85, 32, 153, 0.15);
+    border: none;
+}
+
+.coinAverageSub.active .coinHeading {
+    color: #F5EDFF;
+}
+
+.coinAverageSub.active .coinSubText {
+    color: #F5EDFF;
+
+}
+
+.confirmSubSuccess {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+}
+
+.ThankBox {
+    border-radius: 40px;
+    background: #F5F6FC;
+    padding: 60px 50px;
+    width: 100%;
+    max-width: 344px;
+}
+
+.confirmSelectLeft .fullCartInfo {
+    margin: 10px;
+}
+
+.coinPercentSelect {
+    border-radius: 16px;
+    border: 1.5px solid #D8B9FF;
+    background: rgba(245, 237, 255, 0.50);
+    padding: 16px;
+    width: 100%;
+}
+
+.coinAverageSelect {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 26px;
+    gap: 16px;
+}
+
+.confirmStep {
+    padding: 0 30px;
+}
+
+.confirmFirst {
+    padding: 0 20px 20px 20px;
+    border-bottom: 1px solid #D7DEFF;
+}
+
 /*service pages css end*/
 /*media query start*/
 @media (max-width:1600px) {
