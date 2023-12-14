@@ -5,10 +5,10 @@ import Image from "next/image";
 const ConfirmSelect = () => {
     return (
         <>
-            <div className='confirmSelectSection'>
+            <div className='confirmSelectSection confirmationSection'>
                 <div className='row'>
                     <div className='col-lg-7 col-md-7'>
-                        <div className='commanOuter me-0 commonSubOuter p-0 confirmSelectLeft'>
+                        <div className='commanOuter me-0 commonSubOuter p-0  confirmSelectLeft'>
                             <div className='fullCartInfo'>
                                 <div className='appointmentHeading'>
                                     <Image src={Images.boldLeftArrow} alt="leftarrow image" className="img-fluid" />
@@ -34,6 +34,50 @@ const ConfirmSelect = () => {
                                         <div className='coinPercentSelect'>
                                             <h2 className='coinHeading'>No, thanks</h2>
                                             <h6 className='coinSubText mt-1'>$0.00</h6>
+                                        </div>
+                                    </div>
+                                </div>
+                                <hr className='cartDivide m-0' />
+                                <div className='confirmSecond'>
+                                    <div className='flexBox justify-content-center'>
+                                        <p className='customerLink'>2. What is your<span className='fw-bold'>Payment Method?</span></p>
+                                        <div className='giftCardBox'>
+                                            <Image src={Images.giftOffer} alt='giftOffer Image' className='img-fluid' />
+                                            <h6 className='giftHeading'>Got a Gift Card?</h6>
+                                        </div>
+                                    </div>
+                                    <div className='row mt-4'>
+                                        <div className='col-lg-4'>
+                                            <div className='debitCreditBox'>
+                                                <article className='flexBox justify-content-between'>
+                                                    <Image src={Images.Mastercard} alt='Mastercard' className='img-fluid Mastercard' />
+                                                    <p className='debitText'>debit/credit</p>
+                                                </article>
+                                                <p className='cardNumber pt-5'>●●●●  ●●●●  ●●●●  7224</p>
+                                                <p className='priceRefunded'>$304.75</p>
+                                            </div>
+                                        </div>
+                                        <div className='col-lg-4'>
+                                            <div className='refundCashBox active'>
+                                                <article className='flexBox justify-content-between'>
+                                                    <Image src={Images.MoneyOutline} alt='MoneyOutline' className='img-fluid MoneyOutline' />
+                                                    <Image src={Images.ActiveMoneyOutline} alt='ActiveMoneyOutline' className='img-fluid MoneyOutline showImg d-none' />
+                                                    <p className='debitText'>cash</p>
+                                                </article>
+                                                <p className='priceRefunded'>$304.75</p>
+                                            </div>
+                                        </div>
+                                        <div className='col-lg-4'>
+                                            <div className='jobrCoinBox'>
+                                                <article className='flexBox justify-content-between'>
+                                                    <Image src={Images.JOBRCoinOutline} alt='JOBRCoinOutline' className='img-fluid JOBRCoinOutline' />
+                                                    <p className='debitText'>jobr coin</p>
+                                                </article>
+                                                <div className='jobrCoinFooter'>
+                                                    <p className='priceRefunded'>$304.75</p>
+                                                    <div className='savingText'>Save 15%</div>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>

@@ -4,7 +4,7 @@ import Image from "next/image";
 
 const ConfirmationSuccess = () => {
     return (
-        <div className='confirmationSuccesSection'>
+        <div className='confirmationSuccesSection '>
             <div className='row'>
                 <div className='col-lg-12'>
                     <div className='commanOuter confirmSubSuccess p-0'>

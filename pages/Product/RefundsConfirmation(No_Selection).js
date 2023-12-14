@@ -8,7 +8,7 @@ const RefundsConfirmation = () => {
             <div className='refundConfirmation'>
                 <div className='row'>
                     <div className='col-lg-8'>
-                        <div className='commanOuter'>
+                        <div className='commanOuter commonSubOuter'>
                             <button type='button' className='backButton'>
                                 <Image src={Images.ArrowLeft} alt="" className="img-fluid backBtnIcon" />
                                 Back
@@ -30,10 +30,11 @@ const RefundsConfirmation = () => {
                                     </div>
                                 </div>
                                 <div className='col-lg-4'>
-                                    <div className='refundCashBox'>
+                                    <div className='refundCashBox active'>
                                         <article className='flexBox justify-content-between'>
                                             <Image src={Images.MoneyOutline} alt='MoneyOutline' className='img-fluid MoneyOutline' />
-                                            <p>debit/credit</p>
+                                            <Image src={Images.ActiveMoneyOutline} alt='ActiveMoneyOutline' className='img-fluid MoneyOutline showImg d-none' />
+                                            <p>cash</p>
                                         </article>
                                         <p className='priceRefunded'>$304.75</p>
                                     </div>
@@ -42,7 +43,7 @@ const RefundsConfirmation = () => {
                                     <div className='jobrCoinBox'>
                                         <article className='flexBox justify-content-between'>
                                             <Image src={Images.JOBRCoinOutline} alt='JOBRCoinOutline' className='img-fluid JOBRCoinOutline' />
-                                            <p>debit/credit</p>
+                                            <p>jobr coin</p>
                                         </article>
                                         <p className='priceRefunded'>$304.75</p>
                                     </div>
@@ -65,23 +66,25 @@ const RefundsConfirmation = () => {
                                         </div>
                                     </div>
                                     <div className='col-lg-3'>
-                                        <div className='receiptCard'>
+                                        <div className='receiptCard active'>
                                             <Image src={Images.Like} alt="Like" className="img-fluid Like" />
+                                            <Image src={Images.Like_Solid} alt="Like" className="img-fluid Like d-none showImg" />
                                             <p>No, thanks</p>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                             <div className='text-center'>
-                                <button type='button' className='ConfirmReturn'>
+                                <button type='button' className='ConfirmReturn active'>
                                     Confirm Return
                                     <Image src={Images.ShoppingReturnLite} alt="ShoppingReturnLite" className="img-fluid ShoppingReturnLite" />
+                                    <Image src={Images.ShoppingReturn} alt="ShoppingReturnLite" className="img-fluid ShoppingReturnLite d-none showImg" />
                                 </button>
                             </div>
                         </div>
                     </div>
                     <div className='col-lg-4'>
-                        <div className='commanOuter'>
+                        <div className='commanOuter commonSubOuter'>
                             <div className='MapleBox'>
                                 <article className='mapleHeader'>
                                     <h6 className='mapleHeading'>Maple Inc.</h6>
@@ -145,13 +148,13 @@ const RefundsConfirmation = () => {
                                         <p className='productName'>Subtotal</p>
                                         <p className='productName'>Discount</p>
                                         <p className='productName'>Shipping</p>
-                                        <p className='productName'>Total</p>
+                                        <p className='userName'>Total</p>
                                     </article>
                                     <article>
                                         <p className='productName'>$933.50</p>
                                         <p className='productName'>15% ($13.50)</p>
                                         <p className='productName'>$29.00</p>
-                                        <p className='productName'>$304.75</p>
+                                        <p className='userName refundTotalBtn'>$304.75</p>
                                     </article>
                                 </div>
                                 <div className='text-center'>

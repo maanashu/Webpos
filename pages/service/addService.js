@@ -8,7 +8,7 @@ const AddService = () => {
       <div className='addServiceSection'>
         <div className='row'>
           <div className='col-lg-6 col-md-6'>
-            <div className='commanOuter me-0 newServiceSection commonSubOuter'>
+            <div className='commanOuter newServiceSection commonSubOuter'>
               <div className='newServiceDetail'>
                 <Image src={Images.boldLeftArrow} alt="leftarrow image" className="img-fluid" />
                 <div className='addserviceInfo ms-3'>
@@ -86,7 +86,7 @@ const AddService = () => {
             </div>
           </div>
           <div className='col-lg-6 col-md-6'>
-            <div className='commanOuter me-0 ms-2 appointmentSection commonSubOuter'>
+            <div className='commanOuter  appointmentSection commonSubOuter'>
               <div className='appointmentSub'>
                 <div className='appointmentHeading'>
                   <h4 className='appointMain'>Appointments</h4>
