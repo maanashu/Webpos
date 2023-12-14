@@ -74,7 +74,6 @@ import appointmentCalender from "../public/images/appointmentCalender.svg";
 import Appointmenttime from "../public/images/Appointmenttime.svg";
 import CardIcons from "../public/images/CardIcons.png";
 import cardThree from "../public/images/cardThree.png";
-import plusCircleOutline from "../public/images/plus-circle_Outline.svg";
 import commentText from "../public/images/comment-text.svg";
 import TomorrowCalender from "../public/images/TomorrowCalender.svg";
 import TodayCalender from "../public/images/TodayCalender.svg";
@@ -130,13 +129,29 @@ import serviceRight from "../public/images/serviceRight.svg"
 import addCutomer from "../public/images/addCutomer.svg"
 import plusRound from "../public/images/plusRound.svg"
 import orderBike from '../public/images/order_bike.svg'
+import ItemImage from '../public/images/Item_Image.png'
+import AddedIcon from '../public/images/AddedIcon.svg'
+import ShoppingReturn from '../public/images/Shopping-Return.svg'
 import dotOrderAccepted from '../public/images/dot_order_accept.svg'
 import dotOrderDelivered from '../public/images/dot_order_delivered.svg'
 import dotOrderPickup from '../public/images/dot_order_pickup.svg'
 import dotAssignDriver from "../public/images/dot_assign_driver.svg";
 import packageBoxPurplish from "../public/images/pinkish_purple_box.svg";
+import Arrowtopright from "../public/images/arrowtopright.svg";
+import Mastercard from "../public/images/Mastercard.svg";
+import MoneyOutline from "../public/images/MoneyOutline.svg";
+import JOBRCoinOutline from "../public/images/JOBR-Coin_Outline.svg";
+import ReceiptOutline from "../public/images/Receipt_Outline.svg";
+import Email from "../public/images/Email.svg";
+import Like from "../public/images/Like.svg";
+import Sms from "../public/images/Sms.svg";
+import ShoppingReturnLite from "../public/images/ShoppingReturn.svg";
+import mailBox from "../public/images/mailBox.svg"
+import Visa from "../public/images/Visa.svg"
 
 export {
+  Visa,
+  mailBox,
   packageBoxPurplish,
   dotOrderAccepted,
   dotOrderDelivered,
@@ -250,7 +265,6 @@ export {
   Appointmenttime,
   CardIcons,
   cardThree,
-  plusCircleOutline,
   commentText,
   TomorrowCalender,
   TodayCalender,
@@ -273,4 +287,16 @@ export {
   serviceRight,
   addCutomer,
   plusRound,
+  ItemImage,
+  AddedIcon,
+  ShoppingReturn,
+  Arrowtopright,
+  Mastercard,
+  MoneyOutline,
+  JOBRCoinOutline,
+  ReceiptOutline,
+  Email,
+  Like,
+  Sms,
+  ShoppingReturnLite
 };

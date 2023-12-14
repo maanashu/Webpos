@@ -190,7 +190,7 @@ const ProductRightSidebar = () => {
                     <>
                         <h2 className="modalHeading mb-0">
                             <figure className='text-center'>
-                                <Image src={Images.plusCircleOutline} alt="img" onClick={() => handleOnCloseModal()} />
+                                <Image src={Images.plusRound} alt="img" onClick={() => handleOnCloseModal()} />
                             </figure>
                             <p className='addProductHeading'>Add New Product<br></br> Manually</p>
                         </h2>
@@ -206,7 +206,7 @@ const ProductRightSidebar = () => {
                         <div className='modal-footer'>
                             <button className='cancelBtn' onClick={() => handleOnCloseModal()}>Cancel</button>
                             <button className='ModalBlue'>Add to the cart
-                                <Image src={Images.plusCircleOutline} alt="image" className="img-fluid BtnIcon" />
+                                <Image src={Images.plusRound} alt="image" className="img-fluid BtnIcon" />
                             </button>
                         </div>
                     </>

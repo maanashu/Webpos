@@ -1210,21 +1210,28 @@ figure {
     border: none;
     padding: 0 !important;
 }
+
 #createCustomerModal{
     width: 100%;
     max-width: 430px;
 }
-#createCustomerModal .modal-content {
+
+#customerFoundModal{
+    width: 100%;
+    max-width: 470px;
+}
+#createCustomerModal .modal-content ,#customerFoundModal .modal-content {
     border-radius: 30px !important;
     background: #FFF !important;
     box-shadow: -3px 6px 6px 0px rgba(52, 79, 117, 0.03), -12px 28px 25px 0px rgba(52, 79, 117, 0.04), -31px 74px 80px 0px rgba(52, 79, 117, 0.07) !important;
-    padding: 30px 24px;
+    padding:24px;
 }
 
-#createCustomerModal .modal-header {
+#createCustomerModal .modal-header ,#customerFoundModal .modal-header {
     border: none;
     padding: 0 !important;
 }
+
 .customerInput {
     border-radius: 50px !important;
     border: 1px solid #E4E6F2 !important;
@@ -1280,16 +1287,68 @@ figure {
     align-items: center;
     justify-content: space-between;
 }
-.headerModal{
+
+.headerModal {
     position: relative;
 }
-.crossModal{
+
+.crossModal {
     position: absolute;
     top: 0;
     right: 0;
 }
-.inputPosition{
+
+.inputPosition {
     position: relative;
+}
+
+.phoneIcon {
+    position: relative;
+}
+
+.createCustomForm {
+    margin: 30px 0 0 0;
+}
+
+.emailField {
+    margin: 16px 0;
+}
+
+.nameControl {
+    border-radius: 50px;
+    border: 1px solid #D7DEFF !important;
+    background: #FFF;
+    box-shadow: -2px 4px 25px 0px rgba(50, 80, 127, 0.02), -5px 10px 80px 0px rgba(50, 80, 127, 0.04);
+    padding: 12px 18px 12px 24px !important;
+    color: #263682 !important;
+    font-size: 18px !important;
+    font-weight: 400 !important;
+}
+.nameControl::placeholder{
+    color: #636E9F !important;
+    font-size: 18px !important;
+    font-weight: 400 !important;
+}
+.emailField .verifyControl{
+    padding: 12px 50px;
+}
+.emailField .lockImg {
+    top: 12px;
+}
+.phoneDetail{
+    margin: 24px 0 16px 0;
+}
+.emailDetailSub{
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+.emailDetail{
+    margin-bottom: 16px;
+}
+.payDetail{
+    margin-top: 16px;
+
 }
 /*service pages css end*/
 /*media query start*/
