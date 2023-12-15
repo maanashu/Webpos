@@ -140,10 +140,12 @@ import packageBoxPurplish from "../public/images/pinkish_purple_box.svg";
 import Arrowtopright from "../public/images/arrowtopright.svg";
 import Mastercard from "../public/images/Mastercard.svg";
 import MoneyOutline from "../public/images/MoneyOutline.svg";
+import ActiveMoneyOutline from "../public/images/ActiveMoneyOutline.svg";
 import JOBRCoinOutline from "../public/images/JOBR-Coin_Outline.svg";
 import ReceiptOutline from "../public/images/Receipt_Outline.svg";
 import Email from "../public/images/Email.svg";
 import Like from "../public/images/Like.svg";
+import Like_Solid from "../public/images/Like_Solid.svg";
 import Sms from "../public/images/Sms.svg";
 import ShoppingReturnLite from "../public/images/ShoppingReturn.svg";
 import mailBox from "../public/images/mailBox.svg"
@@ -152,13 +154,23 @@ import bookImg from "../public/images/bookImg.svg"
 import calendarBlue from "../public/images/calendarBlue.svg"
 import notification from "../public/images/notification.svg"
 import listImg from "../public/images/listImg.svg"
-
-
-
+import InvoiceIcon from "../public/images/InvoiceIcon.svg"
+import backArrow from "../public/images/backArrow.svg"
+import calendarSmall from "../public/images/calendarSmall.svg" 
+import userImages from "../public/images/userImages.png"
+import settingBlue from "../public/images/settingBlue.svg"
+import userAvtar from "../public/images/userAvtar.png"
+import usersImages from "../public/images/usersImages.svg"
 
 
 
 export {
+  usersImages,
+  userAvtar,
+  settingBlue,
+  userImages,
+  calendarSmall,
+  backArrow,
   listImg,
   notification,
   calendarBlue,
@@ -310,6 +322,9 @@ export {
   ReceiptOutline,
   Email,
   Like,
+  Like_Solid,
   Sms,
-  ShoppingReturnLite
+  ShoppingReturnLite,
+  ActiveMoneyOutline,
+  InvoiceIcon
 };

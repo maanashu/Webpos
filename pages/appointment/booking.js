@@ -2,9 +2,10 @@ import React from 'react'
 import * as Images from "../../utilities/images"
 import Image from "next/image";
 
+import CommonSideBar from '../../components/commanComonets/appointmentSide/commonSideBar';
 const Booking = () => {
     return (
-        <div className='FlexBox'>
+        <div className='commonFlex'>
             <div className='commanOuter mainBooking'>
                 <div className='bookingNavBar'>
                     <div className='booking'>
@@ -41,8 +42,15 @@ const Booking = () => {
                         <button className='listBtn me-3'> <Image src={Images.listImg} alt='listIMAGES' className='img-fluid me-2 ' />List View</button>
                     </div>
                 </div>
+                <div className='row'>
+                    <div className='col-md-12'>
+                        <div className='customTab'>
+                            fdbfhdbv
+                        </div>
+                    </div>
+                </div>
             </div>
-            <div className='sideBarRight'></div>
+            <CommonSideBar/>
         </div>
     )
 }

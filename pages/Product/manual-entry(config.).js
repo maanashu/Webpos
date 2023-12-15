@@ -752,9 +752,13 @@ const Manualentryconfig = () => {
                                             </article>
                                         </div>
                                         <div className='form-group flexBox addCart mb-3'>
-                                            <button className='removeProductBtn'>-</button>
+                                            <button className='removeProductBtn'>
+                                                <i class="fa-solid fa-minus plusMinus"></i>
+                                            </button>
                                             <input className="form-control customTextarea" type="text" placeholder="1" />
-                                            <button className='addProductBtn'>+</button>
+                                            <button className='addProductBtn'>
+                                                <i class="fa-solid fa-plus plusMinus"></i>
+                                            </button>
                                         </div>
                                     </div>
                                 </div>
