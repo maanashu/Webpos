@@ -2,7 +2,7 @@ import React from 'react'
 import * as Images from "../../utilities/images";
 import Image from "next/image";
 import * as Service from '../../components/commanComonets/Service';
-// import ProductInnerNav from '../../components/commanComonets/Product/productInnerNav';
+
 
 
 
@@ -151,7 +151,6 @@ const Home = () => {
                             </div>
                         </div>
                     </div>
-                    {/* <Service.ProductRightSidebar /> */}
                     <Service.ServiceRightSidebar/>
                 </div>
             </div>

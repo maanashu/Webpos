@@ -1,8 +1,38 @@
-import React from 'react'
+import React, { useState } from 'react'
 import * as Images from "../../utilities/images";
 import Image from "next/image";
+import CustomModal from '../../components/customModal/CustomModal';
+import PhoneReceiptModal from '../../components/modals/homeModals/service/phoneReceiptModal';
+import EmailReceiptModal from '../../components/modals/homeModals/service/emailReceiptModal';
+import GiftCardModal from '../../components/modals/homeModals/service/giftCardModal';
 
 const ConfirmSelect = () => {
+    const [key, setKey] = useState(Math.random());
+    const [modalDetail, setModalDetail] = useState({
+        show: false,
+        title: "",
+        flag: "",
+    });
+
+    //closeModal
+    const handleOnCloseModal = () => {
+        setModalDetail({
+            show: false,
+            title: "",
+            flag: "",
+        });
+        setKey(Math.random());
+    };
+
+    const handleUserProfile = (flag) => {
+
+        setModalDetail({
+            show: true,
+            flag: flag,
+            type: flag,
+        });
+        setKey(Math.random());
+    };
     return (
         <>
             <div className='confirmSelectSection confirmationSection'>
@@ -19,7 +49,7 @@ const ConfirmSelect = () => {
                                 <div className='confirmFirst'>
                                     <p className='customerLink'>1. Did we do it well?, Give us a <span className='fw-bold'>tip.</span></p>
                                     <div className='coinAverageSelect'>
-                                        <div className='coinPercentSelect'>
+                                        <div className='coinPercentSelect active'>
                                             <h2 className='coinHeading'>10%</h2>
                                             <h6 className='coinSubText mt-1'>$3.00</h6>
                                         </div>
@@ -41,14 +71,15 @@ const ConfirmSelect = () => {
                                 <div className='confirmSecond'>
                                     <div className='flexBox justify-content-center'>
                                         <p className='customerLink'>2. What is your<span className='fw-bold'>Payment Method?</span></p>
-                                        <div className='giftCardBox'>
-                                            <Image src={Images.giftOffer} alt='giftOffer Image' className='img-fluid' />
+                                        <div className='giftCardBox active' onClick={() => { handleUserProfile("giftCard")}}>
+                                            <Image src={Images.giftOffer} alt='giftOffer Image' className='img-fluid giftOffer' />
+                                            <Image src={Images.lightGiftOffer} alt='giftOffer Image' className='img-fluid giftLightOffer' />
                                             <h6 className='giftHeading'>Got a Gift Card?</h6>
                                         </div>
                                     </div>
                                     <div className='row mt-4'>
                                         <div className='col-lg-4'>
-                                            <div className='debitCreditBox'>
+                                            <div className='debitCreditBox pointHand'>
                                                 <article className='flexBox justify-content-between'>
                                                     <Image src={Images.Mastercard} alt='Mastercard' className='img-fluid Mastercard' />
                                                     <p className='debitText'>debit/credit</p>
@@ -58,7 +89,7 @@ const ConfirmSelect = () => {
                                             </div>
                                         </div>
                                         <div className='col-lg-4'>
-                                            <div className='refundCashBox active'>
+                                            <div className='refundCashBox active pointHand'>
                                                 <article className='flexBox justify-content-between'>
                                                     <Image src={Images.MoneyOutline} alt='MoneyOutline' className='img-fluid MoneyOutline' />
                                                     <Image src={Images.ActiveMoneyOutline} alt='ActiveMoneyOutline' className='img-fluid MoneyOutline showImg d-none' />
@@ -68,9 +99,10 @@ const ConfirmSelect = () => {
                                             </div>
                                         </div>
                                         <div className='col-lg-4'>
-                                            <div className='jobrCoinBox'>
+                                            <div className='jobrCoinBox active pointHand'>
                                                 <article className='flexBox justify-content-between'>
                                                     <Image src={Images.JOBRCoinOutline} alt='JOBRCoinOutline' className='img-fluid JOBRCoinOutline' />
+                                                    <Image src={Images.jobrCoin} alt='JOBRCoinOutline' className='img-fluid jobrCoinDark' />
                                                     <p className='debitText'>jobr coin</p>
                                                 </article>
                                                 <div className='jobrCoinFooter'>
@@ -81,6 +113,45 @@ const ConfirmSelect = () => {
                                         </div>
                                     </div>
                                 </div>
+                                <hr className='cartDivide m-0' />
+                                <div className='confirmThird'>
+                                    <p className='customerLink'>3. Select how you want to receive your  <span className='fw-bold'>e-receipt.</span></p>
+                                    <div className='receiptDetails mt-4 mb-0'>
+                                        <div className='row justify-content-center'>
+                                            <div className='col-lg-3'>
+                                                <div className='receiptCard pointHand' onClick={() => {
+                                                    handleUserProfile("PhoneReceipt")
+                                                }}>
+                                                    <Image src={Images.Sms} alt="Sms" className="img-fluid Sms" />
+                                                    <p>SMS</p>
+                                                </div>
+                                            </div>
+                                            <div className='col-lg-3'>
+                                                <div className='receiptCard pointHand' onClick={() => {
+                                                    handleUserProfile("emailReceipt")
+                                                }}>
+                                                    <Image src={Images.Email} alt="Email" className="img-fluid Email" />
+                                                    <p>E-mail</p>
+                                                </div>
+                                            </div>
+                                            <div className='col-lg-3'>
+                                                <div className='receiptCard active pointHand'>
+                                                    <Image src={Images.Like} alt="Like" className="img-fluid Like" />
+                                                    <Image src={Images.Like_Solid} alt="Like" className="img-fluid Like d-none showImg" />
+                                                    <p>No, thanks</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div className='flexBox justify-content-center my-5 d-none'>
+                                        <span className='savingBox'>You are saving $13.35 !</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div className='text-center mb-4 '>
+                                <button className='nextverifyBtn' type='submit'>
+                                    Confirm
+                                </button>
                             </div>
                         </div>
                     </div>
@@ -165,6 +236,81 @@ const ConfirmSelect = () => {
                     </div>
                 </div>
             </div>
+            <CustomModal
+                key={key}
+                show={modalDetail.show}
+                backdrop="static"
+                showCloseBtn={false}
+                isRightSideModal={true}
+                mediumWidth={false}
+                className={modalDetail.flag === "PhoneReceipt" ? "commonWidth customContent" : ""}
+                ids={modalDetail.flag === "PhoneReceipt" ? "PhoneReceiptModal" : modalDetail.flag === "emailReceipt" ? "emailReceiptModal" : modalDetail.flag === "giftCard" ? "giftCardModal" : ""}
+                child={
+                    modalDetail.flag === "PhoneReceipt" ? (
+                        <PhoneReceiptModal
+                            close={() => handleOnCloseModal()}
+                        />
+                    ) :
+                        modalDetail.flag === "emailReceipt" ? (
+                            <EmailReceiptModal
+                                close={() => handleOnCloseModal()}
+                            />
+                        ) :
+                        modalDetail.flag === "giftCard" ? (
+                            <GiftCardModal
+                                close={() => handleOnCloseModal()}
+                            />
+                        ) :
+                            ""
+                }
+                header=
+
+                {modalDetail.flag === "PhoneReceipt" ?
+                    <>
+
+                        <div className='trackingSub headerModal'>
+                            <figure className='profileImage '>
+                                <Image src={Images.phoneMessage} alt="phoneMessage Image" className="img-fluid " />
+                            </figure>
+                            <h4 className='loginheading mt-2'>What phone number do we send the e-receipt to?</h4>
+                            <p onClick={handleOnCloseModal} className='crossModal'>
+                                <Image src={Images.modalCross} alt="modalCross" className="img-fluid" />
+                            </p>
+                        </div>
+                    </>
+                    :
+                    modalDetail.flag === "emailReceipt" ?
+                        <>
+                            <div className='trackingSub headerModal'>
+                                <figure className='profileImage '>
+                                    <Image src={Images.emailSms} alt="emailSms Image" className="img-fluid " />
+                                </figure>
+                                <h4 className='loginheading mt-2'>What e-mail address do we send the e-receipt to?</h4>
+                                <p onClick={handleOnCloseModal} className='crossModal'>
+                                    <Image src={Images.modalCross} alt="modalCross" className="img-fluid" />
+                                </p>
+                            </div>
+
+                        </>
+                        :
+                        modalDetail.flag === "giftCard" ?
+                        <>
+                            <div className='trackingSub headerModal'>
+                                <figure className='profileImage '>
+                                    <Image src={Images.giftModal} alt="giftImage" className="img-fluid " />
+                                </figure>
+                                <h4 className='loginheading mt-2'>Add your Gift Card number</h4>
+                                <p onClick={handleOnCloseModal} className='crossModal'>
+                                    <Image src={Images.modalCross} alt="modalCross" className="img-fluid" />
+                                </p>
+                            </div>
+
+                        </>
+                        :
+                        ''
+                }
+                onCloseModal={() => handleOnCloseModal()}
+            />
         </>
     )
 }
