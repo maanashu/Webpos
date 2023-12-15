@@ -164,8 +164,21 @@ import emailSms from "../public/images/emailSms.svg"
 import jobrCoin from '../public/images/jobrCoin.svg'
 import lightGiftOffer from "../public/images/lightGiftOffer.svg"
 import giftModal from "../public/images/giftModal.svg"
+import backArrow from "../public/images/backArrow.svg"
+import calendarSmall from "../public/images/calendarSmall.svg" 
+import userImages from "../public/images/userImages.png"
+import settingBlue from "../public/images/settingBlue.svg"
+import userAvtar from "../public/images/userAvtar.png"
+import usersImages from "../public/images/usersImages.svg"
+
+ 
+ 
+
+
+
 
 export {
+  visa,
   giftModal,
   lightGiftOffer,
   jobrCoin,
@@ -174,7 +187,12 @@ export {
   phoneMessage,
   giftOffer,
   coins,
-  visa,
+  usersImages,
+  userAvtar,
+  settingBlue,
+  userImages,
+  calendarSmall,
+  backArrow,
   listImg,
   notification,
   calendarBlue,

@@ -28,6 +28,7 @@
     border-radius: 30px;
     background: #263682;
     padding: 11px;
+    border: none;
 }
 
 /* Common Css */
@@ -134,6 +135,53 @@
 }
 
 /* Booking Nav bar */
+/* RightDide Bar Booking */
+
+.sidebarRightBooking {
+    width: 100px; 
+    border-radius: 50px;
+    margin: 0 10px;
+    background: #FFF !important;
+    box-shadow: -1.90817px 3.78304px 25.48148px 0px rgba(50, 80, 127, 0.02), -4.95391px 9.82135px 80px 0px rgba(50, 80, 127, 0.04);
+    height: calc(100vh - 129px);
+}
+.commonFlex {
+    display: flex;
+    align-items: center;
+}
+.commanOuter.mainBooking {
+    width: 100%;
+}
+.SidebarRightItems {
+    text-align: center;
+    position: relative;
+}
+.sidebarIcons {
+    width: 50px;
+}
+.bottomdot {
+    position: absolute;
+    border-radius: 20px;
+    border: 3px solid  #FFF;
+    background: #12B76A;
+    color: #FFF;
+    font-size: 16px;
+    font-weight: 600;
+    top: 37px;
+    right: 10px;
+    text-align: center;
+    width: 30px;
+    height: 30px;
+}
+.SidebarRightItems:last-child {
+    position: fixed;
+    bottom: 32px;
+    right: 30px;
+}
+/* .sidebarIcons.calendarIcon {
+    margin: 23px 0px 28px 7px;
+} */
+
 
 
 
