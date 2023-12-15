@@ -137,7 +137,7 @@ const Customers = () => {
               <Link
                 href={{
                   pathname: "customers/users",
-                  query: { "time-span": timeSpan }, // the data
+                  query: { "time-span": timeSpan },
                 }}
               >
                 <p className="chart-header-btn-text">View All</p>
@@ -204,72 +204,74 @@ const Customers = () => {
         </div>
 
         <div style={{ margin: "0px 16px", padding: "12px 0" }}>
-          <Line
-            datasetIdKey="id"
-            options={{
-              scales: {
-                y: {
-                  title: {
-                    display: true,
-                    text: "Customer Numbers",
-                    color: "#7E8AC1",
+          {graphData?.datasets && (
+            <Line
+              datasetIdKey="id"
+              options={{
+                scales: {
+                  y: {
+                    title: {
+                      display: true,
+                      text: "Customer Numbers",
+                      color: "#7E8AC1",
+                    },
+                    border: {
+                      dash: [2, 2],
+                      display: false,
+                      color: "rgba(180, 190, 235, 1)",
+                    }, // for the grid lines
+                    beginAtZero: true,
+                    ticks: {
+                      color: "#7E8AC1",
+                      callback: (value) => `${(value * 10).toFixed()}%`,
+                    },
                   },
-                  border: {
-                    dash: [2, 2],
+                  x: {
+                    grid: {
+                      display: false,
+                    },
+                    border: {
+                      display: false,
+                    },
+                    ticks: {
+                      color: "#7E8AC1",
+                    },
+                  },
+                },
+                plugins: {
+                  legend: {
                     display: false,
-                    color: "rgba(180, 190, 235, 1)",
-                  }, // for the grid lines
-                  beginAtZero: true,
-                  ticks: {
-                    color: "#7E8AC1",
-                    callback: (value) => `${(value * 10).toFixed()}%`,
                   },
                 },
-                x: {
-                  grid: {
-                    display: false,
+              }}
+              data={{
+                labels: [...graphData?.labels] || [],
+                datasets: [
+                  {
+                    color: "#F0C01A",
+                    data: [...graphData?.datasets?.[0]?.data],
                   },
-                  border: {
-                    display: false,
+                  {
+                    color: "#12B76A",
+                    data: [...graphData?.datasets?.[1]?.data],
                   },
-                  ticks: {
-                    color: "#7E8AC1",
+                  {
+                    color: "#47B0D6",
+                    data: [...graphData?.datasets?.[2]?.data],
                   },
-                },
-              },
-              plugins: {
-                legend: {
-                  display: false,
-                },
-              },
-            }}
-            data={{
-              labels: [...graphData?.labels] || [],
-              datasets: [
-                {
-                  color: "#F0C01A",
-                  data: [...graphData?.datasets?.[0]?.data],
-                },
-                {
-                  color: "#12B76A",
-                  data: [...graphData?.datasets?.[1]?.data],
-                },
-                {
-                  color: "#47B0D6",
-                  data: [...graphData?.datasets?.[2]?.data],
-                },
-              ]
-                .map((el) => ({
-                  id: 1,
-                  data: el.data,
-                  borderColor: el.color,
-                  borderWidth: 2,
-                  pointRadius: 0,
-                  lineTension: 0.3,
-                }))
-                .filter((el, idx) => selectedLines.includes(idx + 1)),
-            }}
-          />
+                ]
+                  .map((el) => ({
+                    id: 1,
+                    data: el.data,
+                    borderColor: el.color,
+                    borderWidth: 2,
+                    pointRadius: 0,
+                    lineTension: 0.3,
+                  }))
+                  .filter((el, idx) => selectedLines.includes(idx + 1)),
+              }}
+            />
+          )}
         </div>
       </div>
     </div>

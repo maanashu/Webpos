@@ -74,7 +74,7 @@ const CreateCustomerModal = () => {
                     <div className='emailField'>
                         <label className="form-label amountText m-0">E-mail Address</label>
                         <div className='phoneIcon'>
-                            <input className="form-control verifyControl" type="email" placeholder="Password" />
+                            <input className="form-control verifyControl" type="email" placeholder="hello@email.com" />
                             <Image src={Images.mailBox} alt="mailbox image" className="img-fluid lockImg" />
                         </div>
                     </div>

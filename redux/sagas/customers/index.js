@@ -1,14 +1,15 @@
 import { toast } from "react-toastify";
 import { ApiClient } from "../../../utilities/api";
-import { ORDER_API_URL } from "../../../utilities/config";
+import { ORDER_API_URL, AUTH_API_URL } from "../../../utilities/config";
 import {
   onErrorStopLoad,
   setAllCustomers,
   setAllCustomersList,
+  setSellerAreaList,
+  setUserDetailsAndOrders,
+  setUserMarketingStatus,
 } from "../../slices/customers";
 import { all, call, put, takeLatest } from "redux-saga/effects";
-
-// https://apiorder.jobr.com:8004/api/v1/orders/pos/statistics/customers/count-new?seller_id=016b1b3a-d7d3-4fc3-a76b-995b23c43852&filter=month
 
 const ORDER_API_URL_V1 = ORDER_API_URL + "/api/v1/";
 
@@ -52,10 +53,77 @@ function* getAllCustomersList(action) {
   }
 }
 
+function* getSellerAreaList(action) {
+  const dataToSend = { ...action.payload };
+  const params = new URLSearchParams(dataToSend).toString();
+
+  try {
+    const resp = yield call(
+      ApiClient.get,
+      `${ORDER_API_URL_V1}orders/customers/state?${params}`
+    );
+    if (resp.status) {
+      yield put(setSellerAreaList(resp.data));
+      // yield call(action.payload.cb, (action.res = resp));
+    } else {
+      throw resp;
+    }
+  } catch (e) {
+    yield put(onErrorStopLoad());
+    toast.error(e?.error?.response?.data?.msg);
+  }
+}
+
+function* getUserDetailsAndOrders(action) {
+  const dataToSend = { ...action.payload };
+  const params = new URLSearchParams(dataToSend).toString();
+
+  try {
+    const resp = yield call(
+      ApiClient.get,
+      `${ORDER_API_URL_V1}orders?${params}`
+    );
+    if (resp.status) {
+      yield put(setUserDetailsAndOrders(resp.data));
+      // yield call(action.payload.cb, (action.res = resp));
+    } else {
+      throw resp;
+    }
+  } catch (e) {
+    yield put(onErrorStopLoad());
+    toast.error(e?.error?.response?.data?.msg);
+  }
+}
+
+function* getUserMarketingStatus(action) {
+  const dataToSend = { ...action.payload };
+  const params = new URLSearchParams(dataToSend).toString();
+
+  try {
+    const resp = yield call(
+      ApiClient.get,
+      `${AUTH_API_URL}/api/v1/marketings/status?${params}`
+    );
+    if (resp.status) {
+      yield put(setUserMarketingStatus(resp.data));
+      // yield call(action.payload.cb, (action.res = resp));
+    } else {
+      throw resp;
+    }
+  } catch (e) {
+    console.log(e)
+    yield put(onErrorStopLoad());
+    toast.error(e?.error?.response?.data?.msg);
+  }
+}
+
 function* customersSaga() {
   yield all([
     takeLatest("customers/getAllCustomers", getAllCustomers),
     takeLatest("customers/getAllCustomersList", getAllCustomersList),
+    takeLatest("customers/getSellerAreaList", getSellerAreaList),
+    takeLatest("customers/getUserDetailsAndOrders", getUserDetailsAndOrders),
+    takeLatest("customers/getUserMarketingStatus", getUserMarketingStatus),
   ]);
 }
 

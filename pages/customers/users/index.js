@@ -15,6 +15,7 @@ import PaginationHeader from "../../../components/commanComonets/PaginationHeade
 import { useDispatch, useSelector } from "react-redux";
 import {
   getAllCustomersList,
+  getSellerAreaList,
   selectCustomersData,
 } from "../../../redux/slices/customers";
 import { selectLoginAuth } from "../../../redux/slices/auth";
@@ -37,6 +38,7 @@ const Users = () => {
   const uniqueId = authData?.usersInfo?.payload?.uniqe_id;
 
   const paginatedCustomersList = customersData?.allCustomersList?.payload;
+  const sellerAreaList = customersData?.sellerAreaList?.payload.data;
 
   useEffect(() => {
     if (uniqueId) {
@@ -48,6 +50,7 @@ const Users = () => {
         seller_id: uniqueId,
       };
       dispatch(getAllCustomersList(params));
+      dispatch(getSellerAreaList({ seller_id: params.seller_id }));
     }
   }, [uniqueId, selectedTab, timeSpan, limit, page]);
 
@@ -176,7 +179,8 @@ const Users = () => {
         {paginatedCustomersList?.data?.map((item, idx) => (
           <Link
             key={item?.user_id + idx}
-            href={"users/user-profile"}
+            href={`users/[user-id]`}
+            as={`users/${item.user_id}`}
           >
             <tr className="flex-row-space-between users-stats-table-row">
               <td className="users-stats-row-num">
