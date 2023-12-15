@@ -6,56 +6,136 @@
     font-size: 14px;
     font-weight: 500;
 }
+
 .textBig {
     color: #93370D;
     font-size: 24px;
     font-weight: 600;
 }
 
+.fontEighteen {
+    color: #263682;
+    font-family: 'Roobert';
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 500;
+}
+
+.listBtn {
+    color: #F5F6FC;
+    font-size: 14px;
+    font-weight: 400;
+    border-radius: 30px;
+    background: #263682;
+    padding: 11px;
+}
+
 /* Common Css */
-
-
 
 /*  Start Deliveries */
 .deliverBox {
     border-radius: 16px;
     border: #F79009;
     background: #FFEEB3;
-    padding: 30px 20px ;
+    padding: 30px 20px;
 }
+
 .deliverBox.boxDeliverBlue {
     background: #D7DEFF;
 }
+
 .boxDeliverBlue .textSmall {
     color: #172461;
 }
+
 .boxDeliverBlue .textBig {
     color: #172461;
 
 }
-.boxDeliverGreen{
-border:#039855;
-background:#D1FADF;
+
+.boxDeliverGreen {
+    border: #039855;
+    background: #D1FADF;
 }
+
 .boxDeliverGreen .textSmall {
-    color:#003921;
+    color: #003921;
 }
+
 .boxDeliverGreen .textBig {
     color: #003921;
-   
+
 }
+
 .boxDeliversky {
     border: #58C2E8;
-    background:#BFEEFF;
+    background: #BFEEFF;
 }
+
 .boxDeliversky .textSmall {
     color: #1F6A84;
 }
+
 .boxDeliversky .textBig {
-    color:#1F6A84;
-   
+    color: #1F6A84;
+
 }
+
 .totalIcons {
     margin-bottom: 18px;
 }
+
 /* End Deliveries */
+
+/** Start Booking Module **/
+/* Booking Nav bar */
+.bookingNavBar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.booking {
+    display: flex;
+    align-items: center;
+}
+
+.bookingCall {
+    width: 100%;
+    max-width: 236px;
+}
+
+.seacrhBox {
+    position: relative;
+}
+
+.blueSearch.me-2 {
+    position: absolute;
+    top: 13px;
+    left: 16px;
+}
+
+.searchControlbook {
+    width: 100%;
+    max-width: 200px;
+    border-radius: 50px;
+    border: 1px solid #E4E6F2;
+    background: #FFF;
+    padding: 13px 13px 12px 43px;
+}
+
+.bgBooking {
+    border-radius: 30px;
+    border: 1px solid #D7DEFF;
+    background: #F5F6FC;
+    box-shadow: -2px 4px 25px 0px rgba(50, 80, 127, 0.02), -5px 10px 80px 0px rgba(50, 80, 127, 0.04);
+    padding: 10px;
+    cursor: pointer;
+}
+
+/* Booking Nav bar */
+
+
+
+
+/** End Booking Module **/

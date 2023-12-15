@@ -378,12 +378,12 @@ figure {
 #trackingModal {
     width: 100%;
     max-width: 372px;
-
 }
 
 #trackingModal .modal-content {
     border-radius: 30px;
     background: #FFF;
+    padding: 0 !important;
     box-shadow: -3px 6px 7px 0px rgba(52, 79, 117, 0.03), -12px 28px 25px 0px rgba(52, 79, 117, 0.04), -31px 74px 80px 0px rgba(52, 79, 117, 0.07);
 }
 
@@ -394,7 +394,7 @@ figure {
 
 #trackingModal .modal-header {
     border: none;
-    padding-bottom: 0;
+    padding: 24px 24px 0 24px !important;
 }
 
 #trackingModal .modal-body {
@@ -1211,23 +1211,31 @@ figure {
     padding: 0 !important;
 }
 
-#createCustomerModal{
+#addCustomerModal .modal-body,
+#createCustomerModal .modal-body {
+    padding: 0 !important;
+}
+
+#createCustomerModal {
     width: 100%;
     max-width: 430px;
 }
 
-#customerFoundModal{
+#customerFoundModal {
     width: 100%;
     max-width: 470px;
 }
-#createCustomerModal .modal-content ,#customerFoundModal .modal-content {
+
+#createCustomerModal .modal-content,
+#customerFoundModal .modal-content {
     border-radius: 30px !important;
     background: #FFF !important;
     box-shadow: -3px 6px 6px 0px rgba(52, 79, 117, 0.03), -12px 28px 25px 0px rgba(52, 79, 117, 0.04), -31px 74px 80px 0px rgba(52, 79, 117, 0.07) !important;
-    padding:24px;
+    padding: 24px;
 }
 
-#createCustomerModal .modal-header ,#customerFoundModal .modal-header {
+#createCustomerModal .modal-header,
+#customerFoundModal .modal-header {
     border: none;
     padding: 0 !important;
 }
@@ -1324,32 +1332,258 @@ figure {
     font-size: 18px !important;
     font-weight: 400 !important;
 }
-.nameControl::placeholder{
+
+.nameControl::placeholder {
     color: #636E9F !important;
     font-size: 18px !important;
     font-weight: 400 !important;
 }
-.emailField .verifyControl{
+
+.emailField .verifyControl {
     padding: 12px 50px;
 }
+
 .emailField .lockImg {
     top: 12px;
 }
-.phoneDetail{
+
+.phoneDetail {
     margin: 24px 0 16px 0;
 }
-.emailDetailSub{
+
+.emailDetailSub {
     display: flex;
     align-items: center;
     gap: 12px;
 }
-.emailDetail{
+
+.emailDetail {
     margin-bottom: 16px;
 }
-.payDetail{
+
+.payDetail {
     margin-top: 16px;
+}
+
+.confirmBack {
+    color: #4659B5;
+    font-size: 14px;
+    font-weight: 400;
+}
+
+.arrowShort {
+    width: 18px !important;
+    height: 18px !important;
+}
+
+.confirmLeft {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+}
+
+.backArrow {
+    position: absolute;
+    top: 16px;
+    left: 16px;
+}
+
+.confirmationSub {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+}
+
+.coinInfoSection {
+    margin-top: 60px;
+    width: 100%;
+}
+
+.coinAverageSub {
+    border-radius: 16px;
+    border: 1.5px solid #D8B9FF;
+    background: rgba(245, 237, 255, 0.50);
+    padding: 16px;
+    width: 100%;
+    max-width: 200px;
+    height: 100%;
+    min-height: 140px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.coinAverage {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+}
+
+.coinHeading {
+    color: #7233C2;
+    text-align: center;
+    font-size: 30px;
+    font-weight: 500;
+}
+
+.coinSubText {
+    color: #7233C2;
+    text-align: center;
+    font-size: 12px;
+    font-weight: 500;
+}
+
+.confirmRightSub {
+    padding: 24px !important;
+    border-bottom: 2px dashed #D7DEFF !important;
+}
+
+.confirmRight .maplePriceBox {
+    padding: 24px;
+}
+
+.confirmFooter {
+    padding: 0px 24px 24px 24px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#customerFoundModal .modal-body {
+    padding: 0 !important;
+}
+
+.coinAverageSub.active {
+    border-radius: 16px;
+    background: #552099;
+    box-shadow: 0px 0px 0px 4px rgba(85, 32, 153, 0.15);
+    border: none;
+}
+
+.coinAverageSub.active .coinHeading {
+    color: #F5EDFF;
+}
+
+.coinAverageSub.active .coinSubText {
+    color: #F5EDFF;
 
 }
+
+.confirmSubSuccess {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+}
+
+.ThankBox {
+    border-radius: 40px;
+    background: #F5F6FC;
+    padding: 60px 50px;
+    width: 100%;
+    max-width: 344px;
+}
+
+.confirmSelectLeft .fullCartInfo {
+    margin: 10px;
+}
+
+.coinPercentSelect {
+    border-radius: 16px;
+    border: 1.5px solid #D8B9FF;
+    background: rgba(245, 237, 255, 0.50);
+    padding: 16px;
+    width: 100%;
+}
+
+.coinAverageSelect {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 26px;
+    gap: 16px;
+}
+
+.confirmStep {
+    padding: 0 30px;
+}
+
+.confirmFirst {
+    padding: 0 20px 20px 20px;
+
+}
+
+.confirmStep .coinSubText {
+    font-size: 11px;
+}
+
+.confirmStep .coinHeading {
+    font-size: 20px;
+}
+
+.confirmStep .coinPercentSelect {
+    border-radius: 16px;
+    border: 1.5px solid #D8B9FF;
+    background: rgba(245, 237, 255, 0.50);
+    padding: 16px 0px;
+    width: 100%;
+}
+
+.confirmationSection {
+    padding: 0 24px 0 0;
+}
+
+.confirmSecond {
+    padding: 20px;
+}
+
+.debitText {
+    font-size: 16px;
+    font-weight: 500;
+}
+
+.priceRefunded {
+    font-size: 20px;
+    font-weight: 500;
+}
+
+.savingText {
+    color: #263682;
+    text-align: center;
+    font-size: 16px;
+    font-weight: 500;
+    border-radius: 30px;
+    background: #FEDF89;
+    padding: 0 8px;
+
+}
+
+.jobrCoinFooter {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+
+.giftCardBox {
+    border-radius: 20px;
+    background: #F5EDFF;
+    padding: 6px;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    margin-left: 8px;
+}
+
+.giftHeading {
+    color: #7233C2;
+    font-size: 12px;
+    font-weight: 600;
+}
+
 /*service pages css end*/
 /*media query start*/
 @media (max-width:1600px) {
@@ -1371,6 +1605,7 @@ figure {
         height: calc(50vh - 120px);
         overflow-y: scroll;
     }
+
 }
 
 @media (max-width:1366px) {

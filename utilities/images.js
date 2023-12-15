@@ -148,15 +148,27 @@ import Like from "../public/images/Like.svg";
 import Like_Solid from "../public/images/Like_Solid.svg";
 import Sms from "../public/images/Sms.svg";
 import ShoppingReturnLite from "../public/images/ShoppingReturn.svg";
-import mailBox from "../public/images/mailBox.svg";
-import Visa from "../public/images/Visa.svg";
-import InvoiceIcon from "../public/images/InvoiceIcon.svg";
-import orderStatusExpand from "../public/images/order_status_expand.svg";
-import greyedRadio from "../public/images/radio.png";
+import mailBox from "../public/images/mailBox.svg"
+import visa from "../public/images/Visa.svg"
+import coins from "../public/images/Coins.svg"
+import Visa from "../public/images/Visa.svg"
+import InvoiceIcon from "../public/images/InvoiceIcon.svg"
+import giftOffer from "../public/images/giftOffer.svg"
+import bookImg from "../public/images/bookImg.svg"
+import calendarBlue from "../public/images/calendarBlue.svg"
+import notification from "../public/images/notification.svg"
+import listImg from "../public/images/listImg.svg"
+
+
 
 export {
-  greyedRadio,
-  orderStatusExpand,
+  giftOffer,
+  coins,
+  visa,
+  listImg,
+  notification,
+  calendarBlue,
+  bookImg,
   Visa,
   mailBox,
   packageBoxPurplish,
