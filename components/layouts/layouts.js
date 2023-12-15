@@ -20,8 +20,6 @@ export default function Layout({ children, isLoggedIn, userType }) {
     `/customers/users/[user-id]`,
   ];
 
-  console.log(router?.pathname)
-
   return (
     <>
       <Sidebar sidebarToggle={(e) => sidebarToggle(e)} />
