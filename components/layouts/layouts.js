@@ -8,17 +8,20 @@ import Navbar from "../navbar.js";
 import { useState } from "react";
 export default function Layout({ children, isLoggedIn, userType }) {
   const router = useRouter();
-  const urlpath = router.pathname;
   const [activeSidebar, setActiveSidebar] = useState(true)
   const sidebarToggle = (value) => {
     setActiveSidebar(value)
   }
+
   const navbarPaths = [
-    '/home/overview',
-    '/customers',
-    '/customers/users',
-    '/customers/users/user-profile',
-  ]
+    "/home/overview",
+    "/customers",
+    "/customers/users",
+    `/customers/users/[user-id]`,
+  ];
+
+  console.log(router?.pathname)
+
   return (
     <>
       <Sidebar sidebarToggle={(e) => sidebarToggle(e)} />
