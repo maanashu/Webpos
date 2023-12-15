@@ -7,7 +7,6 @@ import {
   giftCard,
   phoneDark,
 } from "../../../utilities/images";
-import { Form } from "react-bootstrap";
 import SwitchToggle from "../SwitchToggle";
 
 const UserProfileBanner = ({
@@ -17,10 +16,14 @@ const UserProfileBanner = ({
   address,
   contactNo,
   profilePic,
+  bannerImage,
   isAcceptingMarketing,
 }) => {
   return (
-    <div className="user-profile-banner flex-row-space-between">
+    <div
+      // style={{ backgroundImage: `url(${bannerImage})` }}
+      className="user-profile-banner flex-row-space-between"
+    >
       <div
         style={{
           gap: "12px",

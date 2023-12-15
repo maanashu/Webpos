@@ -74,7 +74,6 @@ import appointmentCalender from "../public/images/appointmentCalender.svg";
 import Appointmenttime from "../public/images/Appointmenttime.svg";
 import CardIcons from "../public/images/CardIcons.png";
 import cardThree from "../public/images/cardThree.png";
-import plusCircleOutline from "../public/images/plus-circle_Outline.svg";
 import commentText from "../public/images/comment-text.svg";
 import TomorrowCalender from "../public/images/TomorrowCalender.svg";
 import TodayCalender from "../public/images/TodayCalender.svg";
@@ -104,7 +103,6 @@ import darkOfferCart from "../public/images/darkOfferCart.svg";
 import lightOfferCart from "../public/images/lightOfferCart.svg";
 import noteImg from "../public/images/noteImg.svg";
 import ticketImg from "../public/images/ticketImg.svg";
-
 import userSale from "../public/images/usersale.png";
 
 //Cash Drawer
@@ -136,8 +134,47 @@ import customerLocationDark from "../public/images/new_location_dark.svg";
 import phoneDark from "../public/images/phone_dark.svg";
 import emailDark from "../public/images/email_dark.svg";
 import giftCard from "../public/images/gift_card.svg";
+import barCodeScanImg from "../public/images/bar_code_scan.png";
+import jobrFullIcon from "../public/images/jobr_full_icon.png";
+import serviceLeft from "../public/images/serviceLeft.svg";
+import serviceRight from "../public/images/serviceRight.svg";
+import addCutomer from "../public/images/addCutomer.svg";
+import plusRound from "../public/images/plusRound.svg";
+import orderBike from "../public/images/order_bike.svg";
+import ItemImage from "../public/images/Item_Image.png";
+import AddedIcon from "../public/images/AddedIcon.svg";
+import ShoppingReturn from "../public/images/Shopping-Return.svg";
+import dotOrderAccepted from "../public/images/dot_order_accept.svg";
+import dotOrderDelivered from "../public/images/dot_order_delivered.svg";
+import dotOrderPickup from "../public/images/dot_order_pickup.svg";
+import dotAssignDriver from "../public/images/dot_assign_driver.svg";
+import packageBoxPurplish from "../public/images/pinkish_purple_box.svg";
+import Arrowtopright from "../public/images/arrowtopright.svg";
+import Mastercard from "../public/images/Mastercard.svg";
+import MoneyOutline from "../public/images/MoneyOutline.svg";
+import ActiveMoneyOutline from "../public/images/ActiveMoneyOutline.svg";
+import JOBRCoinOutline from "../public/images/JOBR-Coin_Outline.svg";
+import ReceiptOutline from "../public/images/Receipt_Outline.svg";
+import Email from "../public/images/Email.svg";
+import Like from "../public/images/Like.svg";
+import Like_Solid from "../public/images/Like_Solid.svg";
+import Sms from "../public/images/Sms.svg";
+import ShoppingReturnLite from "../public/images/ShoppingReturn.svg";
+import mailBox from "../public/images/mailBox.svg";
+import Visa from "../public/images/Visa.svg";
+import InvoiceIcon from "../public/images/InvoiceIcon.svg";
 
 export {
+  Visa,
+  mailBox,
+  packageBoxPurplish,
+  dotOrderAccepted,
+  dotOrderDelivered,
+  dotOrderPickup,
+  dotAssignDriver,
+  orderBike,
+  barCodeScanImg,
+  jobrFullIcon,
   phoneDark,
   emailDark,
   giftCard,
@@ -243,7 +280,6 @@ export {
   Appointmenttime,
   CardIcons,
   cardThree,
-  plusCircleOutline,
   commentText,
   TomorrowCalender,
   TodayCalender,
@@ -271,4 +307,23 @@ export {
   Cross,
   DrawerBlue,
   LogOutSky,
+  serviceLeft,
+  serviceRight,
+  addCutomer,
+  plusRound,
+  ItemImage,
+  AddedIcon,
+  ShoppingReturn,
+  Arrowtopright,
+  Mastercard,
+  MoneyOutline,
+  JOBRCoinOutline,
+  ReceiptOutline,
+  Email,
+  Like,
+  Like_Solid,
+  Sms,
+  ShoppingReturnLite,
+  ActiveMoneyOutline,
+  InvoiceIcon,
 };

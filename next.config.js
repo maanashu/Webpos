@@ -8,8 +8,11 @@ module.exports = (phase, { defaultConfig }) => {
       domains: [
         "apichat.jobr.com",
         "images.unsplash.com",
-        "i.pinimg.com",
+        "apiuserservice.jobr.com",
         "jobrs3bucket.s3.amazonaws.com",
+        "i.pinimg.com",
+        "randomuser.me",
+        "www.shutterstock.com",
       ],
     },
     env: {
