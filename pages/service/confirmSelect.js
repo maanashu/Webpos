@@ -5,6 +5,7 @@ import CustomModal from '../../components/customModal/CustomModal';
 import PhoneReceiptModal from '../../components/modals/homeModals/service/phoneReceiptModal';
 import EmailReceiptModal from '../../components/modals/homeModals/service/emailReceiptModal';
 import GiftCardModal from '../../components/modals/homeModals/service/giftCardModal';
+import JobrWalletModal from '../../components/modals/homeModals/service/jobrWalletModal';
 
 const ConfirmSelect = () => {
     const [key, setKey] = useState(Math.random());
@@ -71,7 +72,7 @@ const ConfirmSelect = () => {
                                 <div className='confirmSecond'>
                                     <div className='flexBox justify-content-center'>
                                         <p className='customerLink'>2. What is your<span className='fw-bold'>Payment Method?</span></p>
-                                        <div className='giftCardBox active' onClick={() => { handleUserProfile("giftCard")}}>
+                                        <div className='giftCardBox active' onClick={() => { handleUserProfile("giftCard") }}>
                                             <Image src={Images.giftOffer} alt='giftOffer Image' className='img-fluid giftOffer' />
                                             <Image src={Images.lightGiftOffer} alt='giftOffer Image' className='img-fluid giftLightOffer' />
                                             <h6 className='giftHeading'>Got a Gift Card?</h6>
@@ -99,7 +100,7 @@ const ConfirmSelect = () => {
                                             </div>
                                         </div>
                                         <div className='col-lg-4'>
-                                            <div className='jobrCoinBox active pointHand'>
+                                            <div className='jobrCoinBox active pointHand' onClick={() => { handleUserProfile("jobrWallet") }}>
                                                 <article className='flexBox justify-content-between'>
                                                     <Image src={Images.JOBRCoinOutline} alt='JOBRCoinOutline' className='img-fluid JOBRCoinOutline' />
                                                     <Image src={Images.jobrCoin} alt='JOBRCoinOutline' className='img-fluid jobrCoinDark' />
@@ -164,31 +165,37 @@ const ConfirmSelect = () => {
                             </div>
                             <div className='mapleProductDetails confirmRightSub'>
                                 <div className='flexBox mapleProductDetailsBox'>
-                                    <p className='mapleProductcount'>× 1</p>
-                                    <article>
-                                        <p className='mapleProductHeading'>Lightweight Stylish Casual Daypack</p>
-                                        <span className='mapleProductcount'>Yellow / M</span>
-                                    </article>
-                                    <article>
-                                        <p className='mapleProductPrice'>$90.00</p>
-                                    </article>
-                                </div>
-                                <div className='flexBox mapleProductDetailsBox'>
-                                    <p className='mapleProductcount'>× 1</p>
-                                    <article>
-                                        <p className='mapleProductHeading'>Lightweight Stylish Casual Daypack</p>
-                                        <span className='mapleProductcount'>Yellow / M</span>
-                                    </article>
+                                    <div className='flexbase'>
+                                        <p className='mapleProductcount'>× 1</p>
+                                        <article className='ms-3'>
+                                            <p className='mapleProductHeading'>Lightweight Stylish Casual Daypack</p>
+                                            <span className='mapleProductcount'>Yellow / M</span>
+                                        </article>
+                                    </div>
                                     <article>
                                         <p className='mapleProductPrice'>$90.00</p>
                                     </article>
                                 </div>
                                 <div className='flexBox mapleProductDetailsBox'>
-                                    <p className='mapleProductcount'>× 1</p>
+                                    <div className='flexbase'>
+                                        <p className='mapleProductcount'>× 1</p>
+                                        <article className='ms-3'>
+                                            <p className='mapleProductHeading'>Lightweight Stylish Casual Daypack</p>
+                                            <span className='mapleProductcount'>Yellow / M</span>
+                                        </article>
+                                    </div>
                                     <article>
-                                        <p className='mapleProductHeading'>Lightweight Stylish Casual Daypack</p>
-                                        <span className='mapleProductcount'>Yellow / M</span>
+                                        <p className='mapleProductPrice'>$90.00</p>
                                     </article>
+                                </div>
+                                <div className='flexBox mapleProductDetailsBox'>
+                                    <div className='flexbase'>
+                                        <p className='mapleProductcount'>× 1</p>
+                                        <article className='ms-3'>
+                                            <p className='mapleProductHeading'>Lightweight Stylish Casual Daypack</p>
+                                            <span className='mapleProductcount'>Yellow / M</span>
+                                        </article>
+                                    </div>
                                     <article>
                                         <p className='mapleProductPrice'>$90.00</p>
                                     </article>
@@ -219,13 +226,13 @@ const ConfirmSelect = () => {
                                     <p className='productName'>Subtotal</p>
                                     <p className='productName'>Discount</p>
                                     <p className='productName'>Shipping</p>
-                                    <p className='productName'>Total</p>
+                                    <p className='productName fw-bold'>Total</p>
                                 </article>
                                 <article>
                                     <p className='productName'>$933.50</p>
                                     <p className='productName'>15% ($13.50)</p>
                                     <p className='productName'>$29.00</p>
-                                    <p className='productName'>$304.75</p>
+                                    <p className='totalBtn'>$304.75</p>
                                 </article>
                             </div>
                             <div className='confirmFooter'>
@@ -244,7 +251,7 @@ const ConfirmSelect = () => {
                 isRightSideModal={true}
                 mediumWidth={false}
                 className={modalDetail.flag === "PhoneReceipt" ? "commonWidth customContent" : ""}
-                ids={modalDetail.flag === "PhoneReceipt" ? "PhoneReceiptModal" : modalDetail.flag === "emailReceipt" ? "emailReceiptModal" : modalDetail.flag === "giftCard" ? "giftCardModal" : ""}
+                ids={modalDetail.flag === "PhoneReceipt" ? "PhoneReceiptModal" : modalDetail.flag === "emailReceipt" ? "emailReceiptModal" : modalDetail.flag === "giftCard" ? "giftCardModal" : modalDetail.flag === "jobrWallet" ? "jobrWalletModal" : ""}
                 child={
                     modalDetail.flag === "PhoneReceipt" ? (
                         <PhoneReceiptModal
@@ -256,12 +263,17 @@ const ConfirmSelect = () => {
                                 close={() => handleOnCloseModal()}
                             />
                         ) :
-                        modalDetail.flag === "giftCard" ? (
-                            <GiftCardModal
-                                close={() => handleOnCloseModal()}
-                            />
-                        ) :
-                            ""
+                            modalDetail.flag === "giftCard" ? (
+                                <GiftCardModal
+                                    close={() => handleOnCloseModal()}
+                                />
+                            ) :
+                                modalDetail.flag === "jobrWallet" ? (
+                                    <JobrWalletModal
+                                        close={() => handleOnCloseModal()}
+                                    />
+                                ) :
+                                    ""
                 }
                 header=
 
@@ -294,20 +306,28 @@ const ConfirmSelect = () => {
                         </>
                         :
                         modalDetail.flag === "giftCard" ?
-                        <>
-                            <div className='trackingSub headerModal'>
-                                <figure className='profileImage '>
-                                    <Image src={Images.giftModal} alt="giftImage" className="img-fluid " />
-                                </figure>
-                                <h4 className='loginheading mt-2'>Add your Gift Card number</h4>
-                                <p onClick={handleOnCloseModal} className='crossModal'>
-                                    <Image src={Images.modalCross} alt="modalCross" className="img-fluid" />
-                                </p>
-                            </div>
+                            <>
+                                <div className='trackingSub headerModal'>
+                                    <figure className='profileImage '>
+                                        <Image src={Images.giftModal} alt="giftImage" className="img-fluid " />
+                                    </figure>
+                                    <h4 className='loginheading mt-2'>Add your Gift Card number</h4>
+                                    <p onClick={handleOnCloseModal} className='crossModal'>
+                                        <Image src={Images.modalCross} alt="modalCross" className="img-fluid" />
+                                    </p>
+                                </div>
 
-                        </>
-                        :
-                        ''
+                            </>
+                            :
+                            modalDetail.flag === "jobrWallet" ?
+                                <>
+                                    <p onClick={handleOnCloseModal} className='modal_cancel'>
+                                        <Image src={Images.modalCross} alt="modalCross" className="img-fluid" />
+                                    </p>
+
+                                </>
+                                :
+                                ''
                 }
                 onCloseModal={() => handleOnCloseModal()}
             />

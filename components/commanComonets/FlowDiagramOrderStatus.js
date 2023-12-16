@@ -1,15 +1,73 @@
-import Image from "next/image";
 import React from "react";
+import Image from "next/image";
 import {
-  dotAssignDriver,
-  dotOrderAccepted,
-  dotOrderDelivered,
-  dotOrderPickup,
   orderBike,
+  greyedRadio,
   packageBoxPurplish,
 } from "../../utilities/images";
+import {
+  orderStatusCode,
+  ORDER_STATUS_FLOW_ICONS,
+} from "../../constants/commonConstants";
 
-const FlowDiagramOrderStatus = () => {
+const FlowDiagramOrderStatus = ({
+  sellerOTP,
+  isExpanded,
+  orderStatus,
+  deliveryOTP,
+  deliveryOTPVerified,
+}) => {
+  const orderStatusFlowData = [
+    { status: "Verify Code", time: deliveryOTP },
+    {
+      status: "Delivered",
+      time: "Within 10 mintues",
+      code: orderStatusCode.DELIVERED,
+    },
+    {
+      status: "Product Pickup",
+      time: "Within 10 mintues",
+      id: `JOBR-${sellerOTP}`,
+      code: orderStatusCode.PICKED_UP,
+    },
+    {
+      status: "Assign Driver",
+      time: "21 Jun, 2022 | 10:02 am",
+      code: orderStatusCode.DRIVER_ASSIGNED,
+    },
+    {
+      status: "Ready to Pickup",
+      time: "21 Jun, 2022 | 12:09 am",
+      code: orderStatusCode.READY_TO_PICKUP,
+    },
+    {
+      status: "Order Accepted",
+      time: "21 Jun, 2022 | 02:10 am",
+      code: orderStatusCode.ACCEPTED,
+    },
+  ];
+
+  const filterOrderStatusData = (data) =>
+    data?.filter((el) => {
+      if (!isExpanded) {
+        if (el?.code && el.code == orderStatus) {
+          return el;
+        }
+      } else {
+        return el;
+      }
+    });
+
+  const filteredStatusFlowLine = filterOrderStatusData(
+    ORDER_STATUS_FLOW_ICONS.map((el, idx) =>
+      el.code <= orderStatus ||
+      (idx == 0 && deliveryOTPVerified) ||
+      (idx == ORDER_STATUS_FLOW_ICONS?.length - 1 && orderStatus == "0")
+        ? el
+        : { icon: greyedRadio, w: 20, h: 20 }
+    )
+  );
+
   return (
     <div
       style={{
@@ -38,26 +96,23 @@ const FlowDiagramOrderStatus = () => {
       >
         <div
           style={{
-            gap: "10px",
+            gap: "7px",
             display: "flex",
             alignItems: "center",
             flexDirection: "column",
           }}
         >
-          {[
-            dotAssignDriver,
-            dotOrderDelivered,
-            dotOrderPickup,
-            dotAssignDriver,
-            dotOrderDelivered,
-            dotOrderAccepted,
-          ].map((el, idx) => (
+          {filteredStatusFlowLine?.map((el, idx) => (
             <>
-              <Image
-                src={el}
-                style={{ borderRadius: "50%" }}
-              />
-              {idx !== 5 && (
+              <div style={{ flexBasis: "30px" }}>
+                <Image
+                  src={el.icon}
+                  width={el.w}
+                  height={el.h}
+                  style={{ borderRadius: "50%" }}
+                />
+              </div>
+              {idx !== filteredStatusFlowLine.length - 1 && (
                 <div
                   style={{
                     width: "1px",
@@ -76,57 +131,54 @@ const FlowDiagramOrderStatus = () => {
             gap: "22px",
           }}
         >
-          {[
-            { status: "Verify Code", time: "7893 5623" },
-            { status: "Delivered", time: "Within 10 mintues" },
-            {
-              status: "Product Pickup",
-              time: "Within 10 mintues",
-              id: "JOBR-3432",
-            },
-            { status: "Assign Driver", time: "21 Jun, 2022 | 10:02 am" },
-            { status: "Ready to Pickup", time: "21 Jun, 2022 | 12:09 am" },
-            {
-              status: "Order Accepted",
-              time: "21 Jun, 2022 | 02:10 am",
-              backgroundColor: "rgba(240, 12, 6, 1)",
-            },
-          ].map((el, idx) => (
-            <div
-              style={{
-                display: "flex",
-                gap: "13px",
-                alignItems: "center",
-              }}
-            >
+          {filterOrderStatusData(orderStatusFlowData)
+            ?.filter((el) => {
+              if (!isExpanded) {
+                if (el?.code && el.code == orderStatus) {
+                  return el;
+                }
+              } else {
+                return el;
+              }
+            })
+            ?.map((el, idx) => (
               <div
                 style={{
                   display: "flex",
-                  flexDirection: "column",
-                  gap: "3px",
+                  gap: "13px",
+                  alignItems: "center",
                 }}
               >
-                <p
-                  className="main-text-color-styles-customers"
+                <div
                   style={{
-                    fontWeight: "400",
-                    fontSize: "14px",
+                    display: "flex",
+                    flexDirection: "column",
+                    gap: "3px",
                   }}
                 >
-                  {el.status}
-                </p>
-                <p
-                  style={{
-                    color: idx == 0 ? "#58C2E8" : "#7e8ac1",
-                    fontSize: "12px",
-                    fontWeight: idx == 0 ? "600" : "400",
-                  }}
+                  <p
+                    className="main-text-color-styles-customers"
+                    style={{
+                      fontWeight: "400",
+                      fontSize: "14px",
+                    }}
+                  >
+                    {el.status}
+                  </p>
+                  <p
+                    style={{
+                      color: !el.code ? "#58C2E8" : "#7e8ac1",
+                      fontSize: "12px",
+                      fontWeight: idx == 0 ? "600" : "400",
+                    }}
+                  >
+                    {el.time}
+                  </p>
+                </div>
+                <div
+                  style={{ visibility: el?.id ? "visible" : "hidden" }}
+                  className="flex-row-space-between order-status-pickup-customer"
                 >
-                  {el.time}
-                </p>
-              </div>
-              {el?.id && (
-                <div className="flex-row-space-between order-status-pickup-customer">
                   <Image src={packageBoxPurplish} />
                   <p
                     className="main-text-color-styles-customers"
@@ -135,12 +187,11 @@ const FlowDiagramOrderStatus = () => {
                       fontSize: "12px",
                     }}
                   >
-                    {el?.id}
+                    {el?.id || "JOBR-1234"}
                   </p>
                 </div>
-              )}
-            </div>
-          ))}
+              </div>
+            ))}
         </div>
       </div>
     </div>
