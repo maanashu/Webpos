@@ -19,6 +19,7 @@
     font-size: 18px;
     font-style: normal;
     font-weight: 500;
+
 }
 
 .listBtn {
@@ -138,31 +139,36 @@
 /* RightDide Bar Booking */
 
 .sidebarRightBooking {
-    width: 100px; 
+    width: 100px;
     border-radius: 50px;
     margin: 0 10px;
     background: #FFF !important;
     box-shadow: -1.90817px 3.78304px 25.48148px 0px rgba(50, 80, 127, 0.02), -4.95391px 9.82135px 80px 0px rgba(50, 80, 127, 0.04);
     height: calc(100vh - 129px);
 }
+
 .commonFlex {
     display: flex;
     align-items: center;
 }
+
 .commanOuter.mainBooking {
     width: 100%;
 }
+
 .SidebarRightItems {
     text-align: center;
     position: relative;
 }
+
 .sidebarIcons {
     width: 50px;
 }
+
 .bottomdot {
     position: absolute;
     border-radius: 20px;
-    border: 3px solid  #FFF;
+    border: 3px solid #FFF;
     background: #12B76A;
     color: #FFF;
     font-size: 16px;
@@ -173,15 +179,172 @@
     width: 30px;
     height: 30px;
 }
+
 .SidebarRightItems:last-child {
     position: fixed;
     bottom: 32px;
     right: 30px;
 }
+
 /* .sidebarIcons.calendarIcon {
     margin: 23px 0px 28px 7px;
 } */
+.navtabs {
+    display: flex;
+    flex-direction: row;
+    padding-left: 0;
+    margin-bottom: 0;
+    border-radius: .25rem;
+}
 
+.tabsappointment {
+    margin-right: 21px;
+}
+
+.navLink.active {
+    color: #F5F6FC;
+    text-align: center;
+    font-size: 14px;
+    font-weight: 400;
+    background: #263682;
+    padding: 5px;
+    border-radius: 8px;
+}
+
+.navLink {
+    padding: 5px;
+    border-radius: 8px;
+    border: 1px solid red;
+    color: #8D99D2;
+    border: 1px solid var(--Primary-P-50-Main, #F5F6FC);
+}
+
+.navtabs {
+    margin: 30px 0 30px 0;
+}
+
+.bookingDay .totalrefundAmount {
+    padding: 0;
+
+}
+
+.bookingDay .fontEighteen {
+    color: #7E8AC1 !important;
+}
+
+#bookingTable {
+    width: 100%;
+    border-spacing: 0 14px;
+    border-collapse: initial;
+}
+
+.subHeadText {
+    color: #2F3552;
+    font-size: 12px;
+    font-weight: 500;
+}
+
+#bookingTable .recent_subhead {
+    border-top: 1px solid rgba(0, 204, 143, 0.3);
+    border-bottom: 1px solid rgba(0, 204, 143, 0.3);
+}
+
+#bookingTable .recent_subhead:first-child {
+    border-radius: 30px 0 0 30px !important;
+    border-left: 1px solid #F5F6FC;
+    border: 1px solid #F5F6FC;
+}
+
+.bookingTable .recent_subhead {
+    font-weight: 400;
+    font-size: 12px;
+    color: #263682;
+    padding: 12px 20px 18px 24px;
+    border-bottom: 1px solid #F5F6FC;
+    border-top: 1px solid #F5F6FC;
+    cursor: pointer;
+}
+
+.bookingTable {
+    width: 100%;
+    border-spacing: 0 14px;
+    border-collapse: initial;
+}
+
+.bookingTable .recent_head {
+    width: 25%;
+    padding: 0px 22px;
+    color: #7E8AC1;
+    font-size: 12px;
+    font-weight: 500;
+}
+.editBtn {
+    width: 40px;
+    height: 40px;
+    background: #263682;
+    text-align: center;
+    padding: 10px;
+    border-radius: 40px;
+    background: var(--Primary-P-50-Main, #F5F6FC);
+    border: none;
+}
+
+.checkinBox {
+    width: 100%;
+    min-width: 114px;
+    padding: 12px;
+    border-radius: 30px;
+    border: #263682;
+    background: #F5F6FC;
+    margin-right: 20px;
+}
+
+.checkinBox .textSmall {
+    color: #263682;
+    font-size: 14px;
+    font-weight: 500;
+
+}
+
+.bookingTable .recent_head {
+    padding: 6px 25px !important;
+}
+
+.purpleText {
+    color: #7233C2;
+    font-size: 12px;
+    font-weight: 500;
+
+}
+
+.checkinBg {
+    display: flex;
+    align-items: center;
+    text-align: center;
+}
+.recent_subhead:last-child {
+    border-radius: 30px;
+   
+        border-right: 1px solid #F5F6FC;
+
+}
+.recent_subhead:first-child {
+    border-radius: 30px!important;
+    border-left: 1px solid #F5F6FC;
+    
+}
+.completed {
+    width: 100%;
+    min-width: 114px;
+    padding: 12px;
+    border-radius: 30px;
+    border: #263682;
+    background: green;
+    
+}
+.completed .textSmall {
+    color: #fff;
+}
 
 
 

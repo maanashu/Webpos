@@ -157,7 +157,7 @@ const FullCart = () => {
                         </div>
                     </div>
                     <div className='col-lg-5 col-md-5'>
-                        <div className='commanOuter me-0 ms-2 commonSubOuter fullCartRight'>
+                        <div className='commanOuter me-0 ms-0 commonSubOuter fullCartRight'>
                             <div className='insertProductSection'>
                                 <div className='addproductCart d-none'>
                                     <Image src={Images.addProductImg} alt="addProductimage" className="img-fluid" />

@@ -8,7 +8,7 @@ const RefundsConfirmation = () => {
             <div className='refundConfirmation'>
                 <div className='row'>
                     <div className='col-lg-8'>
-                        <div className='commanOuter'>
+                        <div className='commanOuter commonSubOuter'>
                             <button type='button' className='backButton'>
                                 <Image src={Images.ArrowLeft} alt="" className="img-fluid backBtnIcon" />
                                 Back
@@ -84,7 +84,7 @@ const RefundsConfirmation = () => {
                         </div>
                     </div>
                     <div className='col-lg-4'>
-                        <div className='commanOuter'>
+                        <div className='commanOuter commonSubOuter'>
                             <div className='MapleBox'>
                                 <article className='mapleHeader'>
                                     <h6 className='mapleHeading'>Maple Inc.</h6>

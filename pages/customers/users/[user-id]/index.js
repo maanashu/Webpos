@@ -16,10 +16,12 @@ import {
 } from "../../../../redux/slices/customers";
 import moment from "moment-timezone";
 import { DELIVERY_MODE } from "../../../../constants/commonConstants";
+import { createFullAddress } from "../../../../utilities/globalMethods";
 
 const UserProfile = () => {
-  const { query } = useRouter();
-  const userUID = query["user-id"];
+  const router = useRouter();
+  const { query } = router;
+  const userUid = query["user-id"];
 
   const dispatch = useDispatch();
   const authData = useSelector(selectLoginAuth);
@@ -36,16 +38,16 @@ const UserProfile = () => {
   const userOrderList = customersData?.userDetailsAndOrder?.payload;
 
   useEffect(() => {
-    if (sellerUid && userUID) {
+    if (sellerUid && userUid) {
       const params = {
         page,
-        user_uid: userUID,
+        user_uid: userUid,
         limit: Number(limit),
         seller_id: sellerUid,
       };
       dispatch(getUserDetailsAndOrders(params));
     }
-  }, [sellerUid, userUID, page, limit]);
+  }, [sellerUid, userUid, page, limit]);
 
   useEffect(() => {
     if (userDetails?.id) {
@@ -57,6 +59,13 @@ const UserProfile = () => {
       );
     }
   }, [userDetails?.id, sellerUid]);
+
+  const handleNavigateToTrackStatus = (item) => {
+    router.push(
+      "/customers/users/[user-id]/[order-id]",
+      `/customers/users/${userUid}/${item?.user_details?.id}`
+    );
+  };
 
   return (
     <div className="main-container-customers">
@@ -107,11 +116,7 @@ const UserProfile = () => {
           "https://randomuser.me/api/portraits/women/76.jpg"
         }
         name={`${userDetails?.firstname} ${userDetails?.lastname}`}
-        address={`${userDetails?.current_address?.street_address || " "}, ${
-          userDetails?.current_address?.city || " "
-        }(${userDetails?.current_address?.state || " "}), ${
-          userDetails?.current_address?.zipcode || " "
-        }`}
+        address={createFullAddress(userDetails)}
         contactNo={userDetails?.phone_number || "N/A"}
         email={userDetails?.email}
         points={2}
@@ -184,18 +189,33 @@ const UserProfile = () => {
           <tbody>
             {userOrderList?.data?.map((item, idx) => (
               <tr className="customers-table-row">
-                <td className="customers-table-data">
+                <td
+                  onClick={() => handleNavigateToTrackStatus(item)}
+                  className="customers-table-data"
+                >
                   {(idx + Number(page > 1 ? limit : 0) > 8 ? "" : "0") +
                     (idx + 1 + Number(page > 1 ? limit : 0))}
                 </td>
-                <td className="customers-table-data">{item?.id}</td>
-                <td className="customers-table-data">
+                <td
+                  onClick={() => handleNavigateToTrackStatus(item)}
+                  className="customers-table-data"
+                >
+                  {item?.id}
+                </td>
+                <td
+                  onClick={() => handleNavigateToTrackStatus(item)}
+                  className="customers-table-data"
+                >
                   {moment(item?.created_at).format("l")}
                 </td>
-                <td className="customers-table-data">
+                <td
+                  onClick={() => handleNavigateToTrackStatus(item)}
+                  className="customers-table-data"
+                >
                   {item?.seller_details?.current_address?.city}
                 </td>
                 <td
+                  onClick={() => handleNavigateToTrackStatus(item)}
                   className="customers-table-data"
                   style={{ display: "flex", gap: "12px" }}
                 >
@@ -234,9 +254,22 @@ const UserProfile = () => {
                     <p className="user-stats-row-responsible-tag">Shipping</p>
                   </div>
                 </td>
-                <td className="customers-table-data">{item?.total_items}</td>
-                <td className="customers-table-data">${item.payable_amount}</td>
-                <td className="customers-table-data">
+                <td
+                  onClick={() => handleNavigateToTrackStatus(item)}
+                  className="customers-table-data"
+                >
+                  {item?.total_items}
+                </td>
+                <td
+                  onClick={() => handleNavigateToTrackStatus(item)}
+                  className="customers-table-data"
+                >
+                  ${item.payable_amount}
+                </td>
+                <td
+                  onClick={() => handleNavigateToTrackStatus(item)}
+                  className="customers-table-data"
+                >
                   <div
                     style={{
                       display: "inline-block",
