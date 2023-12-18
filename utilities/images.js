@@ -154,6 +154,12 @@ import coins from "../public/images/Coins.svg"
 import Visa from "../public/images/Visa.svg"
 // import InvoiceIcon from "../public/images/InvoiceIcon.svg"
 import giftOffer from "../public/images/giftOffer.svg"
+import phoneMessage from "../public/images/phoneMessage.svg"
+import btnTick from "../public/images/btnTick.svg"
+import emailSms from "../public/images/emailSms.svg"
+import jobrCoin from '../public/images/jobrCoin.svg'
+import lightGiftOffer from "../public/images/lightGiftOffer.svg"
+import giftModal from "../public/images/giftModal.svg"
 import bookImg from "../public/images/bookImg.svg"
 import calendarBlue from "../public/images/calendarBlue.svg"
 import notification from "../public/images/notification.svg"
@@ -184,6 +190,12 @@ export {
   userImages,
   calendarSmall,
   backArrow,
+  giftModal,
+  lightGiftOffer,
+  jobrCoin,
+  emailSms,
+  btnTick,
+  phoneMessage,
   giftOffer,
   coins,
   visa,
