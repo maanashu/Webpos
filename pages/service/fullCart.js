@@ -82,9 +82,9 @@ const FullCart = () => {
                                 <div className='fullCartInfo w-50'>
                                     <input className="form-control unitPriceControl active" type="number" placeholder="$20.00" />
                                     <div className='incrementBtn active'>
-                                        <i class="fa-solid fa-minus plusMinus"></i>
+                                        <i className="fa-solid fa-minus plusMinus"></i>
                                         <input className="form-control addBtnControl" type="number" placeholder="1" />
-                                        <i class="fa-solid fa-plus plusMinus"></i>
+                                        <i className="fa-solid fa-plus plusMinus"></i>
                                     </div>
                                     <div className='fullCartInfo'>
                                         <h4 className='invoice_subhead p-0'>$90.00</h4>
@@ -113,9 +113,9 @@ const FullCart = () => {
                                 <div className='fullCartInfo w-50'>
                                     <input className="form-control unitPriceControl " type="number" placeholder="$20.00" />
                                     <div className='incrementBtn'>
-                                        <i class="fa-solid fa-minus plusMinus"></i>
+                                        <i className="fa-solid fa-minus plusMinus"></i>
                                         <input className="form-control addBtnControl" type="number" placeholder="1" />
-                                        <i class="fa-solid fa-plus plusMinus"></i>
+                                        <i className="fa-solid fa-plus plusMinus"></i>
                                     </div>
                                     <div className='fullCartInfo'>
                                         <h4 className='invoice_subhead p-0'>$90.00</h4>
@@ -144,9 +144,9 @@ const FullCart = () => {
                                 <div className='fullCartInfo w-50'>
                                     <input className="form-control unitPriceControl" type="number" placeholder="$20.00" />
                                     <div className='incrementBtn'>
-                                        <i class="fa-solid fa-minus plusMinus"></i>
+                                        <i className="fa-solid fa-minus plusMinus"></i>
                                         <input className="form-control addBtnControl" type="number" placeholder="1" />
-                                        <i class="fa-solid fa-plus plusMinus"></i>
+                                        <i className="fa-solid fa-plus plusMinus"></i>
                                     </div>
                                     <div className='fullCartInfo'>
                                         <h4 className='invoice_subhead p-0'>$90.00</h4>

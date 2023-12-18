@@ -718,8 +718,8 @@ const Manualinvoice = () => {
                             </div>
                             <div className='d-flex justify-content-between  invoiceSearchBox pb-3'>
                                 <div className='SearchinvoiceBox'>
-                                    <div class="ProductsearchBar">
-                                        <input type="text" class="form-control searchControl" placeholder="Scan Barcode of each Item" />
+                                    <div className="ProductsearchBar">
+                                        <input type="text" className="form-control searchControl" placeholder="Scan Barcode of each Item" />
                                         <Image src={Images.scanImg} alt="SearchImageIcon" className="img-fluid scanImg" />
                                     </div>
                                 </div>
@@ -730,8 +730,8 @@ const Manualinvoice = () => {
                                 </div>
                             </div>
                             <div className='commanscrollBar manualOrderedProduct mt-3'>
-                                <div class="ManualsearchBar">
-                                    <input type="text" class="form-control searchControl" placeholder="0199 - 322" />
+                                <div className="ManualsearchBar">
+                                    <input type="text" className="form-control searchControl" placeholder="0199 - 322" />
                                     <Image src={Images.SearchIcon} alt="SearchImageIcon" className="img-fluid searchImg" />
                                 </div>
                                 <div className='manualSelectedProduct'>

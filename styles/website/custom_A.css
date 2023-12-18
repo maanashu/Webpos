@@ -411,8 +411,9 @@
     border-radius: 50px;
     margin: 0 10px;
     background: #FFF;
-    box-shadow: -1.90817px 3.78304px 25.48148px 0px rgba(50, 80, 127, 0.02), -4.95391px 9.82135px 80px 0px rgba(50, 80, 127, 0.04);
+    box-shadow: -2px 4px 25px 0px rgba(50, 80, 127, 0.02), -5px 10px 80px 0px rgba(50, 80, 127, 0.04);
     height: calc(100vh - 129px);
+    padding: 24px 8px;
 }
 
 .rightSidebarIcon {
@@ -421,18 +422,22 @@
 
 .rightSidebarItems {
     text-align: center;
+    position: relative;
+    cursor: pointer;
 }
-
+.rightSidebarItems:first-child{
+    margin-top: 0;
+}
 .rightSidebarItems:last-child {
     position: fixed;
     bottom: 32px;
-    right: 30px;
+    right: 34px;
 }
 
-.rightSidebarItems.active img {
+/* .rightSidebarItems.active img {
     background: #F5F6FC;
     border-radius: 12px;
-}
+} */
 
 .productImageBox {
     position: relative;
