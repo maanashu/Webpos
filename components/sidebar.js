@@ -149,7 +149,7 @@ const Sidebar = (props) => {
           </ListGroupItem>
           <ListGroupItem className="sidebarItems">
             <Link
-              href="/dashboard"
+              href="/analytics"
               className="sidebarLinks"
             >
               <Image

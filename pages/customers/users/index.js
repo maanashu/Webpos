@@ -8,7 +8,6 @@ import {
   userSale,
 } from "../../../utilities/images";
 import Image from "next/image";
-import "react-datepicker/dist/react-datepicker.css";
 import Link from "next/link";
 import TCRHeader from "../../../components/commanComonets/TCRHeader";
 import PaginationHeader from "../../../components/commanComonets/PaginationHeader";
@@ -23,7 +22,7 @@ import { useRouter } from "next/router";
 
 const Users = () => {
   const { query } = useRouter();
-
+  const router = useRouter()
   const [selectedTab, setSelectedTab] = useState("all_customers");
   const [timeSpan, setTimeSpan] = useState(query["time-span"] || "week");
   const [limit, setLimit] = useState("10");
@@ -37,7 +36,7 @@ const Users = () => {
   const uniqueId = authData?.usersInfo?.payload?.uniqe_id;
 
   const paginatedCustomersList = customersData?.allCustomersList?.payload;
-  const sellerAreaList = customersData?.sellerAreaList?.payload.data;
+  const sellerAreaList = customersData?.sellerAreaList?.payload?.data;
 
   useEffect(() => {
     if (uniqueId) {
