@@ -13,10 +13,12 @@ const CommonSideBar = () => {
             <div className='sidebarRightBooking'>
                 <ListGroup>
                     <ListGroupItem className="SidebarRightItems">
-                        <Image src={Images.backArrow} alt="image" className="img-fluid sidebarIcons  " />
-                        <span className='redUser'></span>
+                    <Link className="sideBarUser active" href="#"> <Image src={Images.backArrow} alt="image" className="img-fluid sidebarIcons  " />
+                        <span className='redUser'></span></Link>
+                     
                     </ListGroupItem>
                     <ListGroupItem className="SidebarRightItems callendarbg">
+                 
                         <Image src={Images.calendarSmall} alt="image" className="img-fluid  sidebarIcons siderBarbg " />
 
                     </ListGroupItem>
@@ -50,11 +52,15 @@ const CommonSideBar = () => {
                         <span className='bottomdot'>3</span>
                     </ListGroupItem>
                     <ListGroupItem className="SidebarRightItems">
-                        <Image src={Images.usersImages} alt="image" className="img-fluid   sidebarIcons " />
-                        <span className='bottomdot'>3</span>
+                      
+                   
                     </ListGroupItem>
 
                     <ListGroupItem className="SidebarRightItems">
+                        <div className='userSideBar'>
+                        <Image src={Images.usersImages} alt="image" className="img-fluid   sidebarIcons  " />
+                        {/* <span className='bottomdot'>3</span> */}
+                        </div>
                         <Image src={Images.settingBlue} alt="image" className="img-fluid  sidebarIcons  settingImgs" />
 
                     </ListGroupItem>

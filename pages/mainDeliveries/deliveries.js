@@ -67,13 +67,8 @@ const Deliveries = () => {
                                 
                             </div>
                         </div>
-
-
-
                     </div>
                 </div>
-
-
             </div>
         </>
     )
