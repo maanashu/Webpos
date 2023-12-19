@@ -15,7 +15,7 @@ const DatePickerCustomComponent = forwardRef(({ value, onClick }, ref) => (
         {value || "Date"}
     </p>
 ));
-const AnalyticsHeader = ({ startDate, endDate, onDateChange, channelSelected, onChannelChange, withTimeTabs = true, onTimeSpanSelect, timeSpan }) => {
+const AnalyticsHeader = ({ startDate, endDate, onDateChange, channelSelected, setStartDate, setEndDate, onChannelChange, withTimeTabs = true, onTimeSpanSelect, timeSpan }) => {
 
     const TIME_SPANS = [
         { value: "today", label: "Today" },
@@ -47,7 +47,7 @@ const AnalyticsHeader = ({ startDate, endDate, onDateChange, channelSelected, on
                         {TIME_SPANS.map((el, idx) => (
                             <p
                                 key={idx + "day-tabs"}
-                                onClick={() => onTimeSpanSelect(el.value)}
+                                onClick={() => {onTimeSpanSelect(el.value); setStartDate(null); setEndDate(null);}}
                                 className={`tab-item${timeSpan == el.value ? " selected-tab" : ""
                                     }`}
                             >
@@ -57,7 +57,6 @@ const AnalyticsHeader = ({ startDate, endDate, onDateChange, channelSelected, on
                     </div>
                 )}
             </div>
-
             <div
                 style={{ gap: "16px" }}
                 className="flex-row-space-between"

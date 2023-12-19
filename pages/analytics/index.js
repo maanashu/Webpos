@@ -216,6 +216,12 @@ const Analytics = () => {
                 backgroundColor: "#58C2E8",
                 borderRadius: 10,
             },
+            {
+                label: "Shipping",
+                data: totalOrderAnalyticsData?.graphData?.datasets[2]?.data,
+                backgroundColor: "#914BEB",
+                borderRadius: 10,
+            },
         ],
     }
 
@@ -243,9 +249,12 @@ const Analytics = () => {
         };
         if (startDate && endDate) {
             params = {
-                ...params,
+                is_admin: true,
                 start_date: moment(startDate).format("YYYY-MM-DD"),
                 end_date: moment(endDate).format("YYYY-MM-DD"),
+                channel: channelSelected.value,
+                // seller_id: auth?.usersInfo?.payload?.uniqe_id
+                seller_id: "016b1b3a-d7d3-4fc3-a76b-995b23c43852",
             };
         }
 
@@ -269,7 +278,9 @@ const Analytics = () => {
         };
         if (startDate && endDate) {
             params = {
-                ...params,
+                channel: channelSelected.value,
+                // seller_id: auth?.usersInfo?.payload?.uniqe_id
+                seller_id: "016b1b3a-d7d3-4fc3-a76b-995b23c43852",
                 start_date: moment(startDate).format("YYYY-MM-DD"),
                 end_date: moment(endDate).format("YYYY-MM-DD"),
             };
@@ -295,9 +306,11 @@ const Analytics = () => {
 
         if (startDate && endDate) {
             params = {
-                ...params,
                 start_date: moment(startDate).format("YYYY-MM-DD"),
                 end_date: moment(endDate).format("YYYY-MM-DD"),
+                channel: channelSelected.value,
+                // seller_id: auth?.usersInfo?.payload?.uniqe_id
+                seller_id: "016b1b3a-d7d3-4fc3-a76b-995b23c43852",
             }
         }
 
@@ -322,9 +335,11 @@ const Analytics = () => {
 
         if (startDate && endDate) {
             params = {
-                ...params,
                 start_date: moment(startDate).format("YYYY-MM-DD"),
                 end_date: moment(endDate).format("YYYY-MM-DD"),
+                channel: channelSelected.value,
+                // seller_id: auth?.usersInfo?.payload?.uniqe_id
+                seller_id: "016b1b3a-d7d3-4fc3-a76b-995b23c43852",
             }
         }
 
@@ -351,6 +366,8 @@ const Analytics = () => {
             <AnalyticsHeader
                 timeSpan={timeSpan}
                 onTimeSpanSelect={setTimeSpan}
+                setStartDate={setStartDate}
+                setEndDate={setEndDate}
                 onDateChange={handleDateChange}
                 onChannelChange={handleChange}
                 channelSelected={channelSelected}
@@ -363,7 +380,7 @@ const Analytics = () => {
                     <div
                         className="chartsOuter"
                         style={{ cursor: "pointer" }}
-                        onClick={() => router.push("/Gross-Profits")}
+                        onClick={() => router.push("/analytics/grossProfit")}
                     >
                         <h4 className="expectedHeading ">Gross Profits</h4>
                         <h4 className="successMain">

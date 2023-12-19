@@ -18,7 +18,8 @@ export default function Layout({ children, isLoggedIn, userType }) {
     "/customers",
     "/customers/users",
     `/customers/users/[user-id]`,
-    '/analytics'
+    '/analytics',
+    '/analytics/grossProfit'
   ];
 
   return (

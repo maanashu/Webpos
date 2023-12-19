@@ -178,12 +178,19 @@ import locatePurple from "../public/images/locatePurple.svg"
 import complete from "../public/images/complete.svg" 
 import walletCoin from "../public/images/walletCoin.svg"
 import scanner from "../public/images/scanner.png"
- 
-
-
+import gross_profit_blue from "../public/images/gross_profit_blue.png"
+import gross_profit from "../public/images/gross_profit.png"
+import average_order from "../public/images/average_order.png"
+import total_volume from "../public/images/total_volume.png"
+import total_order from "../public/images/total_order.png"
 
 export {
   visa,
+  gross_profit_blue,
+  gross_profit,
+  average_order,
+  total_volume,
+  total_order,
   giftModal,
   lightGiftOffer,
   jobrCoin,
