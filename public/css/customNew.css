@@ -2033,6 +2033,7 @@ figure {
     font-weight: 500;
     position: relative;
 }
+
 .deliverPercent::before {
     content: "";
     position: absolute;
@@ -2043,32 +2044,103 @@ figure {
     top: 7px;
     left: 10px;
 }
-.returnOrder .orderDeliverText{
+
+.returnOrder .orderDeliverText {
     color: #C29613;
 }
-.returnOrder .deliverPercent{
+
+.returnOrder .deliverPercent {
     background-color: #FFF7D7;
     color: #C29613;
 }
-.returnOrder .deliverPercent::before{
+
+.returnOrder .deliverPercent::before {
     background-color: #FFD74B;
 }
-.cancelOrder .orderDeliverText{
+
+.cancelOrder .orderDeliverText {
     color: #C29613;
 }
-.cancelOrder .deliverPercent{
+
+.cancelOrder .deliverPercent {
     background-color: #FEF3F2;
     color: #D92D20;
 }
-.cancelOrder .deliverPercent::before{
+
+.cancelOrder .deliverPercent::before {
     background-color: #F97066;
 }
-.deliverSubOuter{
+
+.deliverSubOuter {
     height: calc(100vh - 129px);
     overflow: auto;
 }
+
 .deliverSubOuter::-webkit-scrollbar {
     display: none;
+}
+
+.deliverGraphSection {
+    border-radius: 20px;
+    background: #FFF;
+    box-shadow: -2px 4px 25px 0px rgba(50, 80, 127, 0.02), -5px 10px 80px 0px rgba(50, 80, 127, 0.04);
+    padding: 24px;
+}
+.form-group input {
+    padding: 0;
+    height: initial;
+    width: initial;
+    margin-bottom: 0;
+    display: none;
+    cursor: pointer;
+  }
+  
+  .checkBlue label {
+    position: relative;
+    cursor: pointer;
+  }
+  
+  .checkBlue label:before {
+    content:'';
+    -webkit-appearance: none;
+    background-color: #D7DEFF;
+    border: 1px solid #4659B5;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05), inset 0px -15px 10px -12px rgba(0, 0, 0, 0.05);
+    padding: 8px;
+    display: inline-block;
+    position: relative;
+    vertical-align: middle;
+    cursor: pointer;
+    margin-right: 5px;
+    border-radius: 4px;
+  }
+  
+  .checkBlue input:checked + label:after {
+    content: '';
+    display: block;
+    position: absolute;
+    top: 3px;
+    left: 6px;
+    width: 6px;
+    height: 13px;
+    border: solid #263682;
+    border-width: 0 2px 2px 0;
+    transform: rotate(45deg);
+}
+.deliverCheck{
+    display: flex;
+    justify-content: space-between;
+}
+.checkPurple  label:before{
+    border: 1px solid #7233C2;
+    background-color: #F5EDFF;
+}
+.checkPurple input:checked + label:after {
+    border: solid #914BEB;
+    border-width: 0 2px 2px 0;
+}
+.checkPurple .appointSub{
+    color: #7233C2;
 }
 /*deliver Module css end*/
 /*media query start*/
