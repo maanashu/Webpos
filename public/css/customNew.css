@@ -1323,6 +1323,7 @@ figure {
     position: absolute;
     top: 0;
     right: 0;
+    cursor: pointer;
 }
 
 .inputPosition {
@@ -1723,6 +1724,20 @@ figure {
 
 .giftOfferBtn .serviceCancel {
     padding: 18px 50px;
+}
+
+.totalBtn {
+    border-radius: 30px;
+    border: 0px solid #263682;
+    background: #F5F6FC;
+    color: #263682;
+    font-size: 18px;
+    font-weight: 500;
+    padding: 12px 16px;
+}
+.flexbase{
+    display: flex;
+    align-items: baseline;
 }
 
 /*service pages css end*/

@@ -600,7 +600,7 @@
 /*End Custom Checkbox css */
 
 /*Start Add Product modal */
-.modal-content {
+#AddProduct .modal-content {
     border-radius: 30px;
     background: var(--surfaces-s-top, #FFF);
     box-shadow: -2.52875px 6.00803px 6.51852px 0px rgba(52, 79, 117, 0.03), -11.95411px 28.40162px 25.48148px 0px rgba(52, 79, 117, 0.04), -31.03472px 73.73497px 80px 0px rgba(52, 79, 117, 0.07);
@@ -608,13 +608,13 @@
     padding: 30px 36px;
 }
 
-.modal-body {
+#AddProduct .modal-body {
     padding: 0 !important;
     padding-bottom: 30px !important;
 
 }
 
-.modal-header {
+#AddProduct .modal-header {
     justify-content: center;
     border: none !important;
     padding: 0 !important;
