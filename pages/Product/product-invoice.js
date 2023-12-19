@@ -703,8 +703,8 @@ const ProductInvoice = () => {
                             </div>
                             <div className='d-flex justify-content-between  invoiceSearchBox pb-3'>
                                 <div className='SearchinvoiceBox'>
-                                    <div class="ProductsearchBar">
-                                        <input type="text" class="form-control searchControl" placeholder="Scan Barcode of each Item" />
+                                    <div className="ProductsearchBar">
+                                        <input type="text" className="form-control searchControl" placeholder="Scan Barcode of each Item" />
                                         <Image src={Images.scanImg} alt="SearchImageIcon" className="img-fluid scanImg" />
                                     </div>
                                 </div>
@@ -735,19 +735,19 @@ const ProductInvoice = () => {
                             <div className='row'>
                                 <div className='col-lg-4'>
                                     <div className='OrderBox'>
-                                        <div class="OrderCheckoutBox">
+                                        <div className="OrderCheckoutBox">
                                             <p className='orderHeading'>Total Items</p>
                                             <p className='orderSubHeading'>7</p>
                                         </div>
-                                        <div class="OrderCheckoutBox">
+                                        <div className="OrderCheckoutBox">
                                             <p className='orderHeading'>Order Date</p>
                                             <p className='orderSubHeading'>10/10/2023</p>
                                         </div>
-                                        <div class="OrderCheckoutBox">
+                                        <div className="OrderCheckoutBox">
                                             <p className='orderHeading'>Order ID#</p>
                                             <p className='orderSubHeading'>JOBR00001</p>
                                         </div>
-                                        <div class="OrderCheckoutBox">
+                                        <div className="OrderCheckoutBox">
                                             <p className='orderHeading'>Payment Method</p>
                                             <figure className='priceBtn'>
                                                 <Image src={Images.moneyImg} alt="money" className="moneyImg" />

@@ -3,7 +3,6 @@ import * as Images from "../../utilities/images"
 import Image from "next/image";
 import { ListGroup, ListGroupItem } from 'react-bootstrap';
 import Link from 'next/link';
-
 import CommonSideBar from '../../components/commanComonets/appointmentSide/commonSideBar';
 const Booking = () => {
     return (
@@ -49,67 +48,65 @@ const Booking = () => {
                         <div className='col-lg-12'>
 
                             <ListGroup className='navtabs'>
-                                <ListGroupItem className="tabsappointment"><Link className="navLink active" href="aboutUs">01</Link>
+                                <ListGroupItem className="tabsappointment"><Link className="navLink active" href="#">01</Link>
                                 </ListGroupItem>
-                                <ListGroupItem className="tabsappointment"><Link className="navLink" href="aboutUs">02</Link>
+                                <ListGroupItem className="tabsappointment"><Link className="navLink" href="#">02</Link>
                                 </ListGroupItem>
-                                <ListGroupItem className="tabsappointment"><Link className="navLink" href="aboutUs">03</Link>
+                                <ListGroupItem className="tabsappointment"><Link className="navLink" href="#">03</Link>
                                 </ListGroupItem>
-                                <ListGroupItem className="tabsappointment"><Link className="navLink" href="aboutUs">04</Link>
+                                <ListGroupItem className="tabsappointment"><Link className="navLink" href="#">04</Link>
                                 </ListGroupItem>
-                                <ListGroupItem className="tabsappointment"><Link className="navLink" href="aboutUs">05</Link>
+                                <ListGroupItem className="tabsappointment"><Link className="navLink" href="#">05</Link>
                                 </ListGroupItem>
-                                <ListGroupItem className="tabsappointment"><Link className="navLink" href="aboutUs">06</Link>
+                                <ListGroupItem className="tabsappointment"><Link className="navLink" href="#">06</Link>
                                 </ListGroupItem>
-                                <ListGroupItem className="tabsappointment"><Link className="navLink" href="aboutUs">07</Link>
+                                <ListGroupItem className="tabsappointment"><Link className="navLink" href="#">08</Link>
                                 </ListGroupItem>
-                                <ListGroupItem className="tabsappointment"><Link className="navLink" href="aboutUs">08</Link>
+                                <ListGroupItem className="tabsappointment"><Link className="navLink" href="#">09</Link>
                                 </ListGroupItem>
-                                <ListGroupItem className="tabsappointment"><Link className="navLink" href="aboutUs">09</Link>
+                                <ListGroupItem className="tabsappointment"><Link className="navLink" href="#">10</Link>
                                 </ListGroupItem>
-                                <ListGroupItem className="tabsappointment"><Link className="navLink" href="aboutUs">10</Link>
+                                <ListGroupItem className="tabsappointment"><Link className="navLink" href="#">11</Link>
                                 </ListGroupItem>
-                                <ListGroupItem className="tabsappointment"><Link className="navLink" href="aboutUs">11</Link>
+                                <ListGroupItem className="tabsappointment"><Link className="navLink" href="#">12</Link>
                                 </ListGroupItem>
-                                <ListGroupItem className="tabsappointment"><Link className="navLink" href="aboutUs">12</Link>
+                                <ListGroupItem className="tabsappointment"><Link className="navLink" href="#">13</Link>
                                 </ListGroupItem>
-                                <ListGroupItem className="tabsappointment"><Link className="navLink" href="aboutUs">13</Link>
+                                <ListGroupItem className="tabsappointment"><Link className="navLink" href="#">14</Link>
                                 </ListGroupItem>
-                                <ListGroupItem className="tabsappointment"><Link className="navLink" href="aboutUs">14</Link>
+                                <ListGroupItem className="tabsappointment"><Link className="navLink" href="#">15</Link>
                                 </ListGroupItem>
-                                <ListGroupItem className="tabsappointment"><Link className="navLink" href="aboutUs">15</Link>
+                                <ListGroupItem className="tabsappointment"><Link className="navLink" href="#">16</Link>
                                 </ListGroupItem>
-                                <ListGroupItem className="tabsappointment"><Link className="navLink" href="aboutUs">16</Link>
+                                <ListGroupItem className="tabsappointment"><Link className="navLink" href="#">17</Link>
                                 </ListGroupItem>
-                                <ListGroupItem className="tabsappointment"><Link className="navLink" href="aboutUs">17</Link>
+                                <ListGroupItem className="tabsappointment"><Link className="navLink" href="#">18</Link>
                                 </ListGroupItem>
-                                <ListGroupItem className="tabsappointment"><Link className="navLink" href="aboutUs">18</Link>
+                                <ListGroupItem className="tabsappointment"><Link className="navLink" href="#">19</Link>
                                 </ListGroupItem>
-                                <ListGroupItem className="tabsappointment"><Link className="navLink" href="aboutUs">19</Link>
+                                <ListGroupItem className="tabsappointment"><Link className="navLink" href="#">20</Link>
                                 </ListGroupItem>
-                                <ListGroupItem className="tabsappointment"><Link className="navLink" href="aboutUs">20</Link>
+                                <ListGroupItem className="tabsappointment"><Link className="navLink" href="#">21</Link>
                                 </ListGroupItem>
-                                <ListGroupItem className="tabsappointment"><Link className="navLink" href="aboutUs">21</Link>
+                                <ListGroupItem className="tabsappointment"><Link className="navLink" href="#">21</Link>
                                 </ListGroupItem>
-                                <ListGroupItem className="tabsappointment"><Link className="navLink" href="aboutUs">21</Link>
+                                <ListGroupItem className="tabsappointment"><Link className="navLink" href="#">23</Link>
                                 </ListGroupItem>
-                                <ListGroupItem className="tabsappointment"><Link className="navLink" href="aboutUs">23</Link>
+                                <ListGroupItem className="tabsappointment"><Link className="navLink" href="#">24</Link>
                                 </ListGroupItem>
-                                <ListGroupItem className="tabsappointment"><Link className="navLink" href="aboutUs">24</Link>
+                                <ListGroupItem className="tabsappointment"><Link className="navLink" href="#">25</Link>
                                 </ListGroupItem>
-                                <ListGroupItem className="tabsappointment"><Link className="navLink" href="aboutUs">25</Link>
+                                <ListGroupItem className="tabsappointment"><Link className="navLink" href="#">26</Link>
                                 </ListGroupItem>
-                                <ListGroupItem className="tabsappointment"><Link className="navLink" href="aboutUs">26</Link>
+                                <ListGroupItem className="tabsappointment"><Link className="navLink" href="#">27</Link>
                                 </ListGroupItem>
-                                <ListGroupItem className="tabsappointment"><Link className="navLink" href="aboutUs">27</Link>
+                                <ListGroupItem className="tabsappointment"><Link className="navLink" href="#">28</Link>
                                 </ListGroupItem>
-                                <ListGroupItem className="tabsappointment"><Link className="navLink" href="aboutUs">28</Link>
+                                <ListGroupItem className="tabsappointment"><Link className="navLink" href="#">29</Link>
                                 </ListGroupItem>
-                                <ListGroupItem className="tabsappointment"><Link className="navLink" href="aboutUs">29</Link>
+                                <ListGroupItem className="tabsappointment"><Link className="navLink" href="#">30</Link>
                                 </ListGroupItem>
-                                <ListGroupItem className="tabsappointment"><Link className="navLink" href="aboutUs">30</Link>
-                                </ListGroupItem>
-                                <ListGroupItem className="tabsappointment"><Link className="navLink" href="aboutUs">31</Link>
+                                <ListGroupItem className="tabsappointment"><Link className="navLink" href="#">31</Link>
                                 </ListGroupItem>
                             </ListGroup>
                         </div>

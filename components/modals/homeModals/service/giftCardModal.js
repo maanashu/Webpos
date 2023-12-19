@@ -4,7 +4,7 @@ const GiftCardModal = () => {
     return (
         <>
             <div className='giftModalSection'>
-                <form className='giftForm'>
+                <form className='giftForm mt-3'>
                     <label className="form-label amountText m-0">Type a 12 digits code</label>
                     <input className="form-control cardControl mt-1" type="number" placeholder="0 2 3 4    8 6 5 0    5 5 6 9" />
                     <div className='addCustomerBtn mt-4 giftOfferBtn'>

@@ -702,8 +702,8 @@ const Manualentryconfig = () => {
                             </div>
                             <div className='d-flex justify-content-between  invoiceSearchBox pb-3'>
                                 <div className='SearchinvoiceBox'>
-                                    <div class="ProductsearchBar">
-                                        <input type="text" class="form-control searchControl" placeholder="Scan Barcode of each Item" />
+                                    <div className="ProductsearchBar">
+                                        <input type="text" className="form-control searchControl" placeholder="Scan Barcode of each Item" />
                                         <Image src={Images.scanImg} alt="SearchImageIcon" className="img-fluid scanImg" />
                                     </div>
                                 </div>
@@ -714,8 +714,8 @@ const Manualentryconfig = () => {
                                 </div>
                             </div>
                             <div className='commanscrollBar manualOrderedProduct mt-3'>
-                                <div class="ManualsearchBar">
-                                    <input type="text" class="form-control searchControl" placeholder="0199 - 322" />
+                                <div className="ManualsearchBar">
+                                    <input type="text" className="form-control searchControl" placeholder="0199 - 322" />
                                     <Image src={Images.SearchIcon} alt="SearchImageIcon" className="img-fluid searchImg" />
                                 </div>
                                 <div className='manualProduct'>
@@ -753,11 +753,11 @@ const Manualentryconfig = () => {
                                         </div>
                                         <div className='form-group flexBox addCart mb-3'>
                                             <button className='removeProductBtn'>
-                                                <i class="fa-solid fa-minus plusMinus"></i>
+                                                <i className="fa-solid fa-minus plusMinus"></i>
                                             </button>
                                             <input className="form-control customTextarea" type="text" placeholder="1" />
                                             <button className='addProductBtn'>
-                                                <i class="fa-solid fa-plus plusMinus"></i>
+                                                <i className="fa-solid fa-plus plusMinus"></i>
                                             </button>
                                         </div>
                                     </div>

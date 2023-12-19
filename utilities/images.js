@@ -152,8 +152,9 @@ import mailBox from "../public/images/mailBox.svg"
 import visa from "../public/images/Visa.svg"
 import coins from "../public/images/Coins.svg"
 import Visa from "../public/images/Visa.svg"
-// import InvoiceIcon from "../public/images/InvoiceIcon.svg"
+import InvoiceIcon from "../public/images/InvoiceIcon.svg"
 import giftOffer from "../public/images/giftOffer.svg"
+// import InvoiceIcon from "../public/images/InvoiceIcon.svg"
 import phoneMessage from "../public/images/phoneMessage.svg"
 import btnTick from "../public/images/btnTick.svg"
 import emailSms from "../public/images/emailSms.svg"
@@ -164,21 +165,35 @@ import bookImg from "../public/images/bookImg.svg"
 import calendarBlue from "../public/images/calendarBlue.svg"
 import notification from "../public/images/notification.svg"
 import listImg from "../public/images/listImg.svg"
-import InvoiceIcon from "../public/images/InvoiceIcon.svg"
 import backArrow from "../public/images/backArrow.svg"
 import calendarSmall from "../public/images/calendarSmall.svg" 
 import userImages from "../public/images/userImages.png"
 import settingBlue from "../public/images/settingBlue.svg"
 import userAvtar from "../public/images/userAvtar.png"
-import usersImages from "../public/images/usersImages.svg" 
+import usersImages from "../public/images/usersImages.svg"
 import clockImg from "../public/images/clockImg.svg"
 import editImg from "../public/images/editImg.svg"
 import checkImg from "../public/images/checkImg.svg"
 import locatePurple from "../public/images/locatePurple.svg" 
 import complete from "../public/images/complete.svg" 
+import walletCoin from "../public/images/walletCoin.svg"
+import scanner from "../public/images/scanner.png"
+ 
+
 
 
 export {
+  visa,
+  giftModal,
+  lightGiftOffer,
+  jobrCoin,
+  emailSms,
+  btnTick,
+  phoneMessage,
+  giftOffer,
+  coins,
+  scanner,
+  walletCoin,
   complete,
   locatePurple,
   checkImg,
@@ -190,15 +205,6 @@ export {
   userImages,
   calendarSmall,
   backArrow,
-  giftModal,
-  lightGiftOffer,
-  jobrCoin,
-  emailSms,
-  btnTick,
-  phoneMessage,
-  giftOffer,
-  coins,
-  visa,
   listImg,
   notification,
   calendarBlue,
