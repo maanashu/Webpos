@@ -165,7 +165,7 @@
     width: 50px;
 }
 
-.bottomdot {
+ .bottomdot {
     position: absolute;
     border-radius: 20px;
     border: 3px solid #FFF;
@@ -178,7 +178,24 @@
     text-align: center;
     width: 30px;
     height: 30px;
-}
+} 
+
+
+/* .sidebarIcons::before{
+    content: '';
+    position: absolute;
+    border-radius: 20px;
+    border: 3px solid #FFF;
+    background: #12B76A;
+    color: #FFF;
+    font-size: 16px;
+    font-weight: 600;
+    top: 37px;
+    right: 10px;
+    text-align: center;
+    width: 30px;
+    height: 30px;
+} */
 
 .SidebarRightItems:last-child {
     position: fixed;
@@ -339,8 +356,7 @@
     padding: 12px;
     border-radius: 30px;
     border: #263682;
-    background: green;
-    
+    background: #12B76A;
 }
 .completed .textSmall {
     color: #fff;
