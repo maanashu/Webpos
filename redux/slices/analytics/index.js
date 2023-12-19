@@ -7,13 +7,31 @@ const initialState = {
 export const analyticsSlice = createSlice({
   name: "analytics",
   initialState,
-  reducers: {  
+  reducers: {
     getProfitsData: (state) => {
-        state.loading = true;
-      },
-      setProfitData: (state, action) => {
-        state.loading = false;
-      },
+      state.loading = true;
+    },
+    setProfitData: (state, action) => {
+      state.loading = false;
+    },
+    orderAnalyticsData:  (state) => {
+      state.loading = true;
+    },
+    setOrderData: (state, action) => {
+      state.loading = false;
+    },
+    totalOrderAnalyticsDataApi:(state) => {
+      state.loading = true;
+    },
+    setTotalOrderAnalyticsData:(state) => {
+      state.loading = false;
+    },
+    totalAnalyticsProductSoldData:(state) => {
+      state.loading = true;
+    },
+    setTotalAnalyticsProductSoldData:(state) => {
+      state.loading = false;
+    },
     onErrorStopLoad: (state) => {
       state.loading = false;
     },
@@ -24,10 +42,13 @@ export const analyticsSlice = createSlice({
 export const {
   onErrorStopLoad,
   getProfitsData,
-  setProfitData
+  setProfitData,
+  orderAnalyticsData,
+  setOrderData,
+  totalOrderAnalyticsDataApi,
+  setTotalOrderAnalyticsData,
+  totalAnalyticsProductSoldData,
+  setTotalAnalyticsProductSoldData
 } = analyticsSlice.actions;
 
 export default analyticsSlice.reducer;
-
-
-

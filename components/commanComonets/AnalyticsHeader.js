@@ -78,6 +78,7 @@ const AnalyticsHeader = ({ startDate, endDate, onDateChange, channelSelected, on
 
             <ReactSelect
                 options={options}
+                defaultValue={channelSelected}
                 value={channelSelected}
                 placeholder="Channels"
                 classNamePrefix="react-select"
