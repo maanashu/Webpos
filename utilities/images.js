@@ -178,11 +178,22 @@ import locatePurple from "../public/images/locatePurple.svg"
 import complete from "../public/images/complete.svg" 
 import walletCoin from "../public/images/walletCoin.svg"
 import scanner from "../public/images/scanner.png"
- 
-
-
+import sideArrow from "../public/images/sideArrow.svg"
+import ordersReview from "../public/images/ordersReview.svg"
+import deliveryCheck from "../public/images/deliveryCheck.svg"
+import deliverClock from "../public/images/deliverClock.svg"
+import assignDriver from "../public/images/assignDriver.svg"
+import deliverSend from "../public/images/deliverSend.svg"
+import deliveryClose from "../public/images/deliveryClose.svg"
+import deliverBack from "../public/images/deliverBack.svg"
+import deliverSuperFast from "../public/images/deliverSuperFast.svg"
+import deliverFast from "../public/images/deliverFast.svg"
+import deliveryLate from "../public/images/deliveryLate.svg"
+import pickupImg from "../public/images/pickupImg.svg"
+import garphCircle from "../public/images/garphCircle.png"
 
 export {
+  sideArrow,
   visa,
   giftModal,
   lightGiftOffer,
@@ -361,4 +372,16 @@ export {
   ShoppingReturnLite,
   ActiveMoneyOutline,
   InvoiceIcon,
+  ordersReview,
+  deliveryCheck,
+  deliverClock,
+  assignDriver,
+  deliverSend,
+  deliveryClose,
+  deliverBack,
+  deliverSuperFast,
+  deliverFast,
+  deliveryLate,
+  pickupImg,
+  garphCircle,
 };

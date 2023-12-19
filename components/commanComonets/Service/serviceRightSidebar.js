@@ -29,7 +29,7 @@ const ServiceRightSidebar = () => {
                 <ListGroup>
                     <ListGroupItem className="rightSidebarItems active" onClick={() => setFilterShow(prev => !prev)}>
                         <div className='sidebarBg'>
-                            <Image src={Images.ShoppingOutline} alt="image" className="imgSize" />
+                            <Image src={Images.ShoppingOutline} alt="ShoppingOutline" className="imgSize" />
                         </div>
                         <span className='cartNum'>1</span>
                     </ListGroupItem>
@@ -38,21 +38,21 @@ const ServiceRightSidebar = () => {
                         setKey(Math.random());
                     }}>
                         <div className='sidebarBg'>
-                            <Image src={Images.AddProduct} alt="image" className="img-fluid rightSidebarIcons" />
+                            <Image src={Images.AddProduct} alt="AddProduct" className="img-fluid rightSidebarIcons" />
                         </div>
                     </ListGroupItem>
                     <ListGroupItem className="rightSidebarItems" >
                         <div className='sidebarBg'>
-                            <Image src={Images.Cancelproduct} alt="image" className="img-fluid rightSidebarIcons" />
+                            <Image src={Images.Cancelproduct} alt="Cancelproduct" className="img-fluid rightSidebarIcons" />
                         </div>
                     </ListGroupItem>
                     <ListGroupItem className='rightSidebarItems'>
                         <div className='sidebarBg'>
-                            <Image src={Images.PauseCircleOutline} alt="image" className="img-fluid rightSidebarIcons" />
+                            <Image src={Images.PauseCircleOutline} alt="PauseCircleOutline" className="img-fluid rightSidebarIcons" />
                         </div>
                     </ListGroupItem>
                     <ListGroupItem className='rightSidebarItems'>
-                        <Image src={Images.RightArrow} alt="image" className="img-fluid rightSidebarIcons" />
+                        <Image src={Images.RightArrow} alt="RightArrow" className="img-fluid rightSidebarIcons" />
                     </ListGroupItem>
                 </ListGroup>
             </div>
