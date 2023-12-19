@@ -4,6 +4,7 @@ import Image from "next/image";
 import { ListGroup, ListGroupItem } from 'react-bootstrap';
 import CustomModal from '../../customModal/CustomModal';
 import AddProduct from '../Product/ProductModal/addProduct';
+import Link from 'next/link';
 
 const ServiceRightSidebar = () => {
     const [filterShow, setFilterShow] = useState(false)
@@ -27,19 +28,28 @@ const ServiceRightSidebar = () => {
             <div className='sidebarRight serviceRightSection'>
                 <ListGroup>
                     <ListGroupItem className="rightSidebarItems active" onClick={() => setFilterShow(prev => !prev)}>
-                        <Image src={Images.ShoppingOutline} alt="image" className="img-fluid rightSidebarIcons shoppingCount" />
+                        <div className='sidebarBg'>
+                            <Image src={Images.ShoppingOutline} alt="image" className="imgSize" />
+                        </div>
+                        <span className='cartNum'>1</span>
                     </ListGroupItem>
                     <ListGroupItem className="rightSidebarItems" onClick={() => {
                         setModalDetail({ show: true, flag: "AddProduct" });
                         setKey(Math.random());
                     }}>
-                        <Image src={Images.AddProduct} alt="image" className="img-fluid rightSidebarIcons" />
+                        <div className='sidebarBg'>
+                            <Image src={Images.AddProduct} alt="image" className="img-fluid rightSidebarIcons" />
+                        </div>
                     </ListGroupItem>
                     <ListGroupItem className="rightSidebarItems" >
-                        <Image src={Images.Cancelproduct} alt="image" className="img-fluid rightSidebarIcons" />
+                        <div className='sidebarBg'>
+                            <Image src={Images.Cancelproduct} alt="image" className="img-fluid rightSidebarIcons" />
+                        </div>
                     </ListGroupItem>
                     <ListGroupItem className='rightSidebarItems'>
-                        <Image src={Images.PauseCircleOutline} alt="image" className="img-fluid rightSidebarIcons" />
+                        <div className='sidebarBg'>
+                            <Image src={Images.PauseCircleOutline} alt="image" className="img-fluid rightSidebarIcons" />
+                        </div>
                     </ListGroupItem>
                     <ListGroupItem className='rightSidebarItems'>
                         <Image src={Images.RightArrow} alt="image" className="img-fluid rightSidebarIcons" />
@@ -68,13 +78,13 @@ const ServiceRightSidebar = () => {
                                 <div className='orderCalculate'>
                                     <h4 className='cartMoney'>$90.00</h4>
                                     <div className='incrementBtn '>
-                                        <i class="fa-solid fa-minus plusMinus"></i>
+                                        <i className="fa-solid fa-minus plusMinus"></i>
                                         <input className="form-control addBtnControl" type="number" placeholder="1" />
-                                        <i class="fa-solid fa-plus plusMinus"></i>
+                                        <i className="fa-solid fa-plus plusMinus"></i>
                                     </div>
-                                    <label class="custom-checkbox">
+                                    <label className="custom-checkbox">
                                         <input type="checkbox" />
-                                        <span class="checkmark"></span>
+                                        <span className="checkmark"></span>
                                     </label>
                                 </div>
                             </div>
@@ -96,13 +106,13 @@ const ServiceRightSidebar = () => {
                                 <div className='orderCalculate'>
                                     <h4 className='cartMoney'>$90.00</h4>
                                     <div className='incrementBtn active'>
-                                        <i class="fa-solid fa-minus plusMinus"></i>
+                                        <i className="fa-solid fa-minus plusMinus"></i>
                                         <input className="form-control addBtnControl" type="number" placeholder="1" />
-                                        <i class="fa-solid fa-plus plusMinus"></i>
+                                        <i className="fa-solid fa-plus plusMinus"></i>
                                     </div>
-                                    <label class="custom-checkbox">
+                                    <label className="custom-checkbox">
                                         <input type="checkbox" />
-                                        <span class="checkmark"></span>
+                                        <span className="checkmark"></span>
                                     </label>
                                 </div>
                             </div>
@@ -124,13 +134,13 @@ const ServiceRightSidebar = () => {
                                 <div className='orderCalculate'>
                                     <h4 className='cartMoney'>$90.00</h4>
                                     <div className='incrementBtn'>
-                                        <i class="fa-solid fa-minus plusMinus"></i>
+                                        <i className="fa-solid fa-minus plusMinus"></i>
                                         <input className="form-control addBtnControl" type="number" placeholder="1" />
-                                        <i class="fa-solid fa-plus plusMinus"></i>
+                                        <i className="fa-solid fa-plus plusMinus"></i>
                                     </div>
-                                    <label class="custom-checkbox">
+                                    <label className="custom-checkbox">
                                         <input type="checkbox" />
-                                        <span class="checkmark"></span>
+                                        <span className="checkmark"></span>
                                     </label>
                                 </div>
                             </div>

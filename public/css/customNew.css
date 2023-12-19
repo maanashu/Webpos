@@ -642,6 +642,12 @@ figure {
     margin: 0;
 }
 
+.walletControl::-webkit-outer-spin-button,
+.walletControl::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
 .trackingInput::-webkit-outer-spin-button,
 .trackingInput::-webkit-inner-spin-button {
     -webkit-appearance: none;
@@ -1612,9 +1618,10 @@ figure {
     font-weight: 600;
 }
 
-.serviceHomeSection .Tomorrowappointment,
-.serviceHomeSection .Todayappointment,
-.serviceHomeSection .afterappointment {
+.Tomorrowappointment,
+.Todayappointment,
+.afterappointment,
+.DayTomorrowappointment {
     height: 100%;
 }
 
@@ -1735,9 +1742,150 @@ figure {
     font-weight: 500;
     padding: 12px 16px;
 }
-.flexbase{
+
+.flexbase {
     display: flex;
     align-items: baseline;
+}
+
+#jobrWalletModal {
+    width: 100%;
+    max-width: 675px;
+}
+
+#jobrWalletModal .modal-content {
+    border-radius: 30px !important;
+    background: #FFF !important;
+    box-shadow: -3px 6px 6px 0px rgba(52, 79, 117, 0.03), -12px 28px 25px 0px rgba(52, 79, 117, 0.04), -31px 74px 80px 0px rgba(52, 79, 117, 0.07);
+    padding: 24px 40px 40px 40px !important;
+}
+
+#jobrWalletModal .modal-header {
+    border: none !important;
+    padding: 0 !important;
+}
+
+.walletLeftModal {
+    text-align: center;
+}
+
+.payHeading {
+    color: #172461;
+    text-align: center;
+    font-size: 18px;
+    font-weight: 500;
+    margin-top: 16px;
+}
+
+.JbrAmount {
+    color: #263682;
+    text-align: center;
+    font-size: 24px;
+    font-weight: 500;
+    padding: 12px;
+    border-radius: 30px;
+    background: #F5F6FC;
+    margin: 12px 0;
+}
+
+.scannerImg {
+    height: 170px;
+    width: 215px !important;
+    margin-top: 32px;
+}
+
+.walletRightModal {
+    text-align: center;
+}
+
+.walletImg_ {
+    width: 40px;
+    height: 40px;
+}
+
+.walletControl {
+    border-radius: 50px;
+    border: 1px solid #D7DEFF;
+    background: #FFF !important;
+    box-shadow: -2px 4px 25px 0px rgba(50, 80, 127, 0.02), -5px 10px 80px 0px rgba(50, 80, 127, 0.04) !important;
+    color: #263682 !important;
+    text-align: center !important;
+    font-size: 20px !important;
+    font-weight: 500 !important;
+}
+
+.walletControl::placeholder {
+    color: #263682 !important;
+    text-align: center !important;
+    font-size: 20px !important;
+    font-weight: 500 !important;
+}
+
+.jobrWalletSection {
+    display: flex;
+    align-items: center;
+    gap: 80px;
+}
+
+.walletField {
+    margin: 62px 0px;
+}
+
+.walletModalBtn .nextverifyBtn {
+    border-radius: 30px;
+    background: #263682;
+    color: #F5F6FC;
+    font-size: 18px;
+    font-weight: 400;
+    letter-spacing: -0.36px;
+    border: none;
+    padding: 18px 35px;
+}
+
+.walletModalBtn .serviceCancel {
+    padding: 18px 30px;
+
+}
+
+.walletForm::before {
+    content: "";
+    width: 1px;
+    height: 170px;
+    position: absolute;
+    left: -40px;
+    top: -50px;
+    background: var(--Neutrals-N-100, #D7DEFF);
+}
+
+.walletForm {
+    position: relative;
+}
+
+.imgSize {
+    width: 24px;
+    height: 24px;
+}
+.sidebarBg{
+    padding: 12px;
+}
+.rightSidebarItems.active  .sidebarBg{
+    border-radius: 12px;
+    background: #F5F6FC;
+}
+
+.cartNum {
+    border-radius: 50px;
+    border: 1.5px solid #F5F6FC;
+    background: #263682;
+    color: #F5F6FC;
+    font-size: 12px;
+    font-weight: 500;
+    position: absolute;
+    height: 18px;
+    width: 18px;
+    bottom: 12px;
+    right: 3px;
+
 }
 
 /*service pages css end*/
@@ -1802,4 +1950,9 @@ figure {
     .discountOfferMain {
         margin: 15px 0;
     }
+}
+
+.addTocartItems {
+    color: red;
+    font-size: 10px;
 }

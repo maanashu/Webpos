@@ -182,14 +182,9 @@ import editImg from "../public/images/editImg.svg"
 import checkImg from "../public/images/checkImg.svg"
 import locatePurple from "../public/images/locatePurple.svg" 
 import complete from "../public/images/complete.svg" 
+import walletCoin from "../public/images/walletCoin.svg"
+import scanner from "../public/images/scanner.png"
  
- 
-
-
-
-
-
-
 
 
 
@@ -203,6 +198,8 @@ export {
   phoneMessage,
   giftOffer,
   coins,
+  scanner,
+  walletCoin,
   complete,
   locatePurple,
   checkImg,
