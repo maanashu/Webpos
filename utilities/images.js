@@ -183,8 +183,22 @@ import gross_profit from "../public/images/gross_profit.png"
 import average_order from "../public/images/average_order.png"
 import total_volume from "../public/images/total_volume.png"
 import total_order from "../public/images/total_order.png"
+import sideArrow from "../public/images/sideArrow.svg"
+import ordersReview from "../public/images/ordersReview.svg"
+import deliveryCheck from "../public/images/deliveryCheck.svg"
+import deliverClock from "../public/images/deliverClock.svg"
+import assignDriver from "../public/images/assignDriver.svg"
+import deliverSend from "../public/images/deliverSend.svg"
+import deliveryClose from "../public/images/deliveryClose.svg"
+import deliverBack from "../public/images/deliverBack.svg"
+import deliverSuperFast from "../public/images/deliverSuperFast.svg"
+import deliverFast from "../public/images/deliverFast.svg"
+import deliveryLate from "../public/images/deliveryLate.svg"
+import pickupImg from "../public/images/pickupImg.svg"
+import garphCircle from "../public/images/garphCircle.png"
 
 export {
+  sideArrow,
   visa,
   gross_profit_blue,
   gross_profit,
@@ -368,4 +382,16 @@ export {
   ShoppingReturnLite,
   ActiveMoneyOutline,
   InvoiceIcon,
+  ordersReview,
+  deliveryCheck,
+  deliverClock,
+  assignDriver,
+  deliverSend,
+  deliveryClose,
+  deliverBack,
+  deliverSuperFast,
+  deliverFast,
+  deliveryLate,
+  pickupImg,
+  garphCircle,
 };

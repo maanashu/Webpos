@@ -1865,10 +1865,12 @@ figure {
     width: 24px;
     height: 24px;
 }
-.sidebarBg{
+
+.sidebarBg {
     padding: 12px;
 }
-.rightSidebarItems.active  .sidebarBg{
+
+.rightSidebarItems.active .sidebarBg {
     border-radius: 12px;
     background: #F5F6FC;
 }
@@ -1885,10 +1887,262 @@ figure {
     width: 18px;
     bottom: 12px;
     right: 3px;
-
 }
 
 /*service pages css end*/
+/*deliver Module css start*/
+.deliveryOuter {
+    height: calc(100vh - 129px);
+    overflow: hidden;
+    margin: 0 16px;
+}
+
+.deliverRightBar {
+    border-radius: 30px;
+    border: 0px solid #D7DEFF;
+    background: #FFF;
+    padding: 16px 10px;
+}
+
+.smallImg {
+    width: 24px;
+    height: 24px;
+}
+
+.rightLinkBar {
+    padding: 8px;
+}
+
+.deliverRightItem {
+    margin-top: 10px;
+}
+
+.deliverOrderStatus {
+    border-radius: 16px;
+    background: #FFF;
+    padding: 24px;
+}
+
+.deliverMain {
+    margin-right: 16px;
+}
+
+.deliverMainText {
+    color: #2F3552;
+    font-size: 14px;
+    font-weight: 400;
+}
+
+.currentStatus {
+    margin: 24px 0;
+    border-radius: 16px;
+    background: #FFF;
+    box-shadow: -2px 4px 25px 0px rgba(50, 80, 127, 0.02), -5px 10px 80px 0px rgba(50, 80, 127, 0.04);
+    padding: 24px 16px;
+}
+
+.expressDeliver {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    border-radius: 12px;
+    border: 1px solid #914BEB;
+    padding: 10px;
+    margin-top: 20px;
+}
+
+.expressImg {
+    border-radius: 8px;
+    background: rgba(228, 230, 242, 0.50);
+    padding: 5px;
+}
+
+.expessText {
+    color: #552099;
+    font-size: 14px;
+    font-weight: 500;
+}
+
+.oneHrDeliver {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    border-radius: 12px;
+    border: 1px solid #B985FD;
+    padding: 10px;
+    margin-top: 20px;
+}
+
+.oneHrDeliver .expessText {
+    color: #7233C2;
+}
+
+.twoHrDelivery {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    border-radius: 12px;
+    border: 1px solid #D8B9FF;
+    padding: 10px;
+    margin-top: 20px;
+}
+
+.twoHrDelivery .expessText {
+    color: #914BEB;
+}
+
+.pickupDeliver {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    border-radius: 12px;
+    border: 1px solid #D7DEFF;
+    padding: 10px;
+    margin-top: 20px;
+}
+
+.deliverOrder {
+    border-radius: 16px;
+    background: #FFF;
+    box-shadow: -2px 4px 25px 0px rgba(50, 80, 127, 0.02), -5px 10px 80px 0px rgba(50, 80, 127, 0.04);
+    padding: 24px;
+}
+
+.graphCircleImg {
+    width: 114px !important;
+    height: 114px !important;
+}
+
+.deliverGraph {
+    text-align: center;
+    margin: 12px 0;
+}
+
+.orderDeliverText {
+    color: #7233C2;
+    font-size: 14px;
+    font-weight: 400;
+}
+
+.deliverPercent {
+    border-radius: 20px;
+    background: #F5EDFF;
+    padding: 3px 6px 3px 23px;
+    color: #7233C2;
+    font-size: 12px;
+    font-weight: 500;
+    position: relative;
+}
+
+.deliverPercent::before {
+    content: "";
+    position: absolute;
+    width: 8px;
+    height: 8px;
+    background-color: #B985FD;
+    border-radius: 50%;
+    top: 7px;
+    left: 10px;
+}
+
+.returnOrder .orderDeliverText {
+    color: #C29613;
+}
+
+.returnOrder .deliverPercent {
+    background-color: #FFF7D7;
+    color: #C29613;
+}
+
+.returnOrder .deliverPercent::before {
+    background-color: #FFD74B;
+}
+
+.cancelOrder .orderDeliverText {
+    color: #C29613;
+}
+
+.cancelOrder .deliverPercent {
+    background-color: #FEF3F2;
+    color: #D92D20;
+}
+
+.cancelOrder .deliverPercent::before {
+    background-color: #F97066;
+}
+
+.deliverSubOuter {
+    height: calc(100vh - 129px);
+    overflow: auto;
+}
+
+.deliverSubOuter::-webkit-scrollbar {
+    display: none;
+}
+
+.deliverGraphSection {
+    border-radius: 20px;
+    background: #FFF;
+    box-shadow: -2px 4px 25px 0px rgba(50, 80, 127, 0.02), -5px 10px 80px 0px rgba(50, 80, 127, 0.04);
+    padding: 24px;
+}
+.form-group input {
+    padding: 0;
+    height: initial;
+    width: initial;
+    margin-bottom: 0;
+    display: none;
+    cursor: pointer;
+  }
+  
+  .checkBlue label {
+    position: relative;
+    cursor: pointer;
+  }
+  
+  .checkBlue label:before {
+    content:'';
+    -webkit-appearance: none;
+    background-color: #D7DEFF;
+    border: 1px solid #4659B5;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05), inset 0px -15px 10px -12px rgba(0, 0, 0, 0.05);
+    padding: 8px;
+    display: inline-block;
+    position: relative;
+    vertical-align: middle;
+    cursor: pointer;
+    margin-right: 5px;
+    border-radius: 4px;
+  }
+  
+  .checkBlue input:checked + label:after {
+    content: '';
+    display: block;
+    position: absolute;
+    top: 3px;
+    left: 6px;
+    width: 6px;
+    height: 13px;
+    border: solid #263682;
+    border-width: 0 2px 2px 0;
+    transform: rotate(45deg);
+}
+.deliverCheck{
+    display: flex;
+    justify-content: space-between;
+}
+.checkPurple  label:before{
+    border: 1px solid #7233C2;
+    background-color: #F5EDFF;
+}
+.checkPurple input:checked + label:after {
+    border: solid #914BEB;
+    border-width: 0 2px 2px 0;
+}
+.checkPurple .appointSub{
+    color: #7233C2;
+}
+/*deliver Module css end*/
 /*media query start*/
 @media (max-width:1600px) {
     .cartOfferSection {
