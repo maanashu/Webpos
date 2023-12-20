@@ -2,7 +2,7 @@ import { useState } from "react";
 import styles from "./styles.module.css";
 import Security from "./security";
 export default function Settings() {
-  const [selectedItem, setSelectedItem] = useState(null);
+  const [selectedItem, setSelectedItem] = useState("Security");
   console.log("selected item", selectedItem);
   const settingsOptions = [
     { id: 1, name: "Security", info: "Not Updated" },
@@ -17,12 +17,12 @@ export default function Settings() {
     { id: 10, name: "Staff", info: 3 },
     { id: 11, name: "Language", info: "English" },
     { id: 12, name: "Legal", info: "English" },
-    { id: 12, name: "Policies", info: "Default" },
-    { id: 12, name: "Legal", info: "English" },
+    { id: 13, name: "Policies", info: "Default" },
 
     // Add more items as needed
   ];
   const Settings = ({ itemName, handleTouch, info }) => {
+    console.log(itemName,"itemName, handleTouch, info");
     return (
       <div>
         <button onClick={handleTouch} className={styles.titleName}>
@@ -34,6 +34,7 @@ export default function Settings() {
   };
 
   const handleTouch = (item) => {
+    console.log(item,"item");
     setSelectedItem(item);
   };
 
@@ -45,6 +46,7 @@ export default function Settings() {
     switch (selectedItem) {
       case "Security":
         return <Security />;
+        
 
       // Add cases for other items...
       default:
