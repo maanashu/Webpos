@@ -1,0 +1,22 @@
+.titleName {
+  padding: 15px;
+  color: #32507f;
+  border-width: 0px;
+  background-color: #ffffff;
+  text-align: start;
+  font-family: Roobert;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+}
+.verticalContainer {
+  flex-direction: column;
+}
+.mainContainer {
+  flex-direction: row;
+  display: flex;
+
+  margin-left: 50;
+  flex: 1;
+}
