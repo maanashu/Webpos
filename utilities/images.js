@@ -196,9 +196,12 @@ import deliverFast from "../public/images/deliverFast.svg"
 import deliveryLate from "../public/images/deliveryLate.svg"
 import pickupImg from "../public/images/pickupImg.svg"
 import garphCircle from "../public/images/garphCircle.png"
+import overview_sales from "../public/images/overview_sales.png"
+
 
 export {
   sideArrow,
+  overview_sales,
   visa,
   gross_profit_blue,
   gross_profit,

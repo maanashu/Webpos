@@ -22,6 +22,11 @@ export default function Layout({ children, isLoggedIn, userType }) {
     '/analytics/grossProfit',
     '/analytics/totalRevenue',
     '/analytics/totalCosts',
+    '/analytics/totalPosOrder',
+    '/analytics/totalDeliveryOrder',
+    '/analytics/totalShippingOrder',
+    '/analytics/totalOrder',
+    '/analytics/totalProductSold',
     '/settings'
   ];
 

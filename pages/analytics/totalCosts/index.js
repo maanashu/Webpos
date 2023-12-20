@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import AnalyticsHeader from '../../../components/commanComonets/AnalyticsHeader'
 import AnalyticsSubHeader from '../../../components/commanComonets/AnalyticsSubHeader';
-import { ArrowLeft, ArrowRight, average_order, gross_profit, gross_profit_blue, total_order, total_volume } from '../../../utilities/images';
+import { ArrowLeft, ArrowRight, average_order, gross_profit, gross_profit_blue, overview_sales, total_order, total_volume } from '../../../utilities/images';
 import Image from 'next/image';
 import { analyticsDetails, getProfitsData } from '../../../redux/slices/analytics';
 import moment from 'moment-timezone';
@@ -58,9 +58,9 @@ const index = () => {
       textColor: "#003921",
     },
     {
-      icon: gross_profit,
-      title: "Gross Profit",
-      count: `${addThousandSeparator(analyticsProfitData?.overView?.profit_sum ? analyticsProfitData?.overView?.profit_sum : 0)}`,
+      icon: overview_sales,
+      title: "Total Sales",
+      count: `${addThousandSeparator(analyticsProfitData?.overView?.total_cost ? (analyticsProfitData?.overView?.total_cost).toFixed(2) : 0)}`,
       bgColor: "#D1FADF",
       textColor: "#003921",
     },
@@ -170,6 +170,12 @@ const index = () => {
               className="customers-table-data"
               style={{ border: "none", color: "#7E8AC1", textAlign: "left" }}
             >
+              Transaction Volume
+            </th>
+            <th
+              className="customers-table-data"
+              style={{ border: "none", color: "#7E8AC1", textAlign: "left" }}
+            >
               Total Product
             </th>
             <th
@@ -182,19 +188,13 @@ const index = () => {
               className="customers-table-data"
               style={{ border: "none", color: "#7E8AC1", textAlign: "left" }}
             >
-              Total Cost
-            </th>
-            <th
-              className="customers-table-data"
-              style={{ border: "none", color: "#7E8AC1", textAlign: "left" }}
-            >
               Margin
             </th>
             <th
               className="customers-table-data"
               style={{ border: "none", color: "#7E8AC1", textAlign: "left" }}
             >
-              Gross Profit
+              Total Cost
             </th>
           </tr>
         </thead>
@@ -224,6 +224,11 @@ const index = () => {
                   className="customers-table-data"
                 // style={{ display: "flex", gap: "12px" }}
                 >
+                  {`$${(row.transaction).toFixed(2)}`}
+                </td>
+                <td
+                  className="customers-table-data"
+                >
                   {row.total_items}
                 </td>
                 <td
@@ -234,17 +239,12 @@ const index = () => {
                 <td
                   className="customers-table-data"
                 >
-                  {`$${(row?.cost_sum).toFixed(2)}`}
-                </td>
-                <td
-                  className="customers-table-data"
-                >
                   {`${Math.round(row?.margin)}%`}
                 </td>
                 <td
                   className="customers-table-data"
                 >
-                  <b>${addThousandSeparator((row?.profit_sum).toFixed(2))}</b>
+                  <b>${addThousandSeparator((row?.cost_sum).toFixed(2))}</b>
                 </td>
               </tr>
             ))}
@@ -255,7 +255,6 @@ const index = () => {
                   No Record Found
                 </td>
               </tr>
-
             </tbody>
           }
           </>
