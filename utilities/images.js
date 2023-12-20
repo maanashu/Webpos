@@ -196,6 +196,8 @@ import deliverFast from "../public/images/deliverFast.svg"
 import deliveryLate from "../public/images/deliveryLate.svg"
 import pickupImg from "../public/images/pickupImg.svg"
 import garphCircle from "../public/images/garphCircle.png"
+import barChart from "../public/images/barChart.png"
+import lightArrowRight from "../public/images/lightArrowRight.svg"
 
 export {
   sideArrow,
@@ -394,4 +396,6 @@ export {
   deliveryLate,
   pickupImg,
   garphCircle,
+  barChart,
+  lightArrowRight,
 };

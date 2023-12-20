@@ -1893,15 +1893,8 @@ figure {
 /*deliver Module css start*/
 .deliveryOuter {
     height: calc(100vh - 129px);
-    overflow: hidden;
+    overflow-y: scroll;
     margin: 0 16px;
-}
-
-.deliverRightBar {
-    border-radius: 30px;
-    border: 0px solid #D7DEFF;
-    background: #FFF;
-    padding: 16px 10px;
 }
 
 .smallImg {
@@ -1911,11 +1904,14 @@ figure {
 
 .rightLinkBar {
     padding: 8px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
 }
 
-.deliverRightItem {
+/* .deliverRightItem {
     margin-top: 10px;
-}
+} */
 
 .deliverOrderStatus {
     border-radius: 16px;
@@ -1923,9 +1919,9 @@ figure {
     padding: 24px;
 }
 
-.deliverMain {
+/* .deliverMain {
     margin-right: 16px;
-}
+} */
 
 .deliverMainText {
     color: #2F3552;
@@ -1934,7 +1930,7 @@ figure {
 }
 
 .currentStatus {
-    margin: 24px 0;
+    margin: 20px 0;
     border-radius: 16px;
     background: #FFF;
     box-shadow: -2px 4px 25px 0px rgba(50, 80, 127, 0.02), -5px 10px 80px 0px rgba(50, 80, 127, 0.04);
@@ -2032,6 +2028,7 @@ figure {
     font-size: 12px;
     font-weight: 500;
     position: relative;
+    display: inline-block;
 }
 
 .deliverPercent::before {
@@ -2050,12 +2047,12 @@ figure {
 }
 
 .returnOrder .deliverPercent {
-    background-color: #FFF7D7;
-    color: #C29613;
+    background-color: #FFF7D7 !important;
+    color: #C29613 !important;
 }
 
 .returnOrder .deliverPercent::before {
-    background-color: #FFD74B;
+    background-color: #FFD74B !important;
 }
 
 .cancelOrder .orderDeliverText {
@@ -2063,29 +2060,30 @@ figure {
 }
 
 .cancelOrder .deliverPercent {
-    background-color: #FEF3F2;
-    color: #D92D20;
+    background-color: #FEF3F2 !important;
+    color: #D92D20 !important;
 }
 
 .cancelOrder .deliverPercent::before {
-    background-color: #F97066;
+    background-color: #F97066 !important;
 }
 
-.deliverSubOuter {
+/* .deliverSubOuter {
     height: calc(100vh - 129px);
     overflow: auto;
-}
+} */
 
-.deliverSubOuter::-webkit-scrollbar {
+.deliveryOuter::-webkit-scrollbar {
     display: none;
 }
 
 .deliverGraphSection {
     border-radius: 20px;
     background: #FFF;
-    box-shadow: -2px 4px 25px 0px rgba(50, 80, 127, 0.02), -5px 10px 80px 0px rgba(50, 80, 127, 0.04);
+    /* box-shadow: -2px 4px 25px 0px rgba(50, 80, 127, 0.02), -5px 10px 80px 0px rgba(50, 80, 127, 0.04); */
     padding: 24px;
 }
+
 .form-group input {
     padding: 0;
     height: initial;
@@ -2093,15 +2091,15 @@ figure {
     margin-bottom: 0;
     display: none;
     cursor: pointer;
-  }
-  
-  .checkBlue label {
+}
+
+.checkBlue label {
     position: relative;
     cursor: pointer;
-  }
-  
-  .checkBlue label:before {
-    content:'';
+}
+
+.checkBlue label:before {
+    content: '';
     -webkit-appearance: none;
     background-color: #D7DEFF;
     border: 1px solid #4659B5;
@@ -2113,9 +2111,9 @@ figure {
     cursor: pointer;
     margin-right: 5px;
     border-radius: 4px;
-  }
-  
-  .checkBlue input:checked + label:after {
+}
+
+.checkBlue input:checked+label:after {
     content: '';
     display: block;
     position: absolute;
@@ -2127,20 +2125,219 @@ figure {
     border-width: 0 2px 2px 0;
     transform: rotate(45deg);
 }
-.deliverCheck{
+
+.deliverCheck {
     display: flex;
-    justify-content: space-between;
+    justify-content: end;
+    gap: 20px;
 }
-.checkPurple  label:before{
+
+.checkPurple label:before {
     border: 1px solid #7233C2;
     background-color: #F5EDFF;
 }
-.checkPurple input:checked + label:after {
+
+.checkPurple input:checked+label:after {
     border: solid #914BEB;
     border-width: 0 2px 2px 0;
 }
-.checkPurple .appointSub{
+
+.checkPurple .appointSub {
     color: #7233C2;
+}
+
+.checkYellow label:before {
+    border: 1px solid #FFD74B;
+    background-color: #FFF7D7;
+}
+
+.checkYellow input:checked+label:after {
+    border: solid #FDB022;
+    border-width: 0 2px 2px 0;
+}
+
+.checkYellow .appointSub {
+    color: #DBAF18;
+}
+
+.checkRed label:before {
+    border: 1px solid #F97066;
+    background-color: #FEE4E2;
+}
+
+.checkRed input:checked+label:after {
+    border: solid #F04438;
+    border-width: 0 2px 2px 0;
+}
+
+.checkRed .appointSub {
+    color: #F04438;
+}
+
+.barChartImg {
+    width: 100%;
+    height: 350px !important;
+}
+
+.checkBlue {
+    display: flex;
+    align-items: center;
+}
+
+.deliverOrderData {
+    border-radius: 20px;
+    background: #FFF;
+    box-shadow: -2px 4px 25px 0px rgba(50, 80, 127, 0.02), -5px 10px 80px 0px rgba(50, 80, 127, 0.04);
+    padding: 16px;
+    margin-top: 20px;
+}
+
+.deliverTableBx {
+    border-radius: 20px;
+    background: #F5EDFF;
+    padding: 3px 8px;
+    display: inline-block;
+    margin-top: 5px;
+}
+
+.itemMoney .deliverTableBx {
+    background: #ECFDF3;
+}
+
+.itemTime .deliverTableBx {
+    background: #EFFBFF;
+}
+
+.deliverOrderData .deliverTable {
+    height: calc(50vh - 130px);
+    overflow: scroll;
+}
+
+.deliverLeft {
+    padding-bottom: 20px;
+}
+
+.deliverRight {
+    padding-bottom: 20px;
+}
+
+.rightInnerToggle {
+    padding: 8px;
+    cursor: pointer;
+}
+
+.collapseToggle {
+    border-radius: 30px;
+    background: #F5F6FC;
+    padding: 8px 24px 8px 6px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    cursor: pointer;
+    width: 100%;
+    max-width: 130px;
+}
+
+.hideDeliver .collapseToggle {
+    display: none;
+}
+
+.fullDeliver .collapseToggle {
+    display: flex;
+}
+
+.fullDeliver .rightInnerToggle {
+    display: none;
+}
+
+.deliverRightBar {
+    float: none;
+    right: 24px;
+    position: fixed;
+    top: 107px;
+    width: 60px;
+    transition: 1s;
+    z-index: 999;
+    border-radius: 30px;
+    border: 0px solid #D7DEFF;
+    background: #FFF;
+    padding: 16px 10px;
+}
+
+.deliverRightBar.fullDeliver {
+    width: 300px;
+}
+
+.deliverySection {
+    min-width: calc(100% - 95px);
+    margin-right: 95px;
+}
+
+.hideDeliver .orderReview {
+    display: none;
+}
+
+.fullDeliver .orderReview {
+    display: block;
+}
+
+.orderReview .deliverPercent {
+    background-color: #F5F6FC;
+    color: #7E8AC1;
+}
+
+.orderReview .deliverPercent::before {
+    background-color: #B6C2FF;
+}
+
+.purpleOrder .deliverPercent {
+    background-color: #F5EDFF;
+    color: #7233C2;
+}
+
+.purpleOrder .deliverPercent::before {
+    background-color: #B985FD;
+}
+
+.purpleOrder .loginSub {
+    color: #7233C2;
+}
+
+.cancelOrder .loginSub {
+    color: #D92D20;
+}
+
+.returnOrder .loginSub {
+    color: #F79009;
+}
+
+.deliverOrderLeft {
+    border-radius: 20px;
+    background: #FFF;
+    box-shadow: -2px 4px 25px 0px rgba(50, 80, 127, 0.02), -5px 9px 80px 0px rgba(50, 80, 127, 0.04);
+    padding: 24px  16px;
+}
+
+.deliverOrderRight {
+    border-radius: 20px;
+    background: #FFF;
+    padding: 16px;
+}
+
+#DeliverDashboard {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0 12px;
+    padding: 0 1px;
+}
+
+#DeliverDashboard .product_invoice {
+    border-radius: 12px;
+    outline: 2px solid #F7F9FF;
+    background-color: transparent;
+}
+#DeliverDashboard .invoice_subhead{
+    padding: 8px;
 }
 /*deliver Module css end*/
 /*media query start*/
@@ -2186,6 +2383,12 @@ figure {
         overflow-y: scroll;
     }
 
+    .deliverCheck {
+        display: flex;
+        justify-content: end;
+        gap: 12px;
+    }
+
     .offerImg {
         display: flex;
         justify-content: start;
@@ -2203,6 +2406,11 @@ figure {
 
     .discountOfferMain {
         margin: 15px 0;
+    }
+
+    .deliverOrderData .deliverSubdata {
+        width: 100%;
+        min-width: 120px;
     }
 }
 
