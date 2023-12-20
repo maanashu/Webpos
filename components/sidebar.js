@@ -166,7 +166,7 @@ const Sidebar = (props) => {
             </Link>
           </ListGroupItem>
           <ListGroupItem className="sidebarItems">
-            <Link href="#" className="sidebarLinks">
+            <Link href="/customers" className="sidebarLinks">
               <Image
                 src={Images.Customer}
                 alt="image"
