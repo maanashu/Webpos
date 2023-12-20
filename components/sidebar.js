@@ -41,11 +41,7 @@ const Sidebar = (props) => {
           style={{ cursor: "pointer" }}
           onClick={() => router.push("/home/overview")}
         />
-        <Image
-          src={Images.Logo}
-          alt="image"
-          className="img-fluid Logo"
-        />
+        <Image src={Images.Logo} alt="image" className="img-fluid Logo" />
         <div
           onClick={() => setActiveSidebar((prev) => !prev)}
           className="ToggleIcon"
@@ -95,10 +91,7 @@ const Sidebar = (props) => {
       <ListGroup className="sidebarMenus navbar_overlay_content_">
         <div className="sidebarStaticMenus">
           <ListGroupItem className="sidebarItems">
-            <Link
-              href="/dashboard"
-              className="sidebarLinks active"
-            >
+            <Link href="/dashboard" className="sidebarLinks active">
               <Image
                 src={Images.ProductsServices}
                 alt="image"
@@ -109,10 +102,7 @@ const Sidebar = (props) => {
             </Link>
           </ListGroupItem>
           <ListGroupItem className="sidebarItems">
-            <Link
-              href="/dashboard"
-              className="sidebarLinks"
-            >
+            <Link href="/dashboard" className="sidebarLinks">
               <Image
                 src={Images.DeliveryOrders}
                 alt="image"
@@ -122,10 +112,7 @@ const Sidebar = (props) => {
             </Link>
           </ListGroupItem>
           <ListGroupItem className="sidebarItems">
-            <Link
-              href="/dashboard"
-              className="sidebarLinks"
-            >
+            <Link href="/dashboard" className="sidebarLinks">
               <Image
                 src={Images.ShippingOrders}
                 alt="image"
@@ -135,10 +122,7 @@ const Sidebar = (props) => {
             </Link>
           </ListGroupItem>
           <ListGroupItem className="sidebarItems">
-            <Link
-              href="/dashboard"
-              className="sidebarLinks"
-            >
+            <Link href="/dashboard" className="sidebarLinks">
               <Image
                 src={Images.Appointments}
                 alt="image"
@@ -161,10 +145,7 @@ const Sidebar = (props) => {
             </Link>
           </ListGroupItem>
           <ListGroupItem className="sidebarItems">
-            <Link
-              href="/dashboard"
-              className="sidebarLinks"
-            >
+            <Link href="/dashboard" className="sidebarLinks">
               <Image
                 src={Images.Wallets}
                 alt="image"
@@ -174,10 +155,7 @@ const Sidebar = (props) => {
             </Link>
           </ListGroupItem>
           <ListGroupItem className="sidebarItems">
-            <Link
-              href="/dashboard"
-              className="sidebarLinks"
-            >
+            <Link href="/dashboard" className="sidebarLinks">
               <Image
                 src={Images.CashDrawer}
                 alt="image"
@@ -187,10 +165,7 @@ const Sidebar = (props) => {
             </Link>
           </ListGroupItem>
           <ListGroupItem className="sidebarItems">
-            <Link
-              href="/customers"
-              className="sidebarLinks"
-            >
+            <Link href="/customers" className="sidebarLinks">
               <Image
                 src={Images.Customer}
                 alt="image"
@@ -200,10 +175,7 @@ const Sidebar = (props) => {
             </Link>
           </ListGroupItem>
           <ListGroupItem className="sidebarItems">
-            <Link
-              href="/dashboard"
-              className="sidebarLinks"
-            >
+            <Link href="/dashboard" className="sidebarLinks">
               <Image
                 src={Images.Rewards}
                 alt="image"
@@ -213,10 +185,7 @@ const Sidebar = (props) => {
             </Link>
           </ListGroupItem>
           <ListGroupItem className="sidebarItems">
-            <Link
-              href="/dashboard"
-              className="sidebarLinks"
-            >
+            <Link href="/settings" className="sidebarLinks">
               <Image
                 src={Images.Settings}
                 alt="image"
@@ -244,10 +213,7 @@ const Sidebar = (props) => {
                 </div> */}
         <div className="sidbarfixedMenus ">
           <ListGroupItem>
-            <Link
-              href="#"
-              className="sidebarLinks"
-            >
+            <Link href="#" className="sidebarLinks">
               <button
                 className="logOut"
                 type="button"
