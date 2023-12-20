@@ -19,7 +19,9 @@ export default function Layout({ children, isLoggedIn, userType }) {
     "/customers/users",
     `/customers/users/[user-id]`,
     '/analytics',
-    '/analytics/grossProfit'
+    '/analytics/grossProfit',
+    '/analytics/totalRevenue',
+    '/analytics/totalCosts'
   ];
 
   return (

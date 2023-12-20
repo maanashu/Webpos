@@ -404,7 +404,7 @@ const Analytics = () => {
                     <div
                         className="chartsOuter"
                         style={{ cursor: "pointer" }}
-                        onClick={() => history.push("/Total-Revenue")}
+                        onClick={() => router.push("/analytics/totalRevenue")}
                     >
                         <h4 className="expectedHeading ">Total Revenue</h4>
                         <h4 className="successMain">
@@ -428,7 +428,7 @@ const Analytics = () => {
                     <div
                         className="chartsOuter"
                         style={{ cursor: "pointer" }}
-                        onClick={() => history.push("/Total-Costs")}
+                        onClick={() => router.push("/analytics/totalCosts")}
                     >
                         <h4 className="expectedHeading ">Total Costs</h4>
                         <h4 className="">
