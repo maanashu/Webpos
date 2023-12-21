@@ -87,6 +87,7 @@ const index = () => {
       cb(res) {
         if (res.status) {
           setAnalyticsOrderData(res?.data?.payload);
+          // setTotalRecords(analyticsOrderData?.pos_graph?.ordersListData)
         }
       },
     })
@@ -204,8 +205,8 @@ const index = () => {
               {
                 <>
                   {
-                    analyticsOrderData?.orderData?.data?.length > 0 ? <tbody>
-                      {analyticsOrderData?.orderData?.data?.map((row, idx) => (
+                    analyticsOrderData?.pos_graph?.ordersListData?.length > 0 ? <tbody>
+                      {analyticsOrderData?.pos_graph?.ordersListData?.map((row, idx) => (
                         <tr className="customers-table-row">
                           <td
                             className="customers-table-data"
@@ -257,7 +258,7 @@ const index = () => {
 
       </table>
       {
-        (analyticsOrderData?.orderData?.data?.length > 0 && !analyticsData?.loading) &&
+        (analyticsOrderData?.pos_graph?.ordersListData?.length > 0 && !analyticsData?.loading) &&
         <div className="pagination-footer flex-row-space-between">
           <div className="flex-row-space-between" onClick={() => {
             (page > 1) ? setPage(page - 1) : void (0);
