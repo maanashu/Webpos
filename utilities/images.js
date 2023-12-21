@@ -198,9 +198,18 @@ import pickupImg from "../public/images/pickupImg.svg"
 import garphCircle from "../public/images/garphCircle.png"
 import barChart from "../public/images/barChart.png"
 import lightArrowRight from "../public/images/lightArrowRight.svg"
+import overview_sales from "../public/images/overview_sales.png"
+import bagImg from "../public/images/bagImg.png"
+import lightBell from "../public/images/lightBell.svg"
+import darkBell from "../public/images/darkBell.svg"
+import storeDark from "../public/images/storeDark.svg"
+import deliverDark from '../public/images/deliverDark.svg'
+import PlaneDark from "../public/images/PlaneDark.svg"
+
 
 export {
   sideArrow,
+  overview_sales,
   visa,
   gross_profit_blue,
   gross_profit,
@@ -398,4 +407,10 @@ export {
   garphCircle,
   barChart,
   lightArrowRight,
+  bagImg,
+  lightBell,
+  darkBell,
+  storeDark,
+  deliverDark,
+  PlaneDark,  
 };

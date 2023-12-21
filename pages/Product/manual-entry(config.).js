@@ -735,7 +735,7 @@ const Manualentryconfig = () => {
                                             <article className='manual-entryColor'>
                                                 <span className='Pink'></span>
                                                 <span className='Red'></span>
-                                                <span className='Yellow active'></span>
+                                                <span className='Yellow active'></span> 
                                                 <span className='Blue'></span>
                                                 <span className='Black'></span>
                                                 <span className='White'></span>

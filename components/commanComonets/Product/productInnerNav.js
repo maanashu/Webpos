@@ -2,10 +2,13 @@ import React, { useState } from 'react'
 import ProductSearch from './productSearch';
 import * as Images from "../../../utilities/images"
 import Image from "next/image";
+import { useRouter } from 'next/router';
 
 
 const ProductInnerNav = () => {
+    const router = useRouter();
     const [filterShow, setFilterShow] = useState(false)
+
     return (
         <>
             <div className='productNavbar'>
@@ -15,10 +18,10 @@ const ProductInnerNav = () => {
                 <div className='ProductSearch w-50'>
                     <ProductSearch />
                 </div>
-                <button className='BlueBtn'>Products
+                <button className={router.pathname == '/Product' ? 'BlueBtn' : 'GreyBtn'} onClick={() => router.push("/Product")} >Products
                     <Image src={Images.Shopping_Outline} alt="image" className="img-fluid BtnIcon" />
                 </button>
-                <button className='GreyBtn'>Services
+                <button className={router.pathname == '/service' ? 'BlueBtn' : 'GreyBtn'} onClick={() => router.push("/service")}>Services
                     <Image src={Images.Services} alt="image" className="img-fluid BtnIcon" />
                 </button>
                 <div className='filterDropSelect'>

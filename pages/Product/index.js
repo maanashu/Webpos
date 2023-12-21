@@ -1,13 +1,15 @@
 import React from 'react'
-import * as Images from "../../utilities/images";
+import * as Images from "../../utilities/images"
 import Image from "next/image";
 import ProductInnerNav from '../../components/commanComonets/Product/productInnerNav';
 import ProductRightSidebar from '../../components/commanComonets/Product/ProductRightSidebar';
+import { useRouter } from 'next/router';
 
 
 
 
 const Product = () => {
+    const router = useRouter();
     return (
         <>
             <div className='flexBox'>
@@ -15,7 +17,7 @@ const Product = () => {
                     <ProductInnerNav/>
                     <div className='commanscrollBar'>
                         <div className='row'>
-                            <div className='col-xl-2 col-lg-3 col-md-4 mb-3'>
+                            <div className='col-xl-2 col-lg-3 col-md-4 mb-3' >
                                 <div className='productsCard'>
                                     <figure className='productImageBox'>
                                         <Image src={Images.ProductIcon} alt="image" className="img-fluid ProductIcon" />

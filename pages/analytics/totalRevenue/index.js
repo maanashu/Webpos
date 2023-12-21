@@ -120,7 +120,7 @@ const index = () => {
 
       <AnalyticsSubHeader
         mainIcon={gross_profit_blue}
-        title="Gross Profit"
+        title="Total Revenue"
       />
 
       {/* stats */}
@@ -170,25 +170,19 @@ const index = () => {
               className="customers-table-data"
               style={{ border: "none", color: "#7E8AC1", textAlign: "left" }}
             >
-              Total Orders
+              Total Product
             </th>
             <th
               className="customers-table-data"
               style={{ border: "none", color: "#7E8AC1", textAlign: "left" }}
             >
-              Transaction Volume
+              Total Price
             </th>
             <th
               className="customers-table-data"
               style={{ border: "none", color: "#7E8AC1", textAlign: "left" }}
             >
-              Average Order Value
-            </th>
-            <th
-              className="customers-table-data"
-              style={{ border: "none", color: "#7E8AC1", textAlign: "left" }}
-            >
-              Total cost
+              Total Cost
             </th>
             <th
               className="customers-table-data"
@@ -208,7 +202,7 @@ const index = () => {
         {
         analyticsData?.loading ?             <tbody>
         <tr>
-          <td colSpan="7" style={{ textAlign: "center" }}>
+          <td colSpan="6" style={{ textAlign: "center" }}>
             Loading...
           </td>
         </tr>
@@ -230,17 +224,12 @@ const index = () => {
                   className="customers-table-data"
                 // style={{ display: "flex", gap: "12px" }}
                 >
-                  {row?.total_orders}
+                  {row.total_items}
                 </td>
                 <td
                   className="customers-table-data"
                 >
-                  {`$${(row?.transaction).toFixed(2)}`}
-                </td>
-                <td
-                  className="customers-table-data"
-                >
-                  {`$${(row?.average_value).toFixed(2)}`}
+                  {`$${addThousandSeparator((row.total_price).toFixed(2))}`}
                 </td>
                 <td
                   className="customers-table-data"
@@ -262,7 +251,7 @@ const index = () => {
           </tbody> :
             <tbody>
               <tr>
-                <td colSpan="7" style={{ textAlign: "center" }}>
+                <td colSpan="6" style={{ textAlign: "center" }}>
                   No Record Found
                 </td>
               </tr>
@@ -276,7 +265,6 @@ const index = () => {
       }
 
       </table>
-
       {
         (analyticsProfitData?.orderData?.data?.length > 0 && !analyticsData?.loading) &&
         <div className="pagination-footer flex-row-space-between">
