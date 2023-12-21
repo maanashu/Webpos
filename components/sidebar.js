@@ -65,7 +65,7 @@ const Sidebar = (props) => {
             }
             alt="image"
             width={100}
-            height={100}
+            height={100}  
             className="img-fluid sidebarProfile"
             onClick={() => router.push("/home/overview")}
           />
