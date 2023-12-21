@@ -9,39 +9,43 @@ const Booking = () => {
         <>
             <div className='commonFlex'>
                 <div className='commanOuter mainBooking'>
-                    <div className='bookingNavBar'>
-                        <div className='booking'>
-                            <div className='d-flex'>
-                                <figure className='book'>
-                                    <Image src={Images.bookImg} alt="" className="img-fluid bookiImg me-2 " />
-                                </figure>
-                                <h6 className='fontEighteen  me-4'>Bookings</h6>
-                            </div>
+                    <div className='row'>
+                        <div className='col-lg-12'>
+                            <div className='bookingNavBar'>
+                                <div className='booking'>
+                                    <div className='d-flex align-items-center'>
+                                        <figure className='book'>
+                                            <Image src={Images.bookImg} alt="" className="img-fluid bookiImg me-2 " />
+                                        </figure>
+                                        <h6 className='fontEighteen  me-4'>Bookings</h6>
+                                    </div>
 
-                            <div className='appointmenMonth bookingCall'>
-                                <div className='monthCalendar'>
-                                    <Image src={Images.calendarBlue} alt='calendarimage' className='img-fluid' />
-                                    <span className='monthText ms-2'>October 2023</span>
-                                    <Image src={Images.arrowDown} alt='calendarimage' className='img-fluid ms-5' />
+                                    <div className='appointmenMonth bookingCall'>
+                                        <div className='monthCalendar'>
+                                            <Image src={Images.calendarBlue} alt='calendarimage' className='img-fluid' />
+                                            <span className='monthText ms-2'>October 2023</span>
+                                            <Image src={Images.arrowDown} alt='calendarimage' className='img-fluid ms-5' />
+                                        </div>
+                                    </div>
                                 </div>
-                            </div>
-                        </div>
-                        <div className='bookingRight d-flex align-items-center'>
-                            <Image src={Images.notification} alt='noti' className='img-fluid  me-3' />
-                            <div className='seacrhBox me-3'>
-                                <Image src={Images.SearchIcon} alt='blueSearch' className='img-fluid  blueSearch me-2' />
-                                <div class="bookingsearchBar">
-                                    <input type="text" class="form-control searchControlbook" placeholder="" />
-                                </div>
-                            </div>
+                                <div className='bookingRight d-flex align-items-center'>
+                                    <Image src={Images.notification} alt='noti' className='img-fluid  me-3' />
+                                    <div className='seacrhBox me-3'>
+                                        <Image src={Images.SearchIcon} alt='blueSearch' className='img-fluid  blueSearch me-2' />
+                                        <div class="bookingsearchBar">
+                                            <input type="text" class="form-control searchControlbook" placeholder="" />
+                                        </div>
+                                    </div>
 
-                            <div className='appointmenMonth bgBooking me-3'>
-                                <div className='monthCalendar bgCalendar'>
-                                    <Image src={Images.calendarDark} alt='calendardark' className='img-fluid' />
-                                    <span className='monthText ms-2'>Calendar View</span>
+                                    <div className='appointmenMonth bgBooking me-3'>
+                                        <div className='monthCalendar bgCalendar'>
+                                            <Image src={Images.calendarDark} alt='calendardark' className='img-fluid' />
+                                            <span className='monthText ms-2'>Calendar View</span>
+                                        </div>
+                                    </div>
+                                    <button className='listBtn'> <Image src={Images.listImg} alt='listIMAGES' className='img-fluid me-2 ' />List View</button>
                                 </div>
                             </div>
-                            <button className='listBtn me-3'> <Image src={Images.listImg} alt='listIMAGES' className='img-fluid me-2 ' />List View</button>
                         </div>
                     </div>
                     <div className='row'>
@@ -110,268 +114,425 @@ const Booking = () => {
                                 </ListGroupItem>
                             </ListGroup>
                         </div>
-                        <div className='col-md-12'>
+                        {/* <div className='col-md-12'>
                             <div className='bookingDay'>
-                                <h5 className='totalrefundAmount'>Monday <span className='fontEighteen'>12th </span></h5>
+                                
+                            </div>
+                        </div> */}
+                        <div className='col-lg-12'>
+                            <div className='invoiceHeader'>
+                            <h5 className='totalrefundAmount'>Monday <span className='fontEighteen'>12th </span></h5>
+                            </div>
+                            <div className='commanscrollBar InvoiceTableBox'>
+                                <div className="table-responsive">
+                                    <table id="bookingTable" className="product_table ">
+                                        <thead className='invoiceHeadingBox'>
+                                            <tr>
+                                                <th className='invoiceHeading'>Client</th>
+                                                <th className='invoiceHeading'>Staff</th>
+                                                <th className='invoiceHeading'>Service</th>
+                                                <th className='invoiceHeading'>Time</th>
+                                                <th className='invoiceHeading'></th>
+                                               
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr className="product_invoice bookCheck">
+                                                <td className='invoice_subhead'>
+                                                    <div className='d-flex'>
+                                                        <figure className=''>
+                                                            <Image src={Images.userAvtar} alt="avtar" className="avtarImg me-2" />
+                                                        </figure>
+                                                        <div className=''>
+                                                            <span className='subHeadText' >Elena Sergeyevna</span>
+                                                            <div>
+                                                                <Image src={Images.locatePurple} alt="locate" className="locate me-2" />
+                                                                <span className='purpleText'>Kiev, Ukraine</span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                                <td className='invoice_subhead'>
+                                                    <span className="subHeadText">Marianne Müller</span>
+                                                </td>
+
+                                                <td className='invoice_subhead'>
+                                                    <span className='subHeadText'>Haircut</span>
+                                                </td>
+                                                <td className='invoice_subhead'>
+                                                    <Image src={Images.clockImg} alt="clock" className="clockImg me-2" />
+                                                    <span className='subHeadText'>10:00 - 11:00 am</span>
+                                                </td>
+
+                                                <td className='invoice_subhead'>
+                                                    <div className='checkinBg'>
+                                                        <figure className='checkinBox me-2'>
+                                                            <span className='textSmall me-2'>Check-in</span>
+                                                            <Image src={Images.checkImg} alt="money" className="moneyImg" />
+                                                        </figure>
+                                                        <button className='editBtn'>
+                                                            <Image src={Images.editImg} alt="editImg" className="editImg" />
+                                                        </button>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            <tr className="product_invoice active">
+                                                <td className='invoice_subhead'>
+                                                    <div className='d-flex'>
+                                                        <figure className=''>
+                                                            <Image src={Images.userAvtar} alt="avtar" className="avtarImg me-2" />
+                                                        </figure>
+                                                        <div className=''>
+                                                            <span className='subHeadText' >Elena Sergeyevna</span>
+                                                            <div>
+                                                                <Image src={Images.locatePurple} alt="locate" className="locate me-2" />
+                                                                <span className='purpleText'>Kiev, Ukraine</span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                                <td className='invoice_subhead'>
+                                                    <span className="subHeadText">Marianne Müller</span>
+                                                </td>
+
+                                                <td className='invoice_subhead'>
+                                                    <span className='subHeadText'>Haircut</span>
+                                                </td>
+                                                <td className='invoice_subhead'>
+                                                    <Image src={Images.clockImg} alt="clock" className="clockImg me-2" />
+                                                    <span className='subHeadText'>10:00 - 11:00 am</span>
+                                                </td>
+
+                                                <td className='invoice_subhead'>
+                                                    <div className='checkinBg'>
+                                                        <div className='completed'>
+                                                            <span className='textSmall me-2'>Completed</span>
+                                                            <Image src={Images.complete} alt="complete" className="completeimg" />
+                                                        </div>
+
+                                                    </div>
+                                                </td>
+
+                                            </tr>
+                                            <tr className="product_invoice bookCheck">
+                                                <td className='invoice_subhead'>
+                                                    <div className='d-flex'>
+                                                        <figure className=''>
+                                                            <Image src={Images.userAvtar} alt="avtar" className="avtarImg me-2" />
+                                                        </figure>
+                                                        <div className=''>
+                                                            <span className='subHeadText' >Elena Sergeyevna</span>
+                                                            <div>
+                                                                <Image src={Images.locatePurple} alt="locate" className="locate me-2" />
+                                                                <span className='purpleText'>Kiev, Ukraine</span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                                <td className='invoice_subhead'>
+                                                    <span className="subHeadText">Marianne Müller</span>
+                                                </td>
+
+                                                <td className='invoice_subhead'>
+                                                    <span className='subHeadText'>Haircut</span>
+                                                </td>
+                                                <td className='invoice_subhead'>
+                                                    <Image src={Images.clockImg} alt="clock" className="clockImg me-2" />
+                                                    <span className='subHeadText'>10:00 - 11:00 am</span>
+                                                </td>
+
+                                                <td className='invoice_subhead'>
+                                                    <div className='checkinBg'>
+                                                        <figure className='checkinBox me-2'>
+                                                            <span className='textSmall me-2'>Check-in</span>
+                                                            <Image src={Images.checkImg} alt="money" className="moneyImg" />
+                                                        </figure>
+                                                        <button className='editBtn'>
+                                                            <Image src={Images.editImg} alt="editImg" className="editImg" />
+                                                        </button>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            <tr className="product_invoice bookCheck">
+                                                <td className='invoice_subhead'>
+                                                    <div className='d-flex'>
+                                                        <figure className=''>
+                                                            <Image src={Images.userAvtar} alt="avtar" className="avtarImg me-2" />
+                                                        </figure>
+                                                        <div className=''>
+                                                            <span className='subHeadText' >Elena Sergeyevna</span>
+                                                            <div>
+                                                                <Image src={Images.locatePurple} alt="locate" className="locate me-2" />
+                                                                <span className='purpleText'>Kiev, Ukraine</span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                                <td className='invoice_subhead'>
+                                                    <span className="subHeadText">Marianne Müller</span>
+                                                </td>
+
+                                                <td className='invoice_subhead'>
+                                                    <span className='subHeadText'>Haircut</span>
+                                                </td>
+                                                <td className='invoice_subhead'>
+                                                    <Image src={Images.clockImg} alt="clock" className="clockImg me-2" />
+                                                    <span className='subHeadText'>10:00 - 11:00 am</span>
+                                                </td>
+
+                                                <td className='invoice_subhead'>
+                                                    <div className='checkinBg'>
+                                                        <figure className='checkinBox me-2'>
+                                                            <span className='textSmall me-2'>Check-in</span>
+                                                            <Image src={Images.checkImg} alt="money" className="moneyImg" />
+                                                        </figure>
+                                                        <button className='editBtn'>
+                                                            <Image src={Images.editImg} alt="editImg" className="editImg" />
+                                                        </button>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            <tr className="product_invoice bookCheck">
+                                                <td className='invoice_subhead'>
+                                                    <div className='d-flex'>
+                                                        <figure className=''>
+                                                            <Image src={Images.userAvtar} alt="avtar" className="avtarImg me-2" />
+                                                        </figure>
+                                                        <div className=''>
+                                                            <span className='subHeadText' >Elena Sergeyevna</span>
+                                                            <div>
+                                                                <Image src={Images.locatePurple} alt="locate" className="locate me-2" />
+                                                                <span className='purpleText'>Kiev, Ukraine</span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                                <td className='invoice_subhead'>
+                                                    <span className="subHeadText">Marianne Müller</span>
+                                                </td>
+
+                                                <td className='invoice_subhead'>
+                                                    <span className='subHeadText'>Haircut</span>
+                                                </td>
+                                                <td className='invoice_subhead'>
+                                                    <Image src={Images.clockImg} alt="clock" className="clockImg me-2" />
+                                                    <span className='subHeadText'>10:00 - 11:00 am</span>
+                                                </td>
+
+                                                <td className='invoice_subhead'>
+                                                    <div className='checkinBg'>
+                                                        <figure className='checkinBox me-2'>
+                                                            <span className='textSmall me-2'>Check-in</span>
+                                                            <Image src={Images.checkImg} alt="money" className="moneyImg" />
+                                                        </figure>
+                                                        <button className='editBtn'>
+                                                            <Image src={Images.editImg} alt="editImg" className="editImg" />
+                                                        </button>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            <tr className="product_invoice bookCheck">
+                                                <td className='invoice_subhead'>
+                                                    <div className='d-flex'>
+                                                        <figure className=''>
+                                                            <Image src={Images.userAvtar} alt="avtar" className="avtarImg me-2" />
+                                                        </figure>
+                                                        <div className=''>
+                                                            <span className='subHeadText' >Elena Sergeyevna</span>
+                                                            <div>
+                                                                <Image src={Images.locatePurple} alt="locate" className="locate me-2" />
+                                                                <span className='purpleText'>Kiev, Ukraine</span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                                <td className='invoice_subhead'>
+                                                    <span className="subHeadText">Marianne Müller</span>
+                                                </td>
+
+                                                <td className='invoice_subhead'>
+                                                    <span className='subHeadText'>Haircut</span>
+                                                </td>
+                                                <td className='invoice_subhead'>
+                                                    <Image src={Images.clockImg} alt="clock" className="clockImg me-2" />
+                                                    <span className='subHeadText'>10:00 - 11:00 am</span>
+                                                </td>
+
+                                                <td className='invoice_subhead'>
+                                                    <div className='checkinBg'>
+                                                        <figure className='checkinBox me-2'>
+                                                            <span className='textSmall me-2'>Check-in</span>
+                                                            <Image src={Images.checkImg} alt="money" className="moneyImg" />
+                                                        </figure>
+                                                        <button className='editBtn'>
+                                                            <Image src={Images.editImg} alt="editImg" className="editImg" />
+                                                        </button>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            <tr className="product_invoice bookCheck">
+                                                <td className='invoice_subhead'>
+                                                    <div className='d-flex'>
+                                                        <figure className=''>
+                                                            <Image src={Images.userAvtar} alt="avtar" className="avtarImg me-2" />
+                                                        </figure>
+                                                        <div className=''>
+                                                            <span className='subHeadText' >Elena Sergeyevna</span>
+                                                            <div>
+                                                                <Image src={Images.locatePurple} alt="locate" className="locate me-2" />
+                                                                <span className='purpleText'>Kiev, Ukraine</span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                                <td className='invoice_subhead'>
+                                                    <span className="subHeadText">Marianne Müller</span>
+                                                </td>
+
+                                                <td className='invoice_subhead'>
+                                                    <span className='subHeadText'>Haircut</span>
+                                                </td>
+                                                <td className='invoice_subhead'>
+                                                    <Image src={Images.clockImg} alt="clock" className="clockImg me-2" />
+                                                    <span className='subHeadText'>10:00 - 11:00 am</span>
+                                                </td>
+
+                                                <td className='invoice_subhead'>
+                                                    <div className='checkinBg'>
+                                                        <figure className='checkinBox me-2'>
+                                                            <span className='textSmall me-2'>Check-in</span>
+                                                            <Image src={Images.checkImg} alt="money" className="moneyImg" />
+                                                        </figure>
+                                                        <button className='editBtn'>
+                                                            <Image src={Images.editImg} alt="editImg" className="editImg" />
+                                                        </button>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            <tr className="product_invoice bookCheck">
+                                                <td className='invoice_subhead'>
+                                                    <div className='d-flex'>
+                                                        <figure className=''>
+                                                            <Image src={Images.userAvtar} alt="avtar" className="avtarImg me-2" />
+                                                        </figure>
+                                                        <div className=''>
+                                                            <span className='subHeadText' >Elena Sergeyevna</span>
+                                                            <div>
+                                                                <Image src={Images.locatePurple} alt="locate" className="locate me-2" />
+                                                                <span className='purpleText'>Kiev, Ukraine</span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                                <td className='invoice_subhead'>
+                                                    <span className="subHeadText">Marianne Müller</span>
+                                                </td>
+
+                                                <td className='invoice_subhead'>
+                                                    <span className='subHeadText'>Haircut</span>
+                                                </td>
+                                                <td className='invoice_subhead'>
+                                                    <Image src={Images.clockImg} alt="clock" className="clockImg me-2" />
+                                                    <span className='subHeadText'>10:00 - 11:00 am</span>
+                                                </td>
+
+                                                <td className='invoice_subhead'>
+                                                    <div className='checkinBg'>
+                                                        <figure className='checkinBox me-2'>
+                                                            <span className='textSmall me-2'>Check-in</span>
+                                                            <Image src={Images.checkImg} alt="money" className="moneyImg" />
+                                                        </figure>
+                                                        <button className='editBtn'>
+                                                            <Image src={Images.editImg} alt="editImg" className="editImg" />
+                                                        </button>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            <tr className="product_invoice bookCheck">
+                                                <td className='invoice_subhead'>
+                                                    <div className='d-flex'>
+                                                        <figure className=''>
+                                                            <Image src={Images.userAvtar} alt="avtar" className="avtarImg me-2" />
+                                                        </figure>
+                                                        <div className=''>
+                                                            <span className='subHeadText' >Elena Sergeyevna</span>
+                                                            <div>
+                                                                <Image src={Images.locatePurple} alt="locate" className="locate me-2" />
+                                                                <span className='purpleText'>Kiev, Ukraine</span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                                <td className='invoice_subhead'>
+                                                    <span className="subHeadText">Marianne Müller</span>
+                                                </td>
+
+                                                <td className='invoice_subhead'>
+                                                    <span className='subHeadText'>Haircut</span>
+                                                </td>
+                                                <td className='invoice_subhead'>
+                                                    <Image src={Images.clockImg} alt="clock" className="clockImg me-2" />
+                                                    <span className='subHeadText'>10:00 - 11:00 am</span>
+                                                </td>
+
+                                                <td className='invoice_subhead'>
+                                                    <div className='checkinBg'>
+                                                        <figure className='checkinBox me-2'>
+                                                            <span className='textSmall me-2'>Check-in</span>
+                                                            <Image src={Images.checkImg} alt="money" className="moneyImg" />
+                                                        </figure>
+                                                        <button className='editBtn'>
+                                                            <Image src={Images.editImg} alt="editImg" className="editImg" />
+                                                        </button>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            <tr className="product_invoice bookCheck">
+                                                <td className='invoice_subhead'>
+                                                    <div className='d-flex'>
+                                                        <figure className=''>
+                                                            <Image src={Images.userAvtar} alt="avtar" className="avtarImg me-2" />
+                                                        </figure>
+                                                        <div className=''>
+                                                            <span className='subHeadText' >Elena Sergeyevna</span>
+                                                            <div>
+                                                                <Image src={Images.locatePurple} alt="locate" className="locate me-2" />
+                                                                <span className='purpleText'>Kiev, Ukraine</span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                                <td className='invoice_subhead'>
+                                                    <span className="subHeadText">Marianne Müller</span>
+                                                </td>
+
+                                                <td className='invoice_subhead'>
+                                                    <span className='subHeadText'>Haircut</span>
+                                                </td>
+                                                <td className='invoice_subhead'>
+                                                    <Image src={Images.clockImg} alt="clock" className="clockImg me-2" />
+                                                    <span className='subHeadText'>10:00 - 11:00 am</span>
+                                                </td>
+
+                                                <td className='invoice_subhead'>
+                                                    <div className='checkinBg'>
+                                                        <figure className='checkinBox me-2'>
+                                                            <span className='textSmall me-2'>Check-in</span>
+                                                            <Image src={Images.checkImg} alt="money" className="moneyImg" />
+                                                        </figure>
+                                                        <button className='editBtn'>
+                                                            <Image src={Images.editImg} alt="editImg" className="editImg" />
+                                                        </button>
+                                                    </div>
+                                                </td>
+                                            </tr>
+
+                                        </tbody>
+                                    </table>
+                                </div>
                             </div>
                         </div>
-                        <div className='col-md-12'>
-                            <div className="table-responsive">
-                                <table id="bookingTable " className="bookingTable ">
-                                    <thead>
-                                        <tr>
-                                            <th className="recent_head">Client</th>
-                                            <th className="recent_head">Staff</th>
-                                            <th className="recent_head">Service</th>
-                                            <th className="recent_head">Time</th>
-                                            <th className="recent_head"></th>
 
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr className="activities_user">
-                                            <td className="recent_subhead">
-                                                <div className='d-flex'>
-                                                    <figure className=''>
-                                                        <Image src={Images.userAvtar} alt="avtar" className="avtarImg me-2" />
-                                                    </figure>
-                                                    <div className=''>
-                                                        <span className='subHeadText' >Elena Sergeyevna</span>
-                                                        <div>
-                                                            <Image src={Images.locatePurple} alt="locate" className="locate me-2" />
-                                                            <span className='purpleText'>Kiev, Ukraine</span>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </td>
-                                            <td className="recent_subhead">
-                                                <span className="subHeadText">Marianne Müller</span>
-                                            </td>
-
-                                            <td className='recent_subhead'>
-                                                <span className='subHeadText'>Haircut</span>
-                                            </td>
-                                            <td className="recent_subhead">
-                                                <Image src={Images.clockImg} alt="clock" className="clockImg me-2" />
-                                                <span className='subHeadText'>10:00 - 11:00 am</span>
-                                            </td>
-
-                                            <td className="recent_subhead">
-                                                <div className='checkinBg'>
-                                                    <div className='checkinBox'>
-                                                        <span className='textSmall me-2'>Check-in</span>
-                                                        <Image src={Images.checkImg} alt="money" className="moneyImg" />
-                                                    </div>
-                                                    <button className='editBtn me-2'>
-                                                        <Image src={Images.editImg} alt="editImg" className="editImg" />
-                                                    </button>
-                                                </div>
-                                            </td>
-
-                                        </tr>
-                                        <tr className="activities_user">
-                                            <td className="recent_subhead">
-                                                <div className='d-flex'>
-                                                    <figure className=''>
-                                                        <Image src={Images.userAvtar} alt="avtar" className="avtarImg me-2" />
-                                                    </figure>
-                                                    <div className=''>
-                                                        <span className='subHeadText' >Elena Sergeyevna</span>
-                                                        <div>
-                                                            <Image src={Images.locatePurple} alt="locate" className="locate me-2" />
-                                                            <span className='purpleText'>Kiev, Ukraine</span>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </td>
-                                            <td className="recent_subhead">
-                                                <span className="subHeadText">Marianne Müller</span>
-                                            </td>
-
-                                            <td className='recent_subhead'>
-                                                <span className='subHeadText'>Haircut</span>
-                                            </td>
-                                            <td className="recent_subhead">
-                                                <Image src={Images.clockImg} alt="clock" className="clockImg me-2" />
-                                                <span className='subHeadText'>10:00 - 11:00 am</span>
-                                            </td>
-
-                                            <td className="recent_subhead">
-                                                <div className='checkinBg'>
-                                                    <div className='checkinBox'>
-                                                        <span className='textSmall me-2'>Check-in</span>
-                                                        <Image src={Images.checkImg} alt="money" className="moneyImg" />
-                                                    </div>
-                                                    <button className='editBtn me-2'>
-                                                        <Image src={Images.editImg} alt="editImg" className="editImg" />
-                                                    </button>
-                                                </div>
-                                            </td>
-
-                                        </tr>
-                                        <tr className="activities_user">
-                                            <td className="recent_subhead">
-                                                <div className='d-flex'>
-                                                    <figure className=''>
-                                                        <Image src={Images.userAvtar} alt="avtar" className="avtarImg me-2" />
-                                                    </figure>
-                                                    <div className=''>
-                                                        <span className='subHeadText' >Elena Sergeyevna</span>
-                                                        <div>
-                                                            <Image src={Images.locatePurple} alt="locate" className="locate me-2" />
-                                                            <span className='purpleText'>Kiev, Ukraine</span>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </td>
-                                            <td className="recent_subhead">
-                                                <span className="subHeadText">Marianne Müller</span>
-                                            </td>
-
-                                            <td className='recent_subhead'>
-                                                <span className='subHeadText'>Haircut</span>
-                                            </td>
-                                            <td className="recent_subhead">
-                                                <Image src={Images.clockImg} alt="clock" className="clockImg me-2" />
-                                                <span className='subHeadText'>10:00 - 11:00 am</span>
-                                            </td>
-
-                                            <td className="recent_subhead">
-                                                <div className='checkinBg'>
-                                                    <div className='checkinBox'>
-                                                        <span className='textSmall me-2'>Check-in</span>
-                                                        <Image src={Images.checkImg} alt="money" className="moneyImg" />
-                                                    </div>
-                                                    <button className='editBtn me-2'>
-                                                        <Image src={Images.editImg} alt="editImg" className="editImg" />
-                                                    </button>
-                                                </div>
-                                            </td>
-
-                                        </tr>
-                                        <tr className="activities_user">
-                                            <td className="recent_subhead">
-                                                <div className='d-flex'>
-                                                    <figure className=''>
-                                                        <Image src={Images.userAvtar} alt="avtar" className="avtarImg me-2" />
-                                                    </figure>
-                                                    <div className=''>
-                                                        <span className='subHeadText' >Elena Sergeyevna</span>
-                                                        <div>
-                                                            <Image src={Images.locatePurple} alt="locate" className="locate me-2" />
-                                                            <span className='purpleText'>Kiev, Ukraine</span>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </td>
-                                            <td className="recent_subhead">
-                                                <span className="subHeadText">Marianne Müller</span>
-                                            </td>
-
-                                            <td className='recent_subhead'>
-                                                <span className='subHeadText'>Haircut</span>
-                                            </td>
-                                            <td className="recent_subhead">
-                                                <Image src={Images.clockImg} alt="clock" className="clockImg me-2" />
-                                                <span className='subHeadText'>10:00 - 11:00 am</span>
-                                            </td>
-
-                                            <td className="recent_subhead">
-                                                <div className='checkinBg'>
-                                                    <div className='checkinBox'>
-                                                        <span className='textSmall me-2'>Check-in</span>
-                                                        <Image src={Images.checkImg} alt="money" className="moneyImg" />
-                                                    </div>
-                                                    <button className='editBtn me-2'>
-                                                        <Image src={Images.editImg} alt="editImg" className="editImg" />
-                                                    </button>
-                                                </div>
-                                            </td>
-
-                                        </tr>
-                                          <tr className="activities_user">
-                                            <td className="recent_subhead">
-                                                <div className='d-flex'>
-                                                    <figure className=''>
-                                                        <Image src={Images.userAvtar} alt="avtar" className="avtarImg me-2" />
-                                                    </figure>
-                                                    <div className=''>
-                                                        <span className='subHeadText' >Elena Sergeyevna</span>
-                                                        <div>
-                                                            <Image src={Images.locatePurple} alt="locate" className="locate me-2" />
-                                                            <span className='purpleText'>Kiev, Ukraine</span>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </td>
-                                            <td className="recent_subhead">
-                                                <span className="subHeadText">Marianne Müller</span>
-                                            </td>
-
-                                            <td className='recent_subhead'>
-                                                <span className='subHeadText'>Haircut</span>
-                                            </td>
-                                            <td className="recent_subhead">
-                                                <Image src={Images.clockImg} alt="clock" className="clockImg me-2" />
-                                                <span className='subHeadText'>10:00 - 11:00 am</span>
-                                            </td>
-
-                                            <td className="recent_subhead">
-                                                <div className='checkinBg'>
-                                                    <div className='checkinBox'>
-                                                        <span className='textSmall me-2'>Check-in</span>
-                                                        <Image src={Images.checkImg} alt="money" className="moneyImg" />
-                                                    </div>
-                                                    <button className='editBtn me-2'>
-                                                        <Image src={Images.editImg} alt="editImg" className="editImg" />
-                                                    </button>
-                                                </div>
-                                            </td>
-
-                                        </tr>
-                                        <tr className="activities_user">
-                                            <td className="recent_subhead">
-                                                <div className='d-flex'>
-                                                    <figure className=''>
-                                                        <Image src={Images.userAvtar} alt="avtar" className="avtarImg me-2" />
-                                                    </figure>
-                                                    <div className=''>
-                                                        <span className='subHeadText' >Elena Sergeyevna</span>
-                                                        <div>
-                                                            <Image src={Images.locatePurple} alt="locate" className="locate me-2" />
-                                                            <span className='purpleText'>Kiev, Ukraine</span>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </td>
-                                            <td className="recent_subhead">
-                                                <span className="subHeadText">Marianne Müller</span>
-                                            </td>
-
-                                            <td className='recent_subhead'>
-                                                <span className='subHeadText'>Haircut</span>
-                                            </td>
-                                            <td className="recent_subhead">
-                                                <Image src={Images.clockImg} alt="clock" className="clockImg me-2" />
-                                                <span className='subHeadText'>10:00 - 11:00 am</span>
-                                            </td>
-
-                                            <td className="recent_subhead">
-                                                <div className='checkinBg'>
-                                                    <div className='completed'>
-                                                        <span className='textSmall me-2'>Completed</span>
-                                                        <Image src={Images.complete} alt="complete" className="completeimg" />
-                                                    </div>
-                                                    
-                                                </div>
-                                            </td>
-
-                                        </tr>
-                                      
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
                     </div>
                 </div>
                 <CommonSideBar />

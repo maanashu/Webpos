@@ -134,7 +134,9 @@
     padding: 10px;
     cursor: pointer;
 }
-
+.bookiImg {
+    width: 30px;
+}
 /* Booking Nav bar */
 /* RightDide Bar Booking */
 
@@ -146,15 +148,24 @@
     box-shadow: -1.90817px 3.78304px 25.48148px 0px rgba(50, 80, 127, 0.02), -4.95391px 9.82135px 80px 0px rgba(50, 80, 127, 0.04);
     height: calc(100vh - 129px);
 }
+.sidebarRightBooking {
+    width:100px;
+    border-radius: 50px;
+    margin: 0 10px;
+    background: #FFF;
+    box-shadow: -2px 4px 25px 0px rgba(50, 80, 127, 0.02), -5px 10px 80px 0px rgba(50, 80, 127, 0.04);
+    height: calc(100vh - 129px);
+    padding: 24px 8px;
+}
 
 .commonFlex {
     display: flex;
     align-items: center;
 }
 
-.commanOuter.mainBooking {
+/* .commanOuter.mainBooking {
     width: 100%;
-}
+} */
 
 .SidebarRightItems {
     text-align: center;
@@ -162,23 +173,52 @@
 }
 
 .sidebarIcons {
-    width: 50px;
+    width:36px;
+}
+/* .sideBarImg {
+    width: 24px;
+    height: 24px;
+} */
+.sideBarImg {
+    width: 33px;
+    height: 33px;
 }
 
- .bottomdot {
+.SidebarRightItems.active .sidebarBack {
+    border-radius: 12px;
+    background: #F5F6FC;
+    padding: 9px 12px 17px 4px;
+}
+.bottomDots {
     position: absolute;
     border-radius: 20px;
-    border: 3px solid #FFF;
+    border: 1.5px solid #FFF;
+    background: red;
+    color: #FFF;
+    font-size: 12px;
+    font-weight: 500;
+    top: 43px;
+    right: 9px;
+    text-align: center;
+    height: 18px;
+    width: 18px;
+}
+.bottomdot {
+    position: absolute;
+    border-radius: 20px;
+    border: 1.5px solid #FFF;
     background: #12B76A;
     color: #FFF;
-    font-size: 16px;
-    font-weight: 600;
-    top: 37px;
-    right: 10px;
+    font-size: 12px;
+    font-weight: 500;
+    top: 23px;
+    right: 7px;
     text-align: center;
-    width: 30px;
-    height: 30px;
-} 
+    height: 18px;
+    width: 18px;
+}
+
+  
 
 
 /* .sidebarIcons::before{
@@ -213,9 +253,16 @@
     margin-bottom: 0;
     border-radius: .25rem;
 }
-
+.userSideBar {
+    border-radius: 30px;
+    padding: 6px 6px;
+    position: fixed;
+    bottom: 84px;
+    right:19px;
+    border: 1px solid #D7DEFF;
+}
 .tabsappointment {
-    margin-right: 21px;
+    margin-right: 24px;
 }
 
 .navLink.active {
@@ -282,18 +329,23 @@
     cursor: pointer;
 }
 
-.bookingTable {
-    width: 100%;
-    border-spacing: 0 14px;
-    border-collapse: initial;
-}
 
-.bookingTable .recent_head {
+#bookingTable {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0 6px;
+    padding: 0 1px;
+}
+#bookingTable .product_invoice { 
+    border-radius: 30px;
+    outline: 1px solid #F5F6FC;
+    background: #fff
+}
+#bookingTable .product_invoice.active { 
+    outline: 1px solid #D7DEFF;
+}
+.bookCheck .invoice_subhead {
     width: 25%;
-    padding: 0px 22px;
-    color: #7E8AC1;
-    font-size: 12px;
-    font-weight: 500;
 }
 .editBtn {
     width: 40px;
@@ -305,15 +357,13 @@
     background: var(--Primary-P-50-Main, #F5F6FC);
     border: none;
 }
-
 .checkinBox {
-    width: 100%;
-    min-width: 114px;
     padding: 12px;
     border-radius: 30px;
     border: #263682;
     background: #F5F6FC;
     margin-right: 20px;
+    margin: 0 25px;
 }
 
 .checkinBox .textSmall {
@@ -333,26 +383,14 @@
     font-weight: 500;
 
 }
-
 .checkinBg {
     display: flex;
     align-items: center;
     text-align: center;
-}
-.recent_subhead:last-child {
-    border-radius: 30px;
-   
-        border-right: 1px solid #F5F6FC;
-
-}
-.recent_subhead:first-child {
-    border-radius: 30px!important;
-    border-left: 1px solid #F5F6FC;
-    
+    justify-content: end;
 }
 .completed {
-    width: 100%;
-    min-width: 114px;
+    width: 164px;
     padding: 12px;
     border-radius: 30px;
     border: #263682;
@@ -361,7 +399,30 @@
 .completed .textSmall {
     color: #fff;
 }
-
+.userBook .bottomdot {
+    position: absolute;
+    border-radius: 20px;
+    border: 1.5px solid #FFF;
+    background: #12B76A;
+    color: #FFF;
+    font-size: 12px;
+    font-weight: 500;
+    top: 33px;
+    right: 0px;
+    text-align: center;
+    height: 18px;
+    width: 18px;
+}
+.settingImgs {
+    position: fixed;
+    bottom: 33px;
+    right: 24px;
+}
+.arrowBack {
+    width: 50px;
+    height: 50px;
+    margin-top: -16px;
+}
 
 
 
