@@ -18,16 +18,13 @@ export default function Settings() {
     { id: 11, name: "Language", info: "English" },
     { id: 12, name: "Legal", info: "English" },
     { id: 13, name: "Policies", info: "Default" },
-
-    // Add more items as needed
   ];
-  const Settings = ({ itemName, handleTouch, info }) => {
-    console.log(itemName, "itemName, handleTouch, info");
+  const SettingsBar = ({ item }) => {
     return (
       <div>
-        <button onClick={handleTouch} className={styles.titleName}>
-          {itemName}
-          <h1 style={{ fontSize: "12px", textAlign: "initial" }}>{info}</h1>
+        <button onClick={() => handleTouch(item)} className={styles.titleName}>
+          <h1 className="settings-bar-titles">{item?.name}</h1>
+          <h1 className="settings-bar-titles-info">{item?.info}</h1>
         </button>
       </div>
     );
@@ -53,20 +50,30 @@ export default function Settings() {
     }
   };
   return (
-    <div className={styles.mainContainer}>
-      <div style={{ backgroundColor: "#FFFFFF", marginRight: 70 }}>
-        <div className={styles.verticalContainer}>
-          {settingsOptions.map((item) => (
-            <Settings
-              key={item.id}
-              itemName={item.name}
-              info={item.info}
-              handleTouch={() => handleTouch(item.name)}
-            />
-          ))}
-        </div>
+    // <div className={styles.mainContainer}>
+    //   {/* <div style={{ backgroundColor: "#FFFFFF", marginRight: 70 }}>
+    //     <div className={styles.verticalContainer}>
+    // {settingsOptions.map((item) => (
+    //   <Settings
+    //     key={item.id}
+    //     itemName={item.name}
+    //     info={item.info}
+    //     handleTouch={() => handleTouch(item.name)}
+    //   />
+    // ))}
+    //     </div>
+    //   </div>
+    //   <div>{renderComponent()}</div> */}
+    <div className="settings-main-container">
+      <div className="settings-options-container">
+        {settingsOptions.map((item) => (
+          <SettingsBar key={item.id} item={item} />
+        ))}
       </div>
-      <div>{renderComponent()}</div>
+      <div className="settings-component-container">
+        <div>{renderComponent()}</div>
+      </div>
     </div>
+    // </div>
   );
 }
