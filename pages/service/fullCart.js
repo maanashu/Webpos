@@ -1,12 +1,40 @@
-import React from 'react'
+import React, { useState } from 'react'
 import * as Images from "../../utilities/images";
 import Image from "next/image";
 import ProductSearch from '../../components/commanComonets/Product/productSearch';
+import CustomModal from '../../components/customModal/CustomModal';
+import AddCustomerModal from '../../components/modals/homeModals/service/addCustomerModal';
 
 
 const FullCart = () => {
+    const [key, setKey] = useState(Math.random());
+    const [modalDetail, setModalDetail] = useState({
+        show: false,
+        title: "",
+        flag: "",
+    });
+
+    //closeModal
+    const handleOnCloseModal = () => {
+        setModalDetail({
+            show: false,
+            title: "",
+            flag: "",
+        });
+        setKey(Math.random());
+    };
+
+    const handleUserProfile = (flag) => {
+
+        setModalDetail({
+            show: true,
+            flag: flag,
+            type: flag,
+        });
+        setKey(Math.random());
+    };
     return (
-        <>
+        <> 
             <div className='fullCartSection'>
                 <div className='row'>
                     <div className='col-lg-7 col-md-7'>
@@ -54,9 +82,9 @@ const FullCart = () => {
                                 <div className='fullCartInfo w-50'>
                                     <input className="form-control unitPriceControl active" type="number" placeholder="$20.00" />
                                     <div className='incrementBtn active'>
-                                        <i class="fa-solid fa-minus plusMinus"></i>
+                                        <i className="fa-solid fa-minus plusMinus"></i>
                                         <input className="form-control addBtnControl" type="number" placeholder="1" />
-                                        <i class="fa-solid fa-plus plusMinus"></i>
+                                        <i className="fa-solid fa-plus plusMinus"></i>
                                     </div>
                                     <div className='fullCartInfo'>
                                         <h4 className='invoice_subhead p-0'>$90.00</h4>
@@ -85,9 +113,9 @@ const FullCart = () => {
                                 <div className='fullCartInfo w-50'>
                                     <input className="form-control unitPriceControl " type="number" placeholder="$20.00" />
                                     <div className='incrementBtn'>
-                                        <i class="fa-solid fa-minus plusMinus"></i>
+                                        <i className="fa-solid fa-minus plusMinus"></i>
                                         <input className="form-control addBtnControl" type="number" placeholder="1" />
-                                        <i class="fa-solid fa-plus plusMinus"></i>
+                                        <i className="fa-solid fa-plus plusMinus"></i>
                                     </div>
                                     <div className='fullCartInfo'>
                                         <h4 className='invoice_subhead p-0'>$90.00</h4>
@@ -116,9 +144,9 @@ const FullCart = () => {
                                 <div className='fullCartInfo w-50'>
                                     <input className="form-control unitPriceControl" type="number" placeholder="$20.00" />
                                     <div className='incrementBtn'>
-                                        <i class="fa-solid fa-minus plusMinus"></i>
+                                        <i className="fa-solid fa-minus plusMinus"></i>
                                         <input className="form-control addBtnControl" type="number" placeholder="1" />
-                                        <i class="fa-solid fa-plus plusMinus"></i>
+                                        <i className="fa-solid fa-plus plusMinus"></i>
                                     </div>
                                     <div className='fullCartInfo'>
                                         <h4 className='invoice_subhead p-0'>$90.00</h4>
@@ -129,7 +157,7 @@ const FullCart = () => {
                         </div>
                     </div>
                     <div className='col-lg-5 col-md-5'>
-                        <div className='commanOuter me-0 ms-2 commonSubOuter fullCartRight'>
+                        <div className='commanOuter me-0 ms-0 commonSubOuter fullCartRight'>
                             <div className='insertProductSection'>
                                 <div className='addproductCart d-none'>
                                     <Image src={Images.addProductImg} alt="addProductimage" className="img-fluid" />
@@ -160,7 +188,7 @@ const FullCart = () => {
                                             <div className='offerCartHeading'>
                                                 <h4 className='availablemain'>Veterinary Consultation for small and big Pets</h4>
                                                 <h4 className='availableTime'>Today at 10hrs / Dr. Africa ...</h4>
-                                                <h4 className='availablePrice'>$90.00<span className='actualPrice'>$64.00</span></h4>
+                                                <h4 className='availablePrice'><del>$90.00</del><span className='actualPrice'>$64.00</span></h4>
                                             </div>
                                         </div>
                                         <figure className='offerCartImg'>
@@ -173,7 +201,7 @@ const FullCart = () => {
                                             <div className='offerCartHeading'>
                                                 <h4 className='availablemain'>Veterinary Consultation for small and big Pets</h4>
                                                 <h4 className='availableTime'>Today at 10hrs / Dr. Africa ...</h4>
-                                                <h4 className='availablePrice'>$90.00<span className='actualPrice'>$64.00</span></h4>
+                                                <h4 className='availablePrice'><del>$90.00</del><span className='actualPrice'>$64.00</span></h4>
                                             </div>
                                         </div>
                                         <figure className='offerCartImg active'>
@@ -186,7 +214,7 @@ const FullCart = () => {
                                             <div className='offerCartHeading'>
                                                 <h4 className='availablemain'>Veterinary Consultation for small and big Pets</h4>
                                                 <h4 className='availableTime'>Today at 10hrs / Dr. Africa ...</h4>
-                                                <h4 className='availablePrice'>$90.00<span className='actualPrice'>$64.00</span></h4>
+                                                <h4 className='availablePrice'><del>$90.00</del><span className='actualPrice'>$64.00</span></h4>
                                             </div>
                                         </div>
                                         <figure className='offerCartImg active'>
@@ -228,7 +256,8 @@ const FullCart = () => {
                                     <h4 className='totalText'>Total</h4>
                                     <h4 className='totalSubText'>$236</h4>
                                 </div>
-                                <button className='nextverifyBtn w-100 mt-3' type='submit'>
+                                <button className='nextverifyBtn w-100 mt-3' type='submit' onClick={() => {
+                                    handleUserProfile("addCustomer")}}>
                                     Proceed to checkout
                                     <Image src={Images.ArrowRight} alt="rightArrow" className="img-fluid rightImg" />
                                 </button>
@@ -237,6 +266,45 @@ const FullCart = () => {
                     </div>
                 </div>
             </div>
+            <CustomModal
+                key={key}
+                show={modalDetail.show}
+                backdrop="static"
+                showCloseBtn={false}
+                isRightSideModal={true}
+                mediumWidth={false}
+                className={modalDetail.flag === "addCustomer" ? "commonWidth customContent" : ""}
+                ids={modalDetail.flag === "addCustomer" ? "addCustomerModal" : ""}
+                child={
+                    modalDetail.flag === "addCustomer" ? (
+                        <AddCustomerModal
+                            close={() => handleOnCloseModal()}
+                        />
+                    ) :
+                        ""
+                }
+                header=
+
+                {modalDetail.flag === "addCustomer" ?
+                    <>
+
+                        <div className='trackingSub headerModal'>
+                            <figure className='profileImage '>
+                                <Image src={Images.addCutomer} alt="trackingImage" className="img-fluid " />
+                            </figure>
+                            <h4 className='loginheading mt-2'>Add a customer</h4>
+                            <h4 className='trackingHeading'>Search a costumer or <span className='fw-bold'>create a new one. </span></h4>
+                            <p onClick={handleOnCloseModal} className='crossModal'>
+                                <Image src={Images.modalCross} alt="modalCross" className="img-fluid" />
+                            </p>
+                        </div>
+
+                    </>
+                    :
+                    ''
+                }
+                onCloseModal={() => handleOnCloseModal()}
+            />
         </>
     )
 }

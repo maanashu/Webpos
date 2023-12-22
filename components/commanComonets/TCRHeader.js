@@ -1,11 +1,17 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { customerWallet } from "../../utilities/images";
 import Image from "next/image";
 import HeaderUtils from "./HeaderUtils";
 
 // Transactions, Customers, Rewards header
-const TCRHeader = ({ mainIcon, title, descrip, withTimeTabs = true }) => {
-  const [selectedTimeSpan, setSelectedTimeSpan] = useState(1);
+const TCRHeader = ({ mainIcon, title, descrip, withTimeTabs = true, onTimeSpanSelect, timeSpan }) => {
+
+  const TIME_SPANS = [
+    { value: "today", label: "Today" },
+    { value: "week", label: "Weekly" },
+    { value: "month", label: "Monthly" },
+    { value: "year", label: "Yearly" },
+  ]
 
   const boldInDescrip = () => (
     <>
@@ -15,7 +21,7 @@ const TCRHeader = ({ mainIcon, title, descrip, withTimeTabs = true }) => {
           fontWeight: "600",
         }}
       >
-        weekly
+        {TIME_SPANS.filter((el) => el.value == timeSpan)[0].label}
       </span>
     </>
   );
@@ -39,15 +45,15 @@ const TCRHeader = ({ mainIcon, title, descrip, withTimeTabs = true }) => {
       <div className="left-hand flex-row-space-between">
         {withTimeTabs && (
           <div className="day-tabs flex-row-space-between">
-            {["Today", "Weekly", "Month", "Yearly"].map((el, idx) => (
+            {TIME_SPANS.map((el, idx) => (
               <p
                 key={idx + "day-tabs"}
-                onClick={() => setSelectedTimeSpan(idx)}
+                onClick={() => onTimeSpanSelect(el.value)}
                 className={`tab-item${
-                  selectedTimeSpan == idx ? " selected-tab" : ""
+                  timeSpan == el.value ? " selected-tab" : ""
                 }`}
               >
-                {el}
+                {el.label}
               </p>
             ))}
           </div>

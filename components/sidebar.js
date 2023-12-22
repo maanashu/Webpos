@@ -65,8 +65,9 @@ const Sidebar = (props) => {
             }
             alt="image"
             width={100}
-            height={100}
+            height={100}  
             className="img-fluid sidebarProfile"
+            onClick={() => router.push("/home/overview")}
           />
         </figure>
         <article>
@@ -102,7 +103,7 @@ const Sidebar = (props) => {
             </Link>
           </ListGroupItem>
           <ListGroupItem className="sidebarItems">
-            <Link href="/dashboard" className="sidebarLinks">
+            <Link href="/Deliveries" className="sidebarLinks">
               <Image
                 src={Images.DeliveryOrders}
                 alt="image"
@@ -112,7 +113,7 @@ const Sidebar = (props) => {
             </Link>
           </ListGroupItem>
           <ListGroupItem className="sidebarItems">
-            <Link href="/dashboard" className="sidebarLinks">
+            <Link href="#" className="sidebarLinks">
               <Image
                 src={Images.ShippingOrders}
                 alt="image"
@@ -122,7 +123,7 @@ const Sidebar = (props) => {
             </Link>
           </ListGroupItem>
           <ListGroupItem className="sidebarItems">
-            <Link href="/dashboard" className="sidebarLinks">
+            <Link href="/appointment/booking" className="sidebarLinks">
               <Image
                 src={Images.Appointments}
                 alt="image"
@@ -132,7 +133,10 @@ const Sidebar = (props) => {
             </Link>
           </ListGroupItem>
           <ListGroupItem className="sidebarItems">
-            <Link href="/dashboard" className="sidebarLinks">
+            <Link
+              href="/analytics"
+              className="sidebarLinks"
+            >
               <Image
                 src={Images.Analytics}
                 alt="image"
@@ -142,7 +146,7 @@ const Sidebar = (props) => {
             </Link>
           </ListGroupItem>
           <ListGroupItem className="sidebarItems">
-            <Link href="/dashboard" className="sidebarLinks">
+            <Link href="#" className="sidebarLinks">
               <Image
                 src={Images.Wallets}
                 alt="image"
@@ -152,7 +156,7 @@ const Sidebar = (props) => {
             </Link>
           </ListGroupItem>
           <ListGroupItem className="sidebarItems">
-            <Link href="/dashboard" className="sidebarLinks">
+            <Link href="#" className="sidebarLinks">
               <Image
                 src={Images.CashDrawer}
                 alt="image"
@@ -172,7 +176,7 @@ const Sidebar = (props) => {
             </Link>
           </ListGroupItem>
           <ListGroupItem className="sidebarItems">
-            <Link href="/dashboard" className="sidebarLinks">
+            <Link href="#" className="sidebarLinks">
               <Image
                 src={Images.Rewards}
                 alt="image"
@@ -182,7 +186,7 @@ const Sidebar = (props) => {
             </Link>
           </ListGroupItem>
           <ListGroupItem className="sidebarItems">
-            <Link href="/dashboard" className="sidebarLinks">
+            <Link href="/settings" className="sidebarLinks">
               <Image
                 src={Images.Settings}
                 alt="image"

@@ -1,27 +1,85 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   ArrowLeft,
   ArrowRight,
   OrderLocation,
   customersCross,
   customerUsers,
+  userSale,
 } from "../../../utilities/images";
 import Image from "next/image";
-import "react-datepicker/dist/react-datepicker.css";
 import Link from "next/link";
 import TCRHeader from "../../../components/commanComonets/TCRHeader";
 import PaginationHeader from "../../../components/commanComonets/PaginationHeader";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  getAllCustomersList,
+  getSellerAreaList,
+  selectCustomersData,
+} from "../../../redux/slices/customers";
+import { selectLoginAuth } from "../../../redux/slices/auth";
+import { useRouter } from "next/router";
 
 const Users = () => {
-  const [selectedTab, setSelectedTab] = useState(0);
+  const { query } = useRouter();
+  const router = useRouter()
+  const [selectedTab, setSelectedTab] = useState("all_customers");
+  const [timeSpan, setTimeSpan] = useState(query["time-span"] || "week");
+  const [limit, setLimit] = useState("10");
+  const [page, setPage] = useState(1);
+
+  const dispatch = useDispatch();
+  const authData = useSelector(selectLoginAuth);
+  const customersData = useSelector(selectCustomersData);
+  const totalCustomers =
+    customersData?.allCustomersData?.payload?.total_customers;
+  const uniqueId = authData?.usersInfo?.payload?.uniqe_id;
+
+  const paginatedCustomersList = customersData?.allCustomersList?.payload;
+  const sellerAreaList = customersData?.sellerAreaList?.payload?.data;
+
+  useEffect(() => {
+    if (uniqueId) {
+      const params = {
+        page,
+        limit: Number(limit),
+        filter: timeSpan,
+        type: selectedTab,
+        seller_id: uniqueId,
+      };
+      dispatch(getAllCustomersList(params));
+      dispatch(getSellerAreaList({ seller_id: params.seller_id }));
+    }
+  }, [uniqueId, selectedTab, timeSpan, limit, page]);
 
   const TABS = [
-    { text: "All", count: 190 },
-    { text: "New Customers", count: 190 },
-    { text: "Returning Customers", count: 190 },
-    { text: "Online Customers", count: 190 },
-    { text: "Waliing Customers", count: 190 },
+    { text: "All", count: totalCustomers.totalCustomer, type: "all_customers" },
+    {
+      text: "New Customers",
+      count: totalCustomers?.newCustomer,
+      type: "new_customers",
+    },
+    {
+      text: "Returning Customers",
+      count: totalCustomers?.onlineCustomers,
+      type: "returning_customers",
+    },
+    {
+      text: "Online Customers",
+      count: totalCustomers?.returningCustomer,
+      type: "online_customers",
+    },
+    {
+      text: "Walk-in Customers",
+      count: totalCustomers?.walkingCustomers,
+      type: "walkin_customers",
+    },
   ];
+
+  const handleNavigateToTrackStatus = (item) => {
+    router.push(`users/[user-id]`, `users/${item.user_id}`);
+  };
+
   return (
     <div
       style={{
@@ -34,31 +92,42 @@ const Users = () => {
       <TCRHeader
         title="Users"
         descrip={" "}
-        withTimeTabs={false}
+        timeSpan={timeSpan}
+        onTimeSpanSelect={setTimeSpan}
         mainIcon={customerUsers}
+      />
+
+      <PaginationHeader
+        page={page}
+        limit={limit}
+        setPage={setPage}
+        setLimit={setLimit}
+        totalItems={paginatedCustomersList?.total}
       />
 
       {/*  TABS*/}
       <div className="users-tabs flex-row-space-between">
-        {TABS.map(({ text, count }, idx) => (
+        {TABS.map(({ text, count, type }, idx) => (
           <div
             key={idx + "tabs"}
-            onClick={() => setSelectedTab(idx)}
+            onClick={() => setSelectedTab(type)}
             className="users-tab flex-row-space-between"
-            style={{ backgroundColor: selectedTab == idx ? "#263682" : "" }}
+            style={{
+              backgroundColor: selectedTab == type ? "#263682" : "",
+              cursor: "pointer",
+            }}
           >
             <p
               className="users-tab-text"
-              style={{ color: selectedTab == idx ? "#F5F6FC" : "#263682" }}
+              style={{ color: selectedTab == type ? "#F5F6FC" : "#263682" }}
             >
               {text}
             </p>
             <p className="users-tab-count">({count})</p>
-            {selectedTab === idx && (
+            {selectedTab == type && (
               <div
                 onClick={() => {
-                  console.log(idx);
-                  setSelectedTab(-1);
+                  setSelectedTab(null);
                 }}
               >
                 <Image
@@ -73,96 +142,117 @@ const Users = () => {
       </div>
 
       {/* table stats */}
-      <table className="user-stats-table">
-        <tr
-          className="flex-row-space-between"
-          style={{
-            padding: "16px",
-            alignItems: "center",
-            display: "flex",
-            alignItems: "flex-start",
-            alignSelf: "stretch",
-          }}
-        >
-          <th className="users-stats-row-num users-stats-table-head-text">#</th>
-          <th className="users-stats-row-name users-stats-table-head-text">
-            Name
-          </th>
-          <th
-            style={{
-              padding: "0px 18px",
-            }}
-            className="users-stats-row-total-orders users-stats-table-head-text"
-          >
-            Total Orders
-          </th>
-          <th
-            style={{
-              padding: "0px 18px",
-            }}
-            className="users-stats-row-total-orders users-stats-table-head-text"
-          >
-            Total Products
-          </th>
-          <th
-            style={{
-              padding: "0px 18px",
-            }}
-            className="users-stats-row-total-orders users-stats-table-head-text"
-          >
-            Lifetime Spent
-          </th>
-        </tr>
-        {[1, 2, 34, 5, 6, 6, 7, 8, 34, 5, 2, 1, 12, 4, 2, 34, 34].map(
-          (_, idx) => (
-            <Link href={"users/user-profile"}>
-              <tr
-                key={"td-" + idx}
-                className="flex-row-space-between users-stats-table-row"
+
+      <table className="customers-stats-table">
+        <thead>
+          <tr>
+            <th
+              className="customers-table-data"
+              style={{ border: "none", color: "#7E8AC1", textAlign: "left" }}
+            >
+              #
+            </th>
+            <th
+              className="customers-table-data"
+              style={{ border: "none", color: "#7E8AC1", textAlign: "left" }}
+            >
+              Name
+            </th>
+            <th
+              className="customers-table-data"
+              style={{ border: "none", color: "#7E8AC1", textAlign: "left" }}
+            >
+              Total Orders
+            </th>
+            <th
+              className="customers-table-data"
+              style={{ border: "none", color: "#7E8AC1", textAlign: "left" }}
+            >
+              Total Products
+            </th>
+            <th
+              className="customers-table-data"
+              style={{ border: "none", color: "#7E8AC1", textAlign: "left" }}
+            >
+              Lifetime Spent
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          {paginatedCustomersList?.data?.map((item, idx) => (
+            <tr className="customers-table-row">
+              <td
+                onClick={() => handleNavigateToTrackStatus(item)}
+                className="customers-table-data"
               >
-                <td className="users-stats-row-num">
-                  {(idx > 8 ? "" : "0") + (idx + 1)}
-                </td>
-                <td className="users-stats-row-name">
-                  <Image
-                    width={36}
-                    height={36}
-                    style={{
-                      borderRadius: 50,
-                    }}
-                    src={
-                      "https://images.unsplash.com/photo-1633332755192-727a05c4013d?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8dXNlcnxlbnwwfHwwfHx8MA%3D%3D"
-                    }
-                  />
-                  <div
-                    style={{
-                      gap: "6px",
-                      display: "flex",
-                      flexDirection: "column",
-                    }}
-                  >
-                    <p className="user-stats-row-name-text">
-                      Mary Jane: The Spide Girl
-                    </p>
-                    <div>
-                      <Image
-                        width={12}
-                        height={12}
-                        src={OrderLocation}
-                      />{" "}
-                      <span className="user-stats-row-name-address">
-                        4318 Daffodil Lane, Savage,Virginia(VA), 20763
-                      </span>
-                    </div>
+                {(idx + Number(page > 1 ? limit : 0) > 8 ? "" : "0") +
+                  (idx + 1 + Number(page > 1 ? limit : 0))}
+              </td>
+              <td
+                onClick={() => handleNavigateToTrackStatus(item)}
+                className="customers-table-data"
+                style={{ display: "flex", gap: "12px" }}
+              >
+                <Image
+                  width={36}
+                  height={36}
+                  style={{
+                    borderRadius: 50,
+                  }}
+                  alt="User's profile picture"
+                  src={item?.user_details?.profile_photo || userSale}
+                />
+                <div
+                  style={{
+                    gap: "6px",
+                    display: "flex",
+                    flexDirection: "column",
+                  }}
+                >
+                  <p className="user-stats-row-name-text">
+                    {item?.user_details?.firstname || "Unknown"}{" "}
+                    {item?.user_details?.lastname}
+                  </p>
+                  <div>
+                    <Image
+                      width={12}
+                      height={12}
+                      src={OrderLocation}
+                    />{" "}
+                    <span className="user-stats-row-name-address">
+                      {item?.user_details?.current_address?.custom_address}
+                      {", "}
+                      {item?.user_details?.current_address?.city}
+                      {", "}
+                      {item?.user_details?.current_address?.state}(
+                      {item?.user_details?.current_address?.state_code}){", "}
+                      {item?.user_details?.current_address?.country}{" "}
+                      {item?.user_details?.zipcode}
+                    </span>
                   </div>
-                </td>
-                <td className="users-stats-row-total-orders">60</td>
-                <td className="users-stats-row-total-orders">81</td>
-                <td className="users-stats-row-total-orders">$7600.00</td>
-              </tr>
-            </Link>
-          )
-        )}
+                </div>
+              </td>
+              <td
+                onClick={() => handleNavigateToTrackStatus(item)}
+                className="customers-table-data"
+              >
+                {item?.total_orders}
+              </td>
+              <td
+                onClick={() => handleNavigateToTrackStatus(item)}
+                className="customers-table-data"
+              >
+                {item?.total_products}
+              </td>
+              <td
+                onClick={() => handleNavigateToTrackStatus(item)}
+                className="customers-table-data"
+              >
+                ${Number(item?.life_time_spent).toFixed(2)}
+              </td>
+            </tr>
+          ))}
+        </tbody>
       </table>
 
       <div className="pagination-footer flex-row-space-between">
@@ -199,6 +289,7 @@ const Users = () => {
           />
         </div>
       </div>
+      
     </div>
   );
 };

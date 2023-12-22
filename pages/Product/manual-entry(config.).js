@@ -3,6 +3,7 @@ import * as Images from "../../utilities/images"
 import Image from "next/image";
 import SearchInvoice from '../../components/commanComonets/InvoiceSearch/Search'
 import * as Product from '../../components/commanComonets/Product';
+import Pagination from '../../components/commanComonets/pagination';
 
 const Manualentryconfig = () => {
     return (
@@ -683,15 +684,7 @@ const Manualentryconfig = () => {
                                     </table>
                                 </div>
                             </div>
-                            <div className='Custompagination'>
-                                <button type='button' className='paginatinationBtn'>
-                                    <Image src={Images.scanImg} alt="SearchImageIcon" className="img-fluid" />
-                                    pre</button>
-                                <button type='button' className='paginatinationBtn'>Page no. 1 to 8</button>
-                                <button type='button' className='paginatinationBtn active'>Next
-                                    <Image src={Images.scanImg} alt="SearchImageIcon" className="img-fluid" />
-                                </button>
-                            </div>
+                            <Pagination />
                         </div>
                     </div>
                     <div className='col-lg-6'>
@@ -709,65 +702,73 @@ const Manualentryconfig = () => {
                             </div>
                             <div className='d-flex justify-content-between  invoiceSearchBox pb-3'>
                                 <div className='SearchinvoiceBox'>
-                                    <div class="ProductsearchBar">
-                                        <input type="text" class="form-control searchControl" placeholder="Scan Barcode of each Item" />
+                                    <div className="ProductsearchBar">
+                                        <input type="text" className="form-control searchControl" placeholder="Scan Barcode of each Item" />
                                         <Image src={Images.scanImg} alt="SearchImageIcon" className="img-fluid scanImg" />
                                     </div>
                                 </div>
                                 <div className='invoiceButtonBox'>
                                     <button type='button' className='coloredManualButton'>Manual Entry
-                                        <Image src={Images.scanImg} alt="SearchImageIcon" className="img-fluid" />
+                                        <Image src={Images.Cancelproduct} alt="SearchImageIcon" className="img-fluid ms-2" />
                                     </button>
                                 </div>
                             </div>
                             <div className='commanscrollBar manualOrderedProduct mt-3'>
-                                <div class="ManualsearchBar">
-                                    <input type="text" class="form-control searchControl" placeholder="0199 - 322" />
+                                <div className="ManualsearchBar">
+                                    <input type="text" className="form-control searchControl" placeholder="0199 - 322" />
                                     <Image src={Images.SearchIcon} alt="SearchImageIcon" className="img-fluid searchImg" />
                                 </div>
-                                <div className=' manualSelectedProduct align-items-center'>
-                                    <div className='row'>
+                                <div className='manualProduct'>
+                                    <div className=' manualSelectedProduct  manualSelectedItems align-items-center'>
                                         <div className='d-flex align-items-center'>
                                             <figure>
-                                                <Image src={Images.Marlboro} alt="SearchImageIcon" className="img-fluid" />
+                                                <Image src={Images.ItemImage} alt="ItemImage" className="img-fluid ItemImage" />
                                             </figure>
                                             <article>
-                                                <p>Lightweight Stylish Casual Daypack</p>
-                                                <span>SKU 0199 - 3221</span>
-                                                <p>$90.00</p>
+                                                <h6 className='selectedproductDetails'>Lightweight Stylish Casual Daypack</h6>
+                                                <button type='button' className='productId'><span className='productDot'></span>SKU 0199 - 3221</button>
+                                                <p className='innerHeading'>$90.00</p>
                                             </article>
-                                        </div>
+                                        </div> 
                                         <div className=''>
-                                            <p>Color</p>
+                                            <p className='priceHeading'>Color</p>
                                             <article className='manual-entryColor'>
                                                 <span className='Pink'></span>
                                                 <span className='Red'></span>
-                                                <span className='Yellow active'></span>
+                                                <span className='Yellow active'></span> 
                                                 <span className='Blue'></span>
                                                 <span className='Black'></span>
                                                 <span className='White'></span>
                                             </article>
                                         </div>
                                         <div className=''>
-                                            <p>Size</p>
+                                            <p className='priceHeading'>Size</p>
                                             <article className='productSizeBtnBox'>
-                                                <button className='productSize'>S</button>
-                                                <button className='productSize'>M</button>
-                                                <button className='productSize'>L</button>
-                                                <button className='productSize'>XL</button>
+                                                <button className='productSizeBtn'>S</button>
+                                                <button className='productSizeBtn active'>M</button>
+                                                <button className='productSizeBtn'>L</button>
+                                                <button className='productSizeBtn'>XL</button>
+                                                <button className='productSizeBtn disable'>XXL</button>
                                             </article>
                                         </div>
-                                        <div className='form-group flexBox mb-3'>
-                                            <button className='removeProductBtn'>-</button>
+                                        <div className='form-group flexBox addCart mb-3'>
+                                            <button className='removeProductBtn'>
+                                                <i className="fa-solid fa-minus plusMinus"></i>
+                                            </button>
                                             <input className="form-control customTextarea" type="text" placeholder="1" />
-                                            <button className='addProductBtn'>+</button>
+                                            <button className='addProductBtn'>
+                                                <i className="fa-solid fa-plus plusMinus"></i>
+                                            </button>
                                         </div>
                                     </div>
                                 </div>
                                 <div className='flexBox buttonBox'>
                                     <button type='button' className='cancelBtn'>Cancel</button>
-                                    <button type='button' className='BlueBtn'>Next
-                                        <Image src={Images.scanImg} alt="SearchImageIcon" className="img-fluid" />
+                                    <button type='button' className='BlueBtn '>Next
+                                        <Image src={Images.serviceCart} alt="serviceCart" className="img-fluid serviceCart" />
+                                    </button>
+                                    <button type='button' className='AddedBtn d-none'>Item added
+                                        <Image src={Images.AddedIcon} alt="AddedIcon" className="img-fluid serviceCart" />
                                     </button>
                                 </div>
                             </div>

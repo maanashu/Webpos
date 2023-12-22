@@ -57,11 +57,13 @@ const VerifyOtp = () => {
             phone_number: getPhoneInfo?.phoneNo,
             security_pin: securityPin
         };
+        console.log(params,"params");
         dispatch(
             userMerchantLogin({
                 ...params,
                 cb(res) {
                     if (res) {
+                        console.log(res,"resnaresh");
                         router.push("/auth/successVerify")
                     }
                 },

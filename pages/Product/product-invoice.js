@@ -3,6 +3,7 @@ import * as Images from "../../utilities/images"
 import Image from "next/image";
 import SearchInvoice from '../../components/commanComonets/InvoiceSearch/Search'
 import * as Product from '../../components/commanComonets/Product';
+import Pagination from '../../components/commanComonets/pagination';
 
 
 const ProductInvoice = () => {
@@ -684,15 +685,7 @@ const ProductInvoice = () => {
                                     </table>
                                 </div>
                             </div>
-                            <div className='Custompagination'>
-                                <button type='button' className='paginatinationBtn'>
-                                    <Image src={Images.scanImg} alt="SearchImageIcon" className="img-fluid" />
-                                    pre</button>
-                                <button type='button' className='paginatinationBtn'>Page no. 1 to 8</button>
-                                <button type='button' className='paginatinationBtn active'>Next
-                                    <Image src={Images.scanImg} alt="SearchImageIcon" className="img-fluid" />
-                                </button>
-                            </div>
+                            <Pagination/>
                         </div>
                     </div>
                     <div className='col-lg-6'>
@@ -710,14 +703,14 @@ const ProductInvoice = () => {
                             </div>
                             <div className='d-flex justify-content-between  invoiceSearchBox pb-3'>
                                 <div className='SearchinvoiceBox'>
-                                    <div class="ProductsearchBar">
-                                        <input type="text" class="form-control searchControl" placeholder="Scan Barcode of each Item" />
+                                    <div className="ProductsearchBar">
+                                        <input type="text" className="form-control searchControl" placeholder="Scan Barcode of each Item" />
                                         <Image src={Images.scanImg} alt="SearchImageIcon" className="img-fluid scanImg" />
                                     </div>
                                 </div>
                                 <div className='invoiceButtonBox'>
                                     <button type='button' className='boderdManualButton'>Manual Entry
-                                        <Image src={Images.scanImg} alt="SearchImageIcon" className="img-fluid" />
+                                        <Image src={Images.plusRound} alt="SearchImageIcon" className="img-fluid ms-2" />
                                     </button>
                                 </div>
                             </div>
@@ -742,19 +735,19 @@ const ProductInvoice = () => {
                             <div className='row'>
                                 <div className='col-lg-4'>
                                     <div className='OrderBox'>
-                                        <div class="OrderCheckoutBox">
+                                        <div className="OrderCheckoutBox">
                                             <p className='orderHeading'>Total Items</p>
                                             <p className='orderSubHeading'>7</p>
                                         </div>
-                                        <div class="OrderCheckoutBox">
+                                        <div className="OrderCheckoutBox">
                                             <p className='orderHeading'>Order Date</p>
                                             <p className='orderSubHeading'>10/10/2023</p>
                                         </div>
-                                        <div class="OrderCheckoutBox">
+                                        <div className="OrderCheckoutBox">
                                             <p className='orderHeading'>Order ID#</p>
                                             <p className='orderSubHeading'>JOBR00001</p>
                                         </div>
-                                        <div class="OrderCheckoutBox">
+                                        <div className="OrderCheckoutBox">
                                             <p className='orderHeading'>Payment Method</p>
                                             <figure className='priceBtn'>
                                                 <Image src={Images.moneyImg} alt="money" className="moneyImg" />
@@ -790,7 +783,7 @@ const ProductInvoice = () => {
                                             </div>
                                             <button type='button' className='BlueBtn w-100'>
                                                 Next
-                                                <Image src={Images.scanImg} alt="SearchImageIcon" className="img-fluid" />
+                                                <Image src={Images.ArrowRight} alt="ArrowRight" className="img-fluid ArrowRight" />
                                             </button>
                                         </div>
                                     </div>

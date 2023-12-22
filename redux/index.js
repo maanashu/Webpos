@@ -34,13 +34,12 @@ const makeStore = () => {
       }).concat(middleware),
     devTools: process.env.NODE_ENV !== "production",
   });
-
   // Enable persistence
   store.__persistor = persistStore(store);
-
   sagaMiddleware.run(rootSaga);
-
   return store;
 };
+
+console.log(makeStore,"makestore")
 
 export const wrapper = createWrapper(makeStore, { debug: true });

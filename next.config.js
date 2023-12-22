@@ -11,6 +11,11 @@ module.exports = (phase, { defaultConfig }) => {
         "jobrs3bucket.s3.amazonaws.com",
         "i.pinimg.com",
         "media.istockphoto.com",
+        "apiuserservice.jobr.com",
+        "jobrs3bucket.s3.amazonaws.com",
+        "i.pinimg.com",
+        "randomuser.me",
+        "www.shutterstock.com",
       ],
     },
     env: {
