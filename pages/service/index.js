@@ -4,9 +4,8 @@ import Image from "next/image";
 import * as Service from '../../components/commanComonets/Service';
 
 
-
-
 const Home = () => {
+
     return (
         <>
             <div className='serviceHomeSection'>
