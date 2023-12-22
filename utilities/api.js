@@ -13,6 +13,7 @@ const axiosInstance = axios.create({
   },
 });
 
+
 // axios.defaults.headers.common['Authorization'] = localStorage.getItem('token')
 // Set the AUTH token for any request
 axiosInstance.interceptors.request.use(function (config) {
