@@ -3,11 +3,31 @@ import styles from "./styles.module.css";
 import CustomModal from "../../../components/customModal/CustomModal";
 import { Modal } from "react-bootstrap";
 import QRModal from "../QRModal";
+import { getSecurityScanerCode } from "../../../redux/slices/setting";
+import { useDispatch } from "react-redux";
 
 export default function Security() {
+  const dispatch = useDispatch();
   const [showModal, setShowModal] = useState(false);
   const [qrcodeModal, setQrCodeModal] = useState();
   const ModalComponent = ({ onClose }) => {
+
+    const activateTwoStepSecurity = () => {
+      setQrCodeModal(!qrcodeModal);
+      setShowModal(false);
+      // let params = {
+      //   seller_id: UniqueId,
+      // };
+      dispatch(getSecurityScanerCode({
+        // ...params,
+        cb(res) {
+          if (res.status) {
+          }
+        },
+      })
+      );
+    };
+
     return (
       <div
         style={{
@@ -48,11 +68,11 @@ export default function Security() {
               alignItems: "center",
               padding: 10,
             }}
-            onClick={toggleModal}
+            onClick={() =>toggleModal()}
           >
             I will do it later
           </button>
-          <button onClick={toggleModal2}>Activate it</button>
+          <button onClick={() => activateTwoStepSecurity()}>Activate it</button>
         </div>
       </div>
     );
@@ -79,7 +99,7 @@ export default function Security() {
           <div onClick={toggleModal}>
             <input type="checkbox"
               onClick={toggleModal} />
-              </div>
+          </div>
         </div>
         <div className={styles.boxbottomTextStyle}>
           Team members must enable their own verification methods.

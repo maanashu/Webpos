@@ -1,0 +1,45 @@
+.settings-main-container {
+  margin: 16px;
+  border-radius: 20px;
+  background-color: #f5f6fc;
+  min-height: calc(100vh - 36px);
+  flex-direction: row;
+  display: flex;
+}
+.settings-options-container {
+  width: 100px;
+  background-color: white;
+  /* min-height: calc(100vh - 36px); */
+  min-height: 100vh;
+  min-width: 223px;
+  border-radius: 20px;
+  padding: 20px;
+}
+.settings-component-container {
+  width: 100px;
+  background-color: white;
+  /* min-height: calc(100vh - 36px); */
+  min-height: 100vh;
+  min-width: 223px;
+  margin-left: 15px;
+  display: flex;
+  flex: 1;
+  border-radius: 20px;
+  padding: 20px;
+}
+.settings-bar-titles {
+  color: var(--Primary-P-600-Main, #263682);
+  font-family: Roobert;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+}
+.settings-bar-titles-info {
+  color: var(--Primary-P-600-Main, #263682);
+  font-family: Roobert;
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+}
