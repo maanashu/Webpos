@@ -51,4 +51,6 @@ export const {
   setTotalAnalyticsProductSoldData
 } = analyticsSlice.actions;
 
+export const analyticsDetails = (state) => state.analytics;
+
 export default analyticsSlice.reducer;

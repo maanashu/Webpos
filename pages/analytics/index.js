@@ -379,7 +379,6 @@ const Analytics = () => {
                 <div className="col-lg-4 col-md-6 col-12 mt-4">
                     <div
                         className="chartsOuter"
-                        style={{ cursor: "pointer" }}
                         onClick={() => router.push("/analytics/grossProfit")}
                     >
                         <h4 className="expectedHeading ">Gross Profits</h4>
@@ -403,8 +402,7 @@ const Analytics = () => {
                 <div className="col-lg-4 col-md-6 col-12 mt-4">
                     <div
                         className="chartsOuter"
-                        style={{ cursor: "pointer" }}
-                        onClick={() => history.push("/Total-Revenue")}
+                        onClick={() => router.push("/analytics/totalRevenue")}
                     >
                         <h4 className="expectedHeading ">Total Revenue</h4>
                         <h4 className="successMain">
@@ -427,8 +425,7 @@ const Analytics = () => {
                 <div className="col-lg-4 col-md-6 col-12 mt-4">
                     <div
                         className="chartsOuter"
-                        style={{ cursor: "pointer" }}
-                        onClick={() => history.push("/Total-Costs")}
+                        onClick={() => router.push("/analytics/totalCosts")}
                     >
                         <h4 className="expectedHeading ">Total Costs</h4>
                         <h4 className="">
@@ -449,7 +446,9 @@ const Analytics = () => {
                 </div>
 
                 <div className="col-lg-4 col-md-6 col-12 mt-4">
-                    <div className="chartsOuter">
+                    <div className="chartsOuter"
+                      onClick={() => router.push("/analytics/totalPosOrder")}
+                    >
                         <h4 className="expectedHeading ">Total POS Orders</h4>
                         <h4 className="successMain">
                             {" "}
@@ -459,7 +458,6 @@ const Analytics = () => {
                         </h4>
                         <ChartCommon
                             style={{ cursor: "pointer" }}
-                            push={() => history.push("/Total-Pos-Orders")}
                             className="col-md-12"
                             header=""
                             options={options}
@@ -470,7 +468,8 @@ const Analytics = () => {
                 </div>
 
                 <div className="col-lg-4 col-md-6 col-12 mt-4">
-                    <div className="chartsOuter">
+                    <div className="chartsOuter"
+                                          onClick={() => router.push("/analytics/totalDeliveryOrder")}>
                         <h4 className="expectedHeading ">Total Delivery Orders</h4>
                         <h4 className="successMain">
                             {" "}
@@ -480,7 +479,6 @@ const Analytics = () => {
                         </h4>
                         <ChartCommon
                             style={{ cursor: "pointer" }}
-                            push={() => history.push("/Total-Delivery-Orders")}
                             className="col-md-12"
                             header=""
                             options={options}
@@ -491,7 +489,8 @@ const Analytics = () => {
                 </div>
 
                 <div className="col-lg-4 col-md-6 col-12 mt-4">
-                    <div className="chartsOuter">
+                    <div className="chartsOuter"
+                                          onClick={() => router.push("/analytics/totalShippingOrder")}>
                         <h4 className="expectedHeading ">Total Shipping Orders</h4>
                         <h4 className="successMain">
                             {" "}
@@ -501,7 +500,6 @@ const Analytics = () => {
                         </h4>
                         <ChartCommon
                             style={{ cursor: "pointer" }}
-                            push={() => history.push("/Total-Shipping-Orders")}
                             className="col-md-12"
                             header=""
                             options={options}
@@ -512,7 +510,8 @@ const Analytics = () => {
                 </div>
 
                 <div className="col-lg-4 col-md-6 col-12 mt-4">
-                    <div className="chartsOuter">
+                    <div className="chartsOuter"
+                    onClick={() => router.push("/analytics/totalOrder")}>
                         <h4 className="expectedHeading ">Total Orders</h4>
                         <h4 className="successMain">
                             {" "}
@@ -522,7 +521,6 @@ const Analytics = () => {
                         </h4>
                         <ChartCommon
                             style={{ cursor: "pointer" }}
-                            push={() => history.push("/Total-Orders")}
                             className="col-md-12"
                             header=""
                             options={options}
@@ -535,8 +533,7 @@ const Analytics = () => {
                 <div className="col-lg-4 col-md-6 col-12 mt-4">
                     <div
                         className="chartsOuter"
-                        style={{ cursor: "pointer" }}
-                        onClick={() => history.push("/Total-Product-Sold")}
+                        onClick={() => router.push("/analytics/totalProductSold")}
                     >
                         <h4 className="expectedHeading ">Total Product Sold</h4>
                         <h4 className="successMain">
