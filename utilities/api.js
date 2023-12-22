@@ -28,7 +28,6 @@ axiosInstance.interceptors.request.use(function (config) {
 
 axiosInstance.interceptors.response.use(
   (response) => {
-    console.log(response,"hello")
     return response;
   },
   (error) => {
@@ -41,6 +40,19 @@ axiosInstance.interceptors.response.use(
     return Promise.reject(error);
   }
 );
+
+// const axiosGet = (url, params = {}) => {
+//   // delete params.cb
+
+//   return axiosInstance
+//     .get(url, { params: params })
+//     .then((response) => {
+//       return { status: true, data: response.data };
+//     })
+//     .catch((err) => {
+//       return { status: false, error: err };
+//     });
+// };
 
 const axiosGet = (url, params = {}) => {
   return axiosInstance.get(url, { params: params })
