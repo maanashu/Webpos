@@ -34,7 +34,7 @@ const FullCart = () => {
         setKey(Math.random());
     };
     return (
-        <>
+        <> 
             <div className='fullCartSection'>
                 <div className='row'>
                     <div className='col-lg-7 col-md-7'>
@@ -188,7 +188,7 @@ const FullCart = () => {
                                             <div className='offerCartHeading'>
                                                 <h4 className='availablemain'>Veterinary Consultation for small and big Pets</h4>
                                                 <h4 className='availableTime'>Today at 10hrs / Dr. Africa ...</h4>
-                                                <h4 className='availablePrice'>$90.00<span className='actualPrice'>$64.00</span></h4>
+                                                <h4 className='availablePrice'><del>$90.00</del><span className='actualPrice'>$64.00</span></h4>
                                             </div>
                                         </div>
                                         <figure className='offerCartImg'>
@@ -201,7 +201,7 @@ const FullCart = () => {
                                             <div className='offerCartHeading'>
                                                 <h4 className='availablemain'>Veterinary Consultation for small and big Pets</h4>
                                                 <h4 className='availableTime'>Today at 10hrs / Dr. Africa ...</h4>
-                                                <h4 className='availablePrice'>$90.00<span className='actualPrice'>$64.00</span></h4>
+                                                <h4 className='availablePrice'><del>$90.00</del><span className='actualPrice'>$64.00</span></h4>
                                             </div>
                                         </div>
                                         <figure className='offerCartImg active'>
@@ -214,7 +214,7 @@ const FullCart = () => {
                                             <div className='offerCartHeading'>
                                                 <h4 className='availablemain'>Veterinary Consultation for small and big Pets</h4>
                                                 <h4 className='availableTime'>Today at 10hrs / Dr. Africa ...</h4>
-                                                <h4 className='availablePrice'>$90.00<span className='actualPrice'>$64.00</span></h4>
+                                                <h4 className='availablePrice'><del>$90.00</del><span className='actualPrice'>$64.00</span></h4>
                                             </div>
                                         </div>
                                         <figure className='offerCartImg active'>

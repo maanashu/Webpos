@@ -509,7 +509,7 @@ figure {
     padding: 24px 16px;
     background: #FFF;
     width: 100%;
-    max-width: 475px;
+    max-width: 500px;
     box-shadow: -3px 6px 7px 0px rgba(52, 79, 117, 0.03), -12px 28px 25px 0px rgba(52, 79, 117, 0.04), -31px 74px 80px 0px rgba(52, 79, 117, 0.07), -152px 0px 90px 62px rgba(52, 79, 117, 0.10);
 }
 
@@ -631,6 +631,12 @@ figure {
 }
 
 .cartSubInfo.active {
+    border: 1px solid #D7DEFF;
+    background: #FFF;
+    box-shadow: -2px 4px 25px 0px rgba(50, 80, 127, 0.02), -5px 10px 80px 0px rgba(50, 80, 127, 0.04);
+}
+
+.cartSubInfo:hover {
     border: 1px solid #D7DEFF;
     background: #FFF;
     box-shadow: -2px 4px 25px 0px rgba(50, 80, 127, 0.02), -5px 10px 80px 0px rgba(50, 80, 127, 0.04);
@@ -2315,7 +2321,7 @@ figure {
     border-radius: 20px;
     background: #FFF;
     box-shadow: -2px 4px 25px 0px rgba(50, 80, 127, 0.02), -5px 9px 80px 0px rgba(50, 80, 127, 0.04);
-    padding: 24px  16px;
+    padding: 24px 16px;
 }
 
 .deliverOrderRight {
@@ -2336,10 +2342,270 @@ figure {
     outline: 2px solid #F7F9FF;
     background-color: transparent;
 }
-#DeliverDashboard .invoice_subhead{
+
+#DeliverDashboard .invoice_subhead {
     padding: 8px;
 }
+
+.cartSubInfo.active .incrementBtn {
+    border-radius: 6px;
+    border: 1px solid #D7DEFF !important;
+    background: #FFF;
+    box-shadow: 0px 0px 0px 4px rgba(127, 143, 217, 0.05);
+}
+
+.cartSubInfo:hover .incrementBtn {
+    border-radius: 6px;
+    border: 1px solid #D7DEFF !important;
+    background: #FFF;
+    box-shadow: 0px 0px 0px 4px rgba(127, 143, 217, 0.05);
+}
+
+.cartSubInfo.active .unitPriceControl {
+    border-radius: 6px;
+    border: 1px solid #D7DEFF !important;
+    background: #FFF;
+    box-shadow: 0px 0px 0px 4px rgba(127, 143, 217, 0.05);
+}
+
+.cartSubInfo:hover .unitPriceControl {
+    border-radius: 6px;
+    border: 1px solid #D7DEFF !important;
+    background: #FFF;
+    box-shadow: 0px 0px 0px 4px rgba(127, 143, 217, 0.05);
+}
+
 /*deliver Module css end*/
+/*product module css start*/
+.productDetailLeft {
+    padding: 40px !important;
+}
+
+.productInfo {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 30px;
+}
+
+.productBag {
+    width: 155px;
+    height: 155px;
+    border-radius: 24px;
+}
+
+.productRefresh {
+    position: relative;
+}
+
+.colorChart {
+    margin: 24px 0;
+}
+
+.productIncrement {
+    margin: 30px 0 !important;
+    border-radius: 16px !important;
+    border: 1px solid #D7DEFF !important;
+    justify-content: space-between;
+}
+
+.productIncrement .addBtnControl {
+    max-width: 100% !important;
+    padding: 10px !important;
+    margin: 0 !important;
+
+}
+
+.productIncrement .plusMinus {
+    padding: 10px 10px;
+    font-size: 24px;
+    width: 100%;
+    text-align: center;
+}
+
+.productDetailRight {
+    padding: 40px 24px;
+}
+
+.detailText {
+    color: #172461;
+    font-size: 14px;
+    font-weight: 400;
+    width: 100%;
+}
+
+.productSubData {
+    border-radius: 6px;
+    background: #F5F6FC;
+    padding: 4px 8px;
+    display: flex;
+    align-items: center;
+}
+
+.productData {
+    margin: 16px 0;
+}
+
+.productSubDataLight {
+    border-radius: 6px;
+    padding: 4px 8px;
+    display: flex;
+    align-items: center;
+}
+
+.stockHandSetion {
+    margin: 24px 0;
+}
+
+.stockSub {
+    border-radius: 16px;
+    border: 1px solid #D7DEFF;
+    margin-top: 16px;
+    padding: 16px;
+}
+
+.stockBox {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+}
+
+.stockSubBox {
+    border-radius: 10px;
+    border: 1px solid #D7DEFF;
+    padding: 16px;
+    width: 100%;
+}
+
+.blueSize {
+    border-radius: 6px;
+    border: 1px solid #D7DEFF;
+    background: #F7F9FF;
+    padding: 4px 8px;
+}
+
+.sizeText {
+    color: #172461;
+    text-align: center;
+    font-size: 12px;
+    font-weight: 500;
+}
+
+.redSize {
+    border-radius: 6px;
+    border: 1px solid #F04438;
+    background: #F97066;
+    padding: 4px 8px;
+}
+
+.redSize .sizeText {
+    color: #5B0600;
+}
+
+.redStock {
+    border-radius: 6px;
+    border: 0px solid #D7DEFF;
+    background: #FEE4E2;
+    padding: 4px 8px;
+}
+
+.redStock .sizeText {
+    color: #5B0600;
+}
+
+.Notify {
+    border-radius: 50px;
+    background: #F5F6FC;
+    padding: 2px 6px;
+}
+
+.yellowSize {
+    border-radius: 6px;
+    border: 1px solid #FEC84B;
+    background: #FEDF89;
+    padding: 4px 8px;
+}
+
+.yellowSize .sizeText {
+    color: #93370D;
+}
+
+.yellowStock {
+    border-radius: 6px;
+    border: 0px solid #D7DEFF;
+    background: #FEEFC6;
+    padding: 4px 8px;
+}
+
+.yellowStock .sizeText {
+    color: #93370D;
+}
+
+.noNotify {
+    padding: 2px 6px;
+    border-radius: 6px;
+}
+
+.storeAvailable {
+    border-radius: 12px;
+    border: 1px solid #E4E6F2;
+    padding: 10px 12px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.roundCheck input[type="checkbox"] {
+    position: relative;
+    width: 30px;
+    height: 18px;
+    -webkit-appearance: none;
+    appearance: none;
+    outline: none;
+    cursor: pointer;
+    border-radius: 12px;
+    background: #E4E6F2;
+}
+
+.roundCheck input[type="checkbox"]::before {
+    content: "";
+    width: 11px;
+    height: 13px;
+    border-radius: 50%;
+    background: #fff;
+    position: absolute;
+    top: 50%;
+    transform: translate(0%, -50%);
+    left: 3px;
+    transition: 0.5s;
+    
+}
+
+.roundCheck input[type="checkbox"]:checked::before {
+    transform: translate(100%, -50%);
+    background: #fff;
+    border: none;
+    border: 2px solid #fff
+}
+
+.roundCheck input[type="checkbox"]:checked {
+    background: #4659B5;
+    border: 2px solid #4659B5;
+}
+.roundCheck{
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+.productGreyDot{
+    background-color: #D7DEFF;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+}
+/*product module css end*/
 /*media query start*/
 @media (max-width:1600px) {
     .cartOfferSection {
@@ -2414,7 +2680,3 @@ figure {
     }
 }
 
-.addTocartItems {
-    color: red;
-    font-size: 10px;
-}
