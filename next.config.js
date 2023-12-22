@@ -16,6 +16,8 @@ module.exports = (phase, { defaultConfig }) => {
         "i.pinimg.com",
         "randomuser.me",
         "www.shutterstock.com",
+        "target.scene7.com",
+        'parivaargroup.com'
       ],
     },
     env: {
