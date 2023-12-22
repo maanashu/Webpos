@@ -199,8 +199,12 @@ import garphCircle from "../public/images/garphCircle.png"
 import overview_sales from "../public/images/overview_sales.png"
 import barChart from "../public/images/barChart.png"
 import lightArrowRight from "../public/images/lightArrowRight.svg"
+import checkinSky from "../public/images/checkinSky.svg"
+import timeImg from "../public/images/timeImg.svg"
 
 export {
+  timeImg,
+  checkinSky,
   sideArrow,
   overview_sales,
   visa,
