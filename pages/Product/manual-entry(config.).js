@@ -729,13 +729,13 @@ const Manualentryconfig = () => {
                                                 <button type='button' className='productId'><span className='productDot'></span>SKU 0199 - 3221</button>
                                                 <p className='innerHeading'>$90.00</p>
                                             </article>
-                                        </div>
+                                        </div> 
                                         <div className=''>
                                             <p className='priceHeading'>Color</p>
                                             <article className='manual-entryColor'>
                                                 <span className='Pink'></span>
                                                 <span className='Red'></span>
-                                                <span className='Yellow active'></span>
+                                                <span className='Yellow active'></span> 
                                                 <span className='Blue'></span>
                                                 <span className='Black'></span>
                                                 <span className='White'></span>

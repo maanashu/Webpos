@@ -65,7 +65,7 @@ const Sidebar = (props) => {
             }
             alt="image"
             width={100}
-            height={100}
+            height={100}  
             className="img-fluid sidebarProfile"
             onClick={() => router.push("/home/overview")}
           />
@@ -166,7 +166,7 @@ const Sidebar = (props) => {
             </Link>
           </ListGroupItem>
           <ListGroupItem className="sidebarItems">
-            <Link href="#" className="sidebarLinks">
+            <Link href="/customers" className="sidebarLinks">
               <Image
                 src={Images.Customer}
                 alt="image"

@@ -3,7 +3,7 @@ import AnalyticsHeader from '../../../components/commanComonets/AnalyticsHeader'
 import AnalyticsSubHeader from '../../../components/commanComonets/AnalyticsSubHeader';
 import { ArrowLeft, ArrowRight, average_order, gross_profit, gross_profit_blue, overview_sales, total_order, total_volume } from '../../../utilities/images';
 import Image from 'next/image';
-import { analyticsDetails, getProfitsData } from '../../../redux/slices/analytics';
+import { analyticsDetails, getProfitsData, orderAnalyticsData } from '../../../redux/slices/analytics';
 import moment from 'moment-timezone';
 import { useDispatch, useSelector } from 'react-redux';
 import { selectLoginAuth } from '../../../redux/slices/auth';
@@ -13,7 +13,7 @@ const index = () => {
   const [channelSelected, setChannelSelected] = useState({ value: 'all', label: 'All Channels' })
   const [startDate, setStartDate] = useState(null);
   const [endDate, setEndDate] = useState(null);
-  const [analyticsProfitData, setAnalyticsProfitsData] = useState("");
+  const [analyticsOrderData, setAnalyticsOrderData] = useState("");
   const [limit, setLimit] = useState("10");
   const [page, setPage] = useState(1);
   const [totalRecords, setTotalRecords] = useState(0)
@@ -24,7 +24,7 @@ const index = () => {
   };
 
   const dispatch = useDispatch()
-  console.log(analyticsProfitData, "analytics data")
+  console.log(analyticsOrderData, "analytics data")
 
   function addThousandSeparator(number) {
     return number?.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
@@ -39,62 +39,55 @@ const index = () => {
     {
       icon: total_order,
       title: "Total Orders",
-      count: analyticsProfitData?.overView?.total_orders,
+      count: analyticsOrderData?.overView?.total_orders,
       bgColor: "#D1FADF",
       textColor: "#003921",
     },
     {
       icon: total_volume,
       title: "Total Volume",
-      count: `${addThousandSeparator(analyticsProfitData?.overView?.transaction ? (analyticsProfitData?.overView?.transaction).toFixed(2) : 0)}`,
+      count: `${addThousandSeparator(analyticsOrderData?.overView?.transaction ? (analyticsOrderData?.overView?.transaction).toFixed(2) : 0)}`,
       bgColor: "#D1FADF",
       textColor: "#003921",
     },
     {
       icon: average_order,
       title: "Average Order Value",
-      count: analyticsProfitData?.overView?.average_value ? `$${addThousandSeparator((analyticsProfitData?.overView?.average_value).toFixed(2))}` : "$0",
+      count: analyticsOrderData?.overView?.average_value ? `$${addThousandSeparator((analyticsOrderData?.overView?.average_value).toFixed(2))}` : "$0",
       bgColor: "#D1FADF",
       textColor: "#003921",
     },
     {
       icon: overview_sales,
       title: "Total Sales",
-      count: `${addThousandSeparator(analyticsProfitData?.overView?.total_cost ? (analyticsProfitData?.overView?.total_cost).toFixed(2) : 0)}`,
+      count: `${addThousandSeparator(analyticsOrderData?.overView?.total_cost ? (analyticsOrderData?.overView?.total_cost).toFixed(2) : 0)}`,
       bgColor: "#D1FADF",
       textColor: "#003921",
     },
   ];
 
-  const newUserDataHandle = () => {
+  const orderAnalyticsHandle = () => {
     let params = {
-      is_admin: true,
       filter: timeSpan,
       channel: channelSelected.value,
       // seller_id: auth?.usersInfo?.payload?.uniqe_id
       seller_id: "016b1b3a-d7d3-4fc3-a76b-995b23c43852",
-      page: page,
-      limit: Number(limit),
     };
     if (startDate && endDate) {
       params = {
-        is_admin: true,
-        start_date: moment(startDate).format("YYYY-MM-DD"),
-        end_date: moment(endDate).format("YYYY-MM-DD"),
         channel: channelSelected.value,
         // seller_id: auth?.usersInfo?.payload?.uniqe_id
         seller_id: "016b1b3a-d7d3-4fc3-a76b-995b23c43852",
-        page: page,
-        limit: Number(limit),
+        start_date: moment(startDate).format("YYYY-MM-DD"),
+        end_date: moment(endDate).format("YYYY-MM-DD"),
       };
     }
-
-    dispatch(getProfitsData({
+    dispatch(orderAnalyticsData({
       ...params,
       cb(res) {
         if (res.status) {
-          setAnalyticsProfitsData(res?.data?.payload);
-          setTotalRecords(res?.data?.payload?.orderData?.total)
+          setAnalyticsOrderData(res?.data?.payload);
+          // setTotalRecords(analyticsOrderData?.pos_graph?.ordersListData)
         }
       },
     })
@@ -102,7 +95,7 @@ const index = () => {
   };
 
   useEffect(() => {
-    newUserDataHandle();
+    orderAnalyticsHandle();
   }, [timeSpan, channelSelected, endDate, limit, page]);
   return (
     <div className="main-container-customers">
@@ -212,8 +205,8 @@ const index = () => {
               {
                 <>
                   {
-                    analyticsProfitData?.orderData?.data?.length > 0 ? <tbody>
-                      {analyticsProfitData?.orderData?.data?.map((row, idx) => (
+                    analyticsOrderData?.pos_graph?.ordersListData?.length > 0 ? <tbody>
+                      {analyticsOrderData?.pos_graph?.ordersListData?.map((row, idx) => (
                         <tr className="customers-table-row">
                           <td
                             className="customers-table-data"
@@ -265,7 +258,7 @@ const index = () => {
 
       </table>
       {
-        (analyticsProfitData?.orderData?.data?.length > 0 && !analyticsData?.loading) &&
+        (analyticsOrderData?.pos_graph?.ordersListData?.length > 0 && !analyticsData?.loading) &&
         <div className="pagination-footer flex-row-space-between">
           <div className="flex-row-space-between" onClick={() => {
             (page > 1) ? setPage(page - 1) : void (0);

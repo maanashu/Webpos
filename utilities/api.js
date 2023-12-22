@@ -28,6 +28,7 @@ axiosInstance.interceptors.request.use(function (config) {
 
 axiosInstance.interceptors.response.use(
   (response) => {
+    console.log("hello")
     return response;
   },
   (error) => {
