@@ -43,8 +43,11 @@ import Marlboro from "../public/images/marlboro.svg";
 import sideToggle from "../public/images/sideToggle.svg";
 import Logo from "../public/images/Logo.svg";
 import ProductsServices from "../public/images/ProductsServices.svg";
+import ProductsServicesactive from "../public/images/ProductsServicesinactive.svg";
 import DeliveryOrders from "../public/images/DeliveryOrders.svg";
+import DeliveryOrdersactive from "../public/images/DeliveryOrdersInactive.svg";
 import ShippingOrders from "../public/images/ShippingOrders.svg";
+import ShippingSolid from "../public/images/Shipping_Solid.svg";
 import Settings from "../public/images/Settings.svg";
 import Rewards from "../public/images/Rewards.svg";
 import Customer from "../public/images/Customer.svg";
@@ -205,6 +208,7 @@ import darkBell from "../public/images/darkBell.svg"
 import storeDark from "../public/images/storeDark.svg"
 import deliverDark from '../public/images/deliverDark.svg'
 import PlaneDark from "../public/images/PlaneDark.svg"
+import CalendarSolid from "../public/images/Calendar_Solid.svg"
 
 
 
@@ -414,4 +418,8 @@ export {
   storeDark,
   deliverDark,
   PlaneDark,  
+  ProductsServicesactive,
+  DeliveryOrdersactive,
+  ShippingSolid,
+  CalendarSolid
 };
