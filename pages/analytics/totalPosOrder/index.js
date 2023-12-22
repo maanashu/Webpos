@@ -14,11 +14,7 @@ const index = () => {
   const [startDate, setStartDate] = useState(null);
   const [endDate, setEndDate] = useState(null);
   const [analyticsOrderData, setAnalyticsOrderData] = useState("");
-  const [limit, setLimit] = useState("10");
-  const [page, setPage] = useState(1);
-  const [totalRecords, setTotalRecords] = useState(0)
   const analyticsData = useSelector(analyticsDetails);
-  const auth = useSelector(selectLoginAuth)
   const handleChange = (selectedOption) => {
     setChannelSelected(selectedOption)
   };
@@ -257,46 +253,6 @@ const index = () => {
         }
 
       </table>
-      {
-        (analyticsOrderData?.pos_graph?.ordersListData?.length > 0 && !analyticsData?.loading) &&
-        <div className="pagination-footer flex-row-space-between">
-          <div className="flex-row-space-between" onClick={() => {
-            (page > 1) ? setPage(page - 1) : void (0);
-          }}>
-            <Image
-              src={ArrowLeft}
-              width={16}
-              height={16}
-            />
-            <p
-              style={{
-                color: "#B4BEEB",
-              }}
-              className="pagination-footer-text"
-            >
-              Prev
-            </p>
-          </div>
-          <p
-            style={{
-              color: "#B4BEEB",
-            }}
-            className="pagination-footer-text"
-          >
-            Page {page} to {Math.ceil(totalRecords / 10)}
-          </p>
-          <div className="flex-row-space-between" onClick={() => {
-            (page < (Math.ceil(totalRecords / 10))) ? setPage(page + 1) : void (0);
-          }}>
-            <p className="pagination-footer-text">Next</p>
-            <Image
-              src={ArrowRight}
-              width={16}
-              height={16}
-            />
-          </div>
-        </div>
-      }
 
     </div>
   )
