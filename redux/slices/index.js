@@ -2,11 +2,15 @@ import { combineReducers } from "@reduxjs/toolkit";
 import { authSlice } from "./auth";
 import { dashboardSlice } from "./dashboard";
 import { HYDRATE } from 'next-redux-wrapper';
+import { customersSlice } from "./customers";
+import { analyticsSlice } from "./analytics";
 
   const mainReducer = combineReducers({
     auth: authSlice.reducer,
     dashboard: dashboardSlice.reducer,
-})
+    customers: customersSlice.reducer,
+    analytics: analyticsSlice.reducer,
+  });
 
 const rootReducer = (state, action) => {
   switch (action.type) {

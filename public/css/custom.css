@@ -115,7 +115,6 @@ a {
   padding: 30px 10px 30px 16px;
   backdrop-filter: blur(10px);
 }
-
 .timeHeading {
   color: #636E9F;
   font-size: 15px;
@@ -123,7 +122,6 @@ a {
   line-height: normal;
   margin: 0 6px;
 }
-
 .timeNav {
   display: flex;
   align-items: center;

@@ -18,23 +18,38 @@ const DatePickerCustomComponent = forwardRef(({ value, onClick }, ref) => (
   </p>
 ));
 
-const PaginationHeader = () => {
-  const [startDate, setStartDate] = useState();
-
+const PaginationHeader = ({
+  page,
+  limit,
+  setPage,
+  setLimit,
+  startDate,
+  totalItems,
+  onDateChange,
+}) => {
   const options = [
     { value: "Area", label: "Area" },
     { value: "Place 2", label: "Place 2" },
     { value: "Place 3", label: "Place 3" },
   ];
 
-  const paginationBts = (icon, imgClass) => (
-    <div className="pagination-btn">
+  const paginationBts = (icon, imgClass, increment, isDisabled) => (
+    <div
+      className={`pagination-btn ${isDisabled ? "disable-element" : ""}`}
+      onClick={() => {
+        if (increment) {
+          setPage(page + 1);
+        } else {
+          setPage(page - 1);
+        }
+      }}
+    >
       <Image
-        height={24}
-        width={24}
-        style={{ marginTop: "-1px" }}
         src={icon}
+        width={24}
+        height={24}
         className={imgClass}
+        style={{ marginTop: "-1px" }}
       />
     </div>
   );
@@ -63,7 +78,7 @@ const PaginationHeader = () => {
             />
             <ReactDatePicker
               selected={startDate}
-              onChange={(date) => setStartDate(date)}
+              onChange={(date) => onDateChange(date)}
               customInput={<DatePickerCustomComponent />}
             />
             <Image src={arrowDown} />
@@ -104,11 +119,14 @@ const PaginationHeader = () => {
             <p className="users-showing-results">Showing results</p>
             <ReactSelect
               options={[
-                { value: "50", label: "50" },
-                { value: "49", label: "49" },
-                { value: "48", label: "48" },
+                { value: "10", label: "10" },
+                { value: "15", label: "15" },
+                { value: "20", label: "20" },
+                { value: "25", label: "25" },
               ]}
-              placeholder="50"
+              onChange={(e) => setLimit(e.value)}
+              placeholder={limit}
+              defaultValue={limit}
               classNamePrefix="react-select"
               className="react-select-container"
               styles={{
@@ -130,11 +148,14 @@ const PaginationHeader = () => {
             style={{ alignItems: "center", gap: "6px" }}
             className="flex-row-space-between"
           >
-            {paginationBts(arrowIcon, "roate-180deg")}
-            {paginationBts(arrowRightDouble, "roate-180deg")}
-            <p className="pagination-numbers">1-20 of 1550</p>
-            {paginationBts(arrowIcon)}
-            {paginationBts(arrowRightDouble)}
+            {paginationBts(arrowRightDouble, "roate-180deg", null, page <= 1)}
+            {paginationBts(arrowIcon, "roate-180deg", null, page <= 1)}
+            <p className="pagination-numbers">
+              1-{totalItems < Number(limit) ? totalItems : limit * page} of{" "}
+              {totalItems}
+            </p>
+            {paginationBts(arrowIcon, null, true, totalItems <= limit)}
+            {paginationBts(arrowRightDouble, null, true, totalItems <= limit)}
           </div>
         </div>
       </div>

@@ -2,6 +2,8 @@ import axios from "axios";
 import BaseUrl from "../constants/baseUrl";
 import { toast } from "react-toastify";
 import Router from "next/router";
+import { selectLoginAuth } from "../redux/slices/auth";
+import { useSelector } from "react-redux";
 
 const axiosInstance = axios.create({
   baseURL: '',
@@ -14,13 +16,19 @@ const axiosInstance = axios.create({
 // axios.defaults.headers.common['Authorization'] = localStorage.getItem('token')
 // Set the AUTH token for any request
 axiosInstance.interceptors.request.use(function (config) {
+
+// const Token = authData?.posUserLoginDetails?.payload?.token
+//   ? authData?.posUserLoginDetails?.payload?.token
+//   : "";
   const token = localStorage.getItem("authToken");
   config.headers.Authorization = token ? token : "";
   return config;
 });
 
+
 axiosInstance.interceptors.response.use(
   (response) => {
+    console.log("hello")
     return response;
   },
   (error) => {
@@ -28,7 +36,7 @@ axiosInstance.interceptors.response.use(
       // handle 401 errors here
       localStorage.clear();
       Router.push("/");
-      toast.warning("Session expired");
+      // toast.warning("Session expired");
     }
     return Promise.reject(error);
   }

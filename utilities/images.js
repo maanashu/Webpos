@@ -74,7 +74,6 @@ import appointmentCalender from "../public/images/appointmentCalender.svg";
 import Appointmenttime from "../public/images/Appointmenttime.svg";
 import CardIcons from "../public/images/CardIcons.png";
 import cardThree from "../public/images/cardThree.png";
-import plusCircleOutline from "../public/images/plus-circle_Outline.svg";
 import commentText from "../public/images/comment-text.svg";
 import TomorrowCalender from "../public/images/TomorrowCalender.svg";
 import TodayCalender from "../public/images/TodayCalender.svg";
@@ -123,15 +122,133 @@ import customerLocationDark from "../public/images/new_location_dark.svg";
 import phoneDark from "../public/images/phone_dark.svg";
 import emailDark from "../public/images/email_dark.svg";
 import giftCard from "../public/images/gift_card.svg";
-import barCodeScanImg from "../public/images/bar_code_scan.png"
-import jobrFullIcon from "../public/images/jobr_full_icon.png"
-import serviceLeft from "../public/images/serviceLeft.svg"
-import serviceRight from "../public/images/serviceRight.svg"
-import addCutomer from "../public/images/addCutomer.svg"
-import plusRound from "../public/images/plusRound.svg"
-import orderBike from '../public/images/order_bike.svg'
+import barCodeScanImg from "../public/images/bar_code_scan.png";
+import jobrFullIcon from "../public/images/jobr_full_icon.png";
+import serviceLeft from "../public/images/serviceLeft.svg";
+import serviceRight from "../public/images/serviceRight.svg";
+import addCutomer from "../public/images/addCutomer.svg";
+import plusRound from "../public/images/plusRound.svg";
+import orderBike from "../public/images/order_bike.svg";
+import ItemImage from "../public/images/Item_Image.png";
+import AddedIcon from "../public/images/AddedIcon.svg";
+import ShoppingReturn from "../public/images/Shopping-Return.svg";
+import dotOrderAccepted from "../public/images/dot_order_accept.svg";
+import dotOrderDelivered from "../public/images/dot_order_delivered.svg";
+import dotOrderPickup from "../public/images/dot_order_pickup.svg";
+import dotAssignDriver from "../public/images/dot_assign_driver.svg";
+import packageBoxPurplish from "../public/images/pinkish_purple_box.svg";
+import Arrowtopright from "../public/images/arrowtopright.svg";
+import Mastercard from "../public/images/Mastercard.svg";
+import MoneyOutline from "../public/images/MoneyOutline.svg";
+import ActiveMoneyOutline from "../public/images/ActiveMoneyOutline.svg";
+import JOBRCoinOutline from "../public/images/JOBR-Coin_Outline.svg";
+import ReceiptOutline from "../public/images/Receipt_Outline.svg";
+import Email from "../public/images/Email.svg";
+import Like from "../public/images/Like.svg";
+import Like_Solid from "../public/images/Like_Solid.svg";
+import Sms from "../public/images/Sms.svg";
+import ShoppingReturnLite from "../public/images/ShoppingReturn.svg";
+import mailBox from "../public/images/mailBox.svg"
+import visa from "../public/images/Visa.svg"
+import coins from "../public/images/Coins.svg"
+import Visa from "../public/images/Visa.svg"
+import InvoiceIcon from "../public/images/InvoiceIcon.svg"
+import giftOffer from "../public/images/giftOffer.svg"
+// import InvoiceIcon from "../public/images/InvoiceIcon.svg"
+import phoneMessage from "../public/images/phoneMessage.svg"
+import btnTick from "../public/images/btnTick.svg"
+import emailSms from "../public/images/emailSms.svg"
+import jobrCoin from '../public/images/jobrCoin.svg'
+import lightGiftOffer from "../public/images/lightGiftOffer.svg"
+import giftModal from "../public/images/giftModal.svg"
+import bookImg from "../public/images/bookImg.svg"
+import calendarBlue from "../public/images/calendarBlue.svg"
+import notification from "../public/images/notification.svg"
+import listImg from "../public/images/listImg.svg"
+import backArrow from "../public/images/backArrow.svg"
+import calendarSmall from "../public/images/calendarSmall.svg" 
+import userImages from "../public/images/userImages.png"
+import settingBlue from "../public/images/settingBlue.svg"
+import userAvtar from "../public/images/userAvtar.png"
+import usersImages from "../public/images/usersImages.svg"
+import clockImg from "../public/images/clockImg.svg"
+import editImg from "../public/images/editImg.svg"
+import checkImg from "../public/images/checkImg.svg"
+import locatePurple from "../public/images/locatePurple.svg" 
+import complete from "../public/images/complete.svg" 
+import walletCoin from "../public/images/walletCoin.svg"
+import scanner from "../public/images/scanner.png"
+import gross_profit_blue from "../public/images/gross_profit_blue.png"
+import gross_profit from "../public/images/gross_profit.png"
+import average_order from "../public/images/average_order.png"
+import total_volume from "../public/images/total_volume.png"
+import total_order from "../public/images/total_order.png"
+import sideArrow from "../public/images/sideArrow.svg"
+import ordersReview from "../public/images/ordersReview.svg"
+import deliveryCheck from "../public/images/deliveryCheck.svg"
+import deliverClock from "../public/images/deliverClock.svg"
+import assignDriver from "../public/images/assignDriver.svg"
+import deliverSend from "../public/images/deliverSend.svg"
+import deliveryClose from "../public/images/deliveryClose.svg"
+import deliverBack from "../public/images/deliverBack.svg"
+import deliverSuperFast from "../public/images/deliverSuperFast.svg"
+import deliverFast from "../public/images/deliverFast.svg"
+import deliveryLate from "../public/images/deliveryLate.svg"
+import pickupImg from "../public/images/pickupImg.svg"
+import garphCircle from "../public/images/garphCircle.png"
+import barChart from "../public/images/barChart.png"
+import lightArrowRight from "../public/images/lightArrowRight.svg"
+import overview_sales from "../public/images/overview_sales.png"
+import bagImg from "../public/images/bagImg.png"
+import lightBell from "../public/images/lightBell.svg"
+import darkBell from "../public/images/darkBell.svg"
+import storeDark from "../public/images/storeDark.svg"
+import deliverDark from '../public/images/deliverDark.svg'
+import PlaneDark from "../public/images/PlaneDark.svg"
+
+
 
 export {
+  sideArrow,
+  overview_sales,
+  visa,
+  gross_profit_blue,
+  gross_profit,
+  average_order,
+  total_volume,
+  total_order,
+  giftModal,
+  lightGiftOffer,
+  jobrCoin,
+  emailSms,
+  btnTick,
+  phoneMessage,
+  giftOffer,
+  coins,
+  scanner,
+  walletCoin,
+  complete,
+  locatePurple,
+  checkImg,
+  editImg,
+  clockImg,
+  usersImages,
+  userAvtar,
+  settingBlue,
+  userImages,
+  calendarSmall,
+  backArrow,
+  listImg,
+  notification,
+  calendarBlue,
+  bookImg,
+  Visa,
+  mailBox,
+  packageBoxPurplish,
+  dotOrderAccepted,
+  dotOrderDelivered,
+  dotOrderPickup,
+  dotAssignDriver,
   orderBike,
   barCodeScanImg,
   jobrFullIcon,
@@ -240,7 +357,6 @@ export {
   Appointmenttime,
   CardIcons,
   cardThree,
-  plusCircleOutline,
   commentText,
   TomorrowCalender,
   TodayCalender,
@@ -263,4 +379,39 @@ export {
   serviceRight,
   addCutomer,
   plusRound,
+  ItemImage,
+  AddedIcon,
+  ShoppingReturn,
+  Arrowtopright,
+  Mastercard,
+  MoneyOutline,
+  JOBRCoinOutline,
+  ReceiptOutline,
+  Email,
+  Like,
+  Like_Solid,
+  Sms,
+  ShoppingReturnLite,
+  ActiveMoneyOutline,
+  InvoiceIcon,
+  ordersReview,
+  deliveryCheck,
+  deliverClock,
+  assignDriver,
+  deliverSend,
+  deliveryClose,
+  deliverBack,
+  deliverSuperFast,
+  deliverFast,
+  deliveryLate,
+  pickupImg,
+  garphCircle,
+  barChart,
+  lightArrowRight,
+  bagImg,
+  lightBell,
+  darkBell,
+  storeDark,
+  deliverDark,
+  PlaneDark,  
 };

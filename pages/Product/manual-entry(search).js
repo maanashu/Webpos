@@ -1,10 +1,27 @@
-import React from 'react'
+import React, { useState } from 'react'
 import * as Images from "../../utilities/images"
 import Image from "next/image";
 import SearchInvoice from '../../components/commanComonets/InvoiceSearch/Search'
 import * as Product from '../../components/commanComonets/Product';
+import Pagination from '../../components/commanComonets/pagination';
+import ReturnInventory from '../../components/commanComonets/Product/ProductModal/returnInventory';
+import CustomModal from '../../components/customModal/CustomModal';
 
 const Manualinvoice = () => {
+    const [key, setKey] = useState(Math.random());
+    const [modalDetail, setModalDetail] = useState({
+        show: false,
+        title: "",
+        flag: "",
+    });
+    const handleOnCloseModal = () => {
+        setModalDetail({
+            show: false,
+            title: "",
+            flag: "",
+        });
+        setKey(Math.random());
+    };
     return (
         <>
             <div className='manualInvoice'>
@@ -683,15 +700,7 @@ const Manualinvoice = () => {
                                     </table>
                                 </div>
                             </div>
-                            <div className='Custompagination'>
-                                <button type='button' className='paginatinationBtn'>
-                                    <Image src={Images.scanImg} alt="SearchImageIcon" className="img-fluid" />
-                                    pre</button>
-                                <button type='button' className='paginatinationBtn'>Page no. 1 to 8</button>
-                                <button type='button' className='paginatinationBtn active'>Next
-                                    <Image src={Images.scanImg} alt="SearchImageIcon" className="img-fluid" />
-                                </button>
-                            </div>
+                            <Pagination/>
                         </div>
                     </div>
                     <div className='col-lg-6'>
@@ -709,20 +718,20 @@ const Manualinvoice = () => {
                             </div>
                             <div className='d-flex justify-content-between  invoiceSearchBox pb-3'>
                                 <div className='SearchinvoiceBox'>
-                                    <div class="ProductsearchBar">
-                                        <input type="text" class="form-control searchControl" placeholder="Scan Barcode of each Item" />
+                                    <div className="ProductsearchBar">
+                                        <input type="text" className="form-control searchControl" placeholder="Scan Barcode of each Item" />
                                         <Image src={Images.scanImg} alt="SearchImageIcon" className="img-fluid scanImg" />
                                     </div>
                                 </div>
                                 <div className='invoiceButtonBox'>
                                     <button type='button' className='coloredManualButton'>Manual Entry
-                                        <Image src={Images.scanImg} alt="SearchImageIcon" className="img-fluid" />
+                                        <Image src={Images.Cancelproduct} alt="SearchImageIcon" className="img-fluid ms-2" />
                                     </button>
                                 </div>
                             </div>
                             <div className='commanscrollBar manualOrderedProduct mt-3'>
-                                <div class="ManualsearchBar">
-                                    <input type="text" class="form-control searchControl" placeholder="0199 - 322" />
+                                <div className="ManualsearchBar">
+                                    <input type="text" className="form-control searchControl" placeholder="0199 - 322" />
                                     <Image src={Images.SearchIcon} alt="SearchImageIcon" className="img-fluid searchImg" />
                                 </div>
                                 <div className='manualSelectedProduct'>
@@ -795,8 +804,11 @@ const Manualinvoice = () => {
                                 </div>
                                 <div className='flexBox buttonBox'>
                                     <button type='button' className='cancelBtn'>Cancel</button>
-                                    <button type='button' className='BlueBtn'>Next
-                                        <Image src={Images.scanImg} alt="SearchImageIcon" className="img-fluid" />
+                                    <button type='button' className='BlueBtn' onClick={() => {
+                        setModalDetail({ show: true, flag: "ReturnInventory" });
+                        setKey(Math.random());
+                    }}>Next
+                                        <Image src={Images.ArrowRight} alt="ArrowRight" className="img-fluid ArrowRight" />
                                     </button>
                                 </div>
                             </div>
@@ -804,6 +816,47 @@ const Manualinvoice = () => {
                     </div>
                 </div>
             </div>
+            <CustomModal
+                key={key}
+                show={modalDetail.show}
+                backdrop="static"
+                showCloseBtn={false}
+                isRightSideModal={false}
+                mediumWidth={false}
+                ids={modalDetail.flag === "ReturnInventory" ? "ReturnInventory" : "ReturnInventory"}
+
+                child={
+                    modalDetail.flag === "ReturnInventory" ? (
+                        <ReturnInventory close={() => handleOnCloseModal()} />
+                    ) :
+                        ""
+                }
+                header={
+                    <>
+                        <h2 className="modalHeading mb-0">
+                            <figure className='text-center'>
+                                <Image src={Images.ShoppingReturn} alt="Shopping-Return" className='img-fluid ShoppingReturn' onClick={() => handleOnCloseModal()} />
+                            </figure>
+                            <p className='addProductHeading'>Return to Inventory</p>
+                        </h2>
+                        <button className="closeButton">
+                            <Image src={Images.modalCross} alt="img" onClick={() => handleOnCloseModal()} />
+                        </button>
+                    </>
+                }
+
+                onCloseModal={() => handleOnCloseModal()}
+                footer={
+                    <>
+                        <div className='modal-footer'>
+                            <button className='cancelBtn' onClick={() => handleOnCloseModal()}>Cancel</button>
+                            <button className='ModalBlue'>Return to Inventory
+                                <Image src={Images.ShoppingReturn} alt="image" className="img-fluid BtnIcon" />
+                            </button>
+                        </div>
+                    </>
+                }
+            />
         </>
     )
 }

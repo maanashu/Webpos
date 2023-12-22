@@ -3,6 +3,11 @@
     justify-content: space-between;
 }
 
+.disable-element {
+    pointer-events: none;
+    opacity: 0.7;
+}
+
 .main-text-color-styles-customers {
     color: #263682;
     font-size: 24px;
@@ -181,11 +186,11 @@
 }
 
 .checkbox-jbrCoin[type="checkbox"] {
-    border: 2px solid #263682 !important;
+    border: 2px solid #F0C01A !important;
 }
 
 .checkbox-jbrCoin[type="checkbox"]:checked::before {
-    color: #263682;
+    color: #F0C01A;
 }
 
 .checkbox-cash[type="checkbox"] {
@@ -288,6 +293,7 @@
     align-items: center;
     border-radius: 12px;
     background: #F5F6FC;
+    cursor: pointer;
 }
 
 .users-tabs {
@@ -509,7 +515,7 @@
     flex-direction: column;
     align-items: center;
     gap: 16px;
-    padding:  0px 24px;
+    padding: 0px 24px;
 }
 
 .invoice-dotted-hr {
@@ -526,22 +532,64 @@
     align-self: stretch;
 }
 
-/* status dots */
+.order-status-pickup-customer {
+    padding: 4px 6px;
+    align-items: center;
+    gap: 4px;
+    border-radius: 20px;
+    background: #F5EDFF;
+    mix-blend-mode: multiply;
+}
 
-.status-dots-container-customers {
+.customers-stats-table {
+    width: 98%;
+    margin: 16px;
+    border-spacing: 0 8px;
+    border-collapse: initial;
+}
+
+.customers-table-row {}
+
+.customers-table-row:hover .customers-table-data {
+    border-color: #D7DEFF;
 
 }
 
-.status-outer-dot-customers {
-    width: 15px;
-    height: 15px;
-    border-radius: 50%;
+.customers-table-data {
+    text-align: center;
+    padding: 6px 20px;
+    border-top: 1px solid #F5F6FC;
+    border-bottom: 1px solid #F5F6FC;
+    color: #2F3552;
+    font-size: 12px;
+    font-weight: 500;
+    cursor: pointer;
+}
+
+.customers-table-data:first-child {
+    border-left: 1px solid #F5F6FC;
+    border-top-left-radius: 30px;
+    border-bottom-left-radius: 30px;
+}
+
+.customers-table-data:last-child {
+    border-right: 1px solid #F5F6FC;
+    border-top-right-radius: 30px;
+    border-bottom-right-radius: 30px;
+}
+
+.customers-order-status-expand-btn {
+    cursor: pointer;
+    position: absolute;
+    bottom: 15px;
+    right: 70px;
     display: flex;
+    width: 52px;
+    height: 54px;
     justify-content: center;
     align-items: center;
-}
-.status-inner-dot-customers {
-    width: 15px;
-    height: 15px;
-    border-radius: 50%;
+    background: #FFF;
+    border-radius: 30px;
+    padding: 8px 5px;
+    box-shadow: -2.529px 6.008px 6.519px 0px rgba(52, 79, 117, 0.03), -11.954px 28.402px 25.481px 0px rgba(52, 79, 117, 0.04), -31.035px 73.735px 80px 0px rgba(52, 79, 117, 0.07);
 }

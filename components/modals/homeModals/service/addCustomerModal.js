@@ -70,21 +70,12 @@ const AddCustomerModal = () => {
                         ""
                 }
                 header=
-
+                
                 {modalDetail.flag === "createCustomer" ?
                     <>
-
-                        <div className='trackingSub headerModal'>
-                            <figure className='profileImage '>
-                                <Image src={Images.addCutomer} alt="trackingImage" className="img-fluid " />
-                            </figure>
-                            <h4 className='loginheading mt-2'>Add a customer</h4>
-                            <h4 className='trackingHeading'>Search a costumer or <span className='fw-bold'>create a new one. </span></h4>
-                            <p onClick={handleOnCloseModal} className='crossModal'>
+                            <p onClick={handleOnCloseModal} className='modal_cancel'>
                                 <Image src={Images.modalCross} alt="modalCross" className="img-fluid" />
                             </p>
-                        </div>
-
                     </>
                     :
                     ''
