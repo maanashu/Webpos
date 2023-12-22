@@ -287,7 +287,7 @@ figure {
 
 .orderId {
     color: #2F3552;
-    font-size: 14px;
+    font-size: 12px;
     font-weight: 400;
     max-width: 20ch;
     text-overflow: ellipsis;
@@ -2201,7 +2201,7 @@ figure {
 .deliverTableBx {
     border-radius: 20px;
     background: #F5EDFF;
-    padding: 3px 8px;
+    padding: 2px 4px;
     display: inline-block;
     margin-top: 5px;
 }
@@ -2375,6 +2375,49 @@ figure {
     box-shadow: 0px 0px 0px 4px rgba(127, 143, 217, 0.05);
 }
 
+#orderDeliverTable {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0 12px;
+    padding: 0 1px;
+}
+
+#orderDeliverTable .product_invoice {
+    border-radius: 12px;
+    outline: 2px solid #F7F9FF;
+    background-color: transparent;
+}
+
+#orderDeliverTable .invoice_subhead {
+    padding: 8px;
+}
+
+#orderDeliverTable .product_invoice.active {
+    border-radius: 12px;
+    outline: 1px solid #B6C2FF;
+    background: #FFF;
+    box-shadow: -2px 4px 25px 0px rgba(50, 80, 127, 0.02), -5px 10px 80px 0px rgba(50, 80, 127, 0.04);
+}
+
+#orderDeliverTable .product_invoice:hover {
+    border-radius: 12px;
+    outline: 1px solid #B6C2FF;
+    background: #FFF;
+    box-shadow: -2px 4px 25px 0px rgba(50, 80, 127, 0.02), -5px 10px 80px 0px rgba(50, 80, 127, 0.04);
+}
+
+.orderLeftInfo {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.orderLeftInfo .linkHeading{
+    width: 100%;
+    max-width: 4ch;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+}
 /*deliver Module css end*/
 /*product module css start*/
 .productDetailLeft {
@@ -2580,7 +2623,7 @@ figure {
     transform: translate(0%, -50%);
     left: 3px;
     transition: 0.5s;
-    
+
 }
 
 .roundCheck input[type="checkbox"]:checked::before {
@@ -2594,17 +2637,32 @@ figure {
     background: #4659B5;
     border: 2px solid #4659B5;
 }
-.roundCheck{
+
+.roundCheck {
     display: flex;
     align-items: center;
     gap: 10px;
 }
-.productGreyDot{
+
+.productGreyDot {
     background-color: #D7DEFF;
     width: 8px;
     height: 8px;
     border-radius: 50%;
 }
+
+.orderPerson {
+    width: 26px;
+    height: 26px;
+}
+
+.orderAroundImg {
+    border-radius: 50px;
+    border: 0px solid #E4E6F2;
+    background: #F5F6FC;
+    padding: 10px;
+}
+
 /*product module css end*/
 /*media query start*/
 @media (max-width:1600px) {
@@ -2679,4 +2737,3 @@ figure {
         min-width: 120px;
     }
 }
-
