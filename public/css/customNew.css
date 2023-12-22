@@ -2411,13 +2411,51 @@ figure {
     align-items: center;
     justify-content: space-between;
 }
-.orderLeftInfo .linkHeading{
+
+.orderLeftInfo .linkHeading {
     width: 100%;
-    max-width: 4ch;
+    max-width: 15ch;
     text-overflow: ellipsis;
     white-space: nowrap;
     overflow: hidden;
 }
+
+.expressBike {
+    width: 24px;
+    height: 24px;
+}
+
+.expressText {
+    color: #7233C2;
+    font-size: 16px;
+    font-weight: 500;
+}
+
+.immediateBox {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    border-radius: 20px;
+    background: #FFF7D7;
+    padding: 4px 6px;
+}
+
+.immediateText {
+    color: #DC6803;
+    font-size: 12px;
+    font-weight: 500;
+}
+
+.declineBtn {
+    border-radius: 30px;
+    border: 1px solid #263682;
+    padding: 8px 10px;
+    color: #263682;
+    font-size: 14px;
+    font-weight: 400;
+    background-color: transparent;
+}
+
 /*deliver Module css end*/
 /*product module css start*/
 .productDetailLeft {
@@ -2661,6 +2699,11 @@ figure {
     border: 0px solid #E4E6F2;
     background: #F5F6FC;
     padding: 10px;
+}
+
+.detailScroll {
+    height: calc(100% - 337px);
+    overflow-y: scroll;
 }
 
 /*product module css end*/
