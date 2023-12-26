@@ -205,12 +205,13 @@ import darkBell from "../public/images/darkBell.svg"
 import storeDark from "../public/images/storeDark.svg"
 import deliverDark from '../public/images/deliverDark.svg'
 import PlaneDark from "../public/images/PlaneDark.svg"
-
+import order_frequency from "../public/images/order_frequency.png"
 
 
 export {
   sideArrow,
   overview_sales,
+  order_frequency,
   visa,
   gross_profit_blue,
   gross_profit,
