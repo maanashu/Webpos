@@ -96,9 +96,9 @@ export default function Security() {
       <div className={styles.shadowBox}>
         <div className={styles.boxTopTitleTextStyle}>
           2-step verification for team members
-          <div onClick={toggleModal}>
+          <div >
             <input type="checkbox"
-              onClick={toggleModal} />
+              onClick={() => toggleModal()} />
           </div>
         </div>
         <div className={styles.boxbottomTextStyle}>

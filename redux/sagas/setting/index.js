@@ -14,7 +14,7 @@ function* getSecurityScanerCode(action) {
   const dataToSend = { ...action.payload }
   delete dataToSend.cb
   try {
-    const resp = yield call(ApiClient.get, (`${ORDER_API_URL}/api/v1/users/2fa/generate-qr-code`));
+    const resp = yield call(ApiClient.get, (`${AUTH_API_URL}/api/v1/users/2fa/generate-qr-code`));
     if (resp.status) {
       yield put(setGetSecurityScanerCode(resp.data));
       yield call(action.payload.cb, (action.res = resp));
