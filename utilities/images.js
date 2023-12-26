@@ -43,8 +43,11 @@ import Marlboro from "../public/images/marlboro.svg";
 import sideToggle from "../public/images/sideToggle.svg";
 import Logo from "../public/images/Logo.svg";
 import ProductsServices from "../public/images/ProductsServices.svg";
+import ProductsServicesactive from "../public/images/ProductsServicesinactive.svg";
 import DeliveryOrders from "../public/images/DeliveryOrders.svg";
+import DeliveryOrdersactive from "../public/images/DeliveryOrdersInactive.svg";
 import ShippingOrders from "../public/images/ShippingOrders.svg";
+import ShippingSolid from "../public/images/Shipping_Solid.svg";
 import Settings from "../public/images/Settings.svg";
 import Rewards from "../public/images/Rewards.svg";
 import Customer from "../public/images/Customer.svg";
@@ -148,12 +151,12 @@ import Like from "../public/images/Like.svg";
 import Like_Solid from "../public/images/Like_Solid.svg";
 import Sms from "../public/images/Sms.svg";
 import ShoppingReturnLite from "../public/images/ShoppingReturn.svg";
-import mailBox from "../public/images/mailBox.svg"
-import visa from "../public/images/Visa.svg"
-import coins from "../public/images/Coins.svg"
-import Visa from "../public/images/Visa.svg"
-import InvoiceIcon from "../public/images/InvoiceIcon.svg"
-import giftOffer from "../public/images/giftOffer.svg"
+import mailBox from "../public/images/mailBox.svg";
+import visa from "../public/images/Visa.svg";
+import coins from "../public/images/Coins.svg";
+import Visa from "../public/images/Visa.svg";
+import InvoiceIcon from "../public/images/InvoiceIcon.svg";
+import giftOffer from "../public/images/giftOffer.svg";
 // import InvoiceIcon from "../public/images/InvoiceIcon.svg"
 import phoneMessage from "../public/images/phoneMessage.svg"
 import btnTick from "../public/images/btnTick.svg"
@@ -206,7 +209,20 @@ import storeDark from "../public/images/storeDark.svg"
 import deliverDark from '../public/images/deliverDark.svg'
 import PlaneDark from "../public/images/PlaneDark.svg"
 import order_frequency from "../public/images/order_frequency.png"
-
+import locationOutline from "../public/images/Location_Outline.png";
+import ringing from "../public/images/Ringing.png";
+import settingsBoxes from "../public/images/Settings_Boxes.png";
+import settingsDetails from "../public/images/Settings_Details.png";
+import settingsDevices from "../public/images/Settings_Devices.png";
+import settingsLanguage from "../public/images/Settings_Language.png";
+import settingsLaw from "../public/images/Settings_Law.png";
+import settingsMoney from "../public/images/Settings_Money.png";
+import settingsPolicies from "../public/images/Settings_Policies.png";
+import settingsReceipt from "../public/images/Settings_Receipt.png";
+import settingsSecurity from "../public/images/Settings_Security.png";
+import settingsTax from "../public/images/Settings_Tax.png";
+import usersOutline from "../public/images/Users_Outline.png";
+import walletOutline from "../public/images/Wallet_Outline.png";
 
 export {
   sideArrow,
@@ -414,5 +430,19 @@ export {
   darkBell,
   storeDark,
   deliverDark,
-  PlaneDark,  
+  PlaneDark,
+  locationOutline,
+  ringing,
+  settingsBoxes,
+  settingsDetails,
+  settingsDevices,
+  settingsLanguage,
+  settingsLaw,
+  settingsMoney,
+  settingsPolicies,
+  settingsReceipt,
+  settingsSecurity,
+  settingsTax,
+  usersOutline,
+  walletOutline,
 };

@@ -1,0 +1,70 @@
+.settings-main-container {
+  margin: 16px;
+  border-radius: 20px;
+  background-color: #f5f6fc;
+  min-height: calc(100vh - 36px);
+  flex-direction: row;
+  display: flex;
+}
+.settings-options-container {
+  width: 245px;
+  background-color: white;
+  min-height: 100vh;
+  min-width: 223px;
+  border-radius: 20px;
+  padding: 20px;
+}
+.settings-component-container {
+  width: 100px;
+  background-color: white;
+  /* min-height: calc(100vh - 36px); */
+  min-height: 100vh;
+  min-width: 223px;
+  margin-left: 15px;
+  display: flex;
+  flex: 1;
+  border-radius: 20px;
+  padding: 20px;
+}
+.settings-bar-titles {
+  color: var(--Primary-P-600-Main, #263682);
+  font-family: Roobert;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+}
+.settings-bar-titles-info {
+  color: var(--Primary-P-600-Main, #263682);
+  font-family: Roobert;
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+}
+.settings-sidebar-options-view {
+  display: flex;
+  padding: 8px 30px 8px 6px;
+  align-items: center;
+  gap: 12px;
+  flex: 1 0 0;
+  align-self: stretch;
+}
+.settings-sidebar-icons {
+  width: 24px;
+  height: 24px;
+  flex-shrink: 0;
+}
+.settings-sidebar-button {
+  background-color: transparent;
+  margin-bottom: 5px;
+  display: flex;
+  padding: 8px 30px 8px 6px;
+  align-items: center;
+  gap: 12px;
+  flex: 1 0 0;
+  align-self: stretch;
+  border-radius: 8px;
+  border: 1px solid var(--Primary-P-50-Main, #f5f6fc);
+  width: 100%;
+}
