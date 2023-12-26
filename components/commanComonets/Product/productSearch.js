@@ -5,8 +5,8 @@ import Image from "next/image";
 const ProductSearch = () => {
     return (
         <>
-            <div class="ProductsearchBar">
-                <input type="text" class="form-control searchControl" placeholder="Search by Barcode, SKU, Name..." />
+            <div className="ProductsearchBar">
+                <input type="text" className="form-control searchControl" placeholder="Search by Barcode, SKU, Name..." />
                 <Image src={Images.SearchIcon} alt="SearchImageIcon" className="img-fluid searchImg" />
             </div>
         </>

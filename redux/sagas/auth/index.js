@@ -21,7 +21,7 @@ function* userMerchantLogin(action) {
       // toast.success(resp?.data?.msg);
     }
     else {
-      throw resp
+      throw resp 
     }
   } catch (e) {
     yield put(onErrorStopLoad())

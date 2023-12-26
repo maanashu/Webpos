@@ -13,56 +13,60 @@ const CommonSideBar = () => {
             <div className='sidebarRightBooking'>
                 <ListGroup>
                     <ListGroupItem className="SidebarRightItems">
-                    <Link className="sideBarUser active" href="#"> <Image src={Images.backArrow} alt="image" className="img-fluid sidebarIcons  " />
-                        <span className='redUser'></span></Link>
-                     
-                    </ListGroupItem>
-                    <ListGroupItem className="SidebarRightItems callendarbg">
-                 
-                        <Image src={Images.calendarSmall} alt="image" className="img-fluid  sidebarIcons siderBarbg " />
+                        <Link className="sideBarUser" href="#"> <Image src={Images.backArrow} alt="image" className="img-fluid arrowBack sidebarIcons  " />
+                        </Link>
 
                     </ListGroupItem>
-                    <ListGroupItem className="SidebarRightItems">
+                    <ListGroupItem className="SidebarRightItems active">
+                        <div className='sidebarBack'>
+                            <Image src={Images.calendarSmall} alt="image" className="img-fluid  sideBarImg" />
+                            <span className='bottomDots'>1</span>
+                        </div>
+                    </ListGroupItem>
+                    <ListGroupItem className="SidebarRightItems mt-2">
                         <Image src={Images.userImages} alt="image" className="img-fluid  sidebarIcons" />
                         <span className='bottomdot'>3</span>
                     </ListGroupItem>
-                    <ListGroupItem className="SidebarRightItems">
+                    <ListGroupItem className="SidebarRightItems mt-2">
                         <Image src={Images.userAvtar} alt="image" className="img-fluid   sidebarIcons" />
                         <span className='bottomdot'>3</span>
                     </ListGroupItem>
-                    <ListGroupItem className="SidebarRightItems">
+                    <ListGroupItem className="SidebarRightItems mt-2">
                         <Image src={Images.userImages} alt="image" className="img-fluid   sidebarIcons " />
                         <span className='bottomdot'>3</span>
                     </ListGroupItem>
-                    <ListGroupItem className="SidebarRightItems">
+                    <ListGroupItem className="SidebarRightItems mt-2">
                         <Image src={Images.userImages} alt="image" className="img-fluid   sidebarIcons " />
                         <span className='bottomdot'>3</span>
                     </ListGroupItem>
-                    <ListGroupItem className="SidebarRightItems">
+                    <ListGroupItem className="SidebarRightItems mt-2">
                         <Image src={Images.userImages} alt="image" className="img-fluid   sidebarIcons " />
                         <span className='bottomdot'>3</span>
                     </ListGroupItem>
-                    <ListGroupItem className="SidebarRightItems">
+                    <ListGroupItem className="SidebarRightItems mt-2">
                         <Image src={Images.userImages} alt="image" className="img-fluid   sidebarIcons " />
                         <span className='bottomdot'>3</span>
                     </ListGroupItem>
 
-                    <ListGroupItem className="SidebarRightItems">
+                    <ListGroupItem className="SidebarRightItems mt-2">
                         <Image src={Images.userImages} alt="image" className="img-fluid   sidebarIcons " />
                         <span className='bottomdot'>3</span>
                     </ListGroupItem>
-                    <ListGroupItem className="SidebarRightItems">
-                      
-                   
+                  
+                    <ListGroupItem className="SidebarRightItems mt-2">
+                        <Image src={Images.userImages} alt="image" className="img-fluid   sidebarIcons " />
+                        <span className='bottomdot'>3</span>
                     </ListGroupItem>
+                  
 
                     <ListGroupItem className="SidebarRightItems">
                         <div className='userSideBar'>
-                        <Image src={Images.usersImages} alt="image" className="img-fluid   sidebarIcons  " />
-                        {/* <span className='bottomdot'>3</span> */}
+                            <Link className='userBook' href="#">
+                                <Image src={Images.usersImages} alt="image" className="img-fluid userImage  sidebarIcons  " />
+                                <span className='bottomdot'>8</span>
+                            </Link>
                         </div>
                         <Image src={Images.settingBlue} alt="image" className="img-fluid  sidebarIcons  settingImgs" />
-
                     </ListGroupItem>
                 </ListGroup>
             </div>

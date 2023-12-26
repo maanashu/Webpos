@@ -7,11 +7,12 @@ export default function withAuth(Component) {
   return function WithAuth(props) {
     const router = useRouter();
     const authData = useSelector(selectLoginAuth)
-    const token = authData?.posUserLoginDetails?.payload?.token ? authData?.posUserLoginDetails?.payload?.token:""
-    // let token
-    // if (typeof window !== 'undefined') {  
-    //   token = localStorage.getItem("authToken") ? localStorage.getItem("authToken")  : "";
-    // }
+    // const token = authData?.posUserLoginDetails?.payload?.token ? authData?.posUserLoginDetails?.payload?.token:""
+  //  console.log(token,"tokentoken");
+    let token
+    if (typeof window !== 'undefined') {  
+      token = localStorage.getItem("authToken") ? localStorage.getItem("authToken")  : "";
+    }
 
     useEffect(() => {
       async function checkAuth() {
