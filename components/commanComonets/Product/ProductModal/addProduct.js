@@ -17,11 +17,11 @@ const AddProduct = () => {
             </div>
             <div className='form-group flexBox addCart mb-3'>
                 <button className='removeProductBtn'>
-                    <i class="fa-solid fa-minus plusMinus"></i>
+                    <i className="fa-solid fa-minus plusMinus"></i>
                 </button>
                 <input className="form-control customTextarea" type="text" placeholder="1" />
                 <button className='addProductBtn'>
-                    <i class="fa-solid fa-plus plusMinus"></i>
+                    <i className="fa-solid fa-plus plusMinus"></i>
                 </button>
             </div>
         </>

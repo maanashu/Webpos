@@ -355,9 +355,9 @@ const Order = () => {
                                         <p className='productPriceinvoice'>1</p>
                                         <p className='productPriceinvoice'>$90.00</p>
                                         <article>
-                                            <label class="custom-checkbox">
+                                            <label className="custom-checkbox">
                                                 <input type="checkbox" />
-                                                <span class="checkmark"></span>
+                                                <span className="checkmark"></span>
                                             </label>
                                         </article>
                                     </div>
@@ -383,9 +383,9 @@ const Order = () => {
                                         <p className='productPriceinvoice'>1</p>
                                         <p className='productPriceinvoice'>$90.00</p>
                                         <article>
-                                            <label class="custom-checkbox">
+                                            <label className="custom-checkbox">
                                                 <input type="checkbox" />
-                                                <span class="checkmark"></span>
+                                                <span className="checkmark"></span>
                                             </label>
                                         </article>
                                     </div>
@@ -411,9 +411,9 @@ const Order = () => {
                                         <p className='productPriceinvoice'>1</p>
                                         <p className='productPriceinvoice'>$90.00</p>
                                         <article>
-                                            <label class="custom-checkbox">
+                                            <label className="custom-checkbox">
                                                 <input type="checkbox" />
-                                                <span class="checkmark"></span>
+                                                <span className="checkmark"></span>
                                             </label>
                                         </article>
                                     </div>
@@ -439,9 +439,9 @@ const Order = () => {
                                         <p className='productPriceinvoice'>1</p>
                                         <p className='productPriceinvoice'>$90.00</p>
                                         <article>
-                                            <label class="custom-checkbox">
+                                            <label className="custom-checkbox">
                                                 <input type="checkbox" />
-                                                <span class="checkmark"></span>
+                                                <span className="checkmark"></span>
                                             </label>
                                         </article>
                                     </div>
@@ -467,9 +467,9 @@ const Order = () => {
                                         <p className='productPriceinvoice'>1</p>
                                         <p className='productPriceinvoice'>$90.00</p>
                                         <article>
-                                            <label class="custom-checkbox">
+                                            <label className="custom-checkbox">
                                                 <input type="checkbox" />
-                                                <span class="checkmark"></span>
+                                                <span className="checkmark"></span>
                                             </label>
                                         </article>
                                     </div>
@@ -523,13 +523,17 @@ const Order = () => {
                                                     <p className='priceHeading'>Total</p>
                                                     <p className='priceHeading'>$254.60</p>
                                                 </div>
-                                                <div className='flexBox'>
+                                                <div className='flexBox d-none'>
                                                     <button className='declineBtn w-100' type='button'> Decline</button>
                                                     <button type='button' className='BlueBtn w-100'>
                                                         Accept
                                                         <Image src={Images.ArrowRight} alt="ArrowRight" className="img-fluid ArrowRight" />
                                                     </button>
                                                 </div>
+                                                <button type='button' className='pickupBtn w-100 mt-2'>
+                                                    Ready to Pick Up
+                                                    <Image src={Images.deliverHand} alt="deliverHand image" className="img-fluid" />
+                                                </button>
                                             </div>
                                         </div>
                                     </div>

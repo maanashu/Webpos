@@ -88,19 +88,19 @@ const DeliverDashboard = () => {
                             <div className=' deliveryOuter deliverRight ms-0'>
                                 <div className='deliverGraphSection'>
                                     <form className='deliverCheck'>
-                                        <div class="form-group checkBlue">
+                                        <div className="form-group checkBlue">
                                             <input type="checkbox" id="Incoming Orders" />
                                             <label for="Incoming Orders" className='appointSub  m-0'>Incoming Orders</label>
                                         </div>
-                                        <div class="form-group checkBlue checkPurple">
+                                        <div className="form-group checkBlue checkPurple">
                                             <input type="checkbox" id="Delivery Orders" />
                                             <label for="Delivery Orders" className='appointSub  m-0'>Delivery Orders</label>
                                         </div>
-                                        <div class="form-group checkBlue checkYellow">
+                                        <div className="form-group checkBlue checkYellow">
                                             <input type="checkbox" id="Returned Orders" />
                                             <label for="Returned Orders" className='appointSub  m-0'>Returned Orders</label>
                                         </div>
-                                        <div class="form-group checkBlue checkRed">
+                                        <div className="form-group checkBlue checkRed">
                                             <input type="checkbox" id="Cancelled Orders" />
                                             <label for="Cancelled Orders" className='appointSub  m-0'>Cancelled Orders</label>
                                         </div>
