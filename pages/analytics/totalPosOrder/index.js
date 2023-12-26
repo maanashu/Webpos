@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import AnalyticsHeader from '../../../components/commanComonets/AnalyticsHeader'
 import AnalyticsSubHeader from '../../../components/commanComonets/AnalyticsSubHeader';
-import { ArrowLeft, ArrowRight, average_order, gross_profit, gross_profit_blue, overview_sales, total_order, total_volume } from '../../../utilities/images';
+import { ArrowLeft, ArrowRight, average_order, gross_profit, gross_profit_blue, order_frequency, overview_sales, total_order, total_volume } from '../../../utilities/images';
 import Image from 'next/image';
 import { analyticsDetails, getProfitsData, orderAnalyticsData } from '../../../redux/slices/analytics';
 import moment from 'moment-timezone';
@@ -14,11 +14,7 @@ const index = () => {
   const [startDate, setStartDate] = useState(null);
   const [endDate, setEndDate] = useState(null);
   const [analyticsOrderData, setAnalyticsOrderData] = useState("");
-  const [limit, setLimit] = useState("10");
-  const [page, setPage] = useState(1);
-  const [totalRecords, setTotalRecords] = useState(0)
   const analyticsData = useSelector(analyticsDetails);
-  const auth = useSelector(selectLoginAuth)
   const handleChange = (selectedOption) => {
     setChannelSelected(selectedOption)
   };
@@ -39,28 +35,28 @@ const index = () => {
     {
       icon: total_order,
       title: "Total Orders",
-      count: analyticsOrderData?.overView?.total_orders,
+      count: analyticsOrderData?.pos_graph?.ordersOverView?.total_orders,
       bgColor: "#D1FADF",
       textColor: "#003921",
     },
     {
-      icon: total_volume,
-      title: "Total Volume",
-      count: `${addThousandSeparator(analyticsOrderData?.overView?.transaction ? (analyticsOrderData?.overView?.transaction).toFixed(2) : 0)}`,
+      icon: order_frequency,
+      title: "Order Frequency",
+      count: `${analyticsOrderData?.pos_graph?.ordersOverView?.order_frequency}/Hour`,
       bgColor: "#D1FADF",
       textColor: "#003921",
     },
     {
       icon: average_order,
       title: "Average Order Value",
-      count: analyticsOrderData?.overView?.average_value ? `$${addThousandSeparator((analyticsOrderData?.overView?.average_value).toFixed(2))}` : "$0",
+      count: (analyticsOrderData?.delivery_graph?.ordersOverView?.averageValue || analyticsOrderData?.delivery_graph?.ordersOverView?.averageValue == 0) ? `$${(analyticsOrderData?.pos_graph?.ordersOverView?.averageValue).toFixed(2)}` : "",
       bgColor: "#D1FADF",
       textColor: "#003921",
     },
     {
       icon: overview_sales,
       title: "Total Sales",
-      count: `${addThousandSeparator(analyticsOrderData?.overView?.total_cost ? (analyticsOrderData?.overView?.total_cost).toFixed(2) : 0)}`,
+      count: `$${addThousandSeparator((analyticsOrderData?.pos_graph?.ordersOverView?.total_sales_or_actual_amount)?.toFixed(2))}`,
       bgColor: "#D1FADF",
       textColor: "#003921",
     },
@@ -96,7 +92,7 @@ const index = () => {
 
   useEffect(() => {
     orderAnalyticsHandle();
-  }, [timeSpan, channelSelected, endDate, limit, page]);
+  }, [timeSpan, channelSelected, endDate]);
   return (
     <div className="main-container-customers">
       <AnalyticsHeader
@@ -113,7 +109,7 @@ const index = () => {
 
       <AnalyticsSubHeader
         mainIcon={gross_profit_blue}
-        title="Total Costs"
+        title="Total Pos Orders"
       />
 
       {/* stats */}
@@ -163,31 +159,25 @@ const index = () => {
               className="customers-table-data"
               style={{ border: "none", color: "#7E8AC1", textAlign: "left" }}
             >
-              Transaction Volume
+              Total Pos Order
             </th>
             <th
               className="customers-table-data"
               style={{ border: "none", color: "#7E8AC1", textAlign: "left" }}
             >
-              Total Product
+              Average Order Value
             </th>
             <th
               className="customers-table-data"
               style={{ border: "none", color: "#7E8AC1", textAlign: "left" }}
             >
-              Total Price
+              Order Frequency
             </th>
             <th
               className="customers-table-data"
               style={{ border: "none", color: "#7E8AC1", textAlign: "left" }}
             >
-              Margin
-            </th>
-            <th
-              className="customers-table-data"
-              style={{ border: "none", color: "#7E8AC1", textAlign: "left" }}
-            >
-              Total Cost
+              Total Sales
             </th>
           </tr>
         </thead>
@@ -207,7 +197,7 @@ const index = () => {
                   {
                     analyticsOrderData?.pos_graph?.ordersListData?.length > 0 ? <tbody>
                       {analyticsOrderData?.pos_graph?.ordersListData?.map((row, idx) => (
-                        <tr className="customers-table-row">
+                        <tr className="customers-table-row" key={idx}>
                           <td
                             className="customers-table-data"
                           >
@@ -215,29 +205,29 @@ const index = () => {
                           </td>
                           <td
                             className="customers-table-data"
+                          >
+                            {row?.count}
+                          </td>
+                          <td
+                            className="customers-table-data"
                           // style={{ display: "flex", gap: "12px" }}
                           >
-                            {`$${(row.transaction).toFixed(2)}`}
+                            {`$${addThousandSeparator((row?.averageValue)?.toFixed(2))}`}
                           </td>
                           <td
                             className="customers-table-data"
                           >
-                            {row.total_items}
+                            {`${row?.order_frequency} Per Hour`}
                           </td>
                           <td
                             className="customers-table-data"
                           >
-                            {`$${addThousandSeparator((row.total_price).toFixed(2))}`}
+                            <b>${addThousandSeparator((row?.amount)?.toFixed(2))}</b>
                           </td>
                           <td
                             className="customers-table-data"
                           >
-                            {`${Math.round(row?.margin)}%`}
-                          </td>
-                          <td
-                            className="customers-table-data"
-                          >
-                            <b>${addThousandSeparator((row?.cost_sum).toFixed(2))}</b>
+                            <button className="secondaryOuterbtn_" type="button">Review</button>
                           </td>
                         </tr>
                       ))}
@@ -257,46 +247,6 @@ const index = () => {
         }
 
       </table>
-      {
-        (analyticsOrderData?.pos_graph?.ordersListData?.length > 0 && !analyticsData?.loading) &&
-        <div className="pagination-footer flex-row-space-between">
-          <div className="flex-row-space-between" onClick={() => {
-            (page > 1) ? setPage(page - 1) : void (0);
-          }}>
-            <Image
-              src={ArrowLeft}
-              width={16}
-              height={16}
-            />
-            <p
-              style={{
-                color: "#B4BEEB",
-              }}
-              className="pagination-footer-text"
-            >
-              Prev
-            </p>
-          </div>
-          <p
-            style={{
-              color: "#B4BEEB",
-            }}
-            className="pagination-footer-text"
-          >
-            Page {page} to {Math.ceil(totalRecords / 10)}
-          </p>
-          <div className="flex-row-space-between" onClick={() => {
-            (page < (Math.ceil(totalRecords / 10))) ? setPage(page + 1) : void (0);
-          }}>
-            <p className="pagination-footer-text">Next</p>
-            <Image
-              src={ArrowRight}
-              width={16}
-              height={16}
-            />
-          </div>
-        </div>
-      }
 
     </div>
   )

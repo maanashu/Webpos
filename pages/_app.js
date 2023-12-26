@@ -7,6 +7,7 @@ import "../public/font/stylesheet.css";
 import "../public/css/custom_R.css";
 import "../public/css/deliveries.css";
 import "../public/css/customers.css";
+import "../public/css/settings.css";
 import "react-toastify/dist/ReactToastify.css";
 import "react-phone-input-2/lib/style.css";
 import "react-datepicker/dist/react-datepicker.css";
@@ -25,44 +26,46 @@ function App({ Component, pageProps }) {
   const [loading, setLoading] = useState(true);
   const [activeSidebar, setActiveSidebar] = useState(true);
   const authData = useSelector(selectLoginAuth);
-  const Token = authData?.posUserLoginDetails?.payload?.token
-    ? authData?.posUserLoginDetails?.payload?.token
-    : "";
+  // const Token = authData?.posUserLoginDetails?.payload?.token
+  //   ? authData?.posUserLoginDetails?.payload?.token
+  //   : "";
 
   const toggleSidebar = () => {
     setActiveSidebar((prev) => !prev);
   };
 
-  useEffect(() => {
-    // Simulate an asynchronous delay (replace with actual authentication data fetching)
-    const delay = setTimeout(() => {
-      setLoading(false);
-    }, 100); // Adjust the delay time as needed
+  // useEffect(() => {
+  //   // Simulate an asynchronous delay (replace with actual authentication data fetching)
+  //   const delay = setTimeout(() => {
+  //     setLoading(false);
+  //   }, 100); // Adjust the delay time as needed
 
-    return () => clearTimeout(delay); // Clear the timeout if the component unmounts
-  }, []);
+  //   return () => clearTimeout(delay); // Clear the timeout if the component unmounts
+  // }, []);
 
-  const LayoutPaths = [
-    "/home",
-    "/invoices",
-    "/mainDeliveries",
-    "/Product",
-    "/service",
-    "/web",
-  ];
-  if (loading) {
-    // Render a loading indicator or placeholder while waiting for the token
-    return <div></div>;
-  }
+  // const LayoutPaths = [
+  //   "/home",
+  //   "/invoices",
+  //   "/mainDeliveries",
+  //   "/Product",
+  //   "/service",
+  //   "/web",
+  // ];
+  // if (loading) {
+  //   // Render a loading indicator or placeholder while waiting for the token
+  //   return <div></div>;
+  // }
+
+    let Token
+    if (typeof window !== 'undefined') {  
+      Token = localStorage.getItem("authToken") ? localStorage.getItem("authToken")  : "";
+    }
 
   return (
     <>
       {Token ? (
         <>
-          <Layout
-            activeSidebar={activeSidebar}
-            toggleSidebar={toggleSidebar}
-          >
+          <Layout activeSidebar={activeSidebar} toggleSidebar={toggleSidebar}>
             <Component {...pageProps} />
             <ToastContainer autoClose={800} />
           </Layout>
