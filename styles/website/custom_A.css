@@ -126,14 +126,12 @@
     width: 24px;
     margin-right: 18px;
 }
-.sidebarLinks .showImg{
-    display: block;
-}
 .sidebarLinks.active .showImg{
     display: none;
 }
 .sidebarLinks.active .hideImg{
     display: block;
+    margin-right: 18px;
 }
 .sidebarLinks .hideImg{
     display: none;

@@ -54,6 +54,7 @@ import Customer from "../public/images/Customer.svg";
 import CashDrawer from "../public/images/CashDrawer.svg";
 import Wallets from "../public/images/Wallets.svg";
 import Analytics from "../public/images/Analytics.svg";
+import ChartSolid from "../public/images/Chart_Solid.svg";
 import Appointments from "../public/images/Appointments.svg";
 import LogOut from "../public/images/LogOut.svg";
 import ProductIcon from "../public/images/ProductIcon.svg";
@@ -209,6 +210,14 @@ import storeDark from "../public/images/storeDark.svg"
 import deliverDark from '../public/images/deliverDark.svg'
 import PlaneDark from "../public/images/PlaneDark.svg"
 import Fast from "../public/images/Fast.svg"
+import CalendarSolid from "../public/images/Calendar_Solid.svg"
+import WalletSolid from "../public/images/Wallet_Solid.svg"
+import CashSolid from "../public/images/Cash_Solid.svg"
+import UsersSolid from "../public/images/Users_Solid.svg"
+import RewardsSolid from "../public/images/Rewards_Solid.svg"
+import SettingsSolid from "../public/images/Settings_Solid.svg"
+
+
 import order_frequency from "../public/images/order_frequency.png"
 import locationOutline from "../public/images/Location_Outline.png";
 import ringing from "../public/images/Ringing.png";
@@ -447,7 +456,18 @@ export {
   darkBell,
   storeDark,
   deliverDark,
-  PlaneDark,
+  PlaneDark,  
+  ProductsServicesactive,
+  DeliveryOrdersactive,
+  ShippingSolid,
+  CalendarSolid,
+  ChartSolid,
+  WalletSolid,
+  CashSolid,
+  UsersSolid,
+  RewardsSolid,
+  SettingsSolid,
+  // PlaneDark,
   locationOutline,
   ringing,
   settingsBoxes,
