@@ -15,8 +15,8 @@ const AssignDriver = () => {
                   <Image src={Images.boldLeftArrow} alt="MoneyItemImage " className="img-fluid me-2" />
                   <h4 className='loginMain text-start m-0'>Assign Drivers</h4>
                 </div>
-                <div className='table-responsive'>
-                  <table id="assignTable" className="product_table">
+                <div className='table-responsive mt-3'>
+                  <table id="" className="orderDeliverTable">
                     <thead className='invoiceHeadingBox'>
                       <tr>
                         <th className='invoiceHeading'>#</th>

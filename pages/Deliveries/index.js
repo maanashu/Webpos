@@ -118,7 +118,7 @@ const DeliverDashboard = () => {
                                         </div>
                                     </div>
                                     <div className="table-responsive deliverTable">
-                                        <table id="DeliverDashboard" className="product_table">
+                                        <table id="DeliverDashboard" className="deliverDashboardTable">
                                             <tbody>
                                                 <tr className='product_invoice'>
                                                     <td className="invoice_subhead">

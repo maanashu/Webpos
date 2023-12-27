@@ -2,23 +2,41 @@ import React from 'react'
 import DeliveryRightSidebar from '../../components/commanComonets/Delivery/deliveryRightSidebar'
 import * as Images from "../../utilities/images"
 import Image from "next/image";
-import * as Product from '../../components/commanComonets/Product';
 
-
-const Order = () => {
+const CancelOrder = () => {
     return (
         <>
-            <div className='deliverySection deliverOrderSection'>
+            <div className='deliverySection cancelOrderSection'>
                 <div className='deliverMain w-100'>
                     <div className='row '>
                         <div className='col-lg-6'>
-                            <div className='deliverOrderLeft deliveryOuter me-0'>
-                                <div className='flexTable'>
-                                    <Image src={Images.boldLeftArrow} alt="MoneyItemImage " className="img-fluid me-2" />
-                                    <h4 className='loginMain text-start m-0'>Orders to Review</h4>
+                            <div className='cancelOrderLeft deliveryOuter me-0'>
+                                <div className='flexContent'>
+                                    <div className='flexTable'>
+                                        <Image src={Images.boldLeftArrow} alt="MoneyItemImage " className="img-fluid me-2" />
+                                        <h4 className='loginMain text-start m-0'>Cancelled Orders</h4>
+                                    </div>
+                                    <button className='GreyBtn' >Filters
+                                        <Image src={Images.FilterIcon} alt="image" className="img-fluid BtnIcon" />
+                                    </button>
+                                </div>
+                                <div className='appointmenMonth cancelCalendar'>
+                                    <div className='flexTable'>
+                                        <Image src={Images.calendarLight} alt='calendarimage' className='img-fluid' />
+                                        <span className='monthText ms-2'>Today</span>
+                                    </div>
+                                    <Image src={Images.arrowDown} alt='calendarimage' className='img-fluid text-end' />
                                 </div>
                                 <div className='table-responsive mt-3'>
                                     <table id="" className="orderDeliverTable">
+                                        <thead className='invoiceHeadingBox'>
+                                            <tr>
+                                                <th className='invoiceHeading'>Client/Items</th>
+                                                <th className='invoiceHeading'>Delivery/Cancel</th>
+                                                <th className='invoiceHeading'>Cancelling Time</th>
+                                                <th className='invoiceHeading'></th>
+                                            </tr>
+                                        </thead>
                                         <tbody>
                                             <tr className='product_invoice active'>
                                                 <td className="invoice_subhead">
@@ -33,9 +51,7 @@ const Order = () => {
                                                             <span className="locateDistance">2.5 miles</span>
                                                         </div>
                                                     </div>
-                                                </td>
-                                                <td className="invoice_subhead">
-                                                    <div className="itemMoney">
+                                                    <div className="itemMoney mt-4">
                                                         <h4 className="orderId">3 items</h4>
                                                         <div className="deliverTableBx">
                                                             <Image
@@ -49,20 +65,34 @@ const Order = () => {
                                                     </div>
                                                 </td>
                                                 <td className="invoice_subhead">
-                                                    <div className="itemTime">
-                                                        <h4 className="orderId">1 hour delivery window</h4>
-                                                        <div className="deliverTableBx">
-                                                            <Image
-                                                                src={Images.Time}
-                                                                alt="MoneyItemImage "
-                                                                className="img-fluid ms-1"
-                                                            />
-                                                            <span className="locateDistance">Immediately</span>
+                                                    <div className='itemType'>
+                                                        <h4 className='assignId'>Delivery Type</h4>
+                                                        <div className='immediateBox mt-1'>
+                                                            <Image src={Images.Fast} alt="deliverFast image" className="img-fluid m-0" />
+                                                            <h4 className='immediateText'>Immediately</h4>
                                                         </div>
-
+                                                    </div>
+                                                    <div className='itemType mt-4'>
+                                                        <h4 className='assignId'>Cancelled by</h4>
+                                                        <div className='cancelUserBx mt-1'>
+                                                            <Image src={Images.cancelUser} alt="cancelUser image" className="img-fluid" />
+                                                            <h4 className='cancelText'>User</h4>
+                                                        </div>
                                                     </div>
                                                 </td>
-                                                <td className='invoice_subhead'>
+                                                <td className="invoice_subhead verticalBase">
+                                                    <div className='cancellingTime'>
+                                                        <h4 className='assignId'>Cancelled at:</h4>
+                                                        <div className='canceltimeBx'>
+                                                            <Image src={Images.cancelPackage} alt="cancelUser image" className="img-fluid" />
+                                                            <div className='timeAlert'>
+                                                                <h4 className='cancelBold'>21 Oct 23 </h4>
+                                                                <h4 className='cancelLight'> 00:10:35 hrs</h4>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                                <td className='invoice_subhead verticalBase'>
                                                     <div className='deliverArrow text-end'>
                                                         <Image src={Images.RightArrow} alt="RightArrow image" className="img-fluid ms-1" />
                                                     </div>
@@ -81,9 +111,7 @@ const Order = () => {
                                                             <span className="locateDistance">2.5 miles</span>
                                                         </div>
                                                     </div>
-                                                </td>
-                                                <td className="invoice_subhead">
-                                                    <div className="itemMoney">
+                                                    <div className="itemMoney mt-4">
                                                         <h4 className="orderId">3 items</h4>
                                                         <div className="deliverTableBx">
                                                             <Image
@@ -97,20 +125,34 @@ const Order = () => {
                                                     </div>
                                                 </td>
                                                 <td className="invoice_subhead">
-                                                    <div className="itemTime">
-                                                        <h4 className="orderId">1 hour delivery window</h4>
-                                                        <div className="deliverTableBx">
-                                                            <Image
-                                                                src={Images.Time}
-                                                                alt="MoneyItemImage "
-                                                                className="img-fluid ms-1"
-                                                            />
-                                                            <span className="locateDistance">Immediately</span>
+                                                    <div className='itemType'>
+                                                        <h4 className='assignId'>Delivery Type</h4>
+                                                        <div className='immediateBox mt-1'>
+                                                            <Image src={Images.Fast} alt="deliverFast image" className="img-fluid m-0" />
+                                                            <h4 className='immediateText'>Immediately</h4>
                                                         </div>
-
+                                                    </div>
+                                                    <div className='itemType mt-4'>
+                                                        <h4 className='assignId'>Cancelled by</h4>
+                                                        <div className='cancelUserBx mt-1'>
+                                                            <Image src={Images.cancelUser} alt="cancelUser image" className="img-fluid" />
+                                                            <h4 className='cancelText'>User</h4>
+                                                        </div>
                                                     </div>
                                                 </td>
-                                                <td className='invoice_subhead'>
+                                                <td className="invoice_subhead verticalBase">
+                                                    <div className='cancellingTime'>
+                                                        <h4 className='assignId'>Cancelled at:</h4>
+                                                        <div className='canceltimeBx'>
+                                                            <Image src={Images.cancelPackage} alt="cancelUser image" className="img-fluid" />
+                                                            <div className='timeAlert'>
+                                                                <h4 className='cancelBold'>21 Oct 23 </h4>
+                                                                <h4 className='cancelLight'> 00:10:35 hrs</h4>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                                <td className='invoice_subhead verticalBase'>
                                                     <div className='deliverArrow text-end'>
                                                         <Image src={Images.RightArrow} alt="RightArrow image" className="img-fluid ms-1" />
                                                     </div>
@@ -129,9 +171,7 @@ const Order = () => {
                                                             <span className="locateDistance">2.5 miles</span>
                                                         </div>
                                                     </div>
-                                                </td>
-                                                <td className="invoice_subhead">
-                                                    <div className="itemMoney">
+                                                    <div className="itemMoney mt-4">
                                                         <h4 className="orderId">3 items</h4>
                                                         <div className="deliverTableBx">
                                                             <Image
@@ -145,20 +185,34 @@ const Order = () => {
                                                     </div>
                                                 </td>
                                                 <td className="invoice_subhead">
-                                                    <div className="itemTime">
-                                                        <h4 className="orderId">1 hour delivery window</h4>
-                                                        <div className="deliverTableBx">
-                                                            <Image
-                                                                src={Images.Time}
-                                                                alt="MoneyItemImage "
-                                                                className="img-fluid ms-1"
-                                                            />
-                                                            <span className="locateDistance">Immediately</span>
+                                                    <div className='itemType'>
+                                                        <h4 className='assignId'>Delivery Type</h4>
+                                                        <div className='immediateBox mt-1'>
+                                                            <Image src={Images.Fast} alt="deliverFast image" className="img-fluid m-0" />
+                                                            <h4 className='immediateText'>Immediately</h4>
                                                         </div>
-
+                                                    </div>
+                                                    <div className='itemType mt-4'>
+                                                        <h4 className='assignId'>Cancelled by</h4>
+                                                        <div className='cancelUserBx mt-1'>
+                                                            <Image src={Images.cancelUser} alt="cancelUser image" className="img-fluid" />
+                                                            <h4 className='cancelText'>User</h4>
+                                                        </div>
                                                     </div>
                                                 </td>
-                                                <td className='invoice_subhead'>
+                                                <td className="invoice_subhead verticalBase">
+                                                    <div className='cancellingTime'>
+                                                        <h4 className='assignId'>Cancelled at:</h4>
+                                                        <div className='canceltimeBx'>
+                                                            <Image src={Images.cancelPackage} alt="cancelUser image" className="img-fluid" />
+                                                            <div className='timeAlert'>
+                                                                <h4 className='cancelBold'>21 Oct 23 </h4>
+                                                                <h4 className='cancelLight'> 00:10:35 hrs</h4>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                                <td className='invoice_subhead verticalBase'>
                                                     <div className='deliverArrow text-end'>
                                                         <Image src={Images.RightArrow} alt="RightArrow image" className="img-fluid ms-1" />
                                                     </div>
@@ -177,9 +231,7 @@ const Order = () => {
                                                             <span className="locateDistance">2.5 miles</span>
                                                         </div>
                                                     </div>
-                                                </td>
-                                                <td className="invoice_subhead">
-                                                    <div className="itemMoney">
+                                                    <div className="itemMoney mt-4">
                                                         <h4 className="orderId">3 items</h4>
                                                         <div className="deliverTableBx">
                                                             <Image
@@ -193,20 +245,34 @@ const Order = () => {
                                                     </div>
                                                 </td>
                                                 <td className="invoice_subhead">
-                                                    <div className="itemTime">
-                                                        <h4 className="orderId">1 hour delivery window</h4>
-                                                        <div className="deliverTableBx">
-                                                            <Image
-                                                                src={Images.Time}
-                                                                alt="MoneyItemImage "
-                                                                className="img-fluid ms-1"
-                                                            />
-                                                            <span className="locateDistance">Immediately</span>
+                                                    <div className='itemType'>
+                                                        <h4 className='assignId'>Delivery Type</h4>
+                                                        <div className='immediateBox mt-1'>
+                                                            <Image src={Images.Fast} alt="deliverFast image" className="img-fluid m-0" />
+                                                            <h4 className='immediateText'>Immediately</h4>
                                                         </div>
-
+                                                    </div>
+                                                    <div className='itemType mt-4'>
+                                                        <h4 className='assignId'>Cancelled by</h4>
+                                                        <div className='cancelUserBx mt-1'>
+                                                            <Image src={Images.cancelUser} alt="cancelUser image" className="img-fluid" />
+                                                            <h4 className='cancelText'>User</h4>
+                                                        </div>
                                                     </div>
                                                 </td>
-                                                <td className='invoice_subhead'>
+                                                <td className="invoice_subhead verticalBase">
+                                                    <div className='cancellingTime'>
+                                                        <h4 className='assignId'>Cancelled at:</h4>
+                                                        <div className='canceltimeBx'>
+                                                            <Image src={Images.cancelPackage} alt="cancelUser image" className="img-fluid" />
+                                                            <div className='timeAlert'>
+                                                                <h4 className='cancelBold'>21 Oct 23 </h4>
+                                                                <h4 className='cancelLight'> 00:10:35 hrs</h4>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                                <td className='invoice_subhead verticalBase'>
                                                     <div className='deliverArrow text-end'>
                                                         <Image src={Images.RightArrow} alt="RightArrow image" className="img-fluid ms-1" />
                                                     </div>
@@ -225,9 +291,7 @@ const Order = () => {
                                                             <span className="locateDistance">2.5 miles</span>
                                                         </div>
                                                     </div>
-                                                </td>
-                                                <td className="invoice_subhead">
-                                                    <div className="itemMoney">
+                                                    <div className="itemMoney mt-4">
                                                         <h4 className="orderId">3 items</h4>
                                                         <div className="deliverTableBx">
                                                             <Image
@@ -241,68 +305,34 @@ const Order = () => {
                                                     </div>
                                                 </td>
                                                 <td className="invoice_subhead">
-                                                    <div className="itemTime">
-                                                        <h4 className="orderId">1 hour delivery window</h4>
-                                                        <div className="deliverTableBx">
-                                                            <Image
-                                                                src={Images.Time}
-                                                                alt="MoneyItemImage "
-                                                                className="img-fluid ms-1"
-                                                            />
-                                                            <span className="locateDistance">Immediately</span>
+                                                    <div className='itemType'>
+                                                        <h4 className='assignId'>Delivery Type</h4>
+                                                        <div className='immediateBox mt-1'>
+                                                            <Image src={Images.Fast} alt="deliverFast image" className="img-fluid m-0" />
+                                                            <h4 className='immediateText'>Immediately</h4>
                                                         </div>
-
                                                     </div>
-                                                </td>
-                                                <td className='invoice_subhead'>
-                                                    <div className='deliverArrow text-end'>
-                                                        <Image src={Images.RightArrow} alt="RightArrow image" className="img-fluid ms-1" />
-                                                    </div>
-                                                </td>
-                                            </tr>
-                                            <tr className='product_invoice'>
-                                                <td className="invoice_subhead">
-                                                    <div className="nameLocation">
-                                                        <h4 className="orderId">Samara Schwansteiger</h4>
-                                                        <div className="deliverTableBx">
-                                                            <Image
-                                                                src={Images.OrderLocation}
-                                                                alt="location Image"
-                                                                className="img-fluid ms-1"
-                                                            />
-                                                            <span className="locateDistance">2.5 miles</span>
+                                                    <div className='itemType mt-4'>
+                                                        <h4 className='assignId'>Cancelled by</h4>
+                                                        <div className='cancelUserBx mt-1'>
+                                                            <Image src={Images.cancelUser} alt="cancelUser image" className="img-fluid" />
+                                                            <h4 className='cancelText'>User</h4>
                                                         </div>
                                                     </div>
                                                 </td>
-                                                <td className="invoice_subhead">
-                                                    <div className="itemMoney">
-                                                        <h4 className="orderId">3 items</h4>
-                                                        <div className="deliverTableBx">
-                                                            <Image
-                                                                src={Images.MoneyItem}
-                                                                alt="MoneyItemImage "
-                                                                className="img-fluid ms-1"
-                                                            />
-                                                            <span className="locateDistance">$500.50
-                                                            </span>
+                                                <td className="invoice_subhead verticalBase">
+                                                    <div className='cancellingTime'>
+                                                        <h4 className='assignId'>Cancelled at:</h4>
+                                                        <div className='canceltimeBx'>
+                                                            <Image src={Images.cancelPackage} alt="cancelUser image" className="img-fluid" />
+                                                            <div className='timeAlert'>
+                                                                <h4 className='cancelBold'>21 Oct 23 </h4>
+                                                                <h4 className='cancelLight'> 00:10:35 hrs</h4>
+                                                            </div>
                                                         </div>
                                                     </div>
                                                 </td>
-                                                <td className="invoice_subhead">
-                                                    <div className="itemTime">
-                                                        <h4 className="orderId">1 hour delivery window</h4>
-                                                        <div className="deliverTableBx">
-                                                            <Image
-                                                                src={Images.Time}
-                                                                alt="MoneyItemImage "
-                                                                className="img-fluid ms-1"
-                                                            />
-                                                            <span className="locateDistance">Immediately</span>
-                                                        </div>
-
-                                                    </div>
-                                                </td>
-                                                <td className='invoice_subhead'>
+                                                <td className='invoice_subhead verticalBase'>
                                                     <div className='deliverArrow text-end'>
                                                         <Image src={Images.RightArrow} alt="RightArrow image" className="img-fluid ms-1" />
                                                     </div>
@@ -314,21 +344,17 @@ const Order = () => {
                             </div>
                         </div>
                         <div className='col-lg-6'>
-                            <div className=' deliveryOuter deliverOrderRight ms-0'>
+                            <div className=' deliveryOuter cancelOrderRight ms-0'>
                                 <div className='orderLeftInfo'>
                                     <div className='flexTable'>
                                         <figure className='orderAroundImg'>
-                                            <Image src={Images.LoginThird} alt="MoneyItemImage " className="orderPerson" />
+                                            <Image src={Images.LoginThird} alt="LoginThird image " className="orderPerson" />
                                         </figure>
-                                        <h4 className='linkHeading ms-1'>Samara Schw...</h4>
+                                        <h4 className='cancelOrderText ms-1'>Samara Stellinberg</h4>
                                     </div>
-                                    <div className='flexTable'>
-                                        <Image src={Images.deliverFast} alt="deliverFast image" className="img-fluid" />
-                                        <h4 className='expressText ms-1'>Express Delivery</h4>
-                                    </div>
-                                    <div className='immediateBox'>
-                                        <Image src={Images.Fast} alt="deliverFast image" className="img-fluid" />
-                                        <h4 className='immediateText'>Immediately</h4>
+                                    <div className='locationOrder'>
+                                        <Image src={Images.OrderLocation} alt="MoneyItemImage " className="img-fluid" />
+                                        <p className='locationText'>1480 Bassel Street, New Orleans, LA 70113</p>
                                     </div>
                                 </div>
                                 <hr className='divideBorder my-3' />
@@ -354,12 +380,6 @@ const Order = () => {
                                         <p className='productPriceinvoice'>$90.00</p>
                                         <p className='productPriceinvoice'>1</p>
                                         <p className='productPriceinvoice'>$90.00</p>
-                                        <article>
-                                            <label className="custom-checkbox">
-                                                <input type="checkbox" />
-                                                <span className="checkmark"></span>
-                                            </label>
-                                        </article>
                                     </div>
                                     <div className='selectedProductDetails'>
                                         <div className='d-flex'>
@@ -382,12 +402,6 @@ const Order = () => {
                                         <p className='productPriceinvoice'>$90.00</p>
                                         <p className='productPriceinvoice'>1</p>
                                         <p className='productPriceinvoice'>$90.00</p>
-                                        <article>
-                                            <label className="custom-checkbox">
-                                                <input type="checkbox" />
-                                                <span className="checkmark"></span>
-                                            </label>
-                                        </article>
                                     </div>
                                     <div className='selectedProductDetails'>
                                         <div className='d-flex'>
@@ -410,12 +424,6 @@ const Order = () => {
                                         <p className='productPriceinvoice'>$90.00</p>
                                         <p className='productPriceinvoice'>1</p>
                                         <p className='productPriceinvoice'>$90.00</p>
-                                        <article>
-                                            <label className="custom-checkbox">
-                                                <input type="checkbox" />
-                                                <span className="checkmark"></span>
-                                            </label>
-                                        </article>
                                     </div>
                                     <div className='selectedProductDetails'>
                                         <div className='d-flex'>
@@ -438,12 +446,6 @@ const Order = () => {
                                         <p className='productPriceinvoice'>$90.00</p>
                                         <p className='productPriceinvoice'>1</p>
                                         <p className='productPriceinvoice'>$90.00</p>
-                                        <article>
-                                            <label className="custom-checkbox">
-                                                <input type="checkbox" />
-                                                <span className="checkmark"></span>
-                                            </label>
-                                        </article>
                                     </div>
                                     <div className='selectedProductDetails'>
                                         <div className='d-flex'>
@@ -466,12 +468,6 @@ const Order = () => {
                                         <p className='productPriceinvoice'>$90.00</p>
                                         <p className='productPriceinvoice'>1</p>
                                         <p className='productPriceinvoice'>$90.00</p>
-                                        <article>
-                                            <label className="custom-checkbox">
-                                                <input type="checkbox" />
-                                                <span className="checkmark"></span>
-                                            </label>
-                                        </article>
                                     </div>
                                 </div>
                                 <div className='row'>
@@ -488,13 +484,6 @@ const Order = () => {
                                             <div className="OrderCheckoutBox">
                                                 <p className='orderHeading'>Order ID#</p>
                                                 <p className='orderSubHeading'>JOBR00001</p>
-                                            </div>
-                                            <div className="OrderCheckoutBox">
-                                                <p className='orderHeading'>Payment Method</p>
-                                                <figure className='priceBtn'>
-                                                    <Image src={Images.moneyImg} alt="money" className="moneyImg" />
-                                                    <span className='ms-1'>Cash</span>
-                                                </figure>
                                             </div>
                                         </div>
                                     </div>
@@ -523,16 +512,8 @@ const Order = () => {
                                                     <p className='priceHeading'>Total</p>
                                                     <p className='priceHeading'>$254.60</p>
                                                 </div>
-                                                <div className='flexBox d-none'>
-                                                    <button className='declineBtn w-100' type='button'> Decline</button>
-                                                    <button type='button' className='BlueBtn w-100'>
-                                                        Accept
-                                                        <Image src={Images.ArrowRight} alt="ArrowRight" className="img-fluid ArrowRight" />
-                                                    </button>
-                                                </div>
-                                                <button type='button' className='pickupBtn w-100 mt-2'>
-                                                    Ready to Pick Up
-                                                    <Image src={Images.deliverHand} alt="deliverHand image" className="img-fluid" />
+                                                <button type='button' className='cancelUserBtn w-100 mt-2'>
+                                                    Cancelled by user
                                                 </button>
                                             </div>
                                         </div>
@@ -548,4 +529,4 @@ const Order = () => {
     )
 }
 
-export default Order
+export default CancelOrder

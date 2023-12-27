@@ -246,8 +246,15 @@ import readyStep from "../public/images/readyStep.svg"
 import assignStep from "../public/images/assignStep.svg"
 import timeImg from "../public/images/timeImg.svg"
 import checkinSky from "../public/images/checkinSky.svg"
+import pickupStep from "../public/images/pickupStep.svg"
+import deliverTime from "../public/images/deliverTime.svg"
+import deliverDot from "../public/images/deliverDot.svg"
+import cancelUser from "../public/images/cancelUser.svg"
+import cancelPackage from "../public/images/cancelPackage.svg"
 
 export {
+  deliverDot,
+  pickupStep,
   timeImg,
   checkinSky,
   Fast,
@@ -493,4 +500,7 @@ export {
   acceptStep,
   readyStep,
   assignStep,
+  deliverTime,
+  cancelUser,
+  cancelPackage,
 };
