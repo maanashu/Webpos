@@ -244,9 +244,9 @@ import deliverBox from "../public/images/deliverBox.svg"
 import acceptStep from "../public/images/acceptStep.svg"
 import readyStep from "../public/images/readyStep.svg"
 import assignStep from "../public/images/assignStep.svg"
+import timeImg from "../public/images/timeImg.svg"
+import checkinSky from "../public/images/checkinSky.svg"
 
-
- 
 export {
   timeImg,
   checkinSky,
