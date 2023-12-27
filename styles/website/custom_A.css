@@ -126,14 +126,12 @@
     width: 24px;
     margin-right: 18px;
 }
-.sidebarLinks .showImg{
-    display: block;
-}
 .sidebarLinks.active .showImg{
     display: none;
 }
 .sidebarLinks.active .hideImg{
     display: block;
+    margin-right: 18px;
 }
 .sidebarLinks .hideImg{
     display: none;
@@ -1043,7 +1041,7 @@
 
 .OrderDiscountBox {
     padding-bottom: 16px;
-    border-bottom: 1px dotted #7E8AC1;
+    border-bottom: 2px dotted #7E8AC1;
 }
 
 .productBilling .flexBox {
