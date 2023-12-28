@@ -1,8 +1,8 @@
 import React, { useState } from 'react'
-import * as Images from "../../../../utilities/images";
+import * as Images from "../../../utilities/images";
 import Image from "next/image";
 import PhoneInput from 'react-phone-input-2';
-import CustomModal from '../../../customModal/CustomModal';
+import CustomModal from '../../customModal/CustomModal';
 import CustomerFound from './customerFound';
 
 const CreateCustomerModal = () => {

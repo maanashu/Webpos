@@ -13,11 +13,11 @@ const CancelOrder = () => {
                             <div className='cancelOrderLeft deliveryOuter me-0'>
                                 <div className='flexContent'>
                                     <div className='flexTable'>
-                                        <Image src={Images.boldLeftArrow} alt="MoneyItemImage " className="img-fluid me-2" />
+                                        <Image src={Images.boldLeftArrow} alt="boldLeftArrow " className="img-fluid me-2" />
                                         <h4 className='loginMain text-start m-0'>Cancelled Orders</h4>
                                     </div>
                                     <button className='GreyBtn' >Filters
-                                        <Image src={Images.FilterIcon} alt="image" className="img-fluid BtnIcon" />
+                                        <Image src={Images.FilterIcon} alt="FilterIcon image" className="img-fluid BtnIcon" />
                                     </button>
                                 </div>
                                 <div className='appointmenMonth cancelCalendar'>
@@ -25,7 +25,7 @@ const CancelOrder = () => {
                                         <Image src={Images.calendarLight} alt='calendarimage' className='img-fluid' />
                                         <span className='monthText ms-2'>Today</span>
                                     </div>
-                                    <Image src={Images.arrowDown} alt='calendarimage' className='img-fluid text-end' />
+                                    <Image src={Images.arrowDown} alt='arrowDown image' className='img-fluid text-end' />
                                 </div>
                                 <div className='table-responsive mt-3'>
                                     <table id="" className="orderDeliverTable">
@@ -69,7 +69,7 @@ const CancelOrder = () => {
                                                         <h4 className='assignId'>Delivery Type</h4>
                                                         <div className='immediateBox mt-1'>
                                                             <Image src={Images.Fast} alt="deliverFast image" className="img-fluid m-0" />
-                                                            <h4 className='immediateText'>Immediately</h4>
+                                                            <h4 className='immediateText'>Express Delivery</h4>
                                                         </div>
                                                     </div>
                                                     <div className='itemType mt-4'>
@@ -129,7 +129,7 @@ const CancelOrder = () => {
                                                         <h4 className='assignId'>Delivery Type</h4>
                                                         <div className='immediateBox mt-1'>
                                                             <Image src={Images.Fast} alt="deliverFast image" className="img-fluid m-0" />
-                                                            <h4 className='immediateText'>Immediately</h4>
+                                                            <h4 className='immediateText'>Express Delivery</h4>
                                                         </div>
                                                     </div>
                                                     <div className='itemType mt-4'>
@@ -189,7 +189,7 @@ const CancelOrder = () => {
                                                         <h4 className='assignId'>Delivery Type</h4>
                                                         <div className='immediateBox mt-1'>
                                                             <Image src={Images.Fast} alt="deliverFast image" className="img-fluid m-0" />
-                                                            <h4 className='immediateText'>Immediately</h4>
+                                                            <h4 className='immediateText'>Express Delivery</h4>
                                                         </div>
                                                     </div>
                                                     <div className='itemType mt-4'>
@@ -249,7 +249,7 @@ const CancelOrder = () => {
                                                         <h4 className='assignId'>Delivery Type</h4>
                                                         <div className='immediateBox mt-1'>
                                                             <Image src={Images.Fast} alt="deliverFast image" className="img-fluid m-0" />
-                                                            <h4 className='immediateText'>Immediately</h4>
+                                                            <h4 className='immediateText'>Express Delivery</h4>
                                                         </div>
                                                     </div>
                                                     <div className='itemType mt-4'>
@@ -309,7 +309,7 @@ const CancelOrder = () => {
                                                         <h4 className='assignId'>Delivery Type</h4>
                                                         <div className='immediateBox mt-1'>
                                                             <Image src={Images.Fast} alt="deliverFast image" className="img-fluid m-0" />
-                                                            <h4 className='immediateText'>Immediately</h4>
+                                                            <h4 className='immediateText'>Express Delivery</h4>
                                                         </div>
                                                     </div>
                                                     <div className='itemType mt-4'>
@@ -353,7 +353,7 @@ const CancelOrder = () => {
                                         <h4 className='cancelOrderText ms-1'>Samara Stellinberg</h4>
                                     </div>
                                     <div className='locationOrder'>
-                                        <Image src={Images.OrderLocation} alt="MoneyItemImage " className="img-fluid" />
+                                        <Image src={Images.OrderLocation} alt="OrderLocation image " className="img-fluid" />
                                         <p className='locationText'>1480 Bassel Street, New Orleans, LA 70113</p>
                                     </div>
                                 </div>

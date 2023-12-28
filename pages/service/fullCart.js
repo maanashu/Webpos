@@ -3,7 +3,7 @@ import * as Images from "../../utilities/images";
 import Image from "next/image";
 import ProductSearch from '../../components/commanComonets/Product/productSearch';
 import CustomModal from '../../components/customModal/CustomModal';
-import AddCustomerModal from '../../components/modals/homeModals/service/addCustomerModal';
+import AddCustomerModal from '../../components/modals/service/addCustomerModal';
 
 
 const FullCart = () => {

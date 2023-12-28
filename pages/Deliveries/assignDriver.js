@@ -12,7 +12,7 @@ const AssignDriver = () => {
             <div className='col-lg-6'>
               <div className='assignLeft deliveryOuter me-0'>
                 <div className='flexTable'>
-                  <Image src={Images.boldLeftArrow} alt="MoneyItemImage " className="img-fluid me-2" />
+                  <Image src={Images.boldLeftArrow} alt="boldLeftArrow " className="img-fluid me-2" />
                   <h4 className='loginMain text-start m-0'>Assign Drivers</h4>
                 </div>
                 <div className='table-responsive mt-3'>
@@ -352,8 +352,8 @@ const AssignDriver = () => {
                   <div className='orderTrackStatus'>
                     <div className='subOrderTime'>
                       <div className='positionImg'>
-                        <Image src={Images.dotStep} alt="map Image" className="img-fluid" />
-                        <Image src={Images.lineStep} alt="map Image" className="img-fluid lineStepImg" />
+                        <Image src={Images.dotStep} alt="dotStep Image" className="img-fluid" />
+                        <Image src={Images.lineStep} alt="lineStep Image" className="img-fluid lineStepImg" />
                       </div>
                       <div className='positionText'>
                         <h4 className='appointSub mt-0'>Verify Code</h4>
@@ -362,8 +362,8 @@ const AssignDriver = () => {
                     </div>
                     <div className='subOrderTime'>
                       <div className='positionImg'>
-                        <Image src={Images.dotStep} alt="map Image" className="img-fluid dotStepImg" />
-                        <Image src={Images.lineStep} alt="map Image" className="img-fluid lineStepImg" />
+                        <Image src={Images.dotStep} alt="dotStep Image" className="img-fluid dotStepImg" />
+                        <Image src={Images.lineStep} alt="lineStep Image" className="img-fluid lineStepImg" />
                       </div>
                       <div className='positionText'>
                         <h4 className='appointSub mt-0'>Delivered</h4>
@@ -372,22 +372,22 @@ const AssignDriver = () => {
                     </div>
                     <div className='subOrderTime'>
                       <div className='positionImg'>
-                        <Image src={Images.dotStep} alt="map Image" className="img-fluid dotStepImg" />
-                        <Image src={Images.lineStep} alt="map Image" className="img-fluid lineStepImg" />
+                        <Image src={Images.dotStep} alt="dotStep Image" className="img-fluid dotStepImg" />
+                        <Image src={Images.lineStep} alt="lineStep Image" className="img-fluid lineStepImg" />
                       </div>
                       <div className='positionText'>
                         <h4 className='appointSub mt-0'>Product Pickup</h4>
                         <h4 className='orderPara'>Within 10 minutes</h4>
                       </div>
                       <div className='jobrPickUp'>
-                        <Image src={Images.deliverBox} alt="map Image" className="img-fluid" />
+                        <Image src={Images.deliverBox} alt="deliverBox Image" className="img-fluid" />
                         <h4 className='locateDistance '>JOBR-899</h4>
                       </div>
                     </div>
                     <div className='subOrderTime'>
                       <div className='positionImg'>
-                        <Image src={Images.assignStep} alt="map Image" className="img-fluid dotStepImg" />
-                        <Image src={Images.lineStep} alt="map Image" className="img-fluid lineStepImg" />
+                        <Image src={Images.assignStep} alt="assignStep Image" className="img-fluid dotStepImg" />
+                        <Image src={Images.lineStep} alt="lineStep Image" className="img-fluid lineStepImg" />
                       </div>
                       <div className='positionText'>
                         <h4 className='appointSub mt-0'>Assign Driver</h4>
@@ -396,8 +396,8 @@ const AssignDriver = () => {
                     </div>
                     <div className='subOrderTime'>
                       <div className='positionImg'>
-                        <Image src={Images.readyStep} alt="map Image" className="img-fluid dotStepImg" />
-                        <Image src={Images.lineStep} alt="map Image" className="img-fluid lineStepImg" />
+                        <Image src={Images.readyStep} alt="readyStep Image" className="img-fluid dotStepImg" />
+                        <Image src={Images.lineStep} alt="lineStep Image" className="img-fluid lineStepImg" />
                       </div>
                       <div className='positionText'>
                         <h4 className='appointSub mt-0'>Ready to Pickup</h4>
@@ -406,7 +406,7 @@ const AssignDriver = () => {
                     </div>
                     <div className='subOrderTime'>
                       <div className='positionImg'>
-                        <Image src={Images.acceptStep} alt="map Image" className="img-fluid dotStepImg" />
+                        <Image src={Images.acceptStep} alt="acceptStep Image" className="img-fluid dotStepImg" />
                       </div>
                       <div className='positionText'>
                         <h4 className='appointSub mt-0'>Order Accepted</h4>

@@ -588,6 +588,7 @@ figure {
     align-items: center;
 }
 
+.incrementBtn:hover,
 .incrementBtn.active {
     border-radius: 6px;
     border: 1px solid #D7DEFF !important;
@@ -617,8 +618,8 @@ figure {
     border-right: 1px solid #D7DEFF;
     background-color: #fff !important;
     border-radius: 0 !important;
-    max-width: 25px;
-    padding: 5px 7px !important;
+    max-width: 40px;
+    padding: 5px 0px !important;
     appearance: none !important;
 }
 
@@ -1223,7 +1224,9 @@ figure {
 #addCustomerModal .modal-content,
 #PhoneReceiptModal .modal-content,
 #emailReceiptModal .modal-content,
-#giftCardModal .modal-content {
+#giftCardModal .modal-content,
+#confirmReturnModal .modal-content,
+#returnInventoryModal .modal-content {
     border-radius: 30px !important;
     background: #FFF !important;
     box-shadow: -3px 6px 6px 0px rgba(52, 79, 117, 0.03), -12px 28px 25px 0px rgba(52, 79, 117, 0.04), -31px 74px 80px 0px rgba(52, 79, 117, 0.07) !important;
@@ -1233,7 +1236,9 @@ figure {
 #addCustomerModal .modal-header,
 #PhoneReceiptModal .modal-header,
 #emailReceiptModal .modal-header,
-#giftCardModal .modal-header {
+#giftCardModal .modal-header,
+#confirmReturnModal .modal-header,
+#returnInventoryModal .modal-header {
     border: none;
     padding: 0 !important;
 }
@@ -1242,16 +1247,20 @@ figure {
 #createCustomerModal .modal-body,
 #PhoneReceiptModal .modal-body,
 #emailReceiptModal .modal-body,
-#giftCardModal .modal-body {
+#giftCardModal .modal-body,
+#confirmReturnModal .modal-body,
+#returnInventoryModal .modal-body {
     padding: 0 !important;
 }
 
-#createCustomerModal {
+#createCustomerModal,
+#confirmReturnModal {
     width: 100%;
     max-width: 430px;
 }
 
-#customerFoundModal {
+#customerFoundModal,
+#returnInventoryModal {
     width: 100%;
     max-width: 470px;
 }
@@ -2688,7 +2697,7 @@ figure {
     font-weight: 500;
 }
 
-.declineBtn {
+.declineButton {
     border-radius: 30px;
     border: 1px solid #263682;
     padding: 8px 10px;
@@ -2908,7 +2917,7 @@ figure {
     border-radius: 8px;
     background: #F5EDFF;
     padding: 4px 6px;
-    display: flex;
+    display: inline-flex;
     align-items: center;
     gap: 4px;
 }
@@ -2947,11 +2956,144 @@ figure {
     display: inline-block;
     margin: 6px 0;
 }
-.recentFlex{
+
+.recentFlex {
     display: flex;
     align-items: center;
     justify-content: center;
 }
+
+.startFlex {
+    display: flex;
+    align-items: flex-start;
+}
+
+.mapleCardImg {
+    width: 14px;
+    height: 14px;
+    margin-right: 5px;
+}
+
+.cancelHeading {
+    color: #F04438;
+    font-size: 14px;
+    font-weight: 500;
+}
+
+.confirmImg {
+    width: 48px;
+    height: 48px;
+}
+
+.customerConfirm {
+    margin-top: 32px;
+}
+
+.constomerBx {
+    border-radius: 15px;
+    border: 1px solid #F5F6FC;
+    padding: 12px;
+    display: flex;
+    align-items: center;
+    margin-top: 8px;
+    gap: 10px;
+}
+
+.customerConfirmImg {
+    width: 56px;
+    height: 56px;
+    border-radius: 128px;
+}
+
+.subConfirm .locationOrder {
+    border-radius: 20px;
+    margin-top: 6px;
+}
+
+.driverConfirm {
+    margin-top: 12px;
+}
+
+.confirmReturnSection .cartDivide {
+    margin: 12px 0;
+}
+
+.confirmReturnSection .locationText {
+    font-weight: 500;
+}
+
+.itemConfirm {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 40px;
+    margin: 8px 12px;
+}
+
+.confirmReturnBtn {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 32px;
+}
+
+.checkBtn {
+    border-radius: 30px;
+    background: #E4E6F2;
+    display: flex;
+    align-items: center;
+    padding: 18px 24px;
+    border: none;
+    color: #263682;
+    font-size: 18px;
+    font-weight: 400;
+}
+
+.reCheckBtn {
+    display: flex;
+    align-items: center;
+    padding: 18px 24px;
+    border: none;
+    border-radius: 30px;
+    background: #263682;
+    color: #F5F6FC;
+    font-size: 18px;
+    font-weight: 400;
+}
+
+.constomerBx.active,
+.constomerBx:hover {
+    border: 1px solid #B4BEEB;
+    background: #FFF;
+    box-shadow: -2px 3px 25px 0px rgba(50, 80, 127, 0.02), -4px 9px 80px 0px rgba(50, 80, 127, 0.04);
+}
+
+.returnPara {
+    color: #8D99D2;
+    font-size: 11px;
+    font-weight: 400;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+    max-width: 30ch;
+}
+
+.subInventoryBx {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-radius: 8px;
+    border: 1px solid #F5F6FC;
+    padding: 8px 16px;
+    gap: 16px;
+    margin-top: 8px;
+}
+.inventoryBox {
+    margin: 16px 0 24px;
+    height: 250px;
+    overflow-y: scroll;
+}
+
 /*deliver Module css end*/
 /*media query start*/
 @media (max-width:1600px) {

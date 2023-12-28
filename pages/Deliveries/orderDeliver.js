@@ -346,14 +346,14 @@ const OrderDeliver = () => {
                                 <Image src={Images.map} alt="map Image" className="mapImg" />
                                 <div className='orderStatusBox'>
                                     <div className='orderFlex'>
-                                        <Image src={Images.orderDriver} alt="map Image" className="img-fluid" />
+                                        <Image src={Images.orderDriver} alt="orderDriver Image" className="img-fluid" />
                                         <h4 className='customerLink '>Order Status</h4>
                                     </div>
                                     <div className='orderTrackStatus'>
                                         <div className='subOrderTime'>
                                             <div className='positionImg'>
-                                                <Image src={Images.pickupStep} alt="map Image" className="img-fluid dotStepImg" />
-                                                <Image src={Images.lineStep} alt="map Image" className="img-fluid lineStepImg" />
+                                                <Image src={Images.pickupStep} alt="pickupStep Image" className="img-fluid dotStepImg" />
+                                                <Image src={Images.lineStep} alt="lineStep Image" className="img-fluid lineStepImg" />
                                             </div>
                                             <div className='positionText'>
                                                 <h4 className='appointSub mt-0'>Verify Code</h4>
@@ -362,8 +362,8 @@ const OrderDeliver = () => {
                                         </div>
                                         <div className='subOrderTime'>
                                             <div className='positionImg'>
-                                                <Image src={Images.deliverDot} alt="map Image" className="img-fluid dotStepImg" />
-                                                <Image src={Images.lineStep} alt="map Image" className="img-fluid lineStepImg" />
+                                                <Image src={Images.deliverDot} alt="deliverDot Image" className="img-fluid dotStepImg" />
+                                                <Image src={Images.lineStep} alt="lineStep Image" className="img-fluid lineStepImg" />
                                             </div>
                                             <div className='positionText'>
                                                 <h4 className='appointSub mt-0'>Delivered</h4>
@@ -372,22 +372,22 @@ const OrderDeliver = () => {
                                         </div>
                                         <div className='subOrderTime'>
                                             <div className='positionImg'>
-                                                <Image src={Images.deliverDot} alt="map Image" className="img-fluid dotStepImg" />
-                                                <Image src={Images.lineStep} alt="map Image" className="img-fluid lineStepImg" />
+                                                <Image src={Images.deliverDot} alt="deliverDot Image" className="img-fluid dotStepImg" />
+                                                <Image src={Images.lineStep} alt="lineStep Image" className="img-fluid lineStepImg" />
                                             </div>
                                             <div className='positionText'>
                                                 <h4 className='appointSub mt-0'>Product Pickup</h4>
                                                 <h4 className='orderPara'>Within 10 minutes</h4>
                                             </div>
                                             <div className='jobrPickUp'>
-                                                <Image src={Images.deliverBox} alt="map Image" className="img-fluid" />
+                                                <Image src={Images.deliverBox} alt="deliverBox Image" className="img-fluid" />
                                                 <h4 className='locateDistance '>JOBR-899</h4>
                                             </div>
                                         </div>
                                         <div className='subOrderTime'>
                                             <div className='positionImg'>
-                                                <Image src={Images.readyStep} alt="map Image" className="img-fluid dotStepImg" />
-                                                <Image src={Images.lineStep} alt="map Image" className="img-fluid lineStepImg" />
+                                                <Image src={Images.readyStep} alt="readyStep Image" className="img-fluid dotStepImg" />
+                                                <Image src={Images.lineStep} alt="lineStep Image" className="img-fluid lineStepImg" />
                                             </div>
                                             <div className='positionText'>
                                                 <h4 className='appointSub mt-0'>Assign Driver</h4>
@@ -396,8 +396,8 @@ const OrderDeliver = () => {
                                         </div>
                                         <div className='subOrderTime'>
                                             <div className='positionImg'>
-                                                <Image src={Images.readyStep} alt="map Image" className="img-fluid dotStepImg" />
-                                                <Image src={Images.lineStep} alt="map Image" className="img-fluid lineStepImg" />
+                                                <Image src={Images.readyStep} alt="readyStep Image" className="img-fluid dotStepImg" />
+                                                <Image src={Images.lineStep} alt="lineStep Image" className="img-fluid lineStepImg" />
                                             </div>
                                             <div className='positionText'>
                                                 <h4 className='appointSub mt-0'>Ready to Pickup</h4>
@@ -406,7 +406,7 @@ const OrderDeliver = () => {
                                         </div>
                                         <div className='subOrderTime'>
                                             <div className='positionImg'>
-                                                <Image src={Images.acceptStep} alt="map Image" className="img-fluid dotStepImg" />
+                                                <Image src={Images.acceptStep} alt="acceptStep Image" className="img-fluid dotStepImg" />
                                             </div>
                                             <div className='positionText'>
                                                 <h4 className='appointSub mt-0'>Order Accepted</h4>

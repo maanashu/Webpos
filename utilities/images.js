@@ -216,8 +216,6 @@ import CashSolid from "../public/images/Cash_Solid.svg"
 import UsersSolid from "../public/images/Users_Solid.svg"
 import RewardsSolid from "../public/images/Rewards_Solid.svg"
 import SettingsSolid from "../public/images/Settings_Solid.svg"
-
-
 import order_frequency from "../public/images/order_frequency.png"
 import locationOutline from "../public/images/Location_Outline.png";
 import ringing from "../public/images/Ringing.png";
@@ -251,8 +249,21 @@ import deliverTime from "../public/images/deliverTime.svg"
 import deliverDot from "../public/images/deliverDot.svg"
 import cancelUser from "../public/images/cancelUser.svg"
 import cancelPackage from "../public/images/cancelPackage.svg"
+import mapleCard from "../public/images/mapleCard.svg"
+import longStep from "../public/images/longStep.svg"
+import cancelStep from "../public/images/cancelStep.svg"
+import customerImg from "../public/images/customerImg.png"
+import driverSolid from  "../public/images/driverSolid.svg"
+import timeCheck from "../public/images/timeCheck.svg"
+import checkScan from "../public/images/checkScan.svg"
 
 export {
+  checkScan,
+  timeCheck,
+  driverSolid,
+  customerImg,
+  cancelStep,
+  longStep,
   deliverDot,
   pickupStep,
   timeImg,
@@ -503,4 +514,5 @@ export {
   deliverTime,
   cancelUser,
   cancelPackage,
+  mapleCard,
 };
