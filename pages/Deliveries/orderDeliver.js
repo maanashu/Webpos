@@ -32,7 +32,7 @@ const OrderDeliver = () => {
                                                 </td>
                                                 <td className="invoice_subhead">
                                                     <div className="nameLocation">
-                                                        <h4 className="orderId">Samara Schwansteiger</h4>
+                                                        <h4 className="assignId">Samara Schwansteiger</h4>
                                                         <div className="deliverTableBx">
                                                             <Image
                                                                 src={Images.OrderLocation}
@@ -43,7 +43,7 @@ const OrderDeliver = () => {
                                                         </div>
                                                     </div>
                                                     <div className="itemMoney mt-4">
-                                                        <h4 className="orderId">3 items</h4>
+                                                        <h4 className="assignId">3 items</h4>
                                                         <div className="deliverTableBx">
                                                             <Image
                                                                 src={Images.MoneyItem}
@@ -59,7 +59,7 @@ const OrderDeliver = () => {
                                                     <div className="itemTime">
                                                         <div className='flexTable'>
                                                             <Image src={Images.driverProfile} alt="driverProfile image " className="driverImg" />
-                                                            <h4 className="orderId">1 hour delivery window</h4>
+                                                            <h4 className="assignId">1 hour delivery window</h4>
                                                         </div>
                                                         <div className="deliverTableBx">
                                                             <Image
@@ -71,7 +71,7 @@ const OrderDeliver = () => {
                                                         </div>
                                                     </div>
                                                     <div className="itemTime mt-3">
-                                                        <h4 className="orderId">Delivered at:</h4>
+                                                        <h4 className="assignId">Delivered at:</h4>
                                                         <div className="orderDeliverTime">
                                                             <Image
                                                                 src={Images.deliverTime}
@@ -94,7 +94,7 @@ const OrderDeliver = () => {
                                                 </td>
                                                 <td className="invoice_subhead">
                                                     <div className="nameLocation">
-                                                        <h4 className="orderId">Samara Schwansteiger</h4>
+                                                        <h4 className="assignId">Samara Schwansteiger</h4>
                                                         <div className="deliverTableBx">
                                                             <Image
                                                                 src={Images.OrderLocation}
@@ -105,7 +105,7 @@ const OrderDeliver = () => {
                                                         </div>
                                                     </div>
                                                     <div className="itemMoney mt-4">
-                                                        <h4 className="orderId">3 items</h4>
+                                                        <h4 className="assignId">3 items</h4>
                                                         <div className="deliverTableBx">
                                                             <Image
                                                                 src={Images.MoneyItem}
@@ -121,7 +121,7 @@ const OrderDeliver = () => {
                                                     <div className="itemTime">
                                                         <div className='flexTable'>
                                                             <Image src={Images.driverProfile} alt="driverProfile image " className="driverImg" />
-                                                            <h4 className="orderId">1 hour delivery window</h4>
+                                                            <h4 className="assignId">1 hour delivery window</h4>
                                                         </div>
                                                         <div className="deliverTableBx">
                                                             <Image
@@ -133,7 +133,7 @@ const OrderDeliver = () => {
                                                         </div>
                                                     </div>
                                                     <div className="itemTime mt-3">
-                                                        <h4 className="orderId">Delivered at:</h4>
+                                                        <h4 className="assignId">Delivered at:</h4>
                                                         <div className="orderDeliverTime">
                                                             <Image
                                                                 src={Images.deliverTime}
@@ -156,7 +156,7 @@ const OrderDeliver = () => {
                                                 </td>
                                                 <td className="invoice_subhead">
                                                     <div className="nameLocation">
-                                                        <h4 className="orderId">Samara Schwansteiger</h4>
+                                                        <h4 className="assignId">Samara Schwansteiger</h4>
                                                         <div className="deliverTableBx">
                                                             <Image
                                                                 src={Images.OrderLocation}
@@ -167,7 +167,7 @@ const OrderDeliver = () => {
                                                         </div>
                                                     </div>
                                                     <div className="itemMoney mt-4">
-                                                        <h4 className="orderId">3 items</h4>
+                                                        <h4 className="assignId">3 items</h4>
                                                         <div className="deliverTableBx">
                                                             <Image
                                                                 src={Images.MoneyItem}
@@ -183,7 +183,7 @@ const OrderDeliver = () => {
                                                     <div className="itemTime">
                                                         <div className='flexTable'>
                                                             <Image src={Images.driverProfile} alt="driverProfile image " className="driverImg" />
-                                                            <h4 className="orderId">1 hour delivery window</h4>
+                                                            <h4 className="assignId">1 hour delivery window</h4>
                                                         </div>
                                                         <div className="deliverTableBx">
                                                             <Image
@@ -195,7 +195,7 @@ const OrderDeliver = () => {
                                                         </div>
                                                     </div>
                                                     <div className="itemTime mt-3">
-                                                        <h4 className="orderId">Delivered at:</h4>
+                                                        <h4 className="assignId">Delivered at:</h4>
                                                         <div className="orderDeliverTime">
                                                             <Image
                                                                 src={Images.deliverTime}
@@ -218,7 +218,7 @@ const OrderDeliver = () => {
                                                 </td>
                                                 <td className="invoice_subhead">
                                                     <div className="nameLocation">
-                                                        <h4 className="orderId">Samara Schwansteiger</h4>
+                                                        <h4 className="assignId">Samara Schwansteiger</h4>
                                                         <div className="deliverTableBx">
                                                             <Image
                                                                 src={Images.OrderLocation}
@@ -229,7 +229,7 @@ const OrderDeliver = () => {
                                                         </div>
                                                     </div>
                                                     <div className="itemMoney mt-4">
-                                                        <h4 className="orderId">3 items</h4>
+                                                        <h4 className="assignId">3 items</h4>
                                                         <div className="deliverTableBx">
                                                             <Image
                                                                 src={Images.MoneyItem}
@@ -245,7 +245,7 @@ const OrderDeliver = () => {
                                                     <div className="itemTime">
                                                         <div className='flexTable'>
                                                             <Image src={Images.driverProfile} alt="driverProfile image " className="driverImg" />
-                                                            <h4 className="orderId">1 hour delivery window</h4>
+                                                            <h4 className="assignId">1 hour delivery window</h4>
                                                         </div>
                                                         <div className="deliverTableBx">
                                                             <Image
@@ -257,7 +257,7 @@ const OrderDeliver = () => {
                                                         </div>
                                                     </div>
                                                     <div className="itemTime mt-3">
-                                                        <h4 className="orderId">Delivered at:</h4>
+                                                        <h4 className="assignId">Delivered at:</h4>
                                                         <div className="orderDeliverTime">
                                                             <Image
                                                                 src={Images.deliverTime}
@@ -280,7 +280,7 @@ const OrderDeliver = () => {
                                                 </td>
                                                 <td className="invoice_subhead">
                                                     <div className="nameLocation">
-                                                        <h4 className="orderId">Samara Schwansteiger</h4>
+                                                        <h4 className="assignId">Samara Schwansteiger</h4>
                                                         <div className="deliverTableBx">
                                                             <Image
                                                                 src={Images.OrderLocation}
@@ -291,7 +291,7 @@ const OrderDeliver = () => {
                                                         </div>
                                                     </div>
                                                     <div className="itemMoney mt-4">
-                                                        <h4 className="orderId">3 items</h4>
+                                                        <h4 className="assignId">3 items</h4>
                                                         <div className="deliverTableBx">
                                                             <Image
                                                                 src={Images.MoneyItem}
@@ -307,7 +307,7 @@ const OrderDeliver = () => {
                                                     <div className="itemTime">
                                                         <div className='flexTable'>
                                                             <Image src={Images.driverProfile} alt="driverProfile image " className="driverImg" />
-                                                            <h4 className="orderId">1 hour delivery window</h4>
+                                                            <h4 className="assignId">1 hour delivery window</h4>
                                                         </div>
                                                         <div className="deliverTableBx">
                                                             <Image
@@ -319,7 +319,7 @@ const OrderDeliver = () => {
                                                         </div>
                                                     </div>
                                                     <div className="itemTime mt-3">
-                                                        <h4 className="orderId">Delivered at:</h4>
+                                                        <h4 className="assignId">Delivered at:</h4>
                                                         <div className="orderDeliverTime">
                                                             <Image
                                                                 src={Images.deliverTime}

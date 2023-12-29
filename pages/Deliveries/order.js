@@ -2,7 +2,7 @@ import React from 'react'
 import DeliveryRightSidebar from '../../components/commanComonets/Delivery/deliveryRightSidebar'
 import * as Images from "../../utilities/images"
 import Image from "next/image";
-import * as Product from '../../components/commanComonets/Product';
+
 
 
 const Order = () => {
@@ -23,7 +23,7 @@ const Order = () => {
                                             <tr className='product_invoice active'>
                                                 <td className="invoice_subhead">
                                                     <div className="nameLocation">
-                                                        <h4 className="orderId">Samara Schwansteiger</h4>
+                                                        <h4 className="assignId">Samara Schwansteiger</h4>
                                                         <div className="deliverTableBx">
                                                             <Image
                                                                 src={Images.OrderLocation}
@@ -36,7 +36,7 @@ const Order = () => {
                                                 </td>
                                                 <td className="invoice_subhead">
                                                     <div className="itemMoney">
-                                                        <h4 className="orderId">3 items</h4>
+                                                        <h4 className="assignId">3 items</h4>
                                                         <div className="deliverTableBx">
                                                             <Image
                                                                 src={Images.MoneyItem}
@@ -50,7 +50,7 @@ const Order = () => {
                                                 </td>
                                                 <td className="invoice_subhead">
                                                     <div className="itemTime">
-                                                        <h4 className="orderId">1 hour delivery window</h4>
+                                                        <h4 className="assignId">1 hour delivery window</h4>
                                                         <div className="deliverTableBx">
                                                             <Image
                                                                 src={Images.Time}
@@ -71,7 +71,7 @@ const Order = () => {
                                             <tr className='product_invoice'>
                                                 <td className="invoice_subhead">
                                                     <div className="nameLocation">
-                                                        <h4 className="orderId">Samara Schwansteiger</h4>
+                                                        <h4 className="assignId">Samara Schwansteiger</h4>
                                                         <div className="deliverTableBx">
                                                             <Image
                                                                 src={Images.OrderLocation}
@@ -84,7 +84,7 @@ const Order = () => {
                                                 </td>
                                                 <td className="invoice_subhead">
                                                     <div className="itemMoney">
-                                                        <h4 className="orderId">3 items</h4>
+                                                        <h4 className="assignId">3 items</h4>
                                                         <div className="deliverTableBx">
                                                             <Image
                                                                 src={Images.MoneyItem}
@@ -98,7 +98,7 @@ const Order = () => {
                                                 </td>
                                                 <td className="invoice_subhead">
                                                     <div className="itemTime">
-                                                        <h4 className="orderId">1 hour delivery window</h4>
+                                                        <h4 className="assignId">1 hour delivery window</h4>
                                                         <div className="deliverTableBx">
                                                             <Image
                                                                 src={Images.Time}
@@ -119,7 +119,7 @@ const Order = () => {
                                             <tr className='product_invoice'>
                                                 <td className="invoice_subhead">
                                                     <div className="nameLocation">
-                                                        <h4 className="orderId">Samara Schwansteiger</h4>
+                                                        <h4 className="assignId">Samara Schwansteiger</h4>
                                                         <div className="deliverTableBx">
                                                             <Image
                                                                 src={Images.OrderLocation}
@@ -132,7 +132,7 @@ const Order = () => {
                                                 </td>
                                                 <td className="invoice_subhead">
                                                     <div className="itemMoney">
-                                                        <h4 className="orderId">3 items</h4>
+                                                        <h4 className="assignId">3 items</h4>
                                                         <div className="deliverTableBx">
                                                             <Image
                                                                 src={Images.MoneyItem}
@@ -146,7 +146,7 @@ const Order = () => {
                                                 </td>
                                                 <td className="invoice_subhead">
                                                     <div className="itemTime">
-                                                        <h4 className="orderId">1 hour delivery window</h4>
+                                                        <h4 className="assignId">1 hour delivery window</h4>
                                                         <div className="deliverTableBx">
                                                             <Image
                                                                 src={Images.Time}
@@ -167,7 +167,7 @@ const Order = () => {
                                             <tr className='product_invoice'>
                                                 <td className="invoice_subhead">
                                                     <div className="nameLocation">
-                                                        <h4 className="orderId">Samara Schwansteiger</h4>
+                                                        <h4 className="assignId">Samara Schwansteiger</h4>
                                                         <div className="deliverTableBx">
                                                             <Image
                                                                 src={Images.OrderLocation}
@@ -180,7 +180,7 @@ const Order = () => {
                                                 </td>
                                                 <td className="invoice_subhead">
                                                     <div className="itemMoney">
-                                                        <h4 className="orderId">3 items</h4>
+                                                        <h4 className="assignId">3 items</h4>
                                                         <div className="deliverTableBx">
                                                             <Image
                                                                 src={Images.MoneyItem}
@@ -194,7 +194,7 @@ const Order = () => {
                                                 </td>
                                                 <td className="invoice_subhead">
                                                     <div className="itemTime">
-                                                        <h4 className="orderId">1 hour delivery window</h4>
+                                                        <h4 className="assignId">1 hour delivery window</h4>
                                                         <div className="deliverTableBx">
                                                             <Image
                                                                 src={Images.Time}
@@ -215,7 +215,7 @@ const Order = () => {
                                             <tr className='product_invoice'>
                                                 <td className="invoice_subhead">
                                                     <div className="nameLocation">
-                                                        <h4 className="orderId">Samara Schwansteiger</h4>
+                                                        <h4 className="assignId">Samara Schwansteiger</h4>
                                                         <div className="deliverTableBx">
                                                             <Image
                                                                 src={Images.OrderLocation}
@@ -228,7 +228,7 @@ const Order = () => {
                                                 </td>
                                                 <td className="invoice_subhead">
                                                     <div className="itemMoney">
-                                                        <h4 className="orderId">3 items</h4>
+                                                        <h4 className="assignId">3 items</h4>
                                                         <div className="deliverTableBx">
                                                             <Image
                                                                 src={Images.MoneyItem}
@@ -242,7 +242,7 @@ const Order = () => {
                                                 </td>
                                                 <td className="invoice_subhead">
                                                     <div className="itemTime">
-                                                        <h4 className="orderId">1 hour delivery window</h4>
+                                                        <h4 className="assignId">1 hour delivery window</h4>
                                                         <div className="deliverTableBx">
                                                             <Image
                                                                 src={Images.Time}
@@ -263,7 +263,7 @@ const Order = () => {
                                             <tr className='product_invoice'>
                                                 <td className="invoice_subhead">
                                                     <div className="nameLocation">
-                                                        <h4 className="orderId">Samara Schwansteiger</h4>
+                                                        <h4 className="assignId">Samara Schwansteiger</h4>
                                                         <div className="deliverTableBx">
                                                             <Image
                                                                 src={Images.OrderLocation}
@@ -276,7 +276,7 @@ const Order = () => {
                                                 </td>
                                                 <td className="invoice_subhead">
                                                     <div className="itemMoney">
-                                                        <h4 className="orderId">3 items</h4>
+                                                        <h4 className="assignId">3 items</h4>
                                                         <div className="deliverTableBx">
                                                             <Image
                                                                 src={Images.MoneyItem}
@@ -290,7 +290,7 @@ const Order = () => {
                                                 </td>
                                                 <td className="invoice_subhead">
                                                     <div className="itemTime">
-                                                        <h4 className="orderId">1 hour delivery window</h4>
+                                                        <h4 className="assignId">1 hour delivery window</h4>
                                                         <div className="deliverTableBx">
                                                             <Image
                                                                 src={Images.Time}

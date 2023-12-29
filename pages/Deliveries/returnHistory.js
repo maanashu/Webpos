@@ -60,7 +60,7 @@ const ReturnHistory = () => {
                                                 </td>
                                                 <td className="invoice_subhead">
                                                     <div className="nameLocation">
-                                                        <h4 className="orderId">Samara Schwansteiger</h4>
+                                                        <h4 className="assignId">Samara Schwansteiger</h4>
                                                         <div className="deliverTableBx">
                                                             <Image
                                                                 src={Images.OrderLocation}
@@ -71,7 +71,7 @@ const ReturnHistory = () => {
                                                         </div>
                                                     </div>
                                                     <div className="itemMoney mt-4">
-                                                        <h4 className="orderId">3 items</h4>
+                                                        <h4 className="assignId">3 items</h4>
                                                         <div className="deliverTableBx">
                                                             <Image
                                                                 src={Images.MoneyItem}
@@ -92,7 +92,7 @@ const ReturnHistory = () => {
                                                         </div>
                                                     </div>
                                                     <div className="itemTime mt-3">
-                                                        <h4 className="orderId">Return Within:</h4>
+                                                        <h4 className="assignId">Return Within:</h4>
                                                         <div className="orderDeliverTime">
                                                             <Image
                                                                 src={Images.deliverTime}
@@ -115,7 +115,7 @@ const ReturnHistory = () => {
                                                 </td>
                                                 <td className="invoice_subhead">
                                                     <div className="nameLocation">
-                                                        <h4 className="orderId">Samara Schwansteiger</h4>
+                                                        <h4 className="assignId">Samara Schwansteiger</h4>
                                                         <div className="deliverTableBx">
                                                             <Image
                                                                 src={Images.OrderLocation}
@@ -126,7 +126,7 @@ const ReturnHistory = () => {
                                                         </div>
                                                     </div>
                                                     <div className="itemMoney mt-4">
-                                                        <h4 className="orderId">3 items</h4>
+                                                        <h4 className="assignId">3 items</h4>
                                                         <div className="deliverTableBx">
                                                             <Image
                                                                 src={Images.MoneyItem}
@@ -147,7 +147,7 @@ const ReturnHistory = () => {
                                                         </div>
                                                     </div>
                                                     <div className="itemTime mt-3">
-                                                        <h4 className="orderId">Return Within:</h4>
+                                                        <h4 className="assignId">Return Within:</h4>
                                                         <div className="orderDeliverTime">
                                                             <Image
                                                                 src={Images.deliverTime}
@@ -177,7 +177,7 @@ const ReturnHistory = () => {
                                                 </td>
                                                 <td className="invoice_subhead">
                                                     <div className="nameLocation">
-                                                        <h4 className="orderId">Samara Schwansteiger</h4>
+                                                        <h4 className="assignId">Samara Schwansteiger</h4>
                                                         <div className="deliverTableBx">
                                                             <Image
                                                                 src={Images.OrderLocation}
@@ -188,7 +188,7 @@ const ReturnHistory = () => {
                                                         </div>
                                                     </div>
                                                     <div className="itemMoney mt-4">
-                                                        <h4 className="orderId">3 items</h4>
+                                                        <h4 className="assignId">3 items</h4>
                                                         <div className="deliverTableBx">
                                                             <Image
                                                                 src={Images.MoneyItem}
@@ -209,7 +209,7 @@ const ReturnHistory = () => {
                                                         </div>
                                                     </div>
                                                     <div className="itemTime mt-3">
-                                                        <h4 className="orderId">Return:</h4>
+                                                        <h4 className="assignId">Return:</h4>
                                                         <div className="flexTable mt-1">
                                                             <Image
                                                                 src={Images.deliverTime}
@@ -232,7 +232,7 @@ const ReturnHistory = () => {
                                                 </td>
                                                 <td className="invoice_subhead">
                                                     <div className="nameLocation">
-                                                        <h4 className="orderId">Samara Schwansteiger</h4>
+                                                        <h4 className="assignId">Samara Schwansteiger</h4>
                                                         <div className="deliverTableBx">
                                                             <Image
                                                                 src={Images.OrderLocation}
@@ -243,7 +243,7 @@ const ReturnHistory = () => {
                                                         </div>
                                                     </div>
                                                     <div className="itemMoney mt-4">
-                                                        <h4 className="orderId">3 items</h4>
+                                                        <h4 className="assignId">3 items</h4>
                                                         <div className="deliverTableBx">
                                                             <Image
                                                                 src={Images.MoneyItem}
@@ -264,7 +264,7 @@ const ReturnHistory = () => {
                                                         </div>
                                                     </div>
                                                     <div className="itemTime mt-3">
-                                                        <h4 className="orderId">Return:</h4>
+                                                        <h4 className="assignId">Return:</h4>
                                                         <div className="flexTable mt-1">
                                                             <Image
                                                                 src={Images.deliverTime}

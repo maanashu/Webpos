@@ -41,7 +41,7 @@ const CancelOrder = () => {
                                             <tr className='product_invoice active'>
                                                 <td className="invoice_subhead">
                                                     <div className="nameLocation">
-                                                        <h4 className="orderId">Samara Schwansteiger</h4>
+                                                        <h4 className="assignId">Samara Schwansteiger</h4>
                                                         <div className="deliverTableBx">
                                                             <Image
                                                                 src={Images.OrderLocation}
@@ -52,7 +52,7 @@ const CancelOrder = () => {
                                                         </div>
                                                     </div>
                                                     <div className="itemMoney mt-4">
-                                                        <h4 className="orderId">3 items</h4>
+                                                        <h4 className="assignId">3 items</h4>
                                                         <div className="deliverTableBx">
                                                             <Image
                                                                 src={Images.MoneyItem}
@@ -101,7 +101,7 @@ const CancelOrder = () => {
                                             <tr className='product_invoice'>
                                                 <td className="invoice_subhead">
                                                     <div className="nameLocation">
-                                                        <h4 className="orderId">Samara Schwansteiger</h4>
+                                                        <h4 className="assignId">Samara Schwansteiger</h4>
                                                         <div className="deliverTableBx">
                                                             <Image
                                                                 src={Images.OrderLocation}
@@ -112,7 +112,7 @@ const CancelOrder = () => {
                                                         </div>
                                                     </div>
                                                     <div className="itemMoney mt-4">
-                                                        <h4 className="orderId">3 items</h4>
+                                                        <h4 className="assignId">3 items</h4>
                                                         <div className="deliverTableBx">
                                                             <Image
                                                                 src={Images.MoneyItem}
@@ -161,7 +161,7 @@ const CancelOrder = () => {
                                             <tr className='product_invoice'>
                                                 <td className="invoice_subhead">
                                                     <div className="nameLocation">
-                                                        <h4 className="orderId">Samara Schwansteiger</h4>
+                                                        <h4 className="assignId">Samara Schwansteiger</h4>
                                                         <div className="deliverTableBx">
                                                             <Image
                                                                 src={Images.OrderLocation}
@@ -172,7 +172,7 @@ const CancelOrder = () => {
                                                         </div>
                                                     </div>
                                                     <div className="itemMoney mt-4">
-                                                        <h4 className="orderId">3 items</h4>
+                                                        <h4 className="assignId">3 items</h4>
                                                         <div className="deliverTableBx">
                                                             <Image
                                                                 src={Images.MoneyItem}
@@ -221,7 +221,7 @@ const CancelOrder = () => {
                                             <tr className='product_invoice'>
                                                 <td className="invoice_subhead">
                                                     <div className="nameLocation">
-                                                        <h4 className="orderId">Samara Schwansteiger</h4>
+                                                        <h4 className="assignId">Samara Schwansteiger</h4>
                                                         <div className="deliverTableBx">
                                                             <Image
                                                                 src={Images.OrderLocation}
@@ -232,7 +232,7 @@ const CancelOrder = () => {
                                                         </div>
                                                     </div>
                                                     <div className="itemMoney mt-4">
-                                                        <h4 className="orderId">3 items</h4>
+                                                        <h4 className="assignId">3 items</h4>
                                                         <div className="deliverTableBx">
                                                             <Image
                                                                 src={Images.MoneyItem}
@@ -281,7 +281,7 @@ const CancelOrder = () => {
                                             <tr className='product_invoice'>
                                                 <td className="invoice_subhead">
                                                     <div className="nameLocation">
-                                                        <h4 className="orderId">Samara Schwansteiger</h4>
+                                                        <h4 className="assignId">Samara Schwansteiger</h4>
                                                         <div className="deliverTableBx">
                                                             <Image
                                                                 src={Images.OrderLocation}
@@ -292,7 +292,7 @@ const CancelOrder = () => {
                                                         </div>
                                                     </div>
                                                     <div className="itemMoney mt-4">
-                                                        <h4 className="orderId">3 items</h4>
+                                                        <h4 className="assignId">3 items</h4>
                                                         <div className="deliverTableBx">
                                                             <Image
                                                                 src={Images.MoneyItem}

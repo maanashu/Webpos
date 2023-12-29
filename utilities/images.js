@@ -256,8 +256,22 @@ import customerImg from "../public/images/customerImg.png"
 import driverSolid from  "../public/images/driverSolid.svg"
 import timeCheck from "../public/images/timeCheck.svg"
 import checkScan from "../public/images/checkScan.svg"
+import shipDhl from "../public/images/shipDhl.svg"
+import shipUps from "../public/images/shipUps.svg"
+import shipFed from "../public/images/shipFed.svg"
+import shipUsps from "../public/images/shipUsps.svg"
+import deliverHandDark from "../public/images/deliverHandDark.svg"
+import sticker from "../public/images/sticker.svg"
+import trackDeliver from "../public/images/trackDeliver.svg"
 
 export {
+  trackDeliver,
+  sticker,
+  deliverHandDark,
+  shipUsps,
+  shipFed,
+  shipUps,
+  shipDhl,
   checkScan,
   timeCheck,
   driverSolid,

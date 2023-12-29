@@ -2313,7 +2313,7 @@ figure {
 }
 
 .cancelOrder .orderDeliverText {
-    color: #C29613;
+    color: #F04438;
 }
 
 .cancelOrder .deliverPercent {
@@ -2522,6 +2522,24 @@ figure {
 }
 
 .deliverRightBar.fullDeliver {
+    width: 300px;
+}
+
+.shipRightBar {
+    float: none;
+    right: 24px;
+    position: fixed;
+    top: 107px;
+    width: 60px;
+    transition: 1s;
+    z-index: 999;
+    border-radius: 30px;
+    border: 0px solid #D7DEFF;
+    background: #FFF;
+    padding: 16px 10px;
+}
+
+.shipRightBar.fullDeliver {
     width: 300px;
 }
 
@@ -3088,13 +3106,61 @@ figure {
     gap: 16px;
     margin-top: 8px;
 }
+
 .inventoryBox {
     margin: 16px 0 24px;
     height: 250px;
     overflow-y: scroll;
 }
 
+.deliverMapSection {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100Vh;
+    z-index: -1;
+    width: 100%;
+}
+
+.deliverSubMap {
+    position: absolute;
+    min-width: calc(100% - 95px);
+    margin-right: 95px;
+    top: 106px;
+    left: 100px;
+}
+
+.barCodeScanImg {
+    width: 100%;
+    max-width: 300px !important;
+}
+
 /*deliver Module css end*/
+/*shipping Module css start*/
+.shippingSection {
+    min-width: calc(100% - 95px);
+    margin-right: 95px;
+}
+
+.shipPickImg {
+    width: 40px !important;
+    height: 40px !important;
+    border-radius: 4px;
+}
+
+.expresSaver {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+.deliverRightBar .list-group-item{
+    padding: 2px 0 !important;
+}
+.shipRightBar .list-group-item{
+    padding: 2px 0 !important;
+}
+
+/*shipping Module css end*/
 /*media query start*/
 @media (max-width:1600px) {
     .cartOfferSection {
