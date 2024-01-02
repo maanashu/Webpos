@@ -263,8 +263,10 @@ import shipUsps from "../public/images/shipUsps.svg"
 import deliverHandDark from "../public/images/deliverHandDark.svg"
 import sticker from "../public/images/sticker.svg"
 import trackDeliver from "../public/images/trackDeliver.svg"
+import btnSticker from "../public/images/btnSticker.svg"
 
 export {
+  btnSticker,
   trackDeliver,
   sticker,
   deliverHandDark,
