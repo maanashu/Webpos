@@ -2951,7 +2951,7 @@ figure {
 }
 
 .cancelOrderRight .OrderCheckoutBox {
-    padding: 16px 0;
+    padding: 20px 0;
 }
 
 .OrderCheckoutBox:last-child {
@@ -3147,8 +3147,8 @@ figure {
 }
 
 .shipPickImg {
-    width: 40px !important;
-    height: 40px !important;
+    width: 36px !important;
+    height: 36px !important;
     border-radius: 4px;
 }
 
@@ -3197,7 +3197,15 @@ figure {
     font-size: 12px;
     font-weight: 500;
 }
-
+.shipExpress{
+    display: flex;
+    align-items: start;
+    gap: 6px;
+}
+/* .invoice_subhead{
+    width: 100%;
+    min-width: 200px;
+} */
 /*shipping Module css end*/
 /*media query start*/
 @media (max-width:1600px) {

@@ -3,17 +3,17 @@ import DeliveryRightSidebar from '../../components/commanComonets/Delivery/deliv
 import * as Images from "../../utilities/images"
 import Image from "next/image";
 
-const DeliverOrders = () => {
+const CancelShipOrder = () => {
     return (
         <>
-            <div className='shipDeliverOrder shippingSection'>
+            <div className='shippingSection cancelShipSection'>
                 <div className='row'>
                     <div className='col-lg-6'>
                         <div className='deliveryOuter me-0 shipDeliverLeft'>
                             <div className='flexContent'>
                                 <div className='flexTable'>
                                     <Image src={Images.boldLeftArrow} alt="boldLeftArrow " className="img-fluid me-2" />
-                                    <h4 className='loginMain text-start m-0'>Delivered Orders</h4>
+                                    <h4 className='loginMain text-start m-0'>Cancelled Orders</h4>
                                 </div>
                                 <button className='GreyBtn' >Filters
                                     <Image src={Images.FilterIcon} alt="FilterIcon image" className="img-fluid BtnIcon" />
@@ -43,9 +43,6 @@ const DeliverOrders = () => {
                                             </td>
                                         </tr>
                                         <tr className='product_invoice active'>
-                                            <td className='invoice_subhead verticalBase'>
-                                                <h4 className='assignId'>#7869YZ</h4>
-                                            </td>
                                             <td className="invoice_subhead">
                                                 <div className="nameLocation">
                                                     <h4 className="assignId">Samara Schwansteiger</h4>
@@ -53,7 +50,7 @@ const DeliverOrders = () => {
                                                         <Image
                                                             src={Images.OrderLocation}
                                                             alt="location Image"
-                                                            className="img-fluid ms-1"
+                                                            className="img-fluid me-0"
                                                         />
                                                         <span className="locateDistance">2.5 miles</span>
                                                     </div>
@@ -64,7 +61,7 @@ const DeliverOrders = () => {
                                                         <Image
                                                             src={Images.MoneyItem}
                                                             alt="MoneyItemImage "
-                                                            className="img-fluid ms-1"
+                                                            className="img-fluid me-0"
                                                         />
                                                         <span className="locateDistance">$500.50
                                                         </span>
@@ -80,203 +77,38 @@ const DeliverOrders = () => {
                                                             <Image src={Images.Fast} alt="deliverFast image" className="img-fluid m-0" />
                                                             <h4 className='immediateText'>3 Days Shipping</h4>
                                                         </div>
-                                                        <div className="itemTime mt-3">
-                                                            <h4 className="assignId">Shipped</h4>
-                                                            <div className="orderDeliverTime">
-                                                                <Image
-                                                                    src={Images.deliverTime}
-                                                                    alt="deliverTime image "
-                                                                    className="img-fluid mb-1"
-                                                                />
-                                                                <span className="immediateText ">Today 29 Oct, 2023 | 10:41 am</span>
+                                                        <div className='itemType mt-4'>
+                                                            <h4 className='assignId'>Cancelled by</h4>
+                                                            <div className='cancelUserBx mt-1'>
+                                                                <Image src={Images.cancelUser} alt="cancelUser image" className="img-fluid" />
+                                                                <h4 className='cancelText'>User</h4>
                                                             </div>
                                                         </div>
                                                     </div>
                                                 </div>
+
                                             </td>
-                                            <td className='invoice_subhead verticalBase'>
-                                                <div className='deliverArrow '>
-                                                    <Image src={Images.RightArrow} alt="RightArrow image" className="img-fluid " />
-                                                </div>
-                                            </td>
-                                        </tr>
-                                        <tr className='product_invoice'>
-                                            <td className='invoice_subhead verticalBase'>
-                                                <h4 className='assignId'>#7869YZ</h4>
-                                            </td>
-                                            <td className="invoice_subhead">
-                                                <div className="nameLocation">
-                                                    <h4 className="assignId">Samara Schwansteiger</h4>
-                                                    <div className="deliverTableBx">
-                                                        <Image
-                                                            src={Images.OrderLocation}
-                                                            alt="location Image"
-                                                            className="img-fluid ms-1"
-                                                        />
-                                                        <span className="locateDistance">2.5 miles</span>
-                                                    </div>
-                                                </div>
-                                                <div className="itemMoney mt-4">
-                                                    <h4 className="assignId">3 items</h4>
-                                                    <div className="deliverTableBx">
-                                                        <Image
-                                                            src={Images.MoneyItem}
-                                                            alt="MoneyItemImage "
-                                                            className="img-fluid ms-1"
-                                                        />
-                                                        <span className="locateDistance">$500.50
-                                                        </span>
-                                                    </div>
-                                                </div>
-                                            </td>
-                                            <td className="invoice_subhead">
-                                                <div className='shipExpress'>
-                                                    <Image src={Images.shipFed} alt="pickupImg image" className="img-fluid shipPickImg m-0" />
-                                                    <div className='subSaver'>
-                                                        <h4 className='assignId'>FedEx Express Saver</h4>
-                                                        <div className='immediateBox mt-1'>
-                                                            <Image src={Images.Fast} alt="deliverFast image" className="img-fluid m-0" />
-                                                            <h4 className='immediateText'>3 Days Shipping</h4>
-                                                        </div>
-                                                        <div className="itemTime mt-3">
-                                                            <h4 className="assignId">Shipped</h4>
-                                                            <div className="orderDeliverTime">
-                                                                <Image
-                                                                    src={Images.deliverTime}
-                                                                    alt="deliverTime image "
-                                                                    className="img-fluid mb-1"
-                                                                />
-                                                                <span className="immediateText ">Today 29 Oct, 2023 | 10:41 am</span>
-                                                            </div>
+                                            <td className="invoice_subhead verticalBase">
+                                                <div className='cancellingTime'>
+                                                    <h4 className='assignId'>Cancelled at:</h4>
+                                                    <div className='canceltimeBx'>
+                                                        <Image src={Images.cancelPackage} alt="cancelUser image" className="img-fluid" />
+                                                        <div className='timeAlert'>
+                                                            <h4 className='cancelBold'>21 Oct 23 </h4>
+                                                            <h4 className='cancelLight'> 00:10:35 hrs</h4>
                                                         </div>
                                                     </div>
                                                 </div>
                                             </td>
                                             <td className='invoice_subhead verticalBase'>
-                                                <div className='deliverArrow '>
-                                                    <Image src={Images.RightArrow} alt="RightArrow image" className="img-fluid " />
+                                                <div className='deliverArrow text-end'>
+                                                    <Image src={Images.RightArrow} alt="RightArrow image" className="img-fluid ms-1" />
                                                 </div>
                                             </td>
                                         </tr>
                                         <tr>
                                             <td colSpan={4} className='innerHead'>
                                                 <h4 className='processText'>Recent Shippings</h4>
-                                            </td>
-                                        </tr>
-                                        <tr className='product_invoice'>
-                                            <td className='invoice_subhead verticalBase'>
-                                                <h4 className='assignId'>#7869YZ</h4>
-                                            </td>
-                                            <td className="invoice_subhead">
-                                                <div className="nameLocation">
-                                                    <h4 className="assignId">Samara Schwansteiger</h4>
-                                                    <div className="deliverTableBx">
-                                                        <Image
-                                                            src={Images.OrderLocation}
-                                                            alt="location Image"
-                                                            className="img-fluid ms-1"
-                                                        />
-                                                        <span className="locateDistance">2.5 miles</span>
-                                                    </div>
-                                                </div>
-                                                <div className="itemMoney mt-4">
-                                                    <h4 className="assignId">3 items</h4>
-                                                    <div className="deliverTableBx">
-                                                        <Image
-                                                            src={Images.MoneyItem}
-                                                            alt="MoneyItemImage "
-                                                            className="img-fluid ms-1"
-                                                        />
-                                                        <span className="locateDistance">$500.50
-                                                        </span>
-                                                    </div>
-                                                </div>
-                                            </td>
-                                            <td className="invoice_subhead">
-                                                <div className='shipExpress'>
-                                                    <Image src={Images.shipFed} alt="pickupImg image" className="img-fluid shipPickImg m-0" />
-                                                    <div className='subSaver'>
-                                                        <h4 className='assignId'>FedEx Express Saver</h4>
-                                                        <div className='immediateBox mt-1'>
-                                                            <Image src={Images.Fast} alt="deliverFast image" className="img-fluid m-0" />
-                                                            <h4 className='immediateText'>3 Days Shipping</h4>
-                                                        </div>
-                                                        <div className="itemTime mt-3">
-                                                            <h4 className="assignId">Shipped</h4>
-                                                            <div className="orderDeliverTime">
-                                                                <Image
-                                                                    src={Images.deliverTime}
-                                                                    alt="deliverTime image "
-                                                                    className="img-fluid mb-1"
-                                                                />
-                                                                <span className="immediateText ">Today 29 Oct, 2023 | 10:41 am</span>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </td>
-                                            <td className='invoice_subhead verticalBase'>
-                                                <div className='deliverArrow '>
-                                                    <Image src={Images.RightArrow} alt="RightArrow image" className="img-fluid " />
-                                                </div>
-                                            </td>
-                                        </tr>
-                                        <tr className='product_invoice'>
-                                            <td className='invoice_subhead verticalBase'>
-                                                <h4 className='assignId'>#7869YZ</h4>
-                                            </td>
-                                            <td className="invoice_subhead">
-                                                <div className="nameLocation">
-                                                    <h4 className="assignId">Samara Schwansteiger</h4>
-                                                    <div className="deliverTableBx">
-                                                        <Image
-                                                            src={Images.OrderLocation}
-                                                            alt="location Image"
-                                                            className="img-fluid ms-1"
-                                                        />
-                                                        <span className="locateDistance">2.5 miles</span>
-                                                    </div>
-                                                </div>
-                                                <div className="itemMoney mt-4">
-                                                    <h4 className="assignId">3 items</h4>
-                                                    <div className="deliverTableBx">
-                                                        <Image
-                                                            src={Images.MoneyItem}
-                                                            alt="MoneyItemImage "
-                                                            className="img-fluid ms-1"
-                                                        />
-                                                        <span className="locateDistance">$500.50
-                                                        </span>
-                                                    </div>
-                                                </div>
-                                            </td>
-                                            <td className="invoice_subhead">
-                                                <div className='shipExpress'>
-                                                    <Image src={Images.shipFed} alt="pickupImg image" className="img-fluid shipPickImg m-0" />
-                                                    <div className='subSaver'>
-                                                        <h4 className='assignId'>FedEx Express Saver</h4>
-                                                        <div className='immediateBox mt-1'>
-                                                            <Image src={Images.Fast} alt="deliverFast image" className="img-fluid m-0" />
-                                                            <h4 className='immediateText'>3 Days Shipping</h4>
-                                                        </div>
-                                                        <div className="itemTime mt-3">
-                                                            <h4 className="assignId">Shipped</h4>
-                                                            <div className="orderDeliverTime">
-                                                                <Image
-                                                                    src={Images.deliverTime}
-                                                                    alt="deliverTime image "
-                                                                    className="img-fluid mb-1"
-                                                                />
-                                                                <span className="immediateText ">Today 29 Oct, 2023 | 10:41 am</span>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </td>
-                                            <td className='invoice_subhead verticalBase'>
-                                                <div className='deliverArrow '>
-                                                    <Image src={Images.RightArrow} alt="RightArrow image" className="img-fluid " />
-                                                </div>
                                             </td>
                                         </tr>
                                     </tbody>
@@ -462,9 +294,8 @@ const DeliverOrders = () => {
                                                 <p className='priceHeading'>Total</p>
                                                 <p className='priceHeading'>$254.60</p>
                                             </div>
-                                            <button type='button ' className='pickupBtn w-100 mt-2'>
-                                            Track Order
-                                                <Image src={Images.trackOrder} alt="deliverHand image" className="img-fluid" />
+                                            <button type='button' className='cancelUserBtn w-100 mt-2'>
+                                                Cancelled by user
                                             </button>
                                         </div>
                                     </div>
@@ -479,4 +310,4 @@ const DeliverOrders = () => {
     )
 }
 
-export default DeliverOrders
+export default CancelShipOrder

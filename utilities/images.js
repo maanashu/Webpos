@@ -264,8 +264,10 @@ import deliverHandDark from "../public/images/deliverHandDark.svg"
 import sticker from "../public/images/sticker.svg"
 import trackDeliver from "../public/images/trackDeliver.svg"
 import btnSticker from "../public/images/btnSticker.svg"
+import trackOrder from "../public/images/trackOrder.svg"
 
 export {
+  trackOrder,
   btnSticker,
   trackDeliver,
   sticker,
