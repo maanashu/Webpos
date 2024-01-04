@@ -152,7 +152,7 @@ const Sidebar = (props) => {
                 className="img-fluid showImg"
               />
               <Image
-                src={Images.CalendarSolid}
+                src={Images.ChartSolid}
                 alt="image"
                 className="img-fluid hideImg"
               />
@@ -167,7 +167,7 @@ const Sidebar = (props) => {
                 className="img-fluid showImg"
               />
               <Image
-                src={Images.CalendarSolid}
+                src={Images.WalletSolid}
                 alt="image"
                 className="img-fluid hideImg"
               />
@@ -182,7 +182,7 @@ const Sidebar = (props) => {
                 className="img-fluid showImg"
               />
               <Image
-                src={Images.CalendarSolid}
+                src={Images.CashSolid}
                 alt="image"
                 className="img-fluid hideImg"
               />
@@ -197,7 +197,7 @@ const Sidebar = (props) => {
                 className="img-fluid showImg"
               />
               <Image
-                src={Images.Settings}
+                src={Images.UsersSolid}
                 alt="image"
                 className="img-fluid hideImg"
               />
@@ -212,7 +212,7 @@ const Sidebar = (props) => {
                 className="img-fluid showImg"
               />
               <Image
-                src={Images.CalendarSolid}
+                src={Images.RewardsSolid}
                 alt="image"
                 className="img-fluid hideImg"
               />
@@ -227,7 +227,7 @@ const Sidebar = (props) => {
                 className="img-fluid showImg"
               />
               <Image
-                src={Images.CalendarSolid}
+                src={Images.SettingsSolid}
                 alt="image"
                 className="img-fluid hideImg"
               />

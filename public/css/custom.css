@@ -127,7 +127,6 @@ a {
   align-items: center;
   position: relative;
 }
-
 .leftHeader {
   display: flex;
   align-items: center;
@@ -146,7 +145,6 @@ a {
 .timeHeading span {
   font-weight: 500;
 }
-
 .navBtn {
   color: #636E9F;
   font-size: 15px;
@@ -157,7 +155,6 @@ a {
   margin-left: 65px;
   border: none;
 }
-
 /*header css end*/
 
 /* SwitchToggle.css */

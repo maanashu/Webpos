@@ -424,6 +424,86 @@
     margin-top: -16px;
 }
 
-
+/* CheckIn Modal  */
+#checkIn .modal-content{
+width: 100%;
+border-radius: 30px;
+border:none;
+background: #FFF;
+box-shadow: -2.529px 6.008px 6.519px 0px rgba(52, 79, 117, 0.03), -11.954px 28.402px 25.481px 0px rgba(52, 79, 117, 0.04), -31.035px 73.735px 80px 0px rgba(52, 79, 117, 0.07);
+padding: 12px;
+}
+.checkinDetails {
+    padding: 15px 17px 17px 17px;
+    margin: 20px;
+    border-radius: 16px;
+    border: 1px solid #D7DEFF;
+}
+#checkIn .modal-header{
+    border-bottom: none;
+}
+.userCheckin .textSmall {
+    color: #263682;
+    font-weight: 600;
+}
+.userCheckin {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.userService .subHeadText {
+    color: #fff;
+    font-size: 12px;
+    font-weight: 500;
+    padding: 7px;
+    background: #58C2E8;
+    border-radius: 16px;
+    border: 1px solid #D7DEFF;
+}
+.serviceDate .purpleText {
+    color: #263682;
+}
+.ServiceText .textSmall {
+    color: #263682;
+}
+.borderDashed {
+    border-bottom: dashed;
+    color: #D7DEFF;
+}
+.serviceAmount {
+    align-items: center;
+    display: flex;
+    justify-content: space-between;
+}
+.serviceAmount .textSmall{
+    color: #263682;
+}
+.CustomerBtn.mt-4 {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 13px 29px 12px 29px;
+}
+.declineBtn {
+    color: #263682;
+    font-size: 16px;
+    font-weight: 500;
+    padding: 20px 37px;
+    border-radius: 30px;
+    border: 1px solid #263682;
+    background: #fff;
+    width: 45%;
+}
+.confirmbtn{
+    color: #fff;
+    font-size: 16px;
+    font-weight: 500;
+    padding: 20px 37px;
+    border-radius: 30px;
+    border: 1px solid #263682;
+    background:#263682;
+    width: 45%;
+}
+/* CheckIn Modal */
 
 /** End Booking Module **/

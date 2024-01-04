@@ -1,10 +1,42 @@
-import React from 'react'
+import React, { useState } from 'react'
 import * as Images from "../../utilities/images"
 import Image from "next/image";
 import { ListGroup, ListGroupItem } from 'react-bootstrap';
 import Link from 'next/link';
 import CommonSideBar from '../../components/commanComonets/appointmentSide/commonSideBar';
+// import CustomModal from '../../../customModal/CustomModal';
+import CustomModal from '../../components/customModal/CustomModal';
+import CheckinModal from '../../components/modals/appointmentModal/checkinModal';
+
 const Booking = () => {
+    const [key, setKey] = useState(Math.random());
+    const [modalDetail, setModalDetail] = useState({
+        show: false,
+        title: "",
+        flag: "",
+    });
+
+    //closeModal
+    const handleOnCloseModal = () => {
+        setModalDetail({
+            show: false,
+            title: "",
+            flag: "",
+        });
+        setKey(Math.random());
+    };
+
+    const handleUserProfile = (flag) => {
+
+        setModalDetail({
+            show: true,
+            flag: flag,
+            type: flag,
+        });
+        setKey(Math.random());
+
+
+    };
     return (
         <>
             <div className='commonFlex'>
@@ -121,7 +153,7 @@ const Booking = () => {
                         </div> */}
                         <div className='col-lg-12'>
                             <div className='invoiceHeader'>
-                            <h5 className='totalrefundAmount'>Monday <span className='fontEighteen'>12th </span></h5>
+                                <h5 className='totalrefundAmount'>Monday <span className='fontEighteen'>12th </span></h5>
                             </div>
                             <div className='commanscrollBar InvoiceTableBox'>
                                 <div className="table-responsive">
@@ -133,7 +165,7 @@ const Booking = () => {
                                                 <th className='invoiceHeading'>Service</th>
                                                 <th className='invoiceHeading'>Time</th>
                                                 <th className='invoiceHeading'></th>
-                                               
+
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -165,8 +197,10 @@ const Booking = () => {
                                                 </td>
 
                                                 <td className='invoice_subhead'>
-                                                    <div className='checkinBg'>
-                                                        <figure className='checkinBox me-2'>
+                                                    <div className='checkinBg'  >
+                                                        <figure className='checkinBox me-2 ' onClick={() => {
+                                                            handleUserProfile("checkIn")
+                                                        }} >
                                                             <span className='textSmall me-2'>Check-in</span>
                                                             <Image src={Images.checkImg} alt="money" className="moneyImg" />
                                                         </figure>
@@ -537,6 +571,44 @@ const Booking = () => {
                 </div>
                 <CommonSideBar />
             </div>
+            <CustomModal
+                key={key}
+                show={modalDetail.show}
+                backdrop="static"
+                showCloseBtn={false}
+                isRightSideModal={true}
+                mediumWidth={false}
+                className={modalDetail.flag === "checkIn" ? "commonWidth customContent" : ""}
+                ids={modalDetail.flag === "checkIn" ? "checkIn" : ""}
+                child={
+                    modalDetail.flag === "checkIn" ? (
+                        <CheckinModal
+                            close={() => handleOnCloseModal()}
+                        />
+                    ) :
+                        ""
+                }
+                header=
+
+                {modalDetail.flag === "checkIn" ?
+                    <>
+                        <div className='trackingSub headerModal '>
+                            <figure className='profileImage '>
+                                <Image src={Images.checkinSky} alt="check" className="img-fluid " />
+                            </figure>
+                            <h4 className='loginheading mt-2'>Check In</h4>
+                            <h4 className='trackingHeading'>Confirm the details of your appointment.</h4>
+                            <p onClick={handleOnCloseModal} className='crossModal'>
+                                <Image src={Images.modalCross} alt="modalCross" className="img-fluid" />
+                            </p>
+                        </div>
+                      
+                    </>
+                    :
+                    ''
+                }
+                onCloseModal={() => handleOnCloseModal()}
+            />
         </>
     )
 }

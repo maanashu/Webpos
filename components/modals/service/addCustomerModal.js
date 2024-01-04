@@ -1,8 +1,9 @@
 import React, { useState } from 'react'
-import * as Images from "../../../../utilities/images";
+import * as Images from "../../../utilities/images";
 import Image from "next/image";
 import Link from 'next/link';
-import CustomModal from '../../../customModal/CustomModal';
+// import CustomModal from '../../../customModal/CustomModal';
+import CustomModal from '../../customModal/CustomModal';
 import CreateCustomerModal from './createCustomerModal';
 
 const AddCustomerModal = () => {
@@ -10,7 +11,7 @@ const AddCustomerModal = () => {
     const [modalDetail, setModalDetail] = useState({
         show: false,
         title: "",
-        flag: "",
+        flag: "", 
     });
 
     //closeModal

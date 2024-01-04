@@ -54,6 +54,7 @@ import Customer from "../public/images/Customer.svg";
 import CashDrawer from "../public/images/CashDrawer.svg";
 import Wallets from "../public/images/Wallets.svg";
 import Analytics from "../public/images/Analytics.svg";
+import ChartSolid from "../public/images/Chart_Solid.svg";
 import Appointments from "../public/images/Appointments.svg";
 import LogOut from "../public/images/LogOut.svg";
 import ProductIcon from "../public/images/ProductIcon.svg";
@@ -208,6 +209,13 @@ import darkBell from "../public/images/darkBell.svg"
 import storeDark from "../public/images/storeDark.svg"
 import deliverDark from '../public/images/deliverDark.svg'
 import PlaneDark from "../public/images/PlaneDark.svg"
+import Fast from "../public/images/Fast.svg"
+import CalendarSolid from "../public/images/Calendar_Solid.svg"
+import WalletSolid from "../public/images/Wallet_Solid.svg"
+import CashSolid from "../public/images/Cash_Solid.svg"
+import UsersSolid from "../public/images/Users_Solid.svg"
+import RewardsSolid from "../public/images/Rewards_Solid.svg"
+import SettingsSolid from "../public/images/Settings_Solid.svg"
 import order_frequency from "../public/images/order_frequency.png"
 import locationOutline from "../public/images/Location_Outline.png";
 import ringing from "../public/images/Ringing.png";
@@ -223,8 +231,62 @@ import settingsSecurity from "../public/images/Settings_Security.png";
 import settingsTax from "../public/images/Settings_Tax.png";
 import usersOutline from "../public/images/Users_Outline.png";
 import walletOutline from "../public/images/Wallet_Outline.png";
+import deliverHand from "../public/images/deliverHand.svg"
+import driverProfile from "../public/images/driverProfile.svg"
+import map from "../public/images/Map.png" 
+import maximize from "../public/images/maximize.svg"
+import orderDriver from "../public/images/orderDriver.svg"
+import dotStep from '../public/images/dotStep.svg'
+import lineStep from "../public/images/lineStep.svg"
+import deliverBox from "../public/images/deliverBox.svg"
+import acceptStep from "../public/images/acceptStep.svg"
+import readyStep from "../public/images/readyStep.svg"
+import assignStep from "../public/images/assignStep.svg"
+import timeImg from "../public/images/timeImg.svg"
+import checkinSky from "../public/images/checkinSky.svg"
+import pickupStep from "../public/images/pickupStep.svg"
+import deliverTime from "../public/images/deliverTime.svg"
+import deliverDot from "../public/images/deliverDot.svg"
+import cancelUser from "../public/images/cancelUser.svg"
+import cancelPackage from "../public/images/cancelPackage.svg"
+import mapleCard from "../public/images/mapleCard.svg"
+import longStep from "../public/images/longStep.svg"
+import cancelStep from "../public/images/cancelStep.svg"
+import customerImg from "../public/images/customerImg.png"
+import driverSolid from  "../public/images/driverSolid.svg"
+import timeCheck from "../public/images/timeCheck.svg"
+import checkScan from "../public/images/checkScan.svg"
+import shipDhl from "../public/images/shipDhl.svg"
+import shipUps from "../public/images/shipUps.svg"
+import shipFed from "../public/images/shipFed.svg"
+import shipUsps from "../public/images/shipUsps.svg"
+import deliverHandDark from "../public/images/deliverHandDark.svg"
+import sticker from "../public/images/sticker.svg"
+import trackDeliver from "../public/images/trackDeliver.svg"
+import btnSticker from "../public/images/btnSticker.svg"
+import trackOrder from "../public/images/trackOrder.svg"
 
 export {
+  trackOrder,
+  btnSticker,
+  trackDeliver,
+  sticker,
+  deliverHandDark,
+  shipUsps,
+  shipFed,
+  shipUps,
+  shipDhl,
+  checkScan,
+  timeCheck,
+  driverSolid,
+  customerImg,
+  cancelStep,
+  longStep,
+  deliverDot,
+  pickupStep,
+  timeImg,
+  checkinSky,
+  Fast,
   sideArrow,
   overview_sales,
   order_frequency,
@@ -430,7 +492,18 @@ export {
   darkBell,
   storeDark,
   deliverDark,
-  PlaneDark,
+  PlaneDark,  
+  ProductsServicesactive,
+  DeliveryOrdersactive,
+  ShippingSolid,
+  CalendarSolid,
+  ChartSolid,
+  WalletSolid,
+  CashSolid,
+  UsersSolid,
+  RewardsSolid,
+  SettingsSolid,
+  // PlaneDark,
   locationOutline,
   ringing,
   settingsBoxes,
@@ -445,4 +518,19 @@ export {
   settingsTax,
   usersOutline,
   walletOutline,
+  deliverHand,
+  driverProfile,
+  map,
+  maximize,
+  orderDriver,
+  dotStep,
+  lineStep,
+  deliverBox,
+  acceptStep,
+  readyStep,
+  assignStep,
+  deliverTime,
+  cancelUser,
+  cancelPackage,
+  mapleCard,
 };

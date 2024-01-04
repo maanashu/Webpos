@@ -29,9 +29,9 @@ const ProductDetail = () => {
                 <p className='productPriceinvoice'>1</p>
                 <p className='productPriceinvoice'>$90.00</p>
                 <article>
-                    <label class="custom-checkbox">
+                    <label className="custom-checkbox">
                         <input type="checkbox" />
-                        <span class="checkmark"></span>
+                        <span className="checkmark"></span>
                     </label>
                 </article>
             </div>
