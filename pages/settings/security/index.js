@@ -46,12 +46,12 @@ const Security = () => {
     setKey(Math.random());
   }
 
-    // function for get Verification Id from security verify modal
+  // function for get Verification Id from security verify modal
   const handleGetVerificationId = (data) => {
     setGetVerificationId(data)
   }
 
-   // function for get Security Scner Code from reset security pin verify modal
+  // function for get Security Scner Code from reset security pin verify modal
   const getSecurityScanerInfo = (data) => {
     setGetSecurityScnerCode(data)
   }
@@ -66,7 +66,7 @@ const Security = () => {
     setKey(Math.random());
   };
 
-    // function for Activate and deactivate google Security
+  // function for Activate and deactivate google Security
   const handleChangeActivateSecurity = (e) => {
     if (!getProfileDetails) {
       setModalDetail({
@@ -106,13 +106,19 @@ const Security = () => {
         <div className={styles.shadowBox}>
           <div className={styles.boxTopTitleTextStyle}>
             2-step verification for team members
-            <div >
+            {/* <div >
               <input
                 type="checkbox"
                 checked={getProfileDetails}
                 onChange={(e) => {
                   handleChangeActivateSecurity(e)
                 }} />
+            </div> */}
+            <div class="form-check form-switch">
+              <input class="form-check-input" type="checkbox" id="flexSwitchCheckChecked" checked={getProfileDetails} onChange={(e) => {
+                handleChangeActivateSecurity(e)
+              }} />
+              <label class="form-check-label" for="flexSwitchCheckChecked"></label>
             </div>
           </div>
           <div className={styles.boxbottomTextStyle}>
@@ -137,7 +143,7 @@ const Security = () => {
               handleModalChange={(e) => handleModalChange(e)}
               getSecurityScanerInfo={(e) => getSecurityScanerInfo(e)}
             />
-          ) 
+          )
             : modalDetail.flag === "GetSecurityScaner" ? (
               <GetSecurityScanerCode
                 close={() => handleOnCloseModal()}
@@ -151,7 +157,7 @@ const Security = () => {
                   handleModalChange={(e) => handleModalChange(e)}
                   handleGetVerificationId={(e) => handleGetVerificationId(e)}
                   getProfileDetails={getProfileDetails}
-                  refereshGetProfileApi={() =>{getProfileInfo(userId)}}
+                  refereshGetProfileApi={() => { getProfileInfo(userId) }}
                 />
               )
                 : modalDetail.flag === "ResetSecurityPin" ? (

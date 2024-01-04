@@ -65,12 +65,12 @@ const SecurityVerification = (props) => {
                         if (props?.flag === "loginModal") {
                             setTimeout(() => {
                                 props?.close()
-                            }, 100)
+                            }, 1000)
                         }
                         props?.refereshGetProfileApi()
                         setTimeout(() => {
                             props?.close()
-                        }, 100)
+                        }, 1000)
                     }
                 },
             })
@@ -98,12 +98,12 @@ const SecurityVerification = (props) => {
                             localStorage.setItem("authToken", props?.getUserToken ? props?.getUserToken : "")
                             setTimeout(() => {
                                 props?.close()
-                            }, 100)
+                            }, 1000)
                         }
                         props?.refereshGetProfileApi()
                         setTimeout(() => {
                             props?.close()
-                        }, 100)
+                        }, 1000)
                     }
                 },
             })
