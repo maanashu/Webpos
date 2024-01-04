@@ -109,7 +109,7 @@ const CommonSideBar = () => {
                             </figure>
                             <div className=''>
                                 <span className='innerHeading'>
-                                    Samara Schwansteiger
+                                    Samara 
                                 </span>
                                 <div className=''>
                                     <Image src={Images.locatePurple} alt="locate" className="locate me-2" />
@@ -147,7 +147,6 @@ const CommonSideBar = () => {
                             <h6 className='textSmall fw-700'>$254.60</h6>
                         </div>
                     </div>
-
                 </div>
                     </div>
                     :
