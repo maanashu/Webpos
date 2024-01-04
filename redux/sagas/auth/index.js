@@ -14,14 +14,14 @@ import { PRODUCT_API_URL, AUTH_API_URL } from "../../../utilities/config"
 
 function* userMerchantLogin(action) {
   try {
-    const resp = yield call(ApiClient.post, (`${AUTH_API_URL}/api/v1/users/merchant/login`),(action.payload = action.payload));
+    const resp = yield call(ApiClient.post, (`${AUTH_API_URL}/api/v1/users/merchant/login`), (action.payload = action.payload));
     if (resp.status) {
       yield put(setUserMerchantLogin(resp.data));
       yield call(action.payload.cb, (action.res = resp));
       // toast.success(resp?.data?.msg);
     }
     else {
-      throw resp 
+      throw resp
     }
   } catch (e) {
     yield put(onErrorStopLoad())
@@ -53,12 +53,17 @@ function* posUserLogin(action) {
   const dataToSend = { ...action.payload }
   delete dataToSend.cb
   try {
-    const resp = yield call(ApiClient.post, (`${AUTH_API_URL}/api/v1/users/merchant/pos-user/login`),(action.payload = action.payload));
+    const resp = yield call(ApiClient.post, (`${AUTH_API_URL}/api/v1/users/merchant/pos-user/login`), (action.payload = action.payload));
     if (resp.status) {
-      localStorage.setItem("authToken", resp.data?.payload?.token ? resp.data?.payload?.token : "")
+      if (resp.data?.payload?.user_profiles?.is_two_fa_enabled === false) {
+        localStorage.setItem("authToken", resp.data?.payload?.token ? resp.data?.payload?.token : "")
+      }
+      else{
+        localStorage.setItem("2FAToken", resp.data?.payload?.token ? resp.data?.payload?.token : "")
+      }
       yield put(setPosUserLogin(resp.data));
       yield call(action.payload.cb, (action.res = resp));
-      toast.success(resp?.data?.msg);
+      // toast.success(resp?.data?.msg);
     }
     else {
       throw resp
