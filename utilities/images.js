@@ -203,14 +203,14 @@ import bagImg from "../public/images/bagImg.png"
 import lightBell from "../public/images/lightBell.svg"
 import darkBell from "../public/images/darkBell.svg"
 import storeDark from "../public/images/storeDark.svg"
-import deliverDark from '../public/images/deliverDark.svg'
+import deliverDark from "../public/images/deliverDark.svg"
 import PlaneDark from "../public/images/PlaneDark.svg"
 
 
 
 export {
-  timeImg,
-  checkinSky,
+  // timeImg,
+  // checkinSky,
   sideArrow,
   overview_sales,
   visa,
