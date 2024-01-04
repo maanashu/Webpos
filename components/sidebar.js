@@ -15,6 +15,7 @@ const Sidebar = (props) => {
   const authData = useSelector(selectLoginAuth);
 
   const router = useRouter();
+  console.log(router?.pathname,"router");
   props?.sidebarToggle(activeSidebar);
 
   const userLogout = async (e) => {
@@ -27,6 +28,11 @@ const Sidebar = (props) => {
     router.push("/auth/verification");
     localStorage.removeItem("authToken");
     localStorage.removeItem("persist:root");
+  };
+
+  const isLinkActive = (href) => {
+    console.log(href,"hrefhref");
+    return router.pathname === href;
   };
   return (
     <div
@@ -65,7 +71,7 @@ const Sidebar = (props) => {
             }
             alt="image"
             width={100}
-            height={100}  
+            height={100}
             className="img-fluid sidebarProfile"
             onClick={() => router.push("/home/overview")}
           />
@@ -91,43 +97,46 @@ const Sidebar = (props) => {
       </div>
       <ListGroup className="sidebarMenus navbar_overlay_content_">
         <div className="sidebarStaticMenus">
+        <ListGroupItem className="sidebarItems">
+          <Link href="/Product" className={`sidebarLinks ${(router?.pathname == "/Product") ? "active" : ""}`}>
+            <Image src={Images.ProductsServices} alt="image" className="img-fluid  hideImg" />
+            <Image src={Images.ProductsServicesactive} alt="image" className="img-fluid showImg" />
+            <span className="sidebarTxt">Products & Services</span>
+          </Link>
+        </ListGroupItem>
+        <ListGroupItem className="sidebarItems">
+          <Link href="/Deliveries" className={`sidebarLinks ${(router?.pathname == "/Deliveries") ? "active" : ""}`}>
+            <Image src={Images.DeliveryOrders} alt="image" className="img-fluid showImg" />
+            <Image src={Images.DeliveryOrdersactive} alt="image" className="img-fluid hideImg" />
+            <span className="sidebarTxt">Delivery Orders</span>
+          </Link>
+        </ListGroupItem>
           <ListGroupItem className="sidebarItems">
-            <Link href="/Product" className="sidebarLinks active">
-              <Image
-                src={Images.ProductsServices}
-                alt="image"
-                className="img-fluid showImg"
-              />
-              {/* <Image src={Images.ProductsServices} alt="image" className="img-fluid showImg" /> */}
-              <span className="sidebarTxt">Products & Services</span>
-            </Link>
-          </ListGroupItem>
-          <ListGroupItem className="sidebarItems">
-            <Link href="/Deliveries" className="sidebarLinks">
-              <Image
-                src={Images.DeliveryOrders}
-                alt="image"
-                className="img-fluid showImg"
-              />
-              <span className="sidebarTxt">Delivery Orders</span>
-            </Link>
-          </ListGroupItem>
-          <ListGroupItem className="sidebarItems">
-            <Link href="#" className="sidebarLinks">
+            <Link href="#" className={`sidebarLinks ${(router?.pathname == "/Shipping") ? "active" : ""}`}>
               <Image
                 src={Images.ShippingOrders}
                 alt="image"
                 className="img-fluid showImg"
               />
+              <Image
+                src={Images.ShippingSolid}
+                alt="image"
+                className="img-fluid hideImg"
+              />
               <span className="sidebarTxt">Shipping Orders</span>
             </Link>
           </ListGroupItem>
           <ListGroupItem className="sidebarItems">
-            <Link href="/appointment/booking" className="sidebarLinks">
+            <Link href="/appointment/booking" className={`sidebarLinks ${(router?.pathname == "/appointment/booking") ? "active" : ""}`}>
               <Image
                 src={Images.Appointments}
                 alt="image"
                 className="img-fluid showImg"
+              />
+              <Image
+                src={Images.CalendarSolid}
+                alt="image"
+                className="img-fluid hideImg"
               />
               <span className="sidebarTxt">Appointments</span>
             </Link>
@@ -135,68 +144,98 @@ const Sidebar = (props) => {
           <ListGroupItem className="sidebarItems">
             <Link
               href="/analytics"
-              className="sidebarLinks"
+              className={`sidebarLinks ${(router?.pathname == "/analytics") ? "active" : ""}`}
             >
               <Image
                 src={Images.Analytics}
                 alt="image"
                 className="img-fluid showImg"
               />
+              <Image
+                src={Images.ChartSolid}
+                alt="image"
+                className="img-fluid hideImg"
+              />
               <span className="sidebarTxt">Analytics</span>
             </Link>
           </ListGroupItem>
           <ListGroupItem className="sidebarItems">
-            <Link href="#" className="sidebarLinks">
+            <Link href="#" className={`sidebarLinks ${("") ? "active" : ""}`}>
               <Image
                 src={Images.Wallets}
                 alt="image"
                 className="img-fluid showImg"
               />
+              <Image
+                src={Images.WalletSolid}
+                alt="image"
+                className="img-fluid hideImg"
+              />
               <span className="sidebarTxt">Wallets</span>
             </Link>
           </ListGroupItem>
           <ListGroupItem className="sidebarItems">
-            <Link href="#" className="sidebarLinks">
+            <Link href="#" className={`sidebarLinks ${("") ? "active" : ""}`}>
               <Image
                 src={Images.CashDrawer}
                 alt="image"
                 className="img-fluid showImg"
               />
+              <Image
+                src={Images.CashSolid}
+                alt="image"
+                className="img-fluid hideImg"
+              />
               <span className="sidebarTxt">Cash Drawer</span>
             </Link>
           </ListGroupItem>
           <ListGroupItem className="sidebarItems">
-            <Link href="/customers" className="sidebarLinks">
+            <Link href="/customers" className={`sidebarLinks ${(router?.pathname == "/customers") ? "active" : ""}`}>
               <Image
                 src={Images.Customer}
                 alt="image"
                 className="img-fluid showImg"
               />
+              <Image
+                src={Images.UsersSolid}
+                alt="image"
+                className="img-fluid hideImg"
+              />
               <span className="sidebarTxt">Customer</span>
             </Link>
           </ListGroupItem>
           <ListGroupItem className="sidebarItems">
-            <Link href="#" className="sidebarLinks">
+            <Link href="#" className={`sidebarLinks ${isLinkActive("") ? "active" : ""}`}>
               <Image
                 src={Images.Rewards}
                 alt="image"
                 className="img-fluid showImg"
               />
+              <Image
+                src={Images.RewardsSolid}
+                alt="image"
+                className="img-fluid hideImg"
+              />
               <span className="sidebarTxt">Rewards</span>
             </Link>
           </ListGroupItem>
           <ListGroupItem className="sidebarItems">
-            <Link href="/settings" className="sidebarLinks">
+            <Link href="/settings" className={`sidebarLinks ${(router?.pathname == "/settings") ? "active" : ""}`}>
               <Image
                 src={Images.Settings}
                 alt="image"
                 className="img-fluid showImg"
               />
+              <Image
+                src={Images.SettingsSolid}
+                alt="image"
+                className="img-fluid hideImg"
+              />
               <span className="sidebarTxt">Settings</span>
             </Link>
           </ListGroupItem>
           {/* <ListGroupItem className="sidebarItems" >
-                        <Link href="/dashboard" className="sidebarLinks" >
+                        <Link href="/dashboard" className={`sidebarLinks ${isLinkActive("/appointment/booking") ? "active" : ""}`} >
                             <Image src={Images.Addsquarelight} className="img-fluid showImg" alt="" />
                             <Image src={Images.AddsquarelightDark} className="img-fluid hoverImg active" alt="" />
                             <span className='sidebarTxt'>Settings</span>
@@ -205,7 +244,7 @@ const Sidebar = (props) => {
         </div>
         {/* <div className='sidbarfixedMenus '>
                     <ListGroupItem className="sidebarItems" onClick={() => { userLogout() }}>
-                        <Link href="#" className="sidebarLinks" onClick={() => setActiveData("power")}>
+                        <Link href="#" className={`sidebarLinks ${isLinkActive("/appointment/booking") ? "active" : ""}`} onClick={() => setActiveData("power")}>
                         <Image src={Images.LogOut} alt="image" className="img-fluid showImg" />
                         <span className='sidebarTxt'>LogOut</span>
                              <Image src={props?.auth?.userProfile?.user_profiles?.pos_role === null ? power : 'LogOut'} className="img-fluid" alt="" />
@@ -214,7 +253,7 @@ const Sidebar = (props) => {
                 </div> */}
         <div className="sidbarfixedMenus ">
           <ListGroupItem>
-            <Link href="#" className="sidebarLinks">
+            <Link href="#" className={`sidebarLinks ${isLinkActive("/appointment/booking") ? "active" : ""}`}>
               <button
                 className="logOut"
                 type="button"

@@ -790,7 +790,7 @@ const ProductInvoice = () => {
 
                                 </div>
                             </div>
-                        </div>
+                        </div> 
                     </div>
                 </div>
             </div>

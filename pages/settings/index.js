@@ -1,73 +1,93 @@
 import { useState } from "react";
 import styles from "./styles.module.css";
 import Security from "./security";
+import {
+  locationOutline,
+  ringing,
+  settingsBoxes,
+  settingsDevices,
+  settingsLanguage,
+  settingsLaw,
+  settingsMoney,
+  settingsPolicies,
+  settingsReceipt,
+  settingsSecurity,
+  settingsTax,
+  usersOutline,
+  walletOutline,
+} from "../../utilities/images";
+import Image from "next/image";
 export default function Settings() {
   const [selectedItem, setSelectedItem] = useState("Security");
-  console.log("selected item", selectedItem);
-  const settingsOptions = [
-    { id: 1, name: "Security", info: "Not Updated" },
-    { id: 2, name: "Devices", info: "Not Connected" },
-    { id: 3, name: "Notifications", info: "Not Updated" },
-    { id: 4, name: "Locations", info: "1 Locations" },
-    { id: 5, name: "Plans", info: "Expire on April 2024" },
-    { id: 6, name: "Receipts", info: "Default" },
-    { id: 7, name: "Taxes", info: "Not Updated" },
-    { id: 8, name: "Wallet", info: "Not Connected" },
-    { id: 9, name: "Shipping & Pick Up", info: "Default" },
-    { id: 10, name: "Staff", info: 3 },
-    { id: 11, name: "Language", info: "English" },
-    { id: 12, name: "Legal", info: "English" },
-    { id: 13, name: "Policies", info: "Default" },
+  console.log(selectedItem,"selectedItem");
 
-    // Add more items as needed
+  const settingsOptions = [
+    { id: 1, name: "Security", info: "Not Updated", image: settingsSecurity },
+    { id: 2, name: "Devices", info: "Not Connected", image: settingsDevices },
+    { id: 3, name: "Notifications", info: "Not Updated", image: ringing },
+    { id: 4, name: "Locations", info: "1 Locations", image: locationOutline },
+    {
+      id: 5,
+      name: "Plans",
+      info: "Expire on April 2024",
+      image: settingsMoney,
+    },
+    { id: 6, name: "Receipts", info: "Default", image: settingsReceipt },
+    { id: 7, name: "Taxes", info: "Not Updated", image: settingsTax },
+    { id: 8, name: "Wallet", info: "Not Connected", image: walletOutline },
+    {
+      id: 9,
+      name: "Shipping & Pick Up",
+      info: "Default",
+      image: settingsBoxes,
+    },
+    { id: 10, name: "Staff", info: 3, image: usersOutline },
+    { id: 11, name: "Language", info: "English", image: settingsLanguage },
+    { id: 12, name: "Legal", info: "English", image: settingsLaw },
+    { id: 13, name: "Policies", info: "Default", image: settingsPolicies },
   ];
-  const Settings = ({ itemName, handleTouch, info }) => {
-    console.log(itemName,"itemName, handleTouch, info");
+  const SettingsBar = ({ item }) => {
     return (
-      <div>
-        <button onClick={handleTouch} className={styles.titleName}>
-          {itemName}
-          <h1 style={{ fontSize: "12px", textAlign: "initial" }}>{info}</h1>
-        </button>
-      </div>
+      <button
+        onClick={() => handleTouch(item)}
+        className="settings-sidebar-button "
+      >
+        <div className="settings-sidebar-options-view">
+          <Image src={item?.image} className="settings-sidebar-icons" />
+
+          <div className={styles.sidebarTitleView}>
+            <h1 className="settings-bar-titles">{item?.name}</h1>
+            <h1 className="settings-bar-titles-info">{item?.info}</h1>{" "}
+          </div>
+        </div>
+      </button>
     );
   };
 
   const handleTouch = (item) => {
-    console.log(item,"item");
-    setSelectedItem(item);
-  };
-
-  const SecurityComponent = () => {
-    return <div style={{ backgroundColor: "red", fontSize: 20 }}>Security</div>;
+    console.log(item, "item");
+    setSelectedItem(item?.name);
   };
 
   const renderComponent = () => {
     switch (selectedItem) {
       case "Security":
         return <Security />;
-        
 
-      // Add cases for other items...
       default:
         return null;
     }
   };
   return (
-    <div className={styles.mainContainer}>
-      <div style={{ backgroundColor: "#FFFFFF", marginRight: 70 }}>
-        <div className={styles.verticalContainer}>
-          {settingsOptions.map((item) => (
-            <Settings
-              key={item.id}
-              itemName={item.name}
-              info={item.info}
-              handleTouch={() => handleTouch(item.name)}
-            />
-          ))}
-        </div>
+    <div className="settings-main-container">
+      <div className="settings-options-container">
+        {settingsOptions.map((item) => (
+          <SettingsBar key={item.id} item={item} />
+        ))}
       </div>
-      <div>{renderComponent()}</div>
+      <div className="settings-component-container">
+        <div>{renderComponent()}</div>
+      </div>
     </div>
   );
 }

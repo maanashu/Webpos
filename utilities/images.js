@@ -205,12 +205,14 @@ import darkBell from "../public/images/darkBell.svg"
 import storeDark from "../public/images/storeDark.svg"
 import deliverDark from "../public/images/deliverDark.svg"
 import PlaneDark from "../public/images/PlaneDark.svg"
+import checkinSky from "../public/images/checkinSky.svg"
+import  timeImg from "../public/images/timeImg.svg"
 
 
 
 export {
-  // timeImg,
-  // checkinSky,
+  timeImg,
+  checkinSky,
   sideArrow,
   overview_sales,
   visa,

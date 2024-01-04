@@ -93,11 +93,9 @@ const AddService = () => {
                   <p className='appointSub'>Select the hour that works the best.</p>
                 </div>
                 <div className='appointmenMonth'>
-                  <div className='monthCalendar'>
-                    <Image src={Images.calendarLight} alt='calendarimage' className='img-fluid' />
-                    <span className='monthText ms-2'>October</span>
-                    <Image src={Images.arrowDown} alt='calendarimage' className='img-fluid ms-5' />
-                  </div>
+                  <Image src={Images.calendarLight} alt='calendarimage' className='img-fluid' />
+                  <span className='monthText ms-2'>October</span>
+                  <Image src={Images.arrowDown} alt='calendarimage' className='img-fluid ms-5' />
                 </div>
               </div>
               <div className='scheduleSection'>
@@ -324,7 +322,7 @@ const AddService = () => {
               </div>
               <div className='serviceFooter'>
                 <button className='nextverifyBtn w-100' type='submit'>
-                Confirm and Add to Cart
+                  Confirm and Add to Cart
                   <Image src={Images.serviceCart} alt="rightArrow" className="img-fluid rightImg ms-2" />
                 </button>
               </div>
