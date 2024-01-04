@@ -265,8 +265,16 @@ import sticker from "../public/images/sticker.svg"
 import trackDeliver from "../public/images/trackDeliver.svg"
 import btnSticker from "../public/images/btnSticker.svg"
 import trackOrder from "../public/images/trackOrder.svg"
+import securityTick from "../public/images/securityTick.svg"
+import settingHome from "../public/images/settingHome.svg"
+import darkDevices from "../public/images/darkDevices.svg"
+import printer from "../public/images/printer.svg"
 
 export {
+  printer,
+  darkDevices,
+  settingHome,
+  securityTick, 
   trackOrder,
   btnSticker,
   trackDeliver,

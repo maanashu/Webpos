@@ -3204,7 +3204,139 @@ figure {
     gap: 6px;
 }
 
+.returnShipSection .BlueBtn {
+    padding: 8px;
+}
+
+.barcodeBtn {
+    border-radius: 30px;
+    background: #F5F6FC;
+    padding: 8px 10px;
+    border: none;
+    outline: none;
+    margin-top: 8px;
+    color: #263682;
+    font-size: 14px;
+    font-weight: 400;
+}
+
+.returnShipSection .detailScroll {
+    height: calc(100% - 380px);
+    overflow-y: scroll;
+}
+
+.settings-main-container .modal-backdrop.show {
+    display: none !important;
+}
+
 /*shipping Module css end*/
+/*setting css start*/
+.deviceLeft {
+    border-radius: 20px;
+    background: #FFF;
+    box-shadow: -2px 4px 25px 0px rgba(50, 80, 127, 0.02), -5px 10px 80px 0px rgba(50, 80, 127, 0.04);
+    padding: 16px;
+}
+
+.settingMain {
+    padding: 16px;
+}
+
+.settingOuter {
+    height: calc(100vh - 45px);
+    overflow-y: scroll;
+}
+
+.settingOuter::-webkit-scrollbar {
+    display: none;
+}
+
+.settingList {
+    border-radius: 8px;
+    border: 1px solid #F5F6FC;
+    background: #FFF;
+    padding: 8px 8px 8px 6px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-top: 8px;
+}
+
+.settingText {
+    color: #7E8AC1;
+    font-size: 14px;
+    font-weight: 500;
+}
+
+.settingSub {
+    color: #7E8AC1;
+    font-size: 12px;
+    font-weight: 500;
+}
+
+.SecurityImg {
+    width: 24px;
+    height: 24px;
+}
+
+.settingList.active,
+.settingList:hover {
+    border-radius: 8px;
+    border: 0px solid #F5F6FC;
+    background: #FFF;
+    box-shadow: -2px 4px 25px 0px rgba(50, 80, 127, 0.02), -5px 10px 80px 0px rgba(50, 80, 127, 0.04);
+}
+
+.settingList.active .settingText,
+.settingList:hover .settingText {
+    color: #263682;
+}
+
+.settingList.active .settingSub,
+.settingList:hover .settingSub {
+    color: #263682;
+}
+
+.settingList.active .SecurityImg,
+.settingList:hover .SecurityImg {
+    filter: invert(19%) sepia(61%) saturate(1030%) hue-rotate(196deg) brightness(55%) contrast(99%);
+}
+
+.deviceLeft .settingListMain {
+    padding: 0 !important;
+}
+
+.deviceRight {
+    border-radius: 20px;
+    background: #FFF;
+    box-shadow: -2px 4px 25px 0px rgba(50, 80, 127, 0.02), -5px 10px 80px 0px rgba(50, 80, 127, 0.04);
+    padding: 40px 30px 24px 30px;
+    display: flex;
+    align-items: start;
+    gap: 12px;
+}
+
+.addDeviceSection {
+    margin: 24px 0;
+}
+
+.addDeviceSub {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 16px;
+    gap: 12px;
+}
+
+.SubReader {
+    border-radius: 16px;
+    background: #F5F6FC;
+    padding: 12px;
+    text-align: center;
+    width: 100%;
+}
+
+/*setting css end*/
 /*media query start*/
 @media (max-width:1600px) {
     .cartOfferSection {
@@ -3218,6 +3350,7 @@ figure {
     .offerdata {
         height: calc(40vh - 137px);
     }
+
     .shipTableData .invoice_subhead {
         width: 100%;
         min-width: 175px;
@@ -3237,18 +3370,22 @@ figure {
         width: 100%;
         min-width: 270px;
     }
+
     .cancelShipData .invoice_subhead {
         width: 100%;
         min-width: 175px;
     }
+
     .cancelShipData .invoice_subhead:last-child {
         width: 100%;
         min-width: 50px;
     }
+
     .cancelShipData .invoice_subhead:nth-child(2) {
         width: 100%;
         min-width: 220px;
     }
+
     .cancelShipData .invoice_subhead:nth-child(3) {
         width: 100%;
         min-width: 150px;

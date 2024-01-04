@@ -283,7 +283,6 @@ const CancelShipOrder = () => {
                                                         </div>
                                                     </div>
                                                 </div>
-
                                             </td>
                                             <td className="invoice_subhead verticalBase">
                                                 <div className='cancellingTime'>
