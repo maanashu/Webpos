@@ -207,10 +207,57 @@ import deliverDark from "../public/images/deliverDark.svg"
 import PlaneDark from "../public/images/PlaneDark.svg"
 import checkinSky from "../public/images/checkinSky.svg"
 import  timeImg from "../public/images/timeImg.svg"
+import pickupStep from "../public/images/pickupStep.svg"
+import deliverTime from "../public/images/deliverTime.svg"
+import deliverDot from "../public/images/deliverDot.svg"
+import cancelUser from "../public/images/cancelUser.svg"
+import cancelPackage from "../public/images/cancelPackage.svg"
+import mapleCard from "../public/images/mapleCard.svg"
+import longStep from "../public/images/longStep.svg"
+import cancelStep from "../public/images/cancelStep.svg"
+import customerImg from "../public/images/customerImg.png"
+import driverSolid from  "../public/images/driverSolid.svg"
+import timeCheck from "../public/images/timeCheck.svg"
+import checkScan from "../public/images/checkScan.svg"
+import shipDhl from "../public/images/shipDhl.svg"
+import shipUps from "../public/images/shipUps.svg"
+import shipFed from "../public/images/shipFed.svg"
+import shipUsps from "../public/images/shipUsps.svg"
+import deliverHandDark from "../public/images/deliverHandDark.svg"
+import sticker from "../public/images/sticker.svg"
+import trackDeliver from "../public/images/trackDeliver.svg"
+import btnSticker from "../public/images/btnSticker.svg"
+import trackOrder from "../public/images/trackOrder.svg"
+import checkedImages from "../public/images/checkedImages.svg"
+import arrowLeftPos from "../public/images/arrowLeftPos.svg"
+import rightArrowPos from "../public/images/rightArrowPos.svg"
+import crossBlue from "../public/images/crossBlue.svg"
+
 
 
 
 export {
+  crossBlue,
+  rightArrowPos,
+  arrowLeftPos,
+  checkedImages,
+  trackOrder,
+  btnSticker,
+  trackDeliver,
+  sticker,
+  deliverHandDark,
+  shipUsps,
+  shipFed,
+  shipUps,
+  shipDhl,
+  checkScan,
+  timeCheck,
+  driverSolid,
+  customerImg,
+  cancelStep,
+  longStep,
+  deliverDot,
+  pickupStep,
   timeImg,
   checkinSky,
   sideArrow,

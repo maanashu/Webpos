@@ -41,7 +41,7 @@ const Booking = () => {
         <>
             <div className='commonFlex'>
                 <div className='commanOuter mainBooking'>
-                    <div className='row'>
+                    {/* <div className='row'>
                         <div className='col-lg-12'>
                             <div className='bookingNavBar'>
                                 <div className='booking'>
@@ -79,10 +79,57 @@ const Booking = () => {
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    </div> */}
+
+                     <div className='row'>
+                        <div className='col-lg-12'>
+                            <div className='bookingNavBar'>
+                                <div className='booking'>
+                                    <div className='bookCalendar d-flex align-items-center'>
+                                        <figure className='book'>
+                                            <Image src={Images.bookImg} alt="" className="img-fluid bookiImg me-2 " />
+                                        </figure>
+                                        <h6 className='fontEighteen  me-4'>Bookings</h6>
+                                    </div>
+
+                                    <div className='appointmenMonth'>
+                                        <div className='monthBack'>
+                                            <Image src={Images.arrowLeftPos} alt='leftarrow' className='img-fluid leftIcon' />
+                                            <span className='monthText'>October 2023</span>
+                                            <Image src={Images.rightArrowPos} alt='calendarimage' className='img-fluid rightIcon'/>
+                                        </div>
+                                    </div>
+                                    <div className='customTabDays'>
+                                        <span className='tabListing active'>Day</span>
+                                        <span className='tabListing'>Week</span>
+                                        <span className='tabListing'>Month</span>
+                                    </div>
+                                </div>
+                                <div className='bookingRight d-flex align-items-center'>
+                                    <Image src={Images.notification} alt='noti' className='img-fluid  me-3' />
+                                    <div className='seacrhBox me-3'>
+                                        <Image src={Images.SearchIcon} alt='blueSearch' className='img-fluid  blueSearch me-2' />
+                                        <div class="bookingsearchBar">
+                                            <input type="text" class="form-control searchControlbook" placeholder="" />
+                                        </div>
+                                    </div>
+
+                                    <div className='appointmenMonth bgBooking me-3'>
+                                        <div className='monthCalendar bgCalendar'>
+                                            <Image src={Images.calendarDark} alt='calendardark' className='img-fluid' />
+                                            <span className='monthText ms-2'>Calendar View</span>
+                                        </div>
+                                    </div>
+                                    <button className='listBtn'> <Image src={Images.listImg} alt='listIMAGES' className='img-fluid me-2 ' />List View</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div> 
+
+                    {/* Second Navbar */}
                     <div className='row'>
                         <div className='col-lg-12'>
-
+                            {/* Second Navbar */}
                             <ListGroup className='navtabs'>
                                 <ListGroupItem className="tabsappointment"><Link className="navLink active" href="#">01</Link>
                                 </ListGroupItem>
@@ -146,6 +193,7 @@ const Booking = () => {
                                 </ListGroupItem>
                             </ListGroup>
                         </div>
+                      
                         {/* <div className='col-md-12'>
                             <div className='bookingDay'>
                                 
@@ -571,6 +619,20 @@ const Booking = () => {
                 </div>
                 <CommonSideBar />
             </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
             <CustomModal
                 key={key}
                 show={modalDetail.show}
@@ -594,7 +656,7 @@ const Booking = () => {
                     <>
                         <div className='trackingSub headerModal '>
                             <figure className='profileImage '>
-                                <Image src={Images.checkinSky} alt="check" className="img-fluid "/>
+                                <Image src={Images.checkinSky} alt="check" className="img-fluid " />
                             </figure>
                             <h4 className='loginheading mt-2'>Check In</h4>
                             <h4 className='trackingHeading'>Confirm the details of your appointment.</h4>
@@ -602,7 +664,7 @@ const Booking = () => {
                                 <Image src={Images.modalCross} alt="modalCross" className="img-fluid" />
                             </p>
                         </div>
-                      
+
                     </>
                     :
                     ''

@@ -181,3 +181,19 @@ header .dropdown-menu{
         padding: 27px 33px 0 33px;
     }
 }
+
+
+/* Responsive Delveries css */
+@media screen and (max-width:1366px) {
+    .monthText {
+    font-size: 13px;   
+    }
+    .tabsappointment {
+        margin-right: 8px;
+    }
+}
+
+
+
+
+/* Responsive Delveries css */

@@ -34,7 +34,7 @@ const DeliverReturn = () => {
     };
     return (
         <>
-            <div className='deliverReturnSection deliverySection'>
+            <div className='deliverReturnSection deliverySection'> 
                 <div className='deliverMain w-100'>
                     <div className='row'>
                         <div className='col-lg-6'>
