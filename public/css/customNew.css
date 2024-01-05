@@ -3343,6 +3343,125 @@ figure {
     padding: 24px;
 }
 
+.staffRight {
+    border-radius: 20px;
+    background: #FFF;
+    box-shadow: -2px 4px 25px 0px rgba(50, 80, 127, 0.02), -5px 9px 80px 0px rgba(50, 80, 127, 0.04);
+    padding: 40px 40px 24px 40px;
+    display: flex;
+    align-items: start;
+    gap: 16px;
+}
+
+.staffListData {
+    margin: 24px 0;
+}
+
+.staffListSub {
+    border-radius: 16px;
+    border: 1px solid #D7DEFF;
+    padding: 16px 24px;
+    margin-top: 10px;
+    display: flex;
+    align-items: start;
+    justify-content: space-between;
+}
+
+.staffData {
+    width: 100%;
+}
+
+.staffArrow {
+    width: 20px !important;
+    height: 20px !important;
+}
+
+.staffUser {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.staffUserImg {
+    border-radius: 215px;
+    border: 3px solid #FFF;
+    width: 40px;
+    height: 40px;
+}
+
+.addStaff {
+    display: inline-flex;
+    align-items: center;
+    gap: 16px;
+    margin-top: 10px;
+    padding: 16px 24px;
+    cursor: pointer;
+}
+
+#addStoreModal {
+    width: 100%;
+    max-width: 540px;
+}
+
+#addStoreModal .modal-content {
+    border-radius: 20px !important;
+    background: #FFF !important;
+    box-shadow: -2px 6px 6px 0px rgba(52, 79, 117, 0.03), -11px 28px 25px 0px rgba(52, 79, 117, 0.04), -31px 74px 80px 0px rgba(52, 79, 117, 0.07) !important;
+    padding: 24px !important;
+    border: none;
+}
+
+#addStoreModal .modal-header {
+    border: none;
+    padding: 0 !important;
+    justify-content: center;
+}
+
+.addStoreData {
+    margin: 20px 0;
+}
+
+.selectRole .form-select {
+    border-radius: 50px;
+    border: 1px solid #D7DEFF;
+    box-shadow: -2px 4px 25px 0px rgba(50, 80, 127, 0.02), -5px 10px 80px 0px rgba(50, 80, 127, 0.04);
+    padding: 12px 18px;
+    color: #263682;
+    font-size: 18px;
+    font-weight: 400;
+}
+
+.memberColor {
+    border-radius: 50px;
+    border: 1px solid #D7DEFF;
+    box-shadow: -2px 4px 25px 0px rgba(50, 80, 127, 0.02), -5px 10px 80px 0px rgba(50, 80, 127, 0.04);
+    padding: 18px;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+}
+
+.colorBox {
+    width: 70px;
+    height: 25px;
+    display: inline-block;
+    background-color: #000;
+    cursor: pointer;
+}
+.colorSelect {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+.addStoreForm .addCustomerBtn {
+    gap: 20px;
+}
+.addStoreForm .serviceCancel {
+    padding: 14px;
+}
+.addStoreForm .nextverifyBtn {
+  padding: 14px;
+}
 /*setting css end*/
 /*media query start*/
 @media (max-width:1600px) {
