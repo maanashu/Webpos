@@ -3448,19 +3448,55 @@ figure {
     background-color: #000;
     cursor: pointer;
 }
+
 .colorSelect {
     display: flex;
     align-items: center;
     gap: 16px;
 }
+
 .addStoreForm .addCustomerBtn {
     gap: 20px;
 }
+
 .addStoreForm .serviceCancel {
     padding: 14px;
 }
+
 .addStoreForm .nextverifyBtn {
-  padding: 14px;
+    padding: 14px;
+}
+
+.staffDetailRight {
+    border-radius: 20px;
+    background: #FFF;
+    padding: 16px 24px;
+}
+
+.staffInfoBox {
+    border-radius: 20px;
+    background: #F5F6FC;
+    padding: 16px 28px;
+    margin: 25px 0 12px 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.staffProfileInfo{
+    display: flex;
+    align-items: start;
+    gap: 12px;
+}
+.staffProfileImg{
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+}
+.staffAddress{
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    margin-top: 4px;
 }
 /*setting css end*/
 /*media query start*/

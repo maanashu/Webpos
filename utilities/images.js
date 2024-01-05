@@ -258,7 +258,16 @@ import walletOutline from "../public/images/Wallet_Outline.png"
 import settingsPhoneMessage from "../public/images/settingsPhoneMessage.png";
 import settingsEmail from "../public/images/settingsEmail.png";
 import settingsPrinter from "../public/images/settingsPrinter.png";
+import staffProfile from "../public/images/staffProfile.svg"
+import staffLocate from "../public/images/staffLocate.svg"
+import staffMobile from "../public/images/staffMobile.svg"
+import emailStaff from "../public/images/emailStaff.svg"
+
 export {
+  emailStaff,
+  staffMobile,
+  staffLocate,
+  staffProfile,
   addDark,
   staffUser,
   deviceScan,
