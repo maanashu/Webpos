@@ -11,7 +11,6 @@ const axiosInstance = axios.create({
 
 // Set the AUTH token for any request
 axiosInstance.interceptors.request.use(function (config) {
-
   const token = localStorage.getItem("merchantAuthToken") ? localStorage.getItem("merchantAuthToken") : "";
   config.headers.Authorization = token ? token : "";
   return config;
@@ -25,7 +24,7 @@ axiosInstance.interceptors.response.use(
   (error) => {
     if (error.response.status === 401) {
       localStorage.clear();
-      Router.push("/");
+    //   Router.push("/");
     }
     return Promise.reject(error);
   }
