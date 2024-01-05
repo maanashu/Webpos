@@ -4,7 +4,7 @@ import * as Images from "../../utilities/images"
 import Image from "next/image";
 import Link from 'next/link';
 import CustomModal from '../../components/customModal/CustomModal';
-import ConfirmShip from '../../components/modals/shipping/confirmShip';
+import AddStoreModal from '../../components/settingModal/addStoreModal';
 
 const StaffList = () => {
     const [key, setKey] = useState(Math.random());
@@ -216,7 +216,7 @@ const StaffList = () => {
                                         <Image src={Images.RightArrow} alt="RightArrow image" className="staffArrow pointHand" />
                                     </div>
                                     <div className='addStaff'  onClick={() => {
-                                                handleUserProfile("confirmship")
+                                                handleUserProfile("addStaff")
                                             }}>
                                         <Image src={Images.addDark} alt="addDark image" className="staffUserImg" />
                                         <h4 className='cancelOrderText'>Add Staff</h4>
@@ -234,11 +234,11 @@ const StaffList = () => {
                 showCloseBtn={false}
                 isRightSideModal={true}
                 mediumWidth={false}
-                className={modalDetail.flag === "confirmship" ? "commonWidth customContent" : ""}
-                ids={modalDetail.flag === "confirmship" ? "confirmShipModal" : ""}
+                className={modalDetail.flag === "addStaff" ? "commonWidth customContent" : ""}
+                ids={modalDetail.flag === "addStaff" ? "addStoreModal" : ""}
                 child={
-                    modalDetail.flag === "confirmship" ? (
-                        <ConfirmShip
+                    modalDetail.flag === "addStaff" ? (
+                        <AddStoreModal
                             close={() => handleOnCloseModal()}
                         />
                     ) :
@@ -246,20 +246,9 @@ const StaffList = () => {
                 }
                 header=
 
-                {modalDetail.flag === "confirmship" ?
+                {modalDetail.flag === "addStaff" ?
                     <>
-
-                        <div className='trackingSub headerModal'>
-                            <figure className='profileImage '>
-                                <Image src={Images.deliverBack} alt="trackingImage" className="confirmImg shipImgReturn" />
-                            </figure>
-                            <h4 className='shipReturnText mt-2 text-center'>Returned</h4>
-                            <p className='verifySub mt-1'>This return has been completed.</p>
-                            <p onClick={handleOnCloseModal} className='crossModal'>
-                                <Image src={Images.modalCross} alt="modalCross" className="img-fluid" />
-                            </p>
-                        </div>
-
+                    <h4 className='appointMain text-center'>Add New Store Employee</h4>
                     </>
                     :
                     ''
