@@ -81,7 +81,6 @@ export default function Settings() {
         return <Devices />;
       case "Receipts":
         return <Receipts />;
-        Receipts;
       default:
         return null;
     }
