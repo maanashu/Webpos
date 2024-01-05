@@ -19,6 +19,7 @@ import {
 import Image from "next/image";
 import StaffList from "./staff";
 import Devices from "./device";
+import Receipts from "./Receipts";
 export default function Settings() {
   const [selectedItem, setSelectedItem] = useState("Security");
   console.log(selectedItem, "selectedItem");
@@ -78,6 +79,9 @@ export default function Settings() {
         return <StaffList />;
       case "Devices":
         return <Devices />;
+      case "Receipts":
+        return <Receipts />;
+        Receipts;
       default:
         return null;
     }
