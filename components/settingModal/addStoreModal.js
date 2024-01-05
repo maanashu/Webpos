@@ -3,7 +3,7 @@ import * as Images from "../../utilities/images";
 import Image from "next/image";
 import PhoneInput from 'react-phone-input-2';
 
-const AddStoreModal = () => {
+const AddStoreModal = (props) => {
     const [phoneCode, SetPhoneCode] = useState("");
     const [phoneNo, setPhoneNo] = useState("");
     const generateRandomName = () => {
@@ -70,7 +70,7 @@ const AddStoreModal = () => {
                         </div>
                     </div>
                     <div className='addCustomerBtn mt-4'>
-                        <button className='serviceCancel w-100 ' type='submit'>
+                        <button className='serviceCancel w-100 ' type='button' onClick={props?.close}>
                             Cancel
                         </button>
                         <button className='nextverifyBtn w-100' type='submit'>
