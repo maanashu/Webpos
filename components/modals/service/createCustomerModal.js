@@ -64,7 +64,7 @@ const CreateCustomerModal = () => {
                                 // value={phoneCode + phoneNo}
                                 enableSearch={true}
                                 name={generateRandomName}
-                                placeholder="Phone no."
+                                placeholder="Phone no." 
                                 autoComplete="off"
                                 onChange={(value, data, event, formattedValue) => onChangePhoneNumber(value, data, event, formattedValue)}
                             />

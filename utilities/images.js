@@ -255,8 +255,16 @@ import settingsSecurity from "../public/images/Settings_Security.png"
 import settingsTax from "../public/images/Settings_Tax.png"
 import usersOutline from "../public/images/Users_Outline.png"
 import walletOutline from "../public/images/Wallet_Outline.png"
+import staffProfile from "../public/images/staffProfile.svg"
+import staffLocate from "../public/images/staffLocate.svg"
+import staffMobile from "../public/images/staffMobile.svg"
+import emailStaff from "../public/images/emailStaff.svg"
 
 export {
+  emailStaff,
+  staffMobile,
+  staffLocate,
+  staffProfile,
   addDark,
   staffUser,
   deviceScan,
