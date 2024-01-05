@@ -17,10 +17,10 @@ const axiosInstance = axios.create({
 // Set the AUTH token for any request
 axiosInstance.interceptors.request.use(function (config) {
 
-// const Token = authData?.posUserLoginDetails?.payload?.token
-//   ? authData?.posUserLoginDetails?.payload?.token
-//   : "";
-  const token = localStorage.getItem("authToken");
+  // const Token = authData?.posUserLoginDetails?.payload?.token
+  //   ? authData?.posUserLoginDetails?.payload?.token
+  //   : "";
+  const token = localStorage.getItem("authToken") ? localStorage.getItem("authToken") : localStorage.getItem("2FAToken");
   config.headers.Authorization = token ? token : "";
   return config;
 });
@@ -28,7 +28,7 @@ axiosInstance.interceptors.request.use(function (config) {
 
 axiosInstance.interceptors.response.use(
   (response) => {
-    console.log(response,"hello")
+    console.log(response, "hello")
     return response;
   },
   (error) => {
