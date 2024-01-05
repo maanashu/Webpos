@@ -26,6 +26,7 @@ const Sidebar = (props) => {
       toast.success("Logout successfully");
     }, 200);
     router.push("/auth/verification");
+    localStorage.removeItem("merchantAuthToken");
     localStorage.removeItem("authToken");
     localStorage.removeItem("persist:root");
   };
