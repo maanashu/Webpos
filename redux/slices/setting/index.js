@@ -14,6 +14,36 @@ export const settingSlice = createSlice({
         setGetSecurityScanerCode: (state, action) => {
             state.loading = false;
         },
+        getSecuritySettingInfo: (state) => {
+            state.loading = true;
+        },
+        setGetSecuritySettingInfo: (state, action) => {
+            state.loading = false;
+        },
+        configureGoogleAuthenticator: (state) => {
+            state.loading = true;
+        },
+        setConfigureGoogleAuthenticator: (state, action) => {
+            state.loading = false;
+        },
+        verifyGoogleAuthenticator: (state) => {
+            state.loading = true;
+        },
+        setVerifyGoogleAuthenticator: (state, action) => {
+            state.loading = false;
+        },
+        forgetGoogleAuthenticator: (state) => {
+            state.loading = true;
+        },
+        setForgetGoogleAuthenticator: (state, action) => {
+            state.loading = false;
+        },
+        resetGoogleAuthenticator: (state) => {
+            state.loading = true;
+        },
+        setResetGoogleAuthenticator: (state, action) => {
+            state.loading = false;
+        },
         onErrorStopLoad: (state) => {
             state.loading = false;
         },
@@ -24,6 +54,16 @@ export const settingSlice = createSlice({
 export const {
     getSecurityScanerCode,
     setGetSecurityScanerCode,
+    getSecuritySettingInfo,
+    setGetSecuritySettingInfo,
+    configureGoogleAuthenticator,
+    setConfigureGoogleAuthenticator,
+    verifyGoogleAuthenticator,
+    setVerifyGoogleAuthenticator,
+    forgetGoogleAuthenticator,
+    setForgetGoogleAuthenticator,
+    resetGoogleAuthenticator,
+    setResetGoogleAuthenticator,
     onErrorStopLoad
 } = settingSlice.actions;
 

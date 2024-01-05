@@ -5,7 +5,8 @@ import {
   setGetAllOrderDeliveries,
   setGetTodaySales,
   setGetDrawerSessionInfo,
-  setGetPosLoginDetails
+  setGetPosLoginDetails,
+  setGetProfile
 } from "../../slices/dashboard";
 import { toast } from "react-toastify";
 import { ORDER_API_URL, AUTH_API_URL } from "../../../utilities/config"
@@ -88,12 +89,32 @@ function* getPosLoginDetails(action) {
   }
 }
 
+function* getProfile(action) {
+  const dataToSend = { ...action.payload }
+  delete dataToSend.cb
+  try {
+    const resp = yield call(ApiClient.get, (`${AUTH_API_URL}/api/v1/users/${action.payload.id}`))
+    if (resp.status) {
+      yield put(setGetProfile(resp.data));
+      yield call(action.payload.cb, (action.res = resp));
+      // toast.success(resp?.data?.msg);
+    }
+    else {
+      throw resp
+    }
+  } catch (e) {
+    yield put(onErrorStopLoad())
+    toast.error(e?.error?.response?.data?.msg);
+  }
+}
+
 function* dashboardSaga() {
   yield all([
     takeLatest("dashboard/getAllOrderDeliveries", getAllOrderDeliveries),
     takeLatest("dashboard/getTodaySales", getTodaySales),
     takeLatest("dashboard/getDrawerSessionInfo", getDrawerSessionInfo),
     takeLatest("dashboard/getPosLoginDetails", getPosLoginDetails),
+    takeLatest("dashboard/getProfile", getProfile),
   ]);
 }
 
