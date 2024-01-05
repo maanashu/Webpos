@@ -239,20 +239,20 @@ import crossBlue from "../public/images/crossBlue.svg"
 import cashDraw from "../public/images/cashDraw.svg"
 import cardReader from "../public/images/cardReader.svg"
 import deviceScan from "../public/images/deviceScan.svg"
-import locationOutline from "../public/images/Location_Outline.png";
-import ringing from "../public/images/Ringing.png";
-import settingsBoxes from "../public/images/Settings_Boxes.png";
-import settingsDetails from "../public/images/Settings_Details.png";
-import settingsDevices from "../public/images/Settings_Devices.png";
-import settingsLanguage from "../public/images/Settings_Language.png";
-import settingsLaw from "../public/images/Settings_Law.png";
-import settingsMoney from "../public/images/Settings_Money.png";
-import settingsPolicies from "../public/images/Settings_Policies.png";
-import settingsReceipt from "../public/images/Settings_Receipt.png";
-import settingsSecurity from "../public/images/Settings_Security.png";
-import settingsTax from "../public/images/Settings_Tax.png";
-import usersOutline from "../public/images/Users_Outline.png";
-import walletOutline from "../public/images/Wallet_Outline.png";
+import locationOutline from "../public/images/Location_Outline.png"
+import ringing from "../public/images/Ringing.png"
+import settingsBoxes from "../public/images/Settings_Boxes.png"
+import settingsDetails from "../public/images/Settings_Details.png"
+import settingsDevices from "../public/images/Settings_Devices.png"
+import settingsLanguage from "../public/images/Settings_Language.png"
+import settingsLaw from "../public/images/Settings_Law.png"
+import settingsMoney from "../public/images/Settings_Money.png"
+import settingsPolicies from "../public/images/Settings_Policies.png"
+import settingsReceipt from "../public/images/Settings_Receipt.png"
+import settingsSecurity from "../public/images/Settings_Security.png"
+import settingsTax from "../public/images/Settings_Tax.png"
+import usersOutline from "../public/images/Users_Outline.png"
+import walletOutline from "../public/images/Wallet_Outline.png"
 
 export {
   deviceScan,
@@ -508,4 +508,6 @@ export {
   cancelUser,
   cancelPackage,
   mapleCard,
+
+  
 };
