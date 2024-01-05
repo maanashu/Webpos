@@ -13,7 +13,7 @@ const Devices = () => {
                         <div className='deviceLeft settingOuter'>
                             <ListGroup>
                                 <ListGroupItem className='settingListMain'>
-                                    <Link href="#" className='settingList active'>
+                                    <Link href="/settings" className='settingList active'>
                                         <Image src={Images.securityTick} alt="securityTick image" className="SecurityImg" />
                                         <div className='securityHeading'>
                                             <h4 className='settingText'>Security</h4>

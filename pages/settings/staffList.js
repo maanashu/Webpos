@@ -243,12 +243,12 @@ const StaffList = () => {
                         />
                     ) :
                         ""
-                }
+                } 
                 header=
 
                 {modalDetail.flag === "addStaff" ?
                     <>
-                    <h4 className='appointMain text-center'>Add New Store Employee</h4>
+                    <h4 className='appointMain'>Add New Store Employee</h4>
                     </>
                     :
                     ''
