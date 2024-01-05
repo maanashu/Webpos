@@ -10,26 +10,28 @@ import ActivateSecurityModal from "../../../components/settingModal/activateSecu
 import ForgetSecurityPin from "../../../components/settingModal/ForgetSecurityPin";
 import GetSecurityScanerCode from "../../../components/settingModal/GetSecurityScaner";
 import { getProfile } from "../../../redux/slices/dashboard";
+import { settingInfo, updateSettings } from "../../../redux/slices/setting";
 
 const Receipts = () => {
   const authData = useSelector(selectLoginAuth);
-  const userId = authData?.usersInfo?.payload?.user?.user_profiles?.user_id
-    ? authData?.usersInfo?.payload?.user?.user_profiles?.user_id
-    : "";
+  const receiptSettings = useSelector(settingInfo);
+  const userId = receiptSettings?.getSettings;
   const dispatch = useDispatch();
   const [isSms, setSms] = useState(false);
   const [isEmail, setEMail] = useState(false);
   const [isPrintInvoice, setPrintInvoice] = useState(false);
 
+  // console.log("settings", userId);
   // apply API for get user profile information
   const getProfileInfo = (userId) => {
     let params = {
-      id: userId,
+      print_invoice_status: true,
     };
     dispatch(
-      getProfile({
+      updateSettings({
         ...params,
         cb(res) {
+          console.log("check resp", res);
           if (res.status) {
             setSms(res?.data?.payload?.user_profiles?.is_two_fa_enabled);
           }
@@ -38,11 +40,9 @@ const Receipts = () => {
     );
   };
 
-  // useEffect(() => {
-  //   if (userId) {
-  //     getProfileInfo(userId);
-  //   }
-  // }, [userId]);
+  useEffect(() => {
+    getProfileInfo();
+  }, []);
 
   return (
     <>
@@ -91,6 +91,7 @@ const Receipts = () => {
                     checked={isSms}
                     onChange={() => {
                       setSms(!isSms);
+                      console.log("settings", userId);
                     }}
                   />
                   <label
