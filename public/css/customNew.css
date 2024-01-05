@@ -3334,6 +3334,13 @@ figure {
     padding: 12px;
     text-align: center;
     width: 100%;
+    cursor: pointer;
+}
+
+.configureBox {
+    border-radius: 16px;
+    border: 1px solid #D7DEFF;
+    padding: 24px;
 }
 
 /*setting css end*/

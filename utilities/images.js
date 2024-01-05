@@ -269,8 +269,14 @@ import securityTick from "../public/images/securityTick.svg"
 import settingHome from "../public/images/settingHome.svg"
 import darkDevices from "../public/images/darkDevices.svg"
 import printer from "../public/images/printer.svg"
+import cashDraw from "../public/images/cashDraw.svg"
+import cardReader from "../public/images/cardReader.svg"
+import deviceScan from "../public/images/deviceScan.svg"
 
 export {
+  deviceScan,
+  cardReader,
+  cashDraw,
   printer,
   darkDevices,
   settingHome,

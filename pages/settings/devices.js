@@ -160,22 +160,26 @@ const Devices = () => {
                                     <h4 className='amountText m-0'>Add a New Device</h4>
                                     <div className='addDeviceSub'>
                                         <div className='SubReader'>
-                                            <Image src={Images.darkDevices} alt="darkDevices image" className="img-fluid" />
+                                            <Image src={Images.deviceScan} alt="darkDevices image" className="img-fluid" />
                                             <h4 className='cancelOrderText mt-3'>Barcode Scanner</h4>
                                         </div>
                                         <div className='SubReader'>
-                                            <Image src={Images.darkDevices} alt="darkDevices image" className="img-fluid" />
+                                            <Image src={Images.cardReader} alt="cardReader image" className="img-fluid" />
                                             <h4 className='cancelOrderText mt-3'>Card Reader</h4>
                                         </div>
                                         <div className='SubReader'>
-                                            <Image src={Images.darkDevices} alt="darkDevices image" className="img-fluid" />
+                                            <Image src={Images.cashDraw} alt="cashDraw image" className="img-fluid" />
                                             <h4 className='cancelOrderText mt-3'>Cash Drawers</h4>
                                         </div>
                                         <div className='SubReader'>
-                                            <Image src={Images.darkDevices} alt="darkDevices image" className="img-fluid" />
+                                            <Image src={Images.printer} alt="printer image" className="img-fluid" />
                                             <h4 className='cancelOrderText mt-3'>Receipt Printers</h4>
                                         </div>
                                     </div>
+                                </div>
+                                <div className='configureBox'>
+                                    <h4 className='amountText m-0'>Configure Settings on Your Device</h4>
+                                    <h4 className='settingSub mt-3'>All you need to manage Basic Point of Sale is a device nickname and location to allow team members to accept payments.</h4>
                                 </div>
                             </div>
                         </div>
