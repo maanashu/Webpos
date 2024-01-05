@@ -135,7 +135,29 @@
     cursor: pointer;
 }
 .bookiImg {
-    width: 30px;
+    width: 50px;
+}
+.customTabDays .textSmall{
+    color: #263682;
+    margin-right: 12px;
+}
+.customTabDays {
+    background: #F5F6FC;
+    padding: 14px 14px 14px 14px;
+    border-radius: 30px;
+    margin-left: 10px;
+}
+.tabListing.active {
+    background:#263682;
+    color: #fff;
+    padding: 10px 24px;
+    border-radius: 30px;
+}
+.tabListing{
+font-size: 14px;
+font-weight: 400;
+color:#263682;
+margin-right: 12px;
 }
 /* Booking Nav bar */
 /* RightDide Bar Booking */
@@ -423,7 +445,12 @@
     height: 50px;
     margin-top: -16px;
 }
-
+.leftIcon {
+    margin-right: 10px;
+}
+.rightIcon {
+    margin-left: 10px;
+}
 /* CheckIn Modal  */
 #checkIn .modal-content{
 width: 100%;
@@ -505,5 +532,32 @@ padding: 12px;
     width: 45%;
 }
 /* CheckIn Modal */
-
+/* Checked In Modal */
+#checkedIn .modal-header{
+    border:none;
+}
+#checkedIn .modal-content{
+    border: none;
+}
+/* Checked In Modal */
+/* BucketFilter */
+.countNumber {
+    width: 20px;
+    height: 20px;
+    border-radius: 50px;
+    background: #F04438;
+    font-size: 12px;
+    font-weight: 500;
+    display: inline-block;
+    margin-left: 12px;
+    text-align: center;
+    color:#fff;
+   
+}
+.bucket_ {
+    display: flex;
+    justify-content: space-between;
+}
+/* BucketFilter */
 /** End Booking Module **/
+
