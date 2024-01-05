@@ -239,8 +239,12 @@ import crossBlue from "../public/images/crossBlue.svg"
 import cashDraw from "../public/images/cashDraw.svg"
 import cardReader from "../public/images/cardReader.svg"
 import deviceScan from "../public/images/deviceScan.svg"
+import staffUser from "../public/images/staffUser.svg"
+import addDark from "../public/images/addDark.svg"
 
 export {
+  addDark,
+  staffUser,
   deviceScan,
   cardReader,
   cashDraw,

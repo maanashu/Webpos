@@ -179,7 +179,7 @@ const Devices = () => {
                                 </div>
                                 <div className='configureBox'>
                                     <h4 className='amountText m-0'>Configure Settings on Your Device</h4>
-                                    <h4 className='settingSub mt-3'>All you need to manage Basic Point of Sale is a device nickname and location to allow team members to accept payments.</h4>
+                                    <h4 className='lightOfferText mt-3'>All you need to manage Basic Point of Sale is a device nickname and location to allow team members to accept payments.</h4>
                                 </div>
                             </div>
                         </div>
