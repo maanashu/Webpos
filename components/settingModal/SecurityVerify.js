@@ -112,7 +112,6 @@ const SecurityVerification = (props) => {
         }
     };
 
-
     return (
         <>
             <div className='verifyOtpSection loginPasswordOtp'>
