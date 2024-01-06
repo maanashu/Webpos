@@ -176,7 +176,44 @@ const StaffDetail = () => {
                                     </div>
                                 </div>
                                 <div className='staffProfileData'>
-
+                                    <div className='flexDiv'>
+                                        <h4 className='amountText m-0'>Joined Data</h4>
+                                        <h4 className='appointSub m-0'>Joined Data</h4>
+                                    </div>
+                                    <div className='flexDiv mt-1'>
+                                        <h4 className='amountText m-0'>Active since:</h4>
+                                        <h4 className='appointSub m-0'>265 Days</h4>
+                                    </div>
+                                    <div className='flexDiv mt-1'>
+                                        <h4 className='amountText m-0'>Employment type</h4>
+                                        <h4 className='appointSub m-0'>Full Time</h4>
+                                    </div>
+                                    <div className='flexDiv mt-1'>
+                                        <h4 className='amountText m-0'>Days Off</h4>
+                                        <h4 className='appointSub m-0'>3 Days</h4>
+                                    </div>
+                                </div>
+                            </div>
+                            <div className='staffTimeSection'>
+                                <div className='staffSubTime'>
+                                    <h4 className='amountText m-0'>Hour Rate</h4>
+                                    <hr className='staffTimeDivide' />
+                                    <h4 className='appointSub m-0'>JBG 150/hr</h4>
+                                </div>
+                                <div className='staffSubTime'>
+                                    <h4 className='amountText m-0'>Hour Rate</h4>
+                                    <hr className='staffTimeDivide' />
+                                    <h4 className='appointSub m-0'>JBG 150/hr</h4>
+                                </div>
+                                <div className='staffSubTime'>
+                                    <h4 className='amountText m-0'>Hour Rate</h4>
+                                    <hr className='staffTimeDivide' />
+                                    <h4 className='appointSub m-0'>JBG 150/hr</h4>
+                                </div>
+                                <div className='staffSubTime'>
+                                    <h4 className='amountText m-0'>Hour Rate</h4>
+                                    <hr className='staffTimeDivide' />
+                                    <h4 className='appointSub m-0'>JBG 150/hr</h4>
                                 </div>
                             </div>
                         </div>

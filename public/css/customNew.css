@@ -3481,22 +3481,59 @@ figure {
     display: flex;
     align-items: center;
     justify-content: space-between;
+    position: relative;
 }
-.staffProfileInfo{
+
+.staffInfoBox::before {
+    content: "";
+    position: absolute;
+    background-image: url(/_next/static/media/Interline.a4b71d07.svg);
+    top: 0;
+    right: 0;
+    width: 2px;
+    height: 113px;
+    left: 100px;
+    margin: 7px auto;
+}
+
+.staffProfileInfo {
     display: flex;
     align-items: start;
     gap: 12px;
 }
-.staffProfileImg{
+
+.staffProfileImg {
     width: 50px;
     height: 50px;
     border-radius: 50%;
 }
-.staffAddress{
+
+.staffAddress {
     display: flex;
     align-items: center;
     gap: 4px;
     margin-top: 4px;
+}
+
+.staffProfileData {
+    width: 40%;
+}
+
+.staffTimeSection {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.staffSubTime {
+    border-radius: 16px;
+    border: 1px solid #D7DEFF;
+    padding: 12px;
+    width: 100%;
+}
+.staffTimeDivide{
+    background:  #E4E6F2;
+    margin: 8px 0;
 }
 /*setting css end*/
 /*media query start*/
