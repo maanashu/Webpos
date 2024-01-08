@@ -151,7 +151,7 @@ const PaginationHeader = ({
             {paginationBts(arrowRightDouble, "roate-180deg", null, page <= 1)}
             {paginationBts(arrowIcon, "roate-180deg", null, page <= 1)}
             <p className="pagination-numbers">
-              1-{totalItems < Number(limit) ? totalItems : limit} of{" "}
+              1-{totalItems < Number(limit) ? totalItems : limit * page} of{" "}
               {totalItems}
             </p>
             {paginationBts(arrowIcon, null, true, totalItems <= limit)}

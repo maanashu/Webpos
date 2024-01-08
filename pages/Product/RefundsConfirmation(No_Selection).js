@@ -7,8 +7,8 @@ const RefundsConfirmation = () => {
         <>
             <div className='refundConfirmation'>
                 <div className='row'>
-                    <div className='col-lg-8'>
-                        <div className='commanOuter'>
+                    <div className='col-lg-7'>
+                        <div className='commanOuter commonSubOuter me-0'>
                             <button type='button' className='backButton'>
                                 <Image src={Images.ArrowLeft} alt="" className="img-fluid backBtnIcon" />
                                 Back
@@ -54,19 +54,19 @@ const RefundsConfirmation = () => {
                                 <p className='selectedproductDetails'>Send your e-receipt?</p>
                                 <div className='row justify-content-center'>
                                     <div className='col-lg-3'>
-                                        <div className='receiptCard'>
+                                        <div className='receiptCard h-100'>
                                             <Image src={Images.Sms} alt="Sms" className="img-fluid Sms" />
                                             <p>SMS</p>
                                         </div>
                                     </div>
                                     <div className='col-lg-3'>
-                                        <div className='receiptCard'>
+                                        <div className='receiptCard h-100'>
                                             <Image src={Images.Email} alt="Email" className="img-fluid Email" />
                                             <p>E-mail</p>
                                         </div>
                                     </div>
                                     <div className='col-lg-3'>
-                                        <div className='receiptCard active'>
+                                        <div className='receiptCard active h-100'>
                                             <Image src={Images.Like} alt="Like" className="img-fluid Like" />
                                             <Image src={Images.Like_Solid} alt="Like" className="img-fluid Like d-none showImg" />
                                             <p>No, thanks</p>
@@ -83,8 +83,8 @@ const RefundsConfirmation = () => {
                             </div>
                         </div>
                     </div>
-                    <div className='col-lg-4'>
-                        <div className='commanOuter'>
+                    <div className='col-lg-5'>
+                        <div className='commanOuter commonSubOuter me-3 ms-0'>
                             <div className='MapleBox'>
                                 <article className='mapleHeader'>
                                     <h6 className='mapleHeading'>Maple Inc.</h6>
@@ -93,31 +93,37 @@ const RefundsConfirmation = () => {
                                 </article>
                                 <div className='mapleProductDetails'>
                                     <div className='flexBox mapleProductDetailsBox'>
-                                        <p className='mapleProductcount'>× 1</p>
-                                        <article>
-                                            <p className='mapleProductHeading'>Lightweight Stylish Casual Daypack</p>
-                                            <span className='mapleProductcount'>Yellow / M</span>
-                                        </article>
-                                        <article>
-                                            <p className='mapleProductPrice'>$90.00</p>
-                                        </article>
-                                    </div>
-                                    <div className='flexBox mapleProductDetailsBox'>
-                                        <p className='mapleProductcount'>× 1</p>
-                                        <article>
-                                            <p className='mapleProductHeading'>Lightweight Stylish Casual Daypack</p>
-                                            <span className='mapleProductcount'>Yellow / M</span>
-                                        </article>
+                                        <div className='flexbase'>
+                                            <p className='mapleProductcount'>× 1</p>
+                                            <article className='ms-3'>
+                                                <p className='mapleProductHeading'>Lightweight Stylish Casual Daypack</p>
+                                                <span className='mapleProductcount'>Yellow / M</span>
+                                            </article>
+                                        </div>
                                         <article>
                                             <p className='mapleProductPrice'>$90.00</p>
                                         </article>
                                     </div>
                                     <div className='flexBox mapleProductDetailsBox'>
-                                        <p className='mapleProductcount'>× 1</p>
+                                        <div className='flexbase'>
+                                            <p className='mapleProductcount'>× 1</p>
+                                            <article className='ms-3'>
+                                                <p className='mapleProductHeading'>Lightweight Stylish Casual Daypack</p>
+                                                <span className='mapleProductcount'>Yellow / M</span>
+                                            </article>
+                                        </div>
                                         <article>
-                                            <p className='mapleProductHeading'>Lightweight Stylish Casual Daypack</p>
-                                            <span className='mapleProductcount'>Yellow / M</span>
+                                            <p className='mapleProductPrice'>$90.00</p>
                                         </article>
+                                    </div>
+                                    <div className='flexBox mapleProductDetailsBox'>
+                                        <div className='flexbase'>
+                                            <p className='mapleProductcount'>× 1</p>
+                                            <article className='ms-3'>
+                                                <p className='mapleProductHeading'>Lightweight Stylish Casual Daypack</p>
+                                                <span className='mapleProductcount'>Yellow / M</span>
+                                            </article>
+                                        </div>
                                         <article>
                                             <p className='mapleProductPrice'>$90.00</p>
                                         </article>
@@ -158,8 +164,8 @@ const RefundsConfirmation = () => {
                                     </article>
                                 </div>
                                 <div className='text-center'>
-                                    <Image src={Images.Logo} alt='logo' className='img-fluid logo'/> 
-                                    <Image src={Images.barCodeScanImg} alt='barCodeScanImg' className='img-fluid barCodeScanImg'/> 
+                                    <Image src={Images.Logo} alt='logo' className='img-fluid logo' />
+                                    <Image src={Images.barCodeScanImg} alt='barCodeScanImg' className='img-fluid barCodeScanImg' />
                                 </div>
                             </div>
                         </div>

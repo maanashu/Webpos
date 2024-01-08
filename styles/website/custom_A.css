@@ -126,6 +126,16 @@
     width: 24px;
     margin-right: 18px;
 }
+.sidebarLinks.active .showImg{
+    display: none;
+}
+.sidebarLinks.active .hideImg{
+    display: block;
+    margin-right: 18px;
+}
+.sidebarLinks .hideImg{
+    display: none;
+}
 
 .userDetails {
     display: flex;
@@ -411,8 +421,9 @@
     border-radius: 50px;
     margin: 0 10px;
     background: #FFF;
-    box-shadow: -1.90817px 3.78304px 25.48148px 0px rgba(50, 80, 127, 0.02), -4.95391px 9.82135px 80px 0px rgba(50, 80, 127, 0.04);
+    box-shadow: -2px 4px 25px 0px rgba(50, 80, 127, 0.02), -5px 10px 80px 0px rgba(50, 80, 127, 0.04);
     height: calc(100vh - 129px);
+    padding: 24px 8px;
 }
 
 .rightSidebarIcon {
@@ -421,18 +432,22 @@
 
 .rightSidebarItems {
     text-align: center;
+    position: relative;
+    cursor: pointer;
 }
-
+.rightSidebarItems:first-child{
+    margin-top: 0;
+}
 .rightSidebarItems:last-child {
     position: fixed;
     bottom: 32px;
-    right: 30px;
+    right: 34px;
 }
 
-.rightSidebarItems.active img {
+/* .rightSidebarItems.active img {
     background: #F5F6FC;
     border-radius: 12px;
-}
+} */
 
 .productImageBox {
     position: relative;
@@ -600,7 +615,7 @@
 /*End Custom Checkbox css */
 
 /*Start Add Product modal */
-.modal-content {
+#AddProduct .modal-content {
     border-radius: 30px;
     background: var(--surfaces-s-top, #FFF);
     box-shadow: -2.52875px 6.00803px 6.51852px 0px rgba(52, 79, 117, 0.03), -11.95411px 28.40162px 25.48148px 0px rgba(52, 79, 117, 0.04), -31.03472px 73.73497px 80px 0px rgba(52, 79, 117, 0.07);
@@ -608,13 +623,13 @@
     padding: 30px 36px;
 }
 
-.modal-body {
+#AddProduct .modal-body {
     padding: 0 !important;
     padding-bottom: 30px !important;
 
 }
 
-.modal-header {
+#AddProduct .modal-header {
     justify-content: center;
     border: none !important;
     padding: 0 !important;
@@ -1014,7 +1029,7 @@
 }
 
 .OrderCheckoutBox {
-    padding: 4px 0;
+    padding: 9px 0;
     border-bottom: 1px solid #E4E6F2;
 }
 
@@ -1026,7 +1041,7 @@
 
 .OrderDiscountBox {
     padding-bottom: 16px;
-    border-bottom: 1px dotted #7E8AC1;
+    border-bottom: 2px dotted #7E8AC1;
 }
 
 .productBilling .flexBox {

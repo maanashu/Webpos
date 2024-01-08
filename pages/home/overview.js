@@ -17,7 +17,7 @@ const Overview = () => {
     const dashboardData = useSelector(dashboardDetails)
 
     const UniqueId = authData?.usersInfo?.payload?.uniqe_id ? authData?.usersInfo?.payload?.uniqe_id : ""
-    console.log(UniqueId, "UniqueId");
+    console.log(UniqueId,"UniqueId");
     const router = useRouter();
     const dispatch = useDispatch();
     const [key, setKey] = useState(Math.random());
@@ -87,7 +87,7 @@ const Overview = () => {
             todaySaleInfo()
             allOrderDeliveriesInfo()
         }
-    }, []);
+    }, [UniqueId]);
 
 
     return (

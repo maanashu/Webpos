@@ -57,11 +57,13 @@ const VerifyOtp = () => {
             phone_number: getPhoneInfo?.phoneNo,
             security_pin: securityPin
         };
+        console.log(params,"params");
         dispatch(
             userMerchantLogin({
                 ...params,
                 cb(res) {
                     if (res) {
+                        console.log(res,"resnaresh");
                         router.push("/auth/successVerify")
                     }
                 },
@@ -96,10 +98,6 @@ const VerifyOtp = () => {
                                     </div>
                                 </div>
                             </div>
-                            {/* <div className='errorMain'>
-                                <Image src={Images.CrossCircle} alt="crossImage" className="img-fluid" />
-                                <span className='errorMsg'>Wrong code. Try again or correct your phone number.</span>
-                            </div> */}
                         </div>
                         <div className='verifyBtn'>
                             <button className='backverifyBtn w-100' type='button' onClick={() => router.push(`/auth/verification`)}>

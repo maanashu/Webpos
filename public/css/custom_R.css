@@ -77,14 +77,14 @@ input:-webkit-autofill:active {
     border-collapse: initial;
   }
   
-  .recent_head {
+  /* .recent_head {
     width: 20%;
     padding: 0px 22px;
     color: #7E8AC1;
     font-size: 12px;
     font-weight: 500;
-}
-  .recent_subhead {
+} */
+  /* .recent_subhead {
     font-weight: 400;
     font-size: 12px;
     color: #263682;
@@ -93,7 +93,7 @@ input:-webkit-autofill:active {
     border-top: 1px solid #F5F6FC;
     cursor: pointer;
    
-  }
+  } */
   .recent_subhead:first-child {
     border-radius: 10px 0 0 10px !important;
     border-left: 1px solid #F5F6FC;

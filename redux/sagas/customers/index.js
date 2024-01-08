@@ -111,7 +111,6 @@ function* getUserMarketingStatus(action) {
       throw resp;
     }
   } catch (e) {
-    console.log(e)
     yield put(onErrorStopLoad());
     toast.error(e?.error?.response?.data?.msg);
   }

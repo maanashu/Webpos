@@ -8,7 +8,6 @@ import {
   userSale,
 } from "../../../utilities/images";
 import Image from "next/image";
-import "react-datepicker/dist/react-datepicker.css";
 import Link from "next/link";
 import TCRHeader from "../../../components/commanComonets/TCRHeader";
 import PaginationHeader from "../../../components/commanComonets/PaginationHeader";
@@ -23,12 +22,11 @@ import { useRouter } from "next/router";
 
 const Users = () => {
   const { query } = useRouter();
-
+  const router = useRouter()
   const [selectedTab, setSelectedTab] = useState("all_customers");
   const [timeSpan, setTimeSpan] = useState(query["time-span"] || "week");
   const [limit, setLimit] = useState("10");
   const [page, setPage] = useState(1);
-
 
   const dispatch = useDispatch();
   const authData = useSelector(selectLoginAuth);
@@ -38,7 +36,7 @@ const Users = () => {
   const uniqueId = authData?.usersInfo?.payload?.uniqe_id;
 
   const paginatedCustomersList = customersData?.allCustomersList?.payload;
-  const sellerAreaList = customersData?.sellerAreaList?.payload.data;
+  const sellerAreaList = customersData?.sellerAreaList?.payload?.data;
 
   useEffect(() => {
     if (uniqueId) {
@@ -78,7 +76,9 @@ const Users = () => {
     },
   ];
 
-  console.log(limit)
+  const handleNavigateToTrackStatus = (item) => {
+    router.push(`users/[user-id]`, `users/${item.user_id}`);
+  };
 
   return (
     <div
@@ -142,56 +142,56 @@ const Users = () => {
       </div>
 
       {/* table stats */}
-      <table className="user-stats-table">
-        <tr
-          className="flex-row-space-between"
-          style={{
-            padding: "16px",
-            alignItems: "center",
-            display: "flex",
-            alignItems: "flex-start",
-            alignSelf: "stretch",
-          }}
-        >
-          <th className="users-stats-row-num users-stats-table-head-text">#</th>
-          <th className="users-stats-row-name users-stats-table-head-text">
-            Name
-          </th>
-          <th
-            style={{ minWidth: "150px", padding: "0px 18px" }}
-            className="users-stats-row-total-orders users-stats-table-head-text"
-          >
-            Total Orders
-          </th>
-          <th
-            style={{ minWidth: "150px", padding: "0px 18px" }}
-            className="users-stats-row-total-orders users-stats-table-head-text"
-          >
-            Total Products
-          </th>
-          <th
-            style={{ minWidth: "150px", padding: "0px 18px" }}
-            className="users-stats-row-total-orders users-stats-table-head-text"
-          >
-            Lifetime Spent
-          </th>
-        </tr>
-        {paginatedCustomersList?.data?.map((item, idx) => (
-          <Link
-            key={item?.user_id + idx}
-            href={`users/[user-id]`}
-            as={`users/${item.user_id}`}
-          >
-            <tr className="flex-row-space-between users-stats-table-row">
-              <td className="users-stats-row-num">
+
+      <table className="customers-stats-table">
+        <thead>
+          <tr>
+            <th
+              className="customers-table-data"
+              style={{ border: "none", color: "#7E8AC1", textAlign: "left" }}
+            >
+              #
+            </th>
+            <th
+              className="customers-table-data"
+              style={{ border: "none", color: "#7E8AC1", textAlign: "left" }}
+            >
+              Name
+            </th>
+            <th
+              className="customers-table-data"
+              style={{ border: "none", color: "#7E8AC1", textAlign: "left" }}
+            >
+              Total Orders
+            </th>
+            <th
+              className="customers-table-data"
+              style={{ border: "none", color: "#7E8AC1", textAlign: "left" }}
+            >
+              Total Products
+            </th>
+            <th
+              className="customers-table-data"
+              style={{ border: "none", color: "#7E8AC1", textAlign: "left" }}
+            >
+              Lifetime Spent
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          {paginatedCustomersList?.data?.map((item, idx) => (
+            <tr className="customers-table-row">
+              <td
+                onClick={() => handleNavigateToTrackStatus(item)}
+                className="customers-table-data"
+              >
                 {(idx + Number(page > 1 ? limit : 0) > 8 ? "" : "0") +
                   (idx + 1 + Number(page > 1 ? limit : 0))}
               </td>
               <td
-                style={{
-                  padding: "6px 0px",
-                }}
-                className="users-stats-row-name"
+                onClick={() => handleNavigateToTrackStatus(item)}
+                className="customers-table-data"
+                style={{ display: "flex", gap: "12px" }}
               >
                 <Image
                   width={36}
@@ -233,26 +233,26 @@ const Users = () => {
                 </div>
               </td>
               <td
-                style={{ minWidth: "150px", padding: "0px" }}
-                className="users-stats-row-total-orders"
+                onClick={() => handleNavigateToTrackStatus(item)}
+                className="customers-table-data"
               >
                 {item?.total_orders}
               </td>
               <td
-                style={{ minWidth: "150px", padding: "0px" }}
-                className="users-stats-row-total-orders"
+                onClick={() => handleNavigateToTrackStatus(item)}
+                className="customers-table-data"
               >
                 {item?.total_products}
               </td>
               <td
-                style={{ minWidth: "150px", padding: "0px" }}
-                className="users-stats-row-total-orders"
+                onClick={() => handleNavigateToTrackStatus(item)}
+                className="customers-table-data"
               >
                 ${Number(item?.life_time_spent).toFixed(2)}
               </td>
             </tr>
-          </Link>
-        ))}
+          ))}
+        </tbody>
       </table>
 
       <div className="pagination-footer flex-row-space-between">
@@ -289,6 +289,7 @@ const Users = () => {
           />
         </div>
       </div>
+      
     </div>
   );
 };

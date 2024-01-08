@@ -36,9 +36,9 @@ const productrefunds = () => {
                                         <th className="recent_head text-center">Quantity</th>
                                         <th className="recent_head text-center">Line Total</th>
                                         <th className="recent_head">
-                                            <label class="custom-checkbox">
+                                            <label className="custom-checkbox">
                                                 <input type="checkbox" checked />
-                                                <span class="checkmark"></span>
+                                                <span className="checkmark"></span>
                                             </label>
                                         </th>
                                     </tr>
@@ -69,9 +69,9 @@ const productrefunds = () => {
                                             $90.00
                                         </td>
                                         <td className="recent_subhead">
-                                            <label class="custom-checkbox">
+                                            <label className="custom-checkbox">
                                                 <input type="checkbox" checked />
-                                                <span class="checkmark"></span>
+                                                <span className="checkmark"></span>
                                             </label>
                                         </td>
                                     </tr>
@@ -100,9 +100,9 @@ const productrefunds = () => {
                                             $90.00
                                         </td>
                                         <td className="recent_subhead">
-                                            <label class="custom-checkbox">
+                                            <label className="custom-checkbox">
                                                 <input type="checkbox" checked />
-                                                <span class="checkmark"></span>
+                                                <span className="checkmark"></span>
                                             </label>
                                         </td>
                                     </tr>
@@ -131,9 +131,9 @@ const productrefunds = () => {
                                             $90.00
                                         </td>
                                         <td className="recent_subhead">
-                                            <label class="custom-checkbox">
+                                            <label className="custom-checkbox">
                                                 <input type="checkbox" />
-                                                <span class="checkmark"></span>
+                                                <span className="checkmark"></span>
                                             </label>
                                         </td>
                                     </tr>

@@ -6,10 +6,14 @@ import { selectLoginAuth } from '../redux/slices/auth';
 const ProtectedRoute = ({ children }) => {
     const router = useRouter();
     const authData = useSelector(selectLoginAuth)
-    const isAuthenticated = authData?.posUserLoginDetails?.payload?.token
+    // const isAuthenticated = authData?.posUserLoginDetails?.payload?.token
+        let token
+    if (typeof window !== 'undefined') {  
+      token = localStorage.getItem("authToken") ? localStorage.getItem("authToken")  : "";
+    }
     useEffect(() => {
 
-        if (isAuthenticated) {
+        if (token) {
             router.replace('/home/overview'); // Redirect to dashboard
         }
     }, []);
