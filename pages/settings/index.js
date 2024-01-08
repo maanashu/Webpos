@@ -20,6 +20,7 @@ import Image from "next/image";
 import StaffList from "./staff";
 import Devices from "./device";
 import Receipts from "./Receipts";
+import Taxes from "./Taxes";
 export default function Settings() {
   const [selectedItem, setSelectedItem] = useState("Security");
   console.log(selectedItem, "selectedItem");
@@ -81,6 +82,8 @@ export default function Settings() {
         return <Devices />;
       case "Receipts":
         return <Receipts />;
+      case "Taxes":
+        return <Taxes />;
       default:
         return null;
     }
