@@ -27,7 +27,7 @@ const DeliverOrders = () => {
                                 <Image src={Images.arrowDown} alt='arrowDown image' className='img-fluid text-end' />
                             </div>
                             <div className='table-responsive mt-3'>
-                                <table id="" className="orderDeliverTable">
+                                <table id="" className="orderDeliverTable shipTableData">
                                     <thead className='invoiceHeadingBox'>
                                         <tr>
                                             <th className='invoiceHeading'>#</th>

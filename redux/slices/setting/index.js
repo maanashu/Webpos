@@ -8,6 +8,7 @@ export const settingSlice = createSlice({
     name: "setting",
     initialState,
     reducers: {
+        // start security slices..........................................
         getSecurityScanerCode: (state) => {
             state.loading = true;
         },
@@ -44,6 +45,28 @@ export const settingSlice = createSlice({
         setResetGoogleAuthenticator: (state, action) => {
             state.loading = false;
         },
+        // end security slices//////////////////////////////////////////////
+
+        // start staff slices..........................................
+        addNewStaff: (state) => {
+            state.loading = true;
+        },
+        setaddNewStaff: (state, action) => {
+            state.loading = false;
+        },
+        getStaffDetails: (state) => {
+            state.loading = true;
+        },
+        setGetStaffDetails: (state, action) => {
+            state.loading = false;
+        },
+        getStaffRoles: (state) => {
+            state.loading = true;
+        },
+        setGetStaffRoles: (state, action) => {
+            state.loading = false;
+        },
+        // end staff slices////////////////////////////////////////////
         onErrorStopLoad: (state) => {
             state.loading = false;
         },
@@ -64,6 +87,12 @@ export const {
     setForgetGoogleAuthenticator,
     resetGoogleAuthenticator,
     setResetGoogleAuthenticator,
+    addNewStaff,
+    setaddNewStaff,
+    getStaffDetails,
+    setGetStaffDetails,
+    getStaffRoles,
+    setGetStaffRoles,
     onErrorStopLoad
 } = settingSlice.actions;
 

@@ -55,7 +55,7 @@ const CreateCustomerModal = () => {
                     </figure>
                     <h4 className='loginheading mt-2'>Create a new customer</h4>
                 </div>
-                <form className='createCustomForm'>
+                <form className='createCustomForm'> 
                     <div className=" verifySelect">
                         <label className="form-label amountText m-0">Phone Number</label>
                         <div id="result" className='phoneIcon'>
@@ -64,7 +64,7 @@ const CreateCustomerModal = () => {
                                 // value={phoneCode + phoneNo}
                                 enableSearch={true}
                                 name={generateRandomName}
-                                placeholder="Phone no."
+                                placeholder="Phone no." 
                                 autoComplete="off"
                                 onChange={(value, data, event, formattedValue) => onChangePhoneNumber(value, data, event, formattedValue)}
                             />

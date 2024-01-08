@@ -43,18 +43,14 @@ import Marlboro from "../public/images/marlboro.svg";
 import sideToggle from "../public/images/sideToggle.svg";
 import Logo from "../public/images/Logo.svg";
 import ProductsServices from "../public/images/ProductsServices.svg";
-import ProductsServicesactive from "../public/images/ProductsServicesinactive.svg";
 import DeliveryOrders from "../public/images/DeliveryOrders.svg";
-import DeliveryOrdersactive from "../public/images/DeliveryOrdersInactive.svg";
 import ShippingOrders from "../public/images/ShippingOrders.svg";
-import ShippingSolid from "../public/images/Shipping_Solid.svg";
 import Settings from "../public/images/Settings.svg";
 import Rewards from "../public/images/Rewards.svg";
 import Customer from "../public/images/Customer.svg";
 import CashDrawer from "../public/images/CashDrawer.svg";
 import Wallets from "../public/images/Wallets.svg";
 import Analytics from "../public/images/Analytics.svg";
-import ChartSolid from "../public/images/Chart_Solid.svg";
 import Appointments from "../public/images/Appointments.svg";
 import LogOut from "../public/images/LogOut.svg";
 import ProductIcon from "../public/images/ProductIcon.svg";
@@ -170,7 +166,7 @@ import calendarBlue from "../public/images/calendarBlue.svg"
 import notification from "../public/images/notification.svg"
 import listImg from "../public/images/listImg.svg"
 import backArrow from "../public/images/backArrow.svg"
-import calendarSmall from "../public/images/calendarSmall.svg" 
+import calendarSmall from "../public/images/calendarSmall.svg"
 import userImages from "../public/images/userImages.png"
 import settingBlue from "../public/images/settingBlue.svg"
 import userAvtar from "../public/images/userAvtar.png"
@@ -178,8 +174,8 @@ import usersImages from "../public/images/usersImages.svg"
 import clockImg from "../public/images/clockImg.svg"
 import editImg from "../public/images/editImg.svg"
 import checkImg from "../public/images/checkImg.svg"
-import locatePurple from "../public/images/locatePurple.svg" 
-import complete from "../public/images/complete.svg" 
+import locatePurple from "../public/images/locatePurple.svg"
+import complete from "../public/images/complete.svg"
 import walletCoin from "../public/images/walletCoin.svg"
 import scanner from "../public/images/scanner.png"
 import gross_profit_blue from "../public/images/gross_profit_blue.png"
@@ -207,43 +203,10 @@ import bagImg from "../public/images/bagImg.png"
 import lightBell from "../public/images/lightBell.svg"
 import darkBell from "../public/images/darkBell.svg"
 import storeDark from "../public/images/storeDark.svg"
-import deliverDark from '../public/images/deliverDark.svg'
+import deliverDark from "../public/images/deliverDark.svg"
 import PlaneDark from "../public/images/PlaneDark.svg"
-import Fast from "../public/images/Fast.svg"
-import CalendarSolid from "../public/images/Calendar_Solid.svg"
-import WalletSolid from "../public/images/Wallet_Solid.svg"
-import CashSolid from "../public/images/Cash_Solid.svg"
-import UsersSolid from "../public/images/Users_Solid.svg"
-import RewardsSolid from "../public/images/Rewards_Solid.svg"
-import SettingsSolid from "../public/images/Settings_Solid.svg"
-import order_frequency from "../public/images/order_frequency.png"
-import locationOutline from "../public/images/Location_Outline.png";
-import ringing from "../public/images/Ringing.png";
-import settingsBoxes from "../public/images/Settings_Boxes.png";
-import settingsDetails from "../public/images/Settings_Details.png";
-import settingsDevices from "../public/images/Settings_Devices.png";
-import settingsLanguage from "../public/images/Settings_Language.png";
-import settingsLaw from "../public/images/Settings_Law.png";
-import settingsMoney from "../public/images/Settings_Money.png";
-import settingsPolicies from "../public/images/Settings_Policies.png";
-import settingsReceipt from "../public/images/Settings_Receipt.png";
-import settingsSecurity from "../public/images/Settings_Security.png";
-import settingsTax from "../public/images/Settings_Tax.png";
-import usersOutline from "../public/images/Users_Outline.png";
-import walletOutline from "../public/images/Wallet_Outline.png";
-import deliverHand from "../public/images/deliverHand.svg"
-import driverProfile from "../public/images/driverProfile.svg"
-import map from "../public/images/Map.png" 
-import maximize from "../public/images/maximize.svg"
-import orderDriver from "../public/images/orderDriver.svg"
-import dotStep from '../public/images/dotStep.svg'
-import lineStep from "../public/images/lineStep.svg"
-import deliverBox from "../public/images/deliverBox.svg"
-import acceptStep from "../public/images/acceptStep.svg"
-import readyStep from "../public/images/readyStep.svg"
-import assignStep from "../public/images/assignStep.svg"
-import timeImg from "../public/images/timeImg.svg"
 import checkinSky from "../public/images/checkinSky.svg"
+import timeImg from "../public/images/timeImg.svg"
 import pickupStep from "../public/images/pickupStep.svg"
 import deliverTime from "../public/images/deliverTime.svg"
 import deliverDot from "../public/images/deliverDot.svg"
@@ -253,7 +216,7 @@ import mapleCard from "../public/images/mapleCard.svg"
 import longStep from "../public/images/longStep.svg"
 import cancelStep from "../public/images/cancelStep.svg"
 import customerImg from "../public/images/customerImg.png"
-import driverSolid from  "../public/images/driverSolid.svg"
+import driverSolid from "../public/images/driverSolid.svg"
 import timeCheck from "../public/images/timeCheck.svg"
 import checkScan from "../public/images/checkScan.svg"
 import shipDhl from "../public/images/shipDhl.svg"
@@ -265,8 +228,59 @@ import sticker from "../public/images/sticker.svg"
 import trackDeliver from "../public/images/trackDeliver.svg"
 import btnSticker from "../public/images/btnSticker.svg"
 import trackOrder from "../public/images/trackOrder.svg"
+import securityTick from "../public/images/securityTick.svg"
+import settingHome from "../public/images/settingHome.svg"
+import darkDevices from "../public/images/darkDevices.svg"
+import printer from "../public/images/printer.svg"
+import checkedImages from "../public/images/checkedImages.svg"
+import arrowLeftPos from "../public/images/arrowLeftPos.svg"
+import rightArrowPos from "../public/images/rightArrowPos.svg"
+import crossBlue from "../public/images/crossBlue.svg"
+import cashDraw from "../public/images/cashDraw.svg"
+import cardReader from "../public/images/cardReader.svg"
+import deviceScan from "../public/images/deviceScan.svg"
+import staffUser from "../public/images/staffUser.svg"
+import addDark from "../public/images/addDark.svg"
+import locationOutline from "../public/images/Location_Outline.png"
+import ringing from "../public/images/Ringing.png"
+import settingsBoxes from "../public/images/Settings_Boxes.png"
+import settingsDetails from "../public/images/Settings_Details.png"
+import settingsDevices from "../public/images/Settings_Devices.png"
+import settingsLanguage from "../public/images/Settings_Language.png"
+import settingsLaw from "../public/images/Settings_Law.png"
+import settingsMoney from "../public/images/Settings_Money.png"
+import settingsPolicies from "../public/images/Settings_Policies.png"
+import settingsReceipt from "../public/images/Settings_Receipt.png"
+import settingsSecurity from "../public/images/Settings_Security.png"
+import settingsTax from "../public/images/Settings_Tax.png"
+import usersOutline from "../public/images/Users_Outline.png"
+import walletOutline from "../public/images/Wallet_Outline.png"
+import settingsPhoneMessage from "../public/images/settingsPhoneMessage.png";
+import settingsEmail from "../public/images/settingsEmail.png";
+import settingsPrinter from "../public/images/settingsPrinter.png";
+import staffProfile from "../public/images/staffProfile.svg"
+import staffLocate from "../public/images/staffLocate.svg"
+import staffMobile from "../public/images/staffMobile.svg"
+import emailStaff from "../public/images/emailStaff.svg"
 
 export {
+  emailStaff,
+  staffMobile,
+  staffLocate,
+  staffProfile,
+  addDark,
+  staffUser,
+  deviceScan,
+  cardReader,
+  cashDraw,
+  printer,
+  darkDevices,
+  settingHome,
+  securityTick,
+  crossBlue,
+  rightArrowPos,
+  arrowLeftPos,
+  checkedImages,
   trackOrder,
   btnSticker,
   trackDeliver,
@@ -286,10 +300,8 @@ export {
   pickupStep,
   timeImg,
   checkinSky,
-  Fast,
   sideArrow,
   overview_sales,
-  order_frequency,
   visa,
   gross_profit_blue,
   gross_profit,
@@ -492,18 +504,7 @@ export {
   darkBell,
   storeDark,
   deliverDark,
-  PlaneDark,  
-  ProductsServicesactive,
-  DeliveryOrdersactive,
-  ShippingSolid,
-  CalendarSolid,
-  ChartSolid,
-  WalletSolid,
-  CashSolid,
-  UsersSolid,
-  RewardsSolid,
-  SettingsSolid,
-  // PlaneDark,
+  PlaneDark,
   locationOutline,
   ringing,
   settingsBoxes,
@@ -518,19 +519,12 @@ export {
   settingsTax,
   usersOutline,
   walletOutline,
-  deliverHand,
-  driverProfile,
-  map,
-  maximize,
-  orderDriver,
-  dotStep,
-  lineStep,
-  deliverBox,
-  acceptStep,
-  readyStep,
-  assignStep,
   deliverTime,
   cancelUser,
   cancelPackage,
   mapleCard,
+  settingsPhoneMessage,
+  settingsEmail,
+  settingsPrinter,
+
 };

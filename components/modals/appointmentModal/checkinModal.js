@@ -119,16 +119,9 @@ const CheckinModal = () => {
                 header=
                 {modalDetail.flag === "checkedIn" ?
                     <>
-                        <div className='trackingSub headerModal '>
-                            <figure className='profileImage '>
-                                <Image src={Images.checkinSky} alt="check" className="img-fluid " />
-                            </figure>
-                            <h4 className='loginheading mt-2'>Check In</h4>
-                            <h4 className='trackingHeading'>Confirm the details of your appointment.</h4>
-                            <p onClick={handleOnCloseModal} className='crossModal'>
-                                <Image src={Images.modalCross} alt="modalCross" className="img-fluid" />
-                            </p>
-                        </div>
+                        {/* <div className='trackingSub headerModal '>
+                           
+                        </div> */}
                        
                     </>
                     :

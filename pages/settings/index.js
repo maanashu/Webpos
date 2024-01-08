@@ -17,9 +17,12 @@ import {
   walletOutline,
 } from "../../utilities/images";
 import Image from "next/image";
+import StaffList from "./staff";
+import Devices from "./device";
+import Receipts from "./Receipts";
 export default function Settings() {
   const [selectedItem, setSelectedItem] = useState("Security");
-  console.log(selectedItem,"selectedItem");
+  console.log(selectedItem, "selectedItem");
 
   const settingsOptions = [
     { id: 1, name: "Security", info: "Not Updated", image: settingsSecurity },
@@ -65,7 +68,6 @@ export default function Settings() {
   };
 
   const handleTouch = (item) => {
-    console.log(item, "item");
     setSelectedItem(item?.name);
   };
 
@@ -73,7 +75,12 @@ export default function Settings() {
     switch (selectedItem) {
       case "Security":
         return <Security />;
-
+      case "Staff":
+        return <StaffList />;
+      case "Devices":
+        return <Devices />;
+      case "Receipts":
+        return <Receipts />;
       default:
         return null;
     }
