@@ -3482,6 +3482,7 @@ figure {
     align-items: center;
     justify-content: space-between;
     position: relative;
+    flex-wrap: wrap;
 }
 
 .staffInfoBox::before {
@@ -3492,7 +3493,7 @@ figure {
     right: 0;
     width: 2px;
     height: 113px;
-    left: 100px;
+    left: 0;
     margin: 7px auto;
 }
 
@@ -3531,9 +3532,253 @@ figure {
     padding: 12px;
     width: 100%;
 }
-.staffTimeDivide{
-    background:  #E4E6F2;
+
+.staffTimeDivide {
+    background: #E4E6F2;
     margin: 8px 0;
+}
+
+.staffDetailtable {
+    border-radius: 20px;
+    border: 1px solid #D7DEFF;
+    margin: 12px 0;
+    padding: 12px 16px;
+    height: calc(70vh - 178px);
+    overflow-y: scroll;
+}
+
+.staffDetailtable::-webkit-scrollbar {
+    display: none;
+}
+
+.staffTable {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0 10px;
+    padding: 0 1px;
+}
+
+.staffTableData {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.staffTableOuter {
+    border-radius: 30px;
+    border: 1px solid #F5F6FC;
+    background: #FFF;
+    padding: 12px 8px !important;
+    margin-top: 12px;
+}
+
+.staffSubHead {
+    padding: 16px 10px;
+}
+
+.staffTableText {
+    color: #636E9F;
+    font-size: 12px;
+    font-weight: 500;
+}
+
+.paidBtn {
+    border-radius: 30px;
+    background: #A6F4C5;
+    padding: 4px 13px;
+    color: #027547;
+    font-size: 12px;
+    font-weight: 500;
+    border: none;
+}
+
+.viewBtn {
+    padding: 4px 6px;
+    border-radius: 30px;
+    background: #E4E6F2;
+    color: #263682;
+    border: none;
+    font-size: 12px;
+    font-weight: 500;
+}
+
+.unpaidBtn {
+    border-radius: 30px;
+    background: #FEE4E2;
+    padding: 4px 13px;
+    color: #D92D20;
+    font-size: 12px;
+    font-weight: 500;
+    border: none;
+}
+
+.requestBtn {
+    border-radius: 30px;
+    background: #263682;
+    padding: 4px 8px;
+    border: none;
+    color: #FFF;
+    font-size: 12px;
+    font-weight: 500;
+}
+
+.staffSubData {
+    border-radius: 20px;
+    border: 1px solid #D7DEFF;
+    background: #FFF;
+    box-shadow: -2px 4px 25px 0px rgba(50, 80, 127, 0.02), -4px 10px 80px 0px rgba(50, 80, 127, 0.04);
+}
+
+.staffTableHeading {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 8px;
+}
+
+.staffBoxData {
+    width: 25%;
+    text-align: center;
+}
+
+.staffTableSub {
+    display: flex;
+    align-items: center;
+    justify-content: end;
+}
+
+.staffBoxSub {
+    border-radius: 30px;
+    border: 1px solid #D7DEFF;
+    background: #FFF;
+    padding: 12px 8px !important;
+    width: 90%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: relative;
+}
+
+.staffBoxSub::before {
+    content: "";
+    background-image: url(/_next/static/media/SubLine.1d9c78fd.svg);
+    width: 80px;
+    height: 30px;
+    position: absolute;
+    left: -69px;
+    top: 0;
+}
+
+.staffSecond {
+    border-radius: 30px;
+    border: 1px solid #D7DEFF;
+    background: #FFF;
+    padding: 12px 8px !important;
+    width: 90%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: relative;
+    margin-top: 8px;
+
+}
+
+.staffSecond::before {
+    content: "";
+    background-image: url(/_next/static/media/SubLineLg.db03f272.svg);
+    width: 80px;
+    height: 85px;
+    position: absolute;
+    left: -69px;
+    top: -33px;
+}
+
+.staffTableOuter.active,
+.staffTableOuter:hover {
+    border-radius: 20px;
+    border: 1px solid #D7DEFF;
+    background: #FFF;
+    box-shadow: -2px 3px 25px 0px rgba(50, 80, 127, 0.02), -5px 10px 80px 0px rgba(50, 80, 127, 0.04);
+}
+
+.staffLocateRight {
+    border-radius: 20px;
+    background: #FFF;
+    padding: 16px 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.JobrLocation {
+    background-color: #F5F6FC;
+    padding: 40px;
+    border-radius: 12px;
+    width: 85%;
+}
+
+.LocateDetail {
+    display: flex;
+    align-items: start;
+    gap: 50px;
+    margin: 40px 0;
+}
+
+.LocateHeading {
+    color: #203289;
+    font-size: 12px;
+    font-weight: 500;
+}
+
+.LocateSubText {
+    color: #203289;
+    font-size: 12px;
+    font-weight: 400;
+}
+
+.jobrBtn {
+    border-radius: 24px;
+    border: 1px solid #263682;
+    padding: 4px 7px;
+    color: #203289;
+    font-size: 12px;
+    font-weight: 400;
+    background-color: transparent;
+}
+
+.locateLightText {
+    color: #203289;
+    font-size: 12px;
+    font-weight: 300;
+}
+
+.billSection {
+    border-radius: 15.955px;
+    border: 1px solid #D7DEFF;
+    padding: 20px 40px;
+}
+.billHeading{
+    color: #203289;
+    font-size: 14px;
+    font-weight: 500;
+}
+
+.billFlex{
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    padding-left: 40px;
+    margin-top: 18px;
+}
+.billSubtotal{
+    display: flex;
+    align-items: center;
+    justify-content: end;
+}
+.descriptRight{
+    display: flex;
+    align-items: center;
+    gap: 10px;
 }
 /*setting css end*/
 /*media query start*/
@@ -3597,6 +3842,9 @@ figure {
         overflow-y: scroll;
     }
 
+    .staffInfoBox::before {
+        left: 30px;
+    }
 }
 
 @media (max-width:1366px) {
@@ -3609,6 +3857,10 @@ figure {
 
     .offerdata {
         height: calc(40vh - 164px);
+    }
+
+    .staffInfoBox::before {
+        left: 45px;
     }
 
 }
@@ -3647,5 +3899,16 @@ figure {
     .deliverOrderData .deliverSubdata {
         width: 100%;
         min-width: 120px;
+    }
+
+    .staffInfoBox::before {
+        left: 80px;
+    }
+}
+
+@media (max-width:1200px) {
+
+    .staffInfoBox::before {
+        display: none;
     }
 }

@@ -794,7 +794,7 @@
     padding: 0 1px;
 }
 
-.invoiceHeadingBox {
+.invoiceHeadingBox { 
     position: sticky;
     top: 0;
 }
