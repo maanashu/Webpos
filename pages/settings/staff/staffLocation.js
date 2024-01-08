@@ -192,8 +192,8 @@ const StaffLocation = () => {
                                                         <h4 className='locateLightText mt-1'>Add observations  </h4>
                                                     </div>
                                                     <div className='descriptRight'>
-                                                        <span className='LocateSubText me-3'>00</span>
-                                                        <span className='LocateSubText'>$0000</span>
+                                                        <h4 className='LocateSubText'>00</h4>
+                                                        <h4 className='LocateSubText'>$0000</h4>
                                                     </div>
                                                 </div>
                                                 <div className='billFlex'>
@@ -202,8 +202,8 @@ const StaffLocation = () => {
                                                         <h4 className='locateLightText mt-1'>Add observations  </h4>
                                                     </div>
                                                     <div className='descriptRight'>
-                                                        <span className='LocateSubText me-3'>00</span>
-                                                        <span className='LocateSubText'>$0000</span>
+                                                        <h4 className='LocateSubText'>00</h4>
+                                                        <h4 className='LocateSubText'>$0000</h4>
                                                     </div>
                                                 </div>
                                                 <div className='billFlex'>
@@ -212,8 +212,8 @@ const StaffLocation = () => {
                                                         <h4 className='locateLightText mt-1'>Add observations  </h4>
                                                     </div>
                                                     <div className='descriptRight'>
-                                                        <span className='LocateSubText me-3'>00</span>
-                                                        <span className='LocateSubText'>$0000</span>
+                                                        <h4 className='LocateSubText'>00</h4>
+                                                        <h4 className='LocateSubText'>$0000</h4>
                                                     </div>
                                                 </div>
                                                 <div className='billFlex'>
@@ -222,12 +222,15 @@ const StaffLocation = () => {
                                                         <h4 className='locateLightText mt-1'>Add observations  </h4>
                                                     </div>
                                                     <div className='descriptRight'>
-                                                        <span className='LocateSubText me-3'>00</span>
-                                                        <span className='LocateSubText'>$0000</span>
+                                                        <h4 className='LocateSubText'>00</h4>
+                                                        <h4 className='LocateSubText'>$0000</h4>
                                                     </div>
                                                 </div>
                                                 <div className='billSubtotal'>
-                                                    
+                                                    <div className='billSubArea'>
+                                                        <h4 className='LocateSubText'>Subtotal</h4>
+                                                        <h4 className='LocateSubText'>$0000</h4>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>

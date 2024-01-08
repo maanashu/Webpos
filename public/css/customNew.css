@@ -3780,6 +3780,17 @@ figure {
     align-items: center;
     gap: 10px;
 }
+.billSubtotal{
+    display: flex;
+    align-items: center;
+    justify-content: end;
+}
+.billSubArea{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+}
 /*setting css end*/
 /*media query start*/
 @media (max-width:1600px) {
