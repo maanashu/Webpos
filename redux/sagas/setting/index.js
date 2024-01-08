@@ -30,7 +30,7 @@ function* getSecuritySettingInfo(action) {
       `${USER_SERVICE_URL}/api/v1/user_settings?app_name=${action.payload.app_name}&seller_id=${action.payload.seller_id}`
     );
     if (resp.status) {
-      yield put(setGetSecuritySettingInfo(resp.data));
+      yield put(setGetSecuritySettingInfo(resp.data?.payload));
       yield call(action.payload.cb, (action.res = resp));
       // toast.success(resp?.data?.msg);
     } else {

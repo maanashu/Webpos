@@ -21,6 +21,7 @@ export const settingSlice = createSlice({
     },
     setGetSecuritySettingInfo: (state, action) => {
       state.loading = false;
+      state.getSettings = action?.payload;
     },
     configureGoogleAuthenticator: (state) => {
       state.loading = true;
