@@ -262,8 +262,11 @@ import staffProfile from "../public/images/staffProfile.svg"
 import staffLocate from "../public/images/staffLocate.svg"
 import staffMobile from "../public/images/staffMobile.svg"
 import emailStaff from "../public/images/emailStaff.svg"
+import arrowLeftUp from "../public/images/arrowLeftUp.svg"
+
 
 export {
+  arrowLeftUp,
   emailStaff,
   staffMobile,
   staffLocate,

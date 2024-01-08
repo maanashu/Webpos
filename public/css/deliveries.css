@@ -583,3 +583,33 @@ padding: 12px;
 /* BucketFilter */
 /** End Booking Module **/
 
+/* Refunds */
+    .refundDetails .fontEighteen {
+        color: #636E9F;
+        font-size: 18px;
+        font-weight: 400;
+        font-family:'Rubik';
+    }
+    .refundDetails .innerHeading {
+        color: #636E9F;
+        font-size: 16px ;
+        font-weight: 300;
+        font-family:'Rubik';
+    }
+    .listitems{
+        color: #636E9F;
+        font-size: 16px ;
+        font-weight: 300;
+        font-family:'Rubik';
+    }
+
+ /* Refunds */
+ /* policies */
+ .policiesDetails {
+    border-radius: 20px;
+    background: #FFF;
+    box-shadow: -2px 4px 25px 0px rgba(50, 80, 127, 0.02), -5px 10px 80px 0px rgba(50, 80, 127, 0.04);
+    padding: 40px 30px 24px 30px;
+   
+}
+ /* policies */
