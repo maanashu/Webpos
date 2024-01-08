@@ -558,6 +558,28 @@ padding: 12px;
     display: flex;
     justify-content: space-between;
 }
+.addBucket .checkinDetails {
+    margin: 0;
+    margin-top: 12px;
+}
+.addBucket .checkinDetails {
+    background: #D7DEFF;
+}
+ .unpaidDetails .textSmall {
+    font-weight: 500;
+    background: #fff;
+    padding: 8px;
+    border-radius: 30px;
+}
+.userText{
+    font-size: 14px;
+    color:#263682 ;
+    font-weight: 500;
+    
+}
+.addBucket .serviceDate{
+    border: none;
+}
 /* BucketFilter */
 /** End Booking Module **/
 
