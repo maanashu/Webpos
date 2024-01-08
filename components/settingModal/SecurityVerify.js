@@ -95,6 +95,7 @@ const SecurityVerification = (props) => {
                         if (props?.flag === "loginModal") {
                             router.push("/home/overview")
                             localStorage.removeItem('PhoneNumber');
+                            localStorage.removeItem('2FAToken');
                             localStorage.setItem("authToken", props?.getUserToken ? props?.getUserToken : "")
                             setTimeout(() => {
                                 props?.close()
@@ -110,7 +111,6 @@ const SecurityVerification = (props) => {
             );
         }
     };
-
 
     return (
         <>

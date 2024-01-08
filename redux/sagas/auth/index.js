@@ -16,6 +16,7 @@ function* userMerchantLogin(action) {
   try {
     const resp = yield call(ApiClient.post, (`${AUTH_API_URL}/api/v1/users/merchant/login`), (action.payload = action.payload));
     if (resp.status) {
+      localStorage.setItem("merchantAuthToken", resp.data?.payload?.token ? resp.data?.payload?.token : "")
       yield put(setUserMerchantLogin(resp.data));
       yield call(action.payload.cb, (action.res = resp));
       // toast.success(resp?.data?.msg);

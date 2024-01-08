@@ -1,18 +1,21 @@
 import { all, call, put, takeLatest } from "redux-saga/effects";
 import { ApiClient } from "../../../utilities/api";
+import { MerchantApiClient } from "../../../utilities/merchantApi";
 import {
   onErrorStopLoad,
   setConfigureGoogleAuthenticator,
-setGetSecurityScanerCode,
-setGetSecuritySettingInfo,
-setVerifyGoogleAuthenticator,
-setForgetGoogleAuthenticator,
-setResetGoogleAuthenticator
+  setGetSecurityScanerCode,
+  setGetSecuritySettingInfo,
+  setVerifyGoogleAuthenticator,
+  setForgetGoogleAuthenticator,
+  setResetGoogleAuthenticator,
+  setaddNewStaff,
+  setGetStaffDetails
 } from "../../slices/setting";
 import { toast } from "react-toastify";
-import { ORDER_API_URL, AUTH_API_URL,USER_SERVICE_URL } from "../../../utilities/config"
+import { ORDER_API_URL, AUTH_API_URL, USER_SERVICE_URL } from "../../../utilities/config"
 
-// Worker saga will be fired on USER_FETCH_REQUESTED actions
+// security module generator function start........................
 function* getSecuritySettingInfo(action) {
   const dataToSend = { ...action.payload }
   delete dataToSend.cb
@@ -55,7 +58,7 @@ function* configureGoogleAuthenticator(action) {
   const dataToSend = { ...action.payload }
   delete dataToSend.cb
   try {
-    const resp = yield call(ApiClient.post, (`${AUTH_API_URL}/api/v1/users/2fa/configure-qr-code`),(action.payload = action.payload));
+    const resp = yield call(ApiClient.post, (`${AUTH_API_URL}/api/v1/users/2fa/configure-qr-code`), (action.payload = action.payload));
     if (resp.status) {
       yield put(setConfigureGoogleAuthenticator(resp.data));
       yield call(action.payload.cb, (action.res = resp));
@@ -74,7 +77,7 @@ function* verifyGoogleAuthenticator(action) {
   const dataToSend = { ...action.payload }
   delete dataToSend.cb
   try {
-    const resp = yield call(ApiClient.post, (`${AUTH_API_URL}/api/v1/users/2fa/verify`),(action.payload = action.payload));
+    const resp = yield call(ApiClient.post, (`${AUTH_API_URL}/api/v1/users/2fa/verify`), (action.payload = action.payload));
     if (resp.status) {
       yield put(setVerifyGoogleAuthenticator(resp.data));
       yield call(action.payload.cb, (action.res = resp));
@@ -110,7 +113,7 @@ function* resetGoogleAuthenticator(action) {
   const dataToSend = { ...action.payload }
   delete dataToSend.cb
   try {
-    const resp = yield call(ApiClient.post, (`${AUTH_API_URL}/api/v1/users/2fa/reset`),(action.payload = action.payload));
+    const resp = yield call(ApiClient.post, (`${AUTH_API_URL}/api/v1/users/2fa/reset`), (action.payload = action.payload));
     if (resp.status) {
       yield put(setResetGoogleAuthenticator(resp.data));
       yield call(action.payload.cb, (action.res = resp));
@@ -124,15 +127,62 @@ function* resetGoogleAuthenticator(action) {
     toast.error(e?.error?.response?.data?.msg);
   }
 }
+// security module generator function end///////////////////////////////////////////
+
+
+// staff module generator function start...........................................
+
+function* addNewStaff(action) {
+  const dataToSend = { ...action.payload }
+  delete dataToSend.cb
+  try {
+    const resp = yield call(MerchantApiClient.post, (`${AUTH_API_URL}/api/v1/users/merchant/pos-user`), (action.payload = action.payload));
+    if (resp.status) {
+      yield put(setaddNewStaff(resp.data));
+      yield call(action.payload.cb, (action.res = resp));
+      toast.success(resp?.data?.msg);
+    }
+    else {
+      throw resp
+    }
+  } catch (e) {
+    yield put(onErrorStopLoad())
+    toast.error(e?.error?.response?.data?.msg);
+  }
+}
+
+function* getStaffDetails(action) {
+  const dataToSend = { ...action.payload }
+  delete dataToSend.cb
+  try {
+    const resp = yield call(MerchantApiClient.get, (`${AUTH_API_URL}/api/v1/pos_staff_salary/get-staff-detail`));
+    if (resp.status) {
+      yield put(setGetStaffDetails(resp.data));
+      yield call(action.payload.cb, (action.res = resp));
+      toast.success(resp?.data?.msg);
+    }
+    else {
+      throw resp
+    }
+  } catch (e) {
+    yield put(onErrorStopLoad())
+    toast.error(e?.error?.response?.data?.msg);
+  }
+}
+// staff module generator function end///////////////////////////////////////////
 
 function* settingSaga() {
   yield all([
+    // setting/security API START
     takeLatest("setting/getSecuritySettingInfo", getSecuritySettingInfo),
     takeLatest("setting/getSecurityScanerCode", getSecurityScanerCode),
     takeLatest("setting/configureGoogleAuthenticator", configureGoogleAuthenticator),
     takeLatest("setting/verifyGoogleAuthenticator", verifyGoogleAuthenticator),
     takeLatest("setting/forgetGoogleAuthenticator", forgetGoogleAuthenticator),
     takeLatest("setting/resetGoogleAuthenticator", resetGoogleAuthenticator),
+    // setting/security API END
+    takeLatest("setting/addNewStaff", addNewStaff),
+    takeLatest("setting/getStaffDetails", getStaffDetails),
   ]);
 }
 

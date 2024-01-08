@@ -60,7 +60,7 @@ const Login = () => {
                                             <div className="spinner-grow loaderSpinner text-center my-5"></div>
                                         </div>
                                     </>
-                                ) : (
+                                 ) : (
                                     GetPosUserList?.length > 0 ? (
                                         <>
                                             {GetPosUserList?.map((data, index) => {

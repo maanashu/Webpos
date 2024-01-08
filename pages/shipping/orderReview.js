@@ -649,7 +649,7 @@ const OrderReview = () => {
                     ''
                 }
                 onCloseModal={() => handleOnCloseModal()}
-            />
+            /> 
         </>
     )
 }
