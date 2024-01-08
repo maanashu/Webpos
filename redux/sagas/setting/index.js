@@ -206,15 +206,12 @@ function* updateSettings(action) {
       (action.payload = action.payload)
     );
     if (resp.status) {
-      console.log("api-success", JSON.stringify(resp));
-      yield put(setUpdateSettings(resp.data));
-      // yield call(action.payload.cb, (action.res = resp));
+      yield put(setUpdateSettings(resp.data?.payload));
       toast.success(resp?.data?.msg);
     } else {
       throw resp;
     }
   } catch (e) {
-    console.log("catch error", JSON.stringify(e));
     yield put(onErrorStopLoad());
     toast.error(e?.error?.response?.data?.msg);
   }

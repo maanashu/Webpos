@@ -1,48 +1,34 @@
-import { useEffect, useState } from "react";
 import styles from "./styles.module.css";
-import CustomModal from "../../../components/customModal/CustomModal";
 import * as Images from "../../../utilities/images";
 import Image from "next/image";
 import { useDispatch, useSelector } from "react-redux";
-import { selectLoginAuth } from "../../../redux/slices/auth";
-import SecurityVerification from "../../../components/settingModal/SecurityVerify";
-import ActivateSecurityModal from "../../../components/settingModal/activateSecurityModal";
-import ForgetSecurityPin from "../../../components/settingModal/ForgetSecurityPin";
-import GetSecurityScanerCode from "../../../components/settingModal/GetSecurityScaner";
-import { getProfile } from "../../../redux/slices/dashboard";
 import { settingInfo, updateSettings } from "../../../redux/slices/setting";
 
 const Receipts = () => {
-  const authData = useSelector(selectLoginAuth);
-  const receiptSettings = useSelector(settingInfo);
-  const userId = receiptSettings?.getSettings;
   const dispatch = useDispatch();
-  const [isSms, setSms] = useState(false);
-  const [isEmail, setEMail] = useState(false);
-  const [isPrintInvoice, setPrintInvoice] = useState(false);
+  const receiptSettings = useSelector(settingInfo);
+  const userSettings = receiptSettings?.getSettings;
 
-  // console.log("settings", userId);
-  // apply API for get user profile information
-  const getProfileInfo = (userId) => {
-    let params = {
-      print_invoice_status: true,
-    };
-    dispatch(
-      updateSettings({
-        ...params,
-        cb(res) {
-          console.log("check resp", res);
-          if (res.status) {
-            setSms(res?.data?.payload?.user_profiles?.is_two_fa_enabled);
-          }
-        },
-      })
-    );
+  const smsStatus = userSettings?.invoice_sms_send_status;
+  const emailStatus = userSettings?.invoice_email_send_status;
+  const invoiceStatus = userSettings?.print_invoice_status;
+
+  const handleSettings = (id) => {
+    let data = {};
+    switch (id) {
+      case 1:
+        data.invoice_sms_send_status = !smsStatus;
+        break;
+      case 2:
+        data.invoice_email_send_status = !emailStatus;
+        break;
+      case 3:
+        data.print_invoice_status = !invoiceStatus;
+        break;
+      default:
+    }
+    dispatch(updateSettings(data));
   };
-
-  useEffect(() => {
-    getProfileInfo();
-  }, []);
 
   return (
     <>
@@ -88,10 +74,9 @@ const Receipts = () => {
                     class="form-check-input"
                     type="checkbox"
                     id="flexSwitchCheckChecked"
-                    checked={isSms}
+                    checked={smsStatus}
                     onChange={() => {
-                      setSms(!isSms);
-                      console.log("settings", userId);
+                      handleSettings(1);
                     }}
                   />
                   <label
@@ -126,9 +111,9 @@ const Receipts = () => {
                     class="form-check-input"
                     type="checkbox"
                     id="flexSwitchCheckChecked"
-                    checked={isEmail}
+                    checked={emailStatus}
                     onChange={() => {
-                      setEMail((prev) => !prev);
+                      handleSettings(2);
                     }}
                   />
                   <label
@@ -165,9 +150,9 @@ const Receipts = () => {
                     class="form-check-input"
                     type="checkbox"
                     id="flexSwitchCheckChecked"
-                    checked={isPrintInvoice}
+                    checked={invoiceStatus}
                     onChange={() => {
-                      setPrintInvoice((prev) => !prev);
+                      handleSettings(3);
                     }}
                   />
                   <label
