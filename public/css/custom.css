@@ -174,7 +174,6 @@ a {
 .switch input {
   display: none;
 }
-
 .switch-slider {
   position: absolute;
   cursor: pointer;
