@@ -146,7 +146,7 @@ const Sidebar = (props) => {
             </Link>
           </ListGroupItem>
           <ListGroupItem className="sidebarItems">
-            <Link href="#" className="sidebarLinks">
+            <Link href="/transactions" className="sidebarLinks">
               <Image
                 src={Images.Wallets}
                 alt="image"

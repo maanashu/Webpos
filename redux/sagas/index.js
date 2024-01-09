@@ -3,6 +3,7 @@ import authSaga from "./auth";
 import dashboardSaga from "./dashboard";
 import customersSaga from "./customers";
 import analyticsSaga from "./analytics";
+import transactionsSaga from "./transactions";
 
 export default function* rootSaga() {
     yield all([
@@ -10,6 +11,7 @@ export default function* rootSaga() {
         spawn(dashboardSaga),
         spawn(customersSaga),
         spawn(analyticsSaga),
+        spawn(transactionsSaga),
         // saga1 can also yield [ fork(actionOne), fork(actionTwo) ]
         // fork(saga2),
     ]);
