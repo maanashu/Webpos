@@ -56,6 +56,7 @@ const StaffList = () => {
         );
     };
 
+
     useEffect(() => {
         if (UniqueId) {
             getUserList();
@@ -64,8 +65,8 @@ const StaffList = () => {
 
     return (
         <>
-            <div className='settingMain staffSection'>
-                <div className='row'>
+            {/* <div className='settingMain staffSection'>
+                <div className='row'> */}
                     {/* <div className='col-lg-3'>
                         <div className='deviceLeft settingOuter'>
                             <ListGroup>
@@ -207,10 +208,9 @@ const StaffList = () => {
                             </ListGroup>
                         </div>
                     </div> */}
-
-                    <div className='col-lg-9'>
+                    {/* <div className='col-lg-9'> */}
                         <div className='staffRight settingOuter'>
-                            <Image src={Images.customerUsers} alt="customerUsers image" className="img-fluid" hight={100} width={100}/>
+                            <Image src={Images.customerUsers} alt="customerUsers image" className="img-fluid"/>
                             <div className='staffData'>
                                 <h4 className='appointMain'>Staff List</h4>
                                 <p className='lightOfferText mt-2'>Active in the markets they've been added to and visible to customers.</p>
@@ -281,9 +281,9 @@ const StaffList = () => {
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    {/* </div>
                 </div>
-            </div>
+            </div> */}
             <CustomModal
                 key={key}
                 show={modalDetail.show}

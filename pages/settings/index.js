@@ -15,17 +15,25 @@ import {
   settingsTax,
   usersOutline,
   walletOutline,
+  securityTick,
+  settingHome,
+  settingsDetails,
 } from "../../utilities/images";
 import Image from "next/image";
 import StaffList from "./staff";
 import Devices from "./device";
 import Receipts from "./Receipts";
+import { ListGroup } from "react-bootstrap";
+import ListGroupItem from "react-bootstrap";
+import Link from "next/link";
+
+
 export default function Settings() {
   const [selectedItem, setSelectedItem] = useState("Security");
   console.log(selectedItem, "selectedItem");
 
   const settingsOptions = [
-    { id: 1, name: "Security", info: "Not Updated", image: settingsSecurity },
+    { id: 1, name: "Security", info: "Not Updated", image: securityTick },
     { id: 2, name: "Devices", info: "Not Connected", image: settingsDevices },
     { id: 3, name: "Notifications", info: "Not Updated", image: ringing },
     { id: 4, name: "Locations", info: "1 Locations", image: locationOutline },
@@ -48,22 +56,19 @@ export default function Settings() {
     { id: 11, name: "Language", info: "English", image: settingsLanguage },
     { id: 12, name: "Legal", info: "English", image: settingsLaw },
     { id: 13, name: "Policies", info: "Default", image: settingsPolicies },
+    { id: 14, name: "Shop", info: "Locations", image: settingHome },
+    { id: 15, name: "Locations", info: "1 Locations", image: settingsDetails },
   ];
   const SettingsBar = ({ item }) => {
     return (
-      <button
-        onClick={() => handleTouch(item)}
-        className="settings-sidebar-button "
-      >
-        <div className="settings-sidebar-options-view">
-          <Image src={item?.image} className="settings-sidebar-icons" />
 
-          <div className={styles.sidebarTitleView}>
-            <h1 className="settings-bar-titles">{item?.name}</h1>
-            <h1 className="settings-bar-titles-info">{item?.info}</h1>{" "}
-          </div>
+      <Link className="settingList" href="#" onClick={() => handleTouch(item)}>
+        <Image src={item?.image} className="SecurityImg" />
+        <div className="securityHeading">
+          <h1 className="settingText">{item?.name}</h1>
+          <h1 className="settingSub mt-1">{item?.info}</h1>{" "}
         </div>
-      </button>
+      </Link>
     );
   };
 
@@ -86,14 +91,20 @@ export default function Settings() {
     }
   };
   return (
-    <div className="settings-main-container">
-      <div className="settings-options-container">
-        {settingsOptions.map((item) => (
-          <SettingsBar key={item.id} item={item} />
-        ))}
-      </div>
-      <div className="settings-component-container">
-        <div>{renderComponent()}</div>
+    <div className="settingMain">
+      <div className="row">
+        <div className="col-lg-3">
+          <div className="deviceLeft settingOuter">
+            <ListGroup>
+              {settingsOptions.map((item) => (
+                <SettingsBar key={item.id} item={item} />
+              ))}
+            </ListGroup>
+          </div>
+        </div>
+        <div className="col-lg-9">
+          <div>{renderComponent()}</div>
+        </div>
       </div>
     </div>
   );

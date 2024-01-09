@@ -267,9 +267,12 @@ import SubLine from "../public/images/SubLine.svg"
 import SubLineLg from "../public/images/SubLineLg.svg"
 import jobrIcon from "../public/images/jobrIcon.svg"
 import arrowLeftUp from "../public/images/arrowLeftUp.svg"
-
+import minusBtn from "../public/images/minusBtn.svg"
+import plusBtn from "../public/images/plusBtn.svg"
 
 export {
+  plusBtn,
+  minusBtn,
   jobrIcon,
   SubLineLg,
   SubLine,

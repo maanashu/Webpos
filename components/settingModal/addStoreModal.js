@@ -1,19 +1,32 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import * as Images from "../../utilities/images";
 import Image from "next/image";
 import PhoneInput from 'react-phone-input-2';
-import { addNewStaff } from '../../redux/slices/setting';
-import { useDispatch } from 'react-redux';
+import { addNewStaff, getStaffRoles } from '../../redux/slices/setting';
+import { useDispatch, useSelector } from 'react-redux';
+import { selectLoginAuth } from '../../redux/slices/auth';
+import Multiselect from 'multiselect-react-dropdown';
+// import { ChromePicker } from 'react-colorful';
+// import 'react-colorful/dist/';
+import { ChromePicker } from 'react-color';
+
 
 const AddStoreModal = (props) => {
     const dispatch = useDispatch();
+    const authData = useSelector(selectLoginAuth)
+    const UniqueId = authData?.usersInfo?.payload?.uniqe_id
     const [staffName, setStaffName] = useState("");
     const [staffPassword, setStaffPassword] = useState("");
     const [staffEmailAddress, setStaffEmailAddress] = useState("");
     const [isStaffMember, setIsStaffMember] = useState(false);
-    console.log(isStaffMember,"isStaffMember");
     const [phoneCode, SetPhoneCode] = useState("");
     const [phoneNo, setPhoneNo] = useState("");
+    const [staffRoles, setStaffRoles] = useState("");
+    const [selectedRoleId, setSelectedRoleId] = useState([]);
+    const [selected, setSelected] = useState([]);
+    const [selectedColor, setSelectedColor] = useState("");
+    const [displayColorPicker, setDisplayColorPicker] = useState(false);
+
     const generateRandomName = () => {
         return Math.random().toString(36).substr(2, 10);
     };
@@ -30,10 +43,20 @@ const AddStoreModal = (props) => {
         SetPhoneCode(phoneCode);
     }
 
+    // function for close color modal after select
+    const handleColorPickerChangeComplete = () => {
+        setDisplayColorPicker(false);
+    };
 
-  const handleSelectChange = (value) => {
+    // function for open color modal after select
+    const handleButtonClick = () => {
+        setDisplayColorPicker(!displayColorPicker);
+    };
 
-  };
+    const handleColorChange = (color) => {
+        setSelectedColor(color.hex);
+    };
+
 
     // API for POS user login..............................
     const handleAddStaff = () => {
@@ -56,21 +79,51 @@ const AddStoreModal = (props) => {
             phone_no: phoneNo,
             email: staffEmailAddress,
             is_staff_member: isStaffMember,
-            role_ids: [1],
+            role_ids: selectedRoleId,
             color_code: "#456413",
         };
         dispatch(
             addNewStaff({
+                ...params,
+                cb(res) {
+                    if (res) {
+
+                    }
+                },
+            })
+        );
+    };
+
+    // API for get STAFF ROLE...............................
+    const getAllStaffRoles = () => {
+        let params = {
+            seller_id: UniqueId,
+        };
+        dispatch(getStaffRoles({
             ...params,
             cb(res) {
-              if (res) {
-               
-    
-              }
+                if (res.status) {
+                    setStaffRoles(res?.data?.payload?.roles)
+                }
             },
-          })
+        })
         );
-      };
+    };
+
+    // driver supplier description
+    const handleChanges = (data) => {
+        setSelected(data)
+        let arr = [];
+        for (let i = 0; i < data.length; i++) { arr.push(data[i].id) }
+        setSelectedRoleId(arr)
+    }
+
+    useEffect(() => {
+        if (UniqueId) {
+            getAllStaffRoles()
+        }
+    }, [UniqueId])
+
     return (
         <>
             <div className='addStoreSection'>
@@ -78,7 +131,7 @@ const AddStoreModal = (props) => {
                     <div className='addStoreData'>
                         <div className='nameForm'>
                             <label className="form-label amountText m-0">Full Name</label>
-                            <input className="form-control nameControl" type="text" placeholder="Marie" value={staffName} onChange={(e) => {setStaffName(e.target.value);}}/>
+                            <input className="form-control nameControl" type="text" placeholder="Marie" value={staffName} onChange={(e) => { setStaffName(e.target.value); }} />
                         </div>
                         <div className="verifySelect mt-2">
                             <label className="form-label amountText m-0">Phone Number</label>
@@ -97,29 +150,59 @@ const AddStoreModal = (props) => {
                         </div>
                         <div className='nameForm mt-2'>
                             <label className="form-label amountText m-0">One Time Password</label>
-                            <input className="form-control nameControl" type="password" placeholder="Password" value={staffPassword} onChange={(e) => {setStaffPassword(e.target.value);}}/>
+                            <input className="form-control nameControl" max={4} type="password" placeholder="Password" value={staffPassword} onChange={(e) => { setStaffPassword(e.target.value); }} />
                         </div>
                         <div className='nameForm mt-2'>
                             <label className="form-label amountText m-0">Email Address</label>
-                            <input className="form-control nameControl" type="email" placeholder="E-mail" value={staffEmailAddress} onChange={(e) => {setStaffEmailAddress(e.target.value);}}/>
+                            <input className="form-control nameControl" type="email" placeholder="E-mail" value={staffEmailAddress} onChange={(e) => { setStaffEmailAddress(e.target.value); }} />
                         </div>
                         <div className='selectRole mt-2'>
-                            <label className="form-label amountText m-0">Role</label>
-                            <select class="form-select" aria-label="Default select example" onChange={(e) => handleSelectChange(e.target.value)}>
+                            {/* <label className="form-label amountText m-0">Role</label>
+                            <select class="form-select" aria-label="Default select example" value={selectedRoleId} onChange={(e) => handleSelectChange(e.target.value)}>
                                 <option selected>Open this select menu</option>
-                                <option value="1">One</option>
-                                <option value="2">Two</option>
-                                <option value="3">Three</option>
-                            </select>
+                                {staffRoles?.length > 0 ?
+                                    <>
+                                        {staffRoles.map((data) => {
+                                            return <option value={data.id}>{data.name}</option>
+                                        })}
+
+                                    </>
+                                    : ""}
+                            </select> */}
+
+                            {staffRoles &&
+                                <Multiselect
+                                    options={staffRoles} // Options to display in the dropdown
+                                    selectedValues={selected} // Preselected value to persist in dropdown
+                                    onSelect={handleChanges} // Function will trigger on select event
+                                    onRemove={handleChanges} // Function will trigger on remove event
+                                    displayValue="name" // Property name to display in the dropdown options
+                                />
+                            }
+
                         </div>
                         <div className='memberColor mt-4'>
                             <div className="roundCheck mb-0">
-                                <input type="checkbox" checked={isStaffMember} onChange={handleCheckboxChange}/>
+                                <input type="checkbox" checked={isStaffMember} onChange={handleCheckboxChange} />
                                 <label className='amountText ms-1'>Staff Member</label>
                             </div>
                             <div className='colorSelect'>
-                                <h4 className='amountText'>Select Color</h4>
-                                <span className='colorBox'></span>
+                                <h4 className='amountText' onClick={handleButtonClick}>Select Color</h4>
+                                {displayColorPicker && (
+                                    <ChromePicker color={selectedColor} onChange={handleColorChange} onChangeComplete={handleColorPickerChangeComplete}
+                                    />
+                                )}
+                                <div style={{ display: 'flex', alignItems: 'center' }}>
+                                    <div className='colorBox'
+                                        style={{
+                                            // position: "absolute",
+                                            background: selectedColor,
+                                            width: '50px',
+                                            height: '20px',
+                                            marginRight: '10px',
+                                        }}
+                                    ></div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -132,8 +215,8 @@ const AddStoreModal = (props) => {
                             <Image src={Images.ArrowRight} alt="rightArrow" className="img-fluid rightImg" />
                         </button>
                     </div>
-                </form>
-            </div>
+                </form >
+            </div >
         </>
     )
 }
