@@ -10,6 +10,7 @@ import {
   setForgetGoogleAuthenticator,
   setResetGoogleAuthenticator,
   setaddNewStaff,
+  setGetStaffRoles,
   setGetStaffDetails
 } from "../../slices/setting";
 import { toast } from "react-toastify";
@@ -136,11 +137,30 @@ function* addNewStaff(action) {
   const dataToSend = { ...action.payload }
   delete dataToSend.cb
   try {
-    const resp = yield call(MerchantApiClient.post, (`${AUTH_API_URL}/api/v1/users/merchant/pos-user`), (action.payload = action.payload));
+    const resp = yield call(ApiClient.post, (`${USER_SERVICE_URL}/api/v1/users/merchant/pos-user`), (action.payload = action.payload));
     if (resp.status) {
       yield put(setaddNewStaff(resp.data));
       yield call(action.payload.cb, (action.res = resp));
       toast.success(resp?.data?.msg);
+    }
+    else {
+      throw resp
+    }
+  } catch (e) {
+    yield put(onErrorStopLoad())
+    toast.error(e?.error?.response?.data?.msg);
+  }
+}
+
+function* getStaffRoles(action) {
+  const dataToSend = { ...action.payload }
+  delete dataToSend.cb
+  try {
+    const resp = yield call(MerchantApiClient.get, (`${AUTH_API_URL}/api/v1/roles?user_id==${action.payload.user_id}`));
+    if (resp.status) {
+      yield put(setGetStaffRoles(resp.data));
+      yield call(action.payload.cb, (action.res = resp));
+      // toast.success(resp?.data?.msg);
     }
     else {
       throw resp
@@ -182,7 +202,9 @@ function* settingSaga() {
     takeLatest("setting/resetGoogleAuthenticator", resetGoogleAuthenticator),
     // setting/security API END
     takeLatest("setting/addNewStaff", addNewStaff),
+    takeLatest("setting/getStaffRoles", getStaffRoles),
     takeLatest("setting/getStaffDetails", getStaffDetails),
+
   ]);
 }
 
