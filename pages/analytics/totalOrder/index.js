@@ -217,7 +217,7 @@ const index = () => {
                           <td
                             className="customers-table-data"
                           >
-                            {row.consumer_returning}
+                            {`${row.consumer_returning} / hour`}
                           </td>
                           <td
                             className="customers-table-data"
