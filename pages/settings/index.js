@@ -95,11 +95,11 @@ export default function Settings() {
       <div className="row">
         <div className="col-lg-3">
           <div className="deviceLeft settingOuter">
-            <ListGroup>
+            <div>
               {settingsOptions.map((item) => (
                 <SettingsBar key={item.id} item={item} />
               ))}
-            </ListGroup>
+            </div>
           </div>
         </div>
         <div className="col-lg-9">

@@ -188,11 +188,13 @@ const AddStoreModal = (props) => {
                                 <label className='amountText ms-1'>Staff Member</label>
                             </div>
                             <div className='colorSelect'>
-                                <h4 className='amountText' onClick={handleButtonClick}>Select Color</h4>
+                                <h4 className='amountText pointHand' onClick={handleButtonClick}>Select Color</h4>
+                                <div className='colorPick'>
                                 {displayColorPicker && (
                                     <ChromePicker color={selectedColor} onChange={handleColorChange} onChangeComplete={handleColorPickerChangeComplete}
                                     />
                                 )}
+                                </div>
                                 <div style={{ display: 'flex', alignItems: 'center' }}>
                                     <div className=''
                                         style={{
@@ -216,8 +218,8 @@ const AddStoreModal = (props) => {
                             <Image src={Images.ArrowRight} alt="rightArrow" className="img-fluid rightImg" />
                         </button>
                     </div>
-                </form >
-            </div >
+                </form>
+            </div>
         </>
     )
 }
