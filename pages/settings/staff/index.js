@@ -7,9 +7,11 @@ import CustomModal from '../../../components/customModal/CustomModal';
 import AddStoreModal from '../../../components/settingModal/addStoreModal';
 import { getAllPosUser, selectLoginAuth } from '../../../redux/slices/auth';
 import { useDispatch, useSelector } from 'react-redux';
+import { useRouter } from 'next/router';
 
 const StaffList = () => {
     const dispatch = useDispatch();
+    const router = useRouter();
     const authData = useSelector(selectLoginAuth)
     const UniqueId = authData?.usersInfo?.payload?.uniqe_id
     const [key, setKey] = useState(Math.random());
@@ -244,7 +246,7 @@ const StaffList = () => {
                                                                     }
                                                                 </div>
                                                             </div>
-                                                            <Image src={Images.RightArrow} alt="RightArrow image" className="staffArrow pointHand" hight={100} width={100}/>
+                                                            <Image src={Images.RightArrow} alt="RightArrow image" className="staffArrow pointHand" hight={100} width={100} onClick={() => router.push({ pathname: '/settings/staff/staffDetail', query: { id: data } })}/>
                                                         </div>
                                                     );
                                                 })}

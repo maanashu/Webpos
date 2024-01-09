@@ -1,6 +1,6 @@
 import React from 'react'
 import { ListGroup, ListGroupItem } from 'react-bootstrap';
-import * as Images from "../../utilities/images"
+import * as Images from "../../../utilities/images"
 import Image from "next/image";
 import Link from 'next/link';
 
@@ -9,7 +9,7 @@ const StaffDetail = () => {
         <>
             <div className='settingMain staffDetailSection'>
                 <div className='row'>
-                    <div className='col-lg-3'>
+                    {/* <div className='col-lg-3'>
                         <div className='deviceLeft settingOuter'>
                             <ListGroup>
                                 <ListGroupItem className='settingListMain'>
@@ -149,7 +149,7 @@ const StaffDetail = () => {
                                 </ListGroupItem>
                             </ListGroup>
                         </div>
-                    </div>
+                    </div> */}
                     <div className='col-lg-9'>
                         <div className='settingOuter staffDetailRight'>
                             <div className='flexTable'>
