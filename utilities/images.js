@@ -266,12 +266,15 @@ import Interline from "../public/images/Interline.svg"
 import SubLine from "../public/images/SubLine.svg"
 import SubLineLg from "../public/images/SubLineLg.svg"
 import jobrIcon from "../public/images/jobrIcon.svg"
+import arrowLeftUp from "../public/images/arrowLeftUp.svg"
+
 
 export {
   jobrIcon,
   SubLineLg,
   SubLine,
   Interline,
+  arrowLeftUp,
   emailStaff,
   staffMobile,
   staffLocate,

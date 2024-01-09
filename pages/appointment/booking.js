@@ -621,18 +621,6 @@ const Booking = () => {
             </div>
 
 
-
-
-
-
-
-
-
-
-
-
-
-
             <CustomModal
                 key={key}
                 show={modalDetail.show}
