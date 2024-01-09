@@ -3705,9 +3705,6 @@ figure {
     border-radius: 20px;
     background: #FFF;
     padding: 16px 24px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
 }
 
 .JobrLocation {
@@ -3757,40 +3754,82 @@ figure {
     border: 1px solid #D7DEFF;
     padding: 20px 40px;
 }
-.billHeading{
+
+.billHeading {
     color: #203289;
     font-size: 14px;
     font-weight: 500;
 }
 
-.billFlex{
+.billFlex {
     display: flex;
     align-items: baseline;
     justify-content: space-between;
     padding-left: 40px;
     margin-top: 18px;
 }
-.billSubtotal{
+
+.billSubtotal {
     display: flex;
     align-items: center;
     justify-content: end;
 }
-.descriptRight{
+
+.descriptRight {
     display: flex;
     align-items: center;
     gap: 10px;
 }
-.billSubtotal{
+
+.billSubtotal {
     display: flex;
-    align-items: center;
-    justify-content: end;
+    align-items: end;
+    flex-direction: column;
 }
-.billSubArea{
+
+.billSubArea {
     display: flex;
     align-items: center;
     justify-content: space-between;
     gap: 20px;
+    margin-top: 16px;
 }
+
+.paymentCondition {
+    display: flex;
+    align-items: start;
+    gap: 30px;
+    margin: 24px 0;
+}
+
+.staffSubLocate {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.locationAdd {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 24px;
+    margin: 16px 0;
+}
+
+.locationAddBtn {
+    border-radius: 50px;
+    border: 1px solid #D7DEFF;
+    padding: 10px;
+    background-color: transparent;
+}
+
+.securityRight {
+    border-radius: 20px;
+    background:  #FFF;
+    box-shadow: -2px 4px 25px 0px rgba(50, 80, 127, 0.02), -5px 10px 80px 0px rgba(50, 80, 127, 0.04);
+    padding: 24px 30px;
+}
+
 /*setting css end*/
 /*media query start*/
 @media (max-width:1600px) {

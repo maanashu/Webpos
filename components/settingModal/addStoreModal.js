@@ -195,7 +195,7 @@ const AddStoreModal = (props) => {
                                 <div style={{ display: 'flex', alignItems: 'center' }}>
                                     <div className='colorBox'
                                         style={{
-                                            position: "absolute",
+                                            // position: "absolute",
                                             background: selectedColor,
                                             width: '50px',
                                             height: '20px',
@@ -205,7 +205,7 @@ const AddStoreModal = (props) => {
                                 </div>
                             </div>
                         </div>
-                    </div >
+                    </div>
                     <div className='addCustomerBtn mt-4'>
                         <button className='serviceCancel w-100 ' type='button' onClick={props?.close}>
                             Cancel

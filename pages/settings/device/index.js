@@ -7,8 +7,8 @@ import Link from 'next/link';
 const Devices = () => {
     return (
         <>
-            <div className='settingMain'>
-                <div className='row'>
+            {/* <div className='settingMain'>
+                <div className='row'> */}
                     {/* <div className='col-lg-3'>
                         <div className='deviceLeft settingOuter'>
                             <ListGroup>
@@ -150,7 +150,7 @@ const Devices = () => {
                             </ListGroup>
                         </div>
                     </div> */}
-                    <div className='col-lg-9'>
+                    {/* <div className='col-lg-9'> */}
                         <div className='deviceRight settingOuter'>
                             <Image src={Images.darkDevices} alt="darkDevices image" className="img-fluid" />
                             <div className='deviceData w-100'>
@@ -183,9 +183,9 @@ const Devices = () => {
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    {/* </div>
                 </div>
-            </div>
+            </div> */}
         </>
     )
 }
