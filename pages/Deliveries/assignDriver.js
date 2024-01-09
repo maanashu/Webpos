@@ -16,7 +16,7 @@ const AssignDriver = () => {
                   <h4 className='loginMain text-start m-0'>Assign Drivers</h4>
                 </div>
                 <div className='table-responsive mt-3'>
-                  <table id="" className="orderDeliverTable">
+                  <table id="" className="orderDeliverTable"> 
                     <thead className='invoiceHeadingBox'>
                       <tr>
                         <th className='invoiceHeading'>#</th>

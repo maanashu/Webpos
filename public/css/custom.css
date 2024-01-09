@@ -174,7 +174,6 @@ a {
 .switch input {
   display: none;
 }
-
 .switch-slider {
   position: absolute;
   cursor: pointer;
@@ -211,3 +210,8 @@ input:checked+.switch-slider:before {
   -ms-transform: translateX(14px);
   transform: translateX(14px);
 }
+
+
+
+
+
