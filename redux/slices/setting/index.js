@@ -62,6 +62,12 @@ export const settingSlice = createSlice({
     setGetStaffDetails: (state, action) => {
       state.loading = false;
     },
+    getStaffRoles: (state) => {
+      state.loading = true;
+    },
+    setGetStaffRoles: (state, action) => {
+      state.loading = false;
+    },
     // end staff slices////////////////////////////////////////////
 
     // start receipt slices..........................................
@@ -98,6 +104,8 @@ export const {
   setaddNewStaff,
   getStaffDetails,
   setGetStaffDetails,
+  getStaffRoles,
+  setGetStaffRoles,
   onErrorStopLoad,
   updateSettings,
   setUpdateSettings,
