@@ -5,7 +5,7 @@ const axiosInstance = axios.create({
   baseURL: '',
   headers: {
     Accept: "application/json",
-    'app-name': 'merchant'
+    'app-name': 'pos'
   },
 });
 
