@@ -11,7 +11,8 @@ import {
   setResetGoogleAuthenticator,
   setaddNewStaff,
   setGetStaffRoles,
-  setGetStaffDetails
+  setGetStaffDetails,
+  setGetLocationDetails
 } from "../../slices/setting";
 import { toast } from "react-toastify";
 import { ORDER_API_URL, AUTH_API_URL, USER_SERVICE_URL } from "../../../utilities/config"
@@ -191,6 +192,28 @@ function* getStaffDetails(action) {
 }
 // staff module generator function end///////////////////////////////////////////
 
+// location module generator function start...........................................
+function* getLocationDetails(action) {
+  const dataToSend = { ...action.payload }
+  delete dataToSend.cb
+  try {
+    const resp = yield call(ApiClient.get, (`${AUTH_API_URL}/api/v1/getShippingPickup?seller_id=${action.payload.seller_id}`));
+    if (resp.status) {
+      yield put(setGetLocationDetails(resp.data));
+      yield call(action.payload.cb, (action.res = resp));
+      toast.success(resp?.data?.msg);
+    }
+    else {
+      throw resp
+    }
+  } catch (e) {
+    yield put(onErrorStopLoad())
+    toast.error(e?.error?.response?.data?.msg);
+  }
+}
+
+
+
 function* settingSaga() {
   yield all([
     // setting/security API START
@@ -200,10 +223,14 @@ function* settingSaga() {
     takeLatest("setting/verifyGoogleAuthenticator", verifyGoogleAuthenticator),
     takeLatest("setting/forgetGoogleAuthenticator", forgetGoogleAuthenticator),
     takeLatest("setting/resetGoogleAuthenticator", resetGoogleAuthenticator),
-    // setting/security API END
+    // setting/staff API START
     takeLatest("setting/addNewStaff", addNewStaff),
     takeLatest("setting/getStaffRoles", getStaffRoles),
     takeLatest("setting/getStaffDetails", getStaffDetails),
+
+
+        // setting/location API START
+        takeLatest("setting/getLocationDetails", getLocationDetails),
 
   ]);
 }

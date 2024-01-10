@@ -66,6 +66,12 @@ export const settingSlice = createSlice({
         setGetStaffRoles: (state, action) => {
             state.loading = false;
         },
+        getLocationDetails: (state) => {
+            state.loading = true;
+        },
+        setGetLocationDetails: (state, action) => {
+            state.loading = false;
+        },
         // end staff slices////////////////////////////////////////////
         onErrorStopLoad: (state) => {
             state.loading = false;
@@ -93,6 +99,8 @@ export const {
     setGetStaffDetails,
     getStaffRoles,
     setGetStaffRoles,
+    getLocationDetails,
+    setGetLocationDetails,
     onErrorStopLoad
 } = settingSlice.actions;
 

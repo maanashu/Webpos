@@ -1,13 +1,16 @@
 import React from 'react'
-import * as Images from "../../utilities/images"
+import * as Images from "../../../utilities/images"
 import Image from "next/image";
 
-const BussinessLocation = () => {
+const Location = () => {
+
+    
+
     return (
         <>
             <div className='settingMain'>
                 <div className='row'>
-                    <div className='col-lg-3'></div>
+                    {/* <div className='col-lg-3'></div> */}
                     <div className='col-lg-9'>
                         <div className='settingOuter bussinessRight'>
                             <Image src={Images.darkDevices} alt="darkDevices image" className="img-fluid" />
@@ -24,7 +27,7 @@ const BussinessLocation = () => {
                                             </div>
                                         </div>
                                         <div className="roundCheck mb-0">
-                                            <input type="checkbox" checked="checked"/>
+                                            <input type="checkbox" />
                                             <label className='amountText '></label>
                                         </div>
                                     </div>
@@ -37,7 +40,7 @@ const BussinessLocation = () => {
                                             </div>
                                         </div>
                                         <div className="roundCheck mb-0">
-                                            <input type="checkbox" checked="checked"/>
+                                            <input type="checkbox" />
                                             <label className='amountText '></label>
                                         </div>
                                     </div>
@@ -51,4 +54,4 @@ const BussinessLocation = () => {
     )
 }
 
-export default BussinessLocation
+export default Location

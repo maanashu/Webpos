@@ -23,6 +23,7 @@ import Image from "next/image";
 import StaffList from "./staff";
 import Devices from "./device";
 import Receipts from "./Receipts";
+import Location from "./location";
 import StaffDetail from "./staff/staffDetail";
 import { ListGroup } from "react-bootstrap";
 import ListGroupItem from "react-bootstrap";
@@ -90,6 +91,8 @@ export default function Settings() {
         return <Devices />;
       case "Receipts":
         return <Receipts />;
+        case "Locations":
+          return <Location />;
         case "staffDetail":
         return <StaffDetail selectedItemId={selectedItemId}/>;
       default:
