@@ -135,7 +135,29 @@
     cursor: pointer;
 }
 .bookiImg {
-    width: 30px;
+    width: 50px;
+}
+.customTabDays .textSmall{
+    color: #263682;
+    margin-right: 12px;
+}
+.customTabDays {
+    background: #F5F6FC;
+    padding: 14px 14px 14px 14px;
+    border-radius: 30px;
+    margin-left: 10px;
+}
+.tabListing.active {
+    background:#263682;
+    color: #fff;
+    padding: 10px 24px;
+    border-radius: 30px;
+}
+.tabListing{
+font-size: 14px;
+font-weight: 400;
+color:#263682;
+margin-right: 12px;
 }
 /* Booking Nav bar */
 /* RightDide Bar Booking */
@@ -423,7 +445,171 @@
     height: 50px;
     margin-top: -16px;
 }
-
-
-
+.leftIcon {
+    margin-right: 10px;
+}
+.rightIcon {
+    margin-left: 10px;
+}
+/* CheckIn Modal  */
+#checkIn .modal-content{
+width: 100%;
+border-radius: 30px;
+border:none;
+background: #FFF;
+box-shadow: -2.529px 6.008px 6.519px 0px rgba(52, 79, 117, 0.03), -11.954px 28.402px 25.481px 0px rgba(52, 79, 117, 0.04), -31.035px 73.735px 80px 0px rgba(52, 79, 117, 0.07);
+padding: 12px;
+}
+.checkinDetails {
+    padding: 15px 17px 17px 17px;
+    margin: 20px;
+    border-radius: 16px;
+    border: 1px solid #D7DEFF;
+}
+#checkIn .modal-header{
+    border-bottom: none;
+}
+.userCheckin .textSmall {
+    color: #263682;
+    font-weight: 600;
+}
+.userCheckin {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.userService .subHeadText {
+    color: #fff;
+    font-size: 12px;
+    font-weight: 500;
+    padding: 7px;
+    background: #58C2E8;
+    border-radius: 16px;
+    border: 1px solid #D7DEFF;
+}
+.serviceDate .purpleText {
+    color: #263682;
+}
+.ServiceText .textSmall {
+    color: #263682;
+}
+.borderDashed {
+    border-bottom: dashed;
+    color: #D7DEFF;
+}
+.serviceAmount {
+    align-items: center;
+    display: flex;
+    justify-content: space-between;
+}
+.serviceAmount .textSmall{
+    color: #263682;
+}
+.CustomerBtn.mt-4 {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 13px 29px 12px 29px;
+}
+.declineBtn {
+    color: #263682;
+    font-size: 16px;
+    font-weight: 500;
+    padding: 20px 37px;
+    border-radius: 30px;
+    border: 1px solid #263682;
+    background: #fff;
+    width: 45%;
+}
+.confirmbtn{
+    color: #fff;
+    font-size: 16px;
+    font-weight: 500;
+    padding: 20px 37px;
+    border-radius: 30px;
+    border: 1px solid #263682;
+    background:#263682;
+    width: 45%;
+}
+/* CheckIn Modal */
+/* Checked In Modal */
+#checkedIn .modal-header{
+    border:none;
+}
+#checkedIn .modal-content{
+    border: none;
+}
+/* Checked In Modal */
+/* BucketFilter */
+.countNumber {
+    width: 20px;
+    height: 20px;
+    border-radius: 50px;
+    background: #F04438;
+    font-size: 12px;
+    font-weight: 500;
+    display: inline-block;
+    margin-left: 12px;
+    text-align: center;
+    color:#fff;
+   
+}
+.bucket_ {
+    display: flex;
+    justify-content: space-between;
+}
+.addBucket .checkinDetails {
+    margin: 0;
+    margin-top: 12px;
+}
+.addBucket .checkinDetails {
+    background: #D7DEFF;
+}
+ .unpaidDetails .textSmall {
+    font-weight: 500;
+    background: #fff;
+    padding: 8px;
+    border-radius: 30px;
+}
+.userText{
+    font-size: 14px;
+    color:#263682 ;
+    font-weight: 500;
+    
+}
+.addBucket .serviceDate{
+    border: none;
+}
+/* BucketFilter */
 /** End Booking Module **/
+
+/* Refunds */
+    .refundDetails .fontEighteen {
+        color: #636E9F;
+        font-size: 18px;
+        font-weight: 400;
+        font-family:'Rubik';
+    }
+    .refundDetails .innerHeading {
+        color: #636E9F;
+        font-size: 16px ;
+        font-weight: 300;
+        font-family:'Rubik';
+    }
+    .listitems{
+        color: #636E9F;
+        font-size: 16px ;
+        font-weight: 300;
+        font-family:'Rubik';
+    }
+
+ /* Refunds */
+ /* policies */
+ .policiesDetails {
+    border-radius: 20px;
+    background: #FFF;
+    box-shadow: -2px 4px 25px 0px rgba(50, 80, 127, 0.02), -5px 10px 80px 0px rgba(50, 80, 127, 0.04);
+    padding: 40px 30px 24px 30px;
+   
+}
+ /* policies */

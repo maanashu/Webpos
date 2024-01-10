@@ -5,6 +5,7 @@ import { HYDRATE } from 'next-redux-wrapper';
 import { customersSlice } from "./customers";
 import { analyticsSlice } from "./analytics";
 import { transactionsSlice } from "./transactions";
+import { settingSlice } from "./setting";
 
   const mainReducer = combineReducers({
     auth: authSlice.reducer,
@@ -12,6 +13,7 @@ import { transactionsSlice } from "./transactions";
     customers: customersSlice.reducer,
     analytics: analyticsSlice.reducer,
     transactions: transactionsSlice.reducer,
+    setting: settingSlice.reducer,
   });
 
 const rootReducer = (state, action) => {

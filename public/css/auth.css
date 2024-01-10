@@ -468,6 +468,9 @@ body {
     letter-spacing: -0.36px;
     border: none;
     padding: 18px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .leftImg {

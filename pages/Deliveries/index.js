@@ -74,11 +74,11 @@ const DeliverDashboard = () => {
                                         <div className='deliverPercent'>88%</div>
                                     </div>
                                     <div className='flexDiv returnOrder mt-3'>
-                                        <h4 className='orderDeliverText'>Delivery Order</h4>
+                                        <h4 className='orderDeliverText'>Returned</h4>
                                         <div className='deliverPercent'>88%</div>
                                     </div>
                                     <div className='flexDiv cancelOrder mt-3'>
-                                        <h4 className='orderDeliverText'>Delivery Order</h4>
+                                        <h4 className='orderDeliverText'>Cancelled</h4>
                                         <div className='deliverPercent'>88%</div>
                                     </div>
                                 </div>
@@ -88,19 +88,19 @@ const DeliverDashboard = () => {
                             <div className=' deliveryOuter deliverRight ms-0'>
                                 <div className='deliverGraphSection'>
                                     <form className='deliverCheck'>
-                                        <div class="form-group checkBlue">
+                                        <div className="form-group checkBlue">
                                             <input type="checkbox" id="Incoming Orders" />
                                             <label for="Incoming Orders" className='appointSub  m-0'>Incoming Orders</label>
                                         </div>
-                                        <div class="form-group checkBlue checkPurple">
+                                        <div className="form-group checkBlue checkPurple">
                                             <input type="checkbox" id="Delivery Orders" />
                                             <label for="Delivery Orders" className='appointSub  m-0'>Delivery Orders</label>
                                         </div>
-                                        <div class="form-group checkBlue checkYellow">
+                                        <div className="form-group checkBlue checkYellow">
                                             <input type="checkbox" id="Returned Orders" />
                                             <label for="Returned Orders" className='appointSub  m-0'>Returned Orders</label>
                                         </div>
-                                        <div class="form-group checkBlue checkRed">
+                                        <div className="form-group checkBlue checkRed">
                                             <input type="checkbox" id="Cancelled Orders" />
                                             <label for="Cancelled Orders" className='appointSub  m-0'>Cancelled Orders</label>
                                         </div>
@@ -118,12 +118,12 @@ const DeliverDashboard = () => {
                                         </div>
                                     </div>
                                     <div className="table-responsive deliverTable">
-                                        <table id="DeliverDashboard" className="product_table">
+                                        <table id="DeliverDashboard" className="deliverDashboardTable">
                                             <tbody>
                                                 <tr className='product_invoice'>
                                                     <td className="invoice_subhead">
                                                         <div className="nameLocation">
-                                                            <h4 className="orderId">Samara Schwansteiger</h4>
+                                                            <h4 className="assignId">Samara Schwansteiger</h4>
                                                             <div className="deliverTableBx">
                                                                 <Image
                                                                     src={Images.OrderLocation}
@@ -136,7 +136,7 @@ const DeliverDashboard = () => {
                                                     </td>
                                                     <td className="invoice_subhead">
                                                         <div className="itemMoney">
-                                                            <h4 className="orderId">3 items</h4>
+                                                            <h4 className="assignId">3 items</h4>
                                                             <div className="deliverTableBx">
                                                                 <Image
                                                                     src={Images.MoneyItem}
@@ -150,7 +150,7 @@ const DeliverDashboard = () => {
                                                     </td>
                                                     <td className="invoice_subhead">
                                                         <div className="itemTime">
-                                                            <h4 className="orderId">1 hour delivery window</h4>
+                                                            <h4 className="assignId">1 hour delivery window</h4>
                                                             <div className="deliverTableBx">
                                                                 <Image
                                                                     src={Images.Time}
@@ -164,7 +164,7 @@ const DeliverDashboard = () => {
                                                     </td>
                                                     <td className="invoice_subhead">
                                                         <div className="deliveryTime">
-                                                            <span className="orderId"> 00:03:06</span>
+                                                            <span className="assignId"> 00:03:06</span>
                                                         </div>
                                                     </td>
                                                     <td className='invoice_subhead'>
@@ -176,7 +176,7 @@ const DeliverDashboard = () => {
                                                 <tr className='product_invoice'>
                                                     <td className="invoice_subhead">
                                                         <div className="nameLocation">
-                                                            <h4 className="orderId">Samara Schwansteiger</h4>
+                                                            <h4 className="assignId">Samara Schwansteiger</h4>
                                                             <div className="deliverTableBx">
                                                                 <Image
                                                                     src={Images.OrderLocation}
@@ -189,7 +189,7 @@ const DeliverDashboard = () => {
                                                     </td>
                                                     <td className="invoice_subhead">
                                                         <div className="itemMoney">
-                                                            <h4 className="orderId">3 items</h4>
+                                                            <h4 className="assignId">3 items</h4>
                                                             <div className="deliverTableBx">
                                                                 <Image
                                                                     src={Images.MoneyItem}
@@ -203,7 +203,7 @@ const DeliverDashboard = () => {
                                                     </td>
                                                     <td className="invoice_subhead">
                                                         <div className="itemTime">
-                                                            <h4 className="orderId">1 hour delivery window</h4>
+                                                            <h4 className="assignId">1 hour delivery window</h4>
                                                             <div className="deliverTableBx">
                                                                 <Image
                                                                     src={Images.Time}
@@ -217,7 +217,7 @@ const DeliverDashboard = () => {
                                                     </td>
                                                     <td className="invoice_subhead">
                                                         <div className="deliveryTime">
-                                                            <span className="orderId"> 00:03:06</span>
+                                                            <span className="assignId"> 00:03:06</span>
                                                         </div>
                                                     </td>
                                                     <td className='invoice_subhead'>
@@ -229,7 +229,7 @@ const DeliverDashboard = () => {
                                                 <tr className='product_invoice'>
                                                     <td className="invoice_subhead">
                                                         <div className="nameLocation">
-                                                            <h4 className="orderId">Samara Schwansteiger</h4>
+                                                            <h4 className="assignId">Samara Schwansteiger</h4>
                                                             <div className="deliverTableBx">
                                                                 <Image
                                                                     src={Images.OrderLocation}
@@ -242,7 +242,7 @@ const DeliverDashboard = () => {
                                                     </td>
                                                     <td className="invoice_subhead">
                                                         <div className="itemMoney">
-                                                            <h4 className="orderId">3 items</h4>
+                                                            <h4 className="assignId">3 items</h4>
                                                             <div className="deliverTableBx">
                                                                 <Image
                                                                     src={Images.MoneyItem}
@@ -256,7 +256,7 @@ const DeliverDashboard = () => {
                                                     </td>
                                                     <td className="invoice_subhead">
                                                         <div className="itemTime">
-                                                            <h4 className="orderId">1 hour delivery window</h4>
+                                                            <h4 className="assignId">1 hour delivery window</h4>
                                                             <div className="deliverTableBx">
                                                                 <Image
                                                                     src={Images.Time}
@@ -270,7 +270,7 @@ const DeliverDashboard = () => {
                                                     </td>
                                                     <td className="invoice_subhead">
                                                         <div className="deliveryTime">
-                                                            <span className="orderId"> 00:03:06</span>
+                                                            <span className="assignId"> 00:03:06</span>
                                                         </div>
                                                     </td>
                                                     <td className='invoice_subhead'>
@@ -282,7 +282,7 @@ const DeliverDashboard = () => {
                                                 <tr className='product_invoice'>
                                                     <td className="invoice_subhead">
                                                         <div className="nameLocation">
-                                                            <h4 className="orderId">Samara Schwansteiger</h4>
+                                                            <h4 className="assignId">Samara Schwansteiger</h4>
                                                             <div className="deliverTableBx">
                                                                 <Image
                                                                     src={Images.OrderLocation}
@@ -295,7 +295,7 @@ const DeliverDashboard = () => {
                                                     </td>
                                                     <td className="invoice_subhead">
                                                         <div className="itemMoney">
-                                                            <h4 className="orderId">3 items</h4>
+                                                            <h4 className="assignId">3 items</h4>
                                                             <div className="deliverTableBx">
                                                                 <Image
                                                                     src={Images.MoneyItem}
@@ -309,7 +309,7 @@ const DeliverDashboard = () => {
                                                     </td>
                                                     <td className="invoice_subhead">
                                                         <div className="itemTime">
-                                                            <h4 className="orderId">1 hour delivery window</h4>
+                                                            <h4 className="assignId">1 hour delivery window</h4>
                                                             <div className="deliverTableBx">
                                                                 <Image
                                                                     src={Images.Time}
@@ -323,7 +323,7 @@ const DeliverDashboard = () => {
                                                     </td>
                                                     <td className="invoice_subhead">
                                                         <div className="deliveryTime">
-                                                            <span className="orderId"> 00:03:06</span>
+                                                            <span className="assignId"> 00:03:06</span>
                                                         </div>
                                                     </td>
                                                     <td className='invoice_subhead'>
@@ -335,7 +335,7 @@ const DeliverDashboard = () => {
                                                 <tr className='product_invoice'>
                                                     <td className="invoice_subhead">
                                                         <div className="nameLocation">
-                                                            <h4 className="orderId">Samara Schwansteiger</h4>
+                                                            <h4 className="assignId">Samara Schwansteiger</h4>
                                                             <div className="deliverTableBx">
                                                                 <Image
                                                                     src={Images.OrderLocation}
@@ -348,7 +348,7 @@ const DeliverDashboard = () => {
                                                     </td>
                                                     <td className="invoice_subhead">
                                                         <div className="itemMoney">
-                                                            <h4 className="orderId">3 items</h4>
+                                                            <h4 className="assignId">3 items</h4>
                                                             <div className="deliverTableBx">
                                                                 <Image
                                                                     src={Images.MoneyItem}
@@ -362,7 +362,7 @@ const DeliverDashboard = () => {
                                                     </td>
                                                     <td className="invoice_subhead">
                                                         <div className="itemTime">
-                                                            <h4 className="orderId">1 hour delivery window</h4>
+                                                            <h4 className="assignId">1 hour delivery window</h4>
                                                             <div className="deliverTableBx">
                                                                 <Image
                                                                     src={Images.Time}
@@ -376,7 +376,7 @@ const DeliverDashboard = () => {
                                                     </td>
                                                     <td className="invoice_subhead">
                                                         <div className="deliveryTime">
-                                                            <span className="orderId"> 00:03:06</span>
+                                                            <span className="assignId"> 00:03:06</span>
                                                         </div>
                                                     </td>
                                                     <td className='invoice_subhead'>
@@ -388,7 +388,7 @@ const DeliverDashboard = () => {
                                                 <tr className='product_invoice'>
                                                     <td className="invoice_subhead">
                                                         <div className="nameLocation">
-                                                            <h4 className="orderId">Samara Schwansteiger</h4>
+                                                            <h4 className="assignId">Samara Schwansteiger</h4>
                                                             <div className="deliverTableBx">
                                                                 <Image
                                                                     src={Images.OrderLocation}
@@ -401,7 +401,7 @@ const DeliverDashboard = () => {
                                                     </td>
                                                     <td className="invoice_subhead">
                                                         <div className="itemMoney">
-                                                            <h4 className="orderId">3 items</h4>
+                                                            <h4 className="assignId">3 items</h4>
                                                             <div className="deliverTableBx">
                                                                 <Image
                                                                     src={Images.MoneyItem}
@@ -415,7 +415,7 @@ const DeliverDashboard = () => {
                                                     </td>
                                                     <td className="invoice_subhead">
                                                         <div className="itemTime">
-                                                            <h4 className="orderId">1 hour delivery window</h4>
+                                                            <h4 className="assignId">1 hour delivery window</h4>
                                                             <div className="deliverTableBx">
                                                                 <Image
                                                                     src={Images.Time}
@@ -429,7 +429,7 @@ const DeliverDashboard = () => {
                                                     </td>
                                                     <td className="invoice_subhead">
                                                         <div className="deliveryTime">
-                                                            <span className="orderId"> 00:03:06</span>
+                                                            <span className="assignId"> 00:03:06</span>
                                                         </div>
                                                     </td>
                                                     <td className='invoice_subhead'>

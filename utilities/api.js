@@ -17,10 +17,10 @@ const axiosInstance = axios.create({
 // Set the AUTH token for any request
 axiosInstance.interceptors.request.use(function (config) {
 
-// const Token = authData?.posUserLoginDetails?.payload?.token
-//   ? authData?.posUserLoginDetails?.payload?.token
-//   : "";
-  const token = localStorage.getItem("authToken");
+  // const Token = authData?.posUserLoginDetails?.payload?.token
+  //   ? authData?.posUserLoginDetails?.payload?.token
+  //   : "";
+  const token = localStorage.getItem("authToken") ? localStorage.getItem("authToken") : localStorage.getItem("2FAToken");
   config.headers.Authorization = token ? token : "";
   return config;
 });
@@ -28,7 +28,7 @@ axiosInstance.interceptors.request.use(function (config) {
 
 axiosInstance.interceptors.response.use(
   (response) => {
-    console.log("hello")
+    console.log(response, "hello")
     return response;
   },
   (error) => {
@@ -41,19 +41,6 @@ axiosInstance.interceptors.response.use(
     return Promise.reject(error);
   }
 );
-
-// const axiosGet = (url, params = {}) => {
-//   // delete params.cb
-
-//   return axiosInstance
-//     .get(url, { params: params })
-//     .then((response) => {
-//       return { status: true, data: response.data };
-//     })
-//     .catch((err) => {
-//       return { status: false, error: err };
-//     });
-// };
 
 const axiosGet = (url, params = {}) => {
   return axiosInstance.get(url, { params: params })
