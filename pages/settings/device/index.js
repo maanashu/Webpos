@@ -151,7 +151,7 @@ const Devices = () => {
                         </div>
                     </div> */}
                     {/* <div className='col-lg-9'> */}
-                        <div className='deviceRight settingOuter'>
+                        <div className='deviceRight settingOuter'> 
                             <Image src={Images.darkDevices} alt="darkDevices image" className="img-fluid" />
                             <div className='deviceData w-100'>
                                 <h4 className='appointMain'>Devices</h4>

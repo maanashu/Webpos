@@ -706,7 +706,7 @@ const Overview = () => {
           header={
             modalDetail.flag === "trackingmodal" ? (
               <>
-                <p
+                <div
                   onClick={handleOnCloseModal}
                   className="modal_cancel"
                 >
@@ -715,7 +715,7 @@ const Overview = () => {
                     alt="modalCross"
                     className="img-fluid"
                   />
-                </p>
+                </div>
               </>
             ) : (
               ""

@@ -120,9 +120,9 @@ const CreateCustomerModal = () => {
                 
                 {modalDetail.flag === "customerFound" ?
                     <>
-                            <p onClick={handleOnCloseModal} className='modal_cancel'>
+                            <div onClick={handleOnCloseModal} className='modal_cancel'>
                                 <Image src={Images.modalCross} alt="modalCross" className="img-fluid" />
-                            </p>
+                            </div>
                     </>
                     :
                     ''

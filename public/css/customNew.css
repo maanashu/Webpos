@@ -3850,13 +3850,15 @@ figure {
     padding: 15px;
     height: 100%;
 }
-.policyPublish{
+
+.policyPublish {
     border-radius: 10px;
     border: 1px solid #D7DEFF;
     background: #FFF;
     padding: 15px;
     margin: 24px;
 }
+
 .publishMain {
     margin: 0 24px;
 }
@@ -3924,19 +3926,55 @@ figure {
     font-size: 18px;
     font-weight: 500;
 }
-.refundSubText{
+
+.refundSubText {
     color: #636E9F;
     font-size: 16px;
     font-weight: 400;
 }
-.refundList li{
-list-style: disc;
+
+.refundList li {
+    list-style: disc;
 }
-.refundList{
+
+.refundList {
     margin-top: 16px;
 }
+
 .colorPick {
     position: absolute;
+}
+
+.bussinessRight {
+    border-radius: 20px;
+    background: #FFF;
+    box-shadow: -2px 4px 25px 0px rgba(50, 80, 127, 0.02), -5px 10px 80px 0px rgba(50, 80, 127, 0.04);
+    padding: 40px 40px 24px 40px;
+    display: flex;
+    align-items: start;
+    gap: 16px;
+}
+
+.bussinessMain {
+    margin-top: 16px;
+}
+
+.bussinessSub {
+    border-radius: 16px;
+    background: #F5F6FC;
+    padding: 16px 24px;
+    display: flex;
+    align-items: start;
+    justify-content: space-between;
+    margin-top: 10px;
+}
+.locationHead{
+    display: flex;
+    align-items: start;
+    gap: 16px;
+}
+.bussinessData{
+    width: 100%;
 }
 /*setting css end*/
 /*media query start*/
