@@ -99,7 +99,7 @@ const Security = () => {
 
   return (
     <>
-      <div style={{ padding: "30px", flex: 1 }}>
+      <div className="securityRight settingOuter">
         <div className={styles.headingTextStyle}>2-Step Verification</div>
         <div className={styles.textInformationStyle}>
           An extra layer to boost your team members account security. A

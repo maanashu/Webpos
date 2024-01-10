@@ -1,13 +1,13 @@
 import React from 'react'
 import { ListGroup, ListGroupItem } from 'react-bootstrap';
 import * as Images from "../../utilities/images"
-import Image from "next/image";
+import Image from 'next/image';
 import Link from 'next/link';
 
-const StaffDetail = () => {
+const Polices = () => {
     return (
         <>
-            <div className='settingMain staffDetailSection'>
+            <div className='refund settingMain'>
                 <div className='row'>
                     <div className='col-lg-3'>
                         <div className='deviceLeft settingOuter'>
@@ -151,33 +151,21 @@ const StaffDetail = () => {
                         </div>
                     </div>
                     <div className='col-lg-9'>
-                        <div className='settingOuter staffDetailRight'>
-                            <div className='flexTable'>
-                                <Image src={Images.boldLeftArrow} alt="boldLeftArrow " className="img-fluid me-2" />
-                                <h4 className='appointMain'>Staff Details</h4>
+                        <div className='settingOuter policiesDetails'>
+                            <div className='d-flex'>
+                                <figure><Image src={Images.darkDevices} alt="darkDevices image" className="img-fluid me-3" /></figure>
+                                <div className='poli  '>
+                                    <h4 className='appointMain'>Policies</h4>
+                                    <p className='lightOfferText '>Active in the markets they've been added to and visible to customers.</p>
+                                </div>
                             </div>
-                            <div className='staffInfoBox'>
-                                <div className='staffProfileInfo'>
-                                    <Image src={Images.staffProfile} alt="staffProfile image " className="staffProfileImg" />
-                                    <div className='staffProfileSub'>
-                                        <h4 className='appointMain'>Andrea Gonzalez-Iturbide</h4>
-                                        <div className='staffAddress'>
-                                            <Image src={Images.staffLocate} alt="staffProfile image " className="img-fluid" />
-                                            <h4 className='appointSub m-0'>Daffodil Lane, Savage, Virginia(VA), 20763</h4>
-                                        </div>
-                                        <div className='staffAddress'>
-                                            <Image src={Images.staffMobile} alt="staffProfile image " className="img-fluid" />
-                                            <h4 className='appointSub m-0'>+1 991 012 0998</h4>
-                                        </div>
-                                        <div className='staffAddress'>
-                                            <Image src={Images.emailStaff} alt="staffProfile image " className="img-fluid" />
-                                            <h4 className='appointSub m-0'>andrea.giturbide@gmail.com</h4>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div className='staffProfileData'>
-
-                                </div>
+                            <div className='policiesBox'>
+                                <div className=''>
+                            <p className='lightOfferText'>Published</p>
+                            <div className=''>
+                             
+                            </div>
+                            </div>
                             </div>
                         </div>
                     </div>
@@ -187,4 +175,4 @@ const StaffDetail = () => {
     )
 }
 
-export default StaffDetail
+export default Polices

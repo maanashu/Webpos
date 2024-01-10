@@ -25,6 +25,7 @@ const AddStoreModal = (props) => {
     const [selectedRoleId, setSelectedRoleId] = useState([]);
     const [selected, setSelected] = useState([]);
     const [selectedColor, setSelectedColor] = useState("");
+    console.log(selectedColor,"selectedColor");
     const [displayColorPicker, setDisplayColorPicker] = useState(false);
 
     const generateRandomName = () => {
@@ -80,7 +81,7 @@ const AddStoreModal = (props) => {
             email: staffEmailAddress,
             is_staff_member: isStaffMember,
             role_ids: selectedRoleId,
-            color_code: "#456413",
+            color_code: selectedColor,
         };
         dispatch(
             addNewStaff({
@@ -193,9 +194,9 @@ const AddStoreModal = (props) => {
                                     />
                                 )}
                                 <div style={{ display: 'flex', alignItems: 'center' }}>
-                                    <div className='colorBox'
+                                    <div className=''
                                         style={{
-                                            position: "absolute",
+                                            // position: "absolute",
                                             background: selectedColor,
                                             width: '50px',
                                             height: '20px',
@@ -205,7 +206,7 @@ const AddStoreModal = (props) => {
                                 </div>
                             </div>
                         </div>
-                    </div >
+                    </div>
                     <div className='addCustomerBtn mt-4'>
                         <button className='serviceCancel w-100 ' type='button' onClick={props?.close}>
                             Cancel
