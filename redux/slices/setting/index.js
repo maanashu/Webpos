@@ -2,6 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
     loading: false,
+    getSettings: {},
 };
 
 export const settingSlice = createSlice({
@@ -20,6 +21,7 @@ export const settingSlice = createSlice({
         },
         setGetSecuritySettingInfo: (state, action) => {
             state.loading = false;
+            state.getSettings = action?.payload;
         },
         configureGoogleAuthenticator: (state) => {
             state.loading = true;
@@ -66,13 +68,23 @@ export const settingSlice = createSlice({
         setGetStaffRoles: (state, action) => {
             state.loading = false;
         },
+        updateSettings: (state) => {
+            state.loading = true;
+        },
+        setUpdateSettings: (state, action) => {
+            state.loading = false;
+            state.getSettings = action?.payload;
+        },
+        // end staff slices////////////////////////////////////////////
+
+        // start location slices..........................................
         getLocationDetails: (state) => {
             state.loading = true;
         },
         setGetLocationDetails: (state, action) => {
             state.loading = false;
         },
-        // end staff slices////////////////////////////////////////////
+        // end location slices////////////////////////////////////////////
         onErrorStopLoad: (state) => {
             state.loading = false;
         },
@@ -101,12 +113,11 @@ export const {
     setGetStaffRoles,
     getLocationDetails,
     setGetLocationDetails,
+    updateSettings,
+    setUpdateSettings,
     onErrorStopLoad
 } = settingSlice.actions;
 
 export const settingInfo = (state) => state.setting;
 
 export default settingSlice.reducer;
-
-
-

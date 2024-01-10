@@ -29,7 +29,6 @@ import { ListGroup } from "react-bootstrap";
 import ListGroupItem from "react-bootstrap";
 import Link from "next/link";
 
-
 export default function Settings() {
   const [selectedItem, setSelectedItem] = useState("Security");
   const [selectedItemId, setSelectedItemId] = useState("");
@@ -64,7 +63,6 @@ export default function Settings() {
   ];
   const SettingsBar = ({ item }) => {
     return (
-
       <Link className="settingList" href="#" onClick={() => handleTouch(item)}>
         <Image src={item?.image} className="SecurityImg" />
         <div className="securityHeading">
@@ -75,10 +73,10 @@ export default function Settings() {
     );
   };
 
-  const handleTouch = (item,id) => {
-    setSelectedItemId(id ? id:"")
-    console.log(item,"itemname");
-    setSelectedItem(item?.name ? item?.name : item );
+  const handleTouch = (item, id) => {
+    setSelectedItemId(id ? id : "");
+    console.log(item, "itemname");
+    setSelectedItem(item?.name ? item?.name : item);
   };
 
   const renderComponent = () => {
