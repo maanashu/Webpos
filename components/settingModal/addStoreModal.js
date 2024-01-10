@@ -25,6 +25,7 @@ const AddStoreModal = (props) => {
     const [selectedRoleId, setSelectedRoleId] = useState([]);
     const [selected, setSelected] = useState([]);
     const [selectedColor, setSelectedColor] = useState("");
+    console.log(selectedColor,"selectedColor");
     const [displayColorPicker, setDisplayColorPicker] = useState(false);
 
     const generateRandomName = () => {
@@ -80,7 +81,7 @@ const AddStoreModal = (props) => {
             email: staffEmailAddress,
             is_staff_member: isStaffMember,
             role_ids: selectedRoleId,
-            color_code: "#456413",
+            color_code: selectedColor,
         };
         dispatch(
             addNewStaff({
@@ -187,15 +188,17 @@ const AddStoreModal = (props) => {
                                 <label className='amountText ms-1'>Staff Member</label>
                             </div>
                             <div className='colorSelect'>
-                                <h4 className='amountText' onClick={handleButtonClick}>Select Color</h4>
+                                <h4 className='amountText pointHand' onClick={handleButtonClick}>Select Color</h4>
+                                <div className='colorPick'>
                                 {displayColorPicker && (
                                     <ChromePicker color={selectedColor} onChange={handleColorChange} onChangeComplete={handleColorPickerChangeComplete}
                                     />
                                 )}
+                                </div>
                                 <div style={{ display: 'flex', alignItems: 'center' }}>
-                                    <div className='colorBox'
+                                    <div className=''
                                         style={{
-                                            position: "absolute",
+                                            // position: "absolute",
                                             background: selectedColor,
                                             width: '50px',
                                             height: '20px',
@@ -205,7 +208,7 @@ const AddStoreModal = (props) => {
                                 </div>
                             </div>
                         </div>
-                    </div >
+                    </div>
                     <div className='addCustomerBtn mt-4'>
                         <button className='serviceCancel w-100 ' type='button' onClick={props?.close}>
                             Cancel
@@ -215,8 +218,8 @@ const AddStoreModal = (props) => {
                             <Image src={Images.ArrowRight} alt="rightArrow" className="img-fluid rightImg" />
                         </button>
                     </div>
-                </form >
-            </div >
+                </form>
+            </div>
         </>
     )
 }

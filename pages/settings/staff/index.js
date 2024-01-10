@@ -7,13 +7,16 @@ import CustomModal from '../../../components/customModal/CustomModal';
 import AddStoreModal from '../../../components/settingModal/addStoreModal';
 import { getAllPosUser, selectLoginAuth } from '../../../redux/slices/auth';
 import { useDispatch, useSelector } from 'react-redux';
+import { useRouter } from 'next/router';
 
-const StaffList = () => {
+const StaffList = ({handleTouch}) => {
     const dispatch = useDispatch();
+    const router = useRouter();
     const authData = useSelector(selectLoginAuth)
     const UniqueId = authData?.usersInfo?.payload?.uniqe_id
     const [key, setKey] = useState(Math.random());
     const [getAllStaffList, setGetAllStaffList] = useState("");
+    console.log(getAllStaffList,"getAllStaffList");
     const [modalDetail, setModalDetail] = useState({
         show: false,
         title: "",
@@ -65,8 +68,8 @@ const StaffList = () => {
 
     return (
         <>
-            <div className='settingMain staffSection'>
-                <div className='row'>
+            {/* <div className='settingMain staffSection'>
+                <div className='row'> */}
                     {/* <div className='col-lg-3'>
                         <div className='deviceLeft settingOuter'>
                             <ListGroup>
@@ -208,10 +211,9 @@ const StaffList = () => {
                             </ListGroup>
                         </div>
                     </div> */}
-
-                    <div className='col-lg-9'>
+                    {/* <div className='col-lg-9'> */}
                         <div className='staffRight settingOuter'>
-                            <Image src={Images.customerUsers} alt="customerUsers image" className="img-fluid" hight={100} width={100}/>
+                            <Image src={Images.customerUsers} alt="customerUsers image" className="img-fluid"/>
                             <div className='staffData'>
                                 <h4 className='appointMain'>Staff List</h4>
                                 <p className='lightOfferText mt-2'>Active in the markets they've been added to and visible to customers.</p>
@@ -244,7 +246,12 @@ const StaffList = () => {
                                                                     }
                                                                 </div>
                                                             </div>
-                                                            <Image src={Images.RightArrow} alt="RightArrow image" className="staffArrow pointHand" hight={100} width={100}/>
+                                                            <Image  src={Images.RightArrow} alt="RightArrow image" className="staffArrow pointHand" hight={100} width={100} 
+                                                            // onClick={() => router.push({ pathname: '/settings/staff/staffDetail'
+                                                            // , 
+                                                            // query: { id: data } })}
+                                                            onClick={()=>handleTouch("staffDetail",data?.id)}
+                                                            />
                                                         </div>
                                                     );
                                                 })}
@@ -282,9 +289,9 @@ const StaffList = () => {
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    {/* </div>
                 </div>
-            </div>
+            </div> */}
             <CustomModal
                 key={key}
                 show={modalDetail.show}

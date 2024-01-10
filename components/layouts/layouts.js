@@ -30,7 +30,13 @@ export default function Layout({ children, isLoggedIn, userType }) {
     "/settings",
     "/settings/devices",
     "/settings/staffList",
-    "/settings/staffDetail"
+    "/settings/staff/staffDetail",
+    "/settings/staff/staffLocation",
+    "/settings/agreement",
+    "/settings/refundPolicy",
+    "/settings/termsCondition",
+    "/settings/polices",
+    "/settings/bussinessLocation"
   ];
 
   return (

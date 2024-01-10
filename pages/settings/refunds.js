@@ -1,19 +1,19 @@
 import React from 'react'
 import { ListGroup, ListGroupItem } from 'react-bootstrap';
-import * as Images from "../../../utilities/images"
-import Image from "next/image";
+import * as Images from "../../utilities/images"
+import Image from 'next/image';
 import Link from 'next/link';
 
-const Devices = () => {
+const Refunds = () => {
     return (
         <>
-            {/* <div className='settingMain'>
-                <div className='row'> */}
-                    {/* <div className='col-lg-3'>
+            <div className='refund settingMain'>
+                <div className='row'>
+                    <div className='col-lg-3'>
                         <div className='deviceLeft settingOuter'>
                             <ListGroup>
                                 <ListGroupItem className='settingListMain'>
-                                    <Link href="/settings" className='settingList active'>
+                                    <Link href="#" className='settingList active'>
                                         <Image src={Images.securityTick} alt="securityTick image" className="SecurityImg" />
                                         <div className='securityHeading'>
                                             <h4 className='settingText'>Security</h4>
@@ -149,45 +149,48 @@ const Devices = () => {
                                 </ListGroupItem>
                             </ListGroup>
                         </div>
-                    </div> */}
-                    {/* <div className='col-lg-9'> */}
-                        <div className='deviceRight settingOuter'> 
-                            <Image src={Images.darkDevices} alt="darkDevices image" className="img-fluid" />
+                    </div>
+                    <div className='col-lg-9'>
+                        <div className='deviceRight settingOuter'>
+                            <Image src={Images.arrowLeftUp} alt="leftup" className="img-fluid" />
                             <div className='deviceData w-100'>
-                                <h4 className='appointMain'>Devices</h4>
-                                <p className='lightOfferText mt-2'>Add a new device as any of the following or configure the settings of a registered one.</p>
-                                <div className='addDeviceSection'>
-                                    <h4 className='amountText m-0'>Add a New Device</h4>
-                                    <div className='addDeviceSub'>
-                                        <div className='SubReader'>
-                                            <Image src={Images.deviceScan} alt="darkDevices image" className="img-fluid" />
-                                            <h4 className='cancelOrderText mt-3'>Barcode Scanner</h4>
-                                        </div>
-                                        <div className='SubReader'>
-                                            <Image src={Images.cardReader} alt="cardReader image" className="img-fluid" />
-                                            <h4 className='cancelOrderText mt-3'>Card Reader</h4>
-                                        </div>
-                                        <div className='SubReader'>
-                                            <Image src={Images.cashDraw} alt="cashDraw image" className="img-fluid" />
-                                            <h4 className='cancelOrderText mt-3'>Cash Drawers</h4>
-                                        </div>
-                                        <div className='SubReader'>
-                                            <Image src={Images.printer} alt="printer image" className="img-fluid" />
-                                            <h4 className='cancelOrderText mt-3'>Receipt Printers</h4>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div className='configureBox'>
-                                    <h4 className='amountText m-0'>Configure Settings on Your Device</h4>
-                                    <h4 className='lightOfferText mt-3'>All you need to manage Basic Point of Sale is a device nickname and location to allow team members to accept payments.</h4>
+                                <h4 className='appointMain'>Refund Policy</h4>
+                                <div className='refundDetails mt-4'>
+                                    <h6 className='fontEighteen  mt-3'>Introduction</h6>
+                                    <p className='innerHeading mt-4 mb-4'>These Website Standard Terms and Conditions written on this webpage shall manage your use of our website, Website Name accessible at Website.com.</p>
+                                    <p className='innerHeading mt-4'>
+                                        These Terms will be applied fully and affect to your use of this Website. By using this Website, you agreed to accept all terms and conditions written in here. You must not use this Website if you </p>
+                                    <p className='innerHeading'>disagree with any of these Website Standard Terms and Conditions.</p>
+                                    <p className='innerHeading mb-3'>Minors or people below 18 years old are not allowed to use this Website.</p>
+                                    <h6 className='fontEighteen  mt-4 mb-4'>Intellectual Property Rights</h6>
+                                    <p className='innerHeading'>
+                                        Other than the content you own, under these Terms, Company Name and/or its licensors own all the intellectual property rights and materials contained in this Website.</p>
+                                    <p className='innerHeading mb-4'>You are granted limited license only for purposes of viewing the material contained on this Website.</p>
+
+                                    <h6 className='fontEighteen'>Restrictions</h6>
+                                    <ul className='listitems mb-4 mt-4' >You are specifically restricted from all of the following:</ul>
+                                    <li className='listitems '>
+                                        publishing any Website material in any other media;
+                                    </li>
+                                    <li className='listitems '>
+                                        selling, sublicensing and/or otherwise commercializing any Website material;
+                                    </li>
+                                    <li className='listitems '>publicly performing and/or showing any Website material;</li>
+                                    <li className='listitems '>using this Website in any way that is or may be damaging to this Website;</li>
+                                    <li className='listitems '>using this Website in any way that impacts user access to this Website;</li>
+                                    <li className='listitems '>using this Website contrary to applicable laws and regulations, or in any way may cause harm to the Website, or to any person or business entity.</li>
+                                    <li className='listitems '>Engaging in any data mining, data harvesting, data extracting or any other similar activity in relation to this Website.</li>
+                                    <li className='listitems '>using this Website in any way that impacts user access to this Website;</li>
+                                    <li className='listitems '>using this Website contrary to applicable laws and regulations, or in any way may cause harm to the Website, or to any person or business entity.</li>
+                                    <li className='listitems'>Engaging in any data mining, data harvesting, data extracting or any other similar activity in relation to this Website.</li>
                                 </div>
                             </div>
                         </div>
-                    {/* </div>
+                    </div>
                 </div>
-            </div> */}
+            </div>
         </>
     )
 }
 
-export default Devices
+export default Refunds
