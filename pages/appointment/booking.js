@@ -648,9 +648,9 @@ const Booking = () => {
                             </figure>
                             <h4 className='loginheading mt-2'>Check In</h4>
                             <h4 className='trackingHeading'>Confirm the details of your appointment.</h4>
-                            <p onClick={handleOnCloseModal} className='crossModal'>
+                            <div onClick={handleOnCloseModal} className='crossModal'>
                                 <Image src={Images.modalCross} alt="modalCross" className="img-fluid" />
-                            </p>
+                            </div>
                         </div>
 
                     </>
