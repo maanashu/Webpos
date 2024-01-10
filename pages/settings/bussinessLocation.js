@@ -5,7 +5,7 @@ import Image from "next/image";
 const BussinessLocation = () => {
     return (
         <>
-            <div className='settingMain'>
+            <div className='settingMain'> 
                 <div className='row'>
                     <div className='col-lg-3'></div>
                     <div className='col-lg-9'>
@@ -23,7 +23,7 @@ const BussinessLocation = () => {
                                                 <p className='settingText'>2598 West Street, Holland, MI 49424</p>
                                             </div>
                                         </div>
-                                        <div className="roundCheck mb-0">
+                                        <div className="roundCheck singleCheck mb-0">
                                             <input type="checkbox" checked="checked"/>
                                             <label className='amountText '></label>
                                         </div>
@@ -36,7 +36,7 @@ const BussinessLocation = () => {
                                                 <p className='settingText'>2598 West Street, Holland, MI 49424</p>
                                             </div>
                                         </div>
-                                        <div className="roundCheck mb-0">
+                                        <div className="roundCheck singleCheck mb-0">
                                             <input type="checkbox" checked="checked"/>
                                             <label className='amountText '></label>
                                         </div>

@@ -2092,7 +2092,7 @@ figure {
 
 .roundCheck input[type="checkbox"] {
     position: relative;
-    width: 30px;
+    width: 31px;
     height: 18px;
     -webkit-appearance: none;
     appearance: none;
@@ -2104,7 +2104,7 @@ figure {
 
 .roundCheck input[type="checkbox"]::before {
     content: "";
-    width: 11px;
+    width: 12px;
     height: 13px;
     border-radius: 50%;
     background: #fff;
@@ -3828,6 +3828,9 @@ figure {
     background: #FFF;
     box-shadow: -2px 4px 25px 0px rgba(50, 80, 127, 0.02), -5px 10px 80px 0px rgba(50, 80, 127, 0.04);
     padding: 24px 30px;
+    display: flex;
+    align-items: start;
+    gap: 12px;
 }
 
 .agreementRight {
@@ -3968,14 +3971,33 @@ figure {
     justify-content: space-between;
     margin-top: 10px;
 }
-.locationHead{
+
+.locationHead {
     display: flex;
     align-items: start;
     gap: 16px;
 }
-.bussinessData{
+
+.bussinessData {
     width: 100%;
 }
+
+.walletConfigRight {
+    border-radius: 20px;
+    background: #FFF;
+    box-shadow: -2px 4px 25px 0px rgba(50, 80, 127, 0.02), -5px 10px 80px 0px rgba(50, 80, 127, 0.04);
+    padding: 40px 40px 24px 40px;
+    display: flex;
+    align-items: start;
+    gap: 16px;
+}
+
+.walletPara {
+    color: #7E8AC1;
+    font-size: 16px;
+    font-weight: 400;
+}
+
 /*setting css end*/
 /*media query start*/
 @media (max-width:1600px) {
@@ -4108,3 +4130,99 @@ figure {
         display: none;
     }
 }
+
+
+
+
+
+
+/*gaurav arora sir css start*/
+.headingTextStyle {
+    color:#263682;
+    font-size: 24px;
+    font-weight: 500;
+}
+
+.textInformationStyle {
+    color: var(--Neutrals-N-600, #7e8ac1);
+
+    font-family: Roobert;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+}
+
+.shadowBox {
+    border-radius: 20px;
+    border: 1px solid var(--Neutrals-N-100, #d7deff);
+    padding: 20px;
+    margin-top: 50px;
+    flex-direction: row;
+    box-shadow: "20 100px 16px 0 rgba(0, 0, 0, 0.15)";
+}
+
+.boxTopTitleTextStyle {
+    color: var(--Primary-P-600-Main, #263682);
+
+    font-family: Roobert;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+    letter-spacing: -0.32px;
+    flex-direction: row;
+    display: flex;
+    justify-content: space-between;
+}
+
+.boxbottomTextStyle {
+    margin-top: 20px;
+    color: var(--Neutrals-N-600, #7e8ac1);
+
+    font-family: Roobert;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+}
+
+.modalTitleStyle {
+    align-items: center;
+    justify-content: center;
+    display: flex;
+    color: var(--Primary-P-600-Main, #263682);
+
+    font-family: Roobert;
+    font-size: 24px;
+
+    font-weight: 500;
+    line-height: normal;
+}
+
+.descriptionTextStyle {
+    color: var(--Neutrals-N-800, #636e9f);
+    margin-top: 20px;
+    font-family: Roobert;
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    letter-spacing: -0.36px;
+}
+
+.box {
+    display: flex;
+    width: 420px;
+    padding: 16px 18px 20px 18px;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 6px;
+    height: 100px;
+    border-radius: 16px;
+    border: 1px solid var(--Neutrals-N-100, #d7deff);
+    margin-top: 40px;
+}
+
+/*gaurav arora sir css end*/

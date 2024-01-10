@@ -270,8 +270,14 @@ import arrowLeftUp from "../public/images/arrowLeftUp.svg"
 import minusBtn from "../public/images/minusBtn.svg"
 import plusBtn from "../public/images/plusBtn.svg"
 import outlineLocation from "../public/images/outlineLocation.svg"
+import moneyOuter from "../public/images/moneyOuter.svg"
+import cardOuter from "../public/images/cardOuter.svg"
+import passwordLock from "../public/images/passwordLock.svg"
 
 export {
+  passwordLock,
+  cardOuter,
+  moneyOuter,
   outlineLocation,
   plusBtn,
   minusBtn,
