@@ -21,7 +21,7 @@ const Retails = () => {
   const sellerId = authData?.usersInfo?.payload?.uniqe_id;
   const router = useRouter();
   const mainProductArray = retailData?.mainProductData?.data || [];
-  console.log("retailData?.mainProductData", retailData?.mainProductData);
+  console.log("retailData?.mainProductData", authData?.usersInfo);
   const productPagination = {
     total: retailData?.mainProductData?.total || "0",
   };
