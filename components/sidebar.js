@@ -235,7 +235,10 @@ const Sidebar = (props) => {
             </Link>
           </ListGroupItem>
           <ListGroupItem className="sidebarItems">
-            <Link href="#" className={`sidebarLinks ${"" ? "active" : ""}`}>
+            <Link
+              href="/cashDrawer"
+              className={`sidebarLinks ${"" ? "active" : ""}`}
+            >
               <Image
                 src={Images.CashDrawer}
                 alt="image"
