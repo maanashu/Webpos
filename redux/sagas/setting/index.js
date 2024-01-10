@@ -175,7 +175,7 @@ function* getStaffDetails(action) {
   const dataToSend = { ...action.payload }
   delete dataToSend.cb
   try {
-    const resp = yield call(MerchantApiClient.get, (`${AUTH_API_URL}/api/v1/pos_staff_salary/get-staff-detail`));
+    const resp = yield call(ApiClient.get, (`${AUTH_API_URL}/api/v1/pos_staff_salary/get-staff-detail?id=${action.payload.id}`));
     if (resp.status) {
       yield put(setGetStaffDetails(resp.data));
       yield call(action.payload.cb, (action.res = resp));

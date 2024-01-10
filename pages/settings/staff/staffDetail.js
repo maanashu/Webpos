@@ -1,10 +1,33 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { ListGroup, ListGroupItem } from 'react-bootstrap';
 import * as Images from "../../../utilities/images"
 import Image from "next/image";
 import Link from 'next/link';
+import { getStaffDetails } from '../../../redux/slices/setting';
+import { useDispatch } from 'react-redux';
 
-const StaffDetail = () => {
+const StaffDetail = ({ selectedItemId }) => {
+    const dispatch = useDispatch();
+    // API for get all POS users...............................
+    const getStaffDetail = () => {
+        let params = {
+            id: selectedItemId,
+        };
+        dispatch(getStaffDetails({
+            ...params,
+            cb(res) {
+                if (res.status) {
+                    // setGetAllStaffList(res?.data?.payload?.pos_staff)
+                }
+            },
+        })
+        );
+    };
+
+    useEffect(() => {
+        getStaffDetail();
+    }, []);
+
     return (
         <>
             <div className='settingMain staffDetailSection'>
@@ -150,6 +173,7 @@ const StaffDetail = () => {
                             </ListGroup>
                         </div>
                     </div> */}
+
                     <div className='col-lg-9'>
                         <div className='settingOuter staffDetailRight'>
                             <div className='flexTable'>

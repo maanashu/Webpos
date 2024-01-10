@@ -23,6 +23,7 @@ import Image from "next/image";
 import StaffList from "./staff";
 import Devices from "./device";
 import Receipts from "./Receipts";
+import StaffDetail from "./staff/staffDetail";
 import { ListGroup } from "react-bootstrap";
 import ListGroupItem from "react-bootstrap";
 import Link from "next/link";
@@ -30,7 +31,8 @@ import Link from "next/link";
 
 export default function Settings() {
   const [selectedItem, setSelectedItem] = useState("Security");
-  console.log(selectedItem, "selectedItem");
+  const [selectedItemId, setSelectedItemId] = useState("");
+  console.log(selectedItemId, "selectedItemId");
 
   const settingsOptions = [
     { id: 1, name: "Security", info: "Not Updated", image: securityTick },
@@ -72,8 +74,10 @@ export default function Settings() {
     );
   };
 
-  const handleTouch = (item) => {
-    setSelectedItem(item?.name);
+  const handleTouch = (item,id) => {
+    setSelectedItemId(id ? id:"")
+    console.log(item,"itemname");
+    setSelectedItem(item?.name ? item?.name : item );
   };
 
   const renderComponent = () => {
@@ -81,11 +85,13 @@ export default function Settings() {
       case "Security":
         return <Security />;
       case "Staff":
-        return <StaffList />;
+        return <StaffList handleTouch={handleTouch} />;
       case "Devices":
         return <Devices />;
       case "Receipts":
         return <Receipts />;
+        case "staffDetail":
+        return <StaffDetail selectedItemId={selectedItemId}/>;
       default:
         return null;
     }
