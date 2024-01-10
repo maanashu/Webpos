@@ -1,11 +1,28 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import ProductSearch from "./productSearch";
 import * as Images from "../../../utilities/images";
 import Image from "next/image";
-import Link from "next/link";
+import { useRouter } from "next/router";
 
 const ProductInnerNav = ({ productCount }) => {
   const [filterShow, setFilterShow] = useState(false);
+  const [activeTab, setActiveTab] = useState("");
+  const router = useRouter();
+
+  const handleTabs = (tabValue) => {
+    setActiveTab(tabValue);
+    router.push({
+      query: { parameter: tabValue },
+    });
+  };
+  const pathName = router.asPath;
+  useEffect(() => {
+    if (pathName === "/Retails?parameter=product") {
+      setActiveTab("product");
+    } else if (pathName === "/Retails?parameter=services") {
+      setActiveTab("services");
+    }
+  }, [pathName]);
   return (
     <>
       <div className="productNavbar">
@@ -17,7 +34,10 @@ const ProductInnerNav = ({ productCount }) => {
         <div className="ProductSearch w-50">
           <ProductSearch />
         </div>
-        <button className="BlueBtn">
+        <button
+          className={activeTab == "product" ? "BlueBtn" : "GreyBtn"}
+          onClick={() => handleTabs("product")}
+        >
           Products
           <Image
             src={Images.Shopping_Outline}
@@ -25,14 +45,17 @@ const ProductInnerNav = ({ productCount }) => {
             className="img-fluid BtnIcon"
           />
         </button>
-        <Link className="GreyBtn" href="/Service">
+        <button
+          className={activeTab == "services" ? "BlueBtn" : "GreyBtn"}
+          onClick={() => handleTabs("services")}
+        >
           Services
           <Image
             src={Images.Services}
             alt="image"
             className="img-fluid BtnIcon"
           />
-        </Link>
+        </button>
         <div className="filterDropSelect">
           <button
             className="GreyBtn"

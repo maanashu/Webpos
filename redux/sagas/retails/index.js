@@ -25,7 +25,7 @@ function* getMainProduct(action) {
   try {
     const resp = yield call(
       ApiClient.get,
-      `${PRODUCT_API_URL_V1}products?app_name=pos&delivery_options=3&service_type=product&page=1&limit=25${params}`
+      `${PRODUCT_API_URL_V1}products?app_name=pos&delivery_options=3&service_type=product&page=1&limit=25&${params}`
     );
 
     if (resp.status) {
@@ -42,7 +42,7 @@ function* getMainProduct(action) {
 }
 
 function* getOneProductById(action) {
-  console.log("action", action);
+ 
   const dataToSend = { ...action.payload?.params };
   const params = new URLSearchParams(dataToSend).toString();
   try {
