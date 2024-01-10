@@ -4,14 +4,14 @@ import * as Images from "../../../utilities/images";
 import Image from "next/image";
 import Link from "next/link";
 
-const ProductInnerNav = () => {
+const ProductInnerNav = ({ productCount }) => {
   const [filterShow, setFilterShow] = useState(false);
   return (
     <>
       <div className="productNavbar">
         <div className="productAll">
           <p className="ProductAbout">
-            All Products <span className="productCount">(+1280)</span>
+            All Products <span className="productCount">({productCount})</span>
           </p>
         </div>
         <div className="ProductSearch w-50">
