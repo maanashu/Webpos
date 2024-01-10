@@ -3,32 +3,12 @@ import * as Images from "../../../utilities/images";
 import Image from "next/image";
 import { useDispatch, useSelector } from "react-redux";
 import { settingInfo, updateSettings } from "../../../redux/slices/setting";
+import CustomModal from "../../../components/customModal/CustomModal";
 
 const Taxes = () => {
   const dispatch = useDispatch();
   const receiptSettings = useSelector(settingInfo);
   const userSettings = receiptSettings?.getSettings;
-
-  const smsStatus = userSettings?.invoice_sms_send_status;
-  const emailStatus = userSettings?.invoice_email_send_status;
-  const invoiceStatus = userSettings?.print_invoice_status;
-
-  const handleSettings = (id) => {
-    let data = {};
-    switch (id) {
-      case 1:
-        data.invoice_sms_send_status = !smsStatus;
-        break;
-      case 2:
-        data.invoice_email_send_status = !emailStatus;
-        break;
-      case 3:
-        data.print_invoice_status = !invoiceStatus;
-        break;
-      default:
-    }
-    dispatch(updateSettings(data));
-  };
 
   return (
     <>
@@ -56,6 +36,30 @@ const Taxes = () => {
           </div>
         </div>
       </div>
+      <CustomModal
+        key={1}
+        show={true}
+        backdrop="static"
+        showCloseBtn={false}
+        isRightSideModal={true}
+        mediumWidth={false}
+        className={"commonWidth customContent"}
+        ids={"AddEmployee"}
+        child={() => (
+          <div className={styles.addEmployeeModal}>sgsdagasgegtwaetrhea</div>
+        )}
+        header={
+          <div
+            className="modalHeader_ mainheader-modal {
+            display: inline-block;
+            width: 100%;
+        }"
+          >
+            Tax Payer Information
+          </div>
+        }
+        // onCloseModal={() => handleOnCloseModal()}
+      />
     </>
   );
 };
