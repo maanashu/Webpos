@@ -24,7 +24,7 @@ const AddStoreModal = (props) => {
     const [staffRoles, setStaffRoles] = useState("");
     const [selectedRoleId, setSelectedRoleId] = useState([]);
     const [selected, setSelected] = useState([]);
-    const [selectedColor, setSelectedColor] = useState("");
+    const [selectedColor, setSelectedColor] = useState("");  
     console.log(selectedColor,"selectedColor");
     const [displayColorPicker, setDisplayColorPicker] = useState(false);
 
@@ -158,8 +158,8 @@ const AddStoreModal = (props) => {
                             <input className="form-control nameControl" type="email" placeholder="E-mail" value={staffEmailAddress} onChange={(e) => { setStaffEmailAddress(e.target.value); }} />
                         </div>
                         <div className='selectRole mt-2'>
-                            {/* <label className="form-label amountText m-0">Role</label>
-                            <select class="form-select" aria-label="Default select example" value={selectedRoleId} onChange={(e) => handleSelectChange(e.target.value)}>
+                            <label className="form-label amountText m-0">Role</label>
+                            {/* <select class="form-select" aria-label="Default select example" value={selectedRoleId} onChange={(e) => handleSelectChange(e.target.value)}>
                                 <option selected>Open this select menu</option>
                                 {staffRoles?.length > 0 ?
                                     <>

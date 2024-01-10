@@ -679,6 +679,12 @@ figure {
     margin: 0;
 }
 
+.zipForm::-webkit-outer-spin-button,
+.zipForm::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
 .dividesection {
     padding: 0 30px;
 }
@@ -3398,12 +3404,14 @@ figure {
     cursor: pointer;
 }
 
-#addStoreModal {
+#addStoreModal,
+#taxPayerModal {
     width: 100%;
     max-width: 540px;
 }
 
-#addStoreModal .modal-content {
+#addStoreModal .modal-content,
+#taxPayerModal .modal-content {
     border-radius: 20px !important;
     background: #FFF !important;
     box-shadow: -2px 6px 6px 0px rgba(52, 79, 117, 0.03), -11px 28px 25px 0px rgba(52, 79, 117, 0.04), -31px 74px 80px 0px rgba(52, 79, 117, 0.07) !important;
@@ -3411,7 +3419,8 @@ figure {
     border: none;
 }
 
-#addStoreModal .modal-header {
+#addStoreModal .modal-header,
+#taxPayerModal .modal-header {
     border: none;
     padding: 0 !important;
     justify-content: center;
@@ -3998,6 +4007,59 @@ figure {
     font-weight: 400;
 }
 
+.taxRight {
+    border-radius: 20px;
+    background: #FFF;
+    box-shadow: -2px 4px 25px 0px rgba(50, 80, 127, 0.02), -5px 10px 80px 0px rgba(50, 80, 127, 0.04);
+    padding: 24px 30px 24px 60px;
+}
+
+.activateMain {
+    border-radius: 16px;
+    border: 1px solid #D7DEFF;
+    padding: 16px 24px;
+    margin-top: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.blueActiveBtn {
+    border-radius: 30px;
+    background: #263682;
+    padding: 10px 16px;
+    color: #F5F6FC;
+    font-size: 14px;
+    font-weight: 400;
+    border: none;
+}
+
+.taxpayData {
+    margin: 16px 0;
+    height: calc(100vh - 300px);
+    overflow-y: scroll;
+}
+
+.selectRole .searchWrapper {
+    border-radius: 50px;
+    border: 1px solid #D7DEFF;
+    box-shadow: -2px 4px 25px 0px rgba(50, 80, 127, 0.02), -5px 10px 80px 0px rgba(50, 80, 127, 0.04);
+    padding: 12px 18px;
+    color: #263682;
+    font-size: 18px;
+    font-weight: 400;
+}
+
+.taxVerifySection {
+    border-radius: 16px;
+    background: #F5F6FC;
+    padding: 16px 24px;
+    margin-top: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
 /*setting css end*/
 /*media query start*/
 @media (max-width:1600px) {
@@ -4138,7 +4200,7 @@ figure {
 
 /*gaurav arora sir css start*/
 .headingTextStyle {
-    color:#263682;
+    color: #263682;
     font-size: 24px;
     font-weight: 500;
 }

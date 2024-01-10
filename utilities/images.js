@@ -273,8 +273,10 @@ import outlineLocation from "../public/images/outlineLocation.svg"
 import moneyOuter from "../public/images/moneyOuter.svg"
 import cardOuter from "../public/images/cardOuter.svg"
 import passwordLock from "../public/images/passwordLock.svg"
+import lightLocation from "../public/images/lightLocation.svg"
 
 export {
+  lightLocation,
   passwordLock,
   cardOuter,
   moneyOuter,

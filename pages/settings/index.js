@@ -23,11 +23,12 @@ import Image from "next/image";
 import StaffList from "./staff";
 import Devices from "./device";
 import Receipts from "./Receipts";
+import Location from "./location";
 import StaffDetail from "./staff/staffDetail";
 import { ListGroup } from "react-bootstrap";
 import ListGroupItem from "react-bootstrap";
 import Link from "next/link";
-
+import Taxes from "./Taxes";
 
 export default function Settings() {
   const [selectedItem, setSelectedItem] = useState("Security");
@@ -63,7 +64,6 @@ export default function Settings() {
   ];
   const SettingsBar = ({ item }) => {
     return (
-
       <Link className="settingList" href="#" onClick={() => handleTouch(item)}>
         <Image src={item?.image} className="SecurityImg" />
         <div className="securityHeading">
@@ -74,10 +74,10 @@ export default function Settings() {
     );
   };
 
-  const handleTouch = (item,id) => {
-    setSelectedItemId(id ? id:"")
-    console.log(item,"itemname");
-    setSelectedItem(item?.name ? item?.name : item );
+  const handleTouch = (item, id) => {
+    setSelectedItemId(id ? id : "");
+    console.log(item, "itemname");
+    setSelectedItem(item?.name ? item?.name : item);
   };
 
   const renderComponent = () => {
@@ -90,8 +90,12 @@ export default function Settings() {
         return <Devices />;
       case "Receipts":
         return <Receipts />;
-        case "staffDetail":
-        return <StaffDetail selectedItemId={selectedItemId}/>;
+      case "Taxes":
+        return <Taxes />;
+        case "Locations":
+          return <Location />;
+      case "staffDetail":
+        return <StaffDetail selectedItemId={selectedItemId} />;
       default:
         return null;
     }

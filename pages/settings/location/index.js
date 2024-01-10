@@ -1,13 +1,16 @@
 import React from 'react'
-import * as Images from "../../utilities/images"
+import * as Images from "../../../utilities/images"
 import Image from "next/image";
 
-const BussinessLocation = () => {
+const Location = () => {
+
+    
+
     return (
         <>
             <div className='settingMain'> 
                 <div className='row'>
-                    <div className='col-lg-3'></div>
+                    {/* <div className='col-lg-3'></div> */}
                     <div className='col-lg-9'>
                         <div className='settingOuter bussinessRight'>
                             <Image src={Images.darkDevices} alt="darkDevices image" className="img-fluid" />
@@ -23,8 +26,8 @@ const BussinessLocation = () => {
                                                 <p className='settingText'>2598 West Street, Holland, MI 49424</p>
                                             </div>
                                         </div>
-                                        <div className="roundCheck singleCheck mb-0">
-                                            <input type="checkbox" checked="checked"/>
+                                        <div className="roundCheck mb-0">
+                                            <input type="checkbox" />
                                             <label className='amountText '></label>
                                         </div>
                                     </div>
@@ -36,8 +39,8 @@ const BussinessLocation = () => {
                                                 <p className='settingText'>2598 West Street, Holland, MI 49424</p>
                                             </div>
                                         </div>
-                                        <div className="roundCheck singleCheck mb-0">
-                                            <input type="checkbox" checked="checked"/>
+                                        <div className="roundCheck mb-0">
+                                            <input type="checkbox" />
                                             <label className='amountText '></label>
                                         </div>
                                     </div>
@@ -51,4 +54,4 @@ const BussinessLocation = () => {
     )
 }
 
-export default BussinessLocation
+export default Location
