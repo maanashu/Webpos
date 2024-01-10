@@ -7,8 +7,10 @@ import EmailReceiptModal from "../../components/modals/homeModals/service/emailR
 import GiftCardModal from "../../components/modals/homeModals/service/giftCardModal";
 import JobrWalletModal from "../../components/modals/homeModals/service/jobrWalletModal";
 import Link from "next/link";
+import { useRouter } from "next/router";
 
 const CartAmountByPay = () => {
+  const router = useRouter();
   const [key, setKey] = useState(Math.random());
   const [modalDetail, setModalDetail] = useState({
     show: false,
@@ -225,7 +227,9 @@ const CartAmountByPay = () => {
                 </div>
               </div>
               <div className="text-center mb-4 ">
-                <button className="nextverifyBtn" type="submit">
+                <button className="nextverifyBtn" type="submit"   onClick={() =>
+                  router.push({ pathname: "/Retails/CartPayByCash" })
+                }>
                   Confirm
                 </button>
               </div>
