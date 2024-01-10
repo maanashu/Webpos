@@ -38,7 +38,7 @@ const Taxes = () => {
       </div>
       <CustomModal
         key={1}
-        show={true}
+        show={false}
         backdrop="static"
         showCloseBtn={false}
         isRightSideModal={true}

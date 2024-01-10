@@ -28,6 +28,7 @@ import StaffDetail from "./staff/staffDetail";
 import { ListGroup } from "react-bootstrap";
 import ListGroupItem from "react-bootstrap";
 import Link from "next/link";
+import Taxes from "./Taxes";
 
 export default function Settings() {
   const [selectedItem, setSelectedItem] = useState("Security");
@@ -89,10 +90,12 @@ export default function Settings() {
         return <Devices />;
       case "Receipts":
         return <Receipts />;
+      case "Taxes":
+        return <Taxes />;
         case "Locations":
           return <Location />;
-        case "staffDetail":
-        return <StaffDetail selectedItemId={selectedItemId}/>;
+      case "staffDetail":
+        return <StaffDetail selectedItemId={selectedItemId} />;
       default:
         return null;
     }
