@@ -93,14 +93,14 @@ const Overview = () => {
       allOrderDeliveriesInfo();
     }
   }, [UniqueId]);
-  useEffect(() => {
-    dispatch(
-      getSecuritySettingInfo({
-        app_name: "pos",
-        seller_id: authData?.posUserLoginDetails?.payload?.uuid,
-      })
-    );
-  }, []);
+  // useEffect(() => {
+  //   dispatch(
+  //     getSecuritySettingInfo({
+  //       app_name: "pos",
+  //       seller_id: authData?.posUserLoginDetails?.payload?.uuid,
+  //     })
+  //   );
+  // }, []);
 
   return (
     <>
@@ -727,3 +727,4 @@ const Overview = () => {
     </>
   );
 };
+export default Overview
