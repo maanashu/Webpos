@@ -21,8 +21,8 @@ const StaffDetail = ({ selectedItemId }) => {
     // API for get all POS users...............................
     const getStaffDetail = () => {
         let params = {
-            id: 286,
-            // id:selectedItemId
+            // id: 286,
+            id:selectedItemId
         };
         dispatch(getStaffDetails({
             ...params,
