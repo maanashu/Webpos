@@ -187,42 +187,44 @@ const Transactions = () => {
         </div>
       </div>
 
-      <ChartCommon
-        style={{ cursor: "pointer" }}
-        className="col-md-12"
-        header=""
-        options={options}
-        data={{
-          labels: [...graphData?.labels] || [],
-          datasets: [
-            {
-              backgroundColor: "#4659B5",
-              data: [...graphData?.datasets?.[0]],
-              borderRadius: 10,
-            },
-            {
-              backgroundColor: "#12B76A",
-              data: [...graphData?.datasets?.[1]],
-              borderRadius: 10,
-            },
-            {
-              backgroundColor: "#47B0D6",
-              data: [...graphData?.datasets?.[2]],
-              borderRadius: 10,
-            },
-          ]
-            .map((el) => ({
-              id: 1,
-              data: el.data,
-              backgroundColor: el.backgroundColor,
-              borderWidth: 2,
-              pointRadius: 0,
-              lineTension: 0.3,
-            }))
-            .filter((el, idx) => selectedLines.includes(idx + 1)),
-        }}
-        chartType="Bar"
-      />
+      {graphData?.datasets && (
+        <ChartCommon
+          style={{ cursor: "pointer" }}
+          className="col-md-12"
+          header=""
+          options={options}
+          data={{
+            labels: [...graphData?.labels] || [],
+            datasets: [
+              {
+                backgroundColor: "#4659B5",
+                data: [...graphData?.datasets?.[0]],
+                borderRadius: 10,
+              },
+              {
+                backgroundColor: "#12B76A",
+                data: [...graphData?.datasets?.[1]],
+                borderRadius: 10,
+              },
+              {
+                backgroundColor: "#47B0D6",
+                data: [...graphData?.datasets?.[2]],
+                borderRadius: 10,
+              },
+            ]
+              .map((el) => ({
+                id: 1,
+                data: el.data,
+                backgroundColor: el.backgroundColor,
+                borderWidth: 2,
+                pointRadius: 0,
+                lineTension: 0.3,
+              }))
+              .filter((el, idx) => selectedLines.includes(idx + 1)),
+          }}
+          chartType="Bar"
+        />
+      )}
     </div>
   );
 };
