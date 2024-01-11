@@ -36,7 +36,9 @@ export default function Layout({ children, isLoggedIn, userType }) {
     "/settings/refundPolicy",
     "/settings/termsCondition",
     "/settings/polices",
-    "/settings/bussinessLocation"
+    "/settings/bussinessLocation",
+    "/settings/walletConfig",
+    
   ];
 
   return (
