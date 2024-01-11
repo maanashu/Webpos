@@ -15,7 +15,7 @@
 .commanscrollBar {
     height: 100%;
     overflow: auto;
-    padding: 0 10px;
+    padding: 0 10px 40px;
     margin-bottom: 20px;
 }
 
@@ -145,7 +145,7 @@
 .sidebarLinks.active {
     background: #F5F6FC;
     border-radius: 20px;
-    padding: 10px 21px;
+    padding: 15px 21px;
 }
 
 .sidebarLinks.active .sidebarTxt {
