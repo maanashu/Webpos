@@ -9,6 +9,7 @@ import {
   selectTransactionData,
 } from "../../redux/slices/transactions";
 import ChartCommon from "../../components/commanComonets/ChartCommon";
+import Link from "next/link";
 
 const Transactions = () => {
   const [timeSpan, setTimeSpan] = useState("month");
@@ -109,21 +110,28 @@ const Transactions = () => {
             className="stat-box"
             style={{ backgroundColor: bgColor }}
           >
-            <Image
-              objectFit="center"
-              width={30}
-              height={30}
-              src={icon}
-              style={{ marginBottom: "35px" }}
-            />
-            <div>
-              <h4 className="stat-box-title" style={{ color: textColor }}>
-                {title}
-              </h4>
-              <p className="stat-box-count" style={{ color: textColor }}>
-                {count}
-              </p>
-            </div>
+            <Link
+              href={{
+                pathname: "/transactions/transactionList",
+                query: { "time-span": timeSpan },
+              }}
+            >
+              <Image
+                objectFit="center"
+                width={30}
+                height={30}
+                src={icon}
+                style={{ marginBottom: "35px" }}
+              />
+              <div>
+                <h4 className="stat-box-title" style={{ color: textColor }}>
+                  {title}
+                </h4>
+                <p className="stat-box-count" style={{ color: textColor }}>
+                  {count}
+                </p>
+              </div>
+            </Link>
           </div>
         ))}
       </div>

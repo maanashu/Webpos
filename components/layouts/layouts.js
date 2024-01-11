@@ -32,7 +32,8 @@ export default function Layout({ children, isLoggedIn, userType }) {
     "/settings/staffList",
     "/settings/staffDetail",
     "/settings/staff/staffLocation",
-    '/transactions'
+    '/transactions',
+    '/transactions/transactionList'
   ];
 
   return (
