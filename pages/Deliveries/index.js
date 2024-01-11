@@ -5,6 +5,7 @@ import Image from "next/image";
 import {
   deliveryData,
   getCurrentOrderStatus,
+  getDrawerOrdersCount,
   getOrdersList,
   getOrderStat,
   getTodayOrderCount,
@@ -13,17 +14,18 @@ import { useDispatch, useSelector } from "react-redux";
 import { selectLoginAuth } from "../../redux/slices/auth";
 import OrderListItem from "./Component/OrderListItem";
 import NoOrderFound from "../../components/NoOrderFound";
+import Link from "next/link";
 
 const DeliverDashboard = () => {
   const dispatch = useDispatch();
   const authData = useSelector(selectLoginAuth);
-  const { orderListLoading, orderList } = useSelector(deliveryData);
-
+  const { orderListLoading, orderList, drawerOrderCount } =
+    useSelector(deliveryData);
   const uniqueId = authData?.usersInfo?.payload?.uniqe_id;
-  console.log("authDataaa", JSON.stringify(authData));
   const [todayOrdersCount, setTodayOrdersCount] = useState(null);
   const [currentOrderCount, setcurrentOrderCount] = useState(null);
   const [orderStatData, setOrderStatData] = useState(null);
+  const [orderListType, setOrderListType] = useState("Orders to review");
 
   useEffect(() => {
     let params = {
@@ -31,18 +33,23 @@ const DeliverDashboard = () => {
     };
     let orderStatParam = {
       seller_id: uniqueId,
-      requestType: "1,3",
+      filter: "week",
+      delivery_option: "1,3",
     };
     let orderListParam = {
-      seller_id: "b169ed4d-be27-44eb-9a08-74f997bc6a2i",
-      requestType: "1,3",
-      status: "5",
-      needWalkin: false,
+      status: 1,
+      seller_id: uniqueId,
+      delivery_option: "1,3",
+      need_walkin: false,
     };
 
+    let orderCountparams = {
+      seller_id: uniqueId,
+      delivery_option: "1,3",
+    };
     dispatch(
       getTodayOrderCount({
-        params,
+        ...params,
         cb(res) {
           if (res) {
             setTodayOrdersCount(res?.data?.payload);
@@ -52,7 +59,7 @@ const DeliverDashboard = () => {
     );
     dispatch(
       getCurrentOrderStatus({
-        params,
+        ...params,
         cb(res) {
           if (res) {
             setcurrentOrderCount(res?.data?.payload);
@@ -62,7 +69,7 @@ const DeliverDashboard = () => {
     );
     dispatch(
       getOrderStat({
-        orderStatParam,
+        ...orderStatParam,
         cb(res) {
           if (res) {
             setOrderStatData(res?.data?.payload);
@@ -70,17 +77,31 @@ const DeliverDashboard = () => {
         },
       })
     );
-
     dispatch(
       getOrdersList({
         ...orderListParam,
       })
     );
+    dispatch(
+      getDrawerOrdersCount({
+        ...orderCountparams,
+      })
+    );
   }, []);
+
   function Loading() {
-    return <h2 style={{ textAlign: "center" }}>🌀 Loading...</h2>;
+    return (
+      <div className="table-responsive deliverTable">
+        <h2
+          className="customerLink text-center"
+          style={{ textAlign: "center", marginTop: 100 }}
+        >
+          🌀 Loading...
+        </h2>
+      </div>
+    );
   }
-  console.log("orderList", JSON.stringify(orderList));
+  const itemPressHandler = (data) => {};
   return (
     <>
       <div className="deliverySection ">
@@ -258,16 +279,24 @@ const DeliverDashboard = () => {
                 </div>
                 <div className="deliverOrderData">
                   <div className="flexDiv">
-                    <h4 className="loginMain">Order Deliveries</h4>
-                    {orderList?.length > 0 && (
-                      <div className="flexTable pointHand">
-                        <h4 className="confirmBack ">See All</h4>
-                        <Image
-                          src={Images.lightArrowRight}
-                          alt="lightArrowRight image"
-                          className="img-fluid ms-1"
-                        />
-                      </div>
+                    <h4 className="loginMain">{orderListType}</h4>
+                    {orderList?.data?.length > 0 && (
+                      <Link
+                        href={{
+                          pathname: "Deliveries/order",
+
+                          query: { index: null },
+                        }}
+                      >
+                        <div className="flexTable pointHand">
+                          <h4 className="confirmBack ">See All</h4>
+                          <Image
+                            src={Images.lightArrowRight}
+                            alt="lightArrowRight image"
+                            className="img-fluid ms-1"
+                          />
+                        </div>
+                      </Link>
                     )}
                   </div>
                   {orderListLoading ? (
@@ -279,7 +308,8 @@ const DeliverDashboard = () => {
                       ) : (
                         <OrderListItem
                           screen={"DashBoard"}
-                          orderList={orderList}
+                          orderList={orderList?.data}
+                          itemPressHandler={itemPressHandler}
                         />
                       )}
                     </div>
@@ -289,7 +319,7 @@ const DeliverDashboard = () => {
             </div>
           </div>
         </div>
-        <DeliveryRightSidebar />
+        <DeliveryRightSidebar setOrderListType={setOrderListType} />
       </div>
     </>
   );

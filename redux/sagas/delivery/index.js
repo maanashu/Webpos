@@ -3,20 +3,32 @@ import { ApiClient } from "../../../utilities/api";
 import { ORDER_API_URL } from "../../../utilities/config";
 
 import { all, call, put, takeLatest } from "redux-saga/effects";
-import { setOrdersList } from "../../slices/delivery";
+import {
+  setDrawerOrdersCount,
+  setOrderDetailById,
+  setOrdersList,
+} from "../../slices/delivery";
+
+const API_URL = {
+  getTodayOrderCount: "/api/v1/orders/pos/today/orders-count?",
+  getCurrentOrderStat: "/api/v1/orders/pos/delivering-orders/count?",
+  getOrderStat: "/api/v1/orders/pos/orders/conversion/statistics?",
+  getOrderList: "/api/v1/orders?",
+  getDrawerCount: "/api/v1/orders/pos/statistics?",
+  getOrderDetailById: "/api/v1/orders/pos/",
+};
 
 function* getTodayOrderCount(action) {
   const dataToSend = { ...action.payload };
   delete dataToSend.cb;
   const params = new URLSearchParams(dataToSend).toString();
-  console.log("PARAMA", params);
+
   try {
     const resp = yield call(
       ApiClient.get,
-      `${ORDER_API_URL}/api/v1/orders/pos/today/orders-count?seller_id=${params}`
+      `${ORDER_API_URL}${API_URL.getTodayOrderCount}${params}`
     );
     if (resp) {
-      console.log("Response", resp);
       //   yield put(setProfitData(resp.data));
       yield call(action.payload.cb, (action.res = resp));
     } else {
@@ -32,11 +44,10 @@ function* getCurrentOrderStatus(action) {
   const dataToSend = { ...action.payload };
   delete dataToSend.cb;
   const params = new URLSearchParams(dataToSend).toString();
-
   try {
     const resp = yield call(
       ApiClient.get,
-      `${ORDER_API_URL}/api/v1/orders/pos/delivering-orders/count?seller_id=${params}`
+      `${ORDER_API_URL}${API_URL.getCurrentOrderStat}${params}`
     );
     if (resp) {
       //   yield put(setProfitData(resp.data));
@@ -57,10 +68,9 @@ function* getOrderStat(action) {
   try {
     const resp = yield call(
       ApiClient.get,
-      `${ORDER_API_URL}/api/v1/orders/pos/orders/conversion/statistics?seller_id=${dataToSend?.seller_id}&filter=week&delivery_option=${dataToSend?.requestType}`
+      `${ORDER_API_URL}${API_URL.getOrderStat}${params}`
     );
     if (resp) {
-      console.log("Response", resp);
       //   yield put(setProfitData(resp.data));
       yield call(action.payload.cb, (action.res = resp));
     } else {
@@ -74,21 +84,63 @@ function* getOrderStat(action) {
 
 function* getOrdersList(action) {
   const dataToSend = { ...action.payload };
-
   const params = new URLSearchParams(dataToSend).toString();
-  console.log(
-    "444565464456456456456564654465465456=-=",
-    `${ORDER_API_URL}/api/v1/orders?${params}`
-  );
   try {
     const resp = yield call(
       ApiClient.get,
-      `${ORDER_API_URL}/api/v1/orders?${params}`
+      `${ORDER_API_URL}${API_URL.getOrderList}${params}`
     );
     if (resp) {
-      console.log("ResponseLIST==--==-=-=-", resp);
-      yield put(setOrdersList(resp?.data == "" ? [] : resp?.data));
-      yield call(action.payload.cb, (action.res = resp));
+      yield put(setOrdersList(resp?.data == "" ? [] : resp?.data?.payload));
+      // yield call(action.payload.cb, (action.res = resp));
+    } else {
+      throw resp;
+    }
+  } catch (e) {
+    // yield put(onErrorStopLoad());
+    toast.error(e?.error?.response?.data?.msg);
+  }
+}
+function* getDrawerOrdersCount(action) {
+  const dataToSend = { ...action.payload };
+  const params = new URLSearchParams(dataToSend).toString();
+  try {
+    const resp = yield call(
+      ApiClient.get,
+      `${ORDER_API_URL}${API_URL.getDrawerCount}${params}`
+    );
+    if (resp) {
+      console.log("DrawerCount ", JSON.stringify(resp));
+      yield put(
+        setDrawerOrdersCount(resp?.data == "" ? [] : resp?.data?.payload)
+      );
+
+      // yield call(action.payload.cb, (action.res = resp));
+    } else {
+      throw resp;
+    }
+  } catch (e) {
+    // yield put(onErrorStopLoad());
+    toast.error(e?.error?.response?.data?.msg);
+  }
+}
+function* getOrderDetailById(orderId, callbackFn) {
+  const dataToSend = { ...action.payload };
+  // const params = new URLSearchParams(dataToSend).toString();
+  // console.log("IIISSS", JSON.stringify(dataToSend));
+  try {
+    const resp = yield call(
+      ApiClient.get,
+      `${ORDER_API_URL}${API_URL.getOrderDetailById}${orderId}`
+    );
+    if (resp) {
+      // console.log("OrderId  ", JSON.stringify(resp));
+      yield put(
+        setOrderDetailById(resp?.data == "" ? [] : resp?.data?.payload)
+      );
+      callbackFn && callbackFn(resp);
+
+      // yield call(action.payload.cb, (action.res = resp));
     } else {
       throw resp;
     }
@@ -105,6 +157,10 @@ function* deliverySaga() {
   ]);
   yield all([takeLatest("delivery/getOrderStat", getOrderStat)]);
   yield all([takeLatest("delivery/getOrdersList", getOrdersList)]);
+  yield all([
+    takeLatest("delivery/getDrawerOrdersCount", getDrawerOrdersCount),
+  ]);
+  yield all([takeLatest("delivery/getOrderDetailById", getOrderDetailById)]);
 }
 
 export default deliverySaga;

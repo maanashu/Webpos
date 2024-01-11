@@ -3,7 +3,11 @@ import { createSlice } from "@reduxjs/toolkit";
 const initialState = {
   loading: false,
   orderListLoading: false,
+  drawerOrderCountLoading: false,
+  orderDetailLoading: false,
   orderList: [],
+  drawerOrderCount: [],
+  orderDetail: [],
 };
 
 export const deliverySlice = createSlice({
@@ -35,6 +39,21 @@ export const deliverySlice = createSlice({
       state.orderListLoading = false;
       state.orderList = action?.payload;
     },
+
+    getDrawerOrdersCount: (state) => {
+      state.orderListLoading = true;
+    },
+    setDrawerOrdersCount: (state, action) => {
+      state.drawerOrderCountLoading = false;
+      state.drawerOrderCount = action?.payload;
+    },
+    getOrderDetailById: (state) => {
+      state.orderListLoading = true;
+    },
+    setOrderDetailById: (state, action) => {
+      state.orderDetailLoading = false;
+      state.orderDetail = action?.payload;
+    },
   },
 });
 
@@ -48,6 +67,10 @@ export const {
   setOrderStat,
   getOrdersList,
   setOrdersList,
+  getDrawerOrdersCount,
+  setDrawerOrdersCount,
+  getOrderDetailById,
+  setOrderDetailById,
 } = deliverySlice.actions;
 
 export const deliveryData = (state) => state.delivery;

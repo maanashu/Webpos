@@ -710,13 +710,13 @@ const Overview = () => {
         header={
           modalDetail.flag === "trackingmodal" ? (
             <>
-              <div onClick={handleOnCloseModal} className="modal_cancel">
-                <Image
-                  src={Images.modalCross}
-                  alt="modalCross"
-                  className="img-fluid"
-                />
-              </div>
+              <p onClick={handleOnCloseModal}>
+                {/* <Image
+                    src={Images.modalCross}
+                    alt="modalCross"
+                    className="img-fluid"
+                  /> */}
+              </p>
             </>
           ) : (
             ""
@@ -727,3 +727,5 @@ const Overview = () => {
     </>
   );
 };
+
+export default withAuth(Overview);
