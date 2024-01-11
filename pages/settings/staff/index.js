@@ -141,7 +141,7 @@ const StaffList = ({handleTouch}) => {
                                     </div> */}
                                     <div className='addStaff' onClick={() => {
                                         handleUserProfile("addStaff")
-                                    }}>
+                                    }}> 
                                         <Image src={Images.addDark} alt="addDark image" className="staffUserImg" hight={100} width={100}/>
                                         <h4 className='cancelOrderText'>Add Staff</h4>
                                     </div>

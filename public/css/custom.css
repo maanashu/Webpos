@@ -204,7 +204,6 @@ a {
 input:checked+.switch-slider {
   background-color: #4659B5;
 }
-
 input:checked+.switch-slider:before {
   -webkit-transform: translateX(14px);
   -ms-transform: translateX(14px);

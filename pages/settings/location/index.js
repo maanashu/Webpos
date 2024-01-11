@@ -53,7 +53,7 @@ const Location = () => {
 
     return (
         <>
-            <div className='settingMain'>
+            <div className='settingMain'> 
                 <div className='row'>
                     {/* <div className='col-lg-3'></div> */}
                     <div className='col-lg-9'>

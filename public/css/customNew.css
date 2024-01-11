@@ -679,6 +679,12 @@ figure {
     margin: 0;
 }
 
+.zipForm::-webkit-outer-spin-button,
+.zipForm::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
 .dividesection {
     padding: 0 30px;
 }
@@ -2092,7 +2098,7 @@ figure {
 
 .roundCheck input[type="checkbox"] {
     position: relative;
-    width: 30px;
+    width: 31px;
     height: 18px;
     -webkit-appearance: none;
     appearance: none;
@@ -2104,7 +2110,7 @@ figure {
 
 .roundCheck input[type="checkbox"]::before {
     content: "";
-    width: 11px;
+    width: 12px;
     height: 13px;
     border-radius: 50%;
     background: #fff;
@@ -3398,12 +3404,14 @@ figure {
     cursor: pointer;
 }
 
-#addStoreModal {
+#addStoreModal,
+#taxPayerModal {
     width: 100%;
     max-width: 540px;
 }
 
-#addStoreModal .modal-content {
+#addStoreModal .modal-content,
+#taxPayerModal .modal-content {
     border-radius: 20px !important;
     background: #FFF !important;
     box-shadow: -2px 6px 6px 0px rgba(52, 79, 117, 0.03), -11px 28px 25px 0px rgba(52, 79, 117, 0.04), -31px 74px 80px 0px rgba(52, 79, 117, 0.07) !important;
@@ -3411,7 +3419,8 @@ figure {
     border: none;
 }
 
-#addStoreModal .modal-header {
+#addStoreModal .modal-header,
+#taxPayerModal .modal-header {
     border: none;
     padding: 0 !important;
     justify-content: center;
@@ -3828,6 +3837,9 @@ figure {
     background: #FFF;
     box-shadow: -2px 4px 25px 0px rgba(50, 80, 127, 0.02), -5px 10px 80px 0px rgba(50, 80, 127, 0.04);
     padding: 24px 30px;
+    display: flex;
+    align-items: start;
+    gap: 12px;
 }
 
 .agreementRight {
@@ -3968,14 +3980,86 @@ figure {
     justify-content: space-between;
     margin-top: 10px;
 }
-.locationHead{
+
+.locationHead {
     display: flex;
     align-items: start;
     gap: 16px;
 }
-.bussinessData{
+
+.bussinessData {
     width: 100%;
 }
+
+.walletConfigRight {
+    border-radius: 20px;
+    background: #FFF;
+    box-shadow: -2px 4px 25px 0px rgba(50, 80, 127, 0.02), -5px 10px 80px 0px rgba(50, 80, 127, 0.04);
+    padding: 40px 40px 24px 40px;
+    display: flex;
+    align-items: start;
+    gap: 16px;
+}
+
+.walletPara {
+    color: #7E8AC1;
+    font-size: 16px;
+    font-weight: 400;
+}
+
+.taxRight {
+    border-radius: 20px;
+    background: #FFF;
+    box-shadow: -2px 4px 25px 0px rgba(50, 80, 127, 0.02), -5px 10px 80px 0px rgba(50, 80, 127, 0.04);
+    padding: 24px 30px 24px 60px;
+}
+
+.activateMain {
+    border-radius: 16px;
+    border: 1px solid #D7DEFF;
+    padding: 16px 24px;
+    margin-top: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.blueActiveBtn {
+    border-radius: 30px;
+    background: #263682;
+    padding: 10px 16px;
+    color: #F5F6FC;
+    font-size: 14px;
+    font-weight: 400;
+    border: none;
+}
+
+.taxpayData {
+    margin: 16px 0;
+    height: calc(100vh - 300px);
+    overflow-y: scroll;
+}
+
+.selectRole .searchWrapper {
+    border-radius: 50px;
+    border: 1px solid #D7DEFF;
+    box-shadow: -2px 4px 25px 0px rgba(50, 80, 127, 0.02), -5px 10px 80px 0px rgba(50, 80, 127, 0.04);
+    padding: 12px 18px;
+    color: #263682;
+    font-size: 18px;
+    font-weight: 400;
+}
+
+.taxVerifySection {
+    border-radius: 16px;
+    background: #F5F6FC;
+    padding: 16px 24px;
+    margin-top: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
 /*setting css end*/
 /*media query start*/
 @media (max-width:1600px) {
@@ -4108,3 +4192,99 @@ figure {
         display: none;
     }
 }
+
+
+
+
+
+
+/*gaurav arora sir css start*/
+.headingTextStyle {
+    color: #263682;
+    font-size: 24px;
+    font-weight: 500;
+}
+
+.textInformationStyle {
+    color: var(--Neutrals-N-600, #7e8ac1);
+
+    font-family: Roobert;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+}
+
+.shadowBox {
+    border-radius: 20px;
+    border: 1px solid var(--Neutrals-N-100, #d7deff);
+    padding: 20px;
+    margin-top: 50px;
+    flex-direction: row;
+    box-shadow: "20 100px 16px 0 rgba(0, 0, 0, 0.15)";
+}
+
+.boxTopTitleTextStyle {
+    color: var(--Primary-P-600-Main, #263682);
+
+    font-family: Roobert;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+    letter-spacing: -0.32px;
+    flex-direction: row;
+    display: flex;
+    justify-content: space-between;
+}
+
+.boxbottomTextStyle {
+    margin-top: 20px;
+    color: var(--Neutrals-N-600, #7e8ac1);
+
+    font-family: Roobert;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+}
+
+.modalTitleStyle {
+    align-items: center;
+    justify-content: center;
+    display: flex;
+    color: var(--Primary-P-600-Main, #263682);
+
+    font-family: Roobert;
+    font-size: 24px;
+
+    font-weight: 500;
+    line-height: normal;
+}
+
+.descriptionTextStyle {
+    color: var(--Neutrals-N-800, #636e9f);
+    margin-top: 20px;
+    font-family: Roobert;
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    letter-spacing: -0.36px;
+}
+
+.box {
+    display: flex;
+    width: 420px;
+    padding: 16px 18px 20px 18px;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 6px;
+    height: 100px;
+    border-radius: 16px;
+    border: 1px solid var(--Neutrals-N-100, #d7deff);
+    margin-top: 40px;
+}
+
+/*gaurav arora sir css end*/
