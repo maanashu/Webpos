@@ -9,13 +9,14 @@ import { getAllPosUser, selectLoginAuth } from '../../../redux/slices/auth';
 import { useDispatch, useSelector } from 'react-redux';
 import { useRouter } from 'next/router';
 
-const StaffList = () => {
+const StaffList = ({handleTouch}) => {
     const dispatch = useDispatch();
     const router = useRouter();
     const authData = useSelector(selectLoginAuth)
     const UniqueId = authData?.usersInfo?.payload?.uniqe_id
     const [key, setKey] = useState(Math.random());
     const [getAllStaffList, setGetAllStaffList] = useState("");
+    console.log(getAllStaffList,"getAllStaffList");
     const [modalDetail, setModalDetail] = useState({
         show: false,
         title: "",
@@ -245,7 +246,12 @@ const StaffList = () => {
                                                                     }
                                                                 </div>
                                                             </div>
-                                                            <Image src={Images.RightArrow} alt="RightArrow image" className="staffArrow pointHand" hight={100} width={100} onClick={() => router.push({ pathname: '/settings/staff/staffDetail', query: { id: data } })}/>
+                                                            <Image  src={Images.RightArrow} alt="RightArrow image" className="staffArrow pointHand" hight={100} width={100} 
+                                                            // onClick={() => router.push({ pathname: '/settings/staff/staffDetail'
+                                                            // , 
+                                                            // query: { id: data } })}
+                                                            onClick={()=>handleTouch("staffDetail",data?.id)}
+                                                            />
                                                         </div>
                                                     );
                                                 })}

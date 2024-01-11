@@ -3825,11 +3825,157 @@ figure {
 
 .securityRight {
     border-radius: 20px;
-    background:  #FFF;
+    background: #FFF;
     box-shadow: -2px 4px 25px 0px rgba(50, 80, 127, 0.02), -5px 10px 80px 0px rgba(50, 80, 127, 0.04);
     padding: 24px 30px;
 }
 
+.agreementRight {
+    border-radius: 20px;
+    background: #FFF;
+    box-shadow: -2px 4px 25px 0px rgba(50, 80, 127, 0.02), -5px 9px 80px 0px rgba(50, 80, 127, 0.04);
+}
+
+.agreePrimary {
+    display: flex;
+    align-items: start;
+    gap: 16px;
+    padding: 24px 40px 0 40px;
+}
+
+.publishSection {
+    border-radius: 10px;
+    border: 1px solid #D7DEFF;
+    background: #FFF;
+    padding: 15px;
+    height: 100%;
+}
+
+.policyPublish {
+    border-radius: 10px;
+    border: 1px solid #D7DEFF;
+    background: #FFF;
+    padding: 15px;
+    margin: 24px;
+}
+
+.publishMain {
+    margin: 0 24px;
+}
+
+.activeBox {
+    border-radius: 20px;
+    background: #D1FADF;
+    padding: 4px 6px;
+    display: flex;
+    align-items: center;
+    gap: 2px;
+}
+
+.activeDot {
+    background-color: #32D583;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+}
+
+.activeText {
+    color: #039855;
+    font-size: 12px;
+    font-weight: 500;
+}
+
+.agreeCalendar {
+    width: 16px !important;
+    height: 16px !important;
+}
+
+.agreementDate {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    margin-top: 10px;
+}
+
+.refundData {
+    border-radius: 10px;
+    border: 1px solid #D7DEFF;
+    padding: 10px;
+    margin: 16px 0;
+}
+
+.refundData .orderPara {
+    margin-top: 10px;
+}
+
+.refundRight {
+    border-radius: 20px;
+    background: #FFF;
+    padding: 40px;
+    display: flex;
+    align-items: start;
+    gap: 12px;
+}
+
+.refundIntro {
+    margin-top: 32px;
+}
+
+.refundMainText {
+    color: #636E9F;
+    font-size: 18px;
+    font-weight: 500;
+}
+
+.refundSubText {
+    color: #636E9F;
+    font-size: 16px;
+    font-weight: 400;
+}
+
+.refundList li {
+    list-style: disc;
+}
+
+.refundList {
+    margin-top: 16px;
+}
+
+.colorPick {
+    position: absolute;
+}
+
+.bussinessRight {
+    border-radius: 20px;
+    background: #FFF;
+    box-shadow: -2px 4px 25px 0px rgba(50, 80, 127, 0.02), -5px 10px 80px 0px rgba(50, 80, 127, 0.04);
+    padding: 40px 40px 24px 40px;
+    display: flex;
+    align-items: start;
+    gap: 16px;
+}
+
+.bussinessMain {
+    margin-top: 16px;
+}
+
+.bussinessSub {
+    border-radius: 16px;
+    background: #F5F6FC;
+    padding: 16px 24px;
+    display: flex;
+    align-items: start;
+    justify-content: space-between;
+    margin-top: 10px;
+}
+.locationHead{
+    display: flex;
+    align-items: start;
+    gap: 16px;
+}
+.bussinessData{
+    width: 100%;
+}
 /*setting css end*/
 /*media query start*/
 @media (max-width:1600px) {

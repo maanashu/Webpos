@@ -281,8 +281,10 @@ import jobrIcon from "../public/images/jobrIcon.svg";
 import arrowLeftUp from "../public/images/arrowLeftUp.svg";
 import minusBtn from "../public/images/minusBtn.svg";
 import plusBtn from "../public/images/plusBtn.svg";
+import outlineLocation from "../public/images/outlineLocation.svg";
 
 export {
+  outlineLocation,
   plusBtn,
   minusBtn,
   jobrIcon,

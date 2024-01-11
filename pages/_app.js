@@ -72,7 +72,7 @@ function App({ Component, pageProps }) {
             <Component {...pageProps} />
             <ToastContainer autoClose={800} />
           </Layout>
-        </>
+        </> 
       ) : (
         <>
           <AuthLayout>
