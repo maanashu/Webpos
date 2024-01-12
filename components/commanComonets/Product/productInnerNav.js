@@ -8,14 +8,15 @@ const ProductInnerNav = ({ productCount }) => {
   const [filterShow, setFilterShow] = useState(false);
   const [activeTab, setActiveTab] = useState("");
   const router = useRouter();
-
+  const pathName = router.asPath;
+  
   const handleTabs = (tabValue) => {
     setActiveTab(tabValue);
     router.push({
       query: { parameter: tabValue },
     });
   };
-  const pathName = router.asPath;
+
   useEffect(() => {
     if (pathName === "/Retails?parameter=product") {
       setActiveTab("product");

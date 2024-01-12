@@ -1,11 +1,11 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import * as Images from "../../utilities/images";
 import Image from "next/image";
 import ProductInnerNav from "../../components/commanComonets/Product/productInnerNav";
-import ProductRightSidebar from "../../components/commanComonets/Product/ProductRightSidebar";
 import { useRouter } from "next/router";
 import {
   getMainProduct,
+  getMainServices,
   getOneProductById,
   selectRetailData,
 } from "../../redux/slices/retails";
@@ -20,13 +20,11 @@ const Retails = () => {
   const sellerId = authData?.usersInfo?.payload?.uniqe_id;
   const router = useRouter();
   const { parameter } = router.query;
-  console.log(parameter,'parameter');
   const mainProductArray = retailData?.mainProductData?.data || [];
-  console.log("retailData?.mainProductData", authData?.usersInfo);
   const productPagination = {
     total: retailData?.mainProductData?.total || "0",
   };
-
+  const [services, setServices] = useState(null);
   useEffect(() => {
     let params = {
       seller_id: sellerId,
@@ -50,13 +48,40 @@ const Retails = () => {
       })
     );
   };
+
+  const servicesData = () => {
+    let params = {
+      page: 1,
+      limit: 25,
+      app_name: "pos",
+      need_pos_users: true,
+    };
+    console.log(params, "params");
+    dispatch(
+      getMainServices({
+        ...params,
+        cb(res) {
+          if (res.data) {
+            setServices(res?.data?.payload?.data);
+          } else {
+            toast.error("something went wrong");
+          }
+        },
+      })
+    );
+  };
+  useEffect(() => {
+    // if (parameter == "services") {
+    servicesData();
+    // }
+  }, []);
   return (
     <>
       <div className="flexBox">
         <div className="commanOuter">
           <ProductInnerNav productCount={productPagination?.total} />
           <div className="commanscrollBar">
-            {parameter=="product" ? (
+            {parameter == "product" ? (
               <div className="row">
                 {retailData?.loading ? (
                   <>
@@ -120,9 +145,103 @@ const Retails = () => {
                 )}
               </div>
             ) : (
-              <div>
-                <h1>This is Services tab</h1>
-              </div>
+              <>
+                <div>
+                  {services?.length > 0 ? (
+                    services?.map((services, index) => {
+                      return (
+                        <div className="flexBox">
+                          <div className="row">
+                            <div
+                              key={index}
+                              className="col-xl-2 col-lg-3 col-md-4 mb-3"
+                            >
+                              <div className="productsCard">
+                                <figure className="productImageBox">
+                                  <Image
+                                    src={services?.image}
+                                    alt="image"
+                                    className="img-fluid ProductIcon"
+                                    width="50"
+                                    height="50"
+                                  />
+                                  <div className="overlay">
+                                    <Image
+                                      src={Images.Add}
+                                      alt="image"
+                                      className="img-fluid addIcon"
+                                    />
+                                  </div>
+                                </figure>
+                                <article className="productDetails">
+                                  <p className="productName">
+                                    {services?.category?.name}
+                                  </p>
+                                  <p className="productserviceName">
+                                    <div
+                                      dangerouslySetInnerHTML={{
+                                        __html: services?.description,
+                                      }}
+                                    />
+                                  </p>
+                                  <p className="productPrice">
+                                    ${services?.price}
+                                  </p>
+                                  <figure className="appointmentDate">
+                                    <Image
+                                      src={Images.afterSomeCalender}
+                                      alt="image"
+                                      className="img-fluid appointmentCalender"
+                                    />
+                                    <span className="Ontime">
+                                      01/11/23 at 10:00hrs
+                                    </span>
+                                  </figure>
+                                  <figure className="Timezone">
+                                    <Image
+                                      src={Images.Appointmenttime}
+                                      alt="image"
+                                      className="img-fluid AppointmenttimeIcon"
+                                    />
+                                    <span className="AppointmentEstTime">
+                                      Est. 45-60min
+                                    </span>
+                                  </figure>
+                                  <figure className="Appointmentusers">
+                                    {services?.product_images?.map(
+                                      (productImg) => {
+                                        return (
+                                          <Image
+                                            src={productImg?.url}
+                                            alt="image"
+                                            className="img-fluid CardIcons"
+                                            width="100"
+                                            height="100"
+                                          />
+                                        );
+                                      }
+                                    )}
+                                  </figure>
+                                </article>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      );
+                    })
+                  ) : (
+                    <>
+                      {services?.length == 0 ? (
+                        <h3 className="mt-3 mb-3">No services Found!</h3>
+                      ) : (
+                        <div className="loaderOuter">
+                          <div className="spinner-grow loaderSpinner text-center my-5"></div>
+                        </div>
+                      )}
+                    </>
+                  )}
+                </div>
+              </>
             )}
           </div>
         </div>

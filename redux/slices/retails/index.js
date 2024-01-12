@@ -23,7 +23,27 @@ export const retailsSlice = createSlice({
       state.loading = false;
       state.oneProductData = action?.payload?.payload;
     },
-
+    getMainServices: (state) => {
+      state.loading = true;
+    },
+    setMainServices: (state, action) => {
+      state.loading = false;
+      state.getMainServices = action?.payload?.payload;
+    },
+    availableOffers: (state) => {
+      state.loading = true;
+    },
+    setAvailableOffers: (state, action) => {
+      state.loading = false;
+      state.availableOffers = action?.payload?.payload;
+    },
+    productCart: (state) => {
+      state.loading = true;
+    },
+    setProductCart: (state, action) => {
+      state.loading = false;
+      state.productCart = action?.payload?.payload;
+    },
     onErrorStopLoad: (state) => {
       state.loading = false;
     },
@@ -36,6 +56,12 @@ export const {
   setMainProduct,
   getOneProductById,
   setOneProductById,
+  getMainServices,
+  setMainServices,
+  availableOffers,
+  setAvailableOffers,
+  productCart,
+  setProductCart
 } = retailsSlice.actions;
 
 export const selectRetailData = (state) => state.retails;

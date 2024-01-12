@@ -1,12 +1,55 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import * as Images from "../../utilities/images";
 import Image from "next/image";
 import ProductSearch from "../../components/commanComonets/Product/productSearch";
 import Link from "next/link";
 import { useRouter } from "next/router";
+import { availableOffers, productCart } from "../../redux/slices/retails";
+import { useDispatch } from "react-redux";
 
 const ProductCart = () => {
   const router = useRouter();
+  const dispatch = useDispatch();
+  const [availableOffersData, setAvailableOffersData] = useState(null);
+  const [productCarts, setProductCarts] = useState(null);
+  console.log(productCarts, "productCarts");
+  const [posCartProducts, setPosCartProducts] = useState([]);
+  console.log(posCartProducts, "posCartProducts");
+  console.log(availableOffersData, "availableOffersData");
+
+  const offers = () => {
+    dispatch(
+      availableOffers({
+        cb(res) {
+          if (res.data) {
+            setAvailableOffersData(res?.data?.payload?.data);
+          } else {
+            toast.error("something went wrong");
+          }
+        },
+      })
+    );
+  };
+  const fullcarts = () => {
+    dispatch(
+      productCart({
+        cb(res) {
+          console.log(res, "responseCart=>");
+          if (res.data) {
+            setProductCarts(res?.data?.payload);
+            setPosCartProducts(res?.data?.payload?.poscart_products);
+          } else {
+            toast.error("something went wrong");
+          }
+        },
+      })
+    );
+  };
+  useEffect(() => {
+    offers();
+    fullcarts();
+  }, []);
+
   return (
     <div className="fullCartSection">
       <div className="row">
@@ -39,143 +82,66 @@ const ProductCart = () => {
                 <h4 className="providerSubText ">Line Total</h4>
               </div>
             </div>
-            <div className="cartSubInfo active ">
-              <div className="cartItemDetail w-50">
-                <h4 className="invoice_subhead p-0 ">1</h4>
-                <div className="orderTime ms-2">
-                  <Image
-                    src={Images.cartFood}
-                    alt="cartFoodImg"
-                    className="img-fluid cartFoodImg"
-                  />
-                  <div className="cartorderHeading ms-2 ">
-                    <h4 className="cartInfoText">
-                      Lightweight Stylish Casual Daypack
-                    </h4>
-                    <div className="flexTable mt-1">
-                      <div className="productGreyDot"></div>
-                      <h6 className="loginPara ms-1">SKU 0199 - 3221</h6>
+
+            {posCartProducts?.map((data, index) => {
+              return (
+                <div className="cartSubInfo active ">
+                  <div className="cartItemDetail w-50">
+                    <h4 className="invoice_subhead p-0 ">{index + 1}</h4>
+                    <div className="orderTime ms-2">
+                      <Image
+                        src={data?.product_details?.image}
+                        alt="cartFoodImg"
+                        className="img-fluid cartFoodImg"
+                        width="100"
+                        height="100"
+                      />
+                      <div className="cartorderHeading ms-2 ">
+                        <h4 className="cartInfoText">
+                          {data?.product_details?.name}
+                        </h4>
+                        <div className="flexTable mt-1">
+                          <div className="productGreyDot"></div>
+                          <h6 className="loginPara ms-1">
+                            {data?.product_details?.sku}
+                          </h6>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div className="fullCartInfo w-50">
+                    {/* <input
+        className="form-control unitPriceControl"
+        type="number"
+        placeholder="$20.00"
+      /> */}
+                    ${data?.product_details?.price}
+                    <div className="incrementBtn ">
+                      <i className="fa-solid fa-minus plusMinus"></i>
+                      {/* <input
+          className="form-control addBtnControl"
+          type="number"
+          placeholder=""
+          disabled
+        /> */}
+                      {data?.qty}
+                      <i className="fa-solid fa-plus plusMinus"></i>
+                    </div>
+                    <div className="fullCartInfo">
+                      <h4 className="invoice_subhead p-0">$100</h4>
+                      <Image
+                        src={Images.redCross}
+                        alt="crossImage"
+                        className="img-fluid ms-2"
+                      />
                     </div>
                   </div>
                 </div>
-              </div>
-              <div className="fullCartInfo w-50">
-                <input
-                  className="form-control unitPriceControl"
-                  type="number"
-                  placeholder="$20.00"
-                />
-                <div className="incrementBtn ">
-                  <i className="fa-solid fa-minus plusMinus"></i>
-                  <input
-                    className="form-control addBtnControl"
-                    type="number"
-                    placeholder="1"
-                  />
-                  <i className="fa-solid fa-plus plusMinus"></i>
-                </div>
-                <div className="fullCartInfo">
-                  <h4 className="invoice_subhead p-0">$90.00</h4>
-                  <Image
-                    src={Images.redCross}
-                    alt="crossImage"
-                    className="img-fluid ms-2"
-                  />
-                </div>
-              </div>
-            </div>
-            <div className="cartSubInfo ">
-              <div className="cartItemDetail w-50">
-                <h4 className="invoice_subhead p-0 ">1</h4>
-                <div className="orderTime ms-2">
-                  <Image
-                    src={Images.cartFood}
-                    alt="cartFoodImg"
-                    className="img-fluid cartFoodImg"
-                  />
-                  <div className="cartorderHeading ms-2 ">
-                    <h4 className="cartInfoText">
-                      Lightweight Stylish Casual Daypack
-                    </h4>
-                    <div className="flexTable mt-1">
-                      <div className="productGreyDot"></div>
-                      <h6 className="loginPara ms-1">SKU 0199 - 3221</h6>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div className="fullCartInfo w-50">
-                <input
-                  className="form-control unitPriceControl "
-                  type="number"
-                  placeholder="$20.00"
-                />
-                <div className="incrementBtn">
-                  <i className="fa-solid fa-minus plusMinus"></i>
-                  <input
-                    className="form-control addBtnControl"
-                    type="number"
-                    placeholder="1"
-                  />
-                  <i className="fa-solid fa-plus plusMinus"></i>
-                </div>
-                <div className="fullCartInfo">
-                  <h4 className="invoice_subhead p-0">$90.00</h4>
-                  <Image
-                    src={Images.redCross}
-                    alt="crossImage"
-                    className="img-fluid ms-2"
-                  />
-                </div>
-              </div>
-            </div>
-            <div className="cartSubInfo">
-              <div className="cartItemDetail w-50">
-                <h4 className="invoice_subhead p-0 ">1</h4>
-                <div className="orderTime ms-2">
-                  <Image
-                    src={Images.cartFood}
-                    alt="cartFoodImg"
-                    className="img-fluid cartFoodImg"
-                  />
-                  <div className="cartorderHeading ms-2 ">
-                    <h4 className="cartInfoText">
-                      Lightweight Stylish Casual Daypack
-                    </h4>
-                    <div className="flexTable mt-1">
-                      <div className="productGreyDot"></div>
-                      <h6 className="loginPara ms-1">SKU 0199 - 3221</h6>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div className="fullCartInfo w-50">
-                <input
-                  className="form-control unitPriceControl"
-                  type="number"
-                  placeholder="$20.00"
-                />
-                <div className="incrementBtn">
-                  <i className="fa-solid fa-minus plusMinus"></i>
-                  <input
-                    className="form-control addBtnControl"
-                    type="number"
-                    placeholder="1"
-                  />
-                  <i className="fa-solid fa-plus plusMinus"></i>
-                </div>
-                <div className="fullCartInfo">
-                  <h4 className="invoice_subhead p-0">$90.00</h4>
-                  <Image
-                    src={Images.redCross}
-                    alt="crossImage"
-                    className="img-fluid ms-2"
-                  />
-                </div>
-              </div>
-            </div>
+              );
+            })}
           </div>
         </div>
+
         <div className="col-lg-5 col-md-5">
           <div className="commanOuter me-0 ms-0 commonSubOuter fullCartRight">
             <div className="insertProductSection">
@@ -235,91 +201,73 @@ const ProductCart = () => {
                 </figure>
                 <h4 className="offerHeading">Available Offer</h4>
               </div>
+
               <div className="offerdata">
-                <div className="availableoffer">
-                  <div className="cartOfferInfo">
-                    <Image
-                      src={Images.cartFood}
-                      alt="cartFoodImg"
-                      className="img-fluid cartFoodImg"
-                    />
-                    <div className="offerCartHeading">
-                      <h4 className="availablemain">
-                        Veterinary Consultation for small and big Pets
-                      </h4>
-                      <h4 className="availableTime">
-                        Today at 10hrs / Dr. Africa ...
-                      </h4>
-                      <h4 className="availablePrice">
-                        <del>$90.00</del>
-                        <span className="actualPrice">$64.00</span>
-                      </h4>
-                    </div>
-                  </div>
-                  <figure className="offerCartImg">
-                    <Image
-                      src={Images.lightOfferCart}
-                      alt="lightOfferCart Image"
-                      className="img-fluid "
-                    />
-                  </figure>
-                </div>
-                <div className="availableoffer">
-                  <div className="cartOfferInfo">
-                    <Image
-                      src={Images.cartFood}
-                      alt="cartFoodImg"
-                      className="img-fluid cartFoodImg"
-                    />
-                    <div className="offerCartHeading">
-                      <h4 className="availablemain">
-                        Veterinary Consultation for small and big Pets
-                      </h4>
-                      <h4 className="availableTime">
-                        Today at 10hrs / Dr. Africa ...
-                      </h4>
-                      <h4 className="availablePrice">
-                        <del>$90.00</del>
-                        <span className="actualPrice">$64.00</span>
-                      </h4>
-                    </div>
-                  </div>
-                  <figure className="offerCartImg active">
-                    <Image
-                      src={Images.darkOfferCart}
-                      alt="lightOfferCart Image"
-                      className="img-fluid "
-                    />
-                  </figure>
-                </div>
-                <div className="availableoffer">
-                  <div className="cartOfferInfo">
-                    <Image
-                      src={Images.cartFood}
-                      alt="cartFoodImg"
-                      className="img-fluid cartFoodImg"
-                    />
-                    <div className="offerCartHeading">
-                      <h4 className="availablemain">
-                        Veterinary Consultation for small and big Pets
-                      </h4>
-                      <h4 className="availableTime">
-                        Today at 10hrs / Dr. Africa ...
-                      </h4>
-                      <h4 className="availablePrice">
-                        <del>$90.00</del>
-                        <span className="actualPrice">$64.00</span>
-                      </h4>
-                    </div>
-                  </div>
-                  <figure className="offerCartImg active">
-                    <Image
-                      src={Images.darkOfferCart}
-                      alt="lightOfferCart Image"
-                      className="img-fluid "
-                    />
-                  </figure>
-                </div>
+                {availableOffersData?.length > 0 ? (
+                  availableOffersData?.map((offers, index) => {
+                    return (
+                      <div key={index} className="availableoffer">
+                        <div className="cartOfferInfo">
+                          <Image
+                            src={offers?.image}
+                            alt="cartFoodImg"
+                            className="img-fluid cartFoodImg"
+                            width="100"
+                            height="100"
+                          />
+                          <div className="offerCartHeading">
+                            <h4 className="availablemain">{offers?.name}</h4>
+                            <h4 className="availableTime">
+                              Today at 10hrs / Dr. Africa ...
+                            </h4>
+
+                            {offers?.supplies?.map((sup) => {
+                              return (
+                                <>
+                                  {sup?.supply_prices?.map((price) => {
+                                    return (
+                                      <h4 className="availablePrice">
+                                        <del>
+                                          $
+                                          {price?.actual_price
+                                            ? price?.actual_price
+                                            : selling_price}
+                                        </del>
+                                        <span className="actualPrice">
+                                          $
+                                          {price?.offer_price
+                                            ? price?.offer_price
+                                            : selling_price}
+                                        </span>
+                                      </h4>
+                                    );
+                                  })}
+                                </>
+                              );
+                            })}
+                          </div>
+                        </div>
+                        <figure className="offerCartImg">
+                          <Image
+                            src={Images.lightOfferCart}
+                            alt="lightOfferCart Image"
+                            className="img-fluid "
+                          />
+                        </figure>
+                      </div>
+                    );
+                  })
+                ) : (
+                  <>
+                    {availableOffersData?.length == 0 ? (
+                      <h3 className="mt-3 mb-3">No avail Found!</h3>
+                    ) : (
+                      <div className="loaderOuter">
+                        <div className="spinner-grow loaderSpinner text-center my-5"></div>
+                      </div>
+                    )}
+                  </>
+                )}
               </div>
             </div>
             <div className="discountOfferMain">
