@@ -17,12 +17,12 @@ const StaffDetail = ({ selectedItemId }) => {
     const words = originalemployementType?.split('_');
     const capitalizedWords = words?.map((word) => word?.charAt?.(0).toUpperCase() + word?.slice?.(1));
     const finalEmploymentType = capitalizedWords?.join(' ');
-    console.log(getStaffInfo, "getStaffInfo");
     const dispatch = useDispatch();
     // API for get all POS users...............................
     const getStaffDetail = () => {
         let params = {
-            id: selectedItemId,
+            // id: 286,
+            id:selectedItemId
         };
         dispatch(getStaffDetails({
             ...params,
@@ -94,81 +94,71 @@ const StaffDetail = ({ selectedItemId }) => {
                                         </div>
                                         <div className='flexDiv mt-1'>
                                             <h4 className='amountText m-0'>Days Off</h4>
-                                            <h4 className='appointSub m-0'>3 Days</h4>
+                                            <h4 className='appointSub m-0'>{getStaffInfo?.pos_staff_detail?.leave ?? '-----'}</h4>
                                         </div>
                                     </div>
                                 </div>
                                 <div className='staffTimeSection'>
-
-                                    {getStaffInfo?.pos_staff_detail?.hourly_rate?.length > 0 ?
-
-                                        getStaffInfo?.pos_staff_detail?.hourly_rate?.map((data, index) => {
-
-                                            return (
-                                                <div className='staffSubTime'>
-                                                    <h4 className='amountText m-0'>{data?.title}</h4>
-                                                    <hr className='staffTimeDivide' />
-                                                    <h4 className='appointSub m-0'>JBG 250/hr</h4>
-                                                </div>
-                                            )
-                                        })
-                                        : ""
-                                    }
-
-                                    {getStaffInfo?.pos_staff_detail?.hourly_rate?.length > 0 ?
-                                        getStaffInfo?.pos_staff_detail?.overtime_rate?.map((data, index) => {
-                                            return (
-                                                <div className='staffSubTime'>
-                                                    <h4 className='amountText m-0'>Over Time Rate</h4>
-                                                    <hr className='staffTimeDivide' />
-                                                    <h4 className='appointSub m-0'>JBG 150/hr</h4>
-                                                </div>
-                                            )
-                                        })
-                                        : ""
-                                    }
-
-                                    {getStaffInfo?.pos_staff_detail?.hourly_rate?.length > 0 ?
+                                    <div className='staffSubTime'>
+                                        <h4 className='amountText m-0'>Time Rate</h4>
+                                        <hr className='staffTimeDivide' />
+                                        <h4 className='appointSub m-0'>JBG {getStaffInfo?.pos_staff_detail?.hourly_rate}/hr</h4>
+                                    </div>
+                                    <div className='staffSubTime'>
+                                        <h4 className='amountText m-0'>Over Time Rate</h4>
+                                        <hr className='staffTimeDivide' />
+                                        <h4 className='appointSub m-0'>JBG {getStaffInfo?.pos_staff_detail?.overtime_rate}/hr</h4>
+                                    </div>
+                                    {/* {getStaffInfo?.pos_staff_detail?.hourly_rate?.length > 0 ?
                                         getStaffInfo?.pos_staff_detail?.payment_cycle?.map((data, index) => {
-                                            return (
-                                                <div className='staffSubTime'>
-                                                    <h4 className='amountText m-0'>Payment Cycle</h4>
-                                                    <hr className='staffTimeDivide' />
-                                                    <h4 className='appointSub m-0'>Weekly</h4>
-                                                </div>
-                                            )
+                                            return ( */}
+                                    <div className='staffSubTime'>
+                                        <h4 className='amountText m-0'>Payment Cycle</h4>
+                                        <hr className='staffTimeDivide' />
+                                        <h4 className='appointSub m-0'>{getStaffInfo?.pos_staff_detail?.payment_cycle}</h4>
+                                    </div>
+                                    {/* )
                                         })
                                         : ""
-                                    }
+                                    } */}
 
-                                    {getStaffInfo?.pos_staff_detail?.hourly_rate?.length > 0 ?
+                                    {/* {getStaffInfo?.pos_staff_detail?.hourly_rate?.length > 0 ?
                                         getStaffInfo?.pos_staff_detail?.billing_type?.map((data, index) => {
-                                            return (
-                                                <div className='staffSubTime'>
-                                                    <h4 className='amountText m-0'>Billing</h4>
-                                                    <hr className='staffTimeDivide' />
-                                                    <h4 className='appointSub m-0'>Automatic</h4>
-                                                </div>
-                                            )
+                                            return ( */}
+                                    <div className='staffSubTime'>
+                                        <h4 className='amountText m-0'>Billing</h4>
+                                        <hr className='staffTimeDivide' />
+                                        <h4 className='appointSub m-0'>{getStaffInfo?.pos_staff_detail?.billing_type}</h4>
+                                    </div>
+                                    {/* )
                                         })
                                         : ""
-                                    }
+                                    } */}
                                 </div>
                                 <div className='staffTimeSection mt-3'>
+                                    {/* {getStaffInfo?.pos_staff_detail?.current_billing_cycle?.start?.length > 0 ?
+                                         getStaffInfo?.pos_staff_detail?.current_billing_cycle?.start?.map((data, index) => {
+                                            return ( */}
                                     <div className='staffSubTime'>
                                         <h4 className='amountText m-0'>Current  Billing Cycle</h4>
                                         <hr className='staffTimeDivide' />
-                                        <h4 className='appointSub m-0'>May 29, 2023 - Jun 4, 2023</h4>
+                                        <h4 className='appointSub m-0'>{getStaffInfo?.pos_staff_detail?.current_billing_cycle?.start ?? '__'} - {getStaffInfo?.pos_staff_detail?.current_billing_cycle?.end || '__'}</h4>
+
                                     </div>
+                                    {/* )
+                                        })
+                                        : ""
+                                    } */}
                                     <div className='staffSubTime'>
                                         <h4 className='amountText m-0'>Time Tracked</h4>
                                         <hr className='staffTimeDivide' />
-                                        <h4 className='appointSub m-0'>JBR 2500/h</h4>
+                                        <h4 className='appointSub m-0'>JBR {getStaffInfo?.pos_staff_detail?.time_tracked ?? '__'} /h</h4>
                                     </div>
                                     <div className='staffSubTime'>
                                         <h4 className='amountText m-0'>Weekly Tracking Limit</h4>
                                         <hr className='staffTimeDivide' />
-                                        <h4 className='appointSub m-0'>1h 30m</h4>
+                                        <h4 className='appointSub m-0'>{getStaffInfo?.pos_staff_detail?.weekly_time_tracking_limit ?? '__'}</h4>
+
                                     </div>
                                 </div>
                                 <div className='staffDetailtable'>
@@ -197,16 +187,16 @@ const StaffDetail = ({ selectedItemId }) => {
                                                     <div className='staffTableData'>
 
                                                         <div className='staffBoxData text-start'>
-                                                            <h4 className='staffTableText'>May 29, 2023 - Jun 4, 2023</h4>
+                                                            <h4 className='staffTableText'>{data?.start_date} - {data?.end_date}</h4>
                                                         </div>
                                                         <div className='staffBoxData '>
-                                                            <h4 className='staffTableText'>4 h 20 m</h4>
+                                                            <h4 className='staffTableText'>{Number(data.duration)?.toFixed(2)}</h4>
                                                         </div>
                                                         <div className='staffBoxData'>
-                                                            <h4 className='staffTableText'>JBR 70,500</h4>
+                                                            <h4 className='staffTableText'>JBR {Number(data.amount)?.toFixed(2)}</h4>
                                                         </div>
                                                         <div className='staffBoxData '>
-                                                            <button className='paidBtn ' type='button'>Paid</button>
+                                                            <button className='paidBtn ' type='button'>{data.status == 0 ? 'Unpaid' : data.status == 1 ? 'Request Sent' : 'Paid'}</button>
                                                         </div>
                                                         <div className='staffBoxData'>
                                                             <button className='viewBtn ' type='button'>view</button>
