@@ -29,8 +29,7 @@ function* getMainProduct(action) {
 
     if (resp.status) {
       yield put(setMainProduct(resp.data));
-      // yield call(action.payload.cb, (action.res = resp));
-      console.log("resp.data", resp.data);
+       yield call(action.payload.cb, (action.res = resp));
     } else {
       throw resp;
     }
@@ -66,7 +65,7 @@ function* getMainServices(action) {
   try {
     const resp = yield call(
       ApiClient.get,
-      `${PRODUCT_API_URL_V1}products?delivery_options=2&service_type=service&need_&check_stock_out=true&seller_id=e39a8bc8-ffc7-4047-b710-c743b9c1d498`
+      `${PRODUCT_API_URL_V1}products?delivery_options=2&service_type=service&need_&check_stock_out=true&${params}`
       
     );
     if (resp.status) {
@@ -86,7 +85,7 @@ function* availableOffers(action) {
   try {
     const resp = yield call(
       ApiClient.get,
-      `${PRODUCT_API_URL_V1}offer/products?app_name=pos&delivery_options=1,3,4&service_type=product&seller_id=e39a8bc8-ffc7-4047-b710-c743b9c1d498`
+      `${PRODUCT_API_URL_V1}offer/products?app_name=pos&delivery_options=1,3,4&service_type=product&${params}`
       
     );
     if (resp.status) {

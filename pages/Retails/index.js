@@ -24,14 +24,12 @@ const Retails = () => {
   const productPagination = {
     total: retailData?.mainProductData?.total || "0",
   };
-  const [services, setServices] = useState(null);
-  useEffect(() => {
-    let params = {
-      seller_id: sellerId,
-    };
-    dispatch(getMainProduct(params));
-  }, [sellerId]);
+  const servicesCount = {
+    total: retailData?.mainServicesData?.total || "0",
+  };
 
+  const [services, setServices] = useState(null);
+  const completePathName = router.asPath;
   const productFun = (productId, index, item) => {
     let params = {
       seller_id: sellerId,
@@ -48,15 +46,30 @@ const Retails = () => {
       })
     );
   };
-
+  const productData = () => {
+    let params = {
+      seller_id: sellerId,
+    };
+    dispatch(
+      getMainProduct({
+        ...params,
+        cb(res) {
+          if (res.data) {
+          } else {
+            toast.error("something went wrong");
+          }
+        },
+      })
+    );
+  };
   const servicesData = () => {
     let params = {
       page: 1,
       limit: 25,
       app_name: "pos",
       need_pos_users: true,
+      seller_id: sellerId,
     };
-    console.log(params, "params");
     dispatch(
       getMainServices({
         ...params,
@@ -70,16 +83,25 @@ const Retails = () => {
       })
     );
   };
+
   useEffect(() => {
-    // if (parameter == "services") {
-    servicesData();
+    // if (completePathName === "/Retails" || "/Retails?parameter=product") {
+    //   productData();
+    // } else if (completePathName === "/Retails?parameter=services") {
+    //   servicesData();
     // }
-  }, []);
+    productData();
+    servicesData();
+  }, [sellerId]);
+
   return (
     <>
       <div className="flexBox">
         <div className="commanOuter">
-          <ProductInnerNav productCount={productPagination?.total} />
+          <ProductInnerNav
+            productCount={productPagination?.total}
+            ServicesCount={servicesCount?.total}
+          />
           <div className="commanscrollBar">
             {parameter == "product" ? (
               <div className="row">
@@ -146,85 +168,77 @@ const Retails = () => {
               </div>
             ) : (
               <>
-                <div>
+                <div className="row">
                   {services?.length > 0 ? (
                     services?.map((services, index) => {
                       return (
-                        <div className="flexBox">
-                          <div className="row">
-                            <div
-                              key={index}
-                              className="col-xl-2 col-lg-3 col-md-4 mb-3"
-                            >
-                              <div className="productsCard">
-                                <figure className="productImageBox">
-                                  <Image
-                                    src={services?.image}
-                                    alt="image"
-                                    className="img-fluid ProductIcon"
-                                    width="50"
-                                    height="50"
-                                  />
-                                  <div className="overlay">
-                                    <Image
-                                      src={Images.Add}
-                                      alt="image"
-                                      className="img-fluid addIcon"
-                                    />
-                                  </div>
-                                </figure>
-                                <article className="productDetails">
-                                  <p className="productName">
-                                    {services?.category?.name}
-                                  </p>
-                                  <p className="productserviceName">
-                                    <div
-                                      dangerouslySetInnerHTML={{
-                                        __html: services?.description,
-                                      }}
-                                    />
-                                  </p>
-                                  <p className="productPrice">
-                                    ${services?.price}
-                                  </p>
-                                  <figure className="appointmentDate">
-                                    <Image
-                                      src={Images.afterSomeCalender}
-                                      alt="image"
-                                      className="img-fluid appointmentCalender"
-                                    />
-                                    <span className="Ontime">
-                                      01/11/23 at 10:00hrs
-                                    </span>
-                                  </figure>
-                                  <figure className="Timezone">
-                                    <Image
-                                      src={Images.Appointmenttime}
-                                      alt="image"
-                                      className="img-fluid AppointmenttimeIcon"
-                                    />
-                                    <span className="AppointmentEstTime">
-                                      Est. 45-60min
-                                    </span>
-                                  </figure>
-                                  <figure className="Appointmentusers">
-                                    {services?.product_images?.map(
-                                      (productImg) => {
-                                        return (
-                                          <Image
-                                            src={productImg?.url}
-                                            alt="image"
-                                            className="img-fluid CardIcons"
-                                            width="100"
-                                            height="100"
-                                          />
-                                        );
-                                      }
-                                    )}
-                                  </figure>
-                                </article>
+                        <div
+                          key={index}
+                          className="col-xl-2 col-lg-3 col-md-4 mb-3"
+                        >
+                          <div className="productsCard">
+                            <figure className="productImageBox">
+                              <Image
+                                src={services?.image}
+                                alt="image"
+                                className="img-fluid ProductIcon"
+                                width="50"
+                                height="50"
+                              />
+                              <div className="overlay">
+                                <Image
+                                  src={Images.Add}
+                                  alt="image"
+                                  className="img-fluid addIcon"
+                                />
                               </div>
-                            </div>
+                            </figure>
+                            <article className="productDetails">
+                              <p className="productName">
+                                {services?.category?.name}
+                              </p>
+                              <p className="productserviceName">
+                                <div
+                                  dangerouslySetInnerHTML={{
+                                    __html: services?.description,
+                                  }}
+                                />
+                              </p>
+                              <p className="productPrice">${services?.price}</p>
+                              <figure className="appointmentDate">
+                                <Image
+                                  src={Images.afterSomeCalender}
+                                  alt="image"
+                                  className="img-fluid appointmentCalender"
+                                />
+                                <span className="Ontime">
+                                  01/11/23 at 10:00hrs
+                                </span>
+                              </figure>
+                              <figure className="Timezone">
+                                <Image
+                                  src={Images.Appointmenttime}
+                                  alt="image"
+                                  className="img-fluid AppointmenttimeIcon"
+                                />
+                                <span className="AppointmentEstTime">
+                                  Est. 45-60min
+                                </span>
+                              </figure>
+                              <figure className="Appointmentusers">
+                                {services?.product_images?.map((productImg) => {
+                                  return (
+                                    <Image
+                                      src={productImg?.url}
+                                      alt="image"
+                                      className="img-fluid CardIcons"
+                                      width="100"
+                                      height="100"
+                                    />
+                                  );
+                                })}
+                              </figure>
+                            </article>
                           </div>
                         </div>
                       );

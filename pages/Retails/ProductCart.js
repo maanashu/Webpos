@@ -5,21 +5,26 @@ import ProductSearch from "../../components/commanComonets/Product/productSearch
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { availableOffers, productCart } from "../../redux/slices/retails";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { selectLoginAuth } from "../../redux/slices/auth";
 
 const ProductCart = () => {
   const router = useRouter();
   const dispatch = useDispatch();
+  const authData = useSelector(selectLoginAuth);
+  const sellerId = authData?.usersInfo?.payload?.uniqe_id;
   const [availableOffersData, setAvailableOffersData] = useState(null);
   const [productCarts, setProductCarts] = useState(null);
-  console.log(productCarts, "productCarts");
   const [posCartProducts, setPosCartProducts] = useState([]);
-  console.log(posCartProducts, "posCartProducts");
-  console.log(availableOffersData, "availableOffersData");
+
 
   const offers = () => {
+    let params={
+      seller_id: sellerId,
+    }
     dispatch(
       availableOffers({
+        ...params,
         cb(res) {
           if (res.data) {
             setAvailableOffersData(res?.data?.payload?.data);
@@ -34,7 +39,6 @@ const ProductCart = () => {
     dispatch(
       productCart({
         cb(res) {
-          console.log(res, "responseCart=>");
           if (res.data) {
             setProductCarts(res?.data?.payload);
             setPosCartProducts(res?.data?.payload?.poscart_products);
@@ -48,8 +52,14 @@ const ProductCart = () => {
   useEffect(() => {
     offers();
     fullcarts();
-  }, []);
+  }, [sellerId]);
 
+  const handleAddDiscount=()=>{
+    alert("Add Discount");
+  }
+  const handleAddNotes=()=>{
+    alert("Add Notes");
+  }
   return (
     <div className="fullCartSection">
       <div className="row">
@@ -271,7 +281,7 @@ const ProductCart = () => {
               </div>
             </div>
             <div className="discountOfferMain">
-              <button className="discountBtn">
+              <button className="discountBtn" onClick={(e)=>handleAddDiscount(e)}>
                 <Image
                   src={Images.ticketImg}
                   alt="ticket Image"
@@ -279,13 +289,13 @@ const ProductCart = () => {
                 />
                 Add Discount
               </button>
-              <button className="notesBtn">
+              <button className="notesBtn" onClick={(e)=>handleAddNotes(e)}>
                 <Image
                   src={Images.noteImg}
                   alt="ticket Image"
                   className="img-fluid me-2"
                 />
-                Add Discount
+                Add Notes
               </button>
             </div>
             <div className="totalCheckout">

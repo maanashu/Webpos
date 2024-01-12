@@ -4,12 +4,12 @@ import * as Images from "../../../utilities/images";
 import Image from "next/image";
 import { useRouter } from "next/router";
 
-const ProductInnerNav = ({ productCount }) => {
+const ProductInnerNav = ({ productCount, ServicesCount }) => {
   const [filterShow, setFilterShow] = useState(false);
   const [activeTab, setActiveTab] = useState("");
   const router = useRouter();
   const pathName = router.asPath;
-  
+
   const handleTabs = (tabValue) => {
     setActiveTab(tabValue);
     router.push({
@@ -24,13 +24,22 @@ const ProductInnerNav = ({ productCount }) => {
       setActiveTab("services");
     }
   }, [pathName]);
+
   return (
     <>
       <div className="productNavbar">
         <div className="productAll">
-          <p className="ProductAbout">
-            All Products <span className="productCount">({productCount})</span>
-          </p>
+          {activeTab === "product" ? (
+            <p className="ProductAbout">
+              All Products{" "}
+              <span className="productCount">({productCount})</span>
+            </p>
+          ) : (
+            <p className="ProductAbout">
+              All Services{" "}
+              <span className="productCount">({ServicesCount})</span>
+            </p>
+          )}
         </div>
         <div className="ProductSearch w-50">
           <ProductSearch />
@@ -46,6 +55,7 @@ const ProductInnerNav = ({ productCount }) => {
             className="img-fluid BtnIcon"
           />
         </button>
+
         <button
           className={activeTab == "services" ? "BlueBtn" : "GreyBtn"}
           onClick={() => handleTabs("services")}

@@ -3,6 +3,7 @@ import { createSlice } from "@reduxjs/toolkit";
 const initialState = {
   mainProductData: {},
   oneProductData: {},
+  mainServicesData:{},
 };
 
 export const retailsSlice = createSlice({
@@ -29,6 +30,7 @@ export const retailsSlice = createSlice({
     setMainServices: (state, action) => {
       state.loading = false;
       state.getMainServices = action?.payload?.payload;
+      state.mainServicesData = action?.payload?.payload;
     },
     availableOffers: (state) => {
       state.loading = true;
