@@ -110,6 +110,18 @@ const Security = () => {
           <div className={styles.boxTopTitleTextStyle}>
             2-step verification for team members
             {/* <div >
+      <Image src={Images.passwordLock} alt="darkDevices image" className="img-fluid" />
+        <div className="w-100">
+          <div className="headingTextStyle">2-Step Verification</div>
+          <div className="textInformationStyle">
+            An extra layer to boost your team members account security. A
+            verification code will be required in addition to password each time you
+            sign in.
+          </div>
+          <div className="shadowBox">
+            <div className="boxTopTitleTextStyle">
+              2-step verification for team members
+              {/* <div >
               <input
                 type="checkbox"
                 checked={getProfileDetails}
@@ -131,10 +143,25 @@ const Security = () => {
                 class="form-check-label"
                 for="flexSwitchCheckChecked"
               ></label>
+              <div class="form-check form-switch">
+                <input
+                  class="form-check-input"
+                  type="checkbox"
+                  id="flexSwitchCheckChecked"
+                  checked={getProfileDetails}
+                  onChange={(e) => {
+                    handleChangeActivateSecurity(e);
+                  }}
+                />
+                <label
+                  class="form-check-label"
+                  for="flexSwitchCheckChecked"
+                ></label>
+              </div>
             </div>
-          </div>
-          <div className={styles.boxbottomTextStyle}>
-            Team members must enable their own verification methods.
+            <div className="boxbottomTextStyle">
+              Team members must enable their own verification methods.
+            </div>
           </div>
         </div>
       </div>

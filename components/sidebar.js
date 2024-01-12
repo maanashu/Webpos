@@ -220,7 +220,12 @@ const Sidebar = (props) => {
             </Link>
           </ListGroupItem>
           <ListGroupItem className="sidebarItems">
-            <Link href="#" className={`sidebarLinks ${"" ? "active" : ""}`}>
+            {/* <Link href="/transactions" className="sidebarLinks"> */}
+
+            <Link
+              href="/transactions"
+              className={`sidebarLinks ${"" ? "active" : ""}`}
+            >
               <Image
                 src={Images.Wallets}
                 alt="image"

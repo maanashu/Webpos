@@ -153,31 +153,31 @@ const index = () => {
               className="customers-table-data"
               style={{ border: "none", color: "#7E8AC1", textAlign: "left" }}
             >
-              Date
+              Product Name
             </th>
             <th
               className="customers-table-data"
               style={{ border: "none", color: "#7E8AC1", textAlign: "left" }}
             >
-              Total Pos Order
+              UPC
             </th>
             <th
               className="customers-table-data"
               style={{ border: "none", color: "#7E8AC1", textAlign: "left" }}
             >
-              Customer-New
+              Price
             </th>
             <th
               className="customers-table-data"
               style={{ border: "none", color: "#7E8AC1", textAlign: "left" }}
             >
-              Customer-Returning
+              In Stock
             </th>
             <th
               className="customers-table-data"
               style={{ border: "none", color: "#7E8AC1", textAlign: "left" }}
             >
-              Total Sales
+              Last Sold Date
             </th>
           </tr>
         </thead>

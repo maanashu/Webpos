@@ -29,10 +29,15 @@ import { ListGroup } from "react-bootstrap";
 import ListGroupItem from "react-bootstrap";
 import Link from "next/link";
 import Taxes from "./Taxes";
+import Legal from "./legal";
+import LegalPolicy from "./legal/legalPolicy";
+import PolicyInfo from "./policies/policyInfo";
+import Policy from "./policies";
 
 export default function Settings() {
   const [selectedItem, setSelectedItem] = useState("Security");
   const [selectedItemId, setSelectedItemId] = useState("");
+  const [policyInfo, setPolicyInfo] = useState("");
   console.log(selectedItemId, "selectedItemId");
 
   const settingsOptions = [
@@ -60,7 +65,6 @@ export default function Settings() {
     { id: 12, name: "Legal", info: "English", image: settingsLaw },
     { id: 13, name: "Policies", info: "Default", image: settingsPolicies },
     { id: 14, name: "Shop", info: "Locations", image: settingHome },
-    { id: 15, name: "Locations", info: "1 Locations", image: settingsDetails },
   ];
   const SettingsBar = ({ item }) => {
     return (
@@ -75,8 +79,8 @@ export default function Settings() {
   };
 
   const handleTouch = (item, id) => {
+    setPolicyInfo(id)
     setSelectedItemId(id ? id : "");
-    console.log(item, "itemname");
     setSelectedItem(item?.name ? item?.name : item);
   };
 
@@ -92,10 +96,18 @@ export default function Settings() {
         return <Receipts />;
       case "Taxes":
         return <Taxes />;
-        case "Locations":
-          return <Location />;
+      case "Locations":
+        return <Location />;
+      case "Legal":
+        return <Legal handleTouch={handleTouch} />;
+      case "Policies":
+        return <Policy handleTouch={handleTouch} />;
       case "staffDetail":
         return <StaffDetail selectedItemId={selectedItemId} />;
+      case "legalPolicy":
+        return <LegalPolicy policyInfo={policyInfo} />;
+      case "PolicyInfo":
+        return <PolicyInfo policyInfo={policyInfo} />;
       default:
         return null;
     }

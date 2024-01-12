@@ -53,7 +53,7 @@ const Users = () => {
   }, [uniqueId, selectedTab, timeSpan, limit, page]);
 
   const TABS = [
-    { text: "All", count: totalCustomers.totalCustomer, type: "all_customers" },
+    { text: "All", count: totalCustomers?.totalCustomer, type: "all_customers" },
     {
       text: "New Customers",
       count: totalCustomers?.newCustomer,
