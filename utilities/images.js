@@ -274,8 +274,15 @@ import moneyOuter from "../public/images/moneyOuter.svg"
 import cardOuter from "../public/images/cardOuter.svg"
 import passwordLock from "../public/images/passwordLock.svg"
 import lightLocation from "../public/images/lightLocation.svg"
+import map from "../public/images/Map.png"
+import countryImg from "../public/images/countryImg.svg"
+import editTax from "../public/images/editTax.svg"
+
 
 export {
+  editTax,
+  countryImg,
+  map,
   lightLocation,
   passwordLock,
   cardOuter,
