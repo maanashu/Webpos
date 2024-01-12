@@ -274,6 +274,21 @@ import moneyOuter from "../public/images/moneyOuter.svg"
 import cardOuter from "../public/images/cardOuter.svg"
 import passwordLock from "../public/images/passwordLock.svg"
 import lightLocation from "../public/images/lightLocation.svg"
+import ProductsServicesinactive from "../public/images/ProductsServicesinactive.svg"
+import DeliveryOrdersInactive from "../public/images/DeliveryOrdersInactive.svg"
+import Calendar_Solid from "../public/images/Calendar_Solid.svg"
+import Chart_Solid from "../public/images/Chart_Solid.svg"
+import Wallet_Solid from "../public/images/Wallet_Solid.svg"
+import Users_Solid from "../public/images/Users_Solid.svg"
+import Settings_Solid from "../public/images/Settings_Solid.svg"
+import Rewards_Solid from "../public/images/Rewards_Solid.svg"
+import Cash_Solid from "../public/images/Cash_Solid.svg"
+import Shipping_Solid from "../public/images/Shipping_Solid.svg"
+import checkverify from "../public/images/checkverify.svg"
+import countryflag from "../public/images/countryflag.svg"
+import countryflag1 from "../public/images/countryflag1.png"
+import editimg from "../public/images/editimg.svg"
+
 
 export {
   lightLocation,
@@ -550,5 +565,19 @@ export {
   settingsPhoneMessage,
   settingsEmail,
   settingsPrinter,
+  ProductsServicesinactive,
+  DeliveryOrdersInactive,
+  Calendar_Solid,
+  Chart_Solid,
+  Wallet_Solid,
+  Users_Solid,
+  Settings_Solid,
+  Rewards_Solid,
+  Cash_Solid,
+  Shipping_Solid,
+  checkverify,
+  countryflag,
+  countryflag1,
+  editimg
 
 };
