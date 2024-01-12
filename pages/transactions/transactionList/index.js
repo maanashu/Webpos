@@ -100,9 +100,9 @@ const TransactionsList = () => {
     },
   ];
 
-//   const handleNavigateToTrackStatus = (item) => {
-//     router.push(`users/[user-id]`, `users/${item.user_id}`);
-//   };
+  const handleNavigateToTrackStatus = (item) => {
+    router.push(`transactionList/invoice`);
+  };
 
   const statusFun = (status) => {
     switch (status) {
@@ -251,7 +251,7 @@ const TransactionsList = () => {
           {getTotalTraDetails?.map((item, idx) => (
             <tr className="customers-table-row">
               <td
-                // onClick={() => handleNavigateToTrackStatus(item)}
+                onClick={() => handleNavigateToTrackStatus(item)}
                 className="customers-table-data"
               >
                 {(idx + Number(page > 1 ? limit : 0) > 8 ? "" : "0") +
