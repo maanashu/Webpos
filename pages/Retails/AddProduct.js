@@ -2,18 +2,24 @@ import React, { useState } from "react";
 import * as Images from "../../utilities/images";
 import Image from "next/image";
 import Link from "next/link";
-import { useSelector } from "react-redux";
-import { selectRetailData } from "../../redux/slices/retails";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  addTocart,
+  productCart,
+  selectRetailData,
+} from "../../redux/slices/retails";
+import { selectLoginAuth } from "../../redux/slices/auth";
 
 const AddProduct = () => {
+  const dispatch = useDispatch();
   const retailData = useSelector(selectRetailData);
+  const authData = useSelector(selectLoginAuth);
   const oneProductData = retailData?.oneProductData;
-
   const productDetail = oneProductData?.product_detail;
+  const sellerId = authData?.usersInfo?.payload?.uniqe_id;
   const sizeAndColorArray = productDetail?.supplies?.[0]?.attributes;
   const sizeArray = sizeAndColorArray?.filter((item) => item.name == "Size");
   const colorArray = sizeAndColorArray?.filter((item) => item.name == "Color");
-  console.log("sizeAndColorArray", sizeArray, colorArray);
   const [count, setCount] = useState(1);
 
   // avaiblity option
@@ -82,7 +88,23 @@ const AddProduct = () => {
 
   const addToCartHandler = () => {
     if (productDetail?.supplies?.[0]?.attributes?.length === 0) {
-      alert("yes");
+      let params = {
+        product_type: "product",
+        seller_id: sellerId,
+        product_id: productDetail?.id,
+        qty: count,
+        supply_id: productDetail?.supplies?.[0]?.id?.toString(),
+        supply_price_id:
+          productDetail?.supplies?.[0]?.supply_prices[0]?.id?.toString(),
+      };
+      dispatch(
+        addTocart({
+          ...params,
+          cb(res) {
+            dispatch(productCart());
+          },
+        })
+      );
     } else {
       alert("no");
     }

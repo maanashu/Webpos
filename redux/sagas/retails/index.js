@@ -11,7 +11,7 @@ import {
   setOneProductById,
   setMainServices,
   setAvailableOffers,
-  setProductCart
+  setProductCart,
 } from "../../slices/retails";
 import { all, call, put, takeLatest } from "redux-saga/effects";
 
@@ -67,11 +67,10 @@ function* getMainServices(action) {
     const resp = yield call(
       ApiClient.get,
       `${PRODUCT_API_URL_V1}products?delivery_options=2&service_type=service&need_&check_stock_out=true&seller_id=e39a8bc8-ffc7-4047-b710-c743b9c1d498`
-      
     );
     if (resp.status) {
       yield put(setMainServices(resp.data));
-       yield call(action.payload.cb, (action.res = resp));
+      yield call(action.payload.cb, (action.res = resp));
     } else {
       throw resp;
     }
@@ -87,11 +86,10 @@ function* availableOffers(action) {
     const resp = yield call(
       ApiClient.get,
       `${PRODUCT_API_URL_V1}offer/products?app_name=pos&delivery_options=1,3,4&service_type=product&seller_id=e39a8bc8-ffc7-4047-b710-c743b9c1d498`
-      
     );
     if (resp.status) {
       yield put(setAvailableOffers(resp.data));
-       yield call(action.payload.cb, (action.res = resp));
+      yield call(action.payload.cb, (action.res = resp));
     } else {
       throw resp;
     }
@@ -102,14 +100,10 @@ function* availableOffers(action) {
 }
 function* productCart(action) {
   try {
-    const resp = yield call(
-      ApiClient.get,
-      `${ORDER_API_URL_V1}poscarts/user`
-    
-    );
+    const resp = yield call(ApiClient.get, `${ORDER_API_URL_V1}poscarts/user`);
     if (resp.status) {
       yield put(setProductCart(resp.data));
-       yield call(action.payload.cb, (action.res = resp));
+      yield call(action.payload.cb, (action.res = resp));
     } else {
       throw resp;
     }
@@ -118,13 +112,35 @@ function* productCart(action) {
     toast.error(e?.error?.response?.data?.msg);
   }
 }
+
+function* addTocart(action) {
+  try {
+    const resp = yield call(
+      ApiClient.post,
+      `${ORDER_API_URL}/api/v1/poscarts`,
+      (action.payload = action.payload)
+    );
+    if (resp.status) {
+      // yield put(setUserMerchantLogin(resp.data));
+      yield call(action.payload.cb, (action.res = resp));
+      // toast.success(resp?.data?.msg);
+    } else {
+      throw resp;
+    }
+  } catch (e) {
+    yield put(onErrorStopLoad());
+    toast.error(e?.error?.response?.data?.msg);
+  }
+}
+
 function* retailsSaga() {
   yield all([
     takeLatest("retails/getMainProduct", getMainProduct),
     takeLatest("retails/getOneProductById", getOneProductById),
     takeLatest("retails/getMainServices", getMainServices),
-    takeLatest("retails/availableOffers",availableOffers),
-    takeLatest("retails/productCart",productCart)
+    takeLatest("retails/availableOffers", availableOffers),
+    takeLatest("retails/productCart", productCart),
+    takeLatest("retails/addTocart", addTocart),
   ]);
 }
 
