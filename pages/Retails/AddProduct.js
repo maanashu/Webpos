@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import * as Images from "../../utilities/images";
 import Image from "next/image";
 import Link from "next/link";
@@ -10,22 +10,27 @@ const AddProduct = () => {
   const oneProductData = retailData?.oneProductData;
 
   const productDetail = oneProductData?.product_detail;
-  console.log("productDetail", JSON.stringify(productDetail));
+  const sizeAndColorArray = productDetail?.supplies?.[0]?.attributes;
+  const sizeArray = sizeAndColorArray?.filter((item) => item.name == "Size");
+  const colorArray = sizeAndColorArray?.filter((item) => item.name == "Color");
+  console.log("sizeAndColorArray", sizeArray, colorArray);
+  const [count, setCount] = useState(1);
 
   // avaiblity option
   let deliveryOption =
-    retailData?.oneProductData?.product_detail?.supplies?.[0]?.delivery_options;
-  //   console.log("deliveryOption", deliveryOption);
+    retailData?.oneProductData?.product_detail?.supplies?.[0]?.delivery_options?.split(
+      ","
+    );
 
-  //   let deliveryOptionImage = deliveryOption?.find((item) => {
-  //     return item == "1";
-  //   });
-  //   let inStoreImage = deliveryOption.find((item) => {
-  //     return item == "3";
-  //   });
-  //   let shippingImage = deliveryOption.find((item) => {
-  //     return item == "4";
-  //   });
+  let deliveryOptionImage = deliveryOption?.find((item) => {
+    return item == "1";
+  });
+  let inStoreImage = deliveryOption?.find((item) => {
+    return item == "3";
+  });
+  let shippingImage = deliveryOption?.find((item) => {
+    return item == "4";
+  });
 
   const productDetailArray = [
     {
@@ -54,26 +59,34 @@ const AddProduct = () => {
       value: "NA",
     },
   ];
-  //   const availblityArray = [
-  //     {
-  //       id: 1,
-  //       image: Images.storeDark,
-  //       toggle: inStoreImage === 3 ? true : false,
-  //       name: "Store",
-  //     },
-  //     {
-  //       id: 2,
-  //       image: Images.deliverDark,
-  //       toggle: deliveryOptionImage === "1" ? true : false,
-  //       name: "Delivery",
-  //     },
-  //     {
-  //       id: 3,
-  //       image: Images.PlaneDark,
-  //       toggle: shippingImage === "4" ? true : false,
-  //       name: "Shipping",
-  //     },
-  //   ];
+  const availblityArray = [
+    {
+      id: 1,
+      image: Images.storeDark,
+      toggle: inStoreImage == "3" ? true : false,
+      name: "Store",
+    },
+    {
+      id: 2,
+      image: Images.deliverDark,
+      toggle: deliveryOptionImage == "1" ? true : false,
+      name: "Delivery",
+    },
+    {
+      id: 3,
+      image: Images.PlaneDark,
+      toggle: shippingImage == "4" ? true : false,
+      name: "Shipping",
+    },
+  ];
+
+  const addToCartHandler = () => {
+    if (productDetail?.supplies?.[0]?.attributes?.length === 0) {
+      alert("yes");
+    } else {
+      alert("no");
+    }
+  };
   return (
     <>
       <div className="productDetailSection">
@@ -128,37 +141,54 @@ const AddProduct = () => {
                   }
                 </p>
               </div>
-              <div className="colorChart">
-                <p className="priceHeading">Color</p>
-                <article className="manual-entryColor">
-                  <span className="Pink"></span>
-                  <span className="Red"></span>
-                  <span className="Yellow active"></span>
-                  <span className="Blue"></span>
-                  <span className="Black"></span>
-                  <span className="White"></span>
-                </article>
-              </div>
-              <div className="sizeChart">
-                <p className="priceHeading">Size</p>
-                <article className="productSizeBtnBox">
-                  <button className="productSizeBtn">S</button>
-                  <button className="productSizeBtn active">M</button>
-                  <button className="productSizeBtn">L</button>
-                  <button className="productSizeBtn">XL</button>
-                  <button className="productSizeBtn ">XXL</button>
-                </article>
-              </div>
+              {colorArray?.length > 0 && (
+                <div className="colorChart">
+                  <p className="priceHeading">Color</p>
+                  <article className="manual-entryColor">
+                    <span className="Pink"></span>
+                    <span className="Red"></span>
+                    <span className="Yellow active"></span>
+                    <span className="Blue"></span>
+                    <span className="Black"></span>
+                    <span className="White"></span>
+                  </article>
+                </div>
+              )}
+              {sizeArray?.length > 0 && (
+                <div className="sizeChart">
+                  <p className="priceHeading">Size</p>
+                  <article className="productSizeBtnBox">
+                    <button className="productSizeBtn">S</button>
+                    <button className="productSizeBtn active">M</button>
+                    <button className="productSizeBtn">L</button>
+                    <button className="productSizeBtn">XL</button>
+                    <button className="productSizeBtn ">XXL</button>
+                  </article>
+                </div>
+              )}
+
               <div className="incrementBtn productIncrement">
-                <i className="fa-solid fa-minus plusMinus"></i>
-                <input
+                <i
+                  className="fa-solid fa-minus plusMinus"
+                  onClick={() => (count == 1 ? void 0 : setCount(count - 1))}
+                  isClickEnabled={false}
+                ></i>
+                {/* <input
                   className="form-control addBtnControl"
                   type="number"
                   placeholder="1"
-                />
-                <i className="fa-solid fa-plus plusMinus"></i>
+                /> */}
+                <h1 className="form-control addBtnControl">{count}</h1>
+                <i
+                  className="fa-solid fa-plus plusMinus"
+                  onClick={() => setCount(count + 1)}
+                ></i>
               </div>
-              <button className="nextverifyBtn w-100 mt-3" type="submit">
+              <button
+                className="nextverifyBtn w-100 mt-3"
+                type="submit"
+                onClick={() => addToCartHandler()}
+              >
                 Add Item
                 <Image
                   src={Images.serviceCart}
@@ -379,7 +409,7 @@ const AddProduct = () => {
               <div className="productAvailable">
                 <h4 className="payHeading text-start m-0">Availability</h4>
                 <div className="stockBox mt-3">
-                  {/* {availblityArray?.map((item, index) => (
+                  {availblityArray?.map((item, index) => (
                     <div className="storeAvailable">
                       <Image
                         src={item?.image}
@@ -391,7 +421,7 @@ const AddProduct = () => {
                         <label className="amountText  ms-2">{item?.name}</label>
                       </div>
                     </div>
-                  ))} */}
+                  ))}
 
                   {/* <div className="storeAvailable">
                     <Image
