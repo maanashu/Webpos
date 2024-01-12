@@ -3,7 +3,7 @@ import AnalyticsHeader from '../../../components/commanComonets/AnalyticsHeader'
 import AnalyticsSubHeader from '../../../components/commanComonets/AnalyticsSubHeader';
 import { ArrowLeft, ArrowRight, average_order, gross_profit, gross_profit_blue, order_frequency, overview_sales, total_order, total_volume } from '../../../utilities/images';
 import Image from 'next/image';
-import { analyticsDetails, getProfitsData, orderAnalyticsData, totalOrderAnalyticsDataApi } from '../../../redux/slices/analytics';
+import { analyticsDetails, getProfitsData, orderAnalyticsData, totalAnalyticsProductSoldData, totalOrderAnalyticsDataApi } from '../../../redux/slices/analytics';
 import moment from 'moment-timezone';
 import { useDispatch, useSelector } from 'react-redux';
 import { selectLoginAuth } from '../../../redux/slices/auth';
@@ -62,37 +62,41 @@ const index = () => {
     },
   ];
 
-  const orderAnalyticsHandle = () => {
+  const totalProductSoldAnalyticsHandle = () => {
     let params = {
-      filter: timeSpan,
-      channel: channelSelected.value,
-      // seller_id: auth?.usersInfo?.payload?.uniqe_id
-      seller_id: "016b1b3a-d7d3-4fc3-a76b-995b23c43852",
-    };
-    if (startDate && endDate) {
-      params = {
+        filter: timeSpan,
         channel: channelSelected.value,
         // seller_id: auth?.usersInfo?.payload?.uniqe_id
         seller_id: "016b1b3a-d7d3-4fc3-a76b-995b23c43852",
-        start_date: moment(startDate).format("YYYY-MM-DD"),
-        end_date: moment(endDate).format("YYYY-MM-DD"),
-      };
     }
-    dispatch(totalOrderAnalyticsDataApi({
-      ...params,
-      cb(res) {
-        if (res.status) {
-          setTotalOrderAnalyticsData(res?.data?.payload);
-          // setTotalRecords(totalOrderAnalyticsData?.order_listing)
+
+    if (startDate && endDate) {
+        params = {
+            start_date: moment(startDate).format("YYYY-MM-DD"),
+            end_date: moment(endDate).format("YYYY-MM-DD"),
+            channel: channelSelected.value,
+            // seller_id: auth?.usersInfo?.payload?.uniqe_id
+            seller_id: "016b1b3a-d7d3-4fc3-a76b-995b23c43852",
         }
-      },
+    }
+
+    dispatch(totalAnalyticsProductSoldData({
+        ...params,
+        cb(res) {
+            if (res.status) {
+                setTotalProductSoldAnalyticsData(res?.data?.payload);
+            }
+        },
     })
     );
-  };
+};
 
   useEffect(() => {
-    orderAnalyticsHandle();
+    totalProductSoldAnalyticsHandle();
   }, [timeSpan, channelSelected, endDate]);
+
+
+  console.log(totalOrderAnalyticsData?.order_listing, "datat of ")
   return (
     <div className="main-container-customers">
       <AnalyticsHeader
@@ -201,28 +205,28 @@ const index = () => {
                           <td
                             className="customers-table-data"
                           >
-                            {moment(row?.order_date).format('MM/DD/YYYY')}
+                            {row?.product_name ? `${row?.product_name?.length > 25 ? `${row?.product_name?.slice(0, 25)}...` : row?.product_name}` : ""}
                           </td>
                           <td
                             className="customers-table-data"
                           >
-                            {row.total_orders}
+                            {row?.product_upc}
                           </td>
                           <td
                             className="customers-table-data"
                           // style={{ display: "flex", gap: "12px" }}
                           >
-                            {row.new_consumer}
+                            {`$${row?.total_price ? addThousandSeparator((row?.total_price)?.toFixed(2)) : "0"}`}
                           </td>
                           <td
                             className="customers-table-data"
                           >
-                            {`${row.consumer_returning} / hour`}
+                            {row?.in_stock_qty}
                           </td>
                           <td
                             className="customers-table-data"
                           >
-                            {`$${row.amount ? addThousandSeparator((row.amount)?.toFixed(2)) : "0"}`}
+                            {moment(row.last_sold_date).format('MM/DD/YYYY')}
                           </td>
                           <td
                             className="customers-table-data"
