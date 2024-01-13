@@ -274,12 +274,34 @@ import moneyOuter from "../public/images/moneyOuter.svg"
 import cardOuter from "../public/images/cardOuter.svg"
 import passwordLock from "../public/images/passwordLock.svg"
 import lightLocation from "../public/images/lightLocation.svg"
-import map from "../public/images/Map.png"
 import countryImg from "../public/images/countryImg.svg"
 import editTax from "../public/images/editTax.svg"
+import assignStep from "../public/images/assignStep.svg"
+import deliverHand from "../public/images/deliverHand.svg"
+import driverProfile from "../public/images/driverProfile.svg"
+import map from "../public/images/Map.png" 
+import maximize from "../public/images/maximize.svg"
+import orderDriver from "../public/images/orderDriver.svg"
+import dotStep from '../public/images/dotStep.svg'
+import lineStep from "../public/images/lineStep.svg"
+import deliverBox from "../public/images/deliverBox.svg"
+import acceptStep from "../public/images/acceptStep.svg"
+import readyStep from "../public/images/readyStep.svg"
+import Fast from "../public/images/Fast.svg"
 
 
 export {
+  Fast,
+  deliverHand,
+  driverProfile,
+  readyStep,
+  acceptStep,
+  deliverBox,
+  orderDriver,
+  lineStep,
+  dotStep,
+  maximize,
+  assignStep,
   editTax,
   countryImg,
   map,

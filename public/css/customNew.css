@@ -4051,7 +4051,10 @@ figure {
     height: calc(100vh - 300px);
     overflow-y: scroll;
 }
-
+.createTaxData{
+    height: calc(100vh - 325px);
+    overflow-y: scroll;
+}
 .selectRole .searchWrapper {
     border-radius: 50px;
     border: 1px solid #D7DEFF;

@@ -7,6 +7,7 @@ const CreateTaxModal = () => {
         <>
             <div className='createTaxSection'>
                 <form className='taxForm'>
+                <div className='createTaxData'>
                     <div className='nameForm'>
                         <label className="form-label amountText m-0">Tax Name</label>
                         <input className="form-control nameControl" type="text" placeholder="Tax Name" />
@@ -20,9 +21,9 @@ const CreateTaxModal = () => {
                         </div>
                         <div className='col-lg-6'>
                             <div className='selectRole '>
-                                <label className="form-label amountText m-0">State</label>
+                                <label className="form-label amountText m-0">Locations</label>
                                 <select class="form-select" aria-label="Default select example" >
-                                    <option selected>Alabama</option>
+                                    <option selected>Florida</option>
                                     <option value="1">One</option>
                                     <option value="2">Two</option>
                                     <option value="3">Three</option>
@@ -52,8 +53,45 @@ const CreateTaxModal = () => {
                                 <p className='productSize p-0'>Specify when this tax should not be applied.</p>
                             </div>
                         </div>
+                        <hr className='dottedDivide' />
+                        <div className='row'>
+                            <div className='col-lg-6'>
+                                <div className='nameForm'>
+                                    <label className="form-label amountText m-0">Tax Exemption Name</label>
+                                    <input className="form-control nameControl" type="text" placeholder="Tax Name" />
+                                </div>
+                            </div>
+                            <div className='col-lg-6'>
+                                <div className='selectRole '>
+                                    <label className="form-label amountText m-0">Locations</label>
+                                    <select class="form-select" aria-label="Default select example" >
+                                        <option selected>Florida</option>
+                                        <option value="1">One</option>
+                                        <option value="2">Two</option>
+                                        <option value="3">Three</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div className='col-lg-6'>
+                                <div className='selectRole mt-3'>
+                                    <label className="form-label amountText m-0">Exempt Tax</label>
+                                    <select class="form-select" aria-label="Default select example" >
+                                        <option selected>Select Exempt Tax</option>
+                                        <option value="1">One</option>
+                                        <option value="2">Two</option>
+                                        <option value="3">Three</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div className='col-lg-6'>
+                                <div className='nameForm mt-3'>
+                                    <label className="form-label amountText m-0">Amount</label>
+                                    <input className="form-control nameControl zipForm" type="number" placeholder="$  00.00" />
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                    <hr className='dottedDivide'/>
+                    </div>
                     <div className='activateTaxBtn'>
                         <button className='serviceCancel w-100 ' type='button'>
                             Cancel
