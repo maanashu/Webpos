@@ -25,6 +25,8 @@ const ProductCart = () => {
     title: "",
     flag: "",
   });
+
+
   const handleOnCloseModal = () => {
     setModalDetail({
       show: false,
@@ -55,6 +57,7 @@ const ProductCart = () => {
     dispatch(
       productCart({
         cb(res) {
+          console.log(res,'response=>');
           if (res.data) {
             setProductCarts(res?.data?.payload);
             setPosCartProducts(res?.data?.payload?.poscart_products);
@@ -329,7 +332,7 @@ const ProductCart = () => {
                   </div>
                   <div className="flexDiv mt-2">
                     <h4 className="lightOfferText fw-bold">Discount</h4>
-                    <h4 className="appointSub m-0 fw-bold">-$19.00</h4>
+                    <h4 retailDataclassName="appointSub m-0 fw-bold">-$19.00</h4>
                   </div>
                   <div className="flexDiv mt-2">
                     <h4 className="lightOfferText">Other Fees</h4>
