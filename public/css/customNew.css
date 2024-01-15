@@ -4051,10 +4051,12 @@ figure {
     height: calc(100vh - 300px);
     overflow-y: scroll;
 }
-.createTaxData{
+
+.createTaxData {
     height: calc(100vh - 325px);
     overflow-y: scroll;
 }
+
 .selectRole .searchWrapper {
     border-radius: 50px;
     border: 1px solid #D7DEFF;
@@ -4304,6 +4306,24 @@ figure {
     width: 100%;
 }
 
+#barcodeScanModal {
+    width: 100%;
+    max-width: 450px;
+}
+
+#barcodeScanModal .modal-content {
+    border-radius: 30px !important;
+    background: #FFF !important;
+    box-shadow: -3px 6px 7px 0px rgba(52, 79, 117, 0.03), -12px 28px 25px 0px rgba(52, 79, 117, 0.04), -31px 74px 80px 0px rgba(52, 79, 117, 0.07) !important;
+    padding: 40px 60px !important;
+    border: none !important;
+}
+#barcodeScanModal .modal-header{
+    display: none;
+}
+.scannerMain{
+    text-align: center;
+}
 /*setting css end*/
 /*media query start*/
 @media (max-width:1600px) {
