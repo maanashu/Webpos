@@ -6,8 +6,10 @@ import Link from 'next/link';
 import { getStaffDetails, settingInfo } from '../../../redux/slices/setting';
 import { useDispatch, useSelector } from 'react-redux';
 import moment from 'moment-timezone';
+import { useRouter } from 'next/router';
 
 const StaffDetail = ({ selectedItemId }) => {
+    const router = useRouter();
     const [getStaffInfo, setGetStaffInfo] = useState("");
     const targetDate = moment(getStaffInfo?.pos_staff_detail?.created_at);
     const currentDate = moment();
@@ -21,8 +23,9 @@ const StaffDetail = ({ selectedItemId }) => {
     // API for get all POS users...............................
     const getStaffDetail = () => {
         let params = {
-            // id: 286,
-            id:selectedItemId
+            id: 2,
+            // id:selectedItemId
+
         };
         dispatch(getStaffDetails({
             ...params,
@@ -34,6 +37,26 @@ const StaffDetail = ({ selectedItemId }) => {
         })
         );
     };
+
+    function convertMinutesToHoursAndMinutes(minutes) {
+        if (typeof minutes !== 'number' || minutes < 0) {
+            return 'Invalid input';
+        }
+
+        const hours = Math.floor(minutes / 60);
+        const remainingMinutes = minutes % 60;
+
+        return hours + ' h ' + remainingMinutes?.toFixed(0) + ' m';
+    }
+
+    const handleRequest = (status) => {
+        if (status === 0) {
+
+        }
+        else{
+            router.push("/Product")
+        }
+    }
 
     useEffect(() => {
         getStaffDetail();
@@ -183,30 +206,30 @@ const StaffDetail = ({ selectedItemId }) => {
 
                                         getStaffInfo?.results?.results?.map((data, index) => {
                                             return (
-                                                <div className='staffTableOuter'>
+                                                <div key={index} className='staffTableOuter'>
                                                     <div className='staffTableData'>
 
                                                         <div className='staffBoxData text-start'>
-                                                            <h4 className='staffTableText'>{data?.start_date} - {data?.end_date}</h4>
+                                                            <h4 className='staffTableText'>{moment(data?.start_date).format("MMM DD, YYYY")} - {moment(data?.end_date).format("MMM DD, YYYY")}</h4>
                                                         </div>
                                                         <div className='staffBoxData '>
-                                                            <h4 className='staffTableText'>{Number(data.duration)?.toFixed(2)}</h4>
+                                                            <h4 className='staffTableText'>{convertMinutesToHoursAndMinutes(data?.duration)}</h4>
                                                         </div>
                                                         <div className='staffBoxData'>
-                                                            <h4 className='staffTableText'>JBR {Number(data.amount)?.toFixed(2)}</h4>
+                                                            <h4 className='staffTableText'>JBR {Number(data?.amount)?.toFixed(2)}</h4>
                                                         </div>
                                                         <div className='staffBoxData '>
-                                                            <button className='paidBtn ' type='button'>{data.status == 0 ? 'Unpaid' : data.status == 1 ? 'Request Sent' : 'Paid'}</button>
+                                                            <button className={data?.status === 0 ? "unpaidBtn" : 'paidBtn '} type='button'>{data?.status === 0 ? 'Unpaid' : 'Paid'}</button>
                                                         </div>
                                                         <div className='staffBoxData'>
-                                                            <button className='viewBtn ' type='button'>view</button>
+                                                            <button className={data?.status === 0 ? 'requestBtn' : 'viewBtn '} onClick={() => handleRequest(data?.status)} type='button'>{data?.status === 0 ? "Request" : 'view'}</button>
                                                         </div>
                                                     </div>
                                                 </div>
                                             )
                                         }) : ""
                                     }
-                                    <div className='staffTableOuter'>
+                                    {/* <div className='staffTableOuter'>
                                         <div className='staffTableData'>
                                             <div className='staffBoxData text-start'>
                                                 <h4 className='staffTableText'>May 29, 2023 - Jun 4, 2023</h4>
@@ -275,7 +298,7 @@ const StaffDetail = ({ selectedItemId }) => {
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
+                                    </div> */}
                                 </div>
                             </div>
                         )

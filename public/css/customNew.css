@@ -3288,9 +3288,9 @@ figure {
 .settingList.active,
 .settingList:hover {
     border-radius: 8px;
-    border: 0px solid #F5F6FC;
+    border: 1px solid transparent;
     background: #FFF;
-    box-shadow: -2px 4px 25px 0px rgba(50, 80, 127, 0.02), -5px 10px 80px 0px rgba(50, 80, 127, 0.04);
+    box-shadow: -2px 4px 25px 0px rgb(50 80 127 / 2%), -5px 10px 80px 0px rgb(50 80 127 / 4%);
 }
 
 .settingList.active .settingText,
@@ -3411,7 +3411,9 @@ figure {
 }
 
 #addStoreModal .modal-content,
-#taxPayerModal .modal-content {
+#taxPayerModal .modal-content,
+#activateTaxModal .modal-content,
+#createModalTax .modal-content {
     border-radius: 20px !important;
     background: #FFF !important;
     box-shadow: -2px 6px 6px 0px rgba(52, 79, 117, 0.03), -11px 28px 25px 0px rgba(52, 79, 117, 0.04), -31px 74px 80px 0px rgba(52, 79, 117, 0.07) !important;
@@ -3420,10 +3422,18 @@ figure {
 }
 
 #addStoreModal .modal-header,
-#taxPayerModal .modal-header {
+#taxPayerModal .modal-header,
+#activateTaxModal .modal-header,
+#createModalTax .modal-header {
     border: none;
     padding: 0 !important;
-    justify-content: center;
+    display: block;
+    text-align: center;
+}
+
+#activateTaxModal {
+    width: 100%;
+    max-width: 480px;
 }
 
 .addStoreData {
@@ -3438,6 +3448,8 @@ figure {
     color: #263682;
     font-size: 18px;
     font-weight: 400;
+    background-image: url("../images/arrowDown.svg") !important;
+    background-size: 24px 24px !important;
 }
 
 .memberColor {
@@ -4040,6 +4052,11 @@ figure {
     overflow-y: scroll;
 }
 
+.createTaxData {
+    height: calc(100vh - 325px);
+    overflow-y: scroll;
+}
+
 .selectRole .searchWrapper {
     border-radius: 50px;
     border: 1px solid #D7DEFF;
@@ -4056,10 +4073,286 @@ figure {
     padding: 16px 24px;
     margin-top: 24px;
     display: flex;
-    align-items: center;
+    align-items: start;
     justify-content: space-between;
 }
 
+.taxVerifySection .eReciptBtn {
+    border-radius: 30px;
+    background: #12B76A;
+    padding: 10px 16px;
+    color: #F5F6FC;
+    font-size: 14px;
+    font-weight: 500;
+    border: none;
+}
+
+.taxVerifyImg {
+    width: 16px !important;
+    height: 16px !important;
+}
+
+.taxCountrySection {
+    margin: 10px 0;
+}
+
+.taxCountryMain {
+    border-radius: 16px;
+    border: 1px solid #D7DEFF;
+    padding: 16px 24px;
+    display: flex;
+    align-items: start;
+    justify-content: space-between;
+}
+
+.countryImg {
+    width: 30px;
+    height: 30px;
+}
+
+.operatingCountry {
+    display: flex;
+    align-items: start;
+    gap: 16px;
+}
+
+.taxCountrySub {
+    display: flex;
+    align-items: center;
+    justify-content: end;
+}
+
+.taxCountrySub .taxCountryMain {
+    width: 90%;
+    margin-top: 10px;
+}
+
+.countryMainSub::before {
+    content: "";
+    background-image: url(/_next/static/media/SubLineLg.db03f272.svg);
+    width: 80px;
+    height: 85px;
+    position: absolute;
+    left: -69px;
+    top: -12px;
+    background-repeat: no-repeat;
+}
+
+.countryMainSub {
+    position: relative;
+}
+
+.createTaxBtn {
+    border-radius: 30px;
+    border: 0px solid #263682;
+    background: #F5F6FC;
+    padding: 10px;
+    color: #263682;
+    font-size: 14px;
+    font-weight: 400;
+    display: flex;
+    margin: 10px 0 0 70px;
+}
+
+.taxTableMain {
+    border-radius: 20px;
+    border: 1px solid #D7DEFF;
+    padding: 16px;
+    height: calc(50vh - 100px);
+    overflow-y: scroll;
+}
+
+.taxTableMain::-webkit-scrollbar {
+    display: none;
+}
+
+.taxDateArea {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.areaselect .form-select {
+    border-radius: 12px;
+    border: 1px solid #D7DEFF;
+    box-shadow: -2px 4px 25px 0px rgba(50, 80, 127, 0.02), -5px 10px 80px 0px rgba(50, 80, 127, 0.04);
+    padding: 10px 12px;
+    color: #263682;
+    font-size: 18px;
+    font-weight: 400;
+    background-color: #fff;
+    background-image: url("../images/arrowDown.svg") !important;
+    background-size: 24px 24px !important;
+    width: 100%;
+    max-width: 110px;
+    cursor: pointer;
+
+}
+
+.taxRowTable {
+    border-radius: 30px;
+    outline: 1px solid #F5F6FC;
+    padding: 12px 6px;
+}
+
+.taxSubHead {
+    padding: 12px;
+}
+
+.taxText {
+    color: #2F3552;
+    font-size: 12px;
+    font-weight: 500;
+}
+
+.taxTableHead .invoiceHeading {
+    padding: 8px 16px;
+}
+
+.activateText {
+    color: #636E9F;
+    text-align: center;
+    font-size: 18px;
+    font-weight: 400;
+}
+
+.activateCountry {
+    border-radius: 20px;
+    border: 1px solid #D7DEFF;
+    padding: 16px;
+    margin: 24px 0;
+}
+
+.activteOperating {
+    border-radius: 16px;
+    border: 1px solid #D7DEFF;
+    padding: 16px 24px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.activateSubCountry {
+    border-radius: 16px;
+    border: 1px solid #D7DEFF;
+    padding: 16px 24px;
+    width: 80%;
+    margin-top: 10px;
+    display: flex;
+    align-items: start;
+    gap: 16px;
+    position: relative;
+}
+
+.taxPrimary {
+    color: #47B0D6;
+    font-size: 12px;
+    font-weight: 500;
+}
+
+.activateSubCountry::before {
+    content: "";
+    background-image: url(/_next/static/media/SubLineLg.db03f272.svg);
+    width: 80px;
+    height: 85px;
+    position: absolute;
+    left: -69px;
+    top: -12px;
+    background-repeat: no-repeat;
+}
+
+.activateTaxBtn {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.activateTaxBtn .serviceCancel {
+    padding: 14px 16px;
+}
+
+.activateTaxBtn .nextverifyBtn {
+    padding: 14px 16px;
+}
+
+#createModalTax {
+    width: 100%;
+    max-width: 550px;
+}
+
+.createTaxInfo {
+    display: flex;
+    align-items: start;
+    gap: 14px;
+}
+
+.createTaxInfo .checkBlue label:before {
+    background-color: #d7deff2b;
+}
+
+.TaxExemptionBx {
+    border-radius: 12px;
+    border: 1px solid #D7DEFF;
+    padding: 24px;
+    margin: 12px 0;
+}
+
+.dottedDivide {
+    border: none;
+    border-top: 2px dotted #8D99D2;
+    color: #fff;
+    background-color: #fff;
+    height: 1px;
+    width: 100%;
+}
+
+#barcodeScanModal {
+    width: 100%;
+    max-width: 450px;
+}
+
+#barcodeScanModal .modal-content {
+    border-radius: 30px !important;
+    background: #FFF !important;
+    box-shadow: -3px 6px 7px 0px rgba(52, 79, 117, 0.03), -12px 28px 25px 0px rgba(52, 79, 117, 0.04), -31px 74px 80px 0px rgba(52, 79, 117, 0.07) !important;
+    padding: 40px 60px !important;
+    border: none !important;
+}
+
+#barcodeScanModal .modal-header {
+    display: none;
+}
+
+.scannerMain {
+    text-align: center;
+}
+
+.barcodeScanSection {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.barcodeDevice {
+    width: 240px;
+    height: 46px;
+    margin: 30px 0;
+}
+
+.codeSubDisplay {
+    border-radius: 12px;
+    border: 0px solid #E4E6F2;
+    background: #F5F6FC;
+    padding: 10px 8px;
+    height: 42px;
+    width: 100%;
+    margin-top: 12px;
+}
+.codeDisplayMain{
+    width: 100%;
+    margin-bottom: 30px;
+    text-align: center;
+}
 /*setting css end*/
 /*media query start*/
 @media (max-width:1600px) {

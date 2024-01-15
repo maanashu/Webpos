@@ -116,6 +116,7 @@ import Cross from "../public/images/Cross.svg";
 import DrawerBlue from "../public/images/DrawerBlue.svg";
 import LogOutSky from "../public/images/LogOutSky.svg";
 
+import toggleOn from "../public/images/toggleOn.png";
 // customer route
 import customerScan from "../public/images/dark_scan_cust.svg";
 import customerUsers from "../public/images/dark_users_cust.svg";
@@ -286,9 +287,59 @@ import moneyOuter from "../public/images/moneyOuter.svg";
 import cardOuter from "../public/images/cardOuter.svg";
 import passwordLock from "../public/images/passwordLock.svg";
 import lightLocation from "../public/images/lightLocation.svg";
+import ProductsServicesinactive from "../public/images/ProductsServicesinactive.svg";
+import DeliveryOrdersInactive from "../public/images/DeliveryOrdersInactive.svg";
+import Calendar_Solid from "../public/images/Calendar_Solid.svg";
+import Chart_Solid from "../public/images/Chart_Solid.svg";
+import Wallet_Solid from "../public/images/Wallet_Solid.svg";
+import Users_Solid from "../public/images/Users_Solid.svg";
+import Settings_Solid from "../public/images/Settings_Solid.svg";
+import Rewards_Solid from "../public/images/Rewards_Solid.svg";
+import Cash_Solid from "../public/images/Cash_Solid.svg";
+import Shipping_Solid from "../public/images/Shipping_Solid.svg";
+import checkverify from "../public/images/checkverify.svg";
+import countryflag from "../public/images/countryflag.svg";
+import countryflag1 from "../public/images/countryflag1.png";
+import editimg from "../public/images/editimg.svg";
+import profitMargin from "../public/images/profit_margin.png";
+import unitSold from "../public/images/unit_sold.png";
+import totalInventory from "../public/images/total_inventory.png";
+import totalInventoryValue from "../public/images/total_inventory_value.png";
+import countryImg from "../public/images/countryImg.svg";
+import editTax from "../public/images/editTax.svg";
+import assignStep from "../public/images/assignStep.svg";
+import deliverHand from "../public/images/deliverHand.svg";
+import driverProfile from "../public/images/driverProfile.svg";
+import map from "../public/images/Map.png";
+import maximize from "../public/images/maximize.svg";
+import orderDriver from "../public/images/orderDriver.svg";
+import dotStep from "../public/images/dotStep.svg";
+import lineStep from "../public/images/lineStep.svg";
+import deliverBox from "../public/images/deliverBox.svg";
+import acceptStep from "../public/images/acceptStep.svg";
+import readyStep from "../public/images/readyStep.svg";
+import Fast from "../public/images/Fast.svg";
 
 export {
+  map,
+  countryImg,
+  editTax,
+  assignStep,
+  deliverHand,
+  driverProfile,
+  maximize,
+  orderDriver,
+  dotStep,
+  lineStep,
+  deliverBox,
+  acceptStep,
+  readyStep,
+  Fast,
+  profitMargin,
+  unitSold,
   lightLocation,
+  totalInventory,
+  totalInventoryValue,
   passwordLock,
   cardOuter,
   moneyOuter,
@@ -571,4 +622,19 @@ export {
   settingsPhoneMessage,
   settingsEmail,
   settingsPrinter,
+  ProductsServicesinactive,
+  DeliveryOrdersInactive,
+  Calendar_Solid,
+  Chart_Solid,
+  Wallet_Solid,
+  Users_Solid,
+  Settings_Solid,
+  Rewards_Solid,
+  Cash_Solid,
+  Shipping_Solid,
+  checkverify,
+  countryflag,
+  countryflag1,
+  editimg,
+  toggleOn,
 };

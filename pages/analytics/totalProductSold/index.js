@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react'
 import AnalyticsHeader from '../../../components/commanComonets/AnalyticsHeader'
 import AnalyticsSubHeader from '../../../components/commanComonets/AnalyticsSubHeader';
-import { ArrowLeft, ArrowRight, average_order, gross_profit, gross_profit_blue, order_frequency, overview_sales, total_order, total_volume } from '../../../utilities/images';
+import { ArrowLeft, ArrowRight, average_order, gross_profit, gross_profit_blue, order_frequency, overview_sales, profitMargin, total_order, total_volume, unitSold } from '../../../utilities/images';
 import Image from 'next/image';
-import { analyticsDetails, getProfitsData, orderAnalyticsData, totalOrderAnalyticsDataApi } from '../../../redux/slices/analytics';
+import { analyticsDetails, getProfitsData, orderAnalyticsData, totalAnalyticsProductSoldData, totalProductSoldAnalyticsDataApi } from '../../../redux/slices/analytics';
 import moment from 'moment-timezone';
 import { useDispatch, useSelector } from 'react-redux';
 import { selectLoginAuth } from '../../../redux/slices/auth';
@@ -13,14 +13,14 @@ const index = () => {
   const [channelSelected, setChannelSelected] = useState({ value: 'all', label: 'All Channels' })
   const [startDate, setStartDate] = useState(null);
   const [endDate, setEndDate] = useState(null);
-  const [totalOrderAnalyticsData, setTotalOrderAnalyticsData] = useState("")
+  const [totalProductSoldAnalyticsData, setTotalProductSoldAnalyticsData] = useState("")
   const analyticsData = useSelector(analyticsDetails);
   const handleChange = (selectedOption) => {
     setChannelSelected(selectedOption)
   };
 
   const dispatch = useDispatch()
-  console.log(totalOrderAnalyticsData, "analytics data")
+  console.log(totalProductSoldAnalyticsData, "analytics data")
 
   function addThousandSeparator(number) {
     return number?.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
@@ -33,66 +33,68 @@ const index = () => {
 
   const STATS = [
     {
-      icon: total_order,
-      title: "Total Orders",
-      count: totalOrderAnalyticsData?.ordersOverView?.total_orders,
+      icon: unitSold,
+      title: "Units Sold",
+      count: totalProductSoldAnalyticsData?.productOverview?.totalProducts,
       bgColor: "#D1FADF",
       textColor: "#003921",
     },
     {
       icon: total_volume,
       title: "Total Volume",
-      count: `${addThousandSeparator(totalOrderAnalyticsData?.ordersOverView?.total_volume ? (totalOrderAnalyticsData?.ordersOverView?.total_volume).toFixed(2) : 0)}`,
+      count: totalProductSoldAnalyticsData?.productOverview?.totalVolume ? `$${addThousandSeparator((totalProductSoldAnalyticsData?.productOverview?.totalVolume)?.toFixed(2))}` : "$0",
       bgColor: "#D1FADF",
       textColor: "#003921",
     },
     {
-      icon: average_order,
-      title: "Average Order Value",
-      count: (totalOrderAnalyticsData?.ordersOverView?.averageValue || totalOrderAnalyticsData?.ordersOverView?.averageValue == 0) ? `$${(totalOrderAnalyticsData?.ordersOverView?.averageValue).toFixed(2)}` : "",
+      icon: profitMargin,
+      title: "Profit Margin",
+      count: totalProductSoldAnalyticsData?.productOverview?.totalMargin ? `$${addThousandSeparator((totalProductSoldAnalyticsData?.productOverview?.totalMargin)?.toFixed(2))}` : "$0",
       bgColor: "#D1FADF",
       textColor: "#003921",
     },
     {
       icon: gross_profit,
       title: "Gross Profit",
-      count: `$${addThousandSeparator((totalOrderAnalyticsData?.ordersOverView?.total_profit)?.toFixed(2))}`,
+      count: totalProductSoldAnalyticsData?.productOverview?.totalProfit ? `$${addThousandSeparator((totalProductSoldAnalyticsData?.productOverview?.totalProfit)?.toFixed(2))}` : "$0",
       bgColor: "#D1FADF",
       textColor: "#003921",
     },
   ];
 
-  const orderAnalyticsHandle = () => {
+  const totalProductSoldAnalyticsHandle = () => {
     let params = {
-      filter: timeSpan,
-      channel: channelSelected.value,
-      // seller_id: auth?.usersInfo?.payload?.uniqe_id
-      seller_id: "016b1b3a-d7d3-4fc3-a76b-995b23c43852",
-    };
-    if (startDate && endDate) {
-      params = {
+        filter: timeSpan,
         channel: channelSelected.value,
         // seller_id: auth?.usersInfo?.payload?.uniqe_id
-        seller_id: "016b1b3a-d7d3-4fc3-a76b-995b23c43852",
-        start_date: moment(startDate).format("YYYY-MM-DD"),
-        end_date: moment(endDate).format("YYYY-MM-DD"),
-      };
+        seller_id: "b169ed4d-be27-44eb-9a08-74f997bc6a2f",
     }
-    dispatch(totalOrderAnalyticsDataApi({
-      ...params,
-      cb(res) {
-        if (res.status) {
-          setTotalOrderAnalyticsData(res?.data?.payload);
-          // setTotalRecords(totalOrderAnalyticsData?.order_listing)
+
+    if (startDate && endDate) {
+        params = {
+            start_date: moment(startDate).format("YYYY-MM-DD"),
+            end_date: moment(endDate).format("YYYY-MM-DD"),
+            channel: channelSelected.value,
+            // seller_id: auth?.usersInfo?.payload?.uniqe_id
+            seller_id: "b169ed4d-be27-44eb-9a08-74f997bc6a2f",
         }
-      },
+    }
+
+    dispatch(totalAnalyticsProductSoldData({
+        ...params,
+        cb(res) {
+            if (res.status) {
+                setTotalProductSoldAnalyticsData(res?.data?.payload);
+            }
+        },
     })
     );
-  };
+};
 
   useEffect(() => {
-    orderAnalyticsHandle();
+    totalProductSoldAnalyticsHandle();
   }, [timeSpan, channelSelected, endDate]);
+
   return (
     <div className="main-container-customers">
       <AnalyticsHeader
@@ -195,34 +197,34 @@ const index = () => {
               {
                 <>
                   {
-                    totalOrderAnalyticsData?.order_listing?.length > 0 ? <tbody>
-                      {totalOrderAnalyticsData?.order_listing?.map((row, idx) => (
+                    totalProductSoldAnalyticsData?.totalProductSoldList?.data?.length > 0 ? <tbody>
+                      {totalProductSoldAnalyticsData?.totalProductSoldList?.data?.map((row, idx) => (
                         <tr className="customers-table-row" key={idx}>
                           <td
                             className="customers-table-data"
                           >
-                            {moment(row?.order_date).format('MM/DD/YYYY')}
+                            {row?.product_name ? `${row?.product_name?.length > 25 ? `${row?.product_name?.slice(0, 25)}...` : row?.product_name}` : ""}
                           </td>
                           <td
                             className="customers-table-data"
                           >
-                            {row.total_orders}
+                            {row?.product_upc}
                           </td>
                           <td
                             className="customers-table-data"
                           // style={{ display: "flex", gap: "12px" }}
                           >
-                            {row.new_consumer}
+                            {`$${row?.total_price ? addThousandSeparator((row?.total_price)?.toFixed(2)) : "0"}`}
                           </td>
                           <td
                             className="customers-table-data"
                           >
-                            {`${row.consumer_returning} / hour`}
+                            {row?.in_stock_qty}
                           </td>
                           <td
                             className="customers-table-data"
                           >
-                            {`$${row.amount ? addThousandSeparator((row.amount)?.toFixed(2)) : "0"}`}
+                            {moment(row?.last_sold_date).format('MM/DD/YYYY')}
                           </td>
                           <td
                             className="customers-table-data"
