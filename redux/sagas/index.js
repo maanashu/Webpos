@@ -6,6 +6,7 @@ import analyticsSaga from "./analytics";
 import transactionsSaga from "./transactions";
 import settingSaga from "./setting";
 import retailsSaga from "./retails";
+import deliverySaga from "./delivery";
 
 export default function* rootSaga() {
   yield all([
