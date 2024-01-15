@@ -22,12 +22,12 @@ function* getTodayOrderCount(action) {
   const dataToSend = { ...action.payload };
   delete dataToSend.cb;
   const params = new URLSearchParams(dataToSend).toString();
-
   try {
     const resp = yield call(
       ApiClient.get,
       `${ORDER_API_URL}${API_URL.getTodayOrderCount}${params}`
     );
+
     if (resp) {
       //   yield put(setProfitData(resp.data));
       yield call(action.payload.cb, (action.res = resp));
@@ -90,6 +90,8 @@ function* getOrdersList(action) {
       ApiClient.get,
       `${ORDER_API_URL}${API_URL.getOrderList}${params}`
     );
+    console.log("RESPONSEE+__+_++_-==-", resp);
+
     if (resp) {
       yield put(setOrdersList(resp?.data == "" ? [] : resp?.data?.payload));
       // yield call(action.payload.cb, (action.res = resp));
@@ -97,6 +99,7 @@ function* getOrdersList(action) {
       throw resp;
     }
   } catch (e) {
+    console.log("error", e);
     // yield put(onErrorStopLoad());
     toast.error(e?.error?.response?.data?.msg);
   }
@@ -110,7 +113,6 @@ function* getDrawerOrdersCount(action) {
       `${ORDER_API_URL}${API_URL.getDrawerCount}${params}`
     );
     if (resp) {
-      console.log("DrawerCount ", JSON.stringify(resp));
       yield put(
         setDrawerOrdersCount(resp?.data == "" ? [] : resp?.data?.payload)
       );
@@ -124,23 +126,25 @@ function* getDrawerOrdersCount(action) {
     toast.error(e?.error?.response?.data?.msg);
   }
 }
-function* getOrderDetailById(orderId, callbackFn) {
-  const dataToSend = { ...action.payload };
+
+function* getOrderDetailById(action, callbackFn) {
+  const dataToSend = action.payload;
+  console.log("callbacccckkck", action.payload);
   // const params = new URLSearchParams(dataToSend).toString();
   // console.log("IIISSS", JSON.stringify(dataToSend));
   try {
     const resp = yield call(
       ApiClient.get,
-      `${ORDER_API_URL}${API_URL.getOrderDetailById}${orderId}`
+      `${ORDER_API_URL}${API_URL.getOrderDetailById}${dataToSend?.order_id}`
     );
     if (resp) {
-      // console.log("OrderId  ", JSON.stringify(resp));
-      yield put(
-        setOrderDetailById(resp?.data == "" ? [] : resp?.data?.payload)
-      );
-      callbackFn && callbackFn(resp);
+      console.log("OrderId  ", JSON.stringify(resp));
+      // yield put(
+      //   setOrderDetailById(resp?.data == "" ? [] : resp?.data?.payload)
+      // );
+      // callbackFn && callbackFn(resp);
 
-      // yield call(action.payload.cb, (action.res = resp));
+      yield call(action.payload.cb, (action.res = resp));
     } else {
       throw resp;
     }

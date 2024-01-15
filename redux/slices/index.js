@@ -15,6 +15,7 @@ const mainReducer = combineReducers({
   analytics: analyticsSlice.reducer,
   transactions: transactionsSlice.reducer,
   setting: settingSlice.reducer,
+  delivery: deliverySlice.reducer,
 });
 
 const rootReducer = (state, action) => {

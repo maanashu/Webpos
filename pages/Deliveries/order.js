@@ -7,24 +7,44 @@ import { useDispatch, useSelector } from "react-redux";
 import { selectLoginAuth } from "../../redux/slices/auth";
 import { deliveryData, getOrderDetailById } from "../../redux/slices/delivery";
 import { useRouter } from "next/router";
-
+import OrderDetail from "./Component/OrderDetails";
+import Link from "next/link";
 const Order = () => {
   const router = useRouter();
   const index = router?.query?.["index"];
+  const listType = router?.query?.["orderListType"];
 
   const dispatch = useDispatch();
   const authData = useSelector(selectLoginAuth);
   const { orderListLoading, orderList, drawerOrderCount } =
     useSelector(deliveryData);
   const uniqueId = authData?.usersInfo?.payload?.uniqe_id;
-  const [orderListType, setOrderListType] = useState("Orders to review");
+  const [orderListType, setOrderListType] = useState(
+    listType !== undefined ? listType : "Orders to review"
+  );
+  const [selectedOrderData, setSelectedOrderData] = useState(null);
+
+  // const orderDetails = orderList?.data[0];
+  // console.log("ORDER___SDEAA", JSON.stringify(orderDetails));
 
   const itemPressHandler = async (data) => {
+    console.log("oooioio", JSON.stringify(data));
+    setSelectedOrderData(data);
+    // console.log("DATATAAAA", JSON.stringify(data));
+    let params = {
+      order_id: data?.id,
+    };
     dispatch(
-      getOrderDetailById(data?.id, (res) => {
-        console.log("responseee", JSON.stringify(res));
+      getOrderDetailById({
+        ...params,
+        cb(res) {
+          if (res.status) {
+            setSelectedOrderData(res?.data.payload);
+          }
+        },
       })
     );
+    // alert("click");
   };
   return (
     <>
@@ -33,14 +53,18 @@ const Order = () => {
           <div className="row ">
             <div className="col-lg-6">
               <div className="deliverOrderLeft deliveryOuter me-0">
-                <div className="flexTable">
-                  <Image
-                    src={Images.boldLeftArrow}
-                    alt="boldLeftArrow "
-                    className="img-fluid me-2"
-                  />
-                  <h4 className="loginMain text-start m-0">{orderListType}</h4>
-                </div>
+                <Link href="/Deliveries">
+                  <div className="flexTable">
+                    <Image
+                      src={Images.boldLeftArrow}
+                      alt="boldLeftArrow "
+                      className="img-fluid me-2"
+                    />
+                    <h4 className="loginMain text-start m-0">
+                      {orderListType}
+                    </h4>
+                  </div>
+                </Link>
                 <div className="table-responsive mt-3">
                   {/* <table id="" className="orderDeliverTable">
                     <tbody>
@@ -366,303 +390,7 @@ const Order = () => {
                 </div>
               </div>
             </div>
-            <div className="col-lg-6">
-              <div className=" deliveryOuter deliverOrderRight ms-0">
-                <div className="orderLeftInfo">
-                  <div className="flexTable">
-                    <figure className="orderAroundImg">
-                      <Image
-                        src={Images.LoginThird}
-                        alt="MoneyItemImage "
-                        className="orderPerson"
-                      />
-                    </figure>
-                    <h4 className="linkHeading ms-1">Samara Schw...</h4>
-                  </div>
-                  <div className="flexTable">
-                    <Image
-                      src={Images.deliverFast}
-                      alt="deliverFast image"
-                      className="img-fluid"
-                    />
-                    <h4 className="expressText ms-1">Express Delivery</h4>
-                  </div>
-                  <div className="immediateBox">
-                    <Image
-                      src={Images.Fast}
-                      alt="deliverFast image"
-                      className="img-fluid"
-                    />
-                    <h4 className="immediateText">Immediately</h4>
-                  </div>
-                </div>
-                <hr className="divideBorder my-3" />
-                <div className="detailScroll  mt-3">
-                  <div className="selectedProductDetails">
-                    <div className="d-flex">
-                      <Image
-                        src={Images.cartFood}
-                        alt="cartFoodImg"
-                        className="img-fluid cartFoodImg"
-                      />
-                      <div className="ps-1">
-                        <p className="aboutProduct">
-                          Name Product Gender and Quality
-                        </p>
-                        <div className="d-flex">
-                          <article className="productColor">
-                            <span className="Yellow"></span>
-                            <span className="Red"></span>
-                            <span className="Pink"></span>
-                            <span className="Blue"></span>
-                            <span className="Black"></span>
-                            <span className="White"></span>
-                          </article>
-                          <span className="productSize ms-2">
-                            Colors / Size
-                          </span>
-                        </div>
-                      </div>
-                    </div>
-                    <p className="productPriceinvoice">$90.00</p>
-                    <p className="productPriceinvoice">1</p>
-                    <p className="productPriceinvoice">$90.00</p>
-                    <article>
-                      <label className="custom-checkbox">
-                        <input type="checkbox" />
-                        <span className="checkmark"></span>
-                      </label>
-                    </article>
-                  </div>
-                  <div className="selectedProductDetails">
-                    <div className="d-flex">
-                      <Image
-                        src={Images.cartFood}
-                        alt="cartFoodImg"
-                        className="img-fluid cartFoodImg"
-                      />
-                      <div className="ps-1">
-                        <p className="aboutProduct">
-                          Name Product Gender and Quality
-                        </p>
-                        <div className="d-flex">
-                          <article className="productColor">
-                            <span className="Yellow"></span>
-                            <span className="Red"></span>
-                            <span className="Pink"></span>
-                            <span className="Blue"></span>
-                            <span className="Black"></span>
-                            <span className="White"></span>
-                          </article>
-                          <span className="productSize ms-2">
-                            Colors / Size
-                          </span>
-                        </div>
-                      </div>
-                    </div>
-                    <p className="productPriceinvoice">$90.00</p>
-                    <p className="productPriceinvoice">1</p>
-                    <p className="productPriceinvoice">$90.00</p>
-                    <article>
-                      <label className="custom-checkbox">
-                        <input type="checkbox" />
-                        <span className="checkmark"></span>
-                      </label>
-                    </article>
-                  </div>
-                  <div className="selectedProductDetails">
-                    <div className="d-flex">
-                      <Image
-                        src={Images.cartFood}
-                        alt="cartFoodImg"
-                        className="img-fluid cartFoodImg"
-                      />
-                      <div className="ps-1">
-                        <p className="aboutProduct">
-                          Name Product Gender and Quality
-                        </p>
-                        <div className="d-flex">
-                          <article className="productColor">
-                            <span className="Yellow"></span>
-                            <span className="Red"></span>
-                            <span className="Pink"></span>
-                            <span className="Blue"></span>
-                            <span className="Black"></span>
-                            <span className="White"></span>
-                          </article>
-                          <span className="productSize ms-2">
-                            Colors / Size
-                          </span>
-                        </div>
-                      </div>
-                    </div>
-                    <p className="productPriceinvoice">$90.00</p>
-                    <p className="productPriceinvoice">1</p>
-                    <p className="productPriceinvoice">$90.00</p>
-                    <article>
-                      <label className="custom-checkbox">
-                        <input type="checkbox" />
-                        <span className="checkmark"></span>
-                      </label>
-                    </article>
-                  </div>
-                  <div className="selectedProductDetails">
-                    <div className="d-flex">
-                      <Image
-                        src={Images.cartFood}
-                        alt="cartFoodImg"
-                        className="img-fluid cartFoodImg"
-                      />
-                      <div className="ps-1">
-                        <p className="aboutProduct">
-                          Name Product Gender and Quality
-                        </p>
-                        <div className="d-flex">
-                          <article className="productColor">
-                            <span className="Yellow"></span>
-                            <span className="Red"></span>
-                            <span className="Pink"></span>
-                            <span className="Blue"></span>
-                            <span className="Black"></span>
-                            <span className="White"></span>
-                          </article>
-                          <span className="productSize ms-2">
-                            Colors / Size
-                          </span>
-                        </div>
-                      </div>
-                    </div>
-                    <p className="productPriceinvoice">$90.00</p>
-                    <p className="productPriceinvoice">1</p>
-                    <p className="productPriceinvoice">$90.00</p>
-                    <article>
-                      <label className="custom-checkbox">
-                        <input type="checkbox" />
-                        <span className="checkmark"></span>
-                      </label>
-                    </article>
-                  </div>
-                  <div className="selectedProductDetails">
-                    <div className="d-flex">
-                      <Image
-                        src={Images.cartFood}
-                        alt="cartFoodImg"
-                        className="img-fluid cartFoodImg"
-                      />
-                      <div className="ps-1">
-                        <p className="aboutProduct">
-                          Name Product Gender and Quality
-                        </p>
-                        <div className="d-flex">
-                          <article className="productColor">
-                            <span className="Yellow"></span>
-                            <span className="Red"></span>
-                            <span className="Pink"></span>
-                            <span className="Blue"></span>
-                            <span className="Black"></span>
-                            <span className="White"></span>
-                          </article>
-                          <span className="productSize ms-2">
-                            Colors / Size
-                          </span>
-                        </div>
-                      </div>
-                    </div>
-                    <p className="productPriceinvoice">$90.00</p>
-                    <p className="productPriceinvoice">1</p>
-                    <p className="productPriceinvoice">$90.00</p>
-                    <article>
-                      <label className="custom-checkbox">
-                        <input type="checkbox" />
-                        <span className="checkmark"></span>
-                      </label>
-                    </article>
-                  </div>
-                </div>
-                <div className="row">
-                  <div className="col-lg-4">
-                    <div className="OrderBox p-0">
-                      <div className="OrderCheckoutBox">
-                        <p className="orderHeading">Total Items</p>
-                        <p className="orderSubHeading">7</p>
-                      </div>
-                      <div className="OrderCheckoutBox">
-                        <p className="orderHeading">Order Date</p>
-                        <p className="orderSubHeading">10/10/2023</p>
-                      </div>
-                      <div className="OrderCheckoutBox">
-                        <p className="orderHeading">Order ID#</p>
-                        <p className="orderSubHeading">JOBR00001</p>
-                      </div>
-                      <div className="OrderCheckoutBox">
-                        <p className="orderHeading">Payment Method</p>
-                        <figure className="priceBtn">
-                          <Image
-                            src={Images.moneyImg}
-                            alt="money"
-                            className="moneyImg"
-                          />
-                          <span className="ms-1">Cash</span>
-                        </figure>
-                      </div>
-                    </div>
-                  </div>
-                  <div className="col-lg-8">
-                    <div className="productBilling">
-                      <div className="OrderDiscountBox">
-                        <div className="flexBox ">
-                          <p className="orderHeading">Sub Total</p>
-                          <p className="orderSubHeading">$2,396.50</p>
-                        </div>
-                        <div className="flexBox">
-                          <p className="orderHeading">Discount</p>
-                          <p className="orderSubHeading">-$19.00</p>
-                        </div>
-                        <div className="flexBox">
-                          <p className="orderHeading">Other Fees</p>
-                          <p className="orderSubHeading">$14,000</p>
-                        </div>
-                        <div className="flexBox">
-                          <p className="orderHeading">Fax</p>
-                          <p className="orderSubHeading">$236</p>
-                        </div>
-                      </div>
-                      <div className="OrderTotal">
-                        <div className="flexBox">
-                          <p className="priceHeading">Total</p>
-                          <p className="priceHeading">$254.60</p>
-                        </div>
-                        <div className="flexBox ">
-                          <button className="declineButton w-100" type="button">
-                            {" "}
-                            Decline
-                          </button>
-                          <button type="button" className="BlueBtn w-100">
-                            Accept
-                            <Image
-                              src={Images.ArrowRight}
-                              alt="ArrowRight"
-                              className="img-fluid ArrowRight"
-                            />
-                          </button>
-                        </div>
-                        <button
-                          type="button "
-                          className="pickupBtn w-100 mt-2 d-none"
-                        >
-                          Ready to Pick Up
-                          <Image
-                            src={Images.deliverHand}
-                            alt="deliverHand image"
-                            className="img-fluid"
-                          />
-                        </button>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
+            <OrderDetail orderData={selectedOrderData} />
           </div>
         </div>
         <DeliveryRightSidebar setOrderListType={setOrderListType} />

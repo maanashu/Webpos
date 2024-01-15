@@ -15,6 +15,7 @@ export default function* rootSaga() {
     spawn(analyticsSaga),
     spawn(transactionsSaga),
     spawn(settingSaga),
+    spawn(deliverySaga),
     // saga1 can also yield [ fork(actionOne), fork(actionTwo) ]
     // fork(saga2),
   ]);

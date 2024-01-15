@@ -15,8 +15,10 @@ import { selectLoginAuth } from "../../redux/slices/auth";
 import OrderListItem from "./Component/OrderListItem";
 import NoOrderFound from "../../components/NoOrderFound";
 import Link from "next/link";
-
+import { useRouter } from "next/router";
 const DeliverDashboard = () => {
+  const router = useRouter();
+
   const dispatch = useDispatch();
   const authData = useSelector(selectLoginAuth);
   const { orderListLoading, orderList, drawerOrderCount } =
@@ -37,7 +39,7 @@ const DeliverDashboard = () => {
       delivery_option: "1,3",
     };
     let orderListParam = {
-      status: 1,
+      status: 0,
       seller_id: uniqueId,
       delivery_option: "1,3",
       need_walkin: false,
@@ -101,7 +103,11 @@ const DeliverDashboard = () => {
       </div>
     );
   }
-  const itemPressHandler = (data) => {};
+  const itemPressHandler = (data) => {
+    console.log("oooioio", JSON.stringify(data));
+
+    router.push(`/Deliveries/order`);
+  };
   return (
     <>
       <div className="deliverySection ">
@@ -285,7 +291,7 @@ const DeliverDashboard = () => {
                         href={{
                           pathname: "Deliveries/order",
 
-                          query: { index: null },
+                          query: { index: null, orderListType: orderListType },
                         }}
                       >
                         <div className="flexTable pointHand">

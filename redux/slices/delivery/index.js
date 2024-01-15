@@ -41,14 +41,14 @@ export const deliverySlice = createSlice({
     },
 
     getDrawerOrdersCount: (state) => {
-      state.orderListLoading = true;
+      state.drawerOrderCountLoading = true;
     },
     setDrawerOrdersCount: (state, action) => {
       state.drawerOrderCountLoading = false;
       state.drawerOrderCount = action?.payload;
     },
     getOrderDetailById: (state) => {
-      state.orderListLoading = true;
+      state.orderDetailLoading = true;
     },
     setOrderDetailById: (state, action) => {
       state.orderDetailLoading = false;
