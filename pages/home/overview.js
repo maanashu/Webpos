@@ -93,6 +93,8 @@ const Overview = () => {
       allOrderDeliveriesInfo();
     }
   }, [UniqueId]);
+
+
   // useEffect(() => {
   //   dispatch(
   //     getSecuritySettingInfo({
@@ -727,4 +729,4 @@ const Overview = () => {
     </>
   );
 };
-export default Overview
+ export default Overview

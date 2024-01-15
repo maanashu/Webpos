@@ -84,6 +84,12 @@ export const settingSlice = createSlice({
         setGetLocationDetails: (state, action) => {
             state.loading = false;
         },
+        updateLocationSetting: (state) => {
+            state.loading = true;
+        },
+        setUpdateLocationSetting: (state, action) => {
+            state.loading = false;
+        },
         // end location slices////////////////////////////////////////////
         onErrorStopLoad: (state) => {
             state.loading = false;
@@ -115,6 +121,8 @@ export const {
     setGetLocationDetails,
     updateSettings,
     setUpdateSettings,
+    updateLocationSetting,
+    setUpdateLocationSetting,
     onErrorStopLoad
 } = settingSlice.actions;
 
