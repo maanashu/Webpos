@@ -2,7 +2,7 @@ import { toast } from "react-toastify";
 import { ApiClient } from "../../../utilities/api";
 import { ORDER_API_URL } from "../../../utilities/config";
 import {
-  onErrorStopLoad, setProfitData, setOrderData, setTotalOrderAnalyticsData, setTotalAnalyticsProductSoldData
+  onErrorStopLoad, setProfitData, setOrderData, setTotalOrderAnalyticsData, setTotalAnalyticsProductSoldData, setTotalInventoryData
 } from "../../slices/analytics";
 import { all, call, put, takeLatest } from "redux-saga/effects";
 
@@ -94,6 +94,27 @@ function* totalAnalyticsProductSoldData(action) {
   }
 }
 
+function* totalInventoryData(action) {
+  const dataToSend = { ...action.payload };
+  delete dataToSend.cb
+  const params = new URLSearchParams(dataToSend).toString();
+
+  try {
+    const resp = yield call(
+      ApiClient.get,
+      `${ORDER_API_URL}/api/v1/orders/statistics/inventory?${params}`
+    );
+    if (resp) {
+      yield put(setTotalInventoryData(resp.data));
+      yield call(action.payload.cb, (action.res = resp));
+    } else {
+      throw resp;
+    }
+  } catch (e) {
+    yield put(onErrorStopLoad());
+    toast.error(e?.error?.response?.data?.msg);
+  }
+}
 
 function* analyticsSaga() {
   yield all([
@@ -101,6 +122,7 @@ function* analyticsSaga() {
     takeLatest("analytics/orderAnalyticsData", orderAnalyticsData),
     takeLatest("analytics/totalOrderAnalyticsDataApi", totalOrderAnalyticsDataApi),
     takeLatest("analytics/totalAnalyticsProductSoldData", totalAnalyticsProductSoldData),
+    takeLatest("analytics/totalInventoryData", totalInventoryData),
   ]);
 }
 

@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
 
 /* Start Common Css */
 /* Scrollbar-Css */
@@ -11,7 +11,6 @@
 .scrollbar-track {
   background-color: #d9d9d9;
   margin-left: 10px;
-
 }
 
 .scrollbar-thumb {
@@ -21,7 +20,7 @@
 }
 
 ::-webkit-scrollbar {
-  background-color: #EAECF0;
+  background-color: #eaecf0;
   width: 10px;
   height: 10%;
 }
@@ -31,7 +30,7 @@
 }
 
 ::-webkit-scrollbar-thumb {
-  background-color: #EAECF0;
+  background-color: #eaecf0;
   border-radius: 16px;
   border: 0px solid #d9d9d9;
 }
@@ -55,16 +54,16 @@
 /* End Scrollbar Css */
 
 :root {
-  --gray: #3C444D;
-  --darkGray: #14171A;
+  --gray: #3c444d;
+  --darkGray: #14171a;
   --lightGray: #626262;
-  --blue: #275AFF;
+  --blue: #275aff;
   --black: #000;
   --white: #fff;
   --backgroundFaded: #d9d9d933;
-  --border: #CACACA;
-  --labelColor: #A7A7A7;
-  --lineColor: #D8D8D8;
+  --border: #cacaca;
+  --labelColor: #a7a7a7;
+  --lineColor: #d8d8d8;
 }
 
 body {
@@ -116,7 +115,7 @@ a {
   backdrop-filter: blur(10px);
 }
 .timeHeading {
-  color: #636E9F;
+  color: #636e9f;
   font-size: 15px;
   font-weight: 400;
   line-height: normal;
@@ -138,7 +137,7 @@ a {
   position: absolute;
   width: 1px;
   height: 16px;
-  background: #B4BEEB;
+  background: #b4beeb;
   right: -15px;
 }
 
@@ -146,11 +145,11 @@ a {
   font-weight: 500;
 }
 .navBtn {
-  color: #636E9F;
+  color: #636e9f;
   font-size: 15px;
   font-weight: 400;
   border-radius: 30px;
-  background: #FFF;
+  background: #fff;
   padding: 12px;
   margin-left: 65px;
   border: none;
@@ -181,7 +180,7 @@ a {
   left: 0;
   right: 0;
   bottom: 0;
-  background-color: #B4BEEB;
+  background-color: #b4beeb;
   -webkit-transition: 0.4s;
   transition: 0.4s;
   border-radius: 34px;
@@ -189,7 +188,7 @@ a {
 
 .switch-slider:before {
   position: absolute;
-  content: '';
+  content: "";
   width: 14px;
   height: 14px;
   flex-shrink: 0;
@@ -201,17 +200,82 @@ a {
   border-radius: 50%;
 }
 
-input:checked+.switch-slider {
-  background-color: #4659B5;
+input:checked + .switch-slider {
+  background-color: #4659b5;
 }
-input:checked+.switch-slider:before {
+
+input:checked + .switch-slider:before {
   -webkit-transform: translateX(14px);
   -ms-transform: translateX(14px);
   transform: translateX(14px);
 }
+.recieveHeading {
+  text-align: center;
+  color: #263682;
+  font-size: 24px;
+  font-weight: 600;
+  padding-bottom: 16px;
+}
+.receiveAmountMain {
+  border: 1px solid #5e6588;
+  border-radius: 15px;
+  height: 500px;
+  width: 90%;
+  margin: 0 auto;
+  padding: 40px;
+  margin-top: 60px;
+}
+.receiveAmount {
+  border-radius: 6px;
+  height: 200px;
+  background-color: #f5f6fc;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.receiveAmountSelected{
+  border: 1px solid #263682;
+  border-radius: 6px;
+  height: 200px;
+  background-color: #f5f6fc;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.amount{
+  color: #263682;
+  font-size: 20px;
+  font-weight: 700;
+  text-align: center;
+  display: flex;
+  justify-content: center;
 
+}
+.PaidamountText{
+  color: #263682;
+  font-size: 24px;
+  font-weight: 400;
+  text-align: center;
 
+}
+.paidAmountMain{
+  padding-top: 50px;
+  margin-top: 100px;
+  padding-bottom: 40px;
 
-
-
-
+}
+.addnotesBtn{
+  border-radius: 12px;
+  background: #F5F6FC;
+  padding: 10px 16px;
+  color: #ffffff;
+  font-size: 16px;
+  font-weight: 400;
+  border: none;
+  outline: none;
+  background-color: #263682
+}
+.discountAmountBox{
+  background-color: #f5f6fc;
+  padding-bottom: 20px
+}

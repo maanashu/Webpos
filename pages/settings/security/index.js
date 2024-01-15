@@ -83,9 +83,7 @@ const Security = () => {
         type: "SecurityVerification",
       });
       setKey(Math.random());
-
     }
-
   };
 
   useEffect(() => {

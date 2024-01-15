@@ -38,59 +38,61 @@ function* getTotalTraDetail(action) {
   const dataToSend = { ...action.payload };
   // delete dataToSend.cb;
   const params = new URLSearchParams(dataToSend).toString();
-  console.log("first", action);
+  console.log("fdhdfhdf", action);
 
   const defaultParams = {
-    seller_id: action?.sellerId,
-    transaction_type: action?.transactionType,
+    seller_id: dataToSend?.sellerId,
+    transaction_type: dataToSend?.transactionType,
   };
 
   const queryParams = {
     ...defaultParams,
-    page: action?.page,
-    limit: action?.limit,
+    page: dataToSend?.page,
+    limit: dataToSend?.limit,
   };
 
   // if (data?.search) {
   //   queryParams.search = data?.search;
   // }
 
-  if (action?.calendarDate !== undefined) {
-    queryParams.date = action?.calendarDate;
+  if (dataToSend?.calendarDate !== undefined) {
+    queryParams.date = dataToSend?.calendarDate;
   }
 
-  if (action?.status !== "none") {
-    queryParams.status = action?.status;
+  if (dataToSend?.status !== "none") {
+    queryParams.status = dataToSend?.status;
   }
 
-  if (action?.orderType !== "none") {
-    queryParams.order_type = action?.orderType;
+  if (dataToSend?.orderType !== "none") {
+    queryParams.order_type = dataToSend?.orderType;
   }
 
-  if (action?.dayWiseFilter) {
-    queryParams.filter_by = action?.dayWiseFilter;
+  if (dataToSend?.dayWiseFilter) {
+    queryParams.filter_by = dataToSend?.dayWiseFilter;
   }
 
   if (
-    action?.start_date !== "Invalid date" &&
-    action?.start_date !== undefined
+    dataToSend?.start_date !== "Invalid date" &&
+    dataToSend?.start_date !== undefined
   ) {
-    queryParams.start_date = action?.start_date;
+    queryParams.start_date = dataToSend?.start_date;
   }
 
-  if (action?.end_date !== "Invalid date" && action?.end_date !== undefined) {
-    queryParams.end_date = action?.end_date;
+  if (
+    dataToSend?.end_date !== "Invalid date" &&
+    dataToSend?.end_date !== undefined
+  ) {
+    queryParams.end_date = dataToSend?.end_date;
   }
 
-  if (action?.app_name !== undefined) {
-    queryParams.app_name = action?.app_name;
+  if (dataToSend?.app_name !== undefined) {
+    queryParams.app_name = dataToSend?.app_name;
   }
 
-  if (action?.delivery_option !== undefined) {
-    queryParams.delivery_option = action?.delivery_option;
+  if (dataToSend?.delivery_option !== undefined) {
+    queryParams.delivery_option = dataToSend?.delivery_option;
   }
   const stringifiedQueryParams = new URLSearchParams(queryParams).toString();
-
   try {
     const resp = yield call(
       ApiClient.get,
@@ -114,33 +116,36 @@ function* getTotalTraType(action) {
   const params = new URLSearchParams(dataToSend).toString();
 
   const defaultParams = {
-    seller_id: action?.sellerID,
+    seller_id: dataToSend?.sellerID,
   };
   const queryParams = {
     ...defaultParams,
   };
 
-  if (action?.orderType !== "none") {
-    queryParams.order_type = action?.orderType;
+  if (dataToSend?.orderType !== "none") {
+    queryParams.order_type = dataToSend?.orderType;
   }
 
-  if (action?.calendarDate !== undefined) {
-    queryParams.date = action?.calendarDate;
+  if (dataToSend?.calendarDate !== undefined) {
+    queryParams.date = dataToSend?.calendarDate;
   }
 
-  if (action?.dayWiseFilter) {
-    queryParams.filter = action?.dayWiseFilter;
+  if (dataToSend?.dayWiseFilter) {
+    queryParams.filter = dataToSend?.dayWiseFilter;
   }
 
   if (
-    action?.start_date !== "Invalid date" &&
-    action?.start_date !== undefined
+    dataToSend?.start_date !== "Invalid date" &&
+    dataToSend?.start_date !== undefined
   ) {
-    queryParams.start_date = action?.start_date;
+    queryParams.start_date = dataToSend?.start_date;
   }
 
-  if (action?.end_date !== "Invalid date" && action?.end_date !== undefined) {
-    queryParams.end_date = action?.end_date;
+  if (
+    dataToSend?.end_date !== "Invalid date" &&
+    dataToSend?.end_date !== undefined
+  ) {
+    queryParams.end_date = dataToSend?.end_date;
   }
   const stringifiedQueryParams = new URLSearchParams(queryParams).toString();
 

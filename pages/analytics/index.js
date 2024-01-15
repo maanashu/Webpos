@@ -5,7 +5,7 @@ import ChartCommon from '../../components/commanComonets/ChartCommon';
 import { useRouter } from 'next/router';
 import { useDispatch, useSelector } from 'react-redux';
 import { selectLoginAuth } from '../../redux/slices/auth';
-import { getProfitsData, orderAnalyticsData, totalAnalyticsProductSoldData, totalOrderAnalyticsDataApi } from '../../redux/slices/analytics';
+import { getProfitsData, orderAnalyticsData, totalAnalyticsProductSoldData, totalInventoryData, totalOrderAnalyticsDataApi } from '../../redux/slices/analytics';
 import moment from 'moment-timezone';
 // import {getProfitsData} from "../../redux/slices/analytics"
 
@@ -17,6 +17,7 @@ const Analytics = () => {
     const [endDate, setEndDate] = useState(null);
     const dispatch = useDispatch()
     const [analyticsProfitData, setAnalyticsProfitsData] = useState("");
+    const [totalInventory, setTotalInventoryData] = useState("")
     const [analyticsOrderData, setAnalyticsOrderData] = useState("");
     const [totalOrderAnalyticsData, setTotalOrderAnalyticsData] = useState("");
     const [totalProductSoldAnalyticsData, setTotalProductSoldAnalyticsData] = useState("");
@@ -91,6 +92,20 @@ const Analytics = () => {
             },
         ],
     };
+
+    const TotalInventoryAnalytics = {
+        labels: [],
+        datasets: [
+          {
+            fill: true,
+            label: "Inventory",
+            data: [],
+            borderColor: "#275AFF",
+            backgroundColor: "#FFFFFF00",
+            cubicInterpolationMode: "monotone",
+          },
+        ],
+      };
 
     const DeliveryOrderAnalytics = {
         labels: analyticsOrderData?.delivery_graph?.graph_data?.labels,
@@ -354,12 +369,42 @@ const Analytics = () => {
         );
     };
 
+    const totalInventoryHandle = () => {
+        let params = {
+            filter: timeSpan,
+            channel: channelSelected.value,
+            // seller_id: auth?.usersInfo?.payload?.uniqe_id
+            seller_id: "b169ed4d-be27-44eb-9a08-74f997bc6a2f",
+        };
+        if (startDate && endDate) {
+            params = {
+                channel: channelSelected.value,
+                // seller_id: auth?.usersInfo?.payload?.uniqe_id
+                seller_id: "b169ed4d-be27-44eb-9a08-74f997bc6a2f",
+                start_date: moment(startDate).format("YYYY-MM-DD"),
+                end_date: moment(endDate).format("YYYY-MM-DD"),
+            };
+        }
+        dispatch(totalInventoryData({
+            ...params,
+            cb(res) {
+                if (res.status) {
+                    setTotalInventoryData(res?.data?.payload);
+                }
+            },
+        })
+        );
+    };
+
+    console.log(totalInventory, "total inventory data");
+
 
     useEffect(() => {
         newUserDataHandle();
         orderAnalyticsHandle();
         totalOrderAnalyticsHandle();
         totalProductSoldAnalyticsHandle();
+        totalInventoryHandle()
     }, [timeSpan, channelSelected, endDate]);
     return (
         <div className="main-container-customers">
@@ -525,6 +570,28 @@ const Analytics = () => {
                             header=""
                             options={options}
                             data={TotalOrderAnalytics}
+                            chartType="Bar"
+                        />
+                    </div>
+                </div>
+
+
+                <div className="col-lg-4 col-md-6 col-12 mt-4">
+                    <div className="chartsOuter"
+                    onClick={() => router.push("/analytics/totalInventory")}>
+                        <h4 className="expectedHeading ">Total Inventory</h4>
+                        <h4 className="successMain">
+                            {" "}
+                            {addThousandSeparator(
+                                totalInventory?.total_count
+                            )}
+                        </h4>
+                        <ChartCommon
+                            style={{ cursor: "pointer" }}
+                            className="col-md-12"
+                            header=""
+                            options={options}
+                            data={TotalInventoryAnalytics}
                             chartType="Bar"
                         />
                     </div>

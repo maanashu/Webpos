@@ -3285,12 +3285,11 @@ figure {
     height: 24px;
 }
 
-.settingList.active,
-.settingList:hover {
+.settingList.active, .settingList:hover {
     border-radius: 8px;
-    border: 0px solid #F5F6FC;
+    border: 1px solid transparent;
     background: #FFF;
-    box-shadow: -2px 4px 25px 0px rgba(50, 80, 127, 0.02), -5px 10px 80px 0px rgba(50, 80, 127, 0.04);
+    box-shadow: -2px 4px 25px 0px rgb(50 80 127 / 2%), -5px 10px 80px 0px rgb(50 80 127 / 4%);
 }
 
 .settingList.active .settingText,

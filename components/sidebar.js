@@ -99,19 +99,14 @@ const Sidebar = (props) => {
       <ListGroup className="sidebarMenus navbar_overlay_content_">
         <div className="sidebarStaticMenus">
           <ListGroupItem className="sidebarItems">
-            <Link
-              href="/Product"
-              className={`sidebarLinks ${
-                router?.pathname == "/Product" ? "active" : ""
-              }`}
-            >
+            <Link href="/Retails" className="sidebarLinks active">
               <Image
                 src={Images.ProductsServices}
                 alt="image"
                 className="img-fluid  hideImg"
               />
               <Image
-                src={Images.ProductsServicesactive}
+                src={Images.ProductsServicesinactive}
                 alt="image"
                 className="img-fluid showImg"
               />
@@ -131,7 +126,7 @@ const Sidebar = (props) => {
                 className="img-fluid showImg"
               />
               <Image
-                src={Images.DeliveryOrdersactive}
+                src={Images.DeliveryOrdersInactive}
                 alt="image"
                 className="img-fluid hideImg"
               />
@@ -151,7 +146,7 @@ const Sidebar = (props) => {
                 className="img-fluid showImg"
               />
               <Image
-                src={Images.ShippingSolid}
+                src={Images.Shipping_Solid}
                 alt="image"
                 className="img-fluid hideImg"
               />
@@ -171,7 +166,7 @@ const Sidebar = (props) => {
                 className="img-fluid showImg"
               />
               <Image
-                src={Images.CalendarSolid}
+                src={Images.Calendar_Solid}
                 alt="image"
                 className="img-fluid hideImg"
               />
@@ -191,7 +186,7 @@ const Sidebar = (props) => {
                 className="img-fluid showImg"
               />
               <Image
-                src={Images.ChartSolid}
+                src={Images.Chart_Solid}
                 alt="image"
                 className="img-fluid hideImg"
               />
@@ -203,7 +198,8 @@ const Sidebar = (props) => {
 
             <Link
               href="/transactions"
-              className={`sidebarLinks ${"" ? "active" : ""}`}
+              className={`sidebarLinks ${
+                router?.pathname == "/transactions" ? "active" : ""}`}
             >
               <Image
                 src={Images.Wallets}
@@ -211,7 +207,7 @@ const Sidebar = (props) => {
                 className="img-fluid showImg"
               />
               <Image
-                src={Images.WalletSolid}
+                src={Images.Wallet_Solid}
                 alt="image"
                 className="img-fluid hideImg"
               />
@@ -226,7 +222,7 @@ const Sidebar = (props) => {
                 className="img-fluid showImg"
               />
               <Image
-                src={Images.CashSolid}
+                src={Images.Cash_Solid}
                 alt="image"
                 className="img-fluid hideImg"
               />
@@ -246,7 +242,7 @@ const Sidebar = (props) => {
                 className="img-fluid showImg"
               />
               <Image
-                src={Images.UsersSolid}
+                src={Images.Users_Solid}
                 alt="image"
                 className="img-fluid hideImg"
               />
@@ -264,7 +260,7 @@ const Sidebar = (props) => {
                 className="img-fluid showImg"
               />
               <Image
-                src={Images.RewardsSolid}
+                src={Images.Rewards_Solid}
                 alt="image"
                 className="img-fluid hideImg"
               />
@@ -284,7 +280,7 @@ const Sidebar = (props) => {
                 className="img-fluid showImg"
               />
               <Image
-                src={Images.SettingsSolid}
+                src={Images.Settings_Solid}
                 alt="image"
                 className="img-fluid hideImg"
               />
