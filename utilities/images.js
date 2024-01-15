@@ -305,8 +305,12 @@ import deliverBox from "../public/images/deliverBox.svg"
 import acceptStep from "../public/images/acceptStep.svg"
 import readyStep from "../public/images/readyStep.svg"
 import Fast from "../public/images/Fast.svg"
+import BluetoothImg from "../public/images/BluetoothImg.svg"
+import scanSmall from "../public/images/scanSmall.svg"
 
 export {
+  scanSmall,
+  BluetoothImg,
   map,
   countryImg,
   editTax,
