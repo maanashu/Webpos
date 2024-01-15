@@ -104,6 +104,7 @@ import lightOfferCart from "../public/images/lightOfferCart.svg";
 import noteImg from "../public/images/noteImg.svg";
 import ticketImg from "../public/images/ticketImg.svg";
 import userSale from "../public/images/usersale.png";
+import toggleOn from "../public/images/toggleOn.png";
 // customer route
 import customerScan from "../public/images/dark_scan_cust.svg";
 import customerUsers from "../public/images/dark_users_cust.svg";
@@ -581,6 +582,6 @@ export {
   checkverify,
   countryflag,
   countryflag1,
-  editimg
-
+  editimg,
+  toggleOn
 };
