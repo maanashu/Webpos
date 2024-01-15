@@ -32,7 +32,7 @@ const Receipts = () => {
 
   return (
     <>
-      <div style={{ padding: "30px", flex: 1 }}>
+      <div className="settingOuter taxRight">
         <div style={{ display: "flex" }}>
           <Image
             src={Images.settingsReceipt}
