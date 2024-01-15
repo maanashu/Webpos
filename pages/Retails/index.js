@@ -20,6 +20,8 @@ const Retails = () => {
   const sellerId = authData?.usersInfo?.payload?.uniqe_id;
   const router = useRouter();
   const { parameter } = router.query;
+  const cartData = retailData?.productCart;
+  const cartLength = cartData?.productCart?.poscart_products?.length;
   const mainProductArray = retailData?.mainProductData?.data || [];
   const productPagination = {
     total: retailData?.mainProductData?.total || "0",
@@ -91,7 +93,7 @@ const Retails = () => {
     //   servicesData();
     // }
     productData();
-    servicesData();
+    // servicesData();
   }, [sellerId]);
 
   return (
@@ -103,7 +105,7 @@ const Retails = () => {
             ServicesCount={servicesCount?.total}
           />
           <div className="commanscrollBar">
-            {parameter == "product" ? (
+            {parameter == "product" || parameter == "services" ? (
               <div className="row">
                 {retailData?.loading ? (
                   <>
@@ -168,7 +170,7 @@ const Retails = () => {
               </div>
             ) : (
               <>
-                <div className="row">
+                {/* <div className="row">
                   {services?.length > 0 ? (
                     services?.map((services, index) => {
                       return (
@@ -254,7 +256,7 @@ const Retails = () => {
                       )}
                     </>
                   )}
-                </div>
+                </div> */}
               </>
             )}
           </div>
