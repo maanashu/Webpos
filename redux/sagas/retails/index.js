@@ -71,7 +71,7 @@ function* getMainServices(action) {
     );
     if (resp.status) {
       yield put(setMainServices(resp.data));
-       yield call(action.payload.cb, (action.res = resp));
+      yield call(action.payload.cb, (action.res = resp));
     } else {
       throw resp;
     }
@@ -91,7 +91,7 @@ function* availableOffers(action) {
     );
     if (resp.status) {
       yield put(setAvailableOffers(resp.data));
-       yield call(action.payload.cb, (action.res = resp));
+      yield call(action.payload.cb, (action.res = resp));
     } else {
       throw resp;
     }
@@ -102,14 +102,30 @@ function* availableOffers(action) {
 }
 function* productCart(action) {
   try {
-    const resp = yield call(
-      ApiClient.get,
-      `${ORDER_API_URL_V1}poscarts/user`
-    
-    );
+    const resp = yield call(ApiClient.get, `${ORDER_API_URL_V1}poscarts/user`);
     if (resp.status) {
       yield put(setProductCart(resp.data));
-       yield call(action.payload.cb, (action.res = resp));
+      yield call(action.payload.cb, (action.res = resp));
+    } else {
+      throw resp;
+    }
+  } catch (e) {
+    yield put(onErrorStopLoad());
+    toast.error(e?.error?.response?.data?.msg);
+  }
+}
+
+function* addTocart(action) {
+  try {
+    const resp = yield call(
+      ApiClient.post,
+      `${ORDER_API_URL}/api/v1/poscarts`,
+      (action.payload = action.payload)
+    );
+    if (resp.status) {
+      // yield put(setUserMerchantLogin(resp.data));
+      yield call(action.payload.cb, (action.res = resp));
+      // toast.success(resp?.data?.msg);
     } else {
       throw resp;
     }
@@ -136,6 +152,7 @@ function* addNotes(action) {
     toast.error(e?.error?.response?.data?.msg);
   }
 }
+
 function* retailsSaga() {
   yield all([
     takeLatest("retails/getMainProduct", getMainProduct),
@@ -143,7 +160,10 @@ function* retailsSaga() {
     takeLatest("retails/getMainServices", getMainServices),
     takeLatest("retails/availableOffers",availableOffers),
     takeLatest("retails/productCart",productCart),
-    takeLatest("retails/addNotes",addNotes)
+    takeLatest("retails/addNotes",addNotes),
+    takeLatest("retails/availableOffers", availableOffers),
+    takeLatest("retails/productCart", productCart),
+    takeLatest("retails/addTocart", addTocart),
   ]);
 }
 

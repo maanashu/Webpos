@@ -53,6 +53,9 @@ export const retailsSlice = createSlice({
       state.loading = false;
       state.addNotes = action?.payload?.payload;
     },
+    addTocart: (state) => {
+      state.loading = true;
+    },
     onErrorStopLoad: (state) => {
       state.loading = false;
     },
@@ -72,7 +75,8 @@ export const {
   productCart,
   setProductCart,
   addNotes,
-  setNotes
+  setNotes,
+  addTocart,
 } = retailsSlice.actions;
 
 export const selectRetailData = (state) => state.retails;
