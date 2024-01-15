@@ -35,9 +35,9 @@ const Wallet = () => {
       <div className="settingOuter taxRight">
         <div style={{ display: "flex" }}>
           <Image
-            src={Images.settingsReceipt}
+            src={Images.settingsDevices}
             className="settings-sidebar-icons"
-            style={{ marginRight: "5px" }}
+            style={{ marginRight: "5px", marginTop: "5px" }}
           />
           <div style={{ flex: 1 }}>
             <div className={"appointMain"}>Wallet Config</div>
@@ -61,6 +61,10 @@ const Wallet = () => {
                     <div className={styles.boxbottomTextStyle}>
                       Online Shop / POS
                     </div>
+                    <h4 className={styles.boxbottomTextStyle}>
+                      You need to provide some additional information about your
+                      business to start receiving payouts from Shopify Payments.
+                    </h4>
                   </div>
                 </div>
 
@@ -98,6 +102,10 @@ const Wallet = () => {
                       Pay with Cash
                     </div>
                     <div className={styles.boxbottomTextStyle}>POS</div>
+                    <h4 className={styles.boxbottomTextStyle}>
+                      You need to provide some additional information about your
+                      business to start receiving payouts from Shopify Payments.
+                    </h4>
                   </div>
                 </div>
 
@@ -135,6 +143,10 @@ const Wallet = () => {
                       Pay by Card Contactless
                     </div>
                     <div className={styles.boxbottomTextStyle}>POS</div>
+                    <h4 className={styles.boxbottomTextStyle}>
+                      You need to provide some additional information about your
+                      business to start receiving payouts from Shopify Payments.
+                    </h4>
                   </div>
                 </div>
 
