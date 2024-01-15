@@ -40,6 +40,10 @@ export default function Layout({ children, isLoggedIn, userType }) {
     "/settings/bussinessLocation",
     "/settings/walletConfig",
     
+    '/transactions',
+    '/transactions/transactionList',
+    '/transactions/transactionList/invoice'
+
   ];
 
   return (
