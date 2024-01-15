@@ -288,9 +288,12 @@ import checkverify from "../public/images/checkverify.svg"
 import countryflag from "../public/images/countryflag.svg"
 import countryflag1 from "../public/images/countryflag1.png"
 import editimg from "../public/images/editimg.svg"
-
+import profitMargin from "../public/images/profit_margin.png"
+import unitSold from "../public/images/unit_sold.png"
 
 export {
+  profitMargin,
+  unitSold,
   lightLocation,
   passwordLock,
   cardOuter,

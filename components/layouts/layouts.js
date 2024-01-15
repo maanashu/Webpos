@@ -27,6 +27,7 @@ export default function Layout({ children, isLoggedIn, userType }) {
     "/analytics/totalShippingOrder",
     "/analytics/totalOrder",
     "/analytics/totalProductSold",
+    "/analytics/totalInventory",
     "/settings",
     "/settings/devices",
     "/settings/staffList",

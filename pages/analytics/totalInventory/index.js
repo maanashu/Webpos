@@ -3,7 +3,7 @@ import AnalyticsHeader from '../../../components/commanComonets/AnalyticsHeader'
 import AnalyticsSubHeader from '../../../components/commanComonets/AnalyticsSubHeader';
 import { ArrowLeft, ArrowRight, average_order, gross_profit, gross_profit_blue, order_frequency, overview_sales, profitMargin, total_order, total_volume, unitSold } from '../../../utilities/images';
 import Image from 'next/image';
-import { analyticsDetails, getProfitsData, orderAnalyticsData, totalAnalyticsProductSoldData, totalProductSoldAnalyticsDataApi } from '../../../redux/slices/analytics';
+import { analyticsDetails, getProfitsData, orderAnalyticsData, totalAnalyticsProductSoldData, totalInventoryData, totalProductSoldAnalyticsDataApi } from '../../../redux/slices/analytics';
 import moment from 'moment-timezone';
 import { useDispatch, useSelector } from 'react-redux';
 import { selectLoginAuth } from '../../../redux/slices/auth';
@@ -13,14 +13,14 @@ const index = () => {
   const [channelSelected, setChannelSelected] = useState({ value: 'all', label: 'All Channels' })
   const [startDate, setStartDate] = useState(null);
   const [endDate, setEndDate] = useState(null);
-  const [totalProductSoldAnalyticsData, setTotalProductSoldAnalyticsData] = useState("")
+  const [totalInventory, setTotalInventoryData] = useState("")
   const analyticsData = useSelector(analyticsDetails);
   const handleChange = (selectedOption) => {
     setChannelSelected(selectedOption)
   };
 
   const dispatch = useDispatch()
-  console.log(totalProductSoldAnalyticsData, "analytics data")
+  console.log(totalInventory, "analytics data")
 
   function addThousandSeparator(number) {
     return number?.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
@@ -35,65 +35,67 @@ const index = () => {
     {
       icon: unitSold,
       title: "Units Sold",
-      count: totalProductSoldAnalyticsData?.productOverview?.totalProducts,
+      count: totalInventory?.productOverview?.totalProducts,
       bgColor: "#D1FADF",
       textColor: "#003921",
     },
     {
       icon: total_volume,
       title: "Total Volume",
-      count: totalProductSoldAnalyticsData?.productOverview?.totalVolume ? `$${addThousandSeparator((totalProductSoldAnalyticsData?.productOverview?.totalVolume)?.toFixed(2))}` : "$0",
+      count: totalInventory?.productOverview?.totalVolume ? `$${addThousandSeparator((totalInventory?.productOverview?.totalVolume)?.toFixed(2))}` : "$0",
       bgColor: "#D1FADF",
       textColor: "#003921",
     },
     {
       icon: profitMargin,
       title: "Profit Margin",
-      count: totalProductSoldAnalyticsData?.productOverview?.totalMargin ? `$${addThousandSeparator((totalProductSoldAnalyticsData?.productOverview?.totalMargin)?.toFixed(2))}` : "$0",
+      count: totalInventory?.productOverview?.totalMargin ? `$${addThousandSeparator((totalInventory?.productOverview?.totalMargin)?.toFixed(2))}` : "$0",
       bgColor: "#D1FADF",
       textColor: "#003921",
     },
     {
       icon: gross_profit,
       title: "Gross Profit",
-      count: totalProductSoldAnalyticsData?.productOverview?.totalProfit ? `$${addThousandSeparator((totalProductSoldAnalyticsData?.productOverview?.totalProfit)?.toFixed(2))}` : "$0",
+      count: totalInventory?.productOverview?.totalProfit ? `$${addThousandSeparator((totalInventory?.productOverview?.totalProfit)?.toFixed(2))}` : "$0",
       bgColor: "#D1FADF",
       textColor: "#003921",
     },
   ];
 
-  const totalProductSoldAnalyticsHandle = () => {
+  const totalInventoryHandle = () => {
     let params = {
         filter: timeSpan,
         channel: channelSelected.value,
         // seller_id: auth?.usersInfo?.payload?.uniqe_id
         seller_id: "b169ed4d-be27-44eb-9a08-74f997bc6a2f",
-    }
-
+    };
     if (startDate && endDate) {
         params = {
-            start_date: moment(startDate).format("YYYY-MM-DD"),
-            end_date: moment(endDate).format("YYYY-MM-DD"),
             channel: channelSelected.value,
             // seller_id: auth?.usersInfo?.payload?.uniqe_id
             seller_id: "b169ed4d-be27-44eb-9a08-74f997bc6a2f",
-        }
+            start_date: moment(startDate).format("YYYY-MM-DD"),
+            end_date: moment(endDate).format("YYYY-MM-DD"),
+        };
     }
-
-    dispatch(totalAnalyticsProductSoldData({
+    dispatch(totalInventoryData({
         ...params,
         cb(res) {
             if (res.status) {
-                setTotalProductSoldAnalyticsData(res?.data?.payload);
+                setTotalInventoryData(res?.data?.payload);
             }
         },
     })
     );
 };
 
+console.log(totalInventory, "total inventory data");
+
   useEffect(() => {
-    totalProductSoldAnalyticsHandle();
+    totalInventoryHandle();
   }, [timeSpan, channelSelected, endDate]);
+
+
 
   return (
     <div className="main-container-customers">
@@ -111,7 +113,7 @@ const index = () => {
 
       <AnalyticsSubHeader
         mainIcon={gross_profit_blue}
-        title="Top Selling Product"
+        title="Total Inventory"
       />
 
       {/* stats */}
@@ -197,8 +199,8 @@ const index = () => {
               {
                 <>
                   {
-                    totalProductSoldAnalyticsData?.totalProductSoldList?.data?.length > 0 ? <tbody>
-                      {totalProductSoldAnalyticsData?.totalProductSoldList?.data?.map((row, idx) => (
+                    totalInventory?.totalProductSoldList?.data?.length > 0 ? <tbody>
+                      {totalInventory?.totalProductSoldList?.data?.map((row, idx) => (
                         <tr className="customers-table-row" key={idx}>
                           <td
                             className="customers-table-data"
