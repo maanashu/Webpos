@@ -3285,7 +3285,8 @@ figure {
     height: 24px;
 }
 
-.settingList.active, .settingList:hover {
+.settingList.active,
+.settingList:hover {
     border-radius: 8px;
     border: 1px solid transparent;
     background: #FFF;
@@ -4317,10 +4318,39 @@ figure {
     padding: 40px 60px !important;
     border: none !important;
 }
-#barcodeScanModal .modal-header{
+
+#barcodeScanModal .modal-header {
     display: none;
 }
-.scannerMain{
+
+.scannerMain {
+    text-align: center;
+}
+
+.barcodeScanSection {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.barcodeDevice {
+    width: 240px;
+    height: 46px;
+    margin: 30px 0;
+}
+
+.codeSubDisplay {
+    border-radius: 12px;
+    border: 0px solid #E4E6F2;
+    background: #F5F6FC;
+    padding: 10px 8px;
+    height: 42px;
+    width: 100%;
+    margin-top: 12px;
+}
+.codeDisplayMain{
+    width: 100%;
+    margin-bottom: 30px;
     text-align: center;
 }
 /*setting css end*/
