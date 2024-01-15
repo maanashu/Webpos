@@ -291,11 +291,15 @@ import countryflag1 from "../public/images/countryflag1.png"
 import editimg from "../public/images/editimg.svg"
 import profitMargin from "../public/images/profit_margin.png"
 import unitSold from "../public/images/unit_sold.png"
+import totalInventory from "../public/images/total_inventory.png"
+import totalInventoryValue from "../public/images/total_inventory_value.png" 
 
 export {
   profitMargin,
   unitSold,
   lightLocation,
+  totalInventory,
+  totalInventoryValue,
   passwordLock,
   cardOuter,
   moneyOuter,

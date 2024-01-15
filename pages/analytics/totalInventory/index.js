@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react'
 import AnalyticsHeader from '../../../components/commanComonets/AnalyticsHeader'
 import AnalyticsSubHeader from '../../../components/commanComonets/AnalyticsSubHeader';
-import { ArrowLeft, ArrowRight, average_order, gross_profit, gross_profit_blue, order_frequency, overview_sales, profitMargin, total_order, total_volume, unitSold } from '../../../utilities/images';
+import { ArrowLeft, ArrowRight, average_order, gross_profit, gross_profit_blue, order_frequency, overview_sales, profitMargin, totalInventory, totalInventoryValue, total_order, total_volume, unitSold } from '../../../utilities/images';
 import Image from 'next/image';
-import { analyticsDetails, getProfitsData, orderAnalyticsData, totalAnalyticsProductSoldData, totalInventoryData, totalProductSoldAnalyticsDataApi } from '../../../redux/slices/analytics';
+import { analyticsDetails, getProfitsData, orderAnalyticsData, totalAnalyticsProductSoldData, totalInventoryDataApi, totalProductSoldAnalyticsDataApi } from '../../../redux/slices/analytics';
 import moment from 'moment-timezone';
 import { useDispatch, useSelector } from 'react-redux';
 import { selectLoginAuth } from '../../../redux/slices/auth';
@@ -13,14 +13,14 @@ const index = () => {
   const [channelSelected, setChannelSelected] = useState({ value: 'all', label: 'All Channels' })
   const [startDate, setStartDate] = useState(null);
   const [endDate, setEndDate] = useState(null);
-  const [totalInventory, setTotalInventoryData] = useState("")
+  const [totalInventoryData, setTotalInventoryData] = useState("")
   const analyticsData = useSelector(analyticsDetails);
   const handleChange = (selectedOption) => {
     setChannelSelected(selectedOption)
   };
 
   const dispatch = useDispatch()
-  console.log(totalInventory, "analytics data")
+  console.log(totalInventoryData, "analytics data")
 
   function addThousandSeparator(number) {
     return number?.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
@@ -33,30 +33,30 @@ const index = () => {
 
   const STATS = [
     {
-      icon: unitSold,
-      title: "Units Sold",
-      count: totalInventory?.productOverview?.totalProducts,
+      icon: totalInventory,
+      title: "Total Inventory",
+      count: totalInventoryData?.productOverview?.totalProducts,
       bgColor: "#D1FADF",
       textColor: "#003921",
     },
     {
-      icon: total_volume,
+      icon: totalInventoryValue,
       title: "Total Volume",
-      count: totalInventory?.productOverview?.totalVolume ? `$${addThousandSeparator((totalInventory?.productOverview?.totalVolume)?.toFixed(2))}` : "$0",
+      count: totalInventoryData?.productOverview?.totalVolume ? `$${addThousandSeparator((totalInventoryData?.productOverview?.totalVolume)?.toFixed(2))}` : "$0",
       bgColor: "#D1FADF",
       textColor: "#003921",
     },
     {
       icon: profitMargin,
       title: "Profit Margin",
-      count: totalInventory?.productOverview?.totalMargin ? `$${addThousandSeparator((totalInventory?.productOverview?.totalMargin)?.toFixed(2))}` : "$0",
+      count: totalInventoryData?.productOverview?.totalMargin ? `$${addThousandSeparator((totalInventoryData?.productOverview?.totalMargin)?.toFixed(2))}` : "$0",
       bgColor: "#D1FADF",
       textColor: "#003921",
     },
     {
       icon: gross_profit,
       title: "Gross Profit",
-      count: totalInventory?.productOverview?.totalProfit ? `$${addThousandSeparator((totalInventory?.productOverview?.totalProfit)?.toFixed(2))}` : "$0",
+      count: totalInventoryData?.productOverview?.totalProfit ? `$${addThousandSeparator((totalInventoryData?.productOverview?.totalProfit)?.toFixed(2))}` : "$0",
       bgColor: "#D1FADF",
       textColor: "#003921",
     },
@@ -78,9 +78,10 @@ const index = () => {
             end_date: moment(endDate).format("YYYY-MM-DD"),
         };
     }
-    dispatch(totalInventoryData({
+    dispatch(totalInventoryDataApi({
         ...params,
         cb(res) {
+          console.log(res,"total inventory data")
             if (res.status) {
                 setTotalInventoryData(res?.data?.payload);
             }
@@ -89,13 +90,11 @@ const index = () => {
     );
 };
 
-console.log(totalInventory, "total inventory data");
+console.log(totalInventoryData, "total inventory data");
 
   useEffect(() => {
     totalInventoryHandle();
   }, [timeSpan, channelSelected, endDate]);
-
-
 
   return (
     <div className="main-container-customers">
@@ -199,8 +198,8 @@ console.log(totalInventory, "total inventory data");
               {
                 <>
                   {
-                    totalInventory?.totalProductSoldList?.data?.length > 0 ? <tbody>
-                      {totalInventory?.totalProductSoldList?.data?.map((row, idx) => (
+                    totalInventoryData?.totalProductSoldList?.data?.length > 0 ? <tbody>
+                      {totalInventoryData?.totalProductSoldList?.data?.map((row, idx) => (
                         <tr className="customers-table-row" key={idx}>
                           <td
                             className="customers-table-data"

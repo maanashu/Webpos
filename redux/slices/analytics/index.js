@@ -32,7 +32,7 @@ export const analyticsSlice = createSlice({
     setTotalAnalyticsProductSoldData:(state) => {
       state.loading = false;
     },
-    totalInventoryData:(state) => {
+    totalInventoryDataApi:(state) => {
       state.loading = true;
     },
     setTotalInventoryData:(state) => {
@@ -48,7 +48,7 @@ export const analyticsSlice = createSlice({
 export const {
   onErrorStopLoad,
   getProfitsData,
-  totalInventoryData,
+  totalInventoryDataApi,
   setTotalInventoryData,
   setProfitData,
   orderAnalyticsData,
