@@ -7,6 +7,7 @@ import { analyticsSlice } from "./analytics";
 import { transactionsSlice } from "./transactions";
 import { settingSlice } from "./setting";
 import { deliverySlice } from "./delivery";
+import { retailsSlice } from "./retails";
 
 const mainReducer = combineReducers({
   auth: authSlice.reducer,
