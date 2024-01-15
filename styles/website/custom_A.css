@@ -649,6 +649,15 @@
     font-weight: 400;
     letter-spacing: -0.36px;
 }
+.customInputDiscount {
+    background: #FFFFFF;
+    box-shadow: -2px 4px 26px 0px rgba(50, 80, 127, 0.02), -5px 10px 80px 0px rgba(50, 80, 127, 0.04);
+    padding: 18px 18px 18px 24px;
+    color: #263682 !important;
+    font-size: 18px;
+    font-weight: 400;
+    letter-spacing: -0.36px;
+}
 
 .customInput::placeholder {
     color: #636E9F !important;

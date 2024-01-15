@@ -46,6 +46,13 @@ export const retailsSlice = createSlice({
       state.loading = false;
       state.productCart = action?.payload?.payload;
     },
+    addNotes: (state) => {
+      state.loading = true;
+    },
+    setNotes: (state, action) => {
+      state.loading = false;
+      state.addNotes = action?.payload?.payload;
+    },
     onErrorStopLoad: (state) => {
       state.loading = false;
     },
@@ -63,7 +70,9 @@ export const {
   availableOffers,
   setAvailableOffers,
   productCart,
-  setProductCart
+  setProductCart,
+  addNotes,
+  setNotes
 } = retailsSlice.actions;
 
 export const selectRetailData = (state) => state.retails;

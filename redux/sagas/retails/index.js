@@ -11,7 +11,8 @@ import {
   setOneProductById,
   setMainServices,
   setAvailableOffers,
-  setProductCart
+  setProductCart,
+  setNotes
 } from "../../slices/retails";
 import { all, call, put, takeLatest } from "redux-saga/effects";
 
@@ -117,13 +118,32 @@ function* productCart(action) {
     toast.error(e?.error?.response?.data?.msg);
   }
 }
+function* addNotes(action) {
+  try {
+    const resp = yield call(
+      ApiClient.post,
+      `${ORDER_API_URL_V1}poscarts/user`
+    
+    );
+    if (resp.status) {
+      yield put(setNotes(resp.data));
+       yield call(action.payload.cb, (action.res = resp));
+    } else {
+      throw resp;
+    }
+  } catch (e) {
+    yield put(onErrorStopLoad());
+    toast.error(e?.error?.response?.data?.msg);
+  }
+}
 function* retailsSaga() {
   yield all([
     takeLatest("retails/getMainProduct", getMainProduct),
     takeLatest("retails/getOneProductById", getOneProductById),
     takeLatest("retails/getMainServices", getMainServices),
     takeLatest("retails/availableOffers",availableOffers),
-    takeLatest("retails/productCart",productCart)
+    takeLatest("retails/productCart",productCart),
+    takeLatest("retails/addNotes",addNotes)
   ]);
 }
 
