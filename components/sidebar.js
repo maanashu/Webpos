@@ -99,12 +99,7 @@ const Sidebar = (props) => {
       <ListGroup className="sidebarMenus navbar_overlay_content_">
         <div className="sidebarStaticMenus">
           <ListGroupItem className="sidebarItems">
-            <Link
-              href="/Product"
-              className={`sidebarLinks ${
-                router?.pathname == "/Product" ? "active" : ""
-              }`}
-            >
+            <Link href="/Retails" className="sidebarLinks active">
               <Image
                 src={Images.ProductsServices}
                 alt="image"

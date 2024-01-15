@@ -19,7 +19,7 @@ const DeliverOrders = () => {
                                     <Image src={Images.FilterIcon} alt="FilterIcon image" className="img-fluid BtnIcon" />
                                 </button>
                             </div>
-                            <div className='appointmenMonth cancelCalendar'>
+                            <div className='appointmenMonth cancelCalendar'> 
                                 <div className='flexTable'>
                                     <Image src={Images.calendarLight} alt='calendarimage' className='img-fluid' />
                                     <span className='monthText ms-2'>Today</span>

@@ -6,6 +6,7 @@ import { customersSlice } from "./customers";
 import { analyticsSlice } from "./analytics";
 import { transactionsSlice } from "./transactions";
 import { settingSlice } from "./setting";
+import { retailsSlice } from "./retails";
 
   const mainReducer = combineReducers({
     auth: authSlice.reducer,
@@ -14,6 +15,7 @@ import { settingSlice } from "./setting";
     analytics: analyticsSlice.reducer,
     transactions: transactionsSlice.reducer,
     setting: settingSlice.reducer,
+    retails: retailsSlice.reducer,
   });
 
 const rootReducer = (state, action) => {

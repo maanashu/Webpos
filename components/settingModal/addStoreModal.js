@@ -127,7 +127,7 @@ const AddStoreModal = (props) => {
 
     return (
         <>
-            <div className='addStoreSection'>
+            <div className='addStoreSection'> 
                 <form className='addStoreForm'>
                     <div className='addStoreData'>
                         <div className='nameForm'>

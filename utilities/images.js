@@ -104,6 +104,7 @@ import lightOfferCart from "../public/images/lightOfferCart.svg";
 import noteImg from "../public/images/noteImg.svg";
 import ticketImg from "../public/images/ticketImg.svg";
 import userSale from "../public/images/usersale.png";
+import toggleOn from "../public/images/toggleOn.png";
 // customer route
 import customerScan from "../public/images/dark_scan_cust.svg";
 import customerUsers from "../public/images/dark_users_cust.svg";
@@ -288,10 +289,45 @@ import checkverify from "../public/images/checkverify.svg"
 import countryflag from "../public/images/countryflag.svg"
 import countryflag1 from "../public/images/countryflag1.png"
 import editimg from "../public/images/editimg.svg"
-
+import profitMargin from "../public/images/profit_margin.png"
+import unitSold from "../public/images/unit_sold.png"
+import totalInventory from "../public/images/total_inventory.png"
+import totalInventoryValue from "../public/images/total_inventory_value.png" 
+import countryImg from "../public/images/countryImg.svg"
+import editTax from "../public/images/editTax.svg"
+import assignStep from "../public/images/assignStep.svg"
+import deliverHand from "../public/images/deliverHand.svg"
+import driverProfile from "../public/images/driverProfile.svg"
+import map from "../public/images/Map.png" 
+import maximize from "../public/images/maximize.svg"
+import orderDriver from "../public/images/orderDriver.svg"
+import dotStep from '../public/images/dotStep.svg'
+import lineStep from "../public/images/lineStep.svg"
+import deliverBox from "../public/images/deliverBox.svg"
+import acceptStep from "../public/images/acceptStep.svg"
+import readyStep from "../public/images/readyStep.svg"
+import Fast from "../public/images/Fast.svg"
 
 export {
+  map,
+  countryImg,
+  editTax,
+  assignStep,
+  deliverHand,
+  driverProfile,
+  maximize,
+  orderDriver,
+  dotStep,
+  lineStep,
+  deliverBox,
+  acceptStep,
+  readyStep,
+  Fast,
+  profitMargin,
+  unitSold,
   lightLocation,
+  totalInventory,
+  totalInventoryValue,
   passwordLock,
   cardOuter,
   moneyOuter,
@@ -578,6 +614,6 @@ export {
   checkverify,
   countryflag,
   countryflag1,
-  editimg
-
+  editimg,
+  toggleOn
 };

@@ -1,447 +1,445 @@
 .commanOuter {
-    background: var(--surfaces-s-top, #FFF);
-    box-shadow: -1.90817px 3.78304px 25.48148px 0px rgba(50, 80, 127, 0.02), -4.95391px 9.82135px 80px 0px rgba(50, 80, 127, 0.04);
-    height: calc(100vh - 129px);
-    overflow: hidden;
-    border-radius: 20px;
-    margin: 0 16px;
-    padding: 20px;
+  background: var(--surfaces-s-top, #fff);
+  box-shadow: -1.90817px 3.78304px 25.48148px 0px rgba(50, 80, 127, 0.02),
+    -4.95391px 9.82135px 80px 0px rgba(50, 80, 127, 0.04);
+  height: calc(100vh - 129px);
+  overflow: hidden;
+  border-radius: 20px;
+  margin: 0 16px;
+  padding: 20px;
 }
 
 .commanOuter::-webkit-scrollbar {
-    display: none;
+  display: none;
 }
 
 .commanscrollBar {
-    height: 100%;
-    overflow: auto;
-    padding: 0 10px 40px;
-    margin-bottom: 20px;
+  height: 100%;
+  overflow: auto;
+  padding: 0 10px;
+  margin-bottom: 20px;
 }
 
 .commanscrollBar::-webkit-scrollbar-track {
-    margin: 0 10px;
+  margin: 0 10px;
 }
 
 /* Start Sidebar Css*/
 .main-sidebar {
-    bottom: 0;
-    float: none;
-    left: 0;
-    position: fixed;
-    top: 0;
-    width: 86px;
-    padding: 8px 10px;
-    background: #FFFFFF;
-    border-radius: 30px;
-    margin: 20px 16px;
-    transition: .5s;
-    z-index: 999;
+  bottom: 0;
+  float: none;
+  left: 0;
+  position: fixed;
+  top: 0;
+  width: 86px;
+  padding: 8px 10px;
+  background: #ffffff;
+  border-radius: 30px;
+  margin: 20px 16px;
+  transition: 0.5s;
+  z-index: 999;
 }
 
 .main-sidebar.hide {
-    border-radius: 60px;
+  border-radius: 60px;
 }
 
 .main-sidebar.full {
-    width: 300px;
+  width: 300px;
 }
 
 .sideToggle {
-    width: 15px;
+  width: 15px;
 }
 
 .main-sidebar.full .sideToggle {
-    transform: rotate(180deg);
+  transform: rotate(180deg);
 }
 
 .rightWrapper {
-    min-width: calc(100% - 102px);
-    margin-left: 102px;
-    transition: .5s;
+  min-width: calc(100% - 102px);
+  margin-left: 102px;
+  transition: 0.5s;
 }
 
 .list-group-item {
-    background-color: transparent !important;
-    border: none !important;
-    padding: 0.5rem 0 !important;
+  background-color: transparent !important;
+  border: none !important;
+  padding: 0.5rem 0 !important;
 }
 
 .ToggleIcon {
-    background: #fff;
-    box-shadow: 10px 10px 20px #00000020;
-    position: absolute;
-    right: -20px;
-    top: 40px;
-    padding: 5px;
-    border-radius: 8px;
-    cursor: pointer;
+  background: #fff;
+  box-shadow: 10px 10px 20px #00000020;
+  position: absolute;
+  right: -20px;
+  top: 40px;
+  padding: 5px;
+  border-radius: 8px;
+  cursor: pointer;
 }
 
 .main-sidebar.full .ToggleIcon {
-    right: 20px;
+  right: 20px;
 }
 
 .sidebarTxt {
-    font-size: 16px;
-    font-weight: 500;
-    letter-spacing: -0.32px;
-    color: #8D99D2 !important;
+  font-size: 16px;
+  font-weight: 500;
+  letter-spacing: -0.32px;
+  color: #8d99d2 !important;
 }
 
 .main-sidebar.hide .sidebarTxt {
-    display: none;
+  display: none;
 }
 
 .main-sidebar.full .sidebarTxt {
-    display: block;
+  display: block;
 }
 
 .sidebarLinks {
-    color: #8D99D2 !important;
-    display: flex;
-    align-items: center;
-    padding: 10px 21px;
-
+  color: #8d99d2 !important;
+  display: flex;
+  align-items: center;
+  padding: 10px 21px;
 }
 
 .main-sidebar.hide .Logo {
-    display: none;
+  display: none;
 }
 
 .main-sidebar.full .Logo {
-    display: block;
-    margin-left: 20px;
+  display: block;
+  margin-left: 20px;
 }
 
 .main-sidebar.hide .SideLogo {
-    display: block;
+  display: block;
 }
 
 .main-sidebar.full .SideLogo {
-    display: none;
+  display: none;
 }
 
 .showImg {
-    width: 24px;
-    margin-right: 18px;
+  width: 24px;
+  margin-right: 18px;
 }
-.sidebarLinks.active .showImg{
-    display: none;
+.sidebarLinks.active .showImg {
+  display: none;
 }
-.sidebarLinks.active .hideImg{
-    display: block;
-    margin-right: 18px;
+.sidebarLinks.active .hideImg {
+  display: block;
+  margin-right: 18px;
 }
-.sidebarLinks .hideImg{
-    display: none;
+.sidebarLinks .hideImg {
+  display: none;
 }
 
 .userDetails {
-    display: flex;
-    align-items: center;
+  display: flex;
+  align-items: center;
 }
 
 .sidebarLinks.active {
-    background: #F5F6FC;
-    border-radius: 20px;
-    padding: 15px 21px;
+  background: #f5f6fc;
+  border-radius: 20px;
+  padding: 10px 21px;
 }
 
 .sidebarLinks.active .sidebarTxt {
-    color: #263682 !important;
+  color: #263682 !important;
 }
 
 .main-sidebar.hide .userName,
 .main-sidebar.hide .userPosition {
-    display: none;
+  display: none;
 }
 
 .main-sidebar.full .userName,
 .main-sidebar.full .userPosition {
-    display: block;
+  display: block;
 }
 
 .userName {
-    font-size: 18px;
-    font-weight: 500;
-    color: #263682;
+  font-size: 18px;
+  font-weight: 500;
+  color: #263682;
 }
 
 .userPosition {
-    color: #636E9F;
-    font-size: 14px;
-    font-weight: 500;
+  color: #636e9f;
+  font-size: 14px;
+  font-weight: 500;
 }
 
 .sidebarProfile {
-    width: 50px;
-    height: 50px;
-    margin: 10px 10px 10px 22px;
-    border-radius: 50%;
-    border: 2px solid #e4e6f1;
-    padding: 5px;
+  width: 50px;
+  height: 50px;
+  margin: 10px 10px 10px 22px;
+  border-radius: 50%;
+  border: 2px solid #e4e6f1;
+  padding: 5px;
 }
 
 .main-sidebar.hide .sidebarProfile {
-    margin-left: 10px;
+  margin-left: 10px;
 }
 
 .sidbarfixedMenus {
-    margin-top: auto;
+  margin-top: auto;
 }
 
 .main-sidebar.full .sidbarfixedMenus .sidebarLinks .showImg {
-    margin-right: 18px;
+  margin-right: 18px;
 }
 
 .sidbarfixedMenus .sidebarLinks .showImg {
-    margin: 0;
+  margin: 0;
 }
 
 .logOut {
-    border-radius: 30px;
-    background: #F5F6FC;
-    border: none;
-    padding: 10px 14px;
-    position: fixed;
-    bottom: 40px;
-    display: flex;
-    align-items: center;
+  border-radius: 30px;
+  background: #f5f6fc;
+  border: none;
+  padding: 10px 14px;
+  position: fixed;
+  bottom: 40px;
+  display: flex;
+  align-items: center;
 }
 
 .main-sidebar.hide .logOut {
-    left: 33px;
+  left: 33px;
 }
 
 /* End Sidebar Css*/
 
 /* Start Filter Multiselect */
 .filterDropSelect {
-    position: relative;
+  position: relative;
 }
 
 .FilterMultiSelect {
-    position: absolute;
-    right: 0;
-    z-index: 99;
-    width: 300px;
-    max-width: 300px;
-    border-radius: 20px;
-    padding: 10px 18px;
-    border: 1px solid var(--primary-p-50-main, #F5F6FC);
-    background: var(--surfaces-s-top, #FFF);
-    box-shadow: -31.03472px 73.73497px 80px 0px rgba(52, 79, 117, 0.07);
+  position: absolute;
+  right: 0;
+  z-index: 99;
+  width: 300px;
+  max-width: 300px;
+  border-radius: 20px;
+  padding: 10px 18px;
+  border: 1px solid var(--primary-p-50-main, #f5f6fc);
+  background: var(--surfaces-s-top, #fff);
+  box-shadow: -31.03472px 73.73497px 80px 0px rgba(52, 79, 117, 0.07);
 }
 
 .FilterMultiSelect .accordion-item {
-    border: none !important;
-    margin: 12px 0;
+  border: none !important;
+  margin: 12px 0;
 }
 
 .FilterMultiSelect .accordion-button:focus {
-    z-index: 3;
-    border-color: transparent;
-    outline: 0;
-    box-shadow: none;
+  z-index: 3;
+  border-color: transparent;
+  outline: 0;
+  box-shadow: none;
 }
 
 .accordion-button {
-    color: #263682 !important;
-
+  color: #263682 !important;
 }
 
 .accordion-button:not(.collapsed) {
-    color: #263682 !important;
-    background-color: transparent;
-    box-shadow: inset 0 -1px 0 rgba(0, 0, 0, .125);
+  color: #263682 !important;
+  background-color: transparent;
+  box-shadow: inset 0 -1px 0 rgba(0, 0, 0, 0.125);
 }
 
 .accordion-button::after {
-    background-image: url("../../public/images/Arrow_Down.svg");
-
+  background-image: url("../../public/images/Arrow_Down.svg");
 }
 
 .accordion-button:not(.collapsed)::after {
-    background-image: url("../../public/images/Arrow_Down.svg");
-    transform: rotate(-180deg);
+  background-image: url("../../public/images/Arrow_Down.svg");
+  transform: rotate(-180deg);
 }
 
 .accordion-body {
-    padding: 10px 0;
-    border-bottom: 1px solid #E4E6F2;
+  padding: 10px 0;
+  border-bottom: 1px solid #e4e6f2;
 }
 
 .accordion-button {
-    padding: 0;
+  padding: 0;
 }
 
 .accordion-button:focus-within,
 .accordion-header:focus-within,
 .accordion-button {
-    border: none !important;
+  border: none !important;
 }
 
 /* Start Filter Multiselect */
 
 /* Start Product  */
 .productNavbar {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    margin: 0 22px 15px 11px;
-
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 0 22px 15px 11px;
 }
 
 .ProductAbout {
-    color: #263682;
-    font-size: 16px;
-    font-weight: 500;
-    letter-spacing: -0.32px;
+  color: #263682;
+  font-size: 16px;
+  font-weight: 500;
+  letter-spacing: -0.32px;
 }
 
 .productCount {
-    color: #9BA8E3;
-    font-size: 12px;
-    font-weight: 400;
+  color: #9ba8e3;
+  font-size: 12px;
+  font-weight: 400;
 }
 
 .ProductsearchBar {
-    position: relative;
+  position: relative;
 }
 
 .ProductsearchBar .searchControl {
-    color: #636E9F;
-    font-size: 16px;
-    font-weight: 400;
-    padding: 8px 8px 8px 52px;
-    border-radius: 50px;
-    border: 0px solid #E4E6F2;
-    background: #F5F6FC !important;
+  color: #636e9f;
+  font-size: 16px;
+  font-weight: 400;
+  padding: 8px 8px 8px 52px;
+  border-radius: 50px;
+  border: 0px solid #e4e6f2;
+  background: #f5f6fc !important;
 }
 
 .ProductsearchBar .searchImg {
-    top: 8px;
+  top: 8px;
 }
 
 .BtnIcon {
-    width: 16px;
-    margin-left: 16px;
+  width: 16px;
+  margin-left: 16px;
 }
 
 .BlueBtn {
-    padding: 8px 12px;
-    border-radius: 30px;
-    background: #263682;
-    border: 1px solid #263682;
-    color: #F5F6FC;
-    font-size: 14px;
-    font-weight: 400;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-left: 10px;
+  padding: 8px 12px;
+  border-radius: 30px;
+  background: #263682;
+  border: 1px solid #263682;
+  color: #f5f6fc;
+  font-size: 14px;
+  font-weight: 400;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-left: 10px;
 }
 
 .AddedBtn {
-    padding: 8px 12px;
-    border-radius: 30px;
-    background: #12B76A;
-    border: 1px solid #12B76A;
-    color: #F5F6FC;
-    font-size: 14px;
-    font-weight: 400;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+  padding: 8px 12px;
+  border-radius: 30px;
+  background: #12b76a;
+  border: 1px solid #12b76a;
+  color: #f5f6fc;
+  font-size: 14px;
+  font-weight: 400;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .serviceCart {
-    width: 16px;
-    height: 16px;
-    margin-left: 5px;
+  width: 16px;
+  height: 16px;
+  margin-left: 5px;
 }
 
 .GreyBtn {
-    padding: 8px 12px;
-    border-radius: 30px;
-    border: 0px solid #263682;
-    background: #F5F6FC;
-    font-size: 14px;
-    font-weight: 400;
-    color: #263682;
+  padding: 8px 12px;
+  border-radius: 30px;
+  border: 0px solid #263682;
+  background: #f5f6fc;
+  font-size: 14px;
+  font-weight: 400;
+  color: #263682;
 }
 
 .productsCard {
-    border-radius: 12px;
-    border: 1px solid #F5F6FC;
-    background-color: #F5F6FC;
-    height: 100%;
+  border-radius: 12px;
+  border: 1px solid #f5f6fc;
+  background-color: #f5f6fc;
+  height: 100%;
 }
 
 .ProductIcon {
-    width: 100%;
-    height: 150px;
-    border-radius: var(--main-system-12-px, 12px);
-    mix-blend-mode: multiply;
-    /* max-width: 250px; */
-    max-height: 150px;
-    object-fit: cover;
+  width: 100%;
+  height: 150px;
+  border-radius: var(--main-system-12-px, 12px);
+  mix-blend-mode: multiply;
+  /* max-width: 250px; */
+  max-height: 150px;
+  object-fit: cover;
 }
 
 .productDetails {
-    padding: 12px;
+  padding: 12px;
 }
 
 .productName {
-    color: #263682;
-    font-size: 12px;
-    font-weight: 500;
+  color: #263682;
+  font-size: 12px;
+  font-weight: 500;
 }
 
 .productGender {
-    color: #7E8AC1;
-    font-size: 12px;
-    font-weight: 500;
+  color: #7e8ac1;
+  font-size: 12px;
+  font-weight: 500;
 }
 
 .productPrice {
-    color: #263682;
-    font-size: 12px;
-    font-weight: 600;
+  color: #263682;
+  font-size: 12px;
+  font-weight: 600;
 }
 
 .flexBox {
-    display: flex;
-    align-items: center;
+  display: flex;
+  align-items: center;
 }
 
 .sidebarRight {
-    width: 160px;
-    border-radius: 50px;
-    margin: 0 10px;
-    background: #FFF;
-    box-shadow: -2px 4px 25px 0px rgba(50, 80, 127, 0.02), -5px 10px 80px 0px rgba(50, 80, 127, 0.04);
-    height: calc(100vh - 129px);
-    padding: 24px 8px;
+  width: 160px;
+  border-radius: 50px;
+  margin: 0 10px;
+  background: #fff;
+  box-shadow: -2px 4px 25px 0px rgba(50, 80, 127, 0.02),
+    -5px 10px 80px 0px rgba(50, 80, 127, 0.04);
+  height: calc(100vh - 129px);
+  padding: 24px 8px;
 }
 
 .rightSidebarIcon {
-    width: 50px;
+  width: 50px;
 }
 
 .rightSidebarItems {
-    text-align: center;
-    position: relative;
-    cursor: pointer;
+  text-align: center;
+  position: relative;
+  cursor: pointer;
 }
-.rightSidebarItems:first-child{
-    margin-top: 0;
+.rightSidebarItems:first-child {
+  margin-top: 0;
 }
 .rightSidebarItems:last-child {
-    position: fixed;
-    bottom: 32px;
-    right: 34px;
+  position: fixed;
+  bottom: 32px;
+  right: 34px;
 }
 
 /* .rightSidebarItems.active img {
@@ -450,208 +448,220 @@
 } */
 
 .productImageBox {
-    position: relative;
+  position: relative;
 }
 
 .productImageBox .overlay {
-    display: none;
+  display: none;
 }
 
 .productsCard:hover .overlay,
 .productsCard.active .overlay {
-    background-color: #00000060;
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    top: 0;
-    color: #fff;
-    text-align: center;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-size: 32px;
-    border-radius: 12px;
-    cursor: pointer;
+  background-color: #00000060;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  color: #fff;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 32px;
+  border-radius: 12px;
+  cursor: pointer;
 }
 
 .productsCard:hover,
 .productsCard.active {
-    background-color: #fff;
-    border: 1px solid #fff;
-    box-shadow: -2.52875px 6.00803px 6.51852px 0px rgba(52, 79, 117, 0.03), -11.95411px 28.40162px 25.48148px 0px rgba(52, 79, 117, 0.04), -31.03472px 73.73497px 80px 0px rgba(52, 79, 117, 0.07), 4px -8px 30px 0px rgba(52, 79, 117, 0.08);
+  background-color: #fff;
+  border: 1px solid #fff;
+  box-shadow: -2.52875px 6.00803px 6.51852px 0px rgba(52, 79, 117, 0.03),
+    -11.95411px 28.40162px 25.48148px 0px rgba(52, 79, 117, 0.04),
+    -31.03472px 73.73497px 80px 0px rgba(52, 79, 117, 0.07),
+    4px -8px 30px 0px rgba(52, 79, 117, 0.08);
 }
 
 /* End Product  */
 
 /* Start Product Service */
 .productserviceName {
-    color: #263682;
-    font-size: 12px;
-    font-weight: 500;
-    padding: 7px 0;
+  color: #263682;
+  font-size: 12px;
+  font-weight: 500;
+  padding: 7px 0;
 }
 
 .appointmentCalender {
-    width: 16px;
-    height: 16px;
-    margin-right: 5px;
+  width: 16px;
+  height: 16px;
+  margin-right: 5px;
 }
 
 .appointmentDate {
-    padding: 3px 6px;
-    font-size: 12px;
-    font-weight: 500;
-    margin: 8px 0 4px !important;
-    display: inline-block;
-    border-radius: 20px;
+  padding: 3px 6px;
+  font-size: 12px;
+  font-weight: 500;
+  margin: 8px 0 4px !important;
+  display: inline-block;
+  border-radius: 20px;
 }
 
 .Timezone {
-    color: #4659B5;
-    font-size: 12px;
-    font-weight: 500;
-    margin: 4px 0 !important;
-    padding: 3px 6px;
+  color: #4659b5;
+  font-size: 12px;
+  font-weight: 500;
+  margin: 4px 0 !important;
+  padding: 3px 6px;
 }
 
 .Appointmentusers .CardIcons {
-    width: 24px;
-    height: 24px;
-    object-fit: fill;
-    border-radius: 50%;
-    border: 1.5px solid #FFF;
-    background: lightgray 50%;
-    margin-right: -5px;
-    margin-top: 4px;
+  width: 24px;
+  height: 24px;
+  object-fit: fill;
+  border-radius: 50%;
+  border: 1.5px solid #fff;
+  background: lightgray 50%;
+  margin-right: -5px;
+  margin-top: 4px;
 }
 
 .Tomorrowappointment .appointmentDate {
-    color: #47B0D6;
-    background-color: #EFFBFF;
+  color: #47b0d6;
+  background-color: #effbff;
 }
 
 .Todayappointment .appointmentDate {
-    color: #039855;
-    background-color: #D1FADF;
+  color: #039855;
+  background-color: #d1fadf;
 }
 
 .DayTomorrowappointment .appointmentDate {
-    color: #7233C2;
-    background-color: #F5EDFF;
+  color: #7233c2;
+  background-color: #f5edff;
 }
 
 .afterappointment .appointmentDate {
-    color: #DC6803;
-    background-color: #FFF7D7;
+  color: #dc6803;
+  background-color: #fff7d7;
 }
 
 .ArrowRight {
-    width: 16px;
-    height: 16px;
-    margin-left: 5px;
+  width: 16px;
+  height: 16px;
+  margin-left: 5px;
 }
 
 /* End Product Service */
 
 /*Start Custom Checkbox css */
 .custom-checkbox {
-    display: block;
-    position: relative;
-    padding-left: 25px;
-    cursor: pointer;
-    user-select: none;
-    padding-bottom: 8px;
+  display: block;
+  position: relative;
+  padding-left: 25px;
+  cursor: pointer;
+  user-select: none;
+  padding-bottom: 8px;
 }
 
 .custom-checkbox input {
-    position: absolute;
-    opacity: 0;
-    cursor: pointer;
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
 }
 
 .checkmark {
-    position: absolute;
-    top: 3px;
-    left: 0;
-    height: 20px;
-    width: 20px;
-    background-color: #fff;
-    border: 1px solid #8D99D2;
-    border-radius: 4px;
+  position: absolute;
+  top: 3px;
+  left: 0;
+  height: 20px;
+  width: 20px;
+  background-color: #fff;
+  border: 1px solid #8d99d2;
+  border-radius: 4px;
 }
 
-.custom-checkbox input:checked+.checkmark {
-    border: 1px solid #263682;
-    color: #fff;
-}
-
-.checkmark:after {
-    content: '';
-    position: absolute;
-    display: none;
-}
-
-.custom-checkbox input:checked+.checkmark:after {
-    display: block;
+.custom-checkbox input:checked + .checkmark {
+  border: 1px solid #263682;
+  color: #fff;
 }
 
 .checkmark:after {
-    left: 7px;
-    top: 3px;
-    width: 5px;
-    height: 10px;
-    border: solid #263682;
-    border-width: 0 2px 2px 0;
-    transform: rotate(45deg);
-    -webkit-transform: rotate(45deg);
+  content: "";
+  position: absolute;
+  display: none;
+}
+
+.custom-checkbox input:checked + .checkmark:after {
+  display: block;
+}
+
+.checkmark:after {
+  left: 7px;
+  top: 3px;
+  width: 5px;
+  height: 10px;
+  border: solid #263682;
+  border-width: 0 2px 2px 0;
+  transform: rotate(45deg);
+  -webkit-transform: rotate(45deg);
 }
 
 .filteredheading {
-    color: #263682;
-    font-size: 14px;
-    font-weight: 400;
+  color: #263682;
+  font-size: 14px;
+  font-weight: 400;
 }
 
 /*End Custom Checkbox css */
 
 /*Start Add Product modal */
 #AddProduct .modal-content {
-    border-radius: 30px;
-    background: var(--surfaces-s-top, #FFF);
-    box-shadow: -2.52875px 6.00803px 6.51852px 0px rgba(52, 79, 117, 0.03), -11.95411px 28.40162px 25.48148px 0px rgba(52, 79, 117, 0.04), -31.03472px 73.73497px 80px 0px rgba(52, 79, 117, 0.07);
-    border: none;
-    padding: 30px 36px;
+  border-radius: 30px;
+  background: var(--surfaces-s-top, #fff);
+  box-shadow: -2.52875px 6.00803px 6.51852px 0px rgba(52, 79, 117, 0.03),
+    -11.95411px 28.40162px 25.48148px 0px rgba(52, 79, 117, 0.04),
+    -31.03472px 73.73497px 80px 0px rgba(52, 79, 117, 0.07);
+  border: none;
+  padding: 30px 36px;
 }
 
 #AddProduct .modal-body {
-    padding: 0 !important;
-    padding-bottom: 30px !important;
-
+  padding: 0 !important;
+  padding-bottom: 30px !important;
 }
 
 #AddProduct .modal-header {
-    justify-content: center;
-    border: none !important;
-    padding: 0 !important;
-    padding-bottom: 30px !important;
-
-
+  justify-content: center;
+  border: none !important;
+  padding: 0 !important;
+  padding-bottom: 30px !important;
 }
-#AddProduct .plusMinus{
-    padding: 0;
+#AddProduct .plusMinus {
+  padding: 0;
 }
 .addProductHeading {
-    color: #263682;
-    text-align: center;
-    font-size: 24px;
-    font-weight: 400;
-    letter-spacing: -0.48px;
+  color: #263682;
+  text-align: center;
+  font-size: 24px;
+  font-weight: 400;
+  letter-spacing: -0.48px;
 }
 
 .customInput {
-    border-radius: 50px;
-    border: 1px solid #D7DEFF !important;
-    background: #FFF;
+  border-radius: 50px;
+  border: 1px solid #d7deff !important;
+  background: #fff;
+  box-shadow: -2px 4px 26px 0px rgba(50, 80, 127, 0.02),
+    -5px 10px 80px 0px rgba(50, 80, 127, 0.04);
+  padding: 18px 18px 18px 24px;
+  color: #263682 !important;
+  font-size: 18px;
+  font-weight: 400;
+  letter-spacing: -0.36px;
+}
+.customInputDiscount {
+    background: #FFFFFF;
     box-shadow: -2px 4px 26px 0px rgba(50, 80, 127, 0.02), -5px 10px 80px 0px rgba(50, 80, 127, 0.04);
     padding: 18px 18px 18px 24px;
     color: #263682 !important;
@@ -661,577 +671,577 @@
 }
 
 .customInput::placeholder {
-    color: #636E9F !important;
+  color: #636e9f !important;
 }
 
 .customTextarea {
-    border-radius: 16px;
-    border: 1px solid #D7DEFF !important;
-    background: #FFF;
-    box-shadow: -2px 4px 26px 0px rgba(50, 80, 127, 0.02), -5px 10px 80px 0px rgba(50, 80, 127, 0.04);
-    padding: 18px 18px 18px 40px;
-    color: #263682 !important;
-    font-size: 18px;
-    font-weight: 400;
-    letter-spacing: -0.36px;
-    width: 100%;
+  border-radius: 16px;
+  border: 1px solid #d7deff !important;
+  background: #fff;
+  box-shadow: -2px 4px 26px 0px rgba(50, 80, 127, 0.02),
+    -5px 10px 80px 0px rgba(50, 80, 127, 0.04);
+  padding: 18px 18px 18px 40px;
+  color: #263682 !important;
+  font-size: 18px;
+  font-weight: 400;
+  letter-spacing: -0.36px;
+  width: 100%;
 }
 
 .customTextarea:focus-visible {
-    border: none;
-    outline: none;
-    box-shadow: -4.95391px 9.82135px 80px 0px rgba(50, 80, 127, 0.04), 0px 0px 0px 5px rgba(38, 54, 130, 0.06), 0px 1px 2px 0px rgba(127, 143, 217, 0.47);
+  border: none;
+  outline: none;
+  box-shadow: -4.95391px 9.82135px 80px 0px rgba(50, 80, 127, 0.04),
+    0px 0px 0px 5px rgba(38, 54, 130, 0.06),
+    0px 1px 2px 0px rgba(127, 143, 217, 0.47);
 }
 
 .custominput:focus-visible {
-    box-shadow: -4.95391px 9.82135px 80px 0px rgba(50, 80, 127, 0.04), 0px 0px 0px 5px rgba(38, 54, 130, 0.06), 0px 1px 2px 0px rgba(127, 143, 217, 0.47);
+  box-shadow: -4.95391px 9.82135px 80px 0px rgba(50, 80, 127, 0.04),
+    0px 0px 0px 5px rgba(38, 54, 130, 0.06),
+    0px 1px 2px 0px rgba(127, 143, 217, 0.47);
 }
 
 .form-group {
-    position: relative;
+  position: relative;
 }
 
 .InputIcon {
-    position: absolute;
-    top: 20px;
-    left: 10px;
+  position: absolute;
+  top: 20px;
+  left: 10px;
 }
 
 .customTextarea::placeholder {
-    color: #636E9F !important;
+  color: #636e9f !important;
 }
 
 .modal-footer {
-    padding: 0 !important;
-    border: none !important;
+  padding: 0 !important;
+  border: none !important;
 }
 
 .modal-footer {
-    justify-content: center;
+  justify-content: center;
 }
 
 .cancelBtn {
-    border-radius: 30px;
-    background: #E4E6F2;
-    padding: 18px 20px;
-    color: #263682;
-    font-size: 18px;
-    border: none;
-    font-weight: 400;
+  border-radius: 30px;
+  background: #e4e6f2;
+  padding: 18px 20px;
+  color: #263682;
+  font-size: 18px;
+  border: none;
+  font-weight: 400;
 }
 
 .ModalBlue {
-    border-radius: 30px;
-    background: #263682;
-    color: #F5F6FC;
-    font-size: 18px;
-    font-weight: 400;
-    padding: 18px 20px;
-    border: none;
+  border-radius: 30px;
+  background: #263682;
+  color: #f5f6fc;
+  font-size: 18px;
+  font-weight: 400;
+  padding: 18px 20px;
+  border: none;
 }
 
 .addCart .customTextarea {
-    padding: 18px 10px;
-    border-radius: 0;
-    text-align: center;
-    border-left: none !important;
-    border-right: none !important;
+  padding: 18px 10px;
+  border-radius: 0;
+  text-align: center;
+  border-left: none !important;
+  border-right: none !important;
 }
 .addCart .plusMinus {
-    padding: 0;
+  padding: 0;
 }
 .addProductBtn {
-    border-radius: 0px 16px 16px 0px;
-    border: 1px solid #D7DEFF;
-    background: #F5F6FC;
-    padding: 18px 60px;
-    font-size: 18px;
-    color: #263682;
+  border-radius: 0px 16px 16px 0px;
+  border: 1px solid #d7deff;
+  background: #f5f6fc;
+  padding: 18px 60px;
+  font-size: 18px;
+  color: #263682;
 }
 
 .removeProductBtn {
-    border-radius: 16px 0px 0px 16px;
-    border: 1px solid #D7DEFF;
-    background: transparent;
-    padding: 18px 60px;
-    font-size: 18px;
-    color: #263682;
+  border-radius: 16px 0px 0px 16px;
+  border: 1px solid #d7deff;
+  background: transparent;
+  padding: 18px 60px;
+  font-size: 18px;
+  color: #263682;
 }
 
 /*End Add Product modal */
 
 /*Start  Product Invoice */
 .productInvoice {
-    margin: 0 16px;
+  margin: 0 16px;
 }
 
 .productInvoice .commanOuter {
-    margin: 0;
-    width: auto;
+  margin: 0;
+  width: auto;
 }
 
 .InvoiceTableBox {
-    max-height: 560px;
-    margin-bottom: 10px;
+  max-height: 560px;
+  margin-bottom: 10px;
 }
 
 .invoiceHeader {
-    margin: 21px 28px 26px;
+  margin: 21px 28px 26px;
 }
 
 .invoiceHeading {
-    color: #7E8AC1;
-    font-size: 12px;
-    font-weight: 500;
-    padding: 4px 12px;
-
+  color: #7e8ac1;
+  font-size: 12px;
+  font-weight: 500;
+  padding: 4px 12px;
 }
 
 #invoiceProduct {
-    width: 100%;
-    border-collapse: separate;
-    border-spacing: 0 6px;
-    padding: 0 1px;
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0 6px;
+  padding: 0 1px;
 }
 
-.invoiceHeadingBox { 
-    position: sticky;
-    top: 0;
+.invoiceHeadingBox {
+  position: sticky;
+  top: 0;
 }
 
 .product_invoice {
-    border-radius: 12px;
-    border-radius: 12px;
-    outline: 1px solid #F5F6FC;
-    background: #f5f6fc80;
-    cursor: pointer;
+  border-radius: 12px;
+  border-radius: 12px;
+  outline: 1px solid #f5f6fc;
+  background: #f5f6fc80;
+  cursor: pointer;
 }
 
 .product_invoice.active {
-    outline: 1.5px solid #D7DEFF;
-
-
-
+  outline: 1.5px solid #d7deff;
 }
 
 .invoice_subhead:first-child {
-    border-radius: 12px 0 0 12px;
+  border-radius: 12px 0 0 12px;
 }
 
 .invoice_subhead:last-child {
-    border-radius: 0 12px 12px 0;
+  border-radius: 0 12px 12px 0;
 }
 
 .invoice_subhead {
-    color: #263682;
-    font-size: 12px;
-    font-weight: 400;
-    padding: 4px 12px;
+  color: #263682;
+  font-size: 12px;
+  font-weight: 400;
+  padding: 4px 12px;
 }
 
 .invoice_subhead img {
-    margin-right: 4px;
+  margin-right: 4px;
 }
 
 .costumerImg {
-    width: 30px;
-    height: 30px;
-    padding: 5.986px 6.66px 5.986px 6.658px;
-    border-radius: 50px;
-    border: 0px solid #E4E6F2;
-    background: #F5F6FC;
+  width: 30px;
+  height: 30px;
+  padding: 5.986px 6.66px 5.986px 6.658px;
+  border-radius: 50px;
+  border: 0px solid #e4e6f2;
+  background: #f5f6fc;
 }
 
 .inStoreBtn {
-    border-radius: 20px;
-    background: #F5F6FC;
-    border: 1px solid #F5F6FC;
-    mix-blend-mode: multiply;
-    padding: 3px 6px;
-    color: #263682;
-    font-size: 12px;
-    font-weight: 500;
-    display: inline-block;
+  border-radius: 20px;
+  background: #f5f6fc;
+  border: 1px solid #f5f6fc;
+  mix-blend-mode: multiply;
+  padding: 3px 6px;
+  color: #263682;
+  font-size: 12px;
+  font-weight: 500;
+  display: inline-block;
 }
 
 .priceBtn {
-    border-radius: 20px;
-    background: #D1FADF;
-    mix-blend-mode: multiply;
-    padding: 3px 6px;
-    color: #027547;
-    font-size: 12px;
-    font-weight: 500;
-    display: inline-block;
+  border-radius: 20px;
+  background: #d1fadf;
+  mix-blend-mode: multiply;
+  padding: 3px 6px;
+  color: #027547;
+  font-size: 12px;
+  font-weight: 500;
+  display: inline-block;
 }
 
 .onlineBtn {
-    border-radius: 20px;
-    background: #EFFBFF;
-    mix-blend-mode: multiply;
-    padding: 3px 6px;
-    color: #47B0D6;
-    font-size: 12px;
-    font-weight: 500;
-    display: inline-block;
+  border-radius: 20px;
+  background: #effbff;
+  mix-blend-mode: multiply;
+  padding: 3px 6px;
+  color: #47b0d6;
+  font-size: 12px;
+  font-weight: 500;
+  display: inline-block;
 }
 
 .Custompagination {
-    width: 100%;
-    background: #fff;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 8px 28px;
-    margin-bottom: 10px;
+  width: 100%;
+  background: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8px 28px;
+  margin-bottom: 10px;
 }
 
 .paginatinationBtn {
-    color: #7E8AC1;
-    font-size: 12px;
-    font-weight: 500;
-    background: transparent;
-    border: none;
+  color: #7e8ac1;
+  font-size: 12px;
+  font-weight: 500;
+  background: transparent;
+  border: none;
 }
 
 .paginatinationBtn.active {
-    color: #263682;
+  color: #263682;
 }
 
 .ArrowRight {
-    width: 16px;
-    height: 16px;
-    margin-left: 5px;
+  width: 16px;
+  height: 16px;
+  margin-left: 5px;
 }
 
 .ArrowLeft {
-    width: 16px;
-    height: 16px;
-    margin-right: 5px;
+  width: 16px;
+  height: 16px;
+  margin-right: 5px;
 }
 
 .paginatinationBtn.active path {
-    stroke: #58C2E8;
+  stroke: #58c2e8;
 }
 
 .invoiceSearchBox {
-    border-bottom: 1px solid #E4E6F2;
+  border-bottom: 1px solid #e4e6f2;
 }
 
 .selectedProductDetails {
-    border-radius: 8px;
-    border: 1px solid var(--primary-p-50-main, #F5F6FC);
-    padding: 8px;
-    margin-bottom: 8px;
-    display: flex;
-    justify-content: space-between;
+  border-radius: 8px;
+  border: 1px solid var(--primary-p-50-main, #f5f6fc);
+  padding: 8px;
+  margin-bottom: 8px;
+  display: flex;
+  justify-content: space-between;
 }
 
 .productColor {
-    display: flex;
-    align-items: center;
-    margin-right: -3px;
+  display: flex;
+  align-items: center;
+  margin-right: -3px;
 }
 
 .boderdManualButton {
-    border-radius: 30px;
-    border: 1px solid #E4E6F2;
-    background: transparent;
-    color: #263682;
-    font-size: 14px;
-    font-weight: 400;
-    padding: 8px 10px;
-    width: 100%;
+  border-radius: 30px;
+  border: 1px solid #e4e6f2;
+  background: transparent;
+  color: #263682;
+  font-size: 14px;
+  font-weight: 400;
+  padding: 8px 10px;
+  width: 100%;
 }
 
 .coloredManualButton {
-    border-radius: 30px;
-    border: 1px solid #263682;
-    background: #F5F6FC;
-    color: #263682;
-    font-size: 14px;
-    font-weight: 400;
-    padding: 8px 10px;
-    width: 100%;
+  border-radius: 30px;
+  border: 1px solid #263682;
+  background: #f5f6fc;
+  color: #263682;
+  font-size: 14px;
+  font-weight: 400;
+  padding: 8px 10px;
+  width: 100%;
 }
 
 .productColor span {
-    margin-right: -3px;
-    border: 1px solid #fff;
-    width: 10px;
-    height: 10px;
-    border-radius: 6px;
+  margin-right: -3px;
+  border: 1px solid #fff;
+  width: 10px;
+  height: 10px;
+  border-radius: 6px;
 }
 
 .Yellow {
-    background-color: #F2C64D;
+  background-color: #f2c64d;
 }
 
 .Red {
-    background-color: #E66868;
+  background-color: #e66868;
 }
 
 .Pink {
-    background-color: #FAB4CD;
+  background-color: #fab4cd;
 }
 
 .Blue {
-    background-color: #47B0D6;
+  background-color: #47b0d6;
 }
 
 .Black {
-    background-color: #14171A;
+  background-color: #14171a;
 }
 
 .White {
-    background-color: #FFFFFF;
-    border: 1px solid #14171A !important;
+  background-color: #ffffff;
+  border: 1px solid #14171a !important;
 }
 
 .productBoxDetails {
-    max-height: 343px;
-    overflow: auto;
+  max-height: 343px;
+  overflow: auto;
 }
 
 .aboutProduct {
-    color: #2F3552;
-    font-size: 12px;
-    font-weight: 400;
+  color: #2f3552;
+  font-size: 12px;
+  font-weight: 400;
 }
 
 .productPriceinvoice {
-    color: #000;
-    font-size: 12px;
-    font-weight: 400;
+  color: #000;
+  font-size: 12px;
+  font-weight: 400;
 }
 
 .productSize {
-    color: #636E9F;
-    font-size: 12px;
-    font-weight: 400;
-    padding-left: 4px;
+  color: #636e9f;
+  font-size: 12px;
+  font-weight: 400;
+  padding-left: 4px;
 }
 
 .orderHeading {
-    color: #7E8AC1;
-    font-size: 14px;
-    font-weight: 400;
+  color: #7e8ac1;
+  font-size: 14px;
+  font-weight: 400;
 }
 
 .orderSubHeading {
-    color: #263682;
-    font-size: 14px;
-    font-weight: 500;
+  color: #263682;
+  font-size: 14px;
+  font-weight: 500;
 }
 
 .OrderBox {
-    padding: 12px 16px;
+  padding: 12px 16px;
 }
 
 .OrderCheckoutBox {
-    padding: 9px 0;
-    border-bottom: 1px solid #E4E6F2;
+  padding: 9px 0;
+  border-bottom: 1px solid #e4e6f2;
 }
 
 .productBilling {
-    border-radius: 10px;
-    background: #F5F6FC;
-    padding: 16px;
+  border-radius: 10px;
+  background: #f5f6fc;
+  padding: 16px;
 }
 
 .OrderDiscountBox {
-    padding-bottom: 16px;
-    border-bottom: 2px dotted #7E8AC1;
+  padding-bottom: 16px;
+  border-bottom: 2px dotted #7e8ac1;
 }
 
 .productBilling .flexBox {
-    justify-content: space-between;
-    padding: 4px 0;
+  justify-content: space-between;
+  padding: 4px 0;
 }
 
 .OrderTotal {
-    padding: 14px 0 0;
+  padding: 14px 0 0;
 }
 
 .priceHeading {
-    color: #263682;
-    font-size: 14px;
-    font-weight: 600;
+  color: #263682;
+  font-size: 14px;
+  font-weight: 600;
 }
 
 .ProductsearchBar .scanImg {
-    right: 10px;
-    position: absolute;
-    top: 10px;
+  right: 10px;
+  position: absolute;
+  top: 10px;
 }
 
 .productInvoice .ProductsearchBar .searchControl {
-    padding: 8px 38px;
+  padding: 8px 38px;
 }
 
 .SearchinvoiceBox {
-    width: 50%;
+  width: 50%;
 }
 
 .invoiceButtonBox {
-    width: 40%;
+  width: 40%;
 }
 
 .invoiceButtonBox {
-    width: 40%;
+  width: 40%;
 }
 
 .ManualsearchBar {
-    position: relative;
+  position: relative;
 }
 
 /*End  Product Invoice */
 
-
 /* Start manual entry search */
 
 .manualEntrysearch {
-    margin: 0 16px;
+  margin: 0 16px;
 }
 
 .manualEntrysearch .invoiceSearchBox {
-    border-bottom: none;
+  border-bottom: none;
 }
 
 .manualOrderedProduct {
-    border-radius: 20px;
-    border: 1px solid #E4E6F2;
-    padding: 10px;
-    height: auto;
+  border-radius: 20px;
+  border: 1px solid #e4e6f2;
+  padding: 10px;
+  height: auto;
 }
 
 .ManualsearchBar .searchControl {
-    padding: 18px 52px;
-    border: none !important;
-    border-bottom: 1px solid #E4E6F2 !important;
-    background: #FFF;
-    border-radius: 0 !important;
-    box-shadow: 0px 10px 20px 0px rgba(38, 54, 130, 0.05);
+  padding: 18px 52px;
+  border: none !important;
+  border-bottom: 1px solid #e4e6f2 !important;
+  background: #fff;
+  border-radius: 0 !important;
+  box-shadow: 0px 10px 20px 0px rgba(38, 54, 130, 0.05);
 }
 
 .manualSelectedProduct {
-    height: 484px;
-    max-height: 484px;
-    overflow: auto;
-    padding-right: 10px;
-    margin-bottom: 10px;
-    align-content: center;
+  height: 484px;
+  max-height: 484px;
+  overflow: auto;
+  padding-right: 10px;
+  margin-bottom: 10px;
+  align-content: center;
 }
 
 .manualSelectedItems {
-    width: 400px;
-    margin: 0 auto;
-    display: grid;
-    align-content: space-evenly;
+  width: 400px;
+  margin: 0 auto;
+  display: grid;
+  align-content: space-evenly;
 }
 
 .manualSelectedProduct .selectedProductDetails {
-    margin-top: 10px;
+  margin-top: 10px;
 }
 
 .selectedProductDetails.active {
-    border: 1.5px solid #D7DEFF;
+  border: 1.5px solid #d7deff;
 }
 
 .buttonBox .cancelBtn {
-    width: 49%;
-    margin-right: 10px;
-    padding: 8px 20px;
-    font-size: 14px;
+  width: 49%;
+  margin-right: 10px;
+  padding: 8px 20px;
+  font-size: 14px;
 }
 
 .buttonBox button {
-    width: 49%;
+  width: 49%;
 }
 
 /* Start manual entry search */
 
 /* Start manual entry config */
 .ItemImage {
-    width: 150px;
-    height: 150px;
-    max-width: 150px;
-    max-height: 150px;
-    margin-right: 24px;
+  width: 150px;
+  height: 150px;
+  max-width: 150px;
+  max-height: 150px;
+  margin-right: 24px;
 }
 
 .manual-entryColor {
-    display: flex;
-    justify-content: space-between;
-    margin-top: 12px;
+  display: flex;
+  justify-content: space-between;
+  margin-top: 12px;
 }
 
 .productSizeBtnBox {
-    justify-content: space-between;
-    display: flex;
-    margin-top: 12px;
+  justify-content: space-between;
+  display: flex;
+  margin-top: 12px;
 }
 
 .manual-entryColor span {
-    border: 1px solid #fff;
-    width: 24px;
-    height: 24px;
-    border-radius: 12px;
-    display: block;
+  border: 1px solid #fff;
+  width: 24px;
+  height: 24px;
+  border-radius: 12px;
+  display: block;
 }
 
 .manual-entryColor span.active {
-    width: 110px;
-    border: 2px solid #eef0fa;
+  width: 110px;
+  border: 2px solid #eef0fa;
 }
 
 .productSizeBtn {
-    border-radius: 10px;
-    border: 1px solid #D7DEFF;
-    background: #FFF;
-    padding: 12px 25px;
-    color: #263682;
-    font-size: 12px;
-    font-weight: 400;
+  border-radius: 10px;
+  border: 1px solid #d7deff;
+  background: #fff;
+  padding: 12px 25px;
+  color: #263682;
+  font-size: 12px;
+  font-weight: 400;
 }
 
 .productSizeBtn.disable {
-    border: 1px solid #F7F9FF;
-    color: #D7DEFF;
+  border: 1px solid #f7f9ff;
+  color: #d7deff;
 }
 
 .productSizeBtn.active {
-    background: #263682;
-    color: #E4E6F2;
-    border: 1px solid #263682;
+  background: #263682;
+  color: #e4e6f2;
+  border: 1px solid #263682;
 }
 
 .selectedproductDetails {
-    color: #263682;
-    font-size: 18px;
-    font-weight: 500;
+  color: #263682;
+  font-size: 18px;
+  font-weight: 500;
 }
 
 .productId {
-    padding: 4px 8px;
-    border-radius: 20px;
-    border: 1px solid rgba(228, 235, 241, 0.60);
-    background: transparent;
-    color: #535E68;
-    font-size: 12px;
-    font-weight: 500;
-    display: flex;
-    align-items: center;
-    margin: 11px 0;
+  padding: 4px 8px;
+  border-radius: 20px;
+  border: 1px solid rgba(228, 235, 241, 0.6);
+  background: transparent;
+  color: #535e68;
+  font-size: 12px;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  margin: 11px 0;
 }
 
 .productDot {
-    background: #535E68;
-    height: 10px;
-    width: 10px;
-    display: block;
-    border-radius: 5px;
-    margin-right: 10px;
+  background: #535e68;
+  height: 10px;
+  width: 10px;
+  display: block;
+  border-radius: 5px;
+  margin-right: 10px;
 }
 
 /* End manual entry config */
@@ -1239,497 +1249,509 @@
 /*Start  Return Inventory Modal*/
 
 #ReturnInventory .modal-header {
-    padding-bottom: 0 !important;
+  padding-bottom: 0 !important;
 }
 #ReturnInventory .plusMinus {
-    color: #263682;
-    cursor: pointer;
-    padding: 0;
+  color: #263682;
+  cursor: pointer;
+  padding: 0;
 }
 .closeButton {
-    position: absolute;
-    right: 12px;
-    top: 15px;
-    background: transparent;
-    border: none;
+  position: absolute;
+  right: 12px;
+  top: 15px;
+  background: transparent;
+  border: none;
 }
 
 .productcartBox {
-    display: flex;
-    border-radius: 8px;
-    border: 1px solid var(--primary-p-50-main, #F5F6FC);
-    padding: 8px 16px;
+  display: flex;
+  border-radius: 8px;
+  border: 1px solid var(--primary-p-50-main, #f5f6fc);
+  padding: 8px 16px;
 }
 
 .ShoppingReturn {
-    width: 48px;
-    height: 48px;
-    margin-bottom: 16px;
+  width: 48px;
+  height: 48px;
+  margin-bottom: 16px;
 }
 
 #ReturnInventory .addCart {
-    max-width: 100px;
+  max-width: 100px;
 }
 
 .productcartBox article {
-    margin: 0 15px;
+  margin: 0 15px;
 }
 
 #ReturnInventory .customTextarea {
-    padding: 8px 10px;
-    font-size: 16px;
+  padding: 8px 10px;
+  font-size: 16px;
 }
 
 #ReturnInventory .removeProductBtn {
-    padding: 8px 10px;
-    border-radius: 8px 0px 0px 8px;
-    font-size: 16px;
+  padding: 8px 10px;
+  border-radius: 8px 0px 0px 8px;
+  font-size: 16px;
 }
 
 #ReturnInventory .addProductBtn {
-    padding: 8px 10px;
-    border-radius: 0px 8px 8px 0px;
-    font-size: 16px;
-
+  padding: 8px 10px;
+  border-radius: 0px 8px 8px 0px;
+  font-size: 16px;
 }
 
 #ReturnInventory .priceHeading {
-    font-weight: 400;
+  font-weight: 400;
 }
 
 #ReturnInventory .productSize {
-    padding: 0;
+  padding: 0;
 }
 
 .inventorySubheading {
-    font-size: 18px;
-    font-weight: 400;
-    color: #636E9F;
-    margin: 0;
-    padding: 12px 0 24px 0;
+  font-size: 18px;
+  font-weight: 400;
+  color: #636e9f;
+  margin: 0;
+  padding: 12px 0 24px 0;
 }
 
 /*End  Return Inventory Modal*/
 
 /* Start refunds Page */
 .refundsBox {
-    display: grid;
-    align-content: space-between;
-    height: 100%;
+  display: grid;
+  align-content: space-between;
+  height: 100%;
 }
 
 .refundItems {
-    color: #263682;
-    font-size: 24px;
-    font-weight: 500;
-    padding-bottom: 10px;
+  color: #263682;
+  font-size: 24px;
+  font-weight: 500;
+  padding-bottom: 10px;
 }
 
 .refundCount {
-    color: #9BA8E3;
+  color: #9ba8e3;
 }
 
 .refundPrice {
-    color: #636E9F;
-    font-size: 16px;
-    font-weight: 400;
-    padding: 3px 3rem 3px 0;
-    align-items: center;
-    display: flex;
+  color: #636e9f;
+  font-size: 16px;
+  font-weight: 400;
+  padding: 3px 3rem 3px 0;
+  align-items: center;
+  display: flex;
 }
 
 .priceFilterBtn.active {
-    background: #263682;
-    font-size: 16px;
-    padding: 5px 14px;
-    border-radius: 8px 0 0 8px;
-    color: #ffffff;
+  background: #263682;
+  font-size: 16px;
+  padding: 5px 14px;
+  border-radius: 8px 0 0 8px;
+  color: #ffffff;
 }
 
 .priceFilterBtn {
-    background: #E4E6F2;
-    font-size: 16px;
-    padding: 5px 14px;
-    border-radius: 0 8px 8px 0;
-    color: #263682;
+  background: #e4e6f2;
+  font-size: 16px;
+  padding: 5px 14px;
+  border-radius: 0 8px 8px 0;
+  color: #263682;
 }
 
 .refundPricebox {
-    border-radius: 12px;
-    border: 1px solid #D7DEFF;
-    box-shadow: -1.908px 3.783px 25.481px 0px rgba(50, 80, 127, 0.02), -4.954px 9.821px 80px 0px rgba(50, 80, 127, 0.04);
-    padding: 6px 8px 6px 14px;
-    justify-content: space-between;
+  border-radius: 12px;
+  border: 1px solid #d7deff;
+  box-shadow: -1.908px 3.783px 25.481px 0px rgba(50, 80, 127, 0.02),
+    -4.954px 9.821px 80px 0px rgba(50, 80, 127, 0.04);
+  padding: 6px 8px 6px 14px;
+  justify-content: space-between;
 }
 
 .refundproduct_table .recent_head {
-    width: auto;
+  width: auto;
 }
 
 .refundproduct_table .recent_subhead {
-    padding: 8px 22px;
+  padding: 8px 22px;
 }
 
 .refundproduct_table .custom-checkbox {
-    top: -9px;
+  top: -9px;
 }
 
 .recent_head .checkmark:after {
-    left: 4px;
-    top: 8px;
-    width: 10px;
-    height: 0;
-    border-width: 2px 0px 0px 0;
-    -webkit-transform: rotate(180deg);
+  left: 4px;
+  top: 8px;
+  width: 10px;
+  height: 0;
+  border-width: 2px 0px 0px 0;
+  -webkit-transform: rotate(180deg);
 }
 
 .tablecustomInput {
-    border-radius: 6px;
-    border: 1px solid #E4E6F2;
-    background: #F5F6FC;
-    text-align: center;
-    font-size: 12px;
-    font-style: normal;
-    font-weight: 400;
-    color: #263682;
-    padding: 8px 16px;
+  border-radius: 6px;
+  border: 1px solid #e4e6f2;
+  background: #f5f6fc;
+  text-align: center;
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 400;
+  color: #263682;
+  padding: 8px 16px;
 }
 
 .tablecustomInput::placeholder {
-    text-align: left;
-    justify-content: left;
-    font-size: 12px;
-    font-weight: 400;
-    color: #263682;
+  text-align: left;
+  justify-content: left;
+  font-size: 12px;
+  font-weight: 400;
+  color: #263682;
 }
 
 .recent_subhead .productPrice {
-    font-weight: 500;
+  font-weight: 500;
 }
 
 .recent_subhead .paginatinationBtn {
-    font-weight: 400;
+  font-weight: 400;
 }
 
 .recent_subhead .productDot {
-    background: #D7DEFF;
+  background: #d7deff;
 }
 
 .tablecustomInput:focus-visible {
-    outline: none;
+  outline: none;
 }
 
 .refundItemImage {
-    width: 35px;
-    height: 35px;
-    margin-right: 10px;
+  width: 35px;
+  height: 35px;
+  margin-right: 10px;
 }
 
 .refundedItems {
-    border-radius: 20px;
-    background: #F5F6FC;
-    padding: 24px;
+  border-radius: 20px;
+  background: #f5f6fc;
+  padding: 24px;
 }
 
 .itemsRefundedBox {
-    padding-bottom: 20px;
-    border-bottom: 1px dotted #7E8AC1;
+  padding-bottom: 20px;
+  border-bottom: 1px dotted #7e8ac1;
 }
 
 .itemsRefundedsubTotal {
-    padding: 20px 0;
-    border-bottom: 1px dotted #7E8AC1;
+  padding: 20px 0;
+  border-bottom: 1px dotted #7e8ac1;
 }
 
 .itemsRefundedTotal {
-    padding: 20px 0;
-
+  padding: 20px 0;
 }
 
 button.comfirmatiopnBtn {
-    border-radius: 30px;
-    background: #B4BEEB;
-    color: #F5F6FC;
-    font-size: 14px;
-    font-weight: 400;
-    padding: 8px 30px;
-    border: none;
+  border-radius: 30px;
+  background: #b4beeb;
+  color: #f5f6fc;
+  font-size: 14px;
+  font-weight: 400;
+  padding: 8px 30px;
+  border: none;
 }
 
 .Arrowtopright {
-    margin-left: 6px;
+  margin-left: 6px;
 }
 
 /* End refunds Page */
 /* Start Refunds Confirmation */
 .backButton {
-    color: #4659B5;
-    font-size: 14px;
-    font-weight: 400;
-    background: transparent;
-    border: none;
-    display: flex;
-    align-items: center;
+  color: #4659b5;
+  font-size: 14px;
+  font-weight: 400;
+  background: transparent;
+  border: none;
+  display: flex;
+  align-items: center;
 }
 
 .backBtnIcon {
-    width: 18px;
-    margin-right: 4px;
+  width: 18px;
+  margin-right: 4px;
 }
 
 .refundMethod {
-    margin-top: 46px;
-    text-align: center;
+  margin-top: 46px;
+  text-align: center;
 }
 
 .totalRefund {
-    color: #263682;
-    font-size: 20px;
-    font-weight: 500;
+  color: #263682;
+  font-size: 20px;
+  font-weight: 500;
 }
 
 .totalrefundAmount {
-    color: #263682;
-    font-size: 30px;
-    font-weight: 500;
-    padding: 10px 0 20px;
+  color: #263682;
+  font-size: 30px;
+  font-weight: 500;
+  padding: 10px 0 20px;
 }
 
 .refundMethod .userPosition {
-    font-weight: 400;
-    padding-bottom: 26px;
+  font-weight: 400;
+  padding-bottom: 26px;
 }
 
 .debitCreditBox {
-    border-radius: 16px;
-    border: 1.5px solid #BFEEFF;
-    background: #EFFBFF;
-    padding: 16px;
-    color: #1F6A84;
-    height: 100%;
-    display: grid;
-    align-content: space-between;
+  border-radius: 16px;
+  border: 1.5px solid #bfeeff;
+  background: #effbff;
+  padding: 16px;
+  color: #1f6a84;
+  height: 100%;
+  display: grid;
+  align-content: space-between;
 }
 
 .refundCashBox {
-    border-radius: 16px;
-    border: 1.5px solid #D1FADF;
-    background: #ECFDF3;
-    padding: 16px;
-    color: #027547;
-    height: 100%;
-    display: grid;
-    align-content: space-between;
+  border-radius: 16px;
+  border: 1.5px solid #d1fadf;
+  background: #ecfdf3;
+  padding: 16px;
+  color: #027547;
+  height: 100%;
+  display: grid;
+  align-content: space-between;
 }
 
 .refundCashBox.active {
-    background: #12B76A;
-    color: #ECFDF3;
+  background: #12b76a;
+  color: #ecfdf3;
 }
 
 .refundCashBox.active .MoneyOutline {
-    display: none;
+  display: none;
 }
 
 .refundCashBox.active .showImg {
-    display: block !important;
+  display: block !important;
 }
 
 .jobrCoinBox {
-    border-radius: 16px;
-    border: 1.5px solid #D7DEFF;
-    background: #F5F6FC;
-    padding: 16px;
-    color: #263682;
-    height: 100%;
-    display: grid;
-    align-content: space-between;
+  border-radius: 16px;
+  border: 1.5px solid #d7deff;
+  background: #f5f6fc;
+  padding: 16px;
+  color: #263682;
+  height: 100%;
+  display: grid;
+  align-content: space-between;
 }
 
 .receiptDetails {
-    margin: 50px 0;
-    text-align: center;
+  margin: 50px 0;
+  text-align: center;
 }
 
 .ReceiptOutline {
-    width: 30px;
-    height: 30px;
-    margin-bottom: 8px;
+  width: 30px;
+  height: 30px;
+  margin-bottom: 8px;
 }
 
 .receiptDetails .selectedproductDetails {
-    padding-bottom: 26px;
+  padding-bottom: 26px;
 }
 
 .receiptCard {
-    border-radius: 16px;
-    border: 1.5px solid var(--alarm-warning-w-100, #FEEFC6);
-    background: rgba(255, 250, 235, 0.80);
-    padding: 16px;
-    color: #93370D;
-    text-align: center;
-    font-size: 18px;
-    font-weight: 500;
-    letter-spacing: -0.36px;
+  border-radius: 16px;
+  border: 1.5px solid var(--alarm-warning-w-100, #feefc6);
+  background: rgba(255, 250, 235, 0.8);
+  padding: 16px;
+  color: #93370d;
+  text-align: center;
+  font-size: 18px;
+  font-weight: 500;
+  letter-spacing: -0.36px;
 }
 
 .receiptCard.active {
-    background: #FDB022;
-    color: #fff;
+  background: #fdb022;
+  color: #fff;
 }
 
 .receiptCard.active .Like {
-    display: none;
+  display: none;
 }
 
 .receiptCard.active .showImg {
-    display: block !important;
-    margin: 0 auto;
+  display: block !important;
+  margin: 0 auto;
 }
 
 .ConfirmReturn {
-    border-radius: 30px;
-    border: 1px solid #B4BEEB;
-    padding: 14px 16px;
-    color: #B4BEEB;
-    font-size: 16px;
-    font-weight: 400;
-    background-color: transparent;
+  border-radius: 30px;
+  border: 1px solid #b4beeb;
+  padding: 14px 16px;
+  color: #b4beeb;
+  font-size: 16px;
+  font-weight: 400;
+  background-color: transparent;
 }
 
 .ConfirmReturn.active {
-    background-color: #263682;
-    color: #F5F6FC;
-    display: flex;
-    margin: 0 auto;
-    align-items: center;
+  background-color: #263682;
+  color: #f5f6fc;
+  display: flex;
+  margin: 0 auto;
+  align-items: center;
 }
 
 .ShoppingReturnLite {
-    margin-left: 6px;
+  margin-left: 6px;
 }
 
 .ConfirmReturn.active .ShoppingReturnLite {
-    display: none;
+  display: none;
 }
 
 .ConfirmReturn.active .showImg {
-    display: block !important;
+  display: block !important;
 }
 
 .MapleBox {
-    display: grid;
-    align-content: space-between;
-    height: 100%;
+  display: grid;
+  align-content: space-between;
+  height: 100%;
 }
 
 .mapleHeader {
-    text-align: center;
-    border-bottom: 1px dotted #D7DEFF;
+  text-align: center;
+  border-bottom: 1px dotted #d7deff;
 }
 
 .mapleHeading {
-    color: #263682;
-    font-size: 24px;
-    font-weight: 600;
-    padding-bottom: 16px;
+  color: #263682;
+  font-size: 24px;
+  font-weight: 600;
+  padding-bottom: 16px;
 }
 
 .mapleAddress {
-    color: #263682;
-    font-size: 14px;
-    font-weight: 500;
-    padding-bottom: 4px;
+  color: #263682;
+  font-size: 14px;
+  font-weight: 500;
+  padding-bottom: 4px;
 }
 
 .mapleProductDetails {
-    border-bottom: 1px dotted #D7DEFF;
+  border-bottom: 1px dotted #d7deff;
 }
 
 .mapleProductDetailsBox {
-    border-radius: 8px;
-    border: 0px dashed #263682;
-    padding: 8px;
-    margin-bottom: 8px;
-    justify-content: space-between;
-    align-items: baseline;
+  border-radius: 8px;
+  border: 0px dashed #263682;
+  padding: 8px;
+  margin-bottom: 8px;
+  justify-content: space-between;
+  align-items: baseline;
 }
 
 .mapleProductHeading {
-    color: #263682;
-    font-size: 14px;
-    font-weight: 600;
+  color: #263682;
+  font-size: 14px;
+  font-weight: 600;
 }
 
 .mapleProductcount {
-    color: #263682;
-    font-size: 14px;
-    font-weight: 400;
+  color: #263682;
+  font-size: 14px;
+  font-weight: 400;
 }
 
 .mapleProductPrice {
-    color: #263682;
-    font-size: 14px;
-    font-weight: 500;
+  color: #263682;
+  font-size: 14px;
+  font-weight: 500;
 }
 
 .mapleInvoiceBox {
-    border-bottom: 1px dotted #D7DEFF;
-    justify-content: space-between;
+  border-bottom: 1px dotted #d7deff;
+  justify-content: space-between;
 }
 
 .mapleInvoiceBox .mapleProductPrice {
-    padding: 8px;
-    margin-bottom: 8px;
+  padding: 8px;
+  margin-bottom: 8px;
 }
 
 .mapleInvoiceBox .mapleProductHeading {
-    padding: 8px;
-    margin-bottom: 8px;
+  padding: 8px;
+  margin-bottom: 8px;
 }
 
 .maplePriceBox {
-    justify-content: space-between;
-    padding: 0 8px;
+  justify-content: space-between;
+  padding: 0 8px;
 }
 
 .maplePriceBox .productName,
 .maplePriceBox .userName {
-    padding: 6px;
-    margin-bottom: 8px;
+  padding: 6px;
+  margin-bottom: 8px;
 }
 
 .refundTotalBtn {
-    border-radius: 30px;
-    border: 0px solid var(--Primary-P-600-Main, #263682);
-    background: #F5F6FC;
-    padding: 8px 20px !important;
+  border-radius: 30px;
+  border: 0px solid var(--Primary-P-600-Main, #263682);
+  background: #f5f6fc;
+  padding: 8px 20px !important;
 }
 
 /* End Refunds Confirmation */
 /* Start Return Confirmed */
 .ReturnConfirmed {
-    display: grid;
-    align-content: center;
-    height: 100%;
-    justify-content:center;
+  display: grid;
+  align-content: center;
+  height: 100%;
+  justify-content: center;
 }
 
 .ReturnConfirmedBox {
-    border-radius: 40px;
-    background: var(--Surfaces-S-Soft-Surface, #F5F6FC);
-    padding: 60px 50px;
-    width: 375px;
-    text-align: center;
+  border-radius: 40px;
+  background: var(--Surfaces-S-Soft-Surface, #f5f6fc);
+  padding: 60px 50px;
+  width: 375px;
+  text-align: center;
 }
 .returnConfirmedHeading {
-    color: #4659B5;
-    font-size: 30px;
-    font-weight: 400;
-    padding: 24px 0;
+  color: #4659b5;
+  font-size: 30px;
+  font-weight: 400;
+  padding: 24px 0;
 }
-.ReturnConfirmedBox .userPosition{
-
-font-weight: 400;
+.ReturnConfirmedBox .userPosition {
+  font-weight: 400;
 }
 /* End Return Confirmed */
+
+/* invoice  */
+
+.invoiceMain {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+.invoice_view {
+  background-color: white;
+  border-radius: 10px;
+  margin-block: 10px;
+}
