@@ -32,12 +32,12 @@ const Wallet = () => {
 
   return (
     <>
-      <div className="settingOuter taxRight">
+      <div className="settingOuter taxRight walletConfig_">
         <div style={{ display: "flex" }}>
           <Image
-            src={Images.settingsDevices}
+            src={Images.darkDevices}
             className="settings-sidebar-icons"
-            style={{ marginRight: "5px", marginTop: "5px" }}
+            style={{ marginRight: "7px", marginTop: "5px" }}
           />
           <div style={{ flex: 1 }}>
             <div className={"appointMain"}>Wallet Config</div>
@@ -45,32 +45,27 @@ const Wallet = () => {
             <div style={{ marginTop: 30 }} />
 
             {/* pay with coin container */}
-            <div className={styles.shadowBox}>
-              <div className={styles.rowStartJustified}>
-                <div class={styles.rowStart}>
+            <div className="bussinessMain">
+              <div className="bussinessSub">
+                <div className="locationHead">
                   <Image
-                    src={Images.settingsPhoneMessage}
+                    src={Images.walletOuter}
                     className={styles.iconsStyle}
                     style={{ marginRight: "5px" }}
                   />
 
-                  <div>
-                    <div className={styles.boxTopTitleTextStyle}>
-                      Pay with JOBR Coin
-                    </div>
-                    <div className={styles.boxbottomTextStyle}>
-                      Online Shop / POS
-                    </div>
-                    <h4 className={styles.boxbottomTextStyle}>
-                      You need to provide some additional information about your
-                      business to start receiving payouts from Shopify Payments.
-                    </h4>
+                  <div className="bussinessHeading">
+                    <h4 className="customerLink text-start">Pay with JOBR Coin</h4>
+                    <h5 className="monthText mt-2">Online Shop / POS</h5>
+                    <h5 className="walletPara mt-2">Default Payment</h5>
+                    <p className="settingText mt-3">You need to provide some additional information about your business to start receiving
+                      payouts from Shopify Payments.</p>
                   </div>
                 </div>
 
-                <div class="form-check form-switch">
+                <div className="roundCheck  mb-0">
                   <input
-                    class="form-check-input"
+                    className="form-check-input"
                     type="checkbox"
                     id="flexSwitchCheckChecked"
                     checked={isCoin}
@@ -79,7 +74,7 @@ const Wallet = () => {
                     }}
                   />
                   <label
-                    class="form-check-label"
+                    className="form-check-label d-none"
                     for="flexSwitchCheckChecked"
                   ></label>
                 </div>
@@ -88,30 +83,26 @@ const Wallet = () => {
             {/*  */}
 
             {/* pay with cash container */}
-            <div className={styles.shadowBox}>
-              <div className={styles.rowStartJustified}>
-                <div class={styles.rowStart}>
+            <div className="bussinessMain">
+              <div className="bussinessSub">
+                <div className="locationHead">
                   <Image
-                    src={Images.settingsEmail}
+                    src={Images.moneyOuter}
                     className="settings-sidebar-icons"
                     style={{ marginRight: "5px" }}
                   />
-
-                  <div>
-                    <div className={styles.boxTopTitleTextStyle}>
-                      Pay with Cash
-                    </div>
-                    <div className={styles.boxbottomTextStyle}>POS</div>
-                    <h4 className={styles.boxbottomTextStyle}>
-                      You need to provide some additional information about your
-                      business to start receiving payouts from Shopify Payments.
-                    </h4>
+                  <div className="bussinessHeading">
+                    <h4 className="customerLink text-start">Pay with Cash</h4>
+                    <h5 className="monthText mt-2">POS</h5>
+                    <p className="settingText mt-3">You need to provide some additional information about your
+                      business to start receiving payouts from Shopify Payments.</p>
                   </div>
+
                 </div>
 
-                <div class="form-check form-switch">
+                <div className="roundCheck  mb-0">
                   <input
-                    class="form-check-input"
+                    className="form-check-input"
                     type="checkbox"
                     id="flexSwitchCheckChecked"
                     checked={isCash}
@@ -120,7 +111,7 @@ const Wallet = () => {
                     }}
                   />
                   <label
-                    class="form-check-label"
+                    className="form-check-label d-none"
                     for="flexSwitchCheckChecked"
                   ></label>
                 </div>
@@ -129,30 +120,26 @@ const Wallet = () => {
             {/*  */}
 
             {/* pay by card container */}
-            <div className={styles.shadowBox}>
-              <div className={styles.rowStartJustified}>
-                <div class={styles.rowStart}>
+            <div className="bussinessMain">
+              <div className="bussinessSub">
+                <div className="locationHead">
                   <Image
-                    src={Images.settingsPrinter}
+                    src={Images.cardOuter}
                     className="settings-sidebar-icons"
                     style={{ marginRight: "5px" }}
                   />
-
-                  <div>
-                    <div className={styles.boxTopTitleTextStyle}>
-                      Pay by Card Contactless
-                    </div>
-                    <div className={styles.boxbottomTextStyle}>POS</div>
-                    <h4 className={styles.boxbottomTextStyle}>
-                      You need to provide some additional information about your
-                      business to start receiving payouts from Shopify Payments.
-                    </h4>
+                  <div className="bussinessHeading">
+                    <h4 className="customerLink text-start"> Pay by Card Contactless</h4>
+                    <h5 className="monthText mt-2">POS</h5>
+                    <p className="settingText mt-3">You need to provide some additional information about your
+                      business to start receiving payouts from Shopify Payments.</p>
                   </div>
+
                 </div>
 
-                <div class="form-check form-switch">
+                <div className="roundCheck  mb-0">
                   <input
-                    class="form-check-input"
+                    className="form-check-input"
                     type="checkbox"
                     id="flexSwitchCheckChecked"
                     checked={isCard}
@@ -161,7 +148,7 @@ const Wallet = () => {
                     }}
                   />
                   <label
-                    class="form-check-label"
+                    className="form-check-label d-none"
                     for="flexSwitchCheckChecked"
                   ></label>
                 </div>
