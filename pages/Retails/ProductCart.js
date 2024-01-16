@@ -219,11 +219,13 @@ const ProductCart = () => {
                   />
                   <h4 className="monthText">Delete Product</h4>
                 </div>
+
                 <Image
                   src={Images.addProductImg}
                   alt="addproductImage"
                   className="img-fluid d-none"
                 />
+
                 <Image
                   src={Images.crossProduct}
                   alt="crossProductImage"

@@ -15,6 +15,8 @@ import {
   setDiscount,
   setNotes,
   selectRetailData,
+  setCheckSuppliedVariant,
+  setAddTocart,
 } from "../../slices/retails";
 import { all, call, put, takeLatest } from "redux-saga/effects";
 
@@ -126,14 +128,17 @@ function* addTocart(action) {
       `${ORDER_API_URL}/api/v1/poscarts`,
       (action.payload = action.payload)
     );
+    console.log("msn", `${ORDER_API_URL}/api/v1/poscarts`);
+    console.log("mandeep", action.payload);
     if (resp.status) {
-      // yield put(setUserMerchantLogin(resp.data));
+      yield put(setAddTocart(resp.data));
       yield call(action.payload.cb, (action.res = resp));
       // toast.success(resp?.data?.msg);
     } else {
       throw resp;
     }
   } catch (e) {
+    console.log("ewe", e?.error?.response);
     yield put(onErrorStopLoad());
     toast.error(e?.error?.response?.data?.msg);
   }
@@ -205,6 +210,32 @@ function* addDiscount(action) {
   }
 }
 
+function* checkSuppliedVariant(action) {
+  const dataToSend = { ...action.payload };
+  const params = new URLSearchParams(dataToSend);
+  const colorSizeId = params.get("colorAndSizeId");
+  const suppliedId = params.get("supplyId");
+  try {
+    const resp = yield call(
+      ApiClient.get,
+      `${PRODUCT_API_URL_V1}supply_variants/by-attribute-value-ids?attribute_value_ids=${colorSizeId}&supply_id=${suppliedId}`,
+      console.log(
+        "11111",
+        `${PRODUCT_API_URL_V1}supply_variants/by-attribute-value-ids?attribute_value_ids=${colorSizeId}&supply_id=${suppliedId}`
+      )
+    );
+    if (resp.status) {
+      yield put(setCheckSuppliedVariant(resp.data));
+      yield call(action.payload.cb, (action.res = resp?.data?.payload));
+    } else {
+      throw resp;
+    }
+  } catch (e) {
+    yield put(onErrorStopLoad());
+    toast.error(e?.error?.response?.data?.msg);
+  }
+}
+
 function* retailsSaga() {
   yield all([
     takeLatest("retails/getMainProduct", getMainProduct),
@@ -217,6 +248,7 @@ function* retailsSaga() {
     takeLatest("retails/addDiscount", addDiscount),
     takeLatest("retails/addTocart", addTocart),
     takeLatest("retails/clearCart", clearCart),
+    takeLatest("retails/checkSuppliedVariant", checkSuppliedVariant),
   ]);
 }
 

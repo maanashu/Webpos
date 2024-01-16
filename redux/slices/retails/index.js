@@ -7,6 +7,8 @@ const initialState = {
   availableOffers: {},
   mainServicesData: {},
   cartDetails: {},
+  checkSuppliedVariantLoad: false,
+  addTocartLoad: false,
 };
 
 export const retailsSlice = createSlice({
@@ -65,10 +67,22 @@ export const retailsSlice = createSlice({
       state.addNotes = action?.payload?.payload;
     },
     addTocart: (state) => {
-      state.loading = true;
+      state.addTocartLoad = true;
+    },
+    setAddTocart: (state) => {
+      state.addTocartLoad = false;
     },
     clearCart: (state) => {
       state.loading = true;
+    },
+    checkSuppliedVariant: (state) => {
+      state.loading = true;
+      state.checkSuppliedVariantLoad = true;
+    },
+    setCheckSuppliedVariant: (state, action) => {
+      state.loading = false;
+      state.checkSuppliedVariantLoad = false;
+      // state.addNotes = action?.payload?.payload;
     },
     onErrorStopLoad: (state) => {
       state.loading = false;
@@ -92,9 +106,12 @@ export const {
   addNotes,
   setNotes,
   addTocart,
+  setAddTocart,
   clearCart,
   setDiscount,
   addDiscount,
+  checkSuppliedVariant,
+  setCheckSuppliedVariant,
 } = retailsSlice.actions;
 
 export const selectRetailData = (state) => state.retails;
