@@ -81,7 +81,7 @@ const Policy = ({handleTouch}) => {
                                                     console.log(data, "nareshdata");
                                                     return (
                                                         <div className='col-lg-4 mt-4' key={index}>
-                                                            <div className='publishSection' onClick={() => handleTouch("PolicyInfo",data)}>
+                                                            <div className='publishSection' onClick={() => handleTouch("PolicyInfo",data)} style={{cursor:'pointer'}}>
                                                                 <div className='flexContent'>
                                                                     <h4 className='addServicePara m-0'>Published</h4>
                                                                     <div className='activeBox'>

@@ -1,8 +1,10 @@
 import React from 'react'
 import * as Images from "../../../utilities/images";
 import Image from "next/image";
+import { useRouter } from 'next/router';
 
-const PolicyInfo = ({ policyInfo }) => {
+const PolicyInfo = ({ policyInfo,handleTouch }) => {
+    const router = useRouter();
     // const removeHtmlTag = (content) => {
     //     const withoutHtmlTags = content?.replace(/<\/?[^>]+(>|$)|&nbsp;/g, '');
 
@@ -17,7 +19,7 @@ const PolicyInfo = ({ policyInfo }) => {
                     {/* <div className='col-lg-3'></div> */}
                     <div className='col-lg-9'>
                         <div className='refundRight settingOuter'>
-                            <Image src={Images.boldLeftArrow} alt="boldLeftArrow " className="img-fluid pointHand" />
+                            <Image src={Images.boldLeftArrow} style={{cursor:'pointer'}} alt="boldLeftArrow " className="img-fluid pointHand"  onClick={()=>handleTouch("Policies")}/>
                             <div className='refundSub'>
                                 <h4 className='appointMain'>{policyInfo?.title}</h4>
                                 <div className='refundIntro'>

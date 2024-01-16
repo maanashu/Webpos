@@ -81,6 +81,7 @@ export default function Settings() {
   };
 
   const handleTouch = (item, id) => {
+    console.log(item,"item");
     setPolicyInfo(id);
     setSelectedItemId(id ? id : "");
     setSelectedItem(item?.name ? item?.name : item);
@@ -107,9 +108,9 @@ export default function Settings() {
       case "staffDetail":
         return <StaffDetail selectedItemId={selectedItemId} />;
       case "legalPolicy":
-        return <LegalPolicy policyInfo={policyInfo} />;
+        return <LegalPolicy policyInfo={policyInfo} handleTouch={handleTouch}/>;
       case "PolicyInfo":
-        return <PolicyInfo policyInfo={policyInfo} />;
+        return <PolicyInfo policyInfo={policyInfo} handleTouch={handleTouch}/>;
       case "Wallet":
         return <Wallet />;
       case "Notifications":

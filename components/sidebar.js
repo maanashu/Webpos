@@ -139,7 +139,7 @@ const Sidebar = (props) => {
           </ListGroupItem>
           <ListGroupItem className="sidebarItems">
             <Link
-              href="#"
+              href="/shipping"
               className={`sidebarLinks ${
                 router?.pathname == "/Shipping" ? "active" : ""
               }`}
