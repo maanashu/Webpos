@@ -212,6 +212,11 @@ console.log(totalInventoryData, "total inventory data");
                           <td
                             className="customers-table-data"
                           >
+                            {row?.category?.name ? `${row?.category?.name?.length > 25 ? `${row?.category?.name?.slice(0, 25)}...` : row?.category?.name}` : ""}
+                          </td>
+                          <td
+                            className="customers-table-data"
+                          >
                             {row?.product_upc}
                           </td>
                           <td
