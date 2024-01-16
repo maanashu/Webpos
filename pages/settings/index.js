@@ -35,12 +35,12 @@ import PolicyInfo from "./policies/policyInfo";
 import Policy from "./policies";
 import Wallet from "./Wallet";
 import Notification from "./notification";
+import StaffLocation from "./staff/staffLocation";
 
 export default function Settings() {
   const [selectedItem, setSelectedItem] = useState("Security");
   const [selectedItemId, setSelectedItemId] = useState("");
   const [policyInfo, setPolicyInfo] = useState("");
-  console.log(selectedItemId, "selectedItemId");
 
   const settingsOptions = [
     { id: 1, name: "Security", info: "Not Updated", image: securityTick },
@@ -105,7 +105,7 @@ export default function Settings() {
       case "Policies":
         return <Policy handleTouch={handleTouch} />;
       case "staffDetail":
-        return <StaffDetail selectedItemId={selectedItemId} />;
+        return <StaffDetail selectedItemId={selectedItemId} handleTouch={handleTouch} />;
       case "legalPolicy":
         return <LegalPolicy policyInfo={policyInfo} />;
       case "PolicyInfo":
@@ -114,6 +114,8 @@ export default function Settings() {
         return <Wallet />;
       case "Notifications":
         return <Notification />;
+        case "staffLocation":
+          return <StaffLocation selectedItemId={selectedItemId}/>;
       default:
         return null;
     }
