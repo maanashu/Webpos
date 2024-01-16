@@ -172,7 +172,7 @@ console.log(totalInventoryData, "total inventory data");
               className="customers-table-data"
               style={{ border: "none", color: "#7E8AC1", textAlign: "left" }}
             >
-              Price
+             Total Price
             </th>
             <th
               className="customers-table-data"
@@ -201,13 +201,13 @@ console.log(totalInventoryData, "total inventory data");
               {
                 <>
                   {
-                    totalInventoryData?.totalProductSoldList?.data?.length > 0 ? <tbody>
-                      {totalInventoryData?.totalProductSoldList?.data?.map((row, idx) => (
+                    totalInventoryData?.inventory_list?.data?.length > 0 ? <tbody>
+                      {totalInventoryData?.inventory_list?.data?.map((row, idx) => (
                         <tr className="customers-table-row" key={idx}>
                           <td
                             className="customers-table-data"
                           >
-                            {row?.product_name ? `${row?.product_name?.length > 25 ? `${row?.product_name?.slice(0, 25)}...` : row?.product_name}` : ""}
+                            {row?.name ? `${row?.name?.length > 25 ? `${row?.name?.slice(0, 25)}...` : row?.name}` : ""}
                           </td>
                           <td
                             className="customers-table-data"
