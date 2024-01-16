@@ -35,6 +35,7 @@ import PolicyInfo from "./policies/policyInfo";
 import Policy from "./policies";
 import Wallet from "./Wallet";
 import Notification from "./notification";
+import Language from "./language";
 
 export default function Settings() {
   const [selectedItem, setSelectedItem] = useState("Security");
@@ -100,6 +101,8 @@ export default function Settings() {
         return <Taxes />;
       case "Locations":
         return <Location />;
+      case "Language":
+        return <Language />;
       case "Legal":
         return <Legal handleTouch={handleTouch} />;
       case "Policies":
