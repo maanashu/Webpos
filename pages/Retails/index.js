@@ -23,15 +23,15 @@ const Retails = () => {
   const cartData = retailData?.productCart;
   const cartLength = cartData?.productCart?.poscart_products?.length;
   const mainProductArray = retailData?.mainProductData?.data || [];
+  const mainServicesArray = retailData?.mainServicesData?.data || [];
   const productPagination = {
     total: retailData?.mainProductData?.total || "0",
   };
   const servicesCount = {
     total: retailData?.mainServicesData?.total || "0",
   };
-
-  const [services, setServices] = useState(null);
   const completePathName = router.asPath;
+
   const productFun = (productId, index, item) => {
     let params = {
       seller_id: sellerId,
@@ -55,12 +55,7 @@ const Retails = () => {
     dispatch(
       getMainProduct({
         ...params,
-        cb(res) {
-          if (res.data) {
-          } else {
-            toast.error("something went wrong");
-          }
-        },
+        cb(res) {},
       })
     );
   };
@@ -75,13 +70,7 @@ const Retails = () => {
     dispatch(
       getMainServices({
         ...params,
-        cb(res) {
-          if (res.data) {
-            setServices(res?.data?.payload?.data);
-          } else {
-            toast.error("something went wrong");
-          }
-        },
+        cb(res) {},
       })
     );
   };
@@ -93,7 +82,7 @@ const Retails = () => {
     //   servicesData();
     // }
     productData();
-    // servicesData();
+    servicesData();
   }, [sellerId]);
 
   return (
@@ -105,7 +94,7 @@ const Retails = () => {
             ServicesCount={servicesCount?.total}
           />
           <div className="commanscrollBar">
-            {parameter == "product" || parameter == "services" ? (
+            {parameter == "product" ? (
               <div className="row">
                 {retailData?.loading ? (
                   <>
@@ -170,9 +159,9 @@ const Retails = () => {
               </div>
             ) : (
               <>
-                {/* <div className="row">
-                  {services?.length > 0 ? (
-                    services?.map((services, index) => {
+                <div className="row">
+                  {mainServicesArray?.length > 0 ? (
+                    mainServicesArray?.map((services, index) => {
                       return (
                         <div
                           key={index}
@@ -247,7 +236,7 @@ const Retails = () => {
                     })
                   ) : (
                     <>
-                      {services?.length == 0 ? (
+                      {mainServicesArray?.length == 0 ? (
                         <h3 className="mt-3 mb-3">No services Found!</h3>
                       ) : (
                         <div className="loaderOuter">
@@ -256,7 +245,7 @@ const Retails = () => {
                       )}
                     </>
                   )}
-                </div> */}
+                </div>
               </>
             )}
           </div>

@@ -24,9 +24,7 @@ const ProductCart = () => {
   const cartData = retailData?.productCart;
   const cartAmount = cartData?.amount;
   const sellerId = authData?.usersInfo?.payload?.uniqe_id;
-  const [availableOffersData, setAvailableOffersData] = useState(null);
-  const [productCarts, setProductCarts] = useState(null);
-  const [posCartProducts, setPosCartProducts] = useState([]);
+  const availableOffersArray = retailData?.availableOffers?.data || [];
   const [key, setKey] = useState(Math.random());
   const [modalDetail, setModalDetail] = useState({
     show: false,
@@ -51,29 +49,13 @@ const ProductCart = () => {
       availableOffers({
         ...params,
         cb(res) {
-          console.log("resres", res);
         },
       })
     );
   };
-  const fullcarts = () => {
-    dispatch(
-      productCart({
-        cb(res) {
-          console.log(res, "response=>");
-          if (res.data) {
-            setProductCarts(res?.data?.payload);
-            setPosCartProducts(res?.data?.payload?.poscart_products);
-          } else {
-            toast.error("something went wrong");
-          }
-        },
-      })
-    );
-  };
+
   useEffect(() => {
     offers();
-    // fullcarts();
   }, [sellerId]);
 
   const handleAddDiscount = () => {
@@ -253,8 +235,8 @@ const ProductCart = () => {
                 </div>
 
                 <div className="offerdata">
-                  {availableOffersData?.length > 0 ? (
-                    availableOffersData?.map((offers, index) => {
+                  {availableOffersArray?.length > 0 ? (
+                    availableOffersArray?.map((offers, index) => {
                       return (
                         <div key={index} className="availableoffer">
                           <div className="cartOfferInfo">
@@ -309,7 +291,7 @@ const ProductCart = () => {
                     })
                   ) : (
                     <>
-                      {availableOffersData?.length == 0 ? (
+                      {availableOffersArray?.length == 0 ? (
                         <h3 className="mt-3 mb-3">No avail Found!</h3>
                       ) : (
                         <div className="loaderOuter">

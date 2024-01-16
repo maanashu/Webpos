@@ -5,6 +5,7 @@ import { toast } from "react-toastify";
 
 const AddNotes = (props) => {
   const retailData = useSelector(selectRetailData);
+  console.log(retailData,'retailData');
   const dispatch = useDispatch();
   const cartId = retailData?.cartDetails?.id;
   const [addNote, setAddNotes] = useState("");
@@ -23,9 +24,8 @@ const AddNotes = (props) => {
       addNotes({
         ...params,
         cb(res) {
-          toast.success("Notes Added!")
+          toast.success("Notes Added!");
           props.close();
-        
         },
       })
     );
@@ -53,6 +53,16 @@ const AddNotes = (props) => {
           <button className="addnotesBtn" type="submit">
             Add Notes
           </button>
+{/* 
+          {retailData?.addNotes?.loading ?
+                                <button className="addnotesBtn" type="submit" disabled>
+                                    <span className="spinner-border spinner-border-sm"></span>
+                                </button> :
+                                  <button className="addnotesBtn" type="submit" >
+                                    Next
+                                   
+                                </button>
+                            } */}
         </div>
       </form>
     </div>
