@@ -35,28 +35,28 @@ const index = () => {
     {
       icon: totalInventory,
       title: "Total Inventory",
-      count: totalInventoryData?.productOverview?.totalProducts,
+      count: totalInventoryData?.inventory_overview?.total_inventory,
       bgColor: "#D1FADF",
       textColor: "#003921",
     },
     {
       icon: totalInventoryValue,
       title: "Total Inventory Value",
-      count: totalInventoryData?.productOverview?.totalVolume ? `$${addThousandSeparator((totalInventoryData?.productOverview?.totalVolume)?.toFixed(2))}` : "$0",
+      count: totalInventoryData?.inventory_overview?.total_inventory_cost ? `$${addThousandSeparator((totalInventoryData?.inventory_overview?.total_inventory_cost)?.toFixed(2))}` : "$0",
       bgColor: "#D1FADF",
       textColor: "#003921",
     },
     {
       icon: profitMargin,
       title: "Average Order Value",
-      count: totalInventoryData?.productOverview?.totalMargin ? `$${addThousandSeparator((totalInventoryData?.productOverview?.totalMargin)?.toFixed(2))}` : "$0",
+      count: totalInventoryData?.inventory_overview?.average_value ? `$${addThousandSeparator((totalInventoryData?.inventory_overview?.average_value)?.toFixed(2))}` : "$0",
       bgColor: "#D1FADF",
       textColor: "#003921",
     },
     {
       icon: gross_profit,
       title: "Gross Profit",
-      count: totalInventoryData?.productOverview?.totalProfit ? `$${addThousandSeparator((totalInventoryData?.productOverview?.totalProfit)?.toFixed(2))}` : "$0",
+      count: totalInventoryData?.inventory_overview?.total_profit ? `$${addThousandSeparator((totalInventoryData?.inventory_overview?.total_profit)?.toFixed(2))}` : "$0",
       bgColor: "#D1FADF",
       textColor: "#003921",
     },
@@ -155,6 +155,12 @@ console.log(totalInventoryData, "total inventory data");
               style={{ border: "none", color: "#7E8AC1", textAlign: "left" }}
             >
               Product Name
+            </th>
+            <th
+              className="customers-table-data"
+              style={{ border: "none", color: "#7E8AC1", textAlign: "left" }}
+            >
+              Category
             </th>
             <th
               className="customers-table-data"

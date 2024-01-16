@@ -617,6 +617,5 @@ export {
   checkverify,
   countryflag,
   countryflag1,
-  editimg,
   toggleOn
 };
