@@ -208,7 +208,7 @@ function* getStaffDetails(action) {
     if (resp.status) {
       yield put(setGetStaffDetails(resp.data));
       yield call(action.payload.cb, (action.res = resp));
-      toast.success(resp?.data?.msg);
+      // toast.success(resp?.data?.msg);
     } else {
       throw resp;
     }
@@ -283,7 +283,27 @@ function* updateSettings(action) {
   }
 }
 // Receipt module generator function end///////////////////////////////////////////
-
+function* requestPayment(action) {
+  const dataToSend = { ...action.payload };
+  delete dataToSend.cb;
+  try {
+    const resp = yield call(
+      ApiClient.post,
+      `${AUTH_API_URL}/api/v1/pos_staff_salary/request-payment`,
+      (action.payload = action.payload)
+    );
+    if (resp.status) {
+      // yield put(setVerifyGoogleAuthenticator(resp.data));
+      yield call(action.payload.cb, (action.res = resp));
+      toast.success(resp?.data?.msg);
+    } else {
+      throw resp;
+    }
+  } catch (e) {
+    yield put(onErrorStopLoad());
+    toast.error(e?.error?.response?.data?.msg);
+  }
+}
 function* settingSaga() {
   yield all([
     // setting/security API START
@@ -307,6 +327,7 @@ function* settingSaga() {
     takeLatest("setting/updateLocationSetting", updateLocationSetting),
 
     takeLatest("setting/updateSettings", updateSettings),
+    takeLatest("setting/requestPayment", requestPayment),
   ]);
 }
 
