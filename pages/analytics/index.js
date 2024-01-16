@@ -5,7 +5,7 @@ import ChartCommon from '../../components/commanComonets/ChartCommon';
 import { useRouter } from 'next/router';
 import { useDispatch, useSelector } from 'react-redux';
 import { selectLoginAuth } from '../../redux/slices/auth';
-import { getProfitsData, orderAnalyticsData, totalAnalyticsProductSoldData, totalInventoryData, totalOrderAnalyticsDataApi } from '../../redux/slices/analytics';
+import { getProfitsData, orderAnalyticsData, totalAnalyticsProductSoldData, totalInventoryDataApi, totalOrderAnalyticsDataApi } from '../../redux/slices/analytics';
 import moment from 'moment-timezone';
 // import {getProfitsData} from "../../redux/slices/analytics"
 
@@ -385,7 +385,7 @@ const Analytics = () => {
                 end_date: moment(endDate).format("YYYY-MM-DD"),
             };
         }
-        dispatch(totalInventoryData({
+        dispatch(totalInventoryDataApi({
             ...params,
             cb(res) {
                 if (res.status) {

@@ -418,13 +418,13 @@ const ProductCart = () => {
         header={
           <>
             {modalDetail.flag === "AddDiscount" ? (
-              <h2 className="modalHeading mb-0">
-                <p className="addProductHeading">Add Discount</p>
-              </h2>
+              <h4 className="appointMain mb-0">
+                Add Discount
+              </h4>
             ) : modalDetail.flag === "AddNotes" ? (
-              <h2 className="modalHeading mb-0">
-                <p className="addProductHeading">Add Notes</p>
-              </h2>
+              <h4 className="appointMain mb-0">
+                Add Notes
+              </h4>
             ) : (
               ""
             )}

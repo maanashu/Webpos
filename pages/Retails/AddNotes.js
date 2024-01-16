@@ -31,10 +31,9 @@ const AddNotes = (props) => {
   };
 
   return (
-    <div className="">
+    <div className="addnotesMain">
       <form className="otpForm" onSubmit={(e) => handleAddNotes(e)}>
-        <div className="otpMain">
-          <div className="verify-part">
+          <div className="verify-part mt-4 mb-3">
             <div className="verify-box text-center">
               <textarea
                 className="notesBox"
@@ -47,7 +46,6 @@ const AddNotes = (props) => {
               />
             </div>
           </div>
-        </div>
         <div className="noteButton">
           {/* <button className="addnotesBtn" type="submit">
             Add Notes

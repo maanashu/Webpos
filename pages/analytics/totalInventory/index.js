@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react'
 import AnalyticsHeader from '../../../components/commanComonets/AnalyticsHeader'
 import AnalyticsSubHeader from '../../../components/commanComonets/AnalyticsSubHeader';
-import { ArrowLeft, ArrowRight, average_order, gross_profit, gross_profit_blue, order_frequency, overview_sales, profitMargin, total_order, total_volume, unitSold } from '../../../utilities/images';
+import { ArrowLeft, ArrowRight, average_order, gross_profit, gross_profit_blue, order_frequency, overview_sales, profitMargin, totalInventory, totalInventoryValue, total_order, total_volume, unitSold } from '../../../utilities/images';
 import Image from 'next/image';
-import { analyticsDetails, getProfitsData, orderAnalyticsData, totalAnalyticsProductSoldData, totalInventoryData, totalProductSoldAnalyticsDataApi } from '../../../redux/slices/analytics';
+import { analyticsDetails, totalInventoryDataApi } from '../../../redux/slices/analytics';
 import moment from 'moment-timezone';
 import { useDispatch, useSelector } from 'react-redux';
 import { selectLoginAuth } from '../../../redux/slices/auth';
@@ -13,14 +13,14 @@ const index = () => {
   const [channelSelected, setChannelSelected] = useState({ value: 'all', label: 'All Channels' })
   const [startDate, setStartDate] = useState(null);
   const [endDate, setEndDate] = useState(null);
-  const [totalInventory, setTotalInventoryData] = useState("")
+  const [totalInventoryData, setTotalInventoryData] = useState("")
   const analyticsData = useSelector(analyticsDetails);
   const handleChange = (selectedOption) => {
     setChannelSelected(selectedOption)
   };
 
   const dispatch = useDispatch()
-  console.log(totalInventory, "analytics data")
+  console.log(totalInventoryData, "analytics data")
 
   function addThousandSeparator(number) {
     return number?.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
@@ -33,30 +33,30 @@ const index = () => {
 
   const STATS = [
     {
-      icon: unitSold,
-      title: "Units Sold",
-      count: totalInventory?.productOverview?.totalProducts,
+      icon: totalInventory,
+      title: "Total Inventory",
+      count: totalInventoryData?.inventory_overview?.total_inventory,
       bgColor: "#D1FADF",
       textColor: "#003921",
     },
     {
-      icon: total_volume,
-      title: "Total Volume",
-      count: totalInventory?.productOverview?.totalVolume ? `$${addThousandSeparator((totalInventory?.productOverview?.totalVolume)?.toFixed(2))}` : "$0",
+      icon: totalInventoryValue,
+      title: "Total Inventory Value",
+      count: totalInventoryData?.inventory_overview?.total_inventory_cost ? `$${addThousandSeparator((totalInventoryData?.inventory_overview?.total_inventory_cost)?.toFixed(2))}` : "$0",
       bgColor: "#D1FADF",
       textColor: "#003921",
     },
     {
       icon: profitMargin,
-      title: "Profit Margin",
-      count: totalInventory?.productOverview?.totalMargin ? `$${addThousandSeparator((totalInventory?.productOverview?.totalMargin)?.toFixed(2))}` : "$0",
+      title: "Average Order Value",
+      count: totalInventoryData?.inventory_overview?.average_value ? `$${addThousandSeparator((totalInventoryData?.inventory_overview?.average_value)?.toFixed(2))}` : "$0",
       bgColor: "#D1FADF",
       textColor: "#003921",
     },
     {
       icon: gross_profit,
       title: "Gross Profit",
-      count: totalInventory?.productOverview?.totalProfit ? `$${addThousandSeparator((totalInventory?.productOverview?.totalProfit)?.toFixed(2))}` : "$0",
+      count: totalInventoryData?.inventory_overview?.total_profit ? `$${addThousandSeparator((totalInventoryData?.inventory_overview?.total_profit)?.toFixed(2))}` : "$0",
       bgColor: "#D1FADF",
       textColor: "#003921",
     },
@@ -78,9 +78,10 @@ const index = () => {
             end_date: moment(endDate).format("YYYY-MM-DD"),
         };
     }
-    dispatch(totalInventoryData({
+    dispatch(totalInventoryDataApi({
         ...params,
         cb(res) {
+          console.log(res,"total inventory data")
             if (res.status) {
                 setTotalInventoryData(res?.data?.payload);
             }
@@ -89,13 +90,11 @@ const index = () => {
     );
 };
 
-console.log(totalInventory, "total inventory data");
+console.log(totalInventoryData, "total inventory data");
 
   useEffect(() => {
     totalInventoryHandle();
   }, [timeSpan, channelSelected, endDate]);
-
-
 
   return (
     <div className="main-container-customers">
@@ -110,12 +109,10 @@ console.log(totalInventory, "total inventory data");
         startDate={startDate}
         endDate={endDate}
       />
-
       <AnalyticsSubHeader
         mainIcon={gross_profit_blue}
         title="Total Inventory"
       />
-
       {/* stats */}
       <div className="stats flex-row-space-between">
         {STATS.map(({ bgColor, icon, title, count, textColor }, idx) => (
@@ -163,13 +160,19 @@ console.log(totalInventory, "total inventory data");
               className="customers-table-data"
               style={{ border: "none", color: "#7E8AC1", textAlign: "left" }}
             >
+              Category
+            </th>
+            <th
+              className="customers-table-data"
+              style={{ border: "none", color: "#7E8AC1", textAlign: "left" }}
+            >
               UPC
             </th>
             <th
               className="customers-table-data"
               style={{ border: "none", color: "#7E8AC1", textAlign: "left" }}
             >
-              Price
+             Total Price
             </th>
             <th
               className="customers-table-data"
@@ -193,35 +196,39 @@ console.log(totalInventory, "total inventory data");
                 Loading...
               </td>
             </tr>
-
           </tbody>
             : <>
               {
                 <>
                   {
-                    totalInventory?.totalProductSoldList?.data?.length > 0 ? <tbody>
-                      {totalInventory?.totalProductSoldList?.data?.map((row, idx) => (
+                    totalInventoryData?.inventory_list?.data?.length > 0 ? <tbody>
+                      {totalInventoryData?.inventory_list?.data?.map((row, idx) => (
                         <tr className="customers-table-row" key={idx}>
                           <td
                             className="customers-table-data"
                           >
-                            {row?.product_name ? `${row?.product_name?.length > 25 ? `${row?.product_name?.slice(0, 25)}...` : row?.product_name}` : ""}
+                            {row?.name ? `${row?.name?.length > 25 ? `${row?.name?.slice(0, 25)}...` : row?.name}` : ""}
                           </td>
                           <td
                             className="customers-table-data"
                           >
-                            {row?.product_upc}
+                            {row?.category?.name ? `${row?.category?.name?.length > 25 ? `${row?.category?.name?.slice(0, 25)}...` : row?.category?.name}` : ""}
+                          </td>
+                          <td
+                            className="customers-table-data"
+                          >
+                            {row?.upc}
                           </td>
                           <td
                             className="customers-table-data"
                           // style={{ display: "flex", gap: "12px" }}
                           >
-                            {`$${row?.total_price ? addThousandSeparator((row?.total_price)?.toFixed(2)) : "0"}`}
+                            {`$${row?.price ? addThousandSeparator((row?.price)?.toFixed(2)) : "0"}`}
                           </td>
                           <td
                             className="customers-table-data"
                           >
-                            {row?.in_stock_qty}
+                            {row?.supplies[0]?.total_quantity}
                           </td>
                           <td
                             className="customers-table-data"
@@ -249,9 +256,7 @@ console.log(totalInventory, "total inventory data");
               }
             </>
         }
-
       </table>
-
     </div>
   )
 }

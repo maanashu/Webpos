@@ -4,26 +4,26 @@ import Image from "next/image";
 import { useDispatch, useSelector } from "react-redux";
 import { settingInfo, updateSettings } from "../../../redux/slices/setting";
 
-const Receipts = () => {
+const Wallet = () => {
   const dispatch = useDispatch();
   const receiptSettings = useSelector(settingInfo);
   const userSettings = receiptSettings?.getSettings;
 
-  const smsStatus = userSettings?.invoice_sms_send_status;
-  const emailStatus = userSettings?.invoice_email_send_status;
-  const invoiceStatus = userSettings?.print_invoice_status;
+  const isCoin = userSettings?.accept_jbr_coin_payment;
+  const isCash = userSettings?.accept_cash_payment;
+  const isCard = userSettings?.accept_card_payment;
 
   const handleSettings = (id) => {
     let data = {};
     switch (id) {
       case 1:
-        data.invoice_sms_send_status = !smsStatus;
+        data.accept_jbr_coin_payment = !isCoin;
         break;
       case 2:
-        data.invoice_email_send_status = !emailStatus;
+        data.accept_cash_payment = !isCash;
         break;
       case 3:
-        data.print_invoice_status = !invoiceStatus;
+        data.accept_card_payment = !isCard;
         break;
       default:
     }
@@ -35,21 +35,16 @@ const Receipts = () => {
       <div className="settingOuter taxRight">
         <div style={{ display: "flex" }}>
           <Image
-            src={Images.settingsReceipt}
+            src={Images.settingsDevices}
             className="settings-sidebar-icons"
-            style={{ marginRight: "5px" }}
+            style={{ marginRight: "5px", marginTop: "5px" }}
           />
           <div style={{ flex: 1 }}>
-            <div className={styles.headingTextStyle}>My receipts</div>
-            <div className={styles.textInformationStyle}>
-              Add a curbside, drive-through, or in-store pickup. Specify your
-              business hours, the pickup location, and add a brief instruction
-              on how the pickup works for customers.
-            </div>
+            <div className={"appointMain"}>Wallet Config</div>
 
             <div style={{ marginTop: 30 }} />
 
-            {/* Sms container */}
+            {/* pay with coin container */}
             <div className={styles.shadowBox}>
               <div className={styles.rowStartJustified}>
                 <div class={styles.rowStart}>
@@ -61,11 +56,15 @@ const Receipts = () => {
 
                   <div>
                     <div className={styles.boxTopTitleTextStyle}>
-                      SMS to phone number
+                      Pay with JOBR Coin
                     </div>
                     <div className={styles.boxbottomTextStyle}>
-                      It might apply a charge.
+                      Online Shop / POS
                     </div>
+                    <h4 className={styles.boxbottomTextStyle}>
+                      You need to provide some additional information about your
+                      business to start receiving payouts from Shopify Payments.
+                    </h4>
                   </div>
                 </div>
 
@@ -74,7 +73,7 @@ const Receipts = () => {
                     class="form-check-input"
                     type="checkbox"
                     id="flexSwitchCheckChecked"
-                    checked={smsStatus}
+                    checked={isCoin}
                     onChange={() => {
                       handleSettings(1);
                     }}
@@ -88,7 +87,7 @@ const Receipts = () => {
             </div>
             {/*  */}
 
-            {/* email container */}
+            {/* pay with cash container */}
             <div className={styles.shadowBox}>
               <div className={styles.rowStartJustified}>
                 <div class={styles.rowStart}>
@@ -99,10 +98,14 @@ const Receipts = () => {
                   />
 
                   <div>
-                    <div className={styles.boxTopTitleTextStyle}>Email</div>
-                    <div className={styles.boxbottomTextStyle}>
-                      Team members must enable their own verification methods.
+                    <div className={styles.boxTopTitleTextStyle}>
+                      Pay with Cash
                     </div>
+                    <div className={styles.boxbottomTextStyle}>POS</div>
+                    <h4 className={styles.boxbottomTextStyle}>
+                      You need to provide some additional information about your
+                      business to start receiving payouts from Shopify Payments.
+                    </h4>
                   </div>
                 </div>
 
@@ -111,7 +114,7 @@ const Receipts = () => {
                     class="form-check-input"
                     type="checkbox"
                     id="flexSwitchCheckChecked"
-                    checked={emailStatus}
+                    checked={isCash}
                     onChange={() => {
                       handleSettings(2);
                     }}
@@ -125,7 +128,7 @@ const Receipts = () => {
             </div>
             {/*  */}
 
-            {/* print invoice container */}
+            {/* pay by card container */}
             <div className={styles.shadowBox}>
               <div className={styles.rowStartJustified}>
                 <div class={styles.rowStart}>
@@ -137,11 +140,13 @@ const Receipts = () => {
 
                   <div>
                     <div className={styles.boxTopTitleTextStyle}>
-                      SMS to phone number
+                      Pay by Card Contactless
                     </div>
-                    <div className={styles.boxbottomTextStyle}>
-                      Team members must enable their own verification methods.
-                    </div>
+                    <div className={styles.boxbottomTextStyle}>POS</div>
+                    <h4 className={styles.boxbottomTextStyle}>
+                      You need to provide some additional information about your
+                      business to start receiving payouts from Shopify Payments.
+                    </h4>
                   </div>
                 </div>
 
@@ -150,7 +155,7 @@ const Receipts = () => {
                     class="form-check-input"
                     type="checkbox"
                     id="flexSwitchCheckChecked"
-                    checked={invoiceStatus}
+                    checked={isCard}
                     onChange={() => {
                       handleSettings(3);
                     }}
@@ -169,4 +174,4 @@ const Receipts = () => {
     </>
   );
 };
-export default Receipts;
+export default Wallet;
