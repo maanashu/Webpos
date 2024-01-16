@@ -9,6 +9,7 @@ import {
   onErrorStopLoad,
   setMainProduct,
   setOneProductById,
+  setOneServiceById,
   setMainServices,
   setAvailableOffers,
   setProductCart,
@@ -76,6 +77,26 @@ function* getMainServices(action) {
     );
     if (resp.status) {
       yield put(setMainServices(resp.data));
+      yield call(action.payload.cb, (action.res = resp));
+    } else {
+      throw resp;
+    }
+  } catch (e) {
+    yield put(onErrorStopLoad());
+    toast.error(e?.error?.response?.data?.msg);
+  }
+}
+function* getOneServiceById(action) {
+  const dataToSend = { ...action.payload?.params };
+  const params = new URLSearchParams(dataToSend).toString();
+  try {
+    const resp = yield call(
+      ApiClient.get,
+      `${PRODUCT_API_URL_V1}products/${action.payload?.serviceId}?${params}`,
+    );
+    if (resp.status) {
+      console.log(resp,'respobeService=>');
+      yield put(setOneServiceById(resp.data));
       yield call(action.payload.cb, (action.res = resp));
     } else {
       throw resp;
@@ -210,6 +231,7 @@ function* retailsSaga() {
     takeLatest("retails/getMainProduct", getMainProduct),
     takeLatest("retails/getOneProductById", getOneProductById),
     takeLatest("retails/getMainServices", getMainServices),
+    takeLatest("retails/getOneServiceById",getOneServiceById),
     takeLatest("retails/availableOffers", availableOffers),
     takeLatest("retails/productCart", productCart),
     takeLatest("retails/availableOffers", availableOffers),

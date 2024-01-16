@@ -7,6 +7,7 @@ import {
   getMainProduct,
   getMainServices,
   getOneProductById,
+  getOneServiceById,
   selectRetailData,
 } from "../../redux/slices/retails";
 import { useDispatch, useSelector } from "react-redux";
@@ -44,6 +45,22 @@ const Retails = () => {
         productId,
         cb: (resp) => {
           router.push({ pathname: "/Retails/AddProduct" });
+        },
+      })
+    );
+  };
+  const getOneService = (serviceId) => {
+    let params = {
+      seller_id: sellerId,
+      app_name: "pos",
+      need_pos_users: true,
+    };
+    dispatch(
+      getOneServiceById({
+        params,
+        serviceId,
+        cb: (resp) => {
+         router.push({ pathname: "/Retails/AddService" });
         },
       })
     );
@@ -109,7 +126,6 @@ const Retails = () => {
                         className="col-xl-2 col-lg-3 col-md-4 mb-3"
                         key={index}
                       >
-                        {/* <Link href='/Retails/AddProduct'> */}
                         <div
                           className="productsCard"
                           onClick={() => productFun(item.id, index, item)}
@@ -167,7 +183,12 @@ const Retails = () => {
                           key={index}
                           className="col-xl-2 col-lg-3 col-md-4 mb-3"
                         >
-                          <div className="productsCard">
+                          <div
+                            className="productsCard"
+                            onClick={() =>
+                              getOneService(services?.id, index)
+                            }
+                          >
                             <figure className="productImageBox">
                               <Image
                                 src={services?.image}
