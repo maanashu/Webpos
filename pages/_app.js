@@ -7,6 +7,7 @@ import "../public/font/stylesheet.css";
 import "../public/css/custom_R.css";
 import "../public/css/deliveries.css";
 import "../public/css/customers.css";
+import "../public/css/settings.css";
 import "react-toastify/dist/ReactToastify.css";
 import "react-phone-input-2/lib/style.css";
 import "react-datepicker/dist/react-datepicker.css";
@@ -64,14 +65,11 @@ function App({ Component, pageProps }) {
     <>
       {Token ? (
         <>
-          <Layout
-            activeSidebar={activeSidebar}
-            toggleSidebar={toggleSidebar}
-          >
+          <Layout activeSidebar={activeSidebar} toggleSidebar={toggleSidebar}>
             <Component {...pageProps} />
             <ToastContainer autoClose={800} />
           </Layout>
-        </>
+        </> 
       ) : (
         <>
           <AuthLayout>

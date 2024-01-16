@@ -285,9 +285,9 @@ const ConfirmSelect = () => {
                                 <Image src={Images.phoneMessage} alt="phoneMessage Image" className="img-fluid " />
                             </figure>
                             <h4 className='loginheading mt-2'>What phone number do we send the e-receipt to?</h4>
-                            <p onClick={handleOnCloseModal} className='crossModal'>
+                            <div onClick={handleOnCloseModal} className='crossModal'>
                                 <Image src={Images.modalCross} alt="modalCross" className="img-fluid" />
-                            </p>
+                            </div>
                         </div>
                     </>
                     :
@@ -298,9 +298,9 @@ const ConfirmSelect = () => {
                                     <Image src={Images.emailSms} alt="emailSms Image" className="img-fluid " />
                                 </figure>
                                 <h4 className='loginheading mt-2'>What e-mail address do we send the e-receipt to?</h4>
-                                <p onClick={handleOnCloseModal} className='crossModal'>
+                                <div onClick={handleOnCloseModal} className='crossModal'>
                                     <Image src={Images.modalCross} alt="modalCross" className="img-fluid" />
-                                </p>
+                                </div>
                             </div>
 
                         </>
@@ -312,18 +312,18 @@ const ConfirmSelect = () => {
                                         <Image src={Images.giftModal} alt="giftImage" className="img-fluid " />
                                     </figure>
                                     <h4 className='loginheading mt-2'>Add your Gift Card number</h4>
-                                    <p onClick={handleOnCloseModal} className='crossModal'>
+                                    <div onClick={handleOnCloseModal} className='crossModal'>
                                         <Image src={Images.modalCross} alt="modalCross" className="img-fluid" />
-                                    </p>
+                                    </div>
                                 </div>
 
                             </>
                             :
                             modalDetail.flag === "jobrWallet" ?
                                 <>
-                                    <p onClick={handleOnCloseModal} className='modal_cancel'>
+                                    <div onClick={handleOnCloseModal} className='modal_cancel'>
                                         <Image src={Images.modalCross} alt="modalCross" className="img-fluid" />
-                                    </p>
+                                    </div>
 
                                 </>
                                 :

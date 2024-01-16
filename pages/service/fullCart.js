@@ -3,7 +3,7 @@ import * as Images from "../../utilities/images";
 import Image from "next/image";
 import ProductSearch from '../../components/commanComonets/Product/productSearch';
 import CustomModal from '../../components/customModal/CustomModal';
-import AddCustomerModal from '../../components/modals/homeModals/service/addCustomerModal';
+import AddCustomerModal from '../../components/modals/service/addCustomerModal';
 
 
 const FullCart = () => {
@@ -294,9 +294,9 @@ const FullCart = () => {
                             </figure>
                             <h4 className='loginheading mt-2'>Add a customer</h4>
                             <h4 className='trackingHeading'>Search a costumer or <span className='fw-bold'>create a new one. </span></h4>
-                            <p onClick={handleOnCloseModal} className='crossModal'>
+                            <div onClick={handleOnCloseModal} className='crossModal'>
                                 <Image src={Images.modalCross} alt="modalCross" className="img-fluid" />
-                            </p>
+                            </div>
                         </div>
 
                     </>

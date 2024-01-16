@@ -461,6 +461,17 @@ body {
 }
 
 .nextverifyBtn {
+    border-radius: 30px;
+    background: #263682;
+    color: #F5F6FC;
+    font-size: 18px;
+    font-weight: 400;
+    letter-spacing: -0.36px;
+    border: none;
+    padding: 18px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   border-radius: 30px;
   background: #263682;
   color: #f5f6fc;

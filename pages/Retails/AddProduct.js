@@ -9,9 +9,11 @@ import {
   selectRetailData,
 } from "../../redux/slices/retails";
 import { selectLoginAuth } from "../../redux/slices/auth";
+import { Router, useRouter } from "next/router";
 
 const AddProduct = () => {
   const dispatch = useDispatch();
+  const router = useRouter();
   const retailData = useSelector(selectRetailData);
   const authData = useSelector(selectLoginAuth);
   const oneProductData = retailData?.oneProductData;
@@ -105,6 +107,7 @@ const AddProduct = () => {
           },
         })
       );
+      router.push("/Retails?parameter=product");
     } else {
       alert("no");
     }
@@ -116,7 +119,10 @@ const AddProduct = () => {
           <div className="col-lg-5 col-md-5">
             <div className="commanOuter me-0 commonSubOuter productDetailLeft">
               <div className="newServiceDetail">
-                <Link href="/Retails">
+                <Link
+                  //  href="/Retails"
+                  href="/Retails?parameter=product"
+                >
                   <Image
                     src={Images.boldLeftArrow}
                     alt="leftarrow image"

@@ -4,6 +4,8 @@ import { dashboardSlice } from "./dashboard";
 import { HYDRATE } from 'next-redux-wrapper';
 import { customersSlice } from "./customers";
 import { analyticsSlice } from "./analytics";
+import { transactionsSlice } from "./transactions";
+import { settingSlice } from "./setting";
 import { retailsSlice } from "./retails";
 
   const mainReducer = combineReducers({
@@ -11,6 +13,8 @@ import { retailsSlice } from "./retails";
     dashboard: dashboardSlice.reducer,
     customers: customersSlice.reducer,
     analytics: analyticsSlice.reducer,
+    transactions: transactionsSlice.reducer,
+    setting: settingSlice.reducer,
     retails: retailsSlice.reducer,
   });
 

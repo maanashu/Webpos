@@ -4,6 +4,7 @@ const initialState = {
     orderDeliveries: "",
     todaySales:"",
     drawerSession:"",
+    getProfileInfo:"",
     loading: false,
 };
 
@@ -38,6 +39,13 @@ export const dashboardSlice = createSlice({
         setGetPosLoginDetails: (state, action) => {
             state.loading = false;
         },
+        getProfile: (state) => {
+            state.loading = true;
+        },
+        setGetProfile: (state, action) => {
+            state.loading = false;
+            state.getProfileInfo = action?.payload
+        },
         dashboardLogout: (state) => {
             state.orderDeliveries = "";
             state.todaySales = "";
@@ -61,6 +69,8 @@ export const {
     getPosLoginDetails,
     setGetPosLoginDetails,
     dashboardLogout,
+    getProfile,
+    setGetProfile,
     onErrorStopLoad
 } = dashboardSlice.actions;
 

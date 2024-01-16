@@ -32,6 +32,12 @@ export const analyticsSlice = createSlice({
     setTotalAnalyticsProductSoldData:(state) => {
       state.loading = false;
     },
+    totalInventoryData:(state) => {
+      state.loading = true;
+    },
+    setTotalInventoryData:(state) => {
+      state.loading = false;
+    },
     onErrorStopLoad: (state) => {
       state.loading = false;
     },
@@ -42,6 +48,8 @@ export const analyticsSlice = createSlice({
 export const {
   onErrorStopLoad,
   getProfitsData,
+  totalInventoryData,
+  setTotalInventoryData,
   setProfitData,
   orderAnalyticsData,
   setOrderData,

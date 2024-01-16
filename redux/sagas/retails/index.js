@@ -48,7 +48,11 @@ function* getOneProductById(action) {
   try {
     const resp = yield call(
       ApiClient.get,
-      `${PRODUCT_API_URL_V1}products/${action.payload?.productId}?${params}`
+      `${PRODUCT_API_URL_V1}products/${action.payload?.productId}?${params}`,
+      console.log(
+        "endpoint",
+        `${PRODUCT_API_URL_V1}products/${action.payload?.productId}?${params}`
+      )
     );
     if (resp.status) {
       yield put(setOneProductById(resp.data));
@@ -134,6 +138,25 @@ function* addTocart(action) {
     toast.error(e?.error?.response?.data?.msg);
   }
 }
+function* clearCart(action) {
+  try {
+    const resp = yield call(
+      ApiClient.delete,
+      `${ORDER_API_URL}/api/v1/poscarts`,
+      console.log("11111", `${ORDER_API_URL}/api/v1/poscarts`)
+    );
+
+    if (resp.status) {
+      yield call(action.payload.cb, (action.res = resp));
+    } else {
+      throw resp;
+    }
+  } catch (e) {
+    yield put(onErrorStopLoad());
+    toast.error(e?.error?.response?.data?.msg);
+  }
+}
+
 function* addNotes(action) {
   const dataToSend = { ...action.payload };
   const params = new URLSearchParams(dataToSend);
@@ -146,7 +169,7 @@ function* addNotes(action) {
       `${ORDER_API_URL_V1}poscarts/${idValue}`,
       dataToSend
     );
-    
+
     if (resp.status) {
       yield put(setNotes(resp.data));
       yield call(action.payload.cb, (action.res = resp));
@@ -158,6 +181,7 @@ function* addNotes(action) {
     toast.error(e?.error?.response?.data?.msg);
   }
 }
+
 function* addDiscount(action) {
   const dataToSend = { ...action.payload };
   const params = new URLSearchParams(dataToSend);
@@ -167,7 +191,8 @@ function* addDiscount(action) {
   try {
     const resp = yield call(
       ApiClient.put,
-      `${ORDER_API_URL_V1}poscarts/${idValue}`, dataToSend
+      `${ORDER_API_URL_V1}poscarts/${idValue}`,
+      dataToSend
     );
     if (resp.status) {
       yield put(setDiscount(resp.data));
@@ -179,6 +204,7 @@ function* addDiscount(action) {
     toast.error(e?.error?.response?.data?.msg);
   }
 }
+
 function* retailsSaga() {
   yield all([
     takeLatest("retails/getMainProduct", getMainProduct),
@@ -186,10 +212,11 @@ function* retailsSaga() {
     takeLatest("retails/getMainServices", getMainServices),
     takeLatest("retails/availableOffers", availableOffers),
     takeLatest("retails/productCart", productCart),
+    takeLatest("retails/availableOffers", availableOffers),
     takeLatest("retails/addNotes", addNotes),
     takeLatest("retails/addDiscount", addDiscount),
-    takeLatest("retails/availableOffers", availableOffers),
     takeLatest("retails/addTocart", addTocart),
+    takeLatest("retails/clearCart", clearCart),
   ]);
 }
 

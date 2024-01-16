@@ -1,9 +1,253 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
+import AnalyticsHeader from '../../../components/commanComonets/AnalyticsHeader'
+import AnalyticsSubHeader from '../../../components/commanComonets/AnalyticsSubHeader';
+import { ArrowLeft, ArrowRight, average_order, gross_profit, gross_profit_blue, order_frequency, overview_sales, total_order, total_volume } from '../../../utilities/images';
+import Image from 'next/image';
+import { analyticsDetails, getProfitsData, orderAnalyticsData, totalOrderAnalyticsDataApi } from '../../../redux/slices/analytics';
+import moment from 'moment-timezone';
+import { useDispatch, useSelector } from 'react-redux';
+import { selectLoginAuth } from '../../../redux/slices/auth';
 
 const index = () => {
+  const [timeSpan, setTimeSpan] = useState("week");
+  const [channelSelected, setChannelSelected] = useState({ value: 'all', label: 'All Channels' })
+  const [startDate, setStartDate] = useState(null);
+  const [endDate, setEndDate] = useState(null);
+  const [totalOrderAnalyticsData, setTotalOrderAnalyticsData] = useState("")
+  const analyticsData = useSelector(analyticsDetails);
+  const handleChange = (selectedOption) => {
+    setChannelSelected(selectedOption)
+  };
+
+  const dispatch = useDispatch()
+  console.log(totalOrderAnalyticsData, "analytics data")
+
+  function addThousandSeparator(number) {
+    return number?.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+  }
+  const handleDateChange = (dates) => {
+    const [start, end] = dates;
+    setStartDate(start);
+    setEndDate(end);
+  }
+
+  const STATS = [
+    {
+      icon: total_order,
+      title: "Total Orders",
+      count: totalOrderAnalyticsData?.ordersOverView?.total_orders,
+      bgColor: "#D1FADF",
+      textColor: "#003921",
+    },
+    {
+      icon: total_volume,
+      title: "Total Volume",
+      count: `${addThousandSeparator(totalOrderAnalyticsData?.ordersOverView?.total_volume ? (totalOrderAnalyticsData?.ordersOverView?.total_volume).toFixed(2) : 0)}`,
+      bgColor: "#D1FADF",
+      textColor: "#003921",
+    },
+    {
+      icon: average_order,
+      title: "Average Order Value",
+      count: (totalOrderAnalyticsData?.ordersOverView?.averageValue || totalOrderAnalyticsData?.ordersOverView?.averageValue == 0) ? `$${(totalOrderAnalyticsData?.ordersOverView?.averageValue).toFixed(2)}` : "",
+      bgColor: "#D1FADF",
+      textColor: "#003921",
+    },
+    {
+      icon: gross_profit,
+      title: "Gross Profit",
+      count: `$${addThousandSeparator((totalOrderAnalyticsData?.ordersOverView?.total_profit)?.toFixed(2))}`,
+      bgColor: "#D1FADF",
+      textColor: "#003921",
+    },
+  ];
+
+  const orderAnalyticsHandle = () => {
+    let params = {
+      filter: timeSpan,
+      channel: channelSelected.value,
+      // seller_id: auth?.usersInfo?.payload?.uniqe_id
+      seller_id: "016b1b3a-d7d3-4fc3-a76b-995b23c43852",
+    };
+    if (startDate && endDate) {
+      params = {
+        channel: channelSelected.value,
+        // seller_id: auth?.usersInfo?.payload?.uniqe_id
+        seller_id: "016b1b3a-d7d3-4fc3-a76b-995b23c43852",
+        start_date: moment(startDate).format("YYYY-MM-DD"),
+        end_date: moment(endDate).format("YYYY-MM-DD"),
+      };
+    }
+    dispatch(totalOrderAnalyticsDataApi({
+      ...params,
+      cb(res) {
+        if (res.status) {
+          setTotalOrderAnalyticsData(res?.data?.payload);
+          // setTotalRecords(totalOrderAnalyticsData?.order_listing)
+        }
+      },
+    })
+    );
+  };
+
+  useEffect(() => {
+    orderAnalyticsHandle();
+  }, [timeSpan, channelSelected, endDate]);
   return (
     <div className="main-container-customers">
-        Total Order
+      <AnalyticsHeader
+        timeSpan={timeSpan}
+        onTimeSpanSelect={setTimeSpan}
+        setStartDate={setStartDate}
+        setEndDate={setEndDate}
+        onDateChange={handleDateChange}
+        onChannelChange={handleChange}
+        channelSelected={channelSelected}
+        startDate={startDate}
+        endDate={endDate}
+      />
+
+      <AnalyticsSubHeader
+        mainIcon={gross_profit_blue}
+        title="Total Orders"
+      />
+
+      {/* stats */}
+      <div className="stats flex-row-space-between">
+        {STATS.map(({ bgColor, icon, title, count, textColor }, idx) => (
+          <div
+            key={idx + "stats"}
+            className="stat-box"
+            style={{ backgroundColor: bgColor }}
+          >
+            <Image
+              objectFit="center"
+              width={30}
+              height={30}
+              src={icon}
+              style={{ marginBottom: "35px" }}
+            />
+            <div>
+              <h4
+                className="stat-box-title"
+                style={{ color: textColor }}
+              >
+                {title}
+              </h4>
+              <p
+                className="stat-box-count"
+                style={{ color: textColor }}
+              >
+                {count}
+              </p>
+            </div>
+          </div>
+        ))}
+      </div>
+
+      {/* table stats */}
+      <table className="customers-stats-table">
+        <thead>
+          <tr>
+            <th
+              className="customers-table-data"
+              style={{ border: "none", color: "#7E8AC1", textAlign: "left" }}
+            >
+              Date
+            </th>
+            <th
+              className="customers-table-data"
+              style={{ border: "none", color: "#7E8AC1", textAlign: "left" }}
+            >
+              Total Pos Order
+            </th>
+            <th
+              className="customers-table-data"
+              style={{ border: "none", color: "#7E8AC1", textAlign: "left" }}
+            >
+              Customer-New
+            </th>
+            <th
+              className="customers-table-data"
+              style={{ border: "none", color: "#7E8AC1", textAlign: "left" }}
+            >
+              Customer-Returning
+            </th>
+            <th
+              className="customers-table-data"
+              style={{ border: "none", color: "#7E8AC1", textAlign: "left" }}
+            >
+              Total Sales
+            </th>
+          </tr>
+        </thead>
+
+        {
+          analyticsData?.loading ? <tbody>
+            <tr>
+              <td colSpan="6" style={{ textAlign: "center" }}>
+                Loading...
+              </td>
+            </tr>
+
+          </tbody>
+            : <>
+              {
+                <>
+                  {
+                    totalOrderAnalyticsData?.order_listing?.length > 0 ? <tbody>
+                      {totalOrderAnalyticsData?.order_listing?.map((row, idx) => (
+                        <tr className="customers-table-row" key={idx}>
+                          <td
+                            className="customers-table-data"
+                          >
+                            {moment(row?.order_date).format('MM/DD/YYYY')}
+                          </td>
+                          <td
+                            className="customers-table-data"
+                          >
+                            {row.total_orders}
+                          </td>
+                          <td
+                            className="customers-table-data"
+                          // style={{ display: "flex", gap: "12px" }}
+                          >
+                            {row.new_consumer}
+                          </td>
+                          <td
+                            className="customers-table-data"
+                          >
+                            {`${row.consumer_returning} / hour`}
+                          </td>
+                          <td
+                            className="customers-table-data"
+                          >
+                            {`$${row.amount ? addThousandSeparator((row.amount)?.toFixed(2)) : "0"}`}
+                          </td>
+                          <td
+                            className="customers-table-data"
+                          >
+                            <button className="secondaryOuterbtn_" type="button">Review</button>
+                          </td>
+                        </tr>
+                      ))}
+                    </tbody> :
+                      <tbody>
+                        <tr>
+                          <td colSpan="6" style={{ textAlign: "center" }}>
+                            No Record Found
+                          </td>
+                        </tr>
+                      </tbody>
+                  }
+                </>
+
+              }
+            </>
+        }
+
+      </table>
+
     </div>
   )
 }

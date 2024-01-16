@@ -3,6 +3,8 @@ import authSaga from "./auth";
 import dashboardSaga from "./dashboard";
 import customersSaga from "./customers";
 import analyticsSaga from "./analytics";
+import transactionsSaga from "./transactions";
+import settingSaga from "./setting";
 import retailsSaga from "./retails";
 
 export default function* rootSaga() {
@@ -11,6 +13,8 @@ export default function* rootSaga() {
         spawn(dashboardSaga),
         spawn(customersSaga),
         spawn(analyticsSaga),
+        spawn(transactionsSaga),
+        spawn(settingSaga),
         spawn(retailsSaga),
         // saga1 can also yield [ fork(actionOne), fork(actionTwo) ]
         // fork(saga2),
