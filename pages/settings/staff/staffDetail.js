@@ -25,7 +25,6 @@ const StaffDetail = ({ selectedItemId }) => {
         let params = {
             id: 2,
             // id:selectedItemId
-
         };
         dispatch(getStaffDetails({
             ...params,

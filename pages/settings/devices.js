@@ -25,7 +25,6 @@ const Devices = () => {
     };
 
     const handleUserProfile = (flag) => {
-
         setModalDetail({
             show: true,
             flag: flag,
@@ -33,6 +32,7 @@ const Devices = () => {
         });
         setKey(Math.random());
     };
+    
     return (
         <>
             <div className='deviceRight settingOuter'>
