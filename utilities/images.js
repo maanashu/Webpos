@@ -313,6 +313,7 @@ import lang1 from "../public/images/lang1.svg"
 import lang2 from "../public/images/lang2.png"
 import lang3 from "../public/images/lang3.png"
 import lang4 from "../public/images/lang4.png"
+import orderFrequency from "../public/images/order_frequency.png"
 
 export {
   scanSmall,
@@ -627,5 +628,6 @@ export {
   lang1,
   lang2,
   lang3,
-  lang4
+  lang4,
+  orderFrequency
 };

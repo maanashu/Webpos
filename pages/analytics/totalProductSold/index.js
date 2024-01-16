@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import AnalyticsHeader from '../../../components/commanComonets/AnalyticsHeader'
 import AnalyticsSubHeader from '../../../components/commanComonets/AnalyticsSubHeader';
-import { ArrowLeft, ArrowRight, average_order, gross_profit, gross_profit_blue, order_frequency, overview_sales, profitMargin, total_order, total_volume, unitSold } from '../../../utilities/images';
+import { ArrowLeft, ArrowRight, average_order, gross_profit, gross_profit_blue, overview_sales, profitMargin, total_order, total_volume, unitSold } from '../../../utilities/images';
 import Image from 'next/image';
 import { analyticsDetails, getProfitsData, orderAnalyticsData, totalAnalyticsProductSoldData, totalProductSoldAnalyticsDataApi } from '../../../redux/slices/analytics';
 import moment from 'moment-timezone';
