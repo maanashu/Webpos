@@ -126,6 +126,7 @@ const Retails = () => {
                         className="col-xl-2 col-lg-3 col-md-4 mb-3"
                         key={index}
                       >
+                        {/* <Link href='/Retails/AddProduct'> */}
                         <div
                           className="productsCard"
                           onClick={() => productFun(item.id, index, item)}

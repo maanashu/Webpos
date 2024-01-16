@@ -67,10 +67,10 @@ const ProductCart = () => {
     setKey(Math.random());
   };
 
-  // const handleGoToProductDetails = (productId) => {
-  //   router.push('/Retails/[productDetail-id]',`/Retails/AddProduct/${productId}`);
-  // };
-  
+  const handleGoToProductDetails = (productId) => {
+    router.push('/Retails/[productDetailId]/AddProduct',`/Retails/${productId}/AddProduct`);
+  };
+
   return (
     <>
       <div className="fullCartSection">

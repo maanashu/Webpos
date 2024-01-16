@@ -12,10 +12,8 @@ import { selectLoginAuth } from "../../redux/slices/auth";
 import { Router, useRouter } from "next/router";
 
 const AddProduct = () => {
-const productId = query["productDetail-id"];
   const dispatch = useDispatch();
   const router = useRouter();
-  console.log(router,'router');
   const retailData = useSelector(selectRetailData);
   const authData = useSelector(selectLoginAuth);
   const oneProductData = retailData?.oneProductData;

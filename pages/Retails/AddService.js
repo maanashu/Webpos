@@ -12,7 +12,6 @@ const AddService = () => {
   const retailData = useSelector(selectRetailData);
   const SingleServiceData = retailData?.oneServiceData;
   const serviceDetail = SingleServiceData?.product_detail;
-  console.log(serviceDetail, "serviceDetail");
   const authData = useSelector(selectLoginAuth);
   return (
     <>

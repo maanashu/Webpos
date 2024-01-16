@@ -44,6 +44,7 @@ function* getMainProduct(action) {
 }
 
 function* getOneProductById(action) {
+  console.log(action,'action');
   const dataToSend = { ...action.payload?.params };
   const params = new URLSearchParams(dataToSend).toString();
   try {
@@ -56,6 +57,7 @@ function* getOneProductById(action) {
       )
     );
     if (resp.status) {
+      console.log(resp,'responseProductone');
       yield put(setOneProductById(resp.data));
       yield call(action.payload.cb, (action.res = resp));
     } else {
