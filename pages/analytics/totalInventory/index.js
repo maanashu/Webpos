@@ -3,7 +3,7 @@ import AnalyticsHeader from '../../../components/commanComonets/AnalyticsHeader'
 import AnalyticsSubHeader from '../../../components/commanComonets/AnalyticsSubHeader';
 import { ArrowLeft, ArrowRight, average_order, gross_profit, gross_profit_blue, order_frequency, overview_sales, profitMargin, totalInventory, totalInventoryValue, total_order, total_volume, unitSold } from '../../../utilities/images';
 import Image from 'next/image';
-import { analyticsDetails, getProfitsData, orderAnalyticsData, totalAnalyticsProductSoldData, totalInventoryDataApi, totalProductSoldAnalyticsDataApi } from '../../../redux/slices/analytics';
+import { analyticsDetails, totalInventoryDataApi } from '../../../redux/slices/analytics';
 import moment from 'moment-timezone';
 import { useDispatch, useSelector } from 'react-redux';
 import { selectLoginAuth } from '../../../redux/slices/auth';
@@ -41,14 +41,14 @@ const index = () => {
     },
     {
       icon: totalInventoryValue,
-      title: "Total Volume",
+      title: "Total Inventory Value",
       count: totalInventoryData?.productOverview?.totalVolume ? `$${addThousandSeparator((totalInventoryData?.productOverview?.totalVolume)?.toFixed(2))}` : "$0",
       bgColor: "#D1FADF",
       textColor: "#003921",
     },
     {
       icon: profitMargin,
-      title: "Profit Margin",
+      title: "Average Order Value",
       count: totalInventoryData?.productOverview?.totalMargin ? `$${addThousandSeparator((totalInventoryData?.productOverview?.totalMargin)?.toFixed(2))}` : "$0",
       bgColor: "#D1FADF",
       textColor: "#003921",
@@ -109,12 +109,10 @@ console.log(totalInventoryData, "total inventory data");
         startDate={startDate}
         endDate={endDate}
       />
-
       <AnalyticsSubHeader
         mainIcon={gross_profit_blue}
         title="Total Inventory"
       />
-
       {/* stats */}
       <div className="stats flex-row-space-between">
         {STATS.map(({ bgColor, icon, title, count, textColor }, idx) => (
@@ -192,7 +190,6 @@ console.log(totalInventoryData, "total inventory data");
                 Loading...
               </td>
             </tr>
-
           </tbody>
             : <>
               {
@@ -248,9 +245,7 @@ console.log(totalInventoryData, "total inventory data");
               }
             </>
         }
-
       </table>
-
     </div>
   )
 }
