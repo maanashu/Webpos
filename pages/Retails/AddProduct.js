@@ -23,6 +23,8 @@ const AddProduct = () => {
   const sizeArray = sizeAndColorArray?.filter((item) => item.name == "Size");
   const colorArray = sizeAndColorArray?.filter((item) => item.name == "Color");
   const [count, setCount] = useState(1);
+  const [colorIndex, setColorIndex] = useState(null);
+  const [sizeIndex, setSizeIndex] = useState(null);
 
   // avaiblity option
   let deliveryOption =
@@ -169,32 +171,70 @@ const AddProduct = () => {
                   }
                 </p>
               </div>
-              {colorArray?.length > 0 && (
-                <div className="colorChart">
-                  <p className="priceHeading">Color</p>
-                  <article className="manual-entryColor">
-                    <span className="Pink"></span>
-                    <span className="Red"></span>
-                    <span className="Yellow active"></span>
-                    <span className="Blue"></span>
-                    <span className="Black"></span>
-                    <span className="White"></span>
-                  </article>
-                </div>
-              )}
-              {sizeArray?.length > 0 && (
-                <div className="sizeChart">
-                  <p className="priceHeading">Size</p>
-                  <article className="productSizeBtnBox">
-                    <button className="productSizeBtn">S</button>
-                    <button className="productSizeBtn active">M</button>
-                    <button className="productSizeBtn">L</button>
-                    <button className="productSizeBtn">XL</button>
-                    <button className="productSizeBtn ">XXL</button>
-                  </article>
-                </div>
-              )}
+              {/* {colorArray?.length > 0 && ( */}
+              <div className="colorChart">
+                <p className="priceHeading">Color</p>
+                <article className="manual-entryColor">
+                  <div
+                    style={{
+                      display: "flex",
+                      overflowX: "scroll",
+                    }}
+                  >
+                    {[1, 2]?.map((item, index) => (
+                      <div
+                        onClick={() => setColorIndex(index)}
+                        className=""
+                        style={{
+                          width: colorIndex == index ? "70px" : "30px",
+                          height: "25px",
+                          borderRadius: "35%",
+                          backgroundColor: "red",
+                          border: "1px solid black",
+                          marginRight: "10px",
+                        }}
+                      ></div>
+                    ))}
+                  </div>
+                </article>
+              </div>
+              {/* )} */}
+              {/* {sizeArray?.length > 0 && ( */}
+              <div className="sizeChart">
+                <p className="priceHeading">Size</p>
+                <article className="productSizeBtnBox">
+                  {[1, 2, 3, 4, 5]?.map((item, index) => (
+                    <div
+                      onClick={() => setSizeIndex(index)}
+                      style={{
+                        width: "45px",
+                        height: "45px",
+                        border: "1px solid black",
+                        borderRadius: "15%",
+                        display: "flex",
+                        justifyContent: "center",
+                        alignItems: "center",
+                        background:
+                          sizeIndex == index ? "#263682" : "transparent",
+                      }}
+                    >
+                      <p
+                        style={{
+                          color: sizeIndex == index ? "white" : "#263682",
+                        }}
+                      >
+                        S
+                      </p>
+                    </div>
+                  ))}
 
+                  {/* <button className="productSizeBtn active">M</button>
+                  <button className="productSizeBtn">L</button>
+                  <button className="productSizeBtn">XL</button>
+                  <button className="productSizeBtn ">XXL</button> */}
+                </article>
+              </div>
+              {/* // )} */}
               <div className="incrementBtn productIncrement">
                 <i
                   className="fa-solid fa-minus plusMinus"
