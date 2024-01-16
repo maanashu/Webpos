@@ -12,7 +12,9 @@ import {
   setMainServices,
   setAvailableOffers,
   setProductCart,
+  setDiscount,
   setNotes,
+  selectRetailData,
 } from "../../slices/retails";
 import { all, call, put, takeLatest } from "redux-saga/effects";
 
@@ -143,6 +145,7 @@ function* clearCart(action) {
       `${ORDER_API_URL}/api/v1/poscarts`,
       console.log("11111", `${ORDER_API_URL}/api/v1/poscarts`)
     );
+
     if (resp.status) {
       yield call(action.payload.cb, (action.res = resp));
     } else {
@@ -154,6 +157,54 @@ function* clearCart(action) {
   }
 }
 
+function* addNotes(action) {
+  const dataToSend = { ...action.payload };
+  const params = new URLSearchParams(dataToSend);
+  const idValue = params.get("id");
+  delete dataToSend.cb;
+  delete dataToSend.id;
+  try {
+    const resp = yield call(
+      ApiClient.put,
+      `${ORDER_API_URL_V1}poscarts/${idValue}`,
+      dataToSend
+    );
+
+    if (resp.status) {
+      yield put(setNotes(resp.data));
+      yield call(action.payload.cb, (action.res = resp));
+    } else {
+      throw resp;
+    }
+  } catch (e) {
+    //yield put(onErrorStopLoad());
+    toast.error(e?.error?.response?.data?.msg);
+  }
+}
+
+function* addDiscount(action) {
+  const dataToSend = { ...action.payload };
+  const params = new URLSearchParams(dataToSend);
+  const idValue = params.get("id");
+  delete dataToSend.cb;
+  delete dataToSend.id;
+  try {
+    const resp = yield call(
+      ApiClient.put,
+      `${ORDER_API_URL_V1}poscarts/${idValue}`,
+      dataToSend
+    );
+    if (resp.status) {
+      yield put(setDiscount(resp.data));
+      yield call(action.payload.cb, (action.res = resp));
+    } else {
+      throw resp;
+    }
+  } catch (e) {
+    toast.error(e?.error?.response?.data?.msg);
+  }
+}
+
 function* retailsSaga() {
   yield all([
     takeLatest("retails/getMainProduct", getMainProduct),
@@ -161,9 +212,9 @@ function* retailsSaga() {
     takeLatest("retails/getMainServices", getMainServices),
     takeLatest("retails/availableOffers", availableOffers),
     takeLatest("retails/productCart", productCart),
-    // takeLatest("retails/addNotes", addNotes),
     takeLatest("retails/availableOffers", availableOffers),
-    takeLatest("retails/productCart", productCart),
+    takeLatest("retails/addNotes", addNotes),
+    takeLatest("retails/addDiscount", addDiscount),
     takeLatest("retails/addTocart", addTocart),
     takeLatest("retails/clearCart", clearCart),
   ]);

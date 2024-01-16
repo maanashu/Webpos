@@ -33,6 +33,7 @@ const ProductCart = () => {
     title: "",
     flag: "",
   });
+
   const handleOnCloseModal = () => {
     setModalDetail({
       show: false,
@@ -59,6 +60,7 @@ const ProductCart = () => {
     dispatch(
       productCart({
         cb(res) {
+          console.log(res, "response=>");
           if (res.data) {
             setProductCarts(res?.data?.payload);
             setPosCartProducts(res?.data?.payload?.poscart_products);
