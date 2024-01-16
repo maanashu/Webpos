@@ -54,9 +54,8 @@ const Legal = ({handleTouch}) => {
     return (
         <>
             <div className='settingMain'>
-                <div className='row'>
                     {/* <div className='col-lg-3'></div> */}
-                    <div className='col-lg-9'>
+                    <div className='col-lg-12'>
                         <div className='agreementRight settingOuter'>
                             <div className='agreePrimary'>
                                 <Image src={Images.darkDevices} alt="darkDevices image" className="img-fluid" />
@@ -116,7 +115,7 @@ const Legal = ({handleTouch}) => {
                             </div>
                         </div>
                     </div>
-                </div>
+              
             </div>
         </>
     )

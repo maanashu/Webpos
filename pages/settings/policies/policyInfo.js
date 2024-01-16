@@ -15,9 +15,8 @@ const PolicyInfo = ({ policyInfo,handleTouch }) => {
     return (
         <>
             <div className='settingMain'>
-                <div className='row'>
                     {/* <div className='col-lg-3'></div> */}
-                    <div className='col-lg-9'>
+                    <div className='col-lg-12'>
                         <div className='refundRight settingOuter'>
                             <Image src={Images.boldLeftArrow} style={{cursor:'pointer'}} alt="boldLeftArrow " className="img-fluid pointHand"  onClick={()=>handleTouch("Policies")}/>
                             <div className='refundSub'>
@@ -30,7 +29,6 @@ const PolicyInfo = ({ policyInfo,handleTouch }) => {
                         </div>
                     </div>
                 </div>
-            </div>
         </>
     )
 }

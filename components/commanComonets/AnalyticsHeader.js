@@ -5,14 +5,16 @@ import {
     arrowDown
   } from "../../utilities/images";
   import Image from "next/image";
+import getCurrentMonthDetails from "../../utilities/dateUtils";
 // Transactions, Customers, Rewards header
+const { startOfMonth, endOfMonth, monthName, year } = getCurrentMonthDetails();
 
 const DatePickerCustomComponent = forwardRef(({ value, onClick }, ref) => (
     <p
         onClick={onClick}
         className="users-selected-date"
     >
-        {value || "Date"}
+        {value || `${monthName} ${startOfMonth} - ${monthName} ${endOfMonth}, ${year}`}
     </p>
 ));
 const AnalyticsHeader = ({ startDate, endDate, onDateChange, channelSelected, setStartDate, setEndDate, onChannelChange, withTimeTabs = true, onTimeSpanSelect, timeSpan }) => {
@@ -98,7 +100,6 @@ const AnalyticsHeader = ({ startDate, endDate, onDateChange, channelSelected, se
                     ),
                 }}
             />
-
         </div>
     );
 };
