@@ -12,7 +12,9 @@ import {
   setMainServices,
   setAvailableOffers,
   setProductCart,
-  setNotes
+  setDiscount,
+  setNotes,
+  selectRetailData,
 } from "../../slices/retails";
 import { all, call, put, takeLatest } from "redux-saga/effects";
 
@@ -30,7 +32,7 @@ function* getMainProduct(action) {
 
     if (resp.status) {
       yield put(setMainProduct(resp.data));
-       yield call(action.payload.cb, (action.res = resp));
+      yield call(action.payload.cb, (action.res = resp));
     } else {
       throw resp;
     }
@@ -46,7 +48,11 @@ function* getOneProductById(action) {
   try {
     const resp = yield call(
       ApiClient.get,
-      `${PRODUCT_API_URL_V1}products/${action.payload?.productId}?${params}`
+      `${PRODUCT_API_URL_V1}products/${action.payload?.productId}?${params}`,
+      console.log(
+        "endpoint",
+        `${PRODUCT_API_URL_V1}products/${action.payload?.productId}?${params}`
+      )
     );
     if (resp.status) {
       yield put(setOneProductById(resp.data));
@@ -67,7 +73,6 @@ function* getMainServices(action) {
     const resp = yield call(
       ApiClient.get,
       `${PRODUCT_API_URL_V1}products?delivery_options=2&service_type=service&need_&check_stock_out=true&${params}`
-      
     );
     if (resp.status) {
       yield put(setMainServices(resp.data));
@@ -87,7 +92,6 @@ function* availableOffers(action) {
     const resp = yield call(
       ApiClient.get,
       `${PRODUCT_API_URL_V1}offer/products?app_name=pos&delivery_options=1,3,4&service_type=product&${params}`
-      
     );
     if (resp.status) {
       yield put(setAvailableOffers(resp.data));
@@ -134,16 +138,16 @@ function* addTocart(action) {
     toast.error(e?.error?.response?.data?.msg);
   }
 }
-function* addNotes(action) {
+function* clearCart(action) {
   try {
     const resp = yield call(
-      ApiClient.post,
-      `${ORDER_API_URL_V1}poscarts/user`
-    
+      ApiClient.delete,
+      `${ORDER_API_URL}/api/v1/poscarts`,
+      console.log("11111", `${ORDER_API_URL}/api/v1/poscarts`)
     );
+
     if (resp.status) {
-      yield put(setNotes(resp.data));
-       yield call(action.payload.cb, (action.res = resp));
+      yield call(action.payload.cb, (action.res = resp));
     } else {
       throw resp;
     }
@@ -153,17 +157,66 @@ function* addNotes(action) {
   }
 }
 
+function* addNotes(action) {
+  const dataToSend = { ...action.payload };
+  const params = new URLSearchParams(dataToSend);
+  const idValue = params.get("id");
+  delete dataToSend.cb;
+  delete dataToSend.id;
+  try {
+    const resp = yield call(
+      ApiClient.put,
+      `${ORDER_API_URL_V1}poscarts/${idValue}`,
+      dataToSend
+    );
+
+    if (resp.status) {
+      yield put(setNotes(resp.data));
+      yield call(action.payload.cb, (action.res = resp));
+    } else {
+      throw resp;
+    }
+  } catch (e) {
+    //yield put(onErrorStopLoad());
+    toast.error(e?.error?.response?.data?.msg);
+  }
+}
+
+function* addDiscount(action) {
+  const dataToSend = { ...action.payload };
+  const params = new URLSearchParams(dataToSend);
+  const idValue = params.get("id");
+  delete dataToSend.cb;
+  delete dataToSend.id;
+  try {
+    const resp = yield call(
+      ApiClient.put,
+      `${ORDER_API_URL_V1}poscarts/${idValue}`,
+      dataToSend
+    );
+    if (resp.status) {
+      yield put(setDiscount(resp.data));
+      yield call(action.payload.cb, (action.res = resp));
+    } else {
+      throw resp;
+    }
+  } catch (e) {
+    toast.error(e?.error?.response?.data?.msg);
+  }
+}
+
 function* retailsSaga() {
   yield all([
     takeLatest("retails/getMainProduct", getMainProduct),
     takeLatest("retails/getOneProductById", getOneProductById),
     takeLatest("retails/getMainServices", getMainServices),
-    takeLatest("retails/availableOffers",availableOffers),
-    takeLatest("retails/productCart",productCart),
-    takeLatest("retails/addNotes",addNotes),
     takeLatest("retails/availableOffers", availableOffers),
     takeLatest("retails/productCart", productCart),
+    takeLatest("retails/availableOffers", availableOffers),
+    takeLatest("retails/addNotes", addNotes),
+    takeLatest("retails/addDiscount", addDiscount),
     takeLatest("retails/addTocart", addTocart),
+    takeLatest("retails/clearCart", clearCart),
   ]);
 }
 
