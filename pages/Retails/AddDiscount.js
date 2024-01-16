@@ -145,9 +145,18 @@ const AddDiscount = (props) => {
       </div>
 
       <div className="noteButton">
-        <button className="addnotesBtn" type="submit">
+        {/* <button className="addnotesBtn" type="submit">
           Add Discount
-        </button>
+        </button> */}
+        {retailData?.loading ? (
+          <button className="addnotesBtn" type="submit" disabled>
+            <span className="spinner-border spinner-border-sm"></span>
+          </button>
+        ) : (
+          <button className="addnotesBtn" type="submit">
+            Add Discount
+          </button>
+        )}
       </div>
     </form>
   );
