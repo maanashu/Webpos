@@ -3414,7 +3414,9 @@ figure {
 #taxPayerModal .modal-content,
 #activateTaxModal .modal-content,
 #createModalTax .modal-content,
- #addlanguageModal .modal-content {
+#addlanguageModal .modal-content,
+#AddNotes .modal-content,
+#AddDiscount .modal-content {
     border-radius: 20px !important;
     background: #FFF !important;
     box-shadow: -2px 6px 6px 0px rgba(52, 79, 117, 0.03), -11px 28px 25px 0px rgba(52, 79, 117, 0.04), -31px 74px 80px 0px rgba(52, 79, 117, 0.07) !important;

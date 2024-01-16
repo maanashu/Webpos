@@ -71,19 +71,15 @@ const AddDiscount = (props) => {
     <form onSubmit={(e) => handleAddDiscount(e)}>
       <div className="discountMain">
         <div className="discountAmountBox">
-          <label
-            htmlFor="amount"
-            onClick={() => handleselectLabel("amount")}
-            className={
-              disCountFlag == "amount"
+          <label htmlFor="amount" onClick={() => handleselectLabel("amount")} className={ disCountFlag == "amount"
                 ? "customform-control selectedFlagDiscount"
                 : "customform-control customInputDiscount"
             }
-          >
-            Amount
+          >       Amount
           </label>
 
           <input
+          className="customdiscount_"
             type="number"
             placeholder="$0.00"
             onChange={handleInputChange}
@@ -104,6 +100,7 @@ const AddDiscount = (props) => {
             Percent
           </label>
           <input
+          className="customdiscount_"
             type="number"
             placeholder="0.00     % "
             onChange={handleInputChange}
@@ -124,7 +121,7 @@ const AddDiscount = (props) => {
             Discount Code
           </label>
           <input
-            className="amountInput"
+            className="customdiscount_"
             type="text"
             placeholder="CODE"
             onChange={handleInputChange}
@@ -135,7 +132,7 @@ const AddDiscount = (props) => {
         <div>
           <label className="form-label fw-500">Discount Title</label>
           <input
-            className="customform-control customInputDiscount"
+            className="customform-control discountInput_"
             placeholder="Discount"
             type="text"
             value={discountTitle}
@@ -144,7 +141,7 @@ const AddDiscount = (props) => {
         </div>
       </div>
 
-      <div className="noteButton">
+      <div className="noteButton mt-3">
         {/* <button className="addnotesBtn" type="submit">
           Add Discount
         </button> */}
@@ -158,6 +155,8 @@ const AddDiscount = (props) => {
           </button>
         )}
       </div>
+
+
     </form>
   );
 };
