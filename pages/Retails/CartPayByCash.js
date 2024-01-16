@@ -4,9 +4,16 @@ import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { toast } from "react-toastify";
+import { selectLoginAuth } from "../../redux/slices/auth";
+import { selectRetailData } from "../../redux/slices/retails";
+import { useSelector } from "react-redux";
 
 const CartPayByCash = () => {
   const router = useRouter();
+  const authData = useSelector(selectLoginAuth);
+  const merchentDetails = authData?.usersInfo?.payload?.user?.user_profiles;
+  const retailData = useSelector(selectRetailData);
+  const cartData = retailData?.productCart;
   const [selectedCart, setSelectedCart] = useState(null);
 
   const handleContineAmount = () => {
@@ -26,16 +33,20 @@ const CartPayByCash = () => {
           <div className="col-lg-7 col-md-7">
             <div className="commanOuter me-0 commonSubOuter p-0  confirmSelectLeft">
               <div className="fullCartInfo">
-                <Link href="/Retails/ProductCart">
+                <div
+                  onClick={() => {
+                    router.back();
+                  }}
+                >
                   <div className="appointmentHeading">
                     <Image
                       src={Images.boldLeftArrow}
                       alt="leftarrow image"
                       className="img-fluid"
                     />
-                    <h4 className="confirmBack ms-2">Back</h4>
                   </div>
-                </Link>
+                  <h4 className="confirmBack ms-2">Back</h4>
+                </div>
               </div>
               <div className="receiveAmountMain">
                 <h5 className="recieveHeading">Received Amount</h5>
@@ -92,58 +103,42 @@ const CartPayByCash = () => {
           </div>
           <div className="col-lg-5 col-md-5">
             <div className="commanOuter me-0 ms-0 commonSubOuter confirmRight p-0">
-              <div className="confirmRightSub confirmAddress">
-                <h2 className="mapleHeading text-center">Maple Inc.</h2>
+            <div className="confirmRightSub confirmAddress">
+                <h2 className="mapleHeading text-center">
+                  {merchentDetails?.organization_name}.
+                </h2>
                 <h4 className="mapleAddress text-center">
-                  500 Rideau St. Ottawa, ON 5Z2 K1L
+                  {merchentDetails?.current_address?.street_address},
+                  {merchentDetails?.current_address?.city},
+                  {merchentDetails?.current_address?.state},
+                  {merchentDetails?.current_address?.country},
+                  {merchentDetails?.current_address?.zipcode}
                 </h4>
                 <h4 className="mapleAddress text-center p-0">
-                  +1 (438) 459-0226
+                  {merchentDetails?.full_phone_number}
                 </h4>
               </div>
               <div className="mapleProductDetails confirmRightSub">
-                <div className="flexBox mapleProductDetailsBox">
-                  <div className="flexbase">
-                    <p className="mapleProductcount">× 1</p>
-                    <article className="ms-3">
-                      <p className="mapleProductHeading">
-                        Lightweight Stylish Casual Daypack
-                      </p>
-                      <span className="mapleProductcount">Yellow / M</span>
-                    </article>
-                  </div>
-                  <article>
-                    <p className="mapleProductPrice">$90.00</p>
-                  </article>
-                </div>
-                <div className="flexBox mapleProductDetailsBox">
-                  <div className="flexbase">
-                    <p className="mapleProductcount">× 1</p>
-                    <article className="ms-3">
-                      <p className="mapleProductHeading">
-                        Lightweight Stylish Casual Daypack
-                      </p>
-                      <span className="mapleProductcount">Yellow / M</span>
-                    </article>
-                  </div>
-                  <article>
-                    <p className="mapleProductPrice">$90.00</p>
-                  </article>
-                </div>
-                <div className="flexBox mapleProductDetailsBox">
-                  <div className="flexbase">
-                    <p className="mapleProductcount">× 1</p>
-                    <article className="ms-3">
-                      <p className="mapleProductHeading">
-                        Lightweight Stylish Casual Daypack
-                      </p>
-                      <span className="mapleProductcount">Yellow / M</span>
-                    </article>
-                  </div>
-                  <article>
-                    <p className="mapleProductPrice">$90.00</p>
-                  </article>
-                </div>
+                {cartData?.poscart_products?.map((data, index) => {
+                  return (
+                    <div key={index} className="flexBox mapleProductDetailsBox">
+                      <div className="flexbase">
+                        <p className="mapleProductcount">× {index + 1}</p>
+                        <article className="ms-3">
+                          <p className="mapleProductHeading">
+                            {data?.product_details?.name}
+                          </p>
+                          <span className="mapleProductcount">Yellow / M</span>
+                        </article>
+                      </div>
+                      <article>
+                        <p className="mapleProductPrice">
+                          ${data?.product_details?.price}
+                        </p>
+                      </article>
+                    </div>
+                  );
+                })}
               </div>
               <div className="flexBox mapleInvoiceBox confirmRightSub">
                 <article>

@@ -46,20 +46,14 @@ function* getMainProduct(action) {
 }
 
 function* getOneProductById(action) {
-  console.log(action,'action');
   const dataToSend = { ...action.payload?.params };
   const params = new URLSearchParams(dataToSend).toString();
   try {
     const resp = yield call(
       ApiClient.get,
       `${PRODUCT_API_URL_V1}products/${action.payload?.productId}?${params}`,
-      console.log(
-        "endpoint",
-        `${PRODUCT_API_URL_V1}products/${action.payload?.productId}?${params}`
-      )
     );
     if (resp.status) {
-      console.log(resp,'responseProductone');
       yield put(setOneProductById(resp.data));
       yield call(action.payload.cb, (action.res = resp));
     } else {
@@ -161,7 +155,6 @@ function* addTocart(action) {
       throw resp;
     }
   } catch (e) {
-    console.log("ewe", e?.error?.response);
     yield put(onErrorStopLoad());
     toast.error(e?.error?.response?.data?.msg);
   }
@@ -171,7 +164,6 @@ function* clearCart(action) {
     const resp = yield call(
       ApiClient.delete,
       `${ORDER_API_URL}/api/v1/poscarts`,
-      console.log("11111", `${ORDER_API_URL}/api/v1/poscarts`)
     );
 
     if (resp.status) {

@@ -15,6 +15,7 @@ const AddDiscount = (props) => {
   const [percent, setPercent] = useState(null);
   const [code, setCode] = useState(null);
 
+
   const handleAddDiscount = (e) => {
     e.preventDefault();
     if (disCountFlag === "") {
@@ -27,8 +28,6 @@ const AddDiscount = (props) => {
       toast.error("Please add discount value");
       return false;
     }
-
-    e.preventDefault();
     let params = {
       id: cartId,
       discount_value: discountValue,
