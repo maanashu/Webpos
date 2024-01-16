@@ -32,14 +32,14 @@ const Receipts = () => {
 
   return (
     <>
-      <div style={{ padding: "30px", flex: 1 }}>
+      <div className="settingOuter taxRight">
         <div style={{ display: "flex" }}>
           <Image
             src={Images.settingsReceipt}
             className="settings-sidebar-icons"
             style={{ marginRight: "5px" }}
           />
-          <div>
+          <div style={{ flex: 1 }}>
             <div className={styles.headingTextStyle}>My receipts</div>
             <div className={styles.textInformationStyle}>
               Add a curbside, drive-through, or in-store pickup. Specify your

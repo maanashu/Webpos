@@ -3,11 +3,13 @@ import { ListGroup, ListGroupItem } from 'react-bootstrap';
 import * as Images from "../../../utilities/images"
 import Image from "next/image";
 import Link from 'next/link';
-import { getStaffDetails, settingInfo } from '../../../redux/slices/setting';
+import { getStaffDetails, requestPayment, settingInfo } from '../../../redux/slices/setting';
 import { useDispatch, useSelector } from 'react-redux';
 import moment from 'moment-timezone';
+import { useRouter } from 'next/router';
 
 const StaffDetail = ({ selectedItemId }) => {
+    const router = useRouter();
     const [getStaffInfo, setGetStaffInfo] = useState("");
     const targetDate = moment(getStaffInfo?.pos_staff_detail?.created_at);
     const currentDate = moment();
@@ -21,8 +23,8 @@ const StaffDetail = ({ selectedItemId }) => {
     // API for get all POS users...............................
     const getStaffDetail = () => {
         let params = {
-            // id: 286,
-            id:selectedItemId
+            id: 2,
+            // id:selectedItemId
         };
         dispatch(getStaffDetails({
             ...params,
@@ -34,6 +36,40 @@ const StaffDetail = ({ selectedItemId }) => {
         })
         );
     };
+
+    function convertMinutesToHoursAndMinutes(minutes) {
+        if (typeof minutes !== 'number' || minutes < 0) {
+            return 'Invalid input';
+        }
+
+        const hours = Math.floor(minutes / 60);
+        const remainingMinutes = minutes % 60;
+
+        return hours + ' h ' + remainingMinutes?.toFixed(0) + ' m';
+    }
+
+    const handleRequest = (status, startDate, endDate) => {
+        if (status === 0) {
+            let data = {
+                "start_date": moment(startDate).format('YYYY-MM-DD'),
+                "end_date": moment(endDate).format('YYYY-MM-DD'),
+                // "staff_details_id": selectedItemId?.toString()
+                "staff_details_id": '2'
+            }
+            dispatch(requestPayment({
+                ...data,
+                cb(res) {
+                    if (res) {
+                        getStaffDetail()
+                    }
+                },
+            })
+            );
+        }
+        else {
+            router.push("/StaffLocation")
+        }
+    }
 
     useEffect(() => {
         getStaffDetail();
@@ -102,12 +138,12 @@ const StaffDetail = ({ selectedItemId }) => {
                                     <div className='staffSubTime'>
                                         <h4 className='amountText m-0'>Time Rate</h4>
                                         <hr className='staffTimeDivide' />
-                                        <h4 className='appointSub m-0'>JBG {getStaffInfo?.pos_staff_detail?.hourly_rate}/hr</h4>
+                                        <h4 className='appointSub m-0'>JBR {getStaffInfo?.pos_staff_detail?.hourly_rate ? getStaffInfo?.pos_staff_detail?.hourly_rate : 0}/hr</h4>
                                     </div>
                                     <div className='staffSubTime'>
                                         <h4 className='amountText m-0'>Over Time Rate</h4>
                                         <hr className='staffTimeDivide' />
-                                        <h4 className='appointSub m-0'>JBG {getStaffInfo?.pos_staff_detail?.overtime_rate}/hr</h4>
+                                        <h4 className='appointSub m-0'>JBR {getStaffInfo?.pos_staff_detail?.overtime_rate ? getStaffInfo?.pos_staff_detail?.overtime_rate : 0}/hr</h4>
                                     </div>
                                     {/* {getStaffInfo?.pos_staff_detail?.hourly_rate?.length > 0 ?
                                         getStaffInfo?.pos_staff_detail?.payment_cycle?.map((data, index) => {
@@ -115,7 +151,7 @@ const StaffDetail = ({ selectedItemId }) => {
                                     <div className='staffSubTime'>
                                         <h4 className='amountText m-0'>Payment Cycle</h4>
                                         <hr className='staffTimeDivide' />
-                                        <h4 className='appointSub m-0'>{getStaffInfo?.pos_staff_detail?.payment_cycle}</h4>
+                                        <h4 className='appointSub m-0'>{getStaffInfo?.pos_staff_detail?.payment_cycle ?? "--"}</h4>
                                     </div>
                                     {/* )
                                         })
@@ -128,7 +164,7 @@ const StaffDetail = ({ selectedItemId }) => {
                                     <div className='staffSubTime'>
                                         <h4 className='amountText m-0'>Billing</h4>
                                         <hr className='staffTimeDivide' />
-                                        <h4 className='appointSub m-0'>{getStaffInfo?.pos_staff_detail?.billing_type}</h4>
+                                        <h4 className='appointSub m-0'>{getStaffInfo?.pos_staff_detail?.billing_type ?? '--'}</h4>
                                     </div>
                                     {/* )
                                         })
@@ -183,30 +219,30 @@ const StaffDetail = ({ selectedItemId }) => {
 
                                         getStaffInfo?.results?.results?.map((data, index) => {
                                             return (
-                                                <div className='staffTableOuter'>
+                                                <div key={index} className='staffTableOuter'>
                                                     <div className='staffTableData'>
 
                                                         <div className='staffBoxData text-start'>
-                                                            <h4 className='staffTableText'>{data?.start_date} - {data?.end_date}</h4>
+                                                            <h4 className='staffTableText'>{moment(data?.start_date).format("MMM DD, YYYY")} - {moment(data?.end_date).format("MMM DD, YYYY")}</h4>
                                                         </div>
                                                         <div className='staffBoxData '>
-                                                            <h4 className='staffTableText'>{Number(data.duration)?.toFixed(2)}</h4>
+                                                            <h4 className='staffTableText'>{convertMinutesToHoursAndMinutes(data?.duration)}</h4>
                                                         </div>
                                                         <div className='staffBoxData'>
-                                                            <h4 className='staffTableText'>JBR {Number(data.amount)?.toFixed(2)}</h4>
+                                                            <h4 className='staffTableText'>JBR {Number(data?.amount)?.toFixed(2)}</h4>
                                                         </div>
                                                         <div className='staffBoxData '>
-                                                            <button className='paidBtn ' type='button'>{data.status == 0 ? 'Unpaid' : data.status == 1 ? 'Request Sent' : 'Paid'}</button>
+                                                            <button className={data?.status === 2 ? 'paidBtn ' : "unpaidBtn"} type='button'>{data?.status === 2 ? 'Paid' : 'Unpaid'}</button>
                                                         </div>
                                                         <div className='staffBoxData'>
-                                                            <button className='viewBtn ' type='button'>view</button>
+                                                            <button className={data?.status === 2 ? 'viewBtn ' : 'requestBtn'} onClick={() => handleRequest(data?.status, data?.start_date, data?.end_date)} type='button'>{data?.status === 0 ? "Request" : data?.status === 1 ? "Requested" : 'view'}</button>
                                                         </div>
                                                     </div>
                                                 </div>
                                             )
                                         }) : ""
                                     }
-                                    <div className='staffTableOuter'>
+                                    {/* <div className='staffTableOuter'>
                                         <div className='staffTableData'>
                                             <div className='staffBoxData text-start'>
                                                 <h4 className='staffTableText'>May 29, 2023 - Jun 4, 2023</h4>
@@ -275,7 +311,7 @@ const StaffDetail = ({ selectedItemId }) => {
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
+                                    </div> */}
                                 </div>
                             </div>
                         )

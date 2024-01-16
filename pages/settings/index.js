@@ -33,6 +33,8 @@ import Legal from "./legal";
 import LegalPolicy from "./legal/legalPolicy";
 import PolicyInfo from "./policies/policyInfo";
 import Policy from "./policies";
+import Wallet from "./Wallet";
+import Notification from "./notification";
 
 export default function Settings() {
   const [selectedItem, setSelectedItem] = useState("Security");
@@ -79,7 +81,7 @@ export default function Settings() {
   };
 
   const handleTouch = (item, id) => {
-    setPolicyInfo(id)
+    setPolicyInfo(id);
     setSelectedItemId(id ? id : "");
     setSelectedItem(item?.name ? item?.name : item);
   };
@@ -108,6 +110,10 @@ export default function Settings() {
         return <LegalPolicy policyInfo={policyInfo} />;
       case "PolicyInfo":
         return <PolicyInfo policyInfo={policyInfo} />;
+      case "Wallet":
+        return <Wallet />;
+      case "Notifications":
+        return <Notification />;
       default:
         return null;
     }
