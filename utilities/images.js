@@ -308,6 +308,11 @@ import readyStep from "../public/images/readyStep.svg"
 import Fast from "../public/images/Fast.svg"
 import BluetoothImg from "../public/images/BluetoothImg.svg"
 import scanSmall from "../public/images/scanSmall.svg"
+import languageIcon from "../public/images/languageIcon.svg"
+import lang1 from "../public/images/lang1.svg"
+import lang2 from "../public/images/lang2.png"
+import lang3 from "../public/images/lang3.png"
+import lang4 from "../public/images/lang4.png"
 
 export {
   scanSmall,
@@ -617,5 +622,10 @@ export {
   checkverify,
   countryflag,
   countryflag1,
-  toggleOn
+  toggleOn,
+  languageIcon,
+  lang1,
+  lang2,
+  lang3,
+  lang4
 };

@@ -308,3 +308,55 @@ input:checked + .switch-slider:before {
   background-color: #ffffff;
   width: 100%;
 }
+/**Language Css Start**/
+
+.languageRight {
+  border-radius: 20px;
+  background: #FFF;
+  box-shadow: -2px 4px 25px 0px rgb(50 80 127 / 2%), -5px 10px 80px 0px rgb(50 80 127 / 4%);
+  padding: 24px 30px;
+  display: flex;
+  align-items: start;
+  gap: 12px;
+}
+.addlangueBtn_ {
+  background: transparent;
+  border: none!important;
+  display: flex;
+  align-items: center;
+  color: #263682;
+  font-size: 16px;
+  font-weight: 500;
+  outline: none!important;
+}
+.addlanguage_ {
+  padding-left: 30px;
+}
+#addlanguageModal .modal-header {
+  flex-direction: column;
+  border-bottom: none;
+}
+.countryLanguage_ {
+  border-radius: 16px;
+  background: #fff;
+  padding: 12px;
+  display: flex;
+  align-items: center;
+  border: 1px solid #D7DEFF;
+  cursor: pointer;
+}
+.smalblueText_ {
+    font-size: 16px;
+    font-weight: 500;
+    color: #263682;
+}
+.activelang {
+  border: 1px solid #4659B5;
+  background: #F5F6FC;
+}
+.addlanguagebox_ {
+  max-height: 380px;
+  display: inline-block;
+  width: 100%;
+  overflow-y: auto;
+}
