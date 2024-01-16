@@ -4,7 +4,12 @@ import Image from "next/image";
 import ProductSearch from "../../components/commanComonets/Product/productSearch";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import { availableOffers, productCart } from "../../redux/slices/retails";
+import {
+  availableOffers,
+  clearCart,
+  productCart,
+  selectRetailData,
+} from "../../redux/slices/retails";
 import { useDispatch, useSelector } from "react-redux";
 import { selectLoginAuth } from "../../redux/slices/auth";
 import AddDiscount from "./AddDiscount";
@@ -15,16 +20,18 @@ const ProductCart = () => {
   const router = useRouter();
   const dispatch = useDispatch();
   const authData = useSelector(selectLoginAuth);
+  const retailData = useSelector(selectRetailData);
+  const cartData = retailData?.productCart;
+  const cartAmount = cartData?.amount;
   const sellerId = authData?.usersInfo?.payload?.uniqe_id;
-  const [availableOffersData, setAvailableOffersData] = useState(null);
-  const [productCarts, setProductCarts] = useState(null);
-  const [posCartProducts, setPosCartProducts] = useState([]);
+  const availableOffersArray = retailData?.availableOffers?.data || [];
   const [key, setKey] = useState(Math.random());
   const [modalDetail, setModalDetail] = useState({
     show: false,
     title: "",
     flag: "",
   });
+
   const handleOnCloseModal = () => {
     setModalDetail({
       show: false,
@@ -42,32 +49,13 @@ const ProductCart = () => {
       availableOffers({
         ...params,
         cb(res) {
-          if (res.data) {
-            setAvailableOffersData(res?.data?.payload?.data);
-          } else {
-            toast.error("something went wrong");
-          }
         },
       })
     );
   };
-  const fullcarts = () => {
-    dispatch(
-      productCart({
-        cb(res) {
-          if (res.data) {
-            setProductCarts(res?.data?.payload);
-            setPosCartProducts(res?.data?.payload?.poscart_products);
-          } else {
-            toast.error("something went wrong");
-          }
-        },
-      })
-    );
-  };
+
   useEffect(() => {
     offers();
-    fullcarts();
   }, [sellerId]);
 
   const handleAddDiscount = () => {
@@ -87,7 +75,10 @@ const ProductCart = () => {
             <div className="commanOuter me-0 commonSubOuter fullCartLeft">
               <div className="fullCartInfo">
                 <div className="appointmentHeading">
-                  <Link href="/Retails">
+                  <Link
+                    //  href="/Retails"
+                    href="/Retails?parameter=product"
+                  >
                     <Image
                       src={Images.boldLeftArrow}
                       alt="leftarrow image"
@@ -113,7 +104,7 @@ const ProductCart = () => {
                 </div>
               </div>
 
-              {posCartProducts?.map((data, index) => {
+              {cartData?.poscart_products?.map((data, index) => {
                 return (
                   <div className="cartSubInfo active ">
                     <div className="cartItemDetail w-50">
@@ -191,7 +182,18 @@ const ProductCart = () => {
                   />
                   <h4 className="monthText">Pause Product</h4>
                 </div>
-                <div className="deleteProductCart ">
+                <div
+                  className="deleteProductCart "
+                  onClick={() =>
+                    dispatch(
+                      clearCart({
+                        cb: () => {
+                          dispatch(productCart());
+                        },
+                      })
+                    )
+                  }
+                >
                   <Image
                     src={Images.deleteProduct}
                     alt="deleteProductImage"
@@ -233,8 +235,8 @@ const ProductCart = () => {
                 </div>
 
                 <div className="offerdata">
-                  {availableOffersData?.length > 0 ? (
-                    availableOffersData?.map((offers, index) => {
+                  {availableOffersArray?.length > 0 ? (
+                    availableOffersArray?.map((offers, index) => {
                       return (
                         <div key={index} className="availableoffer">
                           <div className="cartOfferInfo">
@@ -289,7 +291,7 @@ const ProductCart = () => {
                     })
                   ) : (
                     <>
-                      {availableOffersData?.length == 0 ? (
+                      {availableOffersArray?.length == 0 ? (
                         <h3 className="mt-3 mb-3">No avail Found!</h3>
                       ) : (
                         <div className="loaderOuter">
@@ -325,24 +327,36 @@ const ProductCart = () => {
                 <div className="offerCartTotal">
                   <div className="flexDiv mt-2">
                     <h4 className="lightOfferText">Sub Total</h4>
-                    <h4 className="appointSub m-0">$2,396.50</h4>
+                    <h4 className="appointSub m-0">
+                      ${cartAmount?.products_price || "0.00"}
+                    </h4>
                   </div>
                   <div className="flexDiv mt-2">
-                    <h4 className="lightOfferText fw-bold">Discount</h4>
-                    <h4 className="appointSub m-0 fw-bold">-$19.00</h4>
+                    <h4 className="lightOfferText fw-bold">
+                      {`Discount ${
+                        cartData?.discount_flag === "percentage" ? "(%)" : ""
+                      } `}
+                    </h4>
+                    <h4 className="appointSub m-0 fw-bold">
+                      -${cartAmount?.discount || "0.00"}
+                    </h4>
                   </div>
-                  <div className="flexDiv mt-2">
+                  {/* <div className="flexDiv mt-2">
                     <h4 className="lightOfferText">Other Fees</h4>
                     <h4 className="appointSub m-0">$14,000</h4>
-                  </div>
+                  </div> */}
                   <div className="flexDiv mt-2">
-                    <h4 className="lightOfferText">Fax</h4>
-                    <h4 className="appointSub m-0">$236</h4>
+                    <h4 className="lightOfferText">Tax</h4>
+                    <h4 className="appointSub m-0">
+                      ${cartAmount?.tax || "0.00"}
+                    </h4>
                   </div>
                 </div>
                 <div className="flexDiv mt-2">
                   <h4 className="totalText">Total</h4>
-                  <h4 className="totalSubText">$236</h4>
+                  <h4 className="totalSubText">
+                    ${cartAmount?.total_amount || "0.00"}
+                  </h4>
                 </div>
                 <button
                   className="nextverifyBtn w-100 mt-3"
