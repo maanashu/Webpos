@@ -76,7 +76,7 @@ const AddDiscount = (props) => {
             onClick={() => handleselectLabel("amount")}
             className={
               disCountFlag == "amount"
-                ? "selectedFlagDiscount"
+                ? "customform-control selectedFlagDiscount"
                 : "customform-control customInputDiscount"
             }
           >
@@ -96,7 +96,7 @@ const AddDiscount = (props) => {
             htmlFor="percentage"
             className={
               disCountFlag == "percentage"
-                ? "selectedFlagDiscount"
+                ? "customform-control selectedFlagDiscount"
                 : "customform-control customInputDiscount"
             }
             onClick={() => handleselectLabel("percentage")}
@@ -116,7 +116,7 @@ const AddDiscount = (props) => {
             htmlFor="discountCode"
             className={
               disCountFlag == "code"
-                ? "selectedFlagDiscount"
+                ? "customform-control selectedFlagDiscount"
                 : "customform-control customInputDiscount"
             }
             onClick={() => handleselectLabel("code")}
