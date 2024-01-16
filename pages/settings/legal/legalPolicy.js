@@ -3,13 +3,13 @@ import * as Images from "../../../utilities/images";
 import Image from "next/image";
 
 const LegalPolicy = ({ policyInfo }) => {
-    const removeHtmlTag = (content) => {
-        const withoutHtmlTags = content?.replace(/<\/?[^>]+(>|$)|&nbsp;/g, '');
+    // const removeHtmlTag = (content) => {
+    //     const withoutHtmlTags = content
 
-        // Remove special characters and white spaces
-        const withoutSpecialCharsAndSpaces = withoutHtmlTags?.trim().replace(/[^\w\s]/gi, '');
-        return withoutSpecialCharsAndSpaces;
-    };
+    //     // Remove special characters and white spaces
+    //     const withoutSpecialCharsAndSpaces = withoutHtmlTags?.trim().replace(/[^\w\s]/gi, '');
+    //     return withoutSpecialCharsAndSpaces;
+    // };
     return (
         <>
             <div className='settingMain'>
@@ -21,8 +21,8 @@ const LegalPolicy = ({ policyInfo }) => {
                             <div className='refundSub'>
                                 <h4 className='appointMain'>{policyInfo?.title}</h4>
                                 <div className='refundIntro'>
-                                    <h4 className='refundMainText'>Introduction</h4>
-                                    <p className='refundSubText mt-3'>{removeHtmlTag(policyInfo?.content, 50)}</p>
+                                    {/* <h4 className='refundMainText'>Introduction</h4> */}
+                                    <div dangerouslySetInnerHTML={{ __html: policyInfo?.content }} />
                                 </div>
                             </div>
                         </div>
