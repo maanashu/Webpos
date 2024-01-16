@@ -134,7 +134,7 @@ export default function Settings() {
           </div>
         </div>
         <div className="col-lg-9">
-          <div>{renderComponent()}</div>
+          <div className="outerpage">{renderComponent()}</div>
         </div>
       </div>
     </div>

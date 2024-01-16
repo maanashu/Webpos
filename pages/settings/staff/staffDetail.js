@@ -79,7 +79,7 @@ const StaffDetail = ({ selectedItemId }) => {
         <>
             <div className='settingMain staffDetailSection'>
                 <div className='row'>
-                    <div className='col-lg-9'>
+                    <div className='col-lg-12'>
                         {settingData?.loading ? (
                             <>
                                 <div className="loaderOuter">
