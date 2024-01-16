@@ -217,18 +217,18 @@ console.log(totalInventoryData, "total inventory data");
                           <td
                             className="customers-table-data"
                           >
-                            {row?.product_upc}
+                            {row?.upc}
                           </td>
                           <td
                             className="customers-table-data"
                           // style={{ display: "flex", gap: "12px" }}
                           >
-                            {`$${row?.total_price ? addThousandSeparator((row?.total_price)?.toFixed(2)) : "0"}`}
+                            {`$${row?.price ? addThousandSeparator((row?.price)?.toFixed(2)) : "0"}`}
                           </td>
                           <td
                             className="customers-table-data"
                           >
-                            {row?.in_stock_qty}
+                            {row?.supplies[0]?.total_quantity}
                           </td>
                           <td
                             className="customers-table-data"
