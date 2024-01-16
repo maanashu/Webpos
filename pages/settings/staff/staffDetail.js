@@ -3,7 +3,7 @@ import { ListGroup, ListGroupItem } from 'react-bootstrap';
 import * as Images from "../../../utilities/images"
 import Image from "next/image";
 import Link from 'next/link';
-import { getStaffDetails, settingInfo } from '../../../redux/slices/setting';
+import { getStaffDetails, requestPayment, settingInfo } from '../../../redux/slices/setting';
 import { useDispatch, useSelector } from 'react-redux';
 import moment from 'moment-timezone';
 import { useRouter } from 'next/router';
@@ -25,7 +25,6 @@ const StaffDetail = ({ selectedItemId }) => {
         let params = {
             id: 2,
             // id:selectedItemId
-
         };
         dispatch(getStaffDetails({
             ...params,
@@ -49,12 +48,26 @@ const StaffDetail = ({ selectedItemId }) => {
         return hours + ' h ' + remainingMinutes?.toFixed(0) + ' m';
     }
 
-    const handleRequest = (status) => {
+    const handleRequest = (status, startDate, endDate) => {
         if (status === 0) {
-
+            let data = {
+                "start_date": moment(startDate).format('YYYY-MM-DD'),
+                "end_date": moment(endDate).format('YYYY-MM-DD'),
+                // "staff_details_id": selectedItemId?.toString()
+                "staff_details_id": '2'
+            }
+            dispatch(requestPayment({
+                ...data,
+                cb(res) {
+                    if (res) {
+                        getStaffDetail()
+                    }
+                },
+            })
+            );
         }
-        else{
-            router.push("/Product")
+        else {
+            router.push("/StaffLocation")
         }
     }
 
@@ -125,12 +138,12 @@ const StaffDetail = ({ selectedItemId }) => {
                                     <div className='staffSubTime'>
                                         <h4 className='amountText m-0'>Time Rate</h4>
                                         <hr className='staffTimeDivide' />
-                                        <h4 className='appointSub m-0'>JBG {getStaffInfo?.pos_staff_detail?.hourly_rate}/hr</h4>
+                                        <h4 className='appointSub m-0'>JBR {getStaffInfo?.pos_staff_detail?.hourly_rate ? getStaffInfo?.pos_staff_detail?.hourly_rate : 0}/hr</h4>
                                     </div>
                                     <div className='staffSubTime'>
                                         <h4 className='amountText m-0'>Over Time Rate</h4>
                                         <hr className='staffTimeDivide' />
-                                        <h4 className='appointSub m-0'>JBG {getStaffInfo?.pos_staff_detail?.overtime_rate}/hr</h4>
+                                        <h4 className='appointSub m-0'>JBR {getStaffInfo?.pos_staff_detail?.overtime_rate ? getStaffInfo?.pos_staff_detail?.overtime_rate : 0}/hr</h4>
                                     </div>
                                     {/* {getStaffInfo?.pos_staff_detail?.hourly_rate?.length > 0 ?
                                         getStaffInfo?.pos_staff_detail?.payment_cycle?.map((data, index) => {
@@ -138,7 +151,7 @@ const StaffDetail = ({ selectedItemId }) => {
                                     <div className='staffSubTime'>
                                         <h4 className='amountText m-0'>Payment Cycle</h4>
                                         <hr className='staffTimeDivide' />
-                                        <h4 className='appointSub m-0'>{getStaffInfo?.pos_staff_detail?.payment_cycle}</h4>
+                                        <h4 className='appointSub m-0'>{getStaffInfo?.pos_staff_detail?.payment_cycle ?? "--"}</h4>
                                     </div>
                                     {/* )
                                         })
@@ -151,7 +164,7 @@ const StaffDetail = ({ selectedItemId }) => {
                                     <div className='staffSubTime'>
                                         <h4 className='amountText m-0'>Billing</h4>
                                         <hr className='staffTimeDivide' />
-                                        <h4 className='appointSub m-0'>{getStaffInfo?.pos_staff_detail?.billing_type}</h4>
+                                        <h4 className='appointSub m-0'>{getStaffInfo?.pos_staff_detail?.billing_type ?? '--'}</h4>
                                     </div>
                                     {/* )
                                         })
@@ -219,10 +232,10 @@ const StaffDetail = ({ selectedItemId }) => {
                                                             <h4 className='staffTableText'>JBR {Number(data?.amount)?.toFixed(2)}</h4>
                                                         </div>
                                                         <div className='staffBoxData '>
-                                                            <button className={data?.status === 0 ? "unpaidBtn" : 'paidBtn '} type='button'>{data?.status === 0 ? 'Unpaid' : 'Paid'}</button>
+                                                            <button className={data?.status === 2 ? 'paidBtn ' : "unpaidBtn"} type='button'>{data?.status === 2 ? 'Paid' : 'Unpaid'}</button>
                                                         </div>
                                                         <div className='staffBoxData'>
-                                                            <button className={data?.status === 0 ? 'requestBtn' : 'viewBtn '} onClick={() => handleRequest(data?.status)} type='button'>{data?.status === 0 ? "Request" : 'view'}</button>
+                                                            <button className={data?.status === 2 ? 'viewBtn ' : 'requestBtn'} onClick={() => handleRequest(data?.status, data?.start_date, data?.end_date)} type='button'>{data?.status === 0 ? "Request" : data?.status === 1 ? "Requested" : 'view'}</button>
                                                         </div>
                                                     </div>
                                                 </div>

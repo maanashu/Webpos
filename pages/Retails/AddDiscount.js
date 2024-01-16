@@ -9,7 +9,7 @@ const AddDiscount = (props) => {
   const cartId = retailData?.cartDetails?.id;
   const cartTotalAmount = retailData?.cartDetails?.amount;
   const [disCountFlag, setDiscountFlag] = useState("");
-  const [discountTitle, setDiscountTitle] = useState("");
+  const [discountTitle, setDiscountTitle] = useState("Discount");
   const [discountValue, setDiscountValue] = useState(null);
   const [amount, setAmount] = useState(null);
   const [percent, setPercent] = useState(null);
@@ -76,14 +76,16 @@ const AddDiscount = (props) => {
             onClick={() => handleselectLabel("amount")}
             className={
               disCountFlag == "amount"
-                ? "selectedFlagDiscount"
+                ? "customform-control selectedFlagDiscount"
                 : "customform-control customInputDiscount"
             }
           >
+            {" "}
             Amount
           </label>
 
           <input
+            className="customdiscount_"
             type="number"
             placeholder="$0.00"
             onChange={handleInputChange}
@@ -96,7 +98,7 @@ const AddDiscount = (props) => {
             htmlFor="percentage"
             className={
               disCountFlag == "percentage"
-                ? "selectedFlagDiscount"
+                ? "customform-control selectedFlagDiscount"
                 : "customform-control customInputDiscount"
             }
             onClick={() => handleselectLabel("percentage")}
@@ -104,6 +106,7 @@ const AddDiscount = (props) => {
             Percent
           </label>
           <input
+            className="customdiscount_"
             type="number"
             placeholder="0.00     % "
             onChange={handleInputChange}
@@ -116,7 +119,7 @@ const AddDiscount = (props) => {
             htmlFor="discountCode"
             className={
               disCountFlag == "code"
-                ? "selectedFlagDiscount"
+                ? "customform-control selectedFlagDiscount"
                 : "customform-control customInputDiscount"
             }
             onClick={() => handleselectLabel("code")}
@@ -124,7 +127,7 @@ const AddDiscount = (props) => {
             Discount Code
           </label>
           <input
-            className="amountInput"
+            className="customdiscount_"
             type="text"
             placeholder="CODE"
             onChange={handleInputChange}
@@ -135,7 +138,7 @@ const AddDiscount = (props) => {
         <div>
           <label className="form-label fw-500">Discount Title</label>
           <input
-            className="customform-control customInputDiscount"
+            className="customform-control discountInput_"
             placeholder="Discount"
             type="text"
             value={discountTitle}
@@ -144,10 +147,19 @@ const AddDiscount = (props) => {
         </div>
       </div>
 
-      <div className="noteButton">
-        <button className="addnotesBtn" type="submit">
+      <div className="noteButton mt-3">
+        {/* <button className="addnotesBtn" type="submit">
           Add Discount
-        </button>
+        </button> */}
+        {retailData?.loading ? (
+          <button className="addnotesBtn" type="submit" disabled>
+            <span className="spinner-border spinner-border-sm"></span>
+          </button>
+        ) : (
+          <button className="addnotesBtn" type="submit">
+            Add Discount
+          </button>
+        )}
       </div>
     </form>
   );

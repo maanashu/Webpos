@@ -94,6 +94,9 @@ export const settingSlice = createSlice({
         onErrorStopLoad: (state) => {
             state.loading = false;
         },
+        requestPayment: (state) => {
+            state.loading = true;
+        },
     },
 });
 
@@ -123,7 +126,8 @@ export const {
     setUpdateSettings,
     updateLocationSetting,
     setUpdateLocationSetting,
-    onErrorStopLoad
+    onErrorStopLoad,
+    requestPayment
 } = settingSlice.actions;
 
 export const settingInfo = (state) => state.setting;

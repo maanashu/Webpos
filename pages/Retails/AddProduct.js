@@ -146,7 +146,6 @@ const AddProduct = () => {
             .join(),
           supplyId: productDetail?.supplies?.[0]?.id,
         };
-        console.log("params", params);
         dispatch(
           checkSuppliedVariant({
             ...params,

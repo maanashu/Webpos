@@ -3,6 +3,7 @@ import { createSlice } from "@reduxjs/toolkit";
 const initialState = {
   mainProductData: {},
   oneProductData: {},
+  oneServiceData:{},
   mainServicesData: {},
   availableOffers: {},
   mainServicesData: {},
@@ -28,6 +29,13 @@ export const retailsSlice = createSlice({
     setOneProductById: (state, action) => {
       state.loading = false;
       state.oneProductData = action?.payload?.payload;
+    },
+    getOneServiceById: (state) => {
+      state.loading = true;
+    },
+    setOneServiceById: (state, action) => {
+      state.loading = false;
+      state.oneServiceData = action?.payload?.payload;
     },
     getMainServices: (state) => {
       state.loading = true;
@@ -97,6 +105,8 @@ export const {
   setMainProduct,
   getOneProductById,
   setOneProductById,
+  getOneServiceById,
+  setOneServiceById,
   getMainServices,
   setMainServices,
   availableOffers,

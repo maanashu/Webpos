@@ -7,6 +7,7 @@ import { useRouter } from "next/router";
 import {
   availableOffers,
   clearCart,
+  getOneProductById,
   productCart,
   selectRetailData,
 } from "../../redux/slices/retails";
@@ -24,9 +25,8 @@ const ProductCart = () => {
   const cartData = retailData?.productCart;
   const cartAmount = cartData?.amount;
   const sellerId = authData?.usersInfo?.payload?.uniqe_id;
-  const [availableOffersData, setAvailableOffersData] = useState(null);
-  const [productCarts, setProductCarts] = useState(null);
-  const [posCartProducts, setPosCartProducts] = useState([]);
+  const availableOffersArray = retailData?.availableOffers?.data || [];
+  console.log(availableOffersArray, "availableOffersArray");
   const [key, setKey] = useState(Math.random());
   const [modalDetail, setModalDetail] = useState({
     show: false,
@@ -50,30 +50,13 @@ const ProductCart = () => {
     dispatch(
       availableOffers({
         ...params,
-        cb(res) {
-          console.log("resres", res);
-        },
+        cb(res) {},
       })
     );
   };
-  const fullcarts = () => {
-    dispatch(
-      productCart({
-        cb(res) {
-          console.log(res, "response=>");
-          if (res.data) {
-            setProductCarts(res?.data?.payload);
-            setPosCartProducts(res?.data?.payload?.poscart_products);
-          } else {
-            toast.error("something went wrong");
-          }
-        },
-      })
-    );
-  };
+
   useEffect(() => {
     offers();
-    // fullcarts();
   }, [sellerId]);
 
   const handleAddDiscount = () => {
@@ -85,6 +68,29 @@ const ProductCart = () => {
     setKey(Math.random());
   };
 
+  const handleGoToProductDetails = (productId) => {
+    router.push(
+      "/Retails/[productDetailId]/AddProduct",
+      `/Retails/${productId}/AddProduct`
+    );
+  };
+
+  const productFun = (productId, index, item) => {
+    let params = {
+      seller_id: sellerId,
+      app_name: "pos",
+      need_pos_users: true,
+    };
+    dispatch(
+      getOneProductById({
+        params,
+        productId,
+        cb: (resp) => {
+          router.push({ pathname: "/Retails/AddProduct" });
+        },
+      })
+    );
+  };
   return (
     <>
       <div className="fullCartSection">
@@ -93,10 +99,7 @@ const ProductCart = () => {
             <div className="commanOuter me-0 commonSubOuter fullCartLeft">
               <div className="fullCartInfo">
                 <div className="appointmentHeading">
-                  <Link
-                    //  href="/Retails"
-                    href="/Retails?parameter=product"
-                  >
+                  <Link href="/Retails?parameter=product">
                     <Image
                       src={Images.boldLeftArrow}
                       alt="leftarrow image"
@@ -122,62 +125,76 @@ const ProductCart = () => {
                 </div>
               </div>
 
-              {cartData?.poscart_products?.map((data, index) => {
-                return (
-                  <div className="cartSubInfo active ">
-                    <div className="cartItemDetail w-50">
-                      <h4 className="invoice_subhead p-0 ">{index + 1}</h4>
-                      <div className="orderTime ms-2">
-                        <Image
-                          src={data?.product_details?.image}
-                          alt="cartFoodImg"
-                          className="img-fluid cartFoodImg"
-                          width="100"
-                          height="100"
-                        />
-                        <div className="cartorderHeading ms-2 ">
-                          <h4 className="cartInfoText">
-                            {data?.product_details?.name}
-                          </h4>
-                          <div className="flexTable mt-1">
-                            <div className="productGreyDot"></div>
-                            <h6 className="loginPara ms-1">
-                              {data?.product_details?.sku}
-                            </h6>
+              {cartData?.poscart_products?.length > 0 ? (
+                cartData?.poscart_products?.map((data, index) => {
+                  return (
+                    <div className="cartSubInfo active ">
+                      <div className="cartItemDetail w-50">
+                        <h4 className="invoice_subhead p-0 ">{index + 1}</h4>
+                        <div className="orderTime ms-2">
+                          <Image
+                            src={data?.product_details?.image}
+                            alt="cartFoodImg"
+                            className="img-fluid cartFoodImg"
+                            width="100"
+                            height="100"
+                          />
+                          <div className="cartorderHeading ms-2 ">
+                            <h4 className="cartInfoText">
+                              {data?.product_details?.name}
+                            </h4>
+                            <div className="flexTable mt-1">
+                              <div className="productGreyDot"></div>
+                              <h6 className="loginPara ms-1">
+                                {data?.product_details?.sku}
+                              </h6>
+                            </div>
                           </div>
                         </div>
                       </div>
-                    </div>
-                    <div className="fullCartInfo w-50">
-                      {/* <input
+                      <div className="fullCartInfo w-50">
+                        {/* <input
     className="form-control unitPriceControl"
     type="number"
     placeholder="$20.00"
   /> */}
-                      ${data?.product_details?.price}
-                      <div className="incrementBtn ">
-                        <i className="fa-solid fa-minus plusMinus"></i>
-                        {/* <input
+                        ${data?.product_details?.price}
+                        <div className="incrementBtn ">
+                          <i className="fa-solid fa-minus plusMinus"></i>
+                          {/* <input
     className="form-control addBtnControl"
     type="number"
     placeholder=""
     disabled
   /> */}
-                        {data?.qty}
-                        <i className="fa-solid fa-plus plusMinus"></i>
-                      </div>
-                      <div className="fullCartInfo">
-                        <h4 className="invoice_subhead p-0">$100</h4>
-                        <Image
-                          src={Images.redCross}
-                          alt="crossImage"
-                          className="img-fluid ms-2"
-                        />
+                          {data?.qty}
+                          <i className="fa-solid fa-plus plusMinus"></i>
+                        </div>
+                        <div className="fullCartInfo">
+                          <h4 className="invoice_subhead p-0">
+                            ${data?.product_details?.price * data?.qty}
+                          </h4>
+                          <Image
+                            src={Images.redCross}
+                            alt="crossImage"
+                            className="img-fluid ms-2"
+                          />
+                        </div>
                       </div>
                     </div>
-                  </div>
-                );
-              })}
+                  );
+                })
+              ) : (
+                <>
+                  {cartData?.poscart_products?.length == null ? (
+                    <h3 className="mt-2 mb-2 text-center">No Carts Found!</h3>
+                  ) : (
+                    <div className="loaderOuter">
+                      <div className="spinner-grow loaderSpinner text-center my-5"></div>
+                    </div>
+                  )}
+                </>
+              )}
             </div>
           </div>
 
@@ -255,10 +272,18 @@ const ProductCart = () => {
                 </div>
 
                 <div className="offerdata">
-                  {availableOffersData?.length > 0 ? (
-                    availableOffersData?.map((offers, index) => {
+                  {availableOffersArray?.length > 0 ? (
+                    availableOffersArray?.map((offers, index) => {
                       return (
-                        <div key={index} className="availableoffer">
+                        <div
+                          key={index}
+                          // onClick={() => handleGoToProductDetails(offers?.id)}
+                          // onClick={() => {
+                          //   router.push({ pathname: "/Retails/AddProduct" });
+                          // }}
+                          onClick={() => productFun(offers.id, index, offers)}
+                          className="availableoffer"
+                        >
                           <div className="cartOfferInfo">
                             <Image
                               src={offers?.image}
@@ -311,8 +336,10 @@ const ProductCart = () => {
                     })
                   ) : (
                     <>
-                      {availableOffersData?.length == 0 ? (
-                        <h3 className="mt-3 mb-3">No avail Found!</h3>
+                      {availableOffersArray?.length == 0 ? (
+                        <h3 className="mt-3 mb-3">
+                          No available offers Found!
+                        </h3>
                       ) : (
                         <div className="loaderOuter">
                           <div className="spinner-grow loaderSpinner text-center my-5"></div>
@@ -417,13 +444,9 @@ const ProductCart = () => {
         header={
           <>
             {modalDetail.flag === "AddDiscount" ? (
-              <h2 className="modalHeading mb-0">
-                <p className="addProductHeading">Add Discount</p>
-              </h2>
+              <h4 className="appointMain mb-0">Add Discount</h4>
             ) : modalDetail.flag === "AddNotes" ? (
-              <h2 className="modalHeading mb-0">
-                <p className="addProductHeading">Add Notes</p>
-              </h2>
+              <h4 className="appointMain mb-0">Add Notes</h4>
             ) : (
               ""
             )}

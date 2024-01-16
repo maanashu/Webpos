@@ -23,9 +23,8 @@ const AddNotes = (props) => {
       addNotes({
         ...params,
         cb(res) {
-          toast.success("Notes Added!")
+          toast.success("Notes Added!");
           props.close();
-        
         },
       })
     );
@@ -50,9 +49,19 @@ const AddNotes = (props) => {
           </div>
         </div>
         <div className="noteButton">
-          <button className="addnotesBtn" type="submit">
+          {/* <button className="addnotesBtn" type="submit">
             Add Notes
-          </button>
+          </button> */}
+
+          {retailData?.loading ? (
+            <button className="addnotesBtn" type="submit" disabled>
+              <span className="spinner-border spinner-border-sm"></span>
+            </button>
+          ) : (
+            <button className="addnotesBtn" type="submit">
+              Add Notes
+            </button>
+          )}
         </div>
       </form>
     </div>

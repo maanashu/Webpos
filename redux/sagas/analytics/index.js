@@ -94,7 +94,7 @@ function* totalAnalyticsProductSoldData(action) {
   }
 }
 
-function* totalInventoryData(action) {
+function* totalInventoryDataApi(action) {
   const dataToSend = { ...action.payload };
   delete dataToSend.cb
   const params = new URLSearchParams(dataToSend).toString();
@@ -111,7 +111,8 @@ function* totalInventoryData(action) {
       throw resp;
     }
   } catch (e) {
-    yield put(onErrorStopLoad());
+    // yield put(onErrorStopLoad());
+    console.log(e,"total inventory data")
     toast.error(e?.error?.response?.data?.msg);
   }
 }
@@ -122,7 +123,7 @@ function* analyticsSaga() {
     takeLatest("analytics/orderAnalyticsData", orderAnalyticsData),
     takeLatest("analytics/totalOrderAnalyticsDataApi", totalOrderAnalyticsDataApi),
     takeLatest("analytics/totalAnalyticsProductSoldData", totalAnalyticsProductSoldData),
-    takeLatest("analytics/totalInventoryData", totalInventoryData),
+    takeLatest("analytics/totalInventoryDataApi", totalInventoryDataApi),
   ]);
 }
 
