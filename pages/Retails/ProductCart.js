@@ -16,6 +16,12 @@ import { selectLoginAuth } from "../../redux/slices/auth";
 import AddDiscount from "./AddDiscount";
 import AddNotes from "./AddNotes";
 import CustomModal from "../../components/customModal/CustomModal";
+import {
+  amountFormat,
+  formattedReturnPrice,
+  getProductFinalPrice,
+  getProductPrice,
+} from "../../utilities/globalMethods";
 
 const ProductCart = () => {
   const router = useRouter();
@@ -158,7 +164,14 @@ const ProductCart = () => {
     type="number"
     placeholder="$20.00"
   /> */}
-                        ${data?.product_details?.price}
+                        {amountFormat(
+                          getProductPrice(
+                            data.product_details?.supply?.supply_offers,
+                            data.product_details?.supply?.supply_prices
+                              ?.selling_price,
+                            data.qty
+                          )
+                        )}
                         <div className="incrementBtn ">
                           <i className="fa-solid fa-minus plusMinus"></i>
                           {/* <input
@@ -172,7 +185,7 @@ const ProductCart = () => {
                         </div>
                         <div className="fullCartInfo">
                           <h4 className="invoice_subhead p-0">
-                            ${data?.product_details?.price * data?.qty}
+                            {amountFormat(getProductFinalPrice(data))}
                           </h4>
                           <Image
                             src={Images.redCross}
@@ -375,7 +388,7 @@ const ProductCart = () => {
                   <div className="flexDiv mt-2">
                     <h4 className="lightOfferText">Sub Total</h4>
                     <h4 className="appointSub m-0">
-                      ${cartAmount?.products_price || "0.00"}
+                      {amountFormat(cartAmount?.products_price)}
                     </h4>
                   </div>
                   <div className="flexDiv mt-2">
@@ -385,7 +398,7 @@ const ProductCart = () => {
                       } `}
                     </h4>
                     <h4 className="appointSub m-0 fw-bold">
-                      -${cartAmount?.discount || "0.00"}
+                      {formattedReturnPrice(cartAmount?.discount || "0.00")}
                     </h4>
                   </div>
                   {/* <div className="flexDiv mt-2">
@@ -395,14 +408,14 @@ const ProductCart = () => {
                   <div className="flexDiv mt-2">
                     <h4 className="lightOfferText">Tax</h4>
                     <h4 className="appointSub m-0">
-                      ${cartAmount?.tax || "0.00"}
+                      {amountFormat(cartAmount?.tax)}
                     </h4>
                   </div>
                 </div>
                 <div className="flexDiv mt-2">
                   <h4 className="totalText">Total</h4>
                   <h4 className="totalSubText">
-                    ${cartAmount?.total_amount || "0.00"}
+                    {amountFormat(cartAmount?.total_amount)}
                   </h4>
                 </div>
                 <button
