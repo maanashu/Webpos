@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import * as Images from "../../utilities/images";
 import Image from "next/image";
 import CustomModal from "../../components/customModal/CustomModal";
@@ -8,24 +8,52 @@ import GiftCardModal from "../../components/modals/homeModals/service/giftCardMo
 import JobrWalletModal from "../../components/modals/homeModals/service/jobrWalletModal";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import { selectRetailData } from "../../redux/slices/retails";
-import { useSelector } from "react-redux";
+import {
+  getTips,
+  productCart,
+  selectRetailData,
+  updateCartByTip,
+} from "../../redux/slices/retails";
+import { useDispatch, useSelector } from "react-redux";
 import { selectLoginAuth } from "../../redux/slices/auth";
+import FullScrennLoader from "../../components/FullScrennLoader";
+import { settingInfo } from "../../redux/slices/setting";
+import {
+  amountFormat,
+  formattedReturnPriceWithoutSign,
+} from "../../utilities/globalMethods";
 
 const CartAmountByPay = () => {
   const router = useRouter();
+  const dispatch = useDispatch();
   const authData = useSelector(selectLoginAuth);
   const merchentDetails = authData?.usersInfo?.payload?.user?.user_profiles;
   const retailData = useSelector(selectRetailData);
+  const getSettingData = useSelector(settingInfo);
+  console.log(
+    "getSettingData",
+    Object.keys(getSettingData?.getSettings)?.length
+  );
+  const getTip = retailData?.getTipsData;
   const cartData = retailData?.productCart;
-  console.log(cartData,'cartData');
   const cartAmount = cartData?.amount;
+  const sellerId = authData?.usersInfo?.payload?.uniqe_id;
   const [key, setKey] = useState(Math.random());
+  const [selectedTipIndex, setSelectedTipIndex] = useState(null);
+  const [selectedTipAmount, setSelectedTipAmount] = useState("0.00");
+  const [selectedPaymentIndex, setSelectedPaymentIndex] = useState(null);
+  const [selectedPaymentId, setSelectedPaymentId] = useState(null);
+
+  const [selectedRecipeIndex, setSelectedRecipeIndex] = useState(null);
   const [modalDetail, setModalDetail] = useState({
     show: false,
     title: "",
     flag: "",
   });
+  useEffect(() => {
+    // dispatch(getWalletId(sellerID));
+    dispatch(getTips(sellerId));
+  }, [sellerId]);
 
   //closeModal
   const handleOnCloseModal = () => {
@@ -36,6 +64,23 @@ const CartAmountByPay = () => {
     });
     setKey(Math.random());
   };
+  const paymentShow = () => {
+    const produdctPrice = cartData?.amount?.products_price || "0.00";
+    const discount = formattedReturnPriceWithoutSign(
+      cartData?.amount?.discount || "0.00"
+    );
+    const tips = cartData?.amount?.tip || "0.00";
+    const tax = cartData?.amount?.tax || "0.00";
+
+    const payment =
+      parseFloat(produdctPrice) +
+      parseFloat(discount) +
+      parseFloat(tips) +
+      parseFloat(tax);
+
+    return payment.toFixed(2);
+    // return amountFormat(payment, 'notSign');
+  };
 
   const handleUserProfile = (flag) => {
     setModalDetail({
@@ -44,6 +89,94 @@ const CartAmountByPay = () => {
       type: flag,
     });
     setKey(Math.random());
+  };
+  const TIPS_DATA = [
+    { title: getTip?.first_tips ?? 18, percent: getTip?.first_tips ?? "18" },
+    { title: getTip?.second_tips ?? 20, percent: getTip?.second_tips ?? "20" },
+    { title: getTip?.third_tips ?? 22, percent: getTip?.third_tips ?? "22" },
+    { title: "0.00", percent: "No, thanks" },
+  ];
+  // tips calculation function
+  function calculatePercentageValue(value, percentage) {
+    if (percentage == "") {
+      return "";
+    }
+    const percentageValue = (percentage / 100) * parseFloat(value);
+    return percentageValue.toFixed(2) || "0.00";
+  }
+
+  const paymentMethodData = [];
+  if (Object.keys(getSettingData?.getSettings)?.length == 0) {
+    paymentMethodData.push(
+      {
+        title: "cash",
+        icon: Images.MoneyOutline,
+        status: getSettingData?.getSettings.accept_cash_payment || true,
+        id: 1,
+      },
+      {
+        title: "jobr coin",
+        icon: Images.JOBRCoinOutline,
+        status: true,
+        id: 2,
+      },
+      {
+        title: "debit/credit",
+        icon: Images.Mastercard,
+        status: getSettingData?.getSettings.accept_card_payment || true,
+        id: 3,
+      }
+    );
+  } else {
+    paymentMethodData.push({
+      title: "JBR Coin",
+      icon: Images.JOBRCoinOutline,
+      status: true,
+      id: 2,
+    });
+  }
+  const filteredPaymentMethods = paymentMethodData.filter(
+    (item) => item.status
+  );
+
+  const totalAmountByPaymentMethod = (index) => {
+    if (index === 0) {
+      return `${amountFormat(paymentShow())}`;
+    } else if (index === 1) {
+      // return `J${(paymentShow() * 100).toFixed(0)}`;
+      return `J ${amountFormat(paymentShow() * 100, "notSign")}`;
+    } else {
+      return `${amountFormat(paymentShow())}`;
+    }
+  };
+  const receiptData = [
+    { title: "SMS", icon: Images.Sms },
+    { title: "E-mail", icon: Images.Email },
+    { title: "No, thanks", icon: Images.Like },
+  ];
+  // if (getSettingData?.getSetting?.invoice_email_send_status) {
+  //   receiptData.unshift({ title: 'E-mail', icon: Images.emailReceipt });
+  // }
+  // if (getSettingData?.getSetting?.invoice_sms_send_status) {
+  //   receiptData.unshift({ title: 'SMS', icon: Images.smsReceipt });
+  // }
+
+  const noThanksHandler = () => {
+    let params = {
+      tip: selectedTipAmount.toString(),
+      cartId: cartData.id,
+    };
+    dispatch(
+      updateCartByTip({
+        ...params,
+        cb() {
+          router.push({
+            pathname: "/Retails/CartPayByCash",
+          });
+          dispatch(productCart());
+        },
+      })
+    );
   };
   return (
     <>
@@ -74,181 +207,227 @@ const CartAmountByPay = () => {
                     <span className="fw-bold">tip.</span>
                   </p>
                   <div className="coinAverageSelect">
-                    <div className="coinPercentSelect active">
-                      <h2 className="coinHeading">10%</h2>
-                      <h6 className="coinSubText mt-1">$3.00</h6>
-                    </div>
-                    <div className="coinPercentSelect">
-                      <h2 className="coinHeading">15%</h2>
-                      <h6 className="coinSubText mt-1">$6.00</h6>
-                    </div>
-                    <div className="coinPercentSelect">
-                      <h2 className="coinHeading">20%</h2>
-                      <h6 className="coinSubText mt-1">$12.00</h6>
-                    </div>
-                    <div className="coinPercentSelect">
-                      <h2 className="coinHeading">No, thanks</h2>
-                      <h6 className="coinSubText mt-1">$0.00</h6>
-                    </div>
-                  </div>
-                </div>
-                <hr className="cartDivide m-0" />
-                <div className="confirmSecond">
-                  <div className="flexBox justify-content-center">
-                    <p className="customerLink">
-                      2. What is your
-                      <span className="fw-bold">Payment Method?</span>
-                    </p>
-                    <div
-                      className="giftCardBox active"
-                      onClick={() => {
-                        handleUserProfile("giftCard");
-                      }}
-                    >
-                      <Image
-                        src={Images.giftOffer}
-                        alt="giftOffer Image"
-                        className="img-fluid giftOffer"
-                      />
-                      <Image
-                        src={Images.lightGiftOffer}
-                        alt="giftOffer Image"
-                        className="img-fluid giftLightOffer"
-                      />
-                      <h6 className="giftHeading">Got a Gift Card?</h6>
-                    </div>
-                  </div>
-                  <div className="row mt-4">
-                    <div className="col-lg-4">
-                      <div className="debitCreditBox pointHand">
-                        <article className="flexBox justify-content-between">
-                          <Image
-                            src={Images.Mastercard}
-                            alt="Mastercard"
-                            className="img-fluid Mastercard"
-                          />
-                          <p className="debitText">debit/credit</p>
-                        </article>
-                        <p className="cardNumber pt-5">●●●● ●●●● ●●●● 7224</p>
-                        <p className="priceRefunded">$304.75</p>
-                      </div>
-                    </div>
-                    <div className="col-lg-4">
-                      <div className="refundCashBox active pointHand">
-                        <article className="flexBox justify-content-between">
-                          <Image
-                            src={Images.MoneyOutline}
-                            alt="MoneyOutline"
-                            className="img-fluid MoneyOutline"
-                          />
-                          <Image
-                            src={Images.ActiveMoneyOutline}
-                            alt="ActiveMoneyOutline"
-                            className="img-fluid MoneyOutline showImg d-none"
-                          />
-                          <p className="debitText">cash</p>
-                        </article>
-                        <p className="priceRefunded">$304.75</p>
-                      </div>
-                    </div>
-                    <div className="col-lg-4">
+                    {TIPS_DATA?.map((item, index) => (
                       <div
-                        className="jobrCoinBox active pointHand"
+                        className="coinPercentSelect"
+                        style={{
+                          background:
+                            selectedTipIndex == index
+                              ? "#914BEB"
+                              : "transparent",
+                        }}
+                        key={index}
                         onClick={() => {
-                          handleUserProfile("jobrWallet");
+                          const tipAmount = calculatePercentageValue(
+                            cartData?.amount?.products_price,
+                            item.title
+                          );
+                          {
+                            item.percent === "No, thanks"
+                              ? setSelectedTipAmount("0.00")
+                              : setSelectedTipAmount(tipAmount);
+                          }
+
+                          setSelectedTipIndex(index);
                         }}
                       >
-                        <article className="flexBox justify-content-between">
-                          <Image
-                            src={Images.JOBRCoinOutline}
-                            alt="JOBRCoinOutline"
-                            className="img-fluid JOBRCoinOutline"
-                          />
-                          <Image
-                            src={Images.jobrCoin}
-                            alt="JOBRCoinOutline"
-                            className="img-fluid jobrCoinDark"
-                          />
-                          <p className="debitText">jobr coin</p>
-                        </article>
-                        <div className="jobrCoinFooter">
-                          <p className="priceRefunded">$304.75</p>
-                          <div className="savingText">Save 15%</div>
-                        </div>
+                        <h2
+                          className="coinHeading"
+                          style={{
+                            color:
+                              selectedTipIndex == index ? "white" : "#7233C2",
+                          }}
+                        >
+                          {item.percent}
+                          {item.percent === "No, thanks" ? "" : "%"}
+                        </h2>
+                        <h6
+                          className="coinSubText mt-1"
+                          style={{
+                            color:
+                              selectedTipIndex == index ? "white" : "#7233C2",
+                          }}
+                        >
+                          $
+                          {calculatePercentageValue(
+                            cartData?.amount?.products_price,
+                            item.title
+                          )}
+                        </h6>
                       </div>
-                    </div>
+                    ))}
+
+                    {/* <div className="coinPercentSelect">
+                      <h2 className="coinHeading">15%</h2>
+                      <h6 className="coinSubText mt-1">$6.00</h6>
+                    </div> */}
+                    {/* <div className="coinPercentSelect">
+                      <h2 className="coinHeading">20%</h2>
+                      <h6 className="coinSubText mt-1">$12.00</h6>
+                    </div> */}
+                    {/* <div className="coinPercentSelect">
+                      <h2 className="coinHeading">No, thanks</h2>
+                      <h6 className="coinSubText mt-1">$0.00</h6>
+                    </div> */}
                   </div>
                 </div>
                 <hr className="cartDivide m-0" />
-                <div className="confirmThird">
-                  <p className="customerLink">
-                    3. Select how you want to receive your{" "}
-                    <span className="fw-bold">e-receipt.</span>
-                  </p>
-                  <div className="receiptDetails mt-4 mb-0">
-                    <div className="row justify-content-center">
-                      <div className="col-lg-3">
-                        <div
-                          className="receiptCard pointHand"
-                          onClick={() => {
-                            handleUserProfile("PhoneReceipt");
-                          }}
-                        >
-                          <Image
-                            src={Images.Sms}
-                            alt="Sms"
-                            className="img-fluid Sms"
-                          />
-                          <p>SMS</p>
-                        </div>
-                      </div>
-                      <div className="col-lg-3">
-                        <div
-                          className="receiptCard pointHand"
-                          onClick={() => {
-                            handleUserProfile("emailReceipt");
-                          }}
-                        >
-                          <Image
-                            src={Images.Email}
-                            alt="Email"
-                            className="img-fluid Email"
-                          />
-                          <p>E-mail</p>
-                        </div>
-                      </div>
-                      <div className="col-lg-3">
-                        <div className="receiptCard active pointHand">
-                          <Image
-                            src={Images.Like}
-                            alt="Like"
-                            className="img-fluid Like"
-                          />
-                          <Image
-                            src={Images.Like_Solid}
-                            alt="Like"
-                            className="img-fluid Like d-none showImg"
-                          />
-                          <p>No, thanks</p>
-                        </div>
+                {selectedTipIndex !== null && (
+                  <div className="confirmSecond">
+                    <div className="flexBox justify-content-center">
+                      <p className="customerLink">
+                        2. What is your
+                        <span className="fw-bold">Payment Method?</span>
+                      </p>
+                      <div
+                        className="giftCardBox active"
+                        onClick={() => {
+                          handleUserProfile("giftCard");
+                        }}
+                      >
+                        <Image
+                          src={Images.giftOffer}
+                          alt="giftOffer Image"
+                          className="img-fluid giftOffer"
+                        />
+                        <Image
+                          src={Images.lightGiftOffer}
+                          alt="giftOffer Image"
+                          className="img-fluid giftLightOffer"
+                        />
+                        <h6 className="giftHeading">Got a Gift Card?</h6>
                       </div>
                     </div>
+                    <div className="row mt-4">
+                      {filteredPaymentMethods?.map((item, index) => (
+                        <div
+                          className="col-lg-4"
+                          onClick={() => {
+                            setSelectedPaymentIndex(index);
+                            setSelectedPaymentId(item?.id);
+                          }}
+                        >
+                          <div
+                            className="debitCreditBox pointHand"
+                            style={{
+                              background:
+                                selectedPaymentIndex == index
+                                  ? "#12B76A"
+                                  : "#EFFBFF",
+                            }}
+                          >
+                            <article className="flexBox justify-content-between">
+                              <Image
+                                src={item.icon}
+                                alt="Mastercard"
+                                className="img-fluid Mastercard"
+                              />
+                              <p className="debitText">{item.title}</p>
+                            </article>
+                            {index == "2" && (
+                              <p className="cardNumber pt-5">
+                                ●●●● ●●●● ●●●● 7224
+                              </p>
+                            )}
+
+                            <p className="priceRefunded">
+                              {totalAmountByPaymentMethod(index)}
+                            </p>
+                            {index == 1 && (
+                              <div className="savingText">Save 15%</div>
+                            )}
+                          </div>
+                        </div>
+                      ))}
+                    </div>
                   </div>
-                  <div className="flexBox justify-content-center my-5 d-none">
-                    <span className="savingBox">You are saving $13.35 !</span>
+                )}
+
+                <hr className="cartDivide m-0" />
+
+                {selectedPaymentIndex !== null && selectedPaymentId == 1 && (
+                  <div className="confirmThird">
+                    <p className="customerLink">
+                      3. Select how you want to receive your{" "}
+                      <span className="fw-bold">e-receipt.</span>
+                    </p>
+                    <div className="receiptDetails mt-4 mb-0">
+                      <div className="row justify-content-center">
+                        {receiptData?.map((item, index) => (
+                          <div className="col-lg-3" key={index}>
+                            <div
+                              className="receiptCard pointHand"
+                              style={{
+                                background:
+                                  selectedRecipeIndex == index
+                                    ? "#F79009"
+                                    : "#FEEFC6",
+                              }}
+                              // onClick={() => {
+                              //   handleUserProfile("PhoneReceipt");
+                              // }}
+                              onClick={() => setSelectedRecipeIndex(index)}
+                            >
+                              <Image
+                                src={item.icon}
+                                alt="Sms"
+                                className="img-fluid Sms"
+                              />
+                              <p>{item?.title}</p>
+                            </div>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+
+                    {/* cash flow buttton   */}
+                    {selectedPaymentIndex !== null &&
+                      selectedPaymentId === 1 &&
+                      selectedRecipeIndex !== null && (
+                        <div className="text-center mb-4 mt-4 ">
+                          <button
+                            className="nextverifyBtn"
+                            type="submit"
+                            // onClick={() =>
+                            //   router.push({
+                            //     pathname: "/Retails/CartPayByCash",
+                            //   })
+                            // }
+                            onClick={() => {
+                              if (selectedRecipeIndex == "0") {
+                                handleUserProfile("PhoneReceipt");
+                              } else if (selectedRecipeIndex == "1") {
+                                handleUserProfile("emailReceipt");
+                              } else if (selectedRecipeIndex == "2") {
+                                noThanksHandler();
+                                // router.push({
+                                //   pathname: "/Retails/CartPayByCash",
+                                // });
+                              }
+                            }}
+                          >
+                            Confirm
+                          </button>
+                        </div>
+                      )}
                   </div>
-                </div>
-              </div>
-              <div className="text-center mb-4 ">
-                <button
-                  className="nextverifyBtn"
-                  type="submit"
-                  onClick={() =>
-                    router.push({ pathname: "/Retails/CartPayByCash" })
-                  }
-                >
-                  Confirm
-                </button>
+                )}
+                {selectedPaymentIndex !== null && selectedPaymentId == 2 && (
+                  <div style={{ alignSelf: "center" }}>
+                    <div className=" justify-content-center my-5 ">
+                      <span className="savingBox">You are saving $13.35 !</span>
+                    </div>
+                    <div className="text-center mb-4 mt-4 ">
+                      <button
+                        className="nextverifyBtn"
+                        type="submit"
+                        onClick={() => alert("coming soon")}
+                      >
+                        Confirm
+                      </button>
+                    </div>
+                  </div>
+                )}
               </div>
             </div>
           </div>
@@ -464,6 +643,7 @@ const CartAmountByPay = () => {
         }
         onCloseModal={() => handleOnCloseModal()}
       />
+      {retailData?.updateCartByTipLoad && <FullScrennLoader />}
     </>
   );
 };

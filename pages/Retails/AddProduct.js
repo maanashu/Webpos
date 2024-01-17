@@ -592,26 +592,6 @@ const AddProduct = () => {
             </div>
           </div>
         </div>
-        {/* <div
-          style={{
-            zIndex: 999,
-            background: "rgba(0,0,0, 0.3)",
-            position: "absolute",
-            alignSelf: "center",
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-            top: 0,
-            bottom: 0,
-            left: 0,
-            right: 0,
-          }}
-        >
-          <span
-            className="spinner-border spinner-border-xl mx-1"
-            style={{ color: "#fff" }}
-          ></span>
-        </div> */}
       </div>
     </>
   );
