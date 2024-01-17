@@ -23,12 +23,12 @@ axiosInstance.interceptors.request.use(function (config) {
     ? localStorage.getItem("authToken")
     : localStorage.getItem("2FAToken");
   config.headers.Authorization = token ? token : "";
+
   return config;
 });
 
 axiosInstance.interceptors.response.use(
   (response) => {
-    console.log(response, "hello");
     return response;
   },
   (error) => {

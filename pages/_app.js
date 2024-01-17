@@ -7,6 +7,7 @@ import "../public/font/stylesheet.css";
 import "../public/css/custom_R.css";
 import "../public/css/deliveries.css";
 import "../public/css/customers.css";
+import "../public/css/cashDrawer.css";
 import "../public/css/settings.css";
 import "react-toastify/dist/ReactToastify.css";
 import "react-phone-input-2/lib/style.css";
@@ -56,10 +57,12 @@ function App({ Component, pageProps }) {
   //   return <div></div>;
   // }
 
-    let Token
-    if (typeof window !== 'undefined') {  
-      Token = localStorage.getItem("authToken") ? localStorage.getItem("authToken")  : "";
-    }
+  let Token;
+  if (typeof window !== "undefined") {
+    Token = localStorage.getItem("authToken")
+      ? localStorage.getItem("authToken")
+      : "";
+  }
 
   return (
     <>
