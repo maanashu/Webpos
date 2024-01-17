@@ -1,9 +1,29 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import * as Images from "../../utilities/images"
 import Image from "next/image";
 import ShipRightSidebar from '../../components/commanComonets/Shipping/shipRightSidebar';
+import { useDispatch, useSelector } from 'react-redux';
+import { selectLoginAuth } from '../../redux/slices/auth';
+import { getShippingsSidebarCount, selectsShippingData } from '../../redux/slices/shipping';
 
 const Shipping = () => {
+    const dispatch = useDispatch()
+    const authData = useSelector(selectLoginAuth); 
+    const shippingData = useSelector(selectsShippingData);
+    const sellerUid = authData?.usersInfo?.payload?.uniqe_id;
+
+    const customerSidebardata = shippingData?.sidebarCountData
+
+    console.log(customerSidebardata,sellerUid, "customersidebar data");
+    useEffect(() => {
+        if (sellerUid) {
+          dispatch(
+            getShippingsSidebarCount({
+                "seller_id": sellerUid
+            })
+          );
+        }
+      }, [sellerUid]);
     return (
         <div className='shippingSection'>
             <div className='row '>
