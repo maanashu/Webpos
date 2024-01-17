@@ -42,7 +42,10 @@ const DeliveryRightSidebar = ({ setOrderListType }) => {
   const onPressHandler = (status, count) => {
     if (!activeSidebar && count > 0) {
       if (setOrderListType) {
-        setOrderListType(deliveryDrawerStatus[status]);
+        setOrderListType({
+          title: deliveryDrawerStatus[status],
+          status: status.toString(),
+        });
       }
       setActiveSidebar("hideDeliver");
       getOrderList(status);

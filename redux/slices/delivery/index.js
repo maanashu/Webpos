@@ -5,6 +5,7 @@ const initialState = {
   orderListLoading: false,
   drawerOrderCountLoading: false,
   orderDetailLoading: false,
+  acceptOrderLoading: false,
   orderList: [],
   drawerOrderCount: [],
   orderDetail: [],
@@ -54,6 +55,12 @@ export const deliverySlice = createSlice({
       state.orderDetailLoading = false;
       state.orderDetail = action?.payload;
     },
+    acceptOrder: (state) => {
+      state.acceptOrderLoading = true;
+    },
+    setAcceptOrder: (state) => {
+      state.acceptOrderLoading = false;
+    },
   },
 });
 
@@ -71,6 +78,8 @@ export const {
   setDrawerOrdersCount,
   getOrderDetailById,
   setOrderDetailById,
+  acceptOrder,
+  setAcceptOrder,
 } = deliverySlice.actions;
 
 export const deliveryData = (state) => state.delivery;

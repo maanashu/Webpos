@@ -12,7 +12,7 @@ const OrderListItem = ({ screen, orderList, itemPressHandler }) => {
         <li key={index} style={{ listStyle: "none" }}>
           <OrderDetailsItem
             item={item}
-            onPressHandler={(item) => itemPressHandler(item)}
+            onPressHandler={(item) => itemPressHandler(item, index)}
           />
         </li>
       ))}
@@ -33,7 +33,6 @@ const OrderDetailsItem = ({ item, onPressHandler }) => {
   return (
     <table id="DeliverDashboard" className="deliverDashboardTable">
       <tbody onClick={() => onPressHandler(item)}>
-        {/* <Link href="/order" className="deliverDashboardTable"> */}
         <tr className="product_invoice">
           <td className="invoice_subhead">
             <div className="nameLocation">
@@ -101,7 +100,6 @@ const OrderDetailsItem = ({ item, onPressHandler }) => {
             </div>
           </td>
         </tr>
-        {/* </Link> */}
       </tbody>
     </table>
   );

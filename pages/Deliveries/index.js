@@ -27,7 +27,10 @@ const DeliverDashboard = () => {
   const [todayOrdersCount, setTodayOrdersCount] = useState(null);
   const [currentOrderCount, setcurrentOrderCount] = useState(null);
   const [orderStatData, setOrderStatData] = useState(null);
-  const [orderListType, setOrderListType] = useState("Orders to review");
+  const [orderListType, setOrderListType] = useState({
+    status: "0",
+    title: "Orders to review",
+  });
 
   useEffect(() => {
     let params = {
@@ -103,11 +106,20 @@ const DeliverDashboard = () => {
       </div>
     );
   }
-  const itemPressHandler = (data) => {
-    console.log("oooioio", JSON.stringify(data));
-
-    router.push(`/Deliveries/order`);
+  // const itemPressHandler = (item, index) => {
+  //   router.push(`/Deliveries/order`);
+  // };
+  const itemPressHandler = (item, index) => {
+    router.push({
+      pathname: "/Deliveries/order",
+      query: {
+        item: item,
+        index: index,
+        // Add more properties as needed
+      },
+    });
   };
+
   return (
     <>
       <div className="deliverySection ">
@@ -285,7 +297,7 @@ const DeliverDashboard = () => {
                 </div>
                 <div className="deliverOrderData">
                   <div className="flexDiv">
-                    <h4 className="loginMain">{orderListType}</h4>
+                    <h4 className="loginMain">{orderListType?.title}</h4>
                     {orderList?.data?.length > 0 && (
                       <Link
                         href={{

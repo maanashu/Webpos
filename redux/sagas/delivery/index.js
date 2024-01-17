@@ -16,6 +16,7 @@ const API_URL = {
   getOrderList: "/api/v1/orders?",
   getDrawerCount: "/api/v1/orders/pos/statistics?",
   getOrderDetailById: "/api/v1/orders/pos/",
+  acceptOrder: "orders/status",
 };
 
 function* getTodayOrderCount(action) {
@@ -153,6 +154,36 @@ function* getOrderDetailById(action, callbackFn) {
     toast.error(e?.error?.response?.data?.msg);
   }
 }
+function* acceptOrder(action, callbackFn) {
+  const dataToSend = action.payload;
+  console.log("accept order", action.payload);
+  // const params = new URLSearchParams(dataToSend).toString();
+  // console.log("IIISSS", JSON.stringify(dataToSend));
+  const body = {
+    status: dataToSend.status,
+  };
+  try {
+    const resp = yield call(
+      ApiClient.put,
+      `${ORDER_API_URL}${API_URL.acceptOrder}${dataToSend?.orderId}`,
+      body
+    );
+    if (resp) {
+      console.log("accept OrderId  ", JSON.stringify(resp));
+      // yield put(
+      //   setOrderDetailById(resp?.data == "" ? [] : resp?.data?.payload)
+      // );
+      // callbackFn && callbackFn(resp);
+
+      yield call(action.payload.cb, (action.res = resp));
+    } else {
+      throw resp;
+    }
+  } catch (e) {
+    // yield put(onErrorStopLoad());
+    toast.error(e?.error?.response?.data?.msg);
+  }
+}
 
 function* deliverySaga() {
   yield all([takeLatest("delivery/getTodayOrderCount", getTodayOrderCount)]);
@@ -165,6 +196,7 @@ function* deliverySaga() {
     takeLatest("delivery/getDrawerOrdersCount", getDrawerOrdersCount),
   ]);
   yield all([takeLatest("delivery/getOrderDetailById", getOrderDetailById)]);
+  yield all([takeLatest("delivery/acceptOrder", acceptOrder)]);
 }
 
 export default deliverySaga;

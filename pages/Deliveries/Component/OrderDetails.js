@@ -6,11 +6,22 @@ import Image from "next/image";
 import moment from "moment-timezone";
 import { deliveryData } from "../../../redux/slices/delivery";
 import { useSelector } from "react-redux";
+import ButtonComponent from "./ButtonComponent";
 
-const OrderDetail = (orderDetail) => {
+const OrderDetail = ({
+  orderDetail,
+  selectedOrderIndex,
+  acceptHandler,
+  declineHandler,
+  trackHandler,
+  orderListType,
+}) => {
   const { orderList } = useSelector(deliveryData);
-  const orderData = orderList?.data[0] ?? orderDetail?.orderData ?? {};
-  console.log("OrderDetails", JSON.stringify(orderList));
+
+  const orderData =
+    selectedOrderIndex !== null && selectedOrderIndex !== undefined
+      ? (orderList?.data && orderList?.data[selectedOrderIndex]) || null
+      : (orderList?.data && orderList?.data[0]) || null;
 
   const detailView = () => {
     if (
@@ -180,27 +191,66 @@ const OrderDetail = (orderDetail) => {
                   <div className="OrderDiscountBox">
                     <div className="flexBox ">
                       <p className="orderHeading">Sub Total</p>
-                      <p className="orderSubHeading">$2,396.50</p>
+                      <p className="orderSubHeading">
+                        $
+                        {orderData?.actual_amount
+                          ? Number(orderData?.actual_amount).toFixed(2)
+                          : "0"}
+                        {/* {amountFormat(
+                    userDetail?.actual_amount ? Number(userDetail?.actual_amount).toFixed(2) : '0',
+                    true
+                  )} */}
+                      </p>
                     </div>
                     <div className="flexBox">
                       <p className="orderHeading">Discount</p>
-                      <p className="orderSubHeading">-$19.00</p>
+                      <p className="orderSubHeading">
+                        {orderData?.discount
+                          ? Number(orderData?.discount).toFixed(2)
+                          : "0"}
+                      </p>
                     </div>
                     <div className="flexBox">
+                      <p className="orderHeading">Tip</p>
+                      <p className="orderSubHeading">
+                        {orderData?.discount
+                          ? Number(orderData?.tips).toFixed(2)
+                          : "0"}
+                      </p>
+                    </div>
+                    {/* <div className="flexBox">
                       <p className="orderHeading">Other Fees</p>
                       <p className="orderSubHeading">$14,000</p>
+                    </div> */}
+                    <div className="flexBox">
+                      <p className="orderHeading">Tax</p>
+                      <p className="orderSubHeading">
+                        {" "}
+                        {orderData?.discount
+                          ? Number(orderData?.tax).toFixed(2)
+                          : "0"}
+                      </p>
                     </div>
                     <div className="flexBox">
-                      <p className="orderHeading">Fax</p>
-                      <p className="orderSubHeading">$236</p>
+                      <p className="orderHeading">Delivery Charges</p>
+                      <p className="orderSubHeading">
+                        {" "}
+                        {orderData?.discount
+                          ? Number(orderData?.delivery_charge).toFixed(2)
+                          : "0"}
+                      </p>
                     </div>
                   </div>
                   <div className="OrderTotal">
                     <div className="flexBox">
                       <p className="priceHeading">Total</p>
-                      <p className="priceHeading">$254.60</p>
+                      <p className="priceHeading">
+                        {orderData?.discount
+                          ? Number(orderData?.payable_amount).toFixed(2)
+                          : "0"}
+                      </p>
                     </div>
-                    <div className="flexBox ">
+                    {/* <div className="flexBox ">
                       <button className="declineButton w-100" type="button">
                         {" "}
                         Decline
@@ -213,18 +263,25 @@ const OrderDetail = (orderDetail) => {
                           className="img-fluid ArrowRight"
                         />
                       </button>
-                    </div>
-                    <button
+                    </div> */}
+                    {/* <button
                       type="button "
                       className="pickupBtn w-100 mt-2 d-none"
                     >
                       Ready to Pick Up
-                      {/* <Image
+                      <Image
                   src={Images.deliverHand}
                   alt="deliverHand image"
                   className="img-fluid"
-                /> */}
-                    </button>
+                />
+                    </button> */}
+                    <ButtonComponent
+                      selected={orderListType?.status}
+                      orderData={orderData}
+                      acceptHandler={() => acceptHandler(orderData?.id)}
+                      declineHandler={() => declineHandler(orderData?.id)}
+                      trackHandler={trackHandler}
+                    />
                   </div>
                 </div>
               </div>
