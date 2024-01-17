@@ -395,6 +395,7 @@ input:checked + .switch-slider:before {
   padding: 7px 7px;
   align-items: center;
 }
+
 .customdiscount_ {
   background: transparent;
   border: 1px solid #e0d9d9!important;
