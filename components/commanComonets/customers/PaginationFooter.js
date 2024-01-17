@@ -8,7 +8,7 @@ export const PaginationFooter = () => {
       <div className="paginateFlex active">
         <Image src={ArrowLeft} className="paginationArrowImg" alt="ArrowLeft image" />
         <h4 className="prevText"> Prev</h4>
-      </div>
+      </div> 
       <h4 className="settingSub"> Page 1 to 8 </h4>
       <div className="paginateFlex">
         <h4 className="prevText">Next</h4>

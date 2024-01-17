@@ -4469,7 +4469,7 @@ figure {
 /* cash Drawer css start*/
 .cashDrawOuter {
     height: calc(100vh - 130px);
-    overflow-y: scroll;
+    overflow-y: hidden;
     border-radius: 20px;
     background: #FFF;
     margin: 0 16px;
@@ -4534,6 +4534,8 @@ figure {
 
 .cashDrawSub {
     padding: 16px;
+    height: calc(100vh - 270px);
+    overflow-y: scroll;
 }
 
 .batchData {
@@ -4599,17 +4601,34 @@ figure {
     font-size: 12px;
     font-weight: 500;
 }
-.paginationArrowImg{
+
+.paginationArrowImg {
     width: 16px;
     height: 16px;
 }
-.paginateFlex{
+
+.paginateFlex {
     display: flex;
     align-items: center;
     gap: 6px;
+    cursor: pointer;
 }
-.paginateFlex.active .prevText{
-    
+
+.paginateFlex.active .prevText ,.paginateFlex:hover .prevText{
+    color: #263682;
+}
+
+.paginateFlex.active .paginationArrowImg ,.paginateFlex:hover .paginationArrowImg {
+    filter: invert(65%) sepia(92%) saturate(373%) hue-rotate(163deg) brightness(93%) contrast(95%);
+}
+.cashDrawMain{
+    position: relative;
+}
+.paginatePosition{
+    position: absolute;
+    bottom: 16px;
+    left: 0;
+    right: 0;
 }
 /* cash Drawer css end*/
 /*media query start*/
