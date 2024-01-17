@@ -3,13 +3,16 @@ import { createSlice } from "@reduxjs/toolkit";
 const initialState = {
   mainProductData: {},
   oneProductData: {},
-  oneServiceData:{},
+  oneServiceData: {},
   mainServicesData: {},
   availableOffers: {},
   mainServicesData: {},
   cartDetails: {},
   checkSuppliedVariantLoad: false,
   addTocartLoad: false,
+  getTipsLoad: false,
+  getTipsData: {},
+  updateCartByTipLoad: false,
 };
 
 export const retailsSlice = createSlice({
@@ -92,6 +95,22 @@ export const retailsSlice = createSlice({
       state.checkSuppliedVariantLoad = false;
       // state.addNotes = action?.payload?.payload;
     },
+    getTips: (state) => {
+      state.loading = true;
+      state.getTipsLoad = true;
+    },
+    setGetTips: (state) => {
+      state.loading = true;
+      state.getTipsLoad = false;
+      state.getTipsData = action?.payload;
+    },
+    updateCartByTip: (state) => {
+      state.updateCartByTipLoad = true;
+    },
+    setUpdateCartByTip: (state) => {
+      state.updateCartByTipLoad = false;
+      // state.getTipsData = action?.payload;
+    },
     onErrorStopLoad: (state) => {
       state.loading = false;
     },
@@ -122,6 +141,10 @@ export const {
   addDiscount,
   checkSuppliedVariant,
   setCheckSuppliedVariant,
+  getTips,
+  setGetTips,
+  updateCartByTip,
+  setUpdateCartByTip,
 } = retailsSlice.actions;
 
 export const selectRetailData = (state) => state.retails;

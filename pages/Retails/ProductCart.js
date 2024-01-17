@@ -73,7 +73,6 @@ const ProductCart = () => {
     setKey(Math.random());
   };
 
-
   const productFun = (productId, index, item) => {
     let params = {
       seller_id: sellerId,
@@ -412,6 +411,12 @@ const ProductCart = () => {
                   </h4>
                 </div>
                 <button
+                  disabled={
+                    cartData?.poscart_products?.length > 0 ? false : true
+                  }
+                  style={{
+                    opacity: cartData?.poscart_products?.length > 0 ? 1 : 0.7,
+                  }}
                   className="nextverifyBtn w-100 mt-3"
                   type="submit"
                   onClick={() =>

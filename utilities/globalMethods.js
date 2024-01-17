@@ -98,3 +98,21 @@ export const getProductFinalPrice = (item) => {
 
   return productPrice * item?.qty;
 };
+
+export const formattedReturnPriceWithoutSign = (price) => {
+  // Convert price to a number, defaulting to 0 if it's falsy or not a number
+  const numericPrice =
+    typeof price === "string" ? parseFloat(price) : price || 0;
+
+  // Format the numeric price with 2 decimal places
+  const formattedPrice = numericPrice?.toLocaleString(undefined, {
+    minimumFractionDigits: 2,
+    maximumFractionDigits: 2,
+  });
+  const amountTwoDecimal = Number(formattedPrice)?.toFixed(2);
+
+  // Determine the sign and prepend accordingly
+  const sign = numericPrice == 0 ? "" : "-";
+
+  return `${sign}${amountTwoDecimal}`;
+};
