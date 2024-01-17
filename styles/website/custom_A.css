@@ -454,7 +454,7 @@
 }
 
 .sidebarRight {
-  width: 160px;
+  /* width: 160px; */
   border-radius: 50px;
   margin: 0 10px;
   background: #fff;

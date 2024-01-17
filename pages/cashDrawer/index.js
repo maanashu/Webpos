@@ -9,11 +9,13 @@ import {
   salesTracking,
   DrawerID,
   arrowDown,
+  searchMoney
 } from "../../utilities/images";
 import { Line } from "react-chartjs-2";
 import { Chart as ChartJS, registerables } from "chart.js";
 import Link from "next/link";
 import Header from "../../components/commanComonets/cashdrawer/Header";
+import { PaginationFooter } from "../../components/commanComonets/customers/PaginationFooter";
 
 const CashDrawer = () => {
   const STATS = [
@@ -53,49 +55,51 @@ const CashDrawer = () => {
   const drawerIDTitleStyle = { color: "#914BEB", marginTop: "3px" };
 
   return (
-    <div className="main-container-customers">
-      <Header mainIcon={salesTracking} title="Sales Tracking" />
-
-      <div className="batchView">
-        <div className="batchBox">
-          <h4 className="stat-box-title" style={statBoxTitleStyle}>
-            Batch
-          </h4>
-        </div>
-
-        <div className="left-hand flex-row-space-between">
-          <Image
-            src={DrawerID}
-            width={15}
-            height={15}
-            style={drawerIDTitleStyle}
-          />
-          <h4 className="stat-box-title" style={drawerIDTitleStyle}>
-            Drawer ID 1
-          </h4>
-        </div>
-
-        <div className="viewSession">
-          <Link href="cashDrawer/viewSession">
-            <button className="viewSessionButton">
-              <p className="viewSessionText">View Session</p>
+    <>
+      <div className="cashDrawOuter cashDrawMain">
+        <Header mainIcon={salesTracking} title="Sales Tracking" />
+        <div className="cashDrawSub">
+          <div className="outerCashFlex">
+            <h4 className="settingSub">Batch</h4>
+            <h4 className="settingSub">Drawer</h4>
+          </div>
+          <div className="batchData">
+            <div className="batchDataSub">
+              <h4 className="cartText">Batch</h4>
+              <div className="flexBox">
+                <Image src={DrawerID} className="img-fluid" alt="mainIcon Image" />
+                <h4 className="locateDistance">Drawer ID 1</h4>
+              </div>
+            </div>
+            <button className="viewSessionBtn" type="submit">
+              View Session
             </button>
-          </Link>
+          </div>
+          <div className="batchData">
+            <div className="batchDataSub">
+              <h4 className="cartText">Batch</h4>
+              <div className="flexBox">
+                <Image src={DrawerID} className="img-fluid" alt="mainIcon Image" />
+                <h4 className="locateDistance">Drawer ID 1</h4>
+              </div>
+            </div>
+            <button className="trackBtn" type="submit">
+              Start Tracking Session
+              <Image src={searchMoney} className="img-fluid" alt="searchMoney Image" />
+            </button>
+          </div>
+          <div className="cashSession">
+            <h4 className="activateText text-start">
+              Session History
+            </h4>
+            <Link href="cashDrawer/sessionHistory">
+              <Image src={arrowDown} className="img-fluid" alt="arrow image" />
+            </Link>
+          </div>
         </div>
+        <PaginationFooter />
       </div>
-
-      <div className="divider"></div>
-
-      <div className="sessionHistory">
-        <h4 className="stat-box-title" style={statBoxTitleStyle}>
-          Session History
-        </h4>
-        <div className="dividerHorizontal"></div>
-        <Link href="cashDrawer/sessionHistory">
-          <Image src={arrowDown} width="24px" height="24px" />
-        </Link>
-      </div>
-    </div>
+    </>
   );
 };
 

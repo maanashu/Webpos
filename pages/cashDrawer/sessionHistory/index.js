@@ -7,7 +7,7 @@ const SessionHistory = () => {
   ChartJS.register(...registerables);
 
   return (
-    <div className="main-container-customers ">
+    <div className="cashDrawOuter">
       <h6>Session History</h6>
     </div>
   );

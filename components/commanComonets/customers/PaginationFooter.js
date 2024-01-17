@@ -1,41 +1,18 @@
 import Image from "next/image";
 import React from "react";
-import { ArrowLeft, ArrowRight } from "../../../utilities/images";
+import { ArrowLeft, ArrowRight , paginationRight} from "../../../utilities/images";
 
 export const PaginationFooter = () => {
   return (
-    <div className="pagination-footer flex-row-space-between">
-      <div className="flex-row-space-between">
-        <Image
-          src={ArrowLeft}
-          width={16}
-          height={16}
-        />
-        <p
-          style={{
-            color: "#B4BEEB",
-          }}
-          className="pagination-footer-text"
-        >
-          Prev
-        </p>
+    <div className="paginationMain">
+      <div className="paginateFlex active">
+        <Image src={ArrowLeft} className="paginationArrowImg" alt="ArrowLeft image" />
+        <h4 className="prevText"> Prev</h4>
       </div>
-
-      <p
-        style={{
-          color: "#B4BEEB",
-        }}
-        className="pagination-footer-text"
-      >
-        Page 1 to 8
-      </p>
-      <div className="flex-row-space-between">
-        <p className="pagination-footer-text">Next</p>
-        <Image
-          src={ArrowRight}
-          width={16}
-          height={16}
-        />
+      <h4 className="settingSub"> Page 1 to 8 </h4>
+      <div className="paginateFlex">
+        <h4 className="prevText">Next</h4>
+        <Image src={paginationRight} className="paginationArrowImg" />
       </div>
     </div>
   );
