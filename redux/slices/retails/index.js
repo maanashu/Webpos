@@ -6,7 +6,6 @@ const initialState = {
   oneServiceData:{},
   mainServicesData: {},
   availableOffers: {},
-  mainServicesData: {},
   cartDetails: {},
   checkSuppliedVariantLoad: false,
   addTocartLoad: false,

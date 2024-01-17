@@ -18,6 +18,7 @@ const CartAmountByPay = () => {
   const merchentDetails = authData?.usersInfo?.payload?.user?.user_profiles;
   const retailData = useSelector(selectRetailData);
   const cartData = retailData?.productCart;
+  console.log(cartData,'cartData');
   const cartAmount = cartData?.amount;
   const [key, setKey] = useState(Math.random());
   const [modalDetail, setModalDetail] = useState({
