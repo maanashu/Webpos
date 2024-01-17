@@ -114,7 +114,7 @@ import RemoveCash from "../public/images/RemoveCash.svg";
 import DrawerIcon from "../public/images/DrawerIcon.svg";
 import Cross from "../public/images/Cross.svg";
 import DrawerBlue from "../public/images/DrawerBlue.svg";
-import LogOutSky from "../public/images/LogOutSky.svg";
+import LogOutSky from "../public/images/LogoutSky.svg";
 
 import toggleOn from "../public/images/toggleOn.png";
 // customer route
