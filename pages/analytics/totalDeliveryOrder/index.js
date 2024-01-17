@@ -246,7 +246,6 @@ const index = () => {
         }
 
       </table>
-
     </div>
   )
 }
