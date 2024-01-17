@@ -1,0 +1,643 @@
+.searchBox {
+  display: flex;
+  width: 385px;
+  padding: 8px 8px 8px 12px;
+  align-items: center;
+  border-radius: 50px;
+  border: 1px solid;
+  border-color: #e4e6f2;
+}
+/*  */
+
+.viewSession {
+  display: flex;
+  justify-content: flex-end;
+  align-items: flex-start;
+  gap: var(--main-system-16-px, 16px);
+  flex: 1 0 0;
+}
+.viewSessionButton {
+  display: flex;
+  padding: 12px 18px;
+  justify-content: center;
+  align-items: center;
+  gap: 4px;
+  align-self: stretch;
+  border-radius: 30px;
+  border: 0px solid var(--primary-p-600-main, #263682);
+  background: var(--surfaces-s-top, #fff);
+}
+
+.batchBox {
+  display: flex;
+  padding: 6px 60px 6px 20px;
+  align-items: center;
+  align-self: stretch;
+  justify-items: center;
+}
+
+.batchView {
+  display: flex;
+  padding: 9px 8px;
+  justify-content: space-between;
+  align-items: center;
+  align-self: stretch;
+  border-radius: 50px;
+  border: 1px solid var(--primary-p-50-main, #f5f6fc);
+  background: var(--primary-p-50-main, #f5f6fc);
+  margin-right: 20px;
+  margin-left: 20px;
+}
+
+.sessionHistory {
+  display: flex;
+  padding: 18px 18px 18px 24px;
+  align-items: flex-start;
+  gap: 6px;
+  align-self: stretch;
+  border-radius: 50px;
+  border: 1px solid var(--neutrals-n-100, #d7deff);
+  margin-right: 20px;
+  margin-left: 20px;
+  /* Shadow Elements Short */
+  box-shadow: -1.908px 3.783px 25.481px 0px rgba(50, 80, 127, 0.02),
+    -4.954px 9.821px 80px 0px rgba(50, 80, 127, 0.04);
+}
+
+.divider {
+  display: flex;
+  padding: var(--main-system-12-px, 12px) var(--main-system-16-px, 16px)
+    var(--main-system-16-px, 16px) var(--main-system-16-px, 16px);
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 24px;
+  flex: 1 0 0;
+  align-self: stretch;
+}
+.dividerHorizontal {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex: 1 0 0;
+  align-self: stretch;
+}
+.container {
+  padding: var(--main-system-12-px, 12px) var(--main-system-16-px, 16px)
+    var(--main-system-16-px, 16px) var(--main-system-16-px, 16px);
+}
+.viewSessionText {
+  color: var(--primary-p-600-main, #263682);
+
+  /* Text S/Regular 14 */
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+}
+
+/* View Session style*/
+
+.viewSessioncontainer {
+  display: flex;
+  padding: var(--main-system-12-px, 12px) var(--main-system-16-px, 16px)
+    var(--main-system-16-px, 16px) var(--main-system-16-px, 16px);
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 24px;
+  align-self: stretch;
+  border-radius: 20px;
+}
+.innerViewContainer {
+  display: flex;
+  padding: var(--main-system-16-px, 16px);
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--main-system-16-px, 16px);
+  align-self: stretch;
+  border-radius: 20px;
+  border: 1px solid var(--neutrals-n-100, #d7deff);
+}
+.topBox {
+  display: flex;
+  padding: 6px var(--main-system-16-px, 16px) var(--main-system-8-px, 8px)
+    var(--main-system-8-px, 8px);
+  flex-direction: column;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  align-self: stretch;
+  border-radius: 20px;
+  border: 1px solid var(--primary-p-50-main, #f5f6fc);
+  background: var(--primary-p-50-main, #f5f6fc);
+}
+.dateContainer {
+  display: flex;
+  justify-content: flex-end;
+  align-items: flex-start;
+  gap: var(--main-system-16-px, 16px);
+  flex: 1 0 0;
+}
+.dateBox {
+  display: flex;
+  padding: 12px 18px;
+  justify-content: center;
+  align-items: center;
+  gap: 4px;
+  align-self: stretch;
+  border-radius: 30px;
+  border: 0px solid var(--primary-p-600-main, #263682);
+  background: var(--surfaces-s-top, #fff);
+}
+.clockStyle {
+  width: var(--main-system-16-px, 16px);
+  height: var(--main-system-16-px, 16px);
+}
+.drawerBox {
+  display: flex;
+  padding: 2px 4px 3px 4px;
+  align-items: center;
+  gap: 4px;
+  border-radius: 20px;
+  mix-blend-mode: multiply;
+}
+.drawerTestStyle {
+  color: var(--extras-purple-ex-purple-400, #7233c2);
+
+  /* Text XS/Medium 12 */
+  font-family: Roobert;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+}
+.dateStyle {
+  color: var(--primary-p-600-main, #263682);
+
+  /* Text S/Regular 14 */
+  font-family: Roobert;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+}
+.topBox1 {
+  display: flex;
+  height: 58px;
+  justify-content: space-between;
+  align-items: center;
+  align-self: stretch;
+  flex-direction: row;
+}
+.topBox2 {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 36px;
+  flex: 1 0 0;
+}
+.batchBox {
+  display: flex;
+  padding: 6px 60px 6px 20px;
+  align-items: center;
+  align-self: stretch;
+}
+.batchTextStyle {
+  color: var(--neutrals-n-900, #2f3552);
+
+  /* Text XS/Medium 12 */
+  font-family: Roobert;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+}
+
+.cashbox {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: var(--main-system-10-px, 10px);
+}
+.cashTextStyle {
+  color: var(--primary-p-600-main, #263682);
+
+  /* XL/Regular 60 */
+  font-family: Roobert;
+  font-size: 60px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  letter-spacing: -1.2px;
+}
+.expectedCash {
+  color: var(--primary-p-600-main, #263682);
+
+  /* Text M/Regular 16 */
+  font-family: Roobert;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  letter-spacing: -0.32px;
+}
+.removeCashButton {
+  display: flex;
+  padding: 18px 20px;
+  justify-content: center;
+  align-items: center;
+  gap: 4px;
+  flex: 1 0 0;
+  align-self: stretch;
+  border-radius: 30px;
+  border: 1px solid var(--primary-p-600-main, #263682);
+}
+.addCashButton {
+  display: flex;
+  padding: 18px 20px;
+  justify-content: center;
+  align-items: center;
+  gap: 4px;
+  flex: 1 0 0;
+  align-self: stretch;
+  border-radius: 30px;
+  background: var(--primary-p-600-main, #263682);
+}
+.buttonBox {
+  display: flex;
+  width: 437px;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 36px;
+}
+.removeTextStyle {
+  color: var(--primary-p-600-main, #263682);
+
+  /* Text L/Regular 18 */
+  font-family: Roobert;
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  letter-spacing: -0.36px;
+}
+.addTextStyle {
+  color: var(--primary-p-50-main, #f5f6fc);
+
+  /* Text L/Regular 18 */
+  font-family: Roobert;
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  letter-spacing: -0.36px;
+}
+.cashContainer {
+  display: flex;
+  padding: var(--main-system-10-px, 10px) 0px var(--main-system-16-px, 16px) 0px;
+  justify-content: center;
+  align-items: center;
+  align-self: stretch;
+}
+.cashInnerContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 36px;
+  flex: 1 0 0;
+}
+.allCashBox {
+  display: flex;
+  padding: var(--main-system-8-px, 8px) var(--main-system-16-px, 16px)
+    var(--main-system-12-px, 12px) 24px;
+  align-items: center;
+  align-self: stretch;
+}
+.allCashText {
+  color: var(--primary-p-600-main, #263682);
+
+  /* XS/Medium 24 */
+  font-family: Roobert;
+  font-size: 24px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+  letter-spacing: -0.48px;
+}
+.totoalCashInView {
+  display: flex;
+  padding: 8px 0; /* Use specific pixel values or adjust the CSS variables */
+  align-items: flex-start;
+  gap: 12px; /* Use specific pixel values or adjust the CSS variables */
+  align-self: stretch;
+  flex-direction: row;
+  width: 100%; /* Ensure the element takes the full width */
+  /* Other styles as needed */
+}
+.totoalCashInHeading {
+  color: var(--primary-p-600-main, #263682);
+
+  /* Text L/Semibold 18 */
+  font-family: Roobert;
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
+  letter-spacing: -0.36px;
+}
+.cashInsideView {
+  display: flex;
+  padding: 0px var(--main-system-16-px, 16px);
+  justify-content: space-between;
+  align-items: center;
+  align-self: stretch;
+}
+.gaping {
+  display: flex;
+  align-items: center;
+  gap: 60px;
+}
+.totalAmmount {
+  color: var(--primary-p-600-main, #263682);
+
+  /* Text L/Semibold 18 */
+  font-family: Roobert;
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
+  letter-spacing: -0.36px;
+}
+
+/* End Session*/
+.innerContainer {
+  display: flex;
+  padding: var(--main-system-12-px, 12px) var(--main-system-16-px, 16px)
+    var(--main-system-16-px, 16px) var(--main-system-16-px, 16px);
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 24px;
+  flex: 1 0 0;
+  align-self: stretch;
+}
+.drawerIdBox {
+  display: flex;
+  padding: 0px 26px;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: var(--main-system-8-px, 8px);
+}
+.drawerIdText {
+  color: var(--primary-p-600-main, #263682);
+
+  /* Text XL/Medium 20 */
+  font-family: Roobert;
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+  letter-spacing: -0.4px;
+}
+.batchBox {
+  display: flex;
+  padding: 16px 26px;
+  align-items: flex-start;
+  gap: 74px;
+  align-self: stretch;
+}
+.batchText {
+  color: var(--neutrals-n-600, #7e8ac1);
+  text-align: center;
+
+  /* Text XS/Medium 12 */
+  font-family: Roobert;
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+}
+.dateText {
+  color: var(--neutrals-n-600, #7e8ac1);
+  text-align: center;
+
+  /* Text XS/Medium 12 */
+  font-family: Roobert;
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+}
+.closeBatchView {
+  display: flex;
+  padding: 6px 8px;
+  justify-content: space-between;
+  align-items: center;
+  align-self: stretch;
+  border-radius: 30px;
+  border: 1px solid var(--primary-p-50-main, #f5f6fc);
+  background: var(--primary-p-50-main, #f5f6fc);
+}
+.batchView {
+  display: flex;
+  padding: 6px 60px 6px 20px;
+  align-items: center;
+  align-self: stretch;
+}
+.calendarStyle {
+  display: flex;
+  padding: 2px 4px 3px 4px;
+  align-items: center;
+  gap: 4px;
+  border-radius: 20px;
+  mix-blend-mode: multiply;
+}
+.closeButtonView {
+  display: flex;
+  justify-content: flex-end;
+  align-items: flex-start;
+  gap: var(--main-system-16-px, 16px);
+  flex: 1 0 0;
+}
+.closeBatchButton {
+  display: flex;
+  padding: 12px 18px;
+  justify-content: center;
+  align-items: center;
+  gap: 4px;
+  align-self: stretch;
+  border-radius: 30px;
+  border: 0px solid var(--surfaces-s-top, #fff);
+  background: var(--alarm-error-e-500-main, #f04438);
+}
+.closeBatchText {
+  color: var(--surfaces-s-top, #fff);
+
+  /* Text S/Regular 14 */
+  font-family: Roobert;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+}
+.crossStyle {
+  width: var(--main-system-16-px, 16px);
+  height: var(--main-system-16-px, 16px);
+}
+.loggedView {
+  display: flex;
+  padding: 24px 24px 24px var(--main-system-8-px, 8px);
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 24px;
+  align-self: stretch;
+  border-radius: 30px;
+  border: 1px solid var(--primary-p-50-main, #f5f6fc);
+  background: var(--primary-p-50-main, #f5f6fc);
+}
+.loggedTextView {
+  display: flex;
+  padding: 0px 20px;
+  align-items: flex-start;
+  gap: var(--main-system-10-px, 10px);
+}
+.loggedInTextStyle {
+  color: var(--primary-p-600-main, #263682);
+
+  /* Text XL/Medium 20 */
+  font-family: Roobert;
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+  letter-spacing: -0.4px;
+}
+.logoutView {
+  display: flex;
+  height: 41px;
+  justify-content: space-between;
+  align-items: center;
+  align-self: stretch;
+}
+.profileView {
+  display: flex;
+  padding: 6px 60px 6px 20px;
+  align-items: center;
+  gap: 12px;
+  align-self: stretch;
+}
+.profileNameView {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 2px;
+}
+.profileNameStyle {
+  color: var(--neutrals-n-900, #2f3552);
+
+  /* Text S/Medium 14 */
+  font-family: Roobert;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+}
+.profileTypeView {
+  display: flex;
+  padding: 2px 4px 3px 4px;
+  align-items: center;
+  gap: 4px;
+}
+.profileTypeTextStyle {
+  color: var(--primary-p-600-main, #263682);
+
+  /* Text XS/Medium 12 */
+  font-family: Roobert;
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+}
+.skuView {
+  display: flex;
+  height: 41px;
+  justify-content: space-between;
+  align-items: center;
+  align-self: stretch;
+}
+.skuStyle {
+  display: flex;
+  padding: 2px 6px 2px 0px;
+  align-items: center;
+  gap: 2px;
+}
+.skuTextStyle {
+  color: var(--primary-p-400, #4659b5);
+
+  /* Text XS/Regular 12 */
+  font-family: Roobert;
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+}
+.lockScreenButtonView {
+  display: flex;
+  height: 41px;
+  justify-content: flex-end;
+  align-items: flex-start;
+  gap: var(--main-system-16-px, 16px);
+  flex: 1 0 0;
+}
+.lockButton {
+  display: flex;
+  padding: 12px 16px 14px 16px;
+  justify-content: center;
+  align-items: center;
+  gap: 4px;
+  flex: 1 0 0;
+  border-radius: 30px;
+  border: 1px solid var(--primary-p-600-main, #263682);
+}
+.lockTextStyle {
+  color: var(--primary-p-600-main, #263682);
+
+  /* Text M/Regular 16 */
+  font-family: Roobert;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  letter-spacing: -0.32px;
+}
+.logOutButton {
+  display: flex;
+  padding: 12px 16px 14px 16px;
+  justify-content: center;
+  align-items: center;
+  gap: 4px;
+  flex: 1 0 0;
+  border-radius: 30px;
+  background: var(--primary-p-600-main, #263682);
+}
+.logoutTextStyle {
+  color: var(--primary-p-50-main, #f5f6fc);
+
+  /* Text M/Regular 16 */
+  font-family: Roobert;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  letter-spacing: -0.32px;
+}
+.logView {
+  display: flex;
+  height: 41px;
+  justify-content: flex-end;
+  align-items: flex-start;
+  gap: var(--main-system-16-px, 16px);
+  flex: 1 0 0;
+}

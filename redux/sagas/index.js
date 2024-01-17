@@ -6,17 +6,19 @@ import analyticsSaga from "./analytics";
 import transactionsSaga from "./transactions";
 import settingSaga from "./setting";
 import retailsSaga from "./retails";
+import deliverySaga from "./delivery";
 
 export default function* rootSaga() {
-    yield all([
-        spawn(authSaga),
-        spawn(dashboardSaga),
-        spawn(customersSaga),
-        spawn(analyticsSaga),
-        spawn(transactionsSaga),
-        spawn(settingSaga),
-        spawn(retailsSaga),
-        // saga1 can also yield [ fork(actionOne), fork(actionTwo) ]
-        // fork(saga2),
-    ]);
+  yield all([
+    spawn(authSaga),
+    spawn(dashboardSaga),
+    spawn(customersSaga),
+    spawn(analyticsSaga),
+    spawn(transactionsSaga),
+    spawn(settingSaga),
+    spawn(deliverySaga),
+    spawn(retailsSaga),
+    // saga1 can also yield [ fork(actionOne), fork(actionTwo) ]
+    // fork(saga2),
+  ]);
 }

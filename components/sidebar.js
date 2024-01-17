@@ -138,6 +138,27 @@ const Sidebar = (props) => {
             </Link>
           </ListGroupItem>
           <ListGroupItem className="sidebarItems">
+            <Link href="/dashboard" className="sidebarLinks active">
+              <Image
+                src={Images.ProductsServices}
+                alt="image"
+                className="img-fluid showImg"
+              />
+              {/* <Image src={Images.ProductsServices} alt="image" className="img-fluid showImg" /> */}
+              <span className="sidebarTxt">Products & Services</span>
+            </Link>
+          </ListGroupItem>
+          <ListGroupItem className="sidebarItems">
+            <Link href="/dashboard" className="sidebarLinks">
+              <Image
+                src={Images.DeliveryOrders}
+                alt="image"
+                className="img-fluid showImg"
+              />
+              <span className="sidebarTxt">Delivery Orders</span>
+            </Link>
+          </ListGroupItem>
+          <ListGroupItem className="sidebarItems">
             <Link
               href="#"
               className={`sidebarLinks ${
@@ -220,7 +241,10 @@ const Sidebar = (props) => {
             </Link>
           </ListGroupItem>
           <ListGroupItem className="sidebarItems">
-            <Link href="#" className={`sidebarLinks ${"" ? "active" : ""}`}>
+            <Link
+              href="/cashDrawer"
+              className={`sidebarLinks ${"" ? "active" : ""}`}
+            >
               <Image
                 src={Images.CashDrawer}
                 alt="image"
