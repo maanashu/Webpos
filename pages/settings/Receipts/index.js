@@ -1,4 +1,3 @@
-import styles from "./styles.module.css";
 import * as Images from "../../../utilities/images";
 import Image from "next/image";
 import { useDispatch, useSelector } from "react-redux";
@@ -32,139 +31,143 @@ const Receipts = () => {
 
   return (
     <>
-      <div style={{ padding: "30px", flex: 1 }}>
+      <div className="settingOuter taxRight receiptRight">
         <div style={{ display: "flex" }}>
           <Image
-            src={Images.settingsReceipt}
+            src={Images.setreceipt}
             className="settings-sidebar-icons"
-            style={{ marginRight: "5px" }}
+            style={{ marginRight: "7px" }}
           />
-          <div>
-            <div className={styles.headingTextStyle}>My receipts</div>
-            <div className={styles.textInformationStyle}>
+          <div style={{ flex: 1 }}>
+
+
+            <h4 className="appointMain">My receipts</h4>
+            <p className="lightOfferText mt-2">
               Add a curbside, drive-through, or in-store pickup. Specify your
               business hours, the pickup location, and add a brief instruction
               on how the pickup works for customers.
-            </div>
-
-            <div style={{ marginTop: 30 }} />
-
-            {/* Sms container */}
-            <div className={styles.shadowBox}>
-              <div className={styles.rowStartJustified}>
-                <div class={styles.rowStart}>
-                  <Image
-                    src={Images.settingsPhoneMessage}
-                    className={styles.iconsStyle}
-                    style={{ marginRight: "5px" }}
-                  />
-
-                  <div>
-                    <div className={styles.boxTopTitleTextStyle}>
-                      SMS to phone number
-                    </div>
-                    <div className={styles.boxbottomTextStyle}>
-                      It might apply a charge.
-                    </div>
-                  </div>
-                </div>
-
-                <div class="form-check form-switch">
-                  <input
-                    class="form-check-input"
-                    type="checkbox"
-                    id="flexSwitchCheckChecked"
-                    checked={smsStatus}
-                    onChange={() => {
-                      handleSettings(1);
-                    }}
-                  />
-                  <label
-                    class="form-check-label"
-                    for="flexSwitchCheckChecked"
-                  ></label>
-                </div>
-              </div>
-            </div>
-            {/*  */}
-
-            {/* email container */}
-            <div className={styles.shadowBox}>
-              <div className={styles.rowStartJustified}>
-                <div class={styles.rowStart}>
-                  <Image
-                    src={Images.settingsEmail}
-                    className="settings-sidebar-icons"
-                    style={{ marginRight: "5px" }}
-                  />
-
-                  <div>
-                    <div className={styles.boxTopTitleTextStyle}>Email</div>
-                    <div className={styles.boxbottomTextStyle}>
-                      Team members must enable their own verification methods.
-                    </div>
-                  </div>
-                </div>
-
-                <div class="form-check form-switch">
-                  <input
-                    class="form-check-input"
-                    type="checkbox"
-                    id="flexSwitchCheckChecked"
-                    checked={emailStatus}
-                    onChange={() => {
-                      handleSettings(2);
-                    }}
-                  />
-                  <label
-                    class="form-check-label"
-                    for="flexSwitchCheckChecked"
-                  ></label>
-                </div>
-              </div>
-            </div>
-            {/*  */}
-
-            {/* print invoice container */}
-            <div className={styles.shadowBox}>
-              <div className={styles.rowStartJustified}>
-                <div class={styles.rowStart}>
-                  <Image
-                    src={Images.settingsPrinter}
-                    className="settings-sidebar-icons"
-                    style={{ marginRight: "5px" }}
-                  />
-
-                  <div>
-                    <div className={styles.boxTopTitleTextStyle}>
-                      SMS to phone number
-                    </div>
-                    <div className={styles.boxbottomTextStyle}>
-                      Team members must enable their own verification methods.
-                    </div>
-                  </div>
-                </div>
-
-                <div class="form-check form-switch">
-                  <input
-                    class="form-check-input"
-                    type="checkbox"
-                    id="flexSwitchCheckChecked"
-                    checked={invoiceStatus}
-                    onChange={() => {
-                      handleSettings(3);
-                    }}
-                  />
-                  <label
-                    class="form-check-label"
-                    for="flexSwitchCheckChecked"
-                  ></label>
-                </div>
-              </div>
-            </div>
-            {/*  */}
+            </p>
           </div>
         </div>
+
+        <div style={{ marginTop: 30 }} />
+
+        {/* Sms container */}
+        <div className="bussinessMain">
+          <div className="bussinessSub">
+            <div class="locationHead">
+              <Image
+                src={Images.settingsPhoneMessage}
+                className="settings-sidebar-icons"
+                style={{ marginRight: "5px" }}
+              />
+
+              <div className="bussinessHeading">
+                <h4 className="cancelOrderText">
+                  SMS to phone number
+                </h4>
+                <p className="settingText">
+                  It might apply a charge.
+                </p>
+              </div>
+            </div>
+
+            <div class="roundCheck">
+              <input
+                class="form-check-input"
+                type="checkbox"
+                id="flexSwitchCheckChecked"
+                checked={smsStatus}
+                onChange={() => {
+                  handleSettings(1);
+                }}
+              />
+              <label
+                class="amountText d-none"
+                for="flexSwitchCheckChecked"
+              ></label>
+            </div>
+          </div>
+        </div>
+        {/*  */}
+
+        {/* email container */}
+        <div className="bussinessMain">
+          <div className="bussinessSub">
+            <div class="locationHead">
+              <Image
+                src={Images.settingsEmail}
+                className="settings-sidebar-icons"
+                style={{ marginRight: "5px" }}
+              />
+
+              <div className="bussinessHeading">
+                <h4 className="cancelOrderText">
+                  Email
+                </h4>
+                <p className="settingText">
+                  An e-mail will be sent to the purchaser's e-mail address
+                </p>
+              </div>
+            </div>
+
+            <div class="roundCheck">
+              <input
+                class="form-check-input"
+                type="checkbox"
+                id="flexSwitchCheckChecked"
+                checked={emailStatus}
+                onChange={() => {
+                  handleSettings(2);
+                }}
+              />
+              <label
+                class="amountText d-none"
+                for="flexSwitchCheckChecked"
+              ></label>
+            </div>
+          </div>
+        </div>
+        {/*  */}
+
+        {/* print invoice container */}
+        <div className="bussinessMain">
+          <div className="bussinessSub">
+            <div class="locationHead">
+              <Image
+                src={Images.settingsPrinter}
+                className="settings-sidebar-icons"
+                style={{ marginRight: "5px" }}
+              />
+
+              <div className="bussinessHeading">
+                <h4 className="cancelOrderText">
+                Print Invoice
+                </h4>
+                <p className="settingText">
+                Needs to connect printer for print invoice
+                </p>
+              </div>
+            </div>
+
+            <div class="roundCheck">
+              <input
+                class="form-check-input"
+                type="checkbox"
+                id="flexSwitchCheckChecked"
+                checked={invoiceStatus}
+                onChange={() => {
+                  handleSettings(3);
+                }}
+              />
+              <label
+                class="amountText d-none"
+                for="flexSwitchCheckChecked"
+              ></label>
+            </div>
+          </div>
+        </div>
+        {/*  */}
       </div>
     </>
   );

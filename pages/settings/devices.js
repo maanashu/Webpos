@@ -7,32 +7,32 @@ import CustomModal from '../../components/customModal/CustomModal';
 import BarcodeModal from '../../components/settingModal/barcodeModal';
 
 const Devices = () => {
-    const [key, setKey] = useState(Math.random());
-    const [modalDetail, setModalDetail] = useState({
-        show: false,
-        title: "",
-        flag: "",
-    });
+    // const [key, setKey] = useState(Math.random());
+    // const [modalDetail, setModalDetail] = useState({
+    //     show: false,
+    //     title: "",
+    //     flag: "",
+    // });
 
-    //closeModal
-    const handleOnCloseModal = () => {
-        setModalDetail({
-            show: false,
-            title: "",
-            flag: "",
-        });
-        setKey(Math.random());
-    };
+    // //closeModal
+    // const handleOnCloseModal = () => {
+    //     setModalDetail({
+    //         show: false,
+    //         title: "",
+    //         flag: "",
+    //     });
+    //     setKey(Math.random());
+    // };
 
-    const handleUserProfile = (flag) => {
-
-        setModalDetail({
-            show: true,
-            flag: flag,
-            type: flag,
-        });
-        setKey(Math.random());
-    };
+    // const handleUserProfile = (flag) => {
+    //     setModalDetail({
+    //         show: true,
+    //         flag: flag,
+    //         type: flag,
+    //     });
+    //     setKey(Math.random());
+    // };
+    
     return (
         <>
             <div className='deviceRight settingOuter'>
@@ -43,7 +43,9 @@ const Devices = () => {
                     <div className='addDeviceSection'>
                         <h4 className='amountText m-0'>Add a New Device</h4>
                         <div className='addDeviceSub'>
-                            <div className='SubReader' onClick={() => { handleUserProfile("barcodeScan") }}>
+                            <div className='SubReader' 
+                            // onClick={() => { handleUserProfile("barcodeScan") }}
+                            >
                                 <Image src={Images.deviceScan} alt="darkDevices image" className="img-fluid" />
                                 <h4 className='cancelOrderText mt-3'>Barcode Scanner</h4>
                             </div>
@@ -67,7 +69,7 @@ const Devices = () => {
                     </div>
                 </div>
             </div>
-            <CustomModal
+            {/* <CustomModal
                 key={key}
                 show={modalDetail.show}
                 backdrop="static"
@@ -93,7 +95,7 @@ const Devices = () => {
                     ''
                 }
                 onCloseModal={() => handleOnCloseModal()}
-            />
+            /> */}
         </>
     )
 }

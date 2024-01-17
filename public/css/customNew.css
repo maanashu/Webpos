@@ -3413,7 +3413,10 @@ figure {
 #addStoreModal .modal-content,
 #taxPayerModal .modal-content,
 #activateTaxModal .modal-content,
-#createModalTax .modal-content {
+#createModalTax .modal-content,
+#addlanguageModal .modal-content,
+#AddNotes .modal-content,
+#AddDiscount .modal-content {
     border-radius: 20px !important;
     background: #FFF !important;
     box-shadow: -2px 6px 6px 0px rgba(52, 79, 117, 0.03), -11px 28px 25px 0px rgba(52, 79, 117, 0.04), -31px 74px 80px 0px rgba(52, 79, 117, 0.07) !important;
@@ -4311,7 +4314,13 @@ figure {
     max-width: 450px;
 }
 
-#barcodeScanModal .modal-content {
+#bluetoothScanModal {
+    width: 100%;
+    max-width: 550px;
+}
+
+#barcodeScanModal .modal-content,
+#bluetoothScanModal .modal-content {
     border-radius: 30px !important;
     background: #FFF !important;
     box-shadow: -3px 6px 7px 0px rgba(52, 79, 117, 0.03), -12px 28px 25px 0px rgba(52, 79, 117, 0.04), -31px 74px 80px 0px rgba(52, 79, 117, 0.07) !important;
@@ -4319,7 +4328,8 @@ figure {
     border: none !important;
 }
 
-#barcodeScanModal .modal-header {
+#barcodeScanModal .modal-header,
+#bluetoothScanModal .modal-header {
     display: none;
 }
 
@@ -4348,10 +4358,110 @@ figure {
     width: 100%;
     margin-top: 12px;
 }
-.codeDisplayMain{
+
+.codeDisplayMain {
     width: 100%;
     margin-bottom: 30px;
     text-align: center;
+}
+
+.deviceBarcodeSub {
+    border-radius: 16px;
+    background: #F5F6FC;
+    padding: 16px 24px;
+    display: flex;
+    align-items: start;
+    justify-content: space-between;
+    margin-top: 24px;
+}
+
+.outer-circle {
+    background-image: linear-gradient(#58C2E8, #58C2E8, #D7DEFF, #D7DEFF);
+    width: 160px;
+    height: 160px;
+    border-style: solid;
+    border-color: transparent;
+    border-radius: 50%;
+    border-width: 0;
+    animation: rotateCircle 3s linear infinite;
+    padding: 6px;
+    display: table;
+}
+
+.inner-circle {
+    background: white;
+    height: 160px;
+    width: 160px;
+    border-style: solid;
+    border-color: transparent;
+    border-radius: 50%;
+    border-width: 1px;
+    animation: rotateCircle 3s linear infinite reverse;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+
+@keyframes rotateCircle {
+    0% {
+        transform: rotate(0);
+    }
+
+    25% {
+        transform: rotate(90deg);
+    }
+
+    50% {
+        transform: rotate(180deg);
+    }
+
+    75% {
+        transform: rotate(270deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+.bluetoothLoader {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 30px 0;
+}
+
+.scannerBx {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.scanLink {
+    color: #47B0D6 !important;
+    font-size: 14px;
+    font-weight: 500;
+}
+
+.notificationSection {
+    border-radius: 20px;
+    background: #FFF;
+    padding: 16px;
+}
+
+.notifySub {
+    padding: 14px 24px;
+}
+
+.notifySub .cartDivide {
+    margin: 8px 0;
+}
+.notifyCheck{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin: 8px 0;
 }
 /*setting css end*/
 /*media query start*/

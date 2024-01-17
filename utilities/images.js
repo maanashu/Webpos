@@ -300,7 +300,6 @@ import Shipping_Solid from "../public/images/Shipping_Solid.svg";
 import checkverify from "../public/images/checkverify.svg";
 import countryflag from "../public/images/countryflag.svg";
 import countryflag1 from "../public/images/countryflag1.png";
-import editimg from "../public/images/editimg.svg";
 import profitMargin from "../public/images/profit_margin.png";
 import unitSold from "../public/images/unit_sold.png";
 import totalInventory from "../public/images/total_inventory.png";
@@ -319,8 +318,20 @@ import deliverBox from "../public/images/deliverBox.svg";
 import acceptStep from "../public/images/acceptStep.svg";
 import readyStep from "../public/images/readyStep.svg";
 import Fast from "../public/images/Fast.svg";
+import BluetoothImg from "../public/images/BluetoothImg.svg";
+import scanSmall from "../public/images/scanSmall.svg";
+import languageIcon from "../public/images/languageIcon.svg";
+import lang1 from "../public/images/lang1.svg";
+import lang2 from "../public/images/lang2.png";
+import lang3 from "../public/images/lang3.png";
+import lang4 from "../public/images/lang4.png";
+import orderFrequency from "../public/images/order_frequency.png";
+import setreceipt from "../public/images/setreceipt.svg";
+import walletOuter from "../public/images/walletOuter.svg";
 
 export {
+  scanSmall,
+  BluetoothImg,
   map,
   countryImg,
   editTax,
@@ -635,6 +646,13 @@ export {
   checkverify,
   countryflag,
   countryflag1,
-  editimg,
   toggleOn,
+  languageIcon,
+  lang1,
+  lang2,
+  lang3,
+  lang4,
+  orderFrequency,
+  setreceipt,
+  walletOuter,
 };

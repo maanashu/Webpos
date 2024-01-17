@@ -5,10 +5,6 @@ import { ListGroup, ListGroupItem } from 'react-bootstrap';
 import CustomModal from '../../customModal/CustomModal';
 import AddProduct from './ProductModal/addProduct';
 
-import { ListGroup, ListGroupItem } from "react-bootstrap";
-import CustomModal from "../../customModal/CustomModal";
-import AddProduct from "./ProductModal/addProduct";
-
 const ProductRightSidebar = () => {
   const [filterShow, setFilterShow] = useState(false);
 

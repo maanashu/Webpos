@@ -3,7 +3,10 @@ import { createSlice } from "@reduxjs/toolkit";
 const initialState = {
   mainProductData: {},
   oneProductData: {},
-  mainServicesData:{},
+  mainServicesData: {},
+  availableOffers: {},
+  mainServicesData: {},
+  cartDetails: {},
 };
 
 export const retailsSlice = createSlice({
@@ -45,6 +48,7 @@ export const retailsSlice = createSlice({
     setProductCart: (state, action) => {
       state.loading = false;
       state.productCart = action?.payload?.payload;
+      state.cartDetails = action?.payload?.payload;
     },
     addNotes: (state) => {
       state.loading = true;
@@ -53,7 +57,17 @@ export const retailsSlice = createSlice({
       state.loading = false;
       state.addNotes = action?.payload?.payload;
     },
+    addDiscount: (state) => {
+      state.loading = true;
+    },
+    setDiscount: (state, action) => {
+      state.loading = false;
+      state.addNotes = action?.payload?.payload;
+    },
     addTocart: (state) => {
+      state.loading = true;
+    },
+    clearCart: (state) => {
       state.loading = true;
     },
     onErrorStopLoad: (state) => {
@@ -64,6 +78,7 @@ export const retailsSlice = createSlice({
 
 // Action creators are generated for each case reducer function
 export const {
+  onErrorStopLoad,
   getMainProduct,
   setMainProduct,
   getOneProductById,
@@ -77,6 +92,9 @@ export const {
   addNotes,
   setNotes,
   addTocart,
+  clearCart,
+  setDiscount,
+  addDiscount,
 } = retailsSlice.actions;
 
 export const selectRetailData = (state) => state.retails;

@@ -99,7 +99,11 @@ const Sidebar = (props) => {
       <ListGroup className="sidebarMenus navbar_overlay_content_">
         <div className="sidebarStaticMenus">
           <ListGroupItem className="sidebarItems">
-            <Link href="/Retails" className="sidebarLinks active">
+            <Link
+              //  href="/Retails"
+              href="/Retails?parameter=product"
+              className="sidebarLinks active"
+            >
               <Image
                 src={Images.ProductsServices}
                 alt="image"
@@ -220,7 +224,8 @@ const Sidebar = (props) => {
             <Link
               href="/transactions"
               className={`sidebarLinks ${
-                router?.pathname == "/transactions" ? "active" : ""}`}
+                router?.pathname == "/transactions" ? "active" : ""
+              }`}
             >
               <Image
                 src={Images.Wallets}

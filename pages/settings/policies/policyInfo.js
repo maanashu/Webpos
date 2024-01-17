@@ -13,9 +13,8 @@ const PolicyInfo = ({ policyInfo }) => {
     return (
         <>
             <div className='settingMain'>
-                <div className='row'>
                     {/* <div className='col-lg-3'></div> */}
-                    <div className='col-lg-9'>
+                    <div className='col-lg-12'>
                         <div className='refundRight settingOuter'>
                             <Image src={Images.boldLeftArrow} alt="boldLeftArrow " className="img-fluid pointHand" />
                             <div className='refundSub'>
@@ -28,7 +27,6 @@ const PolicyInfo = ({ policyInfo }) => {
                         </div>
                     </div>
                 </div>
-            </div>
         </>
     )
 }
