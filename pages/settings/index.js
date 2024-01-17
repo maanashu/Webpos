@@ -36,6 +36,7 @@ import Policy from "./policies";
 import Wallet from "./Wallet";
 import Notification from "./notification";
 import StaffLocation from "./staff/staffLocation";
+import Language from "./language";
 
 export default function Settings() {
   const [selectedItem, setSelectedItem] = useState("Security");
@@ -81,6 +82,7 @@ export default function Settings() {
   };
 
   const handleTouch = (item, id) => {
+    console.log(item,"item");
     setPolicyInfo(id);
     setSelectedItemId(id ? id : "");
     setSelectedItem(item?.name ? item?.name : item);
@@ -100,6 +102,8 @@ export default function Settings() {
         return <Taxes />;
       case "Locations":
         return <Location />;
+      case "Language":
+        return <Language />;
       case "Legal":
         return <Legal handleTouch={handleTouch} />;
       case "Policies":
@@ -107,9 +111,9 @@ export default function Settings() {
       case "staffDetail":
         return <StaffDetail selectedItemId={selectedItemId} handleTouch={handleTouch} />;
       case "legalPolicy":
-        return <LegalPolicy policyInfo={policyInfo} />;
+        return <LegalPolicy policyInfo={policyInfo} handleTouch={handleTouch}/>;
       case "PolicyInfo":
-        return <PolicyInfo policyInfo={policyInfo} />;
+        return <PolicyInfo policyInfo={policyInfo} handleTouch={handleTouch}/>;
       case "Wallet":
         return <Wallet />;
       case "Notifications":
@@ -133,7 +137,7 @@ export default function Settings() {
           </div>
         </div>
         <div className="col-lg-9">
-          <div>{renderComponent()}</div>
+          <div className="outerpage">{renderComponent()}</div>
         </div>
       </div>
     </div>

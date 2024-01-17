@@ -30,7 +30,6 @@ const Customers = () => {
   const totalCustomers =
     customersData?.allCustomersData?.payload?.total_customers;
 
-
   const uniqueId = authData?.usersInfo?.payload?.uniqe_id;
 
   const STATS = [
@@ -102,16 +101,10 @@ const Customers = () => {
               style={{ marginBottom: "35px" }}
             />
             <div>
-              <h4
-                className="stat-box-title"
-                style={{ color: textColor }}
-              >
+              <h4 className="stat-box-title" style={{ color: textColor }}>
                 {title}
               </h4>
-              <p
-                className="stat-box-count"
-                style={{ color: textColor }}
-              >
+              <p className="stat-box-count" style={{ color: textColor }}>
                 {count}
               </p>
             </div>
@@ -121,10 +114,7 @@ const Customers = () => {
 
       {/* stats on chart */}
       <div>
-        <div
-          style={{ margin: "12px 16px" }}
-          className="flex-row-space-between"
-        >
+        <div style={{ margin: "12px 16px" }} className="flex-row-space-between">
           <div
             style={{ gap: "10px", alignItems: "center" }}
             className="flex-row-space-between"
@@ -144,10 +134,7 @@ const Customers = () => {
               </Link>
             </div>
           </div>
-          <div
-            style={{ gap: "24px" }}
-            className="flex-row-space-between"
-          >
+          <div style={{ gap: "24px" }} className="flex-row-space-between">
             {[
               {
                 textColor: "#F0C01A",

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import AnalyticsHeader from '../../../components/commanComonets/AnalyticsHeader'
 import AnalyticsSubHeader from '../../../components/commanComonets/AnalyticsSubHeader';
-import { ArrowLeft, ArrowRight, average_order, gross_profit, gross_profit_blue, order_frequency, overview_sales, total_order, total_volume } from '../../../utilities/images';
+import { ArrowLeft, ArrowRight, average_order, gross_profit, gross_profit_blue, orderFrequency, overview_sales, total_order, total_volume } from '../../../utilities/images';
 import Image from 'next/image';
 import { analyticsDetails, getProfitsData, orderAnalyticsData } from '../../../redux/slices/analytics';
 import moment from 'moment-timezone';
@@ -40,7 +40,7 @@ const index = () => {
       textColor: "#003921",
     },
     {
-      icon: order_frequency,
+      icon: orderFrequency,
       title: "Order Frequency",
       count: `${analyticsOrderData?.pos_graph?.ordersOverView?.order_frequency}/Hour`,
       bgColor: "#D1FADF",

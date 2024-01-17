@@ -23,9 +23,8 @@ const StaffDetail = ({ selectedItemId,handleTouch }) => {
     // API for get all POS users...............................
     const getStaffDetail = () => {
         let params = {
-            // id: 2
-            id:selectedItemId
-
+            id: 2,
+            // id:selectedItemId
         };
         dispatch(getStaffDetails({
             ...params,
@@ -78,7 +77,7 @@ const StaffDetail = ({ selectedItemId,handleTouch }) => {
         <>
             <div className='settingMain staffDetailSection'>
                 <div className='row'>
-                    <div className='col-lg-9'>
+                    <div className='col-lg-12'>
                         {settingData?.loading ? (
                             <>
                                 <div className="loaderOuter">

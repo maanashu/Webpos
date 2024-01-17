@@ -1,40 +1,63 @@
-import React, { useState } from 'react'
-import * as Images from "../../utilities/images"
+import React, { useState } from "react";
+import * as Images from "../../utilities/images";
 import Image from "next/image";
-import { ListGroup, ListGroupItem } from 'react-bootstrap';
-import Link from 'next/link';
+import { ListGroup, ListGroupItem } from "react-bootstrap";
+import Link from "next/link";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  clearCart,
+  productCart,
+  selectRetailData,
+} from "../../redux/slices/retails";
+import {
+  amountFormat,
+  formattedReturnPrice,
+} from "../../utilities/globalMethods";
 // import CustomModal from '../../customModal/CustomModal';
 // import AddProduct from '../../../components/';
 
-
 const RightSideBar = () => {
-    const [filterShow, setFilterShow] = useState(false)
+  const dispatch = useDispatch();
+  const retailData = useSelector(selectRetailData);
+  const cartData = retailData?.productCart;
+  const cartAmount = cartData?.amount;
+  const cartLength = cartData?.poscart_products?.length;
+  const [filterShow, setFilterShow] = useState(false);
 
-    const [key, setKey] = useState(Math.random());
-    const [modalDetail, setModalDetail] = useState({
-        show: false,
-        title: "",
-        flag: "",
+  const [key, setKey] = useState(Math.random());
+  const [modalDetail, setModalDetail] = useState({
+    show: false,
+    title: "",
+    flag: "",
+  });
+  const handleOnCloseModal = () => {
+    setModalDetail({
+      show: false,
+      title: "",
+      flag: "",
     });
-    const handleOnCloseModal = () => {
-        setModalDetail({
-            show: false,
-            title: "",
-            flag: "",
-        });
-        setKey(Math.random());
-    };
-    return (
-        <>
-            <div className='sidebarRight'>
-                <ListGroup>
-                    <ListGroupItem className="rightSidebarItems active" onClick={() => setFilterShow(prev => !prev)}>
-                        <div className='sidebarBg'>
-                            <Image src={Images.ShoppingOutline} alt="image" className="imgSize" />
-                        </div>
-                        <span className='cartNum'>1</span>
-                    </ListGroupItem>
-                    {/* <ListGroupItem className="rightSidebarItems" onClick={() => {
+    setKey(Math.random());
+  };
+  return (
+    <>
+      <div className="sidebarRight">
+        <ListGroup>
+          <ListGroupItem
+            className="rightSidebarItems active"
+            onClick={() => {
+              cartLength > 0 ? setFilterShow((prev) => !prev) : void 0;
+            }}
+          >
+            <div className="sidebarBg">
+              <Image
+                src={Images.ShoppingOutline}
+                alt="image"
+                className="imgSize"
+              />
+            </div>
+            <span className="cartNum">{cartLength || "0"}</span>
+          </ListGroupItem>
+          {/* <ListGroupItem className="rightSidebarItems" onClick={() => {
                         setModalDetail({ show: true, flag: "AddProduct" });
                         setKey(Math.random());
                     }}>
@@ -42,220 +65,140 @@ const RightSideBar = () => {
                             <Image src={Images.AddProduct} alt="image" className="img-fluid rightSidebarIcons" />
                         </div>
                     </ListGroupItem> */}
-                    <ListGroupItem className="rightSidebarItems" >
-                        <div className='sidebarBg'>
-                            <Image src={Images.Cancelproduct} alt="image" className="img-fluid rightSidebarIcons" />
-                        </div>
-                    </ListGroupItem>
-                    <ListGroupItem className='rightSidebarItems'>
-                        <div className='sidebarBg'>
-                            <Image src={Images.PauseCircleOutline} alt="image" className="img-fluid rightSidebarIcons" />
-                        </div>
-                    </ListGroupItem>
-                    <ListGroupItem className='rightSidebarItems' >
-                        <Link href='/Retails/ProductCart'>
-                        <Image src={Images.RightArrow} alt="image" className="img-fluid rightSidebarIcons" />
-                        </Link>
-                       
-                    </ListGroupItem>
-                </ListGroup>
-            </div>
-            {
-                filterShow ?
-                    <div className='AddtoCart ProductAddCart'>
-                        <div className='cartInfo'>
-                            <div className='cartSubInfo active'>
-                                <div className='orderTime'>
-                                    <Image src={Images.cartFood} alt="cartFoodImg" className="img-fluid cartFoodImg" />
-                                    <div className='cartorderHeading ms-2 '>
-                                        <h4 className='cartText'>Mexican Food Catering</h4>
-                                        <div className='flexTable mt-1'>
-                                            <article className='productColor'>
-                                                <span className='Yellow'></span>
-                                                <span className='Red'></span>
-                                                <span className='Pink'></span>
-                                                <span className='Blue'></span>
-                                                <span className='Black'></span>
-                                                <span className='White'></span>
-                                            </article>
-                                            <span className='userIdText ms-2'>Colors / Size</span>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div className='orderCalculate'>
-                                    <h4 className='cartMoney'>$90.00</h4>
-                                    <div className='incrementBtn '>
-                                        <i className="fa-solid fa-minus plusMinus"></i>
-                                        <input className="form-control addBtnControl" type="number" placeholder="1" />
-                                        <i className="fa-solid fa-plus plusMinus"></i>
-                                    </div>
-                                    <label className="custom-checkbox">
-                                        <input type="checkbox" />
-                                        <span className="checkmark"></span>
-                                    </label>
-                                </div>
-                            </div>
-                            <div className='cartSubInfo '>
-                                <div className='orderTime'>
-                                    <Image src={Images.cartFood} alt="cartFoodImg" className="img-fluid cartFoodImg" />
-                                    <div className='cartorderHeading ms-2 '>
-                                        <h4 className='cartText'>Mexican Food Catering</h4>
-                                        <div className='flexTable mt-1'>
-                                            <article className='productColor'>
-                                                <span className='Yellow'></span>
-                                                <span className='Red'></span>
-                                                <span className='Pink'></span>
-                                                <span className='Blue'></span>
-                                                <span className='Black'></span>
-                                                <span className='White'></span>
-                                            </article>
-                                            <span className='userIdText ms-2'>Colors / Size</span>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div className='orderCalculate'>
-                                    <h4 className='cartMoney'>$90.00</h4>
-                                    <div className='incrementBtn '>
-                                        <i className="fa-solid fa-minus plusMinus"></i>
-                                        <input className="form-control addBtnControl" type="number" placeholder="1" />
-                                        <i className="fa-solid fa-plus plusMinus"></i>
-                                    </div>
-                                    <label className="custom-checkbox">
-                                        <input type="checkbox" />
-                                        <span className="checkmark"></span>
-                                    </label>
-                                </div>
-                            </div>
-                            <div className='cartSubInfo '>
-                                <div className='orderTime'>
-                                    <Image src={Images.cartFood} alt="cartFoodImg" className="img-fluid cartFoodImg" />
-                                    <div className='cartorderHeading ms-2 '>
-                                        <h4 className='cartText'>Mexican Food Catering</h4>
-                                        <div className='flexTable mt-1'>
-                                            <article className='productColor'>
-                                                <span className='Yellow'></span>
-                                                <span className='Red'></span>
-                                                <span className='Pink'></span>
-                                                <span className='Blue'></span>
-                                                <span className='Black'></span>
-                                                <span className='White'></span>
-                                            </article>
-                                            <span className='userIdText ms-2'>Colors / Size</span>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div className='orderCalculate'>
-                                    <h4 className='cartMoney'>$90.00</h4>
-                                    <div className='incrementBtn '>
-                                        <i className="fa-solid fa-minus plusMinus"></i>
-                                        <input className="form-control addBtnControl" type="number" placeholder="1" />
-                                        <i className="fa-solid fa-plus plusMinus"></i>
-                                    </div>
-                                    <label className="custom-checkbox">
-                                        <input type="checkbox" />
-                                        <span className="checkmark"></span>
-                                    </label>
-                                </div>
-                            </div>
-                            <div className='cartSubInfo '>
-                                <div className='orderTime'>
-                                    <Image src={Images.cartFood} alt="cartFoodImg" className="img-fluid cartFoodImg" />
-                                    <div className='cartorderHeading ms-2 '>
-                                        <h4 className='cartText'>Mexican Food Catering</h4>
-                                        <div className='flexTable mt-1'>
-                                            <article className='productColor'>
-                                                <span className='Yellow'></span>
-                                                <span className='Red'></span>
-                                                <span className='Pink'></span>
-                                                <span className='Blue'></span>
-                                                <span className='Black'></span>
-                                                <span className='White'></span>
-                                            </article>
-                                            <span className='userIdText ms-2'>Colors / Size</span>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div className='orderCalculate'>
-                                    <h4 className='cartMoney'>$90.00</h4>
-                                    <div className='incrementBtn '>
-                                        <i className="fa-solid fa-minus plusMinus"></i>
-                                        <input className="form-control addBtnControl" type="number" placeholder="1" />
-                                        <i className="fa-solid fa-plus plusMinus"></i>
-                                    </div>
-                                    <label className="custom-checkbox">
-                                        <input type="checkbox" />
-                                        <span className="checkmark"></span>
-                                    </label>
-                                </div>
-                            </div>
-                            <div className='cartSubInfo '>
-                                <div className='orderTime'>
-                                    <Image src={Images.cartFood} alt="cartFoodImg" className="img-fluid cartFoodImg" />
-                                    <div className='cartorderHeading ms-2 '>
-                                        <h4 className='cartText'>Mexican Food Catering</h4>
-                                        <div className='flexTable mt-1'>
-                                            <article className='productColor'>
-                                                <span className='Yellow'></span>
-                                                <span className='Red'></span>
-                                                <span className='Pink'></span>
-                                                <span className='Blue'></span>
-                                                <span className='Black'></span>
-                                                <span className='White'></span>
-                                            </article>
-                                            <span className='userIdText ms-2'>Colors / Size</span>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div className='orderCalculate'>
-                                    <h4 className='cartMoney'>$90.00</h4>
-                                    <div className='incrementBtn '>
-                                        <i className="fa-solid fa-minus plusMinus"></i>
-                                        <input className="form-control addBtnControl" type="number" placeholder="1" />
-                                        <i className="fa-solid fa-plus plusMinus"></i>
-                                    </div>
-                                    <label className="custom-checkbox">
-                                        <input type="checkbox" />
-                                        <span className="checkmark"></span>
-                                    </label>
-                                </div>
-                            </div>
-                        </div>
-                        <div className='subFooter'>
-                            <div className='dividesection'>
-                                <hr className='divideBorder' />
-                            </div>
-                            <div className='cartTotalsection'>
-                                <div className='cartTotal'>
-                                    <h4 className='userPosition'>Cart Total</h4>
-                                    <h4 className='amountText m-0'>$360.00</h4>
-                                </div>
-                                <div className='cartTotal'>
-                                    <h4 className='userPosition'>Taxes</h4>
-                                    <h4 className='amountText m-0'>$36.00</h4>
-                                </div>
-                                <div className='cartTotal'>
-                                    <h4 className='userPosition'>Delivery</h4>
-                                    <h4 className='amountText m-0'>$4.99</h4>
-                                </div>
-                                <div className='cartTotal'>
-                                    <h4 className='userPosition'>Promo Discount</h4>
-                                    <h4 className='amountText m-0'>$360.00</h4>
-                                </div>
-                                <div className='cartTotal'>
-                                    <h4 className='userPosition'>Subtotal</h4>
-                                    <h4 className='amountText m-0'>$425.00</h4>
-                                </div>
-                                <button className='nextverifyBtn w-100' type='submit'>
-                                    Proceed to checkout
-                                    <Image src={Images.ArrowRight} alt="rightArrow" className="img-fluid rightImg" />
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                    :
-                    <></>
+          <ListGroupItem
+            className="rightSidebarItems"
+            onClick={() =>
+              dispatch(
+                clearCart({
+                  cb: () => {
+                    dispatch(productCart());
+                  },
+                })
+              )
             }
-            {/* <CustomModal
+          >
+            <div className="sidebarBg">
+              <Image
+                src={Images.Cancelproduct}
+                alt="image"
+                className="img-fluid rightSidebarIcons"
+              />
+            </div>
+          </ListGroupItem>
+          <ListGroupItem className="rightSidebarItems">
+            <div className="sidebarBg">
+              <Image
+                src={Images.PauseCircleOutline}
+                alt="image"
+                className="img-fluid rightSidebarIcons"
+              />
+            </div>
+          </ListGroupItem>
+          <ListGroupItem className="rightSidebarItems">
+            <Link href="/Retails/ProductCart">
+              <Image
+                src={Images.RightArrow}
+                alt="image"
+                className="img-fluid rightSidebarIcons"
+              />
+            </Link>
+          </ListGroupItem>
+        </ListGroup>
+      </div>
+      {filterShow ? (
+        <div className="AddtoCart ProductAddCart">
+          {cartData?.poscart_products?.map((data, index) => (
+            <div className="cartInfo">
+              <div className="cartSubInfo active">
+                <div className="orderTime">
+                  <Image
+                    src={data?.product_details?.image}
+                    alt="cartFoodImg"
+                    className="img-fluid cartFoodImg"
+                    width="100"
+                    height="100"
+                  />
+                  <div className="cartorderHeading ms-2 ">
+                    <h4 className="cartText">{data?.product_details?.name}</h4>
+                    <div className="flexTable mt-1">
+                      <article className="productColor">
+                        <span className="Yellow"></span>
+                        <span className="Red"></span>
+                        <span className="Pink"></span>
+                        <span className="Blue"></span>
+                        <span className="Black"></span>
+                        <span className="White"></span>
+                      </article>
+                      <span className="userIdText ms-2">Colors / Size</span>
+                    </div>
+                  </div>
+                </div>
+                <div className="orderCalculate">
+                  <h4 className="cartMoney">$90.00</h4>
+                  <div className="incrementBtn ">
+                    <i className="fa-solid fa-minus plusMinus"></i>
+                    <input
+                      className="form-control addBtnControl"
+                      type="number"
+                      placeholder="1"
+                    />
+                    <i className="fa-solid fa-plus plusMinus"></i>
+                  </div>
+                  <label className="custom-checkbox">
+                    <input type="checkbox" />
+                    <span className="checkmark"></span>
+                  </label>
+                </div>
+              </div>
+            </div>
+          ))}
+
+          <div className="subFooter">
+            <div className="dividesection">
+              <hr className="divideBorder" />
+            </div>
+            <div className="cartTotalsection">
+              <div className="cartTotal">
+                <h4 className="userPosition">Sub Total</h4>
+                <h4 className="amountText m-0">
+                  {amountFormat(cartAmount?.products_price)}
+                </h4>
+              </div>
+              <div className="cartTotal">
+                <h4 className="userPosition">{`Discount ${
+                  cartData?.discount_flag === "percentage" ? "(%)" : ""
+                } `}</h4>
+                <h4 className="amountText m-0">
+                  {formattedReturnPrice(cartAmount?.discount || "0.00")}
+                </h4>
+              </div>
+              <div className="cartTotal">
+                <h4 className="userPosition">Total Taxes</h4>
+                <h4 className="amountText m-0">
+                  {amountFormat(cartAmount?.tax)}
+                </h4>
+              </div>
+              <div className="cartTotal">
+                <h4 className="userPosition">Total</h4>
+                <h4 className="amountText m-0">
+                  {amountFormat(cartAmount?.total_amount)}
+                </h4>
+              </div>
+              <button className="nextverifyBtn w-100" type="submit">
+                Proceed to checkout
+                <Image
+                  src={Images.ArrowRight}
+                  alt="rightArrow"
+                  className="img-fluid rightImg"
+                />
+              </button>
+            </div>
+          </div>
+        </div>
+      ) : (
+        <></>
+      )}
+      {/* <CustomModal
                 key={key}
                 show={modalDetail.show}
                 backdrop="static"
@@ -296,8 +239,8 @@ const RightSideBar = () => {
                     </>
                 }
             /> */}
-        </>
-    )
-}
+    </>
+  );
+};
 
-export default RightSideBar
+export default RightSideBar;

@@ -99,7 +99,11 @@ const Sidebar = (props) => {
       <ListGroup className="sidebarMenus navbar_overlay_content_">
         <div className="sidebarStaticMenus">
           <ListGroupItem className="sidebarItems">
-            <Link href="/Retails" className="sidebarLinks active">
+            <Link
+              //  href="/Retails"
+              href="/Retails?parameter=product"
+              className="sidebarLinks active"
+            >
               <Image
                 src={Images.ProductsServices}
                 alt="image"
@@ -133,9 +137,29 @@ const Sidebar = (props) => {
               <span className="sidebarTxt">Delivery Orders</span>
             </Link>
           </ListGroupItem>
+          {/* <ListGroupItem className="sidebarItems">
+            <Link href="/dashboard" className="sidebarLinks active">
+              <Image
+                src={Images.ProductsServices}
+                alt="image"
+                className="img-fluid showImg"
+              />
+              <span className="sidebarTxt">Products & Services</span>
+            </Link>
+          </ListGroupItem> */}
+          {/* <ListGroupItem className="sidebarItems">
+            <Link href="/dashboard" className="sidebarLinks">
+              <Image
+                src={Images.DeliveryOrders}
+                alt="image"
+                className="img-fluid showImg"
+              />
+              <span className="sidebarTxt">Delivery Orders</span>
+            </Link>
+          </ListGroupItem> */}
           <ListGroupItem className="sidebarItems">
             <Link
-              href="#"
+              href="/shipping"
               className={`sidebarLinks ${
                 router?.pathname == "/Shipping" ? "active" : ""
               }`}
@@ -199,7 +223,8 @@ const Sidebar = (props) => {
             <Link
               href="/transactions"
               className={`sidebarLinks ${
-                router?.pathname == "/transactions" ? "active" : ""}`}
+                router?.pathname == "/transactions" ? "active" : ""
+              }`}
             >
               <Image
                 src={Images.Wallets}
@@ -215,7 +240,10 @@ const Sidebar = (props) => {
             </Link>
           </ListGroupItem>
           <ListGroupItem className="sidebarItems">
-            <Link href="#" className={`sidebarLinks ${"" ? "active" : ""}`}>
+            <Link
+              href="/cashDrawer"
+              className={`sidebarLinks ${"" ? "active" : ""}`}
+            >
               <Image
                 src={Images.CashDrawer}
                 alt="image"
