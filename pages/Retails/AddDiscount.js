@@ -1,5 +1,5 @@
 import { useDispatch, useSelector } from "react-redux";
-import { addDiscount, selectRetailData } from "../../redux/slices/retails";
+import { addDiscount, productCart, selectRetailData } from "../../redux/slices/retails";
 import { useState } from "react";
 import { toast } from "react-toastify";
 
@@ -39,6 +39,7 @@ const AddDiscount = (props) => {
       addDiscount({
         ...params,
         cb(res) {
+          dispatch(productCart());
           props.close();
           toast.success("Discounts added successfully!");
         },

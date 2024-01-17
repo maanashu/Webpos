@@ -10,6 +10,7 @@ const initialState = {
   cartDetails: {},
   checkSuppliedVariantLoad: false,
   addTocartLoad: false,
+  clearCartLoading:false,
 };
 
 export const retailsSlice = createSlice({
@@ -82,6 +83,9 @@ export const retailsSlice = createSlice({
     },
     clearCart: (state) => {
       state.loading = true;
+    },
+    setClearCart: (state) => {
+      state.clearCartLoading = true;
     },
     checkSuppliedVariant: (state) => {
       state.loading = true;
