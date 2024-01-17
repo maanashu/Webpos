@@ -32,7 +32,6 @@ const ProductCart = () => {
   const cartAmount = cartData?.amount;
   const sellerId = authData?.usersInfo?.payload?.uniqe_id;
   const availableOffersArray = retailData?.availableOffers?.data || [];
-  console.log(availableOffersArray, "availableOffersArray");
   const [key, setKey] = useState(Math.random());
   const [modalDetail, setModalDetail] = useState({
     show: false,
@@ -74,12 +73,6 @@ const ProductCart = () => {
     setKey(Math.random());
   };
 
-  const handleGoToProductDetails = (productId) => {
-    router.push(
-      "/Retails/[productDetailId]/AddProduct",
-      `/Retails/${productId}/AddProduct`
-    );
-  };
 
   const productFun = (productId, index, item) => {
     let params = {
