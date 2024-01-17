@@ -246,7 +246,7 @@ const Invoice = ({
                 }}
                 className="main-text-color-styles-customers"
               >
-                {posUserId?.insert(0, "#") || "N/A"}
+                {/* {posUserId?.insert(0, "#") || "N/A"} */}
               </td>
               <td
                 style={{ fontSize: "10px", fontWeight: "600" }}
