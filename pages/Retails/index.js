@@ -106,7 +106,7 @@ const Retails = () => {
   return (
     <>
       <div className="flexBox">
-        <div className="commanOuter">
+        <div className="commanOuter w-100">
           <ProductInnerNav
             productCount={productPagination?.total}
             ServicesCount={servicesCount?.total}

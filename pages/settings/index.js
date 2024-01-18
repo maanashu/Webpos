@@ -37,6 +37,7 @@ import Wallet from "./Wallet";
 import Notification from "./notification";
 import StaffLocation from "./staff/staffLocation";
 import Language from "./language";
+import Plan from "./plans";
 
 export default function Settings() {
   const [selectedItem, setSelectedItem] = useState("Security");
@@ -120,6 +121,8 @@ export default function Settings() {
         return <Notification />;
         case "staffLocation":
           return <StaffLocation selectedItemId={selectedItemId}/>;
+        case "Plans":
+        return <Plan />;
       default:
         return null;
     }

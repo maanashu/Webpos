@@ -328,8 +328,22 @@ import lang4 from "../public/images/lang4.png";
 import orderFrequency from "../public/images/order_frequency.png";
 import setreceipt from "../public/images/setreceipt.svg";
 import walletOuter from "../public/images/walletOuter.svg";
+import searchMoney from "../public/images/searchMoney.svg"
+import paginationRight from "../public/images/paginationRight.svg"
+import checkCircle from "../public/images/checkCircle.svg"
+import blueCircleTick from "../public/images/blueCircleTick.svg"
+import cyanCircleTick from "../public/images/cyanCircleTick.svg"
+import lightCircleTick from "../public/images/lightCircleTick.svg"
+import simpleCheck from "../public/images/simpleCheck.svg"
 
 export {
+  simpleCheck,
+  lightCircleTick,
+  cyanCircleTick,
+  blueCircleTick,
+  checkCircle,
+  paginationRight,
+  searchMoney,
   scanSmall,
   BluetoothImg,
   map,
