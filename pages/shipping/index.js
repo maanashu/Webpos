@@ -11,7 +11,7 @@ const Shipping = () => {
     const dispatch = useDispatch()
     const authData = useSelector(selectLoginAuth);
     const [orderData, setOrderData] = useState([]);
-    console.log(orderData,'orderdataaaaaa');
+    console.log(orderData, 'orderdataaaaaa');
     const shippingData = useSelector(selectsShippingData);
     const sellerUid = authData?.usersInfo?.payload?.uniqe_id;
 
@@ -19,7 +19,7 @@ const Shipping = () => {
 
     const getAllShippingOrdeshandle = () => {
         let orderListParam = {
-            seller_id: authData?.usersInfo?.payload?.uniqe_id,
+            seller_id: sellerUid,
             delivery_option: "4"
         };
         dispatch(
@@ -27,7 +27,8 @@ const Shipping = () => {
                 ...orderListParam,
                 cb(res) {
                     if (res) {
-                        setOrderData(res?.data?.payload);
+                        console.log(res, 'resssssssssssssssssss');
+                        setOrderData(res);
                     }
                 },
             })
@@ -37,6 +38,7 @@ const Shipping = () => {
     console.log(customerSidebardata, sellerUid, "customersidebar data");
     useEffect(() => {
         if (sellerUid) {
+            getAllShippingOrdeshandle()
             dispatch(
                 getShippingsSidebarCount({
                     "seller_id": sellerUid
@@ -45,9 +47,7 @@ const Shipping = () => {
         }
     }, [sellerUid]);
 
-    useEffect(() => {
-        getAllShippingOrdeshandle()
-    }, [])
+
     return (
         <div className='shippingSection'>
             <div className='row '>
