@@ -1,5 +1,5 @@
 import { useDispatch, useSelector } from "react-redux";
-import { addNotes, selectRetailData } from "../../redux/slices/retails";
+import { addNotes, productCart, selectRetailData } from "../../redux/slices/retails";
 import { useState } from "react";
 import { toast } from "react-toastify";
 
@@ -23,6 +23,7 @@ const AddNotes = (props) => {
       addNotes({
         ...params,
         cb(res) {
+          dispatch(productCart());
           toast.success("Notes Added!");
           props.close();
         },

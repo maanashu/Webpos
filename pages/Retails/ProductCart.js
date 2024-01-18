@@ -16,6 +16,7 @@ import { selectLoginAuth } from "../../redux/slices/auth";
 import AddDiscount from "./AddDiscount";
 import AddNotes from "./AddNotes";
 import CustomModal from "../../components/customModal/CustomModal";
+import DeleteCarts from "./DeleteCarts";
 import {
   amountFormat,
   formattedReturnPrice,
@@ -70,6 +71,10 @@ const ProductCart = () => {
   };
   const handleAddNotes = () => {
     setModalDetail({ show: true, flag: "AddNotes" });
+    setKey(Math.random());
+  };
+  const handleDeleteCart = () => {
+    setModalDetail({ show: true, flag: "DeleteCarts" });
     setKey(Math.random());
   };
 
@@ -192,7 +197,7 @@ const ProductCart = () => {
               ) : (
                 <>
                   {cartData?.poscart_products?.length == null ? (
-                    <h3 className="mt-2 mb-2 text-center">No Carts Found!</h3>
+                    <h6 className="mt-2 mb-2 text-center">No Carts Found!</h6>
                   ) : (
                     <div className="loaderOuter">
                       <div className="spinner-grow loaderSpinner text-center my-5"></div>
@@ -224,15 +229,7 @@ const ProductCart = () => {
                 </div>
                 <div
                   className="deleteProductCart "
-                  onClick={() =>
-                    dispatch(
-                      clearCart({
-                        cb: () => {
-                          dispatch(productCart());
-                        },
-                      })
-                    )
-                  }
+                  onClick={(e) => handleDeleteCart(e)}
                 >
                   <Image
                     src={Images.deleteProduct}
@@ -341,10 +338,10 @@ const ProductCart = () => {
                     })
                   ) : (
                     <>
-                      {availableOffersArray?.length == 0 ? (
-                        <h3 className="mt-3 mb-3">
+                      {availableOffersArray?.length == null ? (
+                        <h6 className="mt-3 mb-3">
                           No available offers Found!
-                        </h3>
+                        </h6>
                       ) : (
                         <div className="loaderOuter">
                           <div className="spinner-grow loaderSpinner text-center my-5"></div>
@@ -442,12 +439,20 @@ const ProductCart = () => {
         showCloseBtn={true}
         isRightSideModal={false}
         mediumWidth={false}
-        ids={modalDetail.flag === "AddDiscount" ? "AddDiscount" : "AddNotes"}
+        ids={
+          modalDetail.flag === "AddDiscount"
+            ? "AddDiscount"
+            : "AddNotes"
+            ? "AddNotes"
+            : "DeleteCarts"
+        }
         child={
           modalDetail.flag === "AddDiscount" ? (
             <AddDiscount close={() => handleOnCloseModal()} />
           ) : modalDetail.flag === "AddNotes" ? (
             <AddNotes close={() => handleOnCloseModal()} />
+          ) : modalDetail.flag === "DeleteCarts" ? (
+            <DeleteCarts close={() => handleOnCloseModal()} />
           ) : (
             ""
           )
@@ -458,6 +463,8 @@ const ProductCart = () => {
               <h4 className="appointMain mb-0">Add Discount</h4>
             ) : modalDetail.flag === "AddNotes" ? (
               <h4 className="appointMain mb-0">Add Notes</h4>
+            ) : modalDetail.flag === "DeleteCarts" ? (
+              <h4 className="appointMain mb-0">Delete Product</h4>
             ) : (
               ""
             )}

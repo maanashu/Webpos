@@ -36,6 +36,7 @@ const CartAmountByPay = () => {
   );
   const getTip = retailData?.getTipsData;
   const cartData = retailData?.productCart;
+  const cartAmount = cartData?.amount;
   const sellerId = authData?.usersInfo?.payload?.uniqe_id;
   const [key, setKey] = useState(Math.random());
   const [selectedTipIndex, setSelectedTipIndex] = useState(null);
@@ -497,10 +498,18 @@ const CartAmountByPay = () => {
                   <p className="productName fw-bold">Total</p>
                 </article>
                 <article>
-                  <p className="productName">$933.50</p>
-                  <p className="productName">15% ($13.50)</p>
-                  <p className="productName">$29.00</p>
-                  <p className="totalBtn">$304.75</p>
+                  <p className="productName">
+                    ${cartAmount?.products_price || "0.00"}
+                  </p>
+                  <p className="productName">
+                    -${cartAmount?.discount || "0.00"}
+                  </p>
+                  {/* 15% ($13.50) */}
+                  <p className="productName"> ${cartAmount?.tax || "0.00"}</p>
+                  <p className="totalBtn">
+                    {" "}
+                    ${cartAmount?.total_amount || "0.00"}
+                  </p>
                 </article>
               </div>
               <div className="confirmFooter">

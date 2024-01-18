@@ -6,10 +6,10 @@ const initialState = {
   oneServiceData: {},
   mainServicesData: {},
   availableOffers: {},
-  mainServicesData: {},
   cartDetails: {},
   checkSuppliedVariantLoad: false,
   addTocartLoad: false,
+  clearCartLoading:false,
   getTipsLoad: false,
   getTipsData: {},
   updateCartByTipLoad: false,
@@ -87,6 +87,9 @@ export const retailsSlice = createSlice({
     },
     clearCart: (state) => {
       state.loading = true;
+    },
+    setClearCart: (state) => {
+      state.clearCartLoading = true;
     },
     checkSuppliedVariant: (state) => {
       state.loading = true;

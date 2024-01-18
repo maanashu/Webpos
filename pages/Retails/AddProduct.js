@@ -311,8 +311,10 @@ const AddProduct = () => {
                   onClick={() => setCount(count + 1)}
                 ></i>
               </div>
-              {retailData?.checkSuppliedVariantLoad ||
-              retailData?.addTocartLoad ? (
+              {/* {retailData?.checkSuppliedVariantLoad ||
+              retailData?.addTocartLoad ? ( */}
+                
+                 {retailData?.loading ? (
                 <button
                   className="nextverifyBtn w-100 mt-3"
                   type="submit"
