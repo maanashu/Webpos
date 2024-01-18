@@ -4614,21 +4614,94 @@ figure {
     cursor: pointer;
 }
 
-.paginateFlex.active .prevText ,.paginateFlex:hover .prevText{
+.paginateFlex.active .prevText,
+.paginateFlex:hover .prevText {
     color: #263682;
 }
 
-.paginateFlex.active .paginationArrowImg ,.paginateFlex:hover .paginationArrowImg {
+.paginateFlex.active .paginationArrowImg,
+.paginateFlex:hover .paginationArrowImg {
     filter: invert(65%) sepia(92%) saturate(373%) hue-rotate(163deg) brightness(93%) contrast(95%);
 }
-.cashDrawMain{
+
+.cashDrawMain {
     position: relative;
 }
-.paginatePosition{
+
+.paginatePosition {
     position: absolute;
     bottom: 16px;
     left: 0;
     right: 0;
+}
+
+.planRight {
+    border-radius: 20px;
+    background: #FFF;
+    padding: 24px 40px;
+    display: flex;
+    align-items: start;
+    gap: 16px;
+}
+
+.planApps {
+    border-radius: 20px;
+    border: 2px solid #58C2E8;
+    background: #FFF;
+    box-shadow: -2px 4px 25px 0px rgba(50, 80, 127, 0.02), -5px 10px 80px 0px rgba(50, 80, 127, 0.04);
+    padding: 24px 32px;
+    margin-top: 24px;
+}
+
+.planFlex {
+    display: flex;
+    align-items: start;
+    justify-content: space-between;
+}
+
+.planSubSection {
+    width: 100%;
+}
+
+.entreText {
+    color: #47B0D6;
+    font-size: 30px;
+    font-weight: 400;
+}
+
+.planAppSub {
+    border-top: 1px dotted #8D99D2;
+    border-bottom: 1px dotted #8D99D2;
+    margin: 10px 0;
+    padding: 10px 0;
+    display: flex;
+    align-items: start;
+    gap: 50px;
+
+}
+
+.planTickBox {
+    display: flex;
+    align-items: center;
+    margin-top: 10px;
+    gap: 10px;
+}
+
+.planCyan {
+    color: #47B0D6;
+    font-size: 14px;
+    font-weight: 500;
+}
+
+.planPara {
+    color: #9BA8E3;
+    font-size: 14px;
+    font-weight: 500;
+}
+.subscribeBox{
+    display: flex;
+    align-items: center;
+    gap: 50px;
 }
 /* cash Drawer css end*/
 /*media query start*/

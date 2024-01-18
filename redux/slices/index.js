@@ -8,6 +8,7 @@ import { transactionsSlice } from "./transactions";
 import { settingSlice } from "./setting";
 import { deliverySlice } from "./delivery";
 import { retailsSlice } from "./retails";
+import { shippingSlice } from "./shipping";
 
 const mainReducer = combineReducers({
   auth: authSlice.reducer,
@@ -18,6 +19,7 @@ const mainReducer = combineReducers({
   setting: settingSlice.reducer,
   delivery: deliverySlice.reducer,
   retails: retailsSlice.reducer,
+  shipping: shippingSlice.reducer
 });
 
 const rootReducer = (state, action) => {
