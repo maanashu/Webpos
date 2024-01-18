@@ -20,6 +20,7 @@ import {
   setAddTocart,
   setGetTips,
   setUpdateCartByTip,
+  setCreateOrder,
 } from "../../slices/retails";
 import { all, call, put, takeLatest } from "redux-saga/effects";
 
@@ -271,7 +272,6 @@ function* getTips(action) {
 }
 
 function* updateCartByTip(action) {
-  console.log("action", action?.payload);
   const body = { ...action.payload };
   delete body.cartId;
   try {
@@ -282,6 +282,28 @@ function* updateCartByTip(action) {
     );
     if (resp.status) {
       yield put(setUpdateCartByTip(resp.data));
+      yield call(action.payload.cb, (action.res = resp));
+    } else {
+      throw resp;
+    }
+  } catch (e) {
+    yield put(onErrorStopLoad());
+    toast.error(e?.error?.response?.data?.msg);
+  }
+}
+
+function* createOrder(action) {
+  console.log("action", action?.payload);
+  const body = { ...action.payload };
+  delete body.tips;
+  try {
+    const resp = yield call(
+      ApiClient.put,
+      `${ORDER_API_URL_V1}orders/pos`,
+      body
+    );
+    if (resp.status) {
+      yield put(setCreateOrder(resp.data));
       yield call(action.payload.cb, (action.res = resp));
     } else {
       throw resp;
@@ -308,6 +330,7 @@ function* retailsSaga() {
     takeLatest("retails/checkSuppliedVariant", checkSuppliedVariant),
     takeLatest("retails/getTips", getTips),
     takeLatest("retails/updateCartByTip", updateCartByTip),
+    takeLatest("retails/createOrder", createOrder),
   ]);
 }
 

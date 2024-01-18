@@ -13,6 +13,8 @@ const initialState = {
   getTipsLoad: false,
   getTipsData: {},
   updateCartByTipLoad: false,
+  createOrderLoad: false,
+  createOrderData: {},
 };
 
 export const retailsSlice = createSlice({
@@ -109,7 +111,13 @@ export const retailsSlice = createSlice({
     },
     setUpdateCartByTip: (state) => {
       state.updateCartByTipLoad = false;
-      // state.getTipsData = action?.payload;
+    },
+    createOrder: (state) => {
+      state.createOrderLoad = true;
+    },
+    setCreateOrder: (state) => {
+      state.createOrderLoad = false;
+      // state.createOrderData = action?.payload;
     },
     onErrorStopLoad: (state) => {
       state.loading = false;
@@ -145,6 +153,8 @@ export const {
   setGetTips,
   updateCartByTip,
   setUpdateCartByTip,
+  createOrder,
+  setCreateOrder,
 } = retailsSlice.actions;
 
 export const selectRetailData = (state) => state.retails;
