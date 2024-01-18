@@ -5,9 +5,17 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import { toast } from "react-toastify";
 import { selectLoginAuth } from "../../redux/slices/auth";
-import { createOrder, selectRetailData } from "../../redux/slices/retails";
+import {
+  clearCart,
+  createOrder,
+  productCart,
+  selectRetailData,
+} from "../../redux/slices/retails";
 import { useDispatch, useSelector } from "react-redux";
-import { amountFormat } from "../../utilities/globalMethods";
+import {
+  amountFormat,
+  formattedReturnPrice,
+} from "../../utilities/globalMethods";
 
 const CartPayByCash = () => {
   const dispatch = useDispatch();
@@ -21,6 +29,7 @@ const CartPayByCash = () => {
   const [selectedId, setSelectedId] = useState(1);
   const [cashRate, setCashRate] = useState();
   const [amount, setAmount] = useState();
+  const drawerData = retailData?.drawerSession;
 
   const handleContineAmount = () => {
     if (!selectedCart) {
@@ -78,8 +87,30 @@ const CartPayByCash = () => {
       cart_id: cartData.id,
       tips: amount === undefined || amount === "" ? cashRate : amount,
       mode_of_payment: "cash",
+      drawer_id: drawerData?.id,
     };
-    dispatch(createOrder(params));
+
+    dispatch(
+      createOrder({
+        ...params,
+        cb() {
+          dispatch(
+            clearCart({
+              cb: () => {
+                dispatch(productCart());
+              },
+            })
+          );
+          router.push({
+            pathname: "/Retails/ShowPaidAmountCart",
+            query: {
+              cart: JSON.stringify(cartData),
+              paymentData: JSON.stringify(params),
+            },
+          });
+        },
+      })
+    );
   };
   return (
     <>
@@ -143,14 +174,26 @@ const CartPayByCash = () => {
                   value={amount}
                   onChange={(e) => setAmount(e.target.value)}
                 />
-                <button
-                  className="continueAmountBtn w-100 mt-3"
-                  type="button"
-                  // onClick={(e) => handleContineAmount(e)}
-                  onClick={() => createOrderHandler()}
-                >
-                  Continue
-                </button>
+                {retailData?.createOrderLoad ||
+                retailData?.productCartLoad ||
+                retailData?.clearCartLoad ? (
+                  <button
+                    className="continueAmountBtn w-100 mt-3"
+                    type="button"
+                  >
+                    Continue
+                    <span className="spinner-border spinner-border-sm mx-1"></span>
+                  </button>
+                ) : (
+                  <button
+                    className="continueAmountBtn w-100 mt-3"
+                    type="button"
+                    // onClick={(e) => handleContineAmount(e)}
+                    onClick={() => createOrderHandler()}
+                  >
+                    Continue
+                  </button>
+                )}
               </div>
             </div>
           </div>
@@ -217,21 +260,25 @@ const CartPayByCash = () => {
                 <article>
                   <p className="productName">Subtotal</p>
                   <p className="productName">Discount</p>
-                  <p className="productName">Shipping</p>
+                  <p className="productName">Tips</p>
+                  <p className="productName">Total Taxes</p>
                   <p className="productName fw-bold">Total</p>
                 </article>
                 <article>
                   <p className="productName">
-                    ${cartAmount?.products_price || "0.00"}
+                    {amountFormat(cartData?.amount?.products_price)}
                   </p>
                   <p className="productName">
-                    -${cartAmount?.discount || "0.00"}
+                    {formattedReturnPrice(cartData?.amount?.discount)}
                   </p>
-                  {/* 15% ($13.50) */}
-                  <p className="productName"> ${cartAmount?.tax || "0.00"}</p>
+                  <p className="productName">
+                    {amountFormat(cartData?.amount?.tip)}
+                  </p>
+                  <p className="productName">
+                    {amountFormat(cartData?.amount?.tax)}
+                  </p>
                   <p className="totalBtn">
-                    {" "}
-                    ${cartAmount?.total_amount || "0.00"}
+                    {amountFormat(cartData?.amount?.total_amount)}
                   </p>
                 </article>
               </div>
@@ -242,9 +289,11 @@ const CartPayByCash = () => {
                   className="img-fluid logo"
                 />
                 <Image
-                  src={Images.barCodeScanImg}
+                  src={cartData.barcode}
                   alt="barCodeScanImg"
                   className="img-fluid barCodeScanImg"
+                  width="100"
+                  height="100"
                 />
               </div>
             </div>

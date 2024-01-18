@@ -21,11 +21,13 @@ import {
   setGetTips,
   setUpdateCartByTip,
   setCreateOrder,
+  setDrawerSession,
 } from "../../slices/retails";
 import { all, call, put, takeLatest } from "redux-saga/effects";
 
 const ORDER_API_URL_V1 = ORDER_API_URL + "/api/v1/";
 const PRODUCT_API_URL_V1 = PRODUCT_API_URL + "/api/v1/";
+const USER_API_URL_V1 = AUTH_API_URL + "/api/v1/";
 
 function* getMainProduct(action) {
   const dataToSend = { ...action.payload };
@@ -166,7 +168,6 @@ function* clearCart(action) {
       ApiClient.delete,
       `${ORDER_API_URL}/api/v1/poscarts`
     );
-
     if (resp.status) {
       yield call(action.payload.cb, (action.res = resp));
     } else {
@@ -296,19 +297,44 @@ function* createOrder(action) {
   console.log("action", action?.payload);
   const body = { ...action.payload };
   delete body.tips;
+  // delete body.mode_of_payment;
   try {
     const resp = yield call(
-      ApiClient.put,
+      ApiClient.post,
       `${ORDER_API_URL_V1}orders/pos`,
       body
     );
     if (resp.status) {
       yield put(setCreateOrder(resp.data));
       yield call(action.payload.cb, (action.res = resp));
+      toast.success(resp?.data?.msg);
     } else {
       throw resp;
     }
   } catch (e) {
+    yield put(onErrorStopLoad());
+    toast.error(e?.error?.response?.data?.msg);
+  }
+}
+
+function* getDrawerSession(action) {
+  const body = { ...action?.payload };
+  // console.log("body", action);
+  try {
+    const resp = yield call(
+      ApiClient.post,
+      `${USER_API_URL_V1}drawer_management/drawer-session`,
+      body
+    );
+    if (resp.status) {
+      console.log("resp", resp.data);
+      yield put(setDrawerSession(resp.data));
+      yield call(action.payload.cb, (action.res = resp));
+    } else {
+      throw resp;
+    }
+  } catch (e) {
+    console.log("resp111", e);
     yield put(onErrorStopLoad());
     toast.error(e?.error?.response?.data?.msg);
   }
@@ -331,6 +357,7 @@ function* retailsSaga() {
     takeLatest("retails/getTips", getTips),
     takeLatest("retails/updateCartByTip", updateCartByTip),
     takeLatest("retails/createOrder", createOrder),
+    takeLatest("retails/getDrawerSession", getDrawerSession),
   ]);
 }
 

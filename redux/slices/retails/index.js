@@ -9,12 +9,16 @@ const initialState = {
   cartDetails: {},
   checkSuppliedVariantLoad: false,
   addTocartLoad: false,
-  clearCartLoading:false,
+  clearCartLoading: false,
   getTipsLoad: false,
   getTipsData: {},
   updateCartByTipLoad: false,
   createOrderLoad: false,
   createOrderData: {},
+  drawerSession: {},
+  drawerSessionLoad: false,
+  productCartLoad: false,
+  clearCartLoad: false,
 };
 
 export const retailsSlice = createSlice({
@@ -59,9 +63,11 @@ export const retailsSlice = createSlice({
     },
     productCart: (state) => {
       state.loading = true;
+      state.productCartLoad = true;
     },
     setProductCart: (state, action) => {
       state.loading = false;
+      state.productCartLoad = false;
       state.productCart = action?.payload?.payload;
       state.cartDetails = action?.payload?.payload;
     },
@@ -87,9 +93,11 @@ export const retailsSlice = createSlice({
     },
     clearCart: (state) => {
       state.loading = true;
+      state.clearCartLoad = true;
     },
     setClearCart: (state) => {
-      state.clearCartLoading = true;
+      state.loading = false;
+      state.clearCartLoad = false;
     },
     checkSuppliedVariant: (state) => {
       state.loading = true;
@@ -118,9 +126,21 @@ export const retailsSlice = createSlice({
     createOrder: (state) => {
       state.createOrderLoad = true;
     },
-    setCreateOrder: (state) => {
+    setCreateOrder: (state, action) => {
       state.createOrderLoad = false;
-      // state.createOrderData = action?.payload;
+      state.createOrderData = action?.payload?.payload;
+    },
+    clearCart: (state) => {
+      state.loading = true;
+    },
+    getDrawerSession: (state) => {
+      state.loading = true;
+      state.drawerSessionLoad = true;
+    },
+    setDrawerSession: (state, action) => {
+      state.loading = false;
+      state.drawerSessionLoad = false;
+      state.drawerSession = action?.payload?.payload;
     },
     onErrorStopLoad: (state) => {
       state.loading = false;
@@ -147,7 +167,6 @@ export const {
   setNotes,
   addTocart,
   setAddTocart,
-  clearCart,
   setDiscount,
   addDiscount,
   checkSuppliedVariant,
@@ -158,6 +177,9 @@ export const {
   setUpdateCartByTip,
   createOrder,
   setCreateOrder,
+  clearCart,
+  getDrawerSession,
+  setDrawerSession,
 } = retailsSlice.actions;
 
 export const selectRetailData = (state) => state.retails;
