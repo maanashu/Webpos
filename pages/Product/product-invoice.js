@@ -12,7 +12,7 @@ const ProductInvoice = () => {
             <div className='productInvoice'>
                 <div className='row'>
                     <div className='col-lg-6'>
-                        <div className='commanOuter'>
+                        <div className='commanOuter w-100'>
                             <SearchInvoice />
                             <div className='invoiceHeader'>
                                 <p className='innerHeading'>Invoices<span className='productCount'>(+1280)</span></p>
