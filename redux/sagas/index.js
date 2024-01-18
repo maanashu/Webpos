@@ -7,6 +7,7 @@ import transactionsSaga from "./transactions";
 import settingSaga from "./setting";
 import retailsSaga from "./retails";
 import deliverySaga from "./delivery";
+import shippingSaga from "./shipping";
 
 export default function* rootSaga() {
   yield all([
@@ -18,6 +19,7 @@ export default function* rootSaga() {
     spawn(settingSaga),
     spawn(deliverySaga),
     spawn(retailsSaga),
+    spawn(shippingSaga),
     // saga1 can also yield [ fork(actionOne), fork(actionTwo) ]
     // fork(saga2),
   ]);

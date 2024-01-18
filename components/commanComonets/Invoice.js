@@ -11,7 +11,7 @@ const Invoice = ({
   subtotal,
   discount,
   shipping,
-  posUserId,
+  posUserId="",
   isLoading,
   sellerName,
   barcodeImg,
@@ -24,7 +24,7 @@ const Invoice = ({
   const strUserId = userId?.toString();
 
   const hr = <div className="invoice-dotted-hr" />;
-
+console.log(posUserId, "pos user id");
   return (
     <div className="flex-row-space-between invoice-container">
       {isLoading ? (
@@ -246,7 +246,8 @@ const Invoice = ({
                 }}
                 className="main-text-color-styles-customers"
               >
-                {posUserId?.insert(0, "#") || "N/A"}
+                {posUserId ?`#${posUserId}` : ""}
+                {/* {posUserId && posUserId?.insert(0, "#") || "N/A"} */}
               </td>
               <td
                 style={{ fontSize: "10px", fontWeight: "600" }}
