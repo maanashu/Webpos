@@ -39,6 +39,7 @@ const Transactions = () => {
       count: `$${getTotalTraData?.data?.total.toFixed(2) ?? "0"}`,
       bgColor: "#FFEEB3",
       textColor: "#93370D",
+      type: "all",
     },
     {
       icon: Images.coinImg,
@@ -46,6 +47,7 @@ const Transactions = () => {
       count: getTotalTraData?.data?.jbr.toFixed(2) ?? "0",
       bgColor: "#D7DEFF",
       textColor: "#172461",
+      type: "jbr",
     },
     {
       icon: Images.MoneyOutline,
@@ -53,6 +55,7 @@ const Transactions = () => {
       count: `$${getTotalTraData?.data?.cash.toFixed(2) ?? "0"}`,
       bgColor: "#D1FADF",
       textColor: "#003921",
+      type: "cash",
     },
     {
       icon: Images.visaGreen,
@@ -60,6 +63,7 @@ const Transactions = () => {
       count: `$${getTotalTraData?.data?.card.toFixed(2) ?? "0"}`,
       bgColor: "#BFEEFF",
       textColor: "#1F6A84",
+      type: "card",
     },
   ];
 
@@ -104,7 +108,7 @@ const Transactions = () => {
 
       {/* stats */}
       <div className="stats flex-row-space-between">
-        {STATS.map(({ bgColor, icon, title, count, textColor }, idx) => (
+        {STATS.map(({ bgColor, icon, title, count, textColor, type }, idx) => (
           <div
             key={idx + "stats"}
             className="stat-box"
@@ -113,7 +117,9 @@ const Transactions = () => {
             <Link
               href={{
                 pathname: "/transactions/transactionList",
-                query: { "time-span": timeSpan },
+                query: 
+                  { "time-span": timeSpan , "transaction_type": type },
+                
               }}
             >
               <Image

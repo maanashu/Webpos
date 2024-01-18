@@ -1,156 +1,38 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import * as Images from "../../../utilities/images"
 import Image from "next/image";
 import Link from 'next/link';
 import { ListGroup, ListGroupItem } from 'react-bootstrap';
+import { useDispatch, useSelector } from 'react-redux';
+import { getStaffDetails, viewPayment, settingInfo } from '../../../redux/slices/setting';
 
+const StaffLocation = (props) => {
+    console.log(props, "props");
+    const dispatch = useDispatch()
 
-const StaffLocation = () => {
+    const getPaymentDetails = () => {
+        let params = {
+            'transaction_id': props?.selectedItemId?.transaction_id,
+            'week_no': props?.selectedItemId?.weekNo
+        };
+        dispatch(viewPayment({
+            ...params,
+            cb(res) {
+                if (res.status) {
+                    setGetStaffInfo(res?.data?.payload)
+                }
+            },
+        })
+        );
+    }
+
+    useEffect(() => {
+        getPaymentDetails()
+    }, [])
     return (
         <>
             <div className='settingMain staffLocationSection'>
                 <div className='row'>
-                    <div className='col-lg-3'>
-                        <div className='deviceLeft settingOuter'>
-                            <ListGroup>
-                                <ListGroupItem className='settingListMain'>
-                                    <Link href="#" className='settingList active'>
-                                        <Image src={Images.securityTick} alt="securityTick image" className="SecurityImg" />
-                                        <div className='securityHeading'>
-                                            <h4 className='settingText'>Security</h4>
-                                            <h4 className='settingSub mt-1'>Not Updated</h4>
-                                        </div>
-                                    </Link>
-                                </ListGroupItem>
-                                <ListGroupItem className='settingListMain'>
-                                    <Link href="#" className='settingList '>
-                                        <Image src={Images.settingsDevices} alt="settingsDevices image" className="SecurityImg" />
-                                        <div className='securityHeading'>
-                                            <h4 className='settingText'>Devices</h4>
-                                            <h4 className='settingSub mt-1'>Not Connected</h4>
-                                        </div>
-                                    </Link>
-                                </ListGroupItem>
-                                <ListGroupItem className='settingListMain'>
-                                    <Link href="#" className='settingList '>
-                                        <Image src={Images.ringing} alt="ringing image" className="SecurityImg" />
-                                        <div className='securityHeading'>
-                                            <h4 className='settingText'>Notifications</h4>
-                                            <h4 className='settingSub mt-1'>Not Updated</h4>
-                                        </div>
-                                    </Link>
-                                </ListGroupItem>
-                                <ListGroupItem className='settingListMain'>
-                                    <Link href="#" className='settingList '>
-                                        <Image src={Images.locationOutline} alt="locationOutline image" className="SecurityImg" />
-                                        <div className='securityHeading'>
-                                            <h4 className='settingText'>Locations</h4>
-                                            <h4 className='settingSub mt-1'>1 Locations</h4>
-                                        </div>
-                                    </Link>
-                                </ListGroupItem>
-                                <ListGroupItem className='settingListMain'>
-                                    <Link href="#" className='settingList '>
-                                        <Image src={Images.settingsMoney} alt="settingsMoney image" className="SecurityImg" />
-                                        <div className='securityHeading'>
-                                            <h4 className='settingText'>Plans</h4>
-                                            <h4 className='settingSub mt-1'>Expire on April 2024</h4>
-                                        </div>
-                                    </Link>
-                                </ListGroupItem>
-                                <ListGroupItem className='settingListMain'>
-                                    <Link href="#" className='settingList '>
-                                        <Image src={Images.settingsReceipt} alt="settingsReceipt image" className="SecurityImg" />
-                                        <div className='securityHeading'>
-                                            <h4 className='settingText'>Receipts</h4>
-                                            <h4 className='settingSub mt-1'>Default</h4>
-                                        </div>
-                                    </Link>
-                                </ListGroupItem>
-                                <ListGroupItem className='settingListMain'>
-                                    <Link href="#" className='settingList '>
-                                        <Image src={Images.settingsTax} alt="settingsTax image" className="SecurityImg" />
-                                        <div className='securityHeading'>
-                                            <h4 className='settingText'>Taxes</h4>
-                                            <h4 className='settingSub mt-1'>Not Updated</h4>
-                                        </div>
-                                    </Link>
-                                </ListGroupItem>
-                                <ListGroupItem className='settingListMain'>
-                                    <Link href="#" className='settingList '>
-                                        <Image src={Images.walletOutline} alt="walletOutline image" className="SecurityImg" />
-                                        <div className='securityHeading'>
-                                            <h4 className='settingText'>Wallet</h4>
-                                            <h4 className='settingSub mt-1'>Not Connected</h4>
-                                        </div>
-                                    </Link>
-                                </ListGroupItem>
-                                <ListGroupItem className='settingListMain'>
-                                    <Link href="#" className='settingList '>
-                                        <Image src={Images.settingsBoxes} alt="settingsBoxes image" className="SecurityImg" />
-                                        <div className='securityHeading'>
-                                            <h4 className='settingText'>Shipping & Pick Up</h4>
-                                            <h4 className='settingSub mt-1'>Default</h4>
-                                        </div>
-                                    </Link>
-                                </ListGroupItem>
-                                <ListGroupItem className='settingListMain'>
-                                    <Link href="#" className='settingList '>
-                                        <Image src={Images.usersOutline} alt="usersOutline image" className="SecurityImg" />
-                                        <div className='securityHeading'>
-                                            <h4 className='settingText'>Staff</h4>
-                                            <h4 className='settingSub mt-1'>3</h4>
-                                        </div>
-                                    </Link>
-                                </ListGroupItem>
-                                <ListGroupItem className='settingListMain'>
-                                    <Link href="#" className='settingList '>
-                                        <Image src={Images.settingsLanguage} alt="settingsLanguage image" className="SecurityImg" />
-                                        <div className='securityHeading'>
-                                            <h4 className='settingText'>Language</h4>
-                                            <h4 className='settingSub mt-1'>English</h4>
-                                        </div>
-                                    </Link>
-                                </ListGroupItem>
-                                <ListGroupItem className='settingListMain'>
-                                    <Link href="#" className='settingList '>
-                                        <Image src={Images.settingsLaw} alt="settingsLaw image" className="SecurityImg" />
-                                        <div className='securityHeading'>
-                                            <h4 className='settingText'>Legal</h4>
-                                            <h4 className='settingSub mt-1'>English</h4>
-                                        </div>
-                                    </Link>
-                                </ListGroupItem>
-                                <ListGroupItem className='settingListMain'>
-                                    <Link href="#" className='settingList '>
-                                        <Image src={Images.settingsPolicies} alt="settingsPolicies image" className="SecurityImg" />
-                                        <div className='securityHeading'>
-                                            <h4 className='settingText'>Policies</h4>
-                                            <h4 className='settingSub mt-1'>Default</h4>
-                                        </div>
-                                    </Link>
-                                </ListGroupItem>
-                                <ListGroupItem className='settingListMain'>
-                                    <Link href="#" className='settingList '>
-                                        <Image src={Images.settingHome} alt="settingHome image" className="SecurityImg" />
-                                        <div className='securityHeading'>
-                                            <h4 className='settingText'>Shop</h4>
-                                            <h4 className='settingSub mt-1'>3 Locations</h4>
-                                        </div>
-                                    </Link>
-                                </ListGroupItem>
-                                <ListGroupItem className='settingListMain'>
-                                    <Link href="#" className='settingList '>
-                                        <Image src={Images.settingsDetails} alt="settingsDetails image" className="SecurityImg" />
-                                        <div className='securityHeading'>
-                                            <h4 className='settingText'>Devices Details</h4>
-                                            <h4 className='settingSub mt-1'>Default</h4>
-                                        </div>
-                                    </Link>
-                                </ListGroupItem>
-                            </ListGroup>
-                        </div>
-                    </div>
                     <div className='col-lg-9'>
                         <div className='settingOuter staffLocateRight'>
                             <Image src={Images.boldLeftArrow} alt="boldLeftArrow " className="img-fluid  pointHand" />

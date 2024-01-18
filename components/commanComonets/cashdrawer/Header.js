@@ -1,40 +1,28 @@
 import React, { useState } from "react";
 import Image from "next/image";
-import { customerNotification } from "../../../utilities/images";
+import { customerNotification ,customerSearch } from "../../../utilities/images";
 //Cash Drawer Header
 const Header = ({ mainIcon, title }) => {
   return (
-    <div className="cust-header flex-row-space-between">
-      <div className="left-hand flex-row-space-between">
-        <Image
-          src={mainIcon}
-          width={24}
-          height={24}
-          style={{ marginTop: "3px" }}
-        />
-        <div style={{ marginLeft: "6px" }}>
-          <h2 className="header-title">{title}</h2>
+    <div className="cashDrawHead">
+      <div className="row">
+        <div className="col-lg-6">
+          <div className="leftCashHead">
+            <Image src={mainIcon} className="img-fluid" alt="mainIcon Image" />
+            <h2 className="appointMain">{title}</h2>
+          </div>
         </div>
-      </div>
-      <div className="right-hand flex-row-space-between">
-        <Image
-          src={customerNotification}
-          width={30}
-          height={30}
-          style={{ marginTop: "3px" }}
-        />
-        {/* <Image
-          src={customerNotification}
-          width={30}
-          height={30}
-          style={{ marginTop: "3px" }}
-        />
-        <div className="searchBox">
-          <p className="header-descrip">Search</p>
-        </div> */}
-        <form>
-          <input type="text" className="searchBox" placeholder="Search here" />
-        </form>
+        <div className="col-lg-6">
+          <div className="rightCashHead">
+            <Image src={customerNotification} className="img-fluid" alt="customerNotification Image" />
+            <form className="cashHeadForm w-100">
+              <div className="cashSearch">
+                <input type="text" className="cashSearchBX form-control" placeholder="Search here" />
+                <Image src={customerSearch} className="img-fluid cashSearchImg" alt="customerNotification Image" />
+              </div>
+            </form>
+          </div>
+        </div>
       </div>
     </div>
   );
