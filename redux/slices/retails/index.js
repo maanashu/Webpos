@@ -3,10 +3,16 @@ import { createSlice } from "@reduxjs/toolkit";
 const initialState = {
   mainProductData: {},
   oneProductData: {},
+  oneServiceData: {},
   mainServicesData: {},
   availableOffers: {},
-  mainServicesData: {},
   cartDetails: {},
+  checkSuppliedVariantLoad: false,
+  addTocartLoad: false,
+  clearCartLoading:false,
+  getTipsLoad: false,
+  getTipsData: {},
+  updateCartByTipLoad: false,
 };
 
 export const retailsSlice = createSlice({
@@ -26,6 +32,13 @@ export const retailsSlice = createSlice({
     setOneProductById: (state, action) => {
       state.loading = false;
       state.oneProductData = action?.payload?.payload;
+    },
+    getOneServiceById: (state) => {
+      state.loading = true;
+    },
+    setOneServiceById: (state, action) => {
+      state.loading = false;
+      state.oneServiceData = action?.payload?.payload;
     },
     getMainServices: (state) => {
       state.loading = true;
@@ -65,10 +78,41 @@ export const retailsSlice = createSlice({
       state.addNotes = action?.payload?.payload;
     },
     addTocart: (state) => {
-      state.loading = true;
+      state.addTocartLoad = true;
+    },
+    setAddTocart: (state) => {
+      state.addTocartLoad = false;
     },
     clearCart: (state) => {
       state.loading = true;
+    },
+    setClearCart: (state) => {
+      state.clearCartLoading = true;
+    },
+    checkSuppliedVariant: (state) => {
+      state.loading = true;
+      state.checkSuppliedVariantLoad = true;
+    },
+    setCheckSuppliedVariant: (state, action) => {
+      state.loading = false;
+      state.checkSuppliedVariantLoad = false;
+      // state.addNotes = action?.payload?.payload;
+    },
+    getTips: (state) => {
+      state.loading = true;
+      state.getTipsLoad = true;
+    },
+    setGetTips: (state) => {
+      state.loading = true;
+      state.getTipsLoad = false;
+      state.getTipsData = action?.payload;
+    },
+    updateCartByTip: (state) => {
+      state.updateCartByTipLoad = true;
+    },
+    setUpdateCartByTip: (state) => {
+      state.updateCartByTipLoad = false;
+      // state.getTipsData = action?.payload;
     },
     onErrorStopLoad: (state) => {
       state.loading = false;
@@ -83,6 +127,8 @@ export const {
   setMainProduct,
   getOneProductById,
   setOneProductById,
+  getOneServiceById,
+  setOneServiceById,
   getMainServices,
   setMainServices,
   availableOffers,
@@ -92,9 +138,16 @@ export const {
   addNotes,
   setNotes,
   addTocart,
+  setAddTocart,
   clearCart,
   setDiscount,
   addDiscount,
+  checkSuppliedVariant,
+  setCheckSuppliedVariant,
+  getTips,
+  setGetTips,
+  updateCartByTip,
+  setUpdateCartByTip,
 } = retailsSlice.actions;
 
 export const selectRetailData = (state) => state.retails;

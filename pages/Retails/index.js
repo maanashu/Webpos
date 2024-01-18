@@ -7,6 +7,7 @@ import {
   getMainProduct,
   getMainServices,
   getOneProductById,
+  getOneServiceById,
   selectRetailData,
 } from "../../redux/slices/retails";
 import { useDispatch, useSelector } from "react-redux";
@@ -23,6 +24,7 @@ const Retails = () => {
   const cartData = retailData?.productCart;
   const cartLength = cartData?.productCart?.poscart_products?.length;
   const mainProductArray = retailData?.mainProductData?.data || [];
+  console.log(mainProductArray,'mainProductArray');
   const mainServicesArray = retailData?.mainServicesData?.data || [];
   const productPagination = {
     total: retailData?.mainProductData?.total || "0",
@@ -44,6 +46,22 @@ const Retails = () => {
         productId,
         cb: (resp) => {
           router.push({ pathname: "/Retails/AddProduct" });
+        },
+      })
+    );
+  };
+  const getOneService = (serviceId) => {
+    let params = {
+      seller_id: sellerId,
+      app_name: "pos",
+      need_pos_users: true,
+    };
+    dispatch(
+      getOneServiceById({
+        params,
+        serviceId,
+        cb: (resp) => {
+         router.push({ pathname: "/Retails/AddService" });
         },
       })
     );
@@ -167,7 +185,12 @@ const Retails = () => {
                           key={index}
                           className="col-xl-2 col-lg-3 col-md-4 mb-3"
                         >
-                          <div className="productsCard">
+                          <div
+                            className="productsCard"
+                            onClick={() =>
+                              getOneService(services?.id, index)
+                            }
+                          >
                             <figure className="productImageBox">
                               <Image
                                 src={services?.image}
@@ -191,7 +214,7 @@ const Retails = () => {
                               <p className="productserviceName">
                                 <div
                                   dangerouslySetInnerHTML={{
-                                    __html: services?.description,
+                                    __html: services?.description.slice(0, 200),
                                   }}
                                 />
                               </p>

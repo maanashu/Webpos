@@ -1,5 +1,5 @@
 import { useDispatch, useSelector } from "react-redux";
-import { addDiscount, selectRetailData } from "../../redux/slices/retails";
+import { addDiscount, productCart, selectRetailData } from "../../redux/slices/retails";
 import { useState } from "react";
 import { toast } from "react-toastify";
 
@@ -9,11 +9,12 @@ const AddDiscount = (props) => {
   const cartId = retailData?.cartDetails?.id;
   const cartTotalAmount = retailData?.cartDetails?.amount;
   const [disCountFlag, setDiscountFlag] = useState("");
-  const [discountTitle, setDiscountTitle] = useState("");
+  const [discountTitle, setDiscountTitle] = useState("Discount");
   const [discountValue, setDiscountValue] = useState(null);
   const [amount, setAmount] = useState(null);
   const [percent, setPercent] = useState(null);
   const [code, setCode] = useState(null);
+
 
   const handleAddDiscount = (e) => {
     e.preventDefault();
@@ -27,8 +28,6 @@ const AddDiscount = (props) => {
       toast.error("Please add discount value");
       return false;
     }
-
-    e.preventDefault();
     let params = {
       id: cartId,
       discount_value: discountValue,
@@ -40,6 +39,7 @@ const AddDiscount = (props) => {
       addDiscount({
         ...params,
         cb(res) {
+          dispatch(productCart());
           props.close();
           toast.success("Discounts added successfully!");
         },
@@ -71,15 +71,21 @@ const AddDiscount = (props) => {
     <form onSubmit={(e) => handleAddDiscount(e)}>
       <div className="discountMain">
         <div className="discountAmountBox">
-          <label htmlFor="amount" onClick={() => handleselectLabel("amount")} className={ disCountFlag == "amount"
+          <label
+            htmlFor="amount"
+            onClick={() => handleselectLabel("amount")}
+            className={
+              disCountFlag == "amount"
                 ? "customform-control selectedFlagDiscount"
                 : "customform-control customInputDiscount"
             }
-          >       Amount
+          >
+            {" "}
+            Amount
           </label>
 
           <input
-          className="customdiscount_"
+            className="customdiscount_"
             type="number"
             placeholder="$0.00"
             onChange={handleInputChange}
@@ -100,7 +106,7 @@ const AddDiscount = (props) => {
             Percent
           </label>
           <input
-          className="customdiscount_"
+            className="customdiscount_"
             type="number"
             placeholder="0.00     % "
             onChange={handleInputChange}
@@ -155,8 +161,6 @@ const AddDiscount = (props) => {
           </button>
         )}
       </div>
-
-
     </form>
   );
 };
