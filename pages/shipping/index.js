@@ -4,7 +4,7 @@ import Image from "next/image";
 import ShipRightSidebar from '../../components/commanComonets/Shipping/shipRightSidebar';
 import { useDispatch, useSelector } from 'react-redux';
 import { selectLoginAuth } from '../../redux/slices/auth';
-import { getShippingsSidebarCount, selectsShippingData } from '../../redux/slices/shipping';
+import { getShippingsSidebarCount, selectsShippingData,   } from '../../redux/slices/shipping';
 
 const Shipping = () => {
     const dispatch = useDispatch()
@@ -12,7 +12,7 @@ const Shipping = () => {
     const shippingData = useSelector(selectsShippingData);
     const sellerUid = authData?.usersInfo?.payload?.uniqe_id;
 
-    const customerSidebardata = shippingData?.sidebarCountData
+    const customerSidebardata = shippingData?.sidebarCountData?.payload
 
     console.log(customerSidebardata,sellerUid, "customersidebar data");
     useEffect(() => {
@@ -381,7 +381,7 @@ const Shipping = () => {
                     </div>
                 </div>
             </div>
-            <ShipRightSidebar />
+            <ShipRightSidebar data={customerSidebardata}/>
         </div>
     )
 }
