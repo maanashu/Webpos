@@ -223,20 +223,22 @@ function* getStaffDetails(action) {
 
 // location module generator function start...........................................
 function* getLocationDetails(action) {
-  const dataToSend = { ...action.payload }
-  delete dataToSend.cb
+  const dataToSend = { ...action.payload };
+  delete dataToSend.cb;
   try {
-    const resp = yield call(ApiClient.get, (`${AUTH_API_URL}/api/v1/seller_addresses?seller_id=${action.payload.seller_id}`));
+    const resp = yield call(
+      ApiClient.get,
+      `${AUTH_API_URL}/api/v1/seller_addresses?seller_id=${action.payload.seller_id}`
+    );
     if (resp.status) {
       yield put(setGetLocationDetails(resp.data));
       yield call(action.payload.cb, (action.res = resp));
       // toast.success(resp?.data?.msg);
-    }
-    else {
-      throw resp
+    } else {
+      throw resp;
     }
   } catch (e) {
-    yield put(onErrorStopLoad())
+    yield put(onErrorStopLoad());
     toast.error(e?.error?.response?.data?.msg);
   }
 }
@@ -345,7 +347,6 @@ function* settingSaga() {
     takeLatest("setting/getStaffDetails", getStaffDetails),
     takeLatest("setting/requestPayment", requestPayment),
     takeLatest("setting/viewPayment", viewPayment),
-
     // setting/location API START
     takeLatest("setting/getLocationDetails", getLocationDetails),
     takeLatest("setting/updateLocationSetting", updateLocationSetting),
