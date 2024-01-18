@@ -7,6 +7,7 @@ import { analyticsDetails, totalInventoryDataApi } from '../../../redux/slices/a
 import moment from 'moment-timezone';
 import { useDispatch, useSelector } from 'react-redux';
 import { selectLoginAuth } from '../../../redux/slices/auth';
+import { amountFormat } from '../../../utilities/globalMethods';
 
 const index = () => {
   const [timeSpan, setTimeSpan] = useState("week");
@@ -64,33 +65,33 @@ const index = () => {
 
   const totalInventoryHandle = () => {
     let params = {
-        filter: timeSpan,
+      filter: timeSpan,
+      channel: channelSelected.value,
+      // seller_id: auth?.usersInfo?.payload?.uniqe_id
+      seller_id: "b169ed4d-be27-44eb-9a08-74f997bc6a2f",
+    };
+    if (startDate && endDate) {
+      params = {
         channel: channelSelected.value,
         // seller_id: auth?.usersInfo?.payload?.uniqe_id
         seller_id: "b169ed4d-be27-44eb-9a08-74f997bc6a2f",
-    };
-    if (startDate && endDate) {
-        params = {
-            channel: channelSelected.value,
-            // seller_id: auth?.usersInfo?.payload?.uniqe_id
-            seller_id: "b169ed4d-be27-44eb-9a08-74f997bc6a2f",
-            start_date: moment(startDate).format("YYYY-MM-DD"),
-            end_date: moment(endDate).format("YYYY-MM-DD"),
-        };
+        start_date: moment(startDate).format("YYYY-MM-DD"),
+        end_date: moment(endDate).format("YYYY-MM-DD"),
+      };
     }
     dispatch(totalInventoryDataApi({
-        ...params,
-        cb(res) {
-          console.log(res,"total inventory data")
-            if (res.status) {
-                setTotalInventoryData(res?.data?.payload);
-            }
-        },
+      ...params,
+      cb(res) {
+        console.log(res, "total inventory data")
+        if (res.status) {
+          setTotalInventoryData(res?.data?.payload);
+        }
+      },
     })
     );
-};
+  };
 
-console.log(totalInventoryData, "total inventory data");
+  console.log(totalInventoryData, "total inventory data");
 
   useEffect(() => {
     totalInventoryHandle();
@@ -172,7 +173,7 @@ console.log(totalInventoryData, "total inventory data");
               className="customers-table-data"
               style={{ border: "none", color: "#7E8AC1", textAlign: "left" }}
             >
-             Total Price
+              Total Price
             </th>
             <th
               className="customers-table-data"
@@ -223,7 +224,15 @@ console.log(totalInventoryData, "total inventory data");
                             className="customers-table-data"
                           // style={{ display: "flex", gap: "12px" }}
                           >
-                            {`$${row?.price ? addThousandSeparator((row?.price)?.toFixed(2)) : "0"}`}
+                            {row?.supplies[0]?.cost_price
+                              ? row?.supplies[0]?.cost_price < 0
+                                ? '-$' +
+                                amountFormat(
+                                  Math.abs(row?.supplies[0]?.cost_price * row?.supplies[0]?.rest_quantity),
+                                  'notSign'
+                                )
+                                : amountFormat(row?.supplies[0]?.cost_price * row?.supplies[0]?.rest_quantity)
+                              : '$0'}
                           </td>
                           <td
                             className="customers-table-data"

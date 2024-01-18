@@ -9,9 +9,9 @@ const CustomModal = (props) => {
     if (props.onCloseModal) {
       props.onCloseModal();
     }
-  }
+  };
 
-  const bodyClasses = props.bodyClasses ? props.bodyClasses : "" ;
+  const bodyClasses = props.bodyClasses ? props.bodyClasses : "";
   return (
     <Modal
       show={show}
@@ -26,47 +26,41 @@ const CustomModal = (props) => {
       className={props.className}
       animation={true}
     >
-      {(props.title || props.showCloseBtn || props?.header) ?
+      {props.title || props.showCloseBtn || props?.header ? (
         <>
-          {props?.showCloseBtn ?
+          {props?.showCloseBtn ? (
             <Modal.Header closeButton>
               {props?.header}
-              {props.title ?
-                <Modal.Title>{props.title}</Modal.Title>
-                :
-                ""
-              }
+              {props.title ? <Modal.Title>{props.title}</Modal.Title> : ""}
             </Modal.Header>
-            :
+          ) : (
             <Modal.Header>
               {props?.header}
-              {props.title ?
-                <Modal.Title>{props.title}</Modal.Title>
-                :
-                ""
-              }
+              {props.title ? <Modal.Title>{props.title}</Modal.Title> : ""}
             </Modal.Header>
-          }
-
+          )}
         </>
-
-        :
+      ) : (
         ""
-      }
+      )}
       {/* <Modal.Body className={props.isRightSideModal ? "p-0" : ""}> */}
-      <Modal.Body className={props.isRightSideModal ? `p-0 ${bodyClasses}` : `${bodyClasses}` }>
+      <Modal.Body
+        className={
+          props.isRightSideModal ? `p-0 ${bodyClasses}` : `${bodyClasses}`
+        }
+      >
         {props.child}
       </Modal.Body>
-      {props.footer ?
+      {props.footer ? (
         <Modal.Footer className={props.footerClasses}>
           {/* <Button variant="secondary" onClick={handleClose}>
             Close Modal
           </Button> */}
           {props.footer}
         </Modal.Footer>
-        :
+      ) : (
         ""
-      }
+      )}
     </Modal>
   );
 };
