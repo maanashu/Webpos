@@ -34,7 +34,8 @@ const TransactionsList = () => {
   const [timeSpan, setTimeSpan] = useState(query["time-span"] || "week");
   const [limit, setLimit] = useState("10");
   const [page, setPage] = useState(1);
-
+  const [date, setDate] = useState("");
+  const [transaction, setTransaction] = useState(query["transaction_type"] || "all");
   const dispatch = useDispatch();
   const authData = useSelector(selectLoginAuth);
   const getWalletData = useSelector(selectTransactionData);
@@ -69,12 +70,16 @@ const TransactionsList = () => {
       page: page,
       limit: limit,
       sellerId: sellerID,
-      transactionType: "all",
+      transactionType:transaction,
       orderType: "none",
       status: "none",
     };
     dispatch(getTotalTraDetail(data));
-  }, [limit, page, timeSpan]);
+  }, [limit, page, timeSpan, transaction]);
+
+  const handleDateChange = (dates) => {
+    setDate(dates);
+  };
 
   // console.log("transactionTypeArray",transactionTypeArray )
   const TABS = [
@@ -152,28 +157,32 @@ const TransactionsList = () => {
         setPage={setPage}
         setLimit={setLimit}
         totalItems={getWalletData?.totalTraDetail?.payload?.total}
+        onDateChange={handleDateChange}
       />
 
       {/*  TABS*/}
       <div className="users-tabs flex-row-space-between">
-        {TABS.map(({ text, count, type }, idx) => (
+        {TABS.map(({ modeOfPayment, count, type }, idx) => (
           <div
             key={idx + "tabs"}
-            onClick={() => setSelectedTab(type)}
+            onClick={() => {
+              setSelectedTab(type);
+              setTransaction(modeOfPayment)
+            }}
             className="users-tab flex-row-space-between"
             style={{
-              backgroundColor: selectedTab == type ? "#263682" : "",
+              backgroundColor: transaction == modeOfPayment ? "#263682" : "",
               cursor: "pointer",
             }}
           >
             <p
               className="users-tab-text"
-              style={{ color: selectedTab == type ? "#F5F6FC" : "#263682" }}
+              style={{ color: transaction == modeOfPayment ? "#F5F6FC" : "#263682" }}
             >
               {type}
             </p>
             <p className="users-tab-count">({count})</p>
-            {selectedTab == type && (
+            {transaction == modeOfPayment && (
               <div
                 onClick={() => {
                   setSelectedTab(null);

@@ -15,7 +15,7 @@ const Shipping = () => {
     const shippingData = useSelector(selectsShippingData);
     const sellerUid = authData?.usersInfo?.payload?.uniqe_id;
 
-    const customerSidebardata = shippingData?.sidebarCountData
+    const customerSidebardata = shippingData?.sidebarCountData?.payload
 
     const getAllShippingOrdeshandle = () => {
         let orderListParam = {
@@ -405,7 +405,7 @@ const Shipping = () => {
                     </div>
                 </div>
             </div>
-            <ShipRightSidebar />
+            <ShipRightSidebar data={customerSidebardata}/>
         </div>
     )
 }
