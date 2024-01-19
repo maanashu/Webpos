@@ -38,6 +38,7 @@ import Notification from "./notification";
 import StaffLocation from "./staff/staffLocation";
 import Language from "./language";
 import Plan from "./plans";
+import ShippingPickup from "./shipPickup";
 
 export default function Settings() {
   const [selectedItem, setSelectedItem] = useState("Security");
@@ -83,7 +84,7 @@ export default function Settings() {
   };
 
   const handleTouch = (item, id) => {
-    console.log(item,"item");
+    console.log(item, "item");
     setPolicyInfo(id);
     setSelectedItemId(id ? id : "");
     setSelectedItem(item?.name ? item?.name : item);
@@ -112,9 +113,9 @@ export default function Settings() {
       case "staffDetail":
         return <StaffDetail selectedItemId={selectedItemId} handleTouch={handleTouch} />;
       case "legalPolicy":
-        return <LegalPolicy policyInfo={policyInfo} handleTouch={handleTouch}/>;
+        return <LegalPolicy policyInfo={policyInfo} handleTouch={handleTouch} />;
       case "PolicyInfo":
-        return <PolicyInfo policyInfo={policyInfo} handleTouch={handleTouch}/>;
+        return <PolicyInfo policyInfo={policyInfo} handleTouch={handleTouch} />;
       case "Wallet":
         return <Wallet />;
       case "Notifications":
@@ -122,7 +123,10 @@ export default function Settings() {
         case "staffLocation":
           return <StaffLocation selectedItemId={selectedItemId}/>;
         case "Plans":
+      case "Plans":
         return <Plan />;
+      case "Shipping & Pick Up":
+        return <ShippingPickup />;
       default:
         return null;
     }
