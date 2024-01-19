@@ -97,6 +97,12 @@ export const settingSlice = createSlice({
         requestPayment: (state) => {
             state.loading = true;
         },
+        viewPayment : (state) => {
+            state.loading = true;
+        },
+        setViewPayment : (state, action) => {
+            state.loading = false;
+        },
     },
 });
 
@@ -127,7 +133,9 @@ export const {
     updateLocationSetting,
     setUpdateLocationSetting,
     onErrorStopLoad,
-    requestPayment
+    requestPayment,
+    viewPayment,
+    setViewPayment
 } = settingSlice.actions;
 
 export const settingInfo = (state) => state.setting;

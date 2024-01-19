@@ -12,6 +12,7 @@ import {
   getTips,
   productCart,
   selectRetailData,
+  setProductCart,
   updateCartByTip,
 } from "../../redux/slices/retails";
 import { useDispatch, useSelector } from "react-redux";
@@ -20,8 +21,13 @@ import FullScrennLoader from "../../components/FullScrennLoader";
 import { settingInfo } from "../../redux/slices/setting";
 import {
   amountFormat,
+  formattedReturnPrice,
   formattedReturnPriceWithoutSign,
 } from "../../utilities/globalMethods";
+import { Modal } from "react-bootstrap";
+import PhoneInput from "react-phone-input-2";
+import AttachWithPhone from "./AttachWithPhone";
+import AttachWithEmail from "./AttachWithEmail";
 
 const CartAmountByPay = () => {
   const router = useRouter();
@@ -30,10 +36,6 @@ const CartAmountByPay = () => {
   const merchentDetails = authData?.usersInfo?.payload?.user?.user_profiles;
   const retailData = useSelector(selectRetailData);
   const getSettingData = useSelector(settingInfo);
-  console.log(
-    "getSettingData",
-    Object.keys(getSettingData?.getSettings)?.length
-  );
   const getTip = retailData?.getTipsData;
   const cartData = retailData?.productCart;
   const cartAmount = cartData?.amount;
@@ -45,11 +47,23 @@ const CartAmountByPay = () => {
   const [selectedPaymentId, setSelectedPaymentId] = useState(null);
 
   const [selectedRecipeIndex, setSelectedRecipeIndex] = useState(null);
+  const [phoneModal, setPhoneModal] = useState(false);
+  const [emailModal, setEmailModal] = useState(false);
   const [modalDetail, setModalDetail] = useState({
     show: false,
     title: "",
     flag: "",
   });
+  const locallyTips = (tips) => {
+    const arr = retailData?.productCart;
+    arr.amount.tip = parseFloat(tips);
+    var DATA = {
+      payload: arr,
+    };
+    console.log("12345", DATA);
+
+    dispatch(setProductCart(DATA));
+  };
   useEffect(() => {
     // dispatch(getWalletId(sellerID));
     dispatch(getTips(sellerId));
@@ -209,6 +223,7 @@ const CartAmountByPay = () => {
                   <div className="coinAverageSelect">
                     {TIPS_DATA?.map((item, index) => (
                       <div
+                        key={index}
                         className="coinPercentSelect"
                         style={{
                           background:
@@ -216,7 +231,6 @@ const CartAmountByPay = () => {
                               ? "#914BEB"
                               : "transparent",
                         }}
-                        key={index}
                         onClick={() => {
                           const tipAmount = calculatePercentageValue(
                             cartData?.amount?.products_price,
@@ -229,6 +243,7 @@ const CartAmountByPay = () => {
                           }
 
                           setSelectedTipIndex(index);
+                          locallyTips(tipAmount);
                         }}
                       >
                         <h2
@@ -301,6 +316,7 @@ const CartAmountByPay = () => {
                     <div className="row mt-4">
                       {filteredPaymentMethods?.map((item, index) => (
                         <div
+                          key={index}
                           className="col-lg-4"
                           onClick={() => {
                             setSelectedPaymentIndex(index);
@@ -395,9 +411,11 @@ const CartAmountByPay = () => {
                             // }
                             onClick={() => {
                               if (selectedRecipeIndex == "0") {
-                                handleUserProfile("PhoneReceipt");
+                                // handleUserProfile("PhoneReceipt");
+                                setPhoneModal(true);
                               } else if (selectedRecipeIndex == "1") {
-                                handleUserProfile("emailReceipt");
+                                // handleUserProfile("emailReceipt");
+                                setEmailModal(true);
                               } else if (selectedRecipeIndex == "2") {
                                 noThanksHandler();
                                 // router.push({
@@ -494,22 +512,25 @@ const CartAmountByPay = () => {
                 <article>
                   <p className="productName">Subtotal</p>
                   <p className="productName">Discount</p>
-                  <p className="productName">Shipping</p>
+                  <p className="productName">Tips</p>
+                  <p className="productName">Total Taxes</p>
                   <p className="productName fw-bold">Total</p>
                 </article>
                 <article>
                   <p className="productName">
-                    ${cartAmount?.products_price || "0.00"}
+                    {amountFormat(cartData?.amount?.products_price)}
                   </p>
                   <p className="productName">
-                    -${cartAmount?.discount || "0.00"}
+                    {formattedReturnPrice(cartData?.amount?.discount)}
+                  </p>
+                  <p className="productName">
+                    {amountFormat(cartData?.amount?.tip)}
                   </p>
                   {/* 15% ($13.50) */}
-                  <p className="productName"> ${cartAmount?.tax || "0.00"}</p>
-                  <p className="totalBtn">
-                    {" "}
-                    ${cartAmount?.total_amount || "0.00"}
+                  <p className="productName">
+                    {amountFormat(cartData?.amount?.tax)}
                   </p>
+                  <p className="totalBtn">{amountFormat(paymentShow())}</p>
                 </article>
               </div>
               <div className="confirmFooter">
@@ -519,16 +540,64 @@ const CartAmountByPay = () => {
                   className="img-fluid logo"
                 />
                 <Image
-                  src={Images.barCodeScanImg}
+                  src={cartData?.barcode}
                   alt="barCodeScanImg"
                   className="img-fluid barCodeScanImg"
+                  width="100"
+                  height="100"
                 />
               </div>
             </div>
           </div>
         </div>
       </div>
-      <CustomModal
+
+      {/* attach with phone number popup */}
+      <Modal show={phoneModal} centered keyboard={false}>
+        <AttachWithPhone phoneModalClose={() => setPhoneModal(false)} />
+      </Modal>
+
+      {/* attach with email popup */}
+      <Modal show={emailModal} centered keyboard={false}>
+        <AttachWithEmail emailModalClose={() => setEmailModal(false)} />
+      </Modal>
+
+      {/* <CustomModal
+        key={key}
+        show={modalDetail.show}
+        backdrop="static"
+        showCloseBtn={false}
+        isRightSideModal={true}
+        mediumWidth={false}
+        className={"PhoneReceipt"}
+        ids={"PhoneReceiptModal"}
+        child={<PhoneReceiptModal close={() => handleOnCloseModal()} />}
+        header={
+          <>
+            <div className="trackingSub headerModal">
+              <figure className="profileImage ">
+                <Image
+                  src={Images.phoneMessage}
+                  alt="phoneMessage Image"
+                  className="img-fluid "
+                />
+              </figure>
+              <h4 className="loginheading mt-2">
+                What phone number do we send the e-receipt to?
+              </h4>
+              <p onClick={handleOnCloseModal} className="crossModal">
+                <Image
+                  src={Images.modalCross}
+                  alt="modalCross"
+                  className="img-fluid"
+                />
+              </p>
+            </div>
+          </>
+        }
+        onCloseModal={() => handleOnCloseModal()}
+      /> */}
+      {/* <CustomModal
         key={key}
         show={modalDetail.show}
         backdrop="static"
@@ -642,7 +711,7 @@ const CartAmountByPay = () => {
           )
         }
         onCloseModal={() => handleOnCloseModal()}
-      />
+      /> */}
       {retailData?.updateCartByTipLoad && <FullScrennLoader />}
     </>
   );

@@ -16,6 +16,7 @@ import {
   amountFormat,
   formattedReturnPrice,
 } from "../../utilities/globalMethods";
+import { digitWithDot } from "../../utilities/validators";
 
 const CartPayByCash = () => {
   const dispatch = useDispatch();
@@ -83,34 +84,37 @@ const CartPayByCash = () => {
   }, [selectedId, selectCashArray]);
 
   const createOrderHandler = () => {
-    let params = {
-      cart_id: cartData.id,
-      tips: amount === undefined || amount === "" ? cashRate : amount,
-      mode_of_payment: "cash",
-      drawer_id: drawerData?.id,
-    };
-
-    dispatch(
-      createOrder({
-        ...params,
-        cb() {
-          dispatch(
-            clearCart({
-              cb: () => {
-                dispatch(productCart());
+    if (amount && digitWithDot.test(amount) === false) {
+      toast.error("Please enter valid amount");
+    } else {
+      let params = {
+        cart_id: cartData.id,
+        tips: amount === undefined || amount === "" ? cashRate : amount,
+        mode_of_payment: "cash",
+        drawer_id: drawerData?.id,
+      };
+      dispatch(
+        createOrder({
+          ...params,
+          cb() {
+            dispatch(
+              clearCart({
+                cb: () => {
+                  dispatch(productCart());
+                },
+              })
+            );
+            router.push({
+              pathname: "/Retails/ShowPaidAmountCart",
+              query: {
+                cart: JSON.stringify(cartData),
+                paymentData: JSON.stringify(params),
               },
-            })
-          );
-          router.push({
-            pathname: "/Retails/ShowPaidAmountCart",
-            query: {
-              cart: JSON.stringify(cartData),
-              paymentData: JSON.stringify(params),
-            },
-          });
-        },
-      })
-    );
+            });
+          },
+        })
+      );
+    }
   };
   return (
     <>

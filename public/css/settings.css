@@ -68,3 +68,9 @@
   border: 1px solid var(--Primary-P-50-Main, #f5f6fc);
   width: 100%;
 }
+.settings-notification-view {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 6px;
+  margin-bottom: 6px;
+}
