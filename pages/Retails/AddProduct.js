@@ -313,8 +313,10 @@ const AddProduct = () => {
               </div>
               {/* {retailData?.checkSuppliedVariantLoad ||
               retailData?.addTocartLoad ? ( */}
-                
-                 {retailData?.loading ? (
+
+              {retailData?.addTocartLoad ||
+              retailData?.productCartLoad ||
+              retailData?.checkSuppliedVariantLoad ? (
                 <button
                   className="nextverifyBtn w-100 mt-3"
                   type="submit"
