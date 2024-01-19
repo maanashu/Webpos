@@ -338,8 +338,12 @@ import simpleCheck from "../public/images/simpleCheck.svg"
 import mastercard from "../public/images/mastercard.svg"
 import fillCheck from "../public/images/fillCheck.svg"
 import bussinessCheck from "../public/images/bussinessCheck.svg"
+import locateOuline from "../public/images/locateOuline.svg"
+import postMotor from "../public/images/postMotor.svg"
 
 export {
+  postMotor,
+  locateOuline,
   bussinessCheck,
   fillCheck,
   mastercard,
