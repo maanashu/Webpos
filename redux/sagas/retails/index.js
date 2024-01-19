@@ -95,7 +95,6 @@ function* getOneServiceById(action) {
       `${PRODUCT_API_URL_V1}products/${action.payload?.serviceId}?${params}`
     );
     if (resp.status) {
-      console.log(resp, "respobeService=>");
       yield put(setOneServiceById(resp.data));
       yield call(action.payload.cb, (action.res = resp));
     } else {
