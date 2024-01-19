@@ -340,6 +340,7 @@ import fillCheck from "../public/images/fillCheck.svg"
 import bussinessCheck from "../public/images/bussinessCheck.svg"
 import locateOuline from "../public/images/locateOuline.svg"
 import postMotor from "../public/images/postMotor.svg"
+import Receiptbill from "../public/images/Receiptbill.png";
 
 export {
   postMotor,
@@ -363,6 +364,7 @@ export {
   deliverHand,
   driverProfile,
   maximize,
+  Receiptbill,
   orderDriver,
   dotStep,
   lineStep,

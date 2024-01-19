@@ -24,7 +24,6 @@ const Retails = () => {
   const cartData = retailData?.productCart;
   const cartLength = cartData?.productCart?.poscart_products?.length;
   const mainProductArray = retailData?.mainProductData?.data || [];
-  console.log(mainProductArray,'mainProductArray');
   const mainServicesArray = retailData?.mainServicesData?.data || [];
   const productPagination = {
     total: retailData?.mainProductData?.total || "0",
