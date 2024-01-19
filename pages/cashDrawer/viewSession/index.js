@@ -15,17 +15,19 @@ import {
 import CustomModal from "../../../components/customModal/CustomModal";
 import AddCashModal from "../../../components/modals/cashDrawerModals/addCashModal";
 import Link from "next/link";
+import AccordionBody from "react-bootstrap/esm/AccordionBody";
 
 const ViewSession = () => {
   ChartJS.register(...registerables);
   const [key, setKey] = useState(Math.random());
-  const [modalTitle, setModalTitle] = useState("Add Cash");
+
   const [modalDetail, setModalDetail] = useState({
     show: false,
     title: "Add Cash",
     type: "add",
     flag: "trackingmodal",
   });
+
   const handleShowModal = (title, type) => {
     setModalDetail({
       show: true,
@@ -98,27 +100,66 @@ const ViewSession = () => {
                 </div>
               </div>
             </div>
-            <div className="topBox2">
-              <div className="allCashBox">
-                <p className="allCashText">All Cash Payments</p>
-              </div>
-              <div className="allCashBox">
-                <Accordion defaultActiveKey="0">
-                  <Accordion.Item eventKey="0">
-                    <Accordion.Header>
-                      <div className="totoalCashInView">
-                        <p className="totoalCashInHeading">Total Cash In</p>
-                        <div className="gaping"></div>
-                        <Image className="clockStyle" src={arrowDown} />
-                      </div>
-                      <div className="cashInsideView"></div>
-                      <p className="totalAmmount">$15220.00</p>
-                    </Accordion.Header>
-                    <Accordion.Body></Accordion.Body>
-                  </Accordion.Item>
-                </Accordion>
-              </div>
+
+            <div className="allCashBox">
+              <h6 className="allCashText">All Cash Payments</h6>
             </div>
+
+            <Accordion defaultActiveKey="0" className="allCashBox">
+              <Accordion.Item eventKey="0" className="cashbox">
+                <Accordion.Header
+                  style={{
+                    width: "100%",
+                    // alignItems: "center",
+                    display: "flex",
+                  }}
+                >
+                  <div className="totoalCashInView">
+                    <p className="totoalCashInHeading">Total Cash In</p>
+                    <div className="gaping"></div>
+                    <Image className="clockStyle" src={arrowDown} />
+                  </div>
+                  <div className="cashInsideView">
+                    <p className="totalAmmount">$15220.00</p>
+                  </div>
+                </Accordion.Header>
+
+                <Accordion.Body style={{ display: "flex", flex: 1 }}>
+                  <Accordion defaultActiveKey="0" className="allCashBox">
+                <Accordion.Item eventKey="0" className="cashbox">
+                <Accordion.Header
+                  style={{
+                    width: "100%",
+                    alignItems: "center",
+                    display: "flex",
+                  }}
+                >
+                  <div className="totoalCashInView">
+                    <p className="totoalCashInHeading">Total Cash In</p>
+                    <div className="gaping"></div>
+                    <Image className="clockStyle" src={arrowDown} />
+                  </div>
+                  <div className="cashInsideView">
+                  
+                    <p className="totalAmmount">$15220.00</p>
+                  </div>
+                </Accordion.Header>
+                <AccordionBody></AccordionBody>
+                </Accordion.Item>
+                </Accordion>
+                </Accordion.Body>
+              </Accordion.Item>
+            </Accordion>
+
+            <div className="netPaymentView">
+              <h2 className="netPaymentText">Net Payment</h2>
+              <h1 className="totalAmmount">$15220.00</h1>
+            </div>
+            <Link href="viewSession/endSession" className="closeView">
+              <div>
+                <h6 className="closeText">{"Close Batch"}</h6>
+              </div>
+            </Link>
           </div>
         </div>
       </div>
