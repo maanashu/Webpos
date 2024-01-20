@@ -7,6 +7,7 @@ import { useRouter } from "next/router";
 import {
   availableOffers,
   clearCart,
+  getDrawerSession,
   getOneProductById,
   productCart,
   selectRetailData,
@@ -416,9 +417,14 @@ const ProductCart = () => {
                   }}
                   className="nextverifyBtn w-100 mt-3"
                   type="submit"
-                  onClick={() =>
-                    router.push({ pathname: "/Retails/CartAmountByPay" })
-                  }
+                  onClick={() => {
+                    router.push({ pathname: "/Retails/CartAmountByPay" });
+                    let params = {
+                      seller_id: sellerId,
+                    };
+                    console.log(params);
+                    dispatch(getDrawerSession(params));
+                  }}
                 >
                   Proceed to checkout
                   <Image

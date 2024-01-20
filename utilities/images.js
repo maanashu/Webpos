@@ -335,8 +335,19 @@ import blueCircleTick from "../public/images/blueCircleTick.svg"
 import cyanCircleTick from "../public/images/cyanCircleTick.svg"
 import lightCircleTick from "../public/images/lightCircleTick.svg"
 import simpleCheck from "../public/images/simpleCheck.svg"
+import mastercard from "../public/images/mastercard.svg"
+import fillCheck from "../public/images/fillCheck.svg"
+import bussinessCheck from "../public/images/bussinessCheck.svg"
+import locateOuline from "../public/images/locateOuline.svg"
+import postMotor from "../public/images/postMotor.svg"
+import Receiptbill from "../public/images/Receiptbill.png";
 
 export {
+  postMotor,
+  locateOuline,
+  bussinessCheck,
+  fillCheck,
+  mastercard,
   simpleCheck,
   lightCircleTick,
   cyanCircleTick,
@@ -353,6 +364,7 @@ export {
   deliverHand,
   driverProfile,
   maximize,
+  Receiptbill,
   orderDriver,
   dotStep,
   lineStep,

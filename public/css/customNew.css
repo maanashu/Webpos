@@ -2107,28 +2107,29 @@ figure {
 }
 
 .roundCheck input[type="checkbox"] {
-  position: relative;
-  width: 31px;
-  height: 18px;
-  -webkit-appearance: none;
-  appearance: none;
-  outline: none;
-  cursor: pointer;
-  border-radius: 12px;
-  background: #e4e6f2;
+    position: relative;
+    width: 36px;
+    height: 20px;
+    -webkit-appearance: none;
+    appearance: none;
+    outline: none;
+    cursor: pointer;
+    border-radius: 12px;
+    background: #E4E6F2;
 }
 
 .roundCheck input[type="checkbox"]::before {
-  content: "";
-  width: 12px;
-  height: 13px;
-  border-radius: 50%;
-  background: #fff;
-  position: absolute;
-  top: 50%;
-  transform: translate(0%, -50%);
-  left: 3px;
-  transition: 0.5s;
+    content: "";
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    background: #fff;
+    position: absolute;
+    top: 50%;
+    transform: translate(0%, -50%);
+    left: 3px;
+    transition: 0.5s;
+
 }
 
 .roundCheck input[type="checkbox"]:checked::before {
@@ -4507,7 +4508,11 @@ figure {
   justify-content: space-between;
   margin: 12px 0;
 }
-
+.dhlImg{
+    width: 18px;
+    height: 18px;
+    border-radius: 6px;
+}
 /*setting css end*/
 /* cash Drawer css start*/
 .cashDrawOuter {
@@ -4748,6 +4753,225 @@ figure {
   align-items: center;
   gap: 50px;
 }
+
+.subscribeBtn {
+    border-radius: 30px;
+    border: 0px solid #58C2E8;
+    background: #EFFBFF;
+    padding: 12px 24px 14px 24px;
+    color: #58C2E8;
+    font-size: 16px;
+    font-weight: 500;
+}
+
+.subscribeText {
+    color: #47B0D6;
+    font-size: 24px;
+    font-weight: 400;
+}
+
+.SubscribePara {
+    color: #47B0D6;
+    font-size: 18px;
+    font-weight: 500;
+}
+
+.planMethod {
+    border-radius: 16px;
+    border: 1px solid #D7DEFF;
+    padding: 24px;
+}
+
+.masterImg {
+    width: 34px !important;
+    height: 24px !important;
+}
+
+.planFitRight {
+    border-radius: 20px;
+    background: #FFF;
+    padding: 24px;
+}
+
+.PlansTabSection {
+    margin-top: 24px;
+
+}
+
+.plansTabBtn {
+    border-radius: 30px;
+    background: #F5F6FC;
+    padding: 6px 8px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.planSubTab {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.billingActiveBtn {
+    border-radius: 30px;
+    background: transparent;
+    color: #263682;
+    font-size: 14px;
+    font-weight: 400;
+    padding: 8px 12px;
+    border: none;
+}
+
+.billingActiveBtn.active {
+    color: #F5F6FC;
+    background: #263682;
+}
+
+.monthEnter {
+    border-radius: 20px;
+    border: 3px solid #58C2E8;
+    padding: 16px 20px;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100%;
+}
+
+.monthSubEnter {
+    margin: 10px 0;
+}
+
+.monthSubEnter .dottedDivide {
+    margin: 10px 0;
+}
+
+.monthBtn {
+    border-radius: 30px;
+    border: 0px solid #58C2E8;
+    background: transparent;
+    padding: 12px 24px 14px 24px;
+    color: #58C2E8;
+    font-size: 16px;
+    font-weight: 500;
+}
+
+.professionEnter {
+    border-radius: 20px;
+    border: 1px solid #D7DEFF;
+    padding: 16px 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 100%;
+    justify-content: space-between;
+}
+
+.professionText {
+    color: #4659B5;
+    font-size: 14px;
+    font-weight: 500;
+    margin-top: 4px;
+}
+
+.professionEnter .subscribeText {
+    color: #4659B5;
+}
+
+.professionEnter .SubscribePara {
+    color: #4659B5;
+}
+
+.bussinessEnter .subscribeText {
+    color: #172461
+}
+
+.bussinessEnter .SubscribePara {
+    color: #172461;
+}
+
+.bussinessEnter .changeBtn {
+    background-color: #172461;
+}
+
+.changeBtn {
+    border-radius: 30px;
+    background: #4659B5;
+    padding: 12px 24px 14px 24px;
+    color: #E4E6F2;
+    font-size: 16px;
+    font-weight: 500;
+    border: none;
+}
+
+.bussinessEnter {
+    border-radius: 20px;
+    border: 1px solid #D7DEFF;
+    padding: 16px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-direction: column;
+    height: 100%;
+}
+
+.bussinessEnter .returnConfirmedHeading {
+    color: #172461;
+}
+
+.shippingRight {
+    border-radius: 20px;
+    background-color: #fff;
+    padding: 24px 24px 16px 24px;
+}
+
+.localPickupBx {
+    border-radius: 20px;
+    border: 1px solid #E4E6F2;
+    padding: 16px 24px;
+    display: flex;
+    align-items: start;
+    gap: 12px;
+    margin-top: 10px;
+}
+
+.georgiaBox {
+    border-radius: 16px;
+    border: 1px solid #D7DEFF;
+    padding: 12px 16px;
+    margin-top: 10px;
+    display: flex;
+    align-items: start;
+    justify-content: space-between;
+}
+
+.darkCheck input[type="checkbox"]:checked {
+    background: #263682;
+    border: 2px solid #263682;
+}
+
+.localPickupBx .appointMain {
+    font-size: 20px;
+}
+
+.shippSub {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+}
+
+.dhlConnect {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    border-radius: 8px;
+    border: 1px solid #E4E6F2;
+    background: #F5F6FC;
+    padding: 4px;
+    cursor: pointer;
+}
+
 /* cash Drawer css end*/
 /*media query start*/
 @media (max-width: 1600px) {
