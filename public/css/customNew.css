@@ -4464,11 +4464,13 @@ figure {
     justify-content: space-between;
     margin: 12px 0;
 }
-.dhlImg{
+
+.dhlImg {
     width: 18px;
     height: 18px;
     border-radius: 6px;
 }
+
 /*setting css end*/
 /* cash Drawer css start*/
 .cashDrawOuter {
@@ -4925,6 +4927,30 @@ figure {
     background: #F5F6FC;
     padding: 4px;
     cursor: pointer;
+}
+
+.deviceDetailSub {
+    margin-top: 24px;
+}
+
+.SoftwareUpdateBx {
+    border-radius: 16px;
+    border: 1px solid #D7DEFF;
+    padding: 16px 16px;
+    display: flex;
+    align-items: start;
+    gap: 16px;
+}
+
+.deviceInfo {
+    border-radius: 16px;
+    border: 1px solid #D7DEFF;
+    padding: 16px;
+    margin-top: 10px;
+}
+
+.deviceDetailData .cartDivide {
+    margin: 16px 0;
 }
 
 /* cash Drawer css end*/
