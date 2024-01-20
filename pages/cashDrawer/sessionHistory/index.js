@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import { PaginationFooter } from "../../../components/commanComonets/customers/PaginationFooter";
 
 import { Chart as ChartJS, registerables } from "chart.js";
-import { backArrow } from "../../../utilities/images";
+import { backArrow ,DrawerID } from "../../../utilities/images";
 import {
   getSessionHistory,
   selectCashDrawerData,
@@ -150,9 +150,16 @@ const SessionHistory = () => {
                 // onClick={() => handleNavigateToTrackStatus(item)}
                 className="customers-table-data"
               >
-                {item?.pos_user_details?.user_profiles?.firstname == undefined
-                  ? "System Ended"
-                  : item?.pos_user_details?.user_profiles?.firstname}
+                <div className="d-flex align-items-center justify-content-center">
+                  <div className="sessionBox">
+                    <Image className="sessionImg" src={DrawerID} />
+                    <h6>
+                      {item?.pos_user_details?.user_profiles?.firstname == undefined
+                        ? "System Ended"
+                        : item?.pos_user_details?.user_profiles?.firstname}
+                    </h6>
+                  </div>
+                </div>
               </td>
               <td
                 // onClick={() => handleNavigateToTrackStatus(item)}
