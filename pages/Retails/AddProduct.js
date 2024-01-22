@@ -20,7 +20,6 @@ const AddProduct = () => {
   const authData = useSelector(selectLoginAuth);
   const oneProductData = retailData?.oneProductData;
   const productDetail = oneProductData?.product_detail;
-  console.log("productDetail", JSON.stringify(productDetail));
   const sellerId = authData?.usersInfo?.payload?.uniqe_id;
   const attrsArr = productDetail?.supplies[0]?.attributes;
   const sizeAndColorArray = productDetail?.supplies?.[0]?.attributes;
@@ -298,7 +297,7 @@ const AddProduct = () => {
                 <i
                   className="fa-solid fa-minus plusMinus"
                   onClick={() => (count == 1 ? void 0 : setCount(count - 1))}
-                  isClickEnabled={false}
+                  isclickEnabled={false}
                 ></i>
                 {/* <input
                   className="form-control addBtnControl"
@@ -347,7 +346,7 @@ const AddProduct = () => {
               <h2 className="appointMain">Product details</h2>
               <div className="productData">
                 {productDetailArray?.map((item, index) => (
-                  <div className="productSubData mb-2">
+                  <div className="productSubData mb-2" key={index}>
                     <h4 className="detailText">{item?.key}</h4>
                     <h4 className="detailText">{item?.value}</h4>
                   </div>
@@ -554,14 +553,14 @@ const AddProduct = () => {
                 <h4 className="payHeading text-start m-0">Availability</h4>
                 <div className="stockBox mt-3">
                   {availblityArray?.map((item, index) => (
-                    <div className="storeAvailable">
+                    <div className="storeAvailable" key={index}>
                       <Image
                         src={item?.image}
                         alt="rightArrow"
                         className="img-fluid"
                       />
                       <div className="roundCheck mb-0">
-                        <input type="checkbox" checked={item?.toggle} />
+                        <input type="checkbox" defaultChecked={item?.toggle} />
                         <label className="amountText  ms-2">{item?.name}</label>
                       </div>
                     </div>
