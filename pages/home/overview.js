@@ -3,22 +3,29 @@ import * as Images from "../../utilities/images";
 import Image from "next/image";
 import CustomModal from "../../components/customModal/CustomModal";
 import SessionModal from "../../components/modals/homeModals/sessionModal";
-import { selectLoginAuth } from "../../redux/slices/auth";
+import { logout, selectLoginAuth } from "../../redux/slices/auth";
 import { useDispatch, useSelector } from "react-redux";
 import { useRouter } from "next/router";
 import withAuth from "../../components/withAuth";
 import {
   dashboardDetails,
+  dashboardLogout,
   getAllOrderDeliveries,
+  getPosLoginDetails,
   getTodaySales,
 } from "../../redux/slices/dashboard";
 import Login from "../auth/login";
 import moment from "moment-timezone";
-import { getSecuritySettingInfo } from "../../redux/slices/setting";
+import { toast } from "react-toastify";
+import { amountFormat } from "../../utilities/globalMethods";
 
 const Overview = () => {
+  const moment = require("moment");
   const authData = useSelector(selectLoginAuth);
+  console.log(authData, "authData");
   const dashboardData = useSelector(dashboardDetails);
+  const trackingSession = dashboardData?.drawerSession?.payload;
+  console.log(trackingSession, "trackingSession");
   const UniqueId = authData?.usersInfo?.payload?.uniqe_id
     ? authData?.usersInfo?.payload?.uniqe_id
     : "";
@@ -27,6 +34,7 @@ const Overview = () => {
   const [key, setKey] = useState(Math.random());
   const [orderDeliveriesInfo, setOrderDeliveriesInfo] = useState("");
   const [getTodaySale, setGetTodaySale] = useState("");
+  const [posLoginDetail, setPosLoginDetail] = useState("");
   const [modalDetail, setModalDetail] = useState({
     show: false,
     title: "",
@@ -68,8 +76,21 @@ const Overview = () => {
     );
   };
 
+  // API for get user Pos Login Info...............................
+  const userLoginDetails = () => {
+    dispatch(
+      getPosLoginDetails({
+        cb(res) {
+          if (res.status) {
+            setPosLoginDetail(res?.data?.payload);
+          }
+        },
+      })
+    );
+  };
   //closeModal
-  const handleOnCloseModal = () => {
+
+  const handleOnCloseModal = async () => {
     setModalDetail({
       show: false,
       title: "",
@@ -78,30 +99,52 @@ const Overview = () => {
     setKey(Math.random());
   };
 
-  const handleUserProfile = (flag) => {
-    setModalDetail({
-      show: true,
-      flag: flag,
-      type: flag,
-    });
-    setKey(Math.random());
+  const closeModal = async () => {
+    await dispatch(logout());
+    await dispatch(dashboardLogout());
+    setTimeout(() => {
+      toast.success("Logout successfully");
+    }, 200);
+    router.push("/auth/verification");
+    localStorage.removeItem("authToken");
+    localStorage.removeItem("persist:root");
   };
+
+  // Get the current time as a moment object
+  const currentTime = new Date();
+
+  // Parse the input strings into moment objects
+  const currentMoment = moment(currentTime);
+  const loginMoment = moment(posLoginDetail?.updated_at);
+
+  // Calculate the difference in milliseconds
+  const timeDifference = currentMoment.diff(loginMoment);
+
+  // Convert the difference to a moment duration
+  const sessionDuration = moment.duration(timeDifference);
+
+  // Get the individual components of the duration
+  const hours = sessionDuration.hours();
+  const minutes = sessionDuration.minutes();
+
+  useEffect(() => {
+    if (UniqueId && !trackingSession?.start_session) {
+      setModalDetail({
+        show: true,
+        flag: "trackingmodal",
+        type: "trackingmodal",
+      });
+      setKey(Math.random());
+    }
+  }, []);
 
   useEffect(() => {
     if (UniqueId) {
       todaySaleInfo();
       allOrderDeliveriesInfo();
+      userLoginDetails();
     }
-  }, [UniqueId]);
-
-  // useEffect(() => {
-  //   dispatch(
-  //     getSecuritySettingInfo({
-  //       app_name: "pos",
-  //       seller_id: authData?.posUserLoginDetails?.payload?.uuid,
-  //     })
-  //   );
-  // }, []);
+  }, []);
 
   return (
     <>
@@ -120,17 +163,32 @@ const Overview = () => {
                               ?.user_profiles?.profile_photo
                           : Images.HomeProfileImg
                       }
-                      width={150}
-                      height={150}
                       alt="HomeProfileImage"
+                      width={100}
+                      height={100}
                       className="img-fluid homeProfileImg"
                     />
                   </figure>
                   <h2 className="loginheading mt-2">{`${authData?.posUserLoginDetails?.payload?.user_profiles?.firstname} ${authData?.posUserLoginDetails?.payload?.user_profiles?.lastname}`}</h2>
                   <div className="cashBox">
-                    <h4 className="cashierHeading">POS Cashier</h4>
+                    <h4 className="cashierHeading">
+                      {authData?.posUserLoginDetails?.payload?.user_roles
+                        .length > 0 ? (
+                        authData?.posUserLoginDetails?.payload?.user_roles?.map(
+                          (data, index) => {
+                            return (
+                              <h4 className="loginSub">{data?.role?.name}</h4>
+                            );
+                          }
+                        )
+                      ) : (
+                        <h4 className="loginSub mt-3">Admin / Manager</h4>
+                      )}
+                    </h4>
                     <div className="IdTextMain">
-                      <h4 className="userIdText">ID: 3890EN</h4>
+                      <h4 className="userIdText">
+                        ID : {authData?.posUserLoginDetails?.payload?.id}
+                      </h4>
                     </div>
                   </div>
                 </div>
@@ -175,25 +233,37 @@ const Overview = () => {
                     <h4 className="loginMain">Cash Drawer</h4>
                     <div className="flexHeading mt-4">
                       <h4 className="saleHeading">Opening Balance</h4>
-                      <h4 className="saleHeading">$900.50</h4>
+                      <h4 className="saleHeading">
+                        {amountFormat(trackingSession?.opening_balance)}
+                      </h4>
                     </div>
                     <div className="flexHeading mt-2">
                       <h4 className="saleHeading">Closing Balance</h4>
-                      <h4 className="saleHeading">$450.00</h4>
+                      <h4 className="saleHeading">
+                        {amountFormat(trackingSession?.cash_balance)}
+                      </h4>
                     </div>
                   </div>
                   <div className="timedetail">
                     <div className="flexHeading mt-2">
-                      <h4 className="dayTimeText">Today 25 April, 2023</h4>
-                      <h4 className="dayTimeText">11:15:23 am</h4>
+                      <h4 className="dayTimeText">
+                        {`Today ${moment().format("DD MMMM, YYYY")}`}
+                      </h4>
+                      <h4 className="dayTimeText">
+                        {moment().format("hh:mm:ss a")}
+                      </h4>
                     </div>
                     <div className="flexHeading mt-2">
                       <h4 className="dayTimeText">Log in Time:</h4>
-                      <h4 className="dayTimeText">10:15:03 am</h4>
+                      <h4 className="dayTimeText">
+                        {moment(posLoginDetail?.updated_at).format(
+                          "hh:mm:ss a"
+                        )}
+                      </h4>
                     </div>
                     <div className="flexHeading mt-2">
                       <h4 className="dayTimeText">Session:</h4>
-                      <h4 className="dayTimeText">01h:03 min</h4>
+                      <h4 className="dayTimeText">{`${hours} h: ${minutes} minutes`}</h4>
                     </div>
                   </div>
                 </div>
@@ -203,9 +273,7 @@ const Overview = () => {
                     src={Images.ProductBox}
                     alt="BoxImage"
                     className="img-fluid "
-                    onClick={() => {
-                      handleUserProfile("trackingmodal");
-                    }}
+                    // onClick={() => { handleUserProfile("trackingmodal") }}
                   />
                 </div>
                 <div className="lockScreenBox">
@@ -703,7 +771,7 @@ const Overview = () => {
         ids={modalDetail.flag === "trackingmodal" ? "trackingModal" : ""}
         child={
           modalDetail.flag === "trackingmodal" ? (
-            <SessionModal close={() => handleOnCloseModal()} />
+            <SessionModal close={(e) => handleOnCloseModal(e)} />
           ) : (
             ""
           )
@@ -711,21 +779,22 @@ const Overview = () => {
         header={
           modalDetail.flag === "trackingmodal" ? (
             <>
-              <p onClick={handleOnCloseModal}>
-                {/* <Image
-                    src={Images.modalCross}
-                    alt="modalCross"
-                    className="img-fluid"
-                  /> */}
+              <p onClick={() => closeModal()} className="modal_cancel">
+                <Image
+                  src={Images.modalCross}
+                  alt="modalCross"
+                  className="img-fluid"
+                />
               </p>
             </>
           ) : (
             ""
           )
         }
-        onCloseModal={() => handleOnCloseModal()}
+        onCloseModal={(e) => handleOnCloseModal(e)}
       />
     </>
   );
 };
-export default Overview;
+
+export default withAuth(Overview);

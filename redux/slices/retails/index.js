@@ -21,6 +21,8 @@ const initialState = {
   clearCartLoad: false,
   attachCustomerLoad: false,
   attachCustomerData: {},
+  availableOffersLoad: false,
+  customProuductAddLoad: false,
 };
 
 export const retailsSlice = createSlice({
@@ -58,9 +60,11 @@ export const retailsSlice = createSlice({
     },
     availableOffers: (state) => {
       state.loading = true;
+      state.availableOffersLoad = true;
     },
     setAvailableOffers: (state, action) => {
       state.loading = false;
+      state.availableOffersLoad = false;
       state.availableOffers = action?.payload?.payload;
     },
     productCart: (state) => {
@@ -152,8 +156,19 @@ export const retailsSlice = createSlice({
       state.attachCustomerLoad = false;
       // state.attachCustomerData = action?.payload?.payload;
     },
+    customProuductAdd: (state) => {
+      state.customProuductAddLoad = true;
+    },
+    setCustomProuductAdd: (state, action) => {
+      state.customProuductAddLoad = false;
+      // state.attachCustomerData = action?.payload?.payload;
+    },
     onErrorStopLoad: (state) => {
       state.loading = false;
+      state.availableOffersLoad = false;
+      state.productCartLoad = false;
+      state.createOrderLoad = false;
+      state.customProuductAddLoad = false;
     },
   },
 });
@@ -192,6 +207,8 @@ export const {
   setDrawerSession,
   attachCustomer,
   setAttachCustomer,
+  customProuductAdd,
+  setCustomProuductAdd,
 } = retailsSlice.actions;
 
 export const selectRetailData = (state) => state.retails;
