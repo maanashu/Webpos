@@ -22,6 +22,7 @@ const index = () => {
   const handleChange = (selectedOption) => {
     setChannelSelected(selectedOption)
   };
+  const sellerId = auth?.usersInfo?.payload?.uniqe_id
 
   const dispatch = useDispatch()
   console.log(analyticsProfitData, "analytics data")

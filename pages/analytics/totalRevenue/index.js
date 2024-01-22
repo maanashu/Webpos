@@ -19,6 +19,7 @@ const index = () => {
   const [totalRecords, setTotalRecords] = useState(0)
   const analyticsData = useSelector(analyticsDetails);
   const auth = useSelector(selectLoginAuth)
+  const sellerId = auth?.usersInfo?.payload?.uniqe_id
   const handleChange = (selectedOption) => {
     setChannelSelected(selectedOption)
   };

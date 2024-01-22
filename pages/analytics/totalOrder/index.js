@@ -18,6 +18,8 @@ const index = () => {
   const handleChange = (selectedOption) => {
     setChannelSelected(selectedOption)
   };
+  const auth = useSelector(selectLoginAuth)
+  const sellerId = auth?.usersInfo?.payload?.uniqe_id
 
   const dispatch = useDispatch()
   console.log(totalOrderAnalyticsData, "analytics data")
