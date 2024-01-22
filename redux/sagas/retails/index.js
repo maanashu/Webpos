@@ -233,10 +233,6 @@ function* checkSuppliedVariant(action) {
     const resp = yield call(
       ApiClient.get,
       `${PRODUCT_API_URL_V1}supply_variants/by-attribute-value-ids?attribute_value_ids=${colorSizeId}&supply_id=${suppliedId}`,
-      console.log(
-        "11111",
-        `${PRODUCT_API_URL_V1}supply_variants/by-attribute-value-ids?attribute_value_ids=${colorSizeId}&supply_id=${suppliedId}`
-      )
     );
     if (resp.status) {
       yield put(setCheckSuppliedVariant(resp.data));
