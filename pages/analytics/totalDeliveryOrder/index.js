@@ -67,13 +67,13 @@ const index = () => {
       filter: timeSpan,
       channel: channelSelected.value,
       // seller_id: auth?.usersInfo?.payload?.uniqe_id
-      seller_id: "016b1b3a-d7d3-4fc3-a76b-995b23c43852",
+      seller_id: sellerId,
     };
     if (startDate && endDate) {
       params = {
         channel: channelSelected.value,
         // seller_id: auth?.usersInfo?.payload?.uniqe_id
-        seller_id: "016b1b3a-d7d3-4fc3-a76b-995b23c43852",
+        seller_id: sellerId,
         start_date: moment(startDate).format("YYYY-MM-DD"),
         end_date: moment(endDate).format("YYYY-MM-DD"),
       };
@@ -90,8 +90,10 @@ const index = () => {
   };
 
   useEffect(() => {
-    orderAnalyticsHandle();
-  }, [timeSpan, channelSelected, endDate]);
+    if(sellerId){
+      orderAnalyticsHandle();
+    }
+  }, [timeSpan, channelSelected, endDate, sellerId]);
   return (
     <div className="main-container-customers">
       <AnalyticsHeader

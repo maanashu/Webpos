@@ -67,7 +67,7 @@ const index = () => {
         filter: timeSpan,
         channel: channelSelected.value,
         // seller_id: auth?.usersInfo?.payload?.uniqe_id
-        seller_id: "b169ed4d-be27-44eb-9a08-74f997bc6a2f",
+        seller_id: sellerId,
     }
 
     if (startDate && endDate) {
@@ -76,7 +76,7 @@ const index = () => {
             end_date: moment(endDate).format("YYYY-MM-DD"),
             channel: channelSelected.value,
             // seller_id: auth?.usersInfo?.payload?.uniqe_id
-            seller_id: "b169ed4d-be27-44eb-9a08-74f997bc6a2f",
+            seller_id: sellerId,
         }
     }
 
