@@ -6,17 +6,29 @@ import { useDispatch, useSelector } from 'react-redux';
 import { selectLoginAuth } from '../../redux/slices/auth';
 import { getShippingsSidebarCount, selectsShippingData } from '../../redux/slices/shipping';
 import { getOrdersList } from '../../redux/slices/delivery';
+import NoOrderFound from '../../components/NoOrderFound';
+import OrderListItem from '../Deliveries/Component/OrderListItem';
 
 const Shipping = () => {
     const dispatch = useDispatch()
     const authData = useSelector(selectLoginAuth);
+    const [orderLoading, setOrderLoading] = useState(false);
     const [orderData, setOrderData] = useState([]);
     console.log(orderData, 'orderdataaaaaa');
     const shippingData = useSelector(selectsShippingData);
     const sellerUid = authData?.usersInfo?.payload?.uniqe_id;
 
     const customerSidebardata = shippingData?.sidebarCountData?.payload
-
+    const itemPressHandler = (item, index) => {
+        router.push({
+            pathname: "/Deliveries/order",
+            query: {
+                item: item,
+                index: index,
+                // Add more properties as needed
+            },
+        });
+    };
     const getAllShippingOrdeshandle = () => {
         let orderListParam = {
             seller_id: sellerUid,
@@ -27,8 +39,7 @@ const Shipping = () => {
                 ...orderListParam,
                 cb(res) {
                     if (res) {
-                        console.log(res, 'resssssssssssssssssss');
-                        setOrderData(res);
+                        setOrderData(res?.data?.payload?.data);
                     }
                 },
             })
@@ -151,7 +162,7 @@ const Shipping = () => {
                                 </div>
                             </div>
                             <div className="table-responsive deliverTable">
-                                <table id="DeliverDashboard" className="deliverDashboardTable">
+                                {/* <table id="DeliverDashboard" className="deliverDashboardTable">
                                     <tbody>
                                         <tr className='product_invoice'>
                                             <td className='invoice_subhead verticalBase'>
@@ -399,13 +410,28 @@ const Shipping = () => {
                                             </td>
                                         </tr>
                                     </tbody>
-                                </table>
+                                </table> */}
+                                {orderLoading ? (
+                                    <Loading />
+                                ) : (
+                                    <div className="table-responsive deliverTable">
+                                        {orderData?.length == 0 ? (
+                                            <NoOrderFound />
+                                        ) : (
+                                            <OrderListItem
+                                                screen={"DashBoard"}
+                                                orderList={orderData}
+                                                itemPressHandler={itemPressHandler}
+                                            />
+                                        )}
+                                    </div>
+                                )}
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-            <ShipRightSidebar data={customerSidebardata}/>
+            <ShipRightSidebar data={customerSidebardata} />
         </div>
     )
 }

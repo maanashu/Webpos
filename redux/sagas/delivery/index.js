@@ -96,7 +96,7 @@ function* getOrdersList(action) {
 
     if (resp) {
       yield put(setOrdersList(resp?.data == "" ? [] : resp?.data?.payload));
-      // yield call(action.payload.cb, (action.res = resp));
+      yield call(action.payload.cb, (action.res = resp));
     } else {
       throw resp;
     }
