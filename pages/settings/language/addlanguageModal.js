@@ -39,18 +39,42 @@ const AddlanguageModal = () => {
     ];
 
     const onSelectLanguage = (item) => {
-        console.log(item, "itemitem");
-        const indexItem = selectedLanguages.indexOf(item.name);
+        const indexItem = selectedLanguages.findIndex((lang) => lang.name === item.name);
+    
         if (indexItem !== -1) {
             // Language already selected, remove it
             setSelectedLanguages((prevLanguages) =>
-                prevLanguages.filter((lang) => lang !== item.name)
+                prevLanguages.filter((lang) => lang.name !== item.name)
             );
         } else {
             // Language not selected, add it
-            setSelectedLanguages((prevLanguages) => [...prevLanguages, item.name]);
+            setSelectedLanguages((prevLanguages) => [
+                ...prevLanguages,
+                { name: item.name, image: item.image, status: item.status },
+            ]);
         }
     };
+
+    let params = {
+        "email": email,
+        "firstname": firstName,
+        "lastname": lastName,
+        "phone_code": `+${phoneCode}`,
+        "phone_no": phoneNo,
+      }
+  
+      dispatch(
+        updateSetting({
+            ...params,
+            cb(res) {
+                if (res.status) {
+                  props.close()
+                } else {
+                }
+            },
+        })
+    );
+    
     return (
         <div className='addlanguageContent mt-3' >
             <div className='addStoreForm'>
@@ -63,18 +87,6 @@ const AddlanguageModal = () => {
                             </div>
                         )
                     })}
-                    {/* <div className='countryLanguage_  activelang mb-3'>
-                        <Image src={Images.lang2} alt="langImg" className="img-fluid rightImg me-3" />
-                        <span className='smalblueText_' >Spanish</span>
-                    </div>
-                    <div className='countryLanguage_  activelang mb-3'>
-                        <Image src={Images.lang3} alt="langImg" className="img-fluid rightImg me-3" />
-                        <span className='smalblueText_' >Portuguese</span>
-                    </div>
-                    <div className='countryLanguage_  mb-3'>
-                        <Image src={Images.lang4} alt="langImg" className="img-fluid rightImg me-3" />
-                        <span className='smalblueText_' >Russian</span>
-                    </div> */}
                 </div>
                 <div className='addCustomerBtn mt-4'>
                     <button className='serviceCancel w-100 ' type='button'>
