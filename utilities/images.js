@@ -341,8 +341,10 @@ import bussinessCheck from "../public/images/bussinessCheck.svg"
 import locateOuline from "../public/images/locateOuline.svg"
 import postMotor from "../public/images/postMotor.svg"
 import Receiptbill from "../public/images/Receiptbill.png";
+import cloudImg from "../public/images/cloudImg.svg"
 
 export {
+  cloudImg,
   postMotor,
   locateOuline,
   bussinessCheck,

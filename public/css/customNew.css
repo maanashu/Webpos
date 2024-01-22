@@ -4981,8 +4981,30 @@ figure {
     border: 1px solid #D7DEFF;
     padding: 16px 16px;
     display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+}
+
+.softwareInnerBx {
+    display: flex;
     align-items: start;
     gap: 16px;
+}
+
+.SoftwareUpdateBx.active {
+    border-radius: 16px;
+    border: 1px solid #47B0D6;
+    background: #EFFBFF;
+}
+
+.SoftwareUpdateBx.active .cancelOrderText,
+.SoftwareUpdateBx.active .orderPara {
+    color: #308CAD;
+}
+
+.SoftwareUpdateBx.active .imgSize {
+    filter: invert(40%) sepia(93%) saturate(322%) hue-rotate(150deg) brightness(100%) contrast(95%);
 }
 
 .deviceInfo {
@@ -5044,146 +5066,24 @@ figure {
     font-size: 18px;
     font-weight: 600;
 }
-.sessionBox{
+
+.sessionBox {
     display: flex;
     align-items: center;
     gap: 6px;
 }
-.sessionImg{
+
+.sessionImg {
     width: 36px;
     height: 36px;
     border-radius: 50%;
 }
+
+.accordianBox .accordion-button:not(.collapsed) {
+    box-shadow: none !important;
+}
+
 /* cash Drawer css end*/
-/*media query start*/
-@media (max-width: 1600px) {
-    .cartOfferSection {
-        margin-top: 20px;
-    }
-
-    .discountOfferMain {
-        margin: 20px 0;
-    }
-
-    .offerdata {
-        height: calc(40vh - 137px);
-    }
-
-    .shipTableData .invoice_subhead {
-        width: 100%;
-        min-width: 175px;
-    }
-
-    .shipTableData .invoice_subhead:first-child {
-        width: 100%;
-        min-width: 100px;
-    }
-
-    .shipTableData .invoice_subhead:last-child {
-        width: 100%;
-        min-width: 50px;
-    }
-
-    .shipTableData .invoice_subhead:nth-child(3) {
-        width: 100%;
-        min-width: 270px;
-    }
-
-    .cancelShipData .invoice_subhead {
-        width: 100%;
-        min-width: 175px;
-    }
-
-    .cancelShipData .invoice_subhead:last-child {
-        width: 100%;
-        min-width: 50px;
-    }
-
-    .cancelShipData .invoice_subhead:nth-child(2) {
-        width: 100%;
-        min-width: 220px;
-    }
-
-    .cancelShipData .invoice_subhead:nth-child(3) {
-        width: 100%;
-        min-width: 150px;
-    }
-}
-
-@media (max-width: 1400px) {
-    .serviceDayTime {
-        height: calc(50vh - 120px);
-        overflow-y: scroll;
-    }
-
-    .staffInfoBox::before {
-        left: 30px;
-    }
-}
-
-@media (max-width: 1366px) {
-    .offerImg {
-        display: flex;
-        justify-content: start;
-        width: 35%;
-    }
-
-    .offerdata {
-        height: calc(40vh - 164px);
-    }
-
-    .staffInfoBox::before {
-        left: 45px;
-    }
-}
-
-@media (max-width: 1280px) {
-    .cartInfo {
-        height: 200px;
-        overflow-y: scroll;
-    }
-
-    .deliverCheck {
-        display: flex;
-        justify-content: end;
-        gap: 12px;
-    }
-
-    .offerImg {
-        display: flex;
-        justify-content: start;
-        width: 30%;
-    }
-
-    .serviceDayTime {
-        height: calc(50vh - 140px);
-        overflow-y: scroll;
-    }
-
-    .cartOfferSection {
-        margin-top: 15px;
-    }
-
-    .discountOfferMain {
-        margin: 15px 0;
-    }
-
-    .deliverOrderData .deliverSubdata {
-        width: 100%;
-        min-width: 120px;
-    }
-
-    .staffInfoBox::before {
-        left: 80px;
-    }
-}
-
-@media (max-width: 1200px) {
-    .staffInfoBox::before {
-        display: none;
-    }
-}
-
 /* cashDrawer session history css */
 
 .cashDrawSessionMain {
