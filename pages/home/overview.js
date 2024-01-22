@@ -15,6 +15,7 @@ import {
 import Login from "../auth/login";
 import moment from "moment-timezone";
 import { getSecuritySettingInfo } from "../../redux/slices/setting";
+import Invoices from "../invoices/invoices";
 
 const Overview = () => {
   const authData = useSelector(selectLoginAuth);
@@ -78,14 +79,15 @@ const Overview = () => {
     setKey(Math.random());
   };
 
-  const handleUserProfile = (flag) => {
-    setModalDetail({
-      show: true,
-      flag: flag,
-      type: flag,
-    });
-    setKey(Math.random());
-  };
+  // const handleUserProfile = (flag) => {
+  //   setModalDetail({
+  //     show: true,
+  //     flag: flag,
+  //     type: flag,
+  //   });
+  //   setKey(Math.random());
+  // };
+
 
   useEffect(() => {
     if (UniqueId) {
@@ -197,15 +199,17 @@ const Overview = () => {
                     </div>
                   </div>
                 </div>
-                <div className="productReturn">
+                <div
+                  className="productReturn"
+                  onClick={() => {
+                    router.push("/invoices/invoices");
+                  }}
+                >
                   <h4 className="linkHeading">Product Returns</h4>
                   <Image
                     src={Images.ProductBox}
                     alt="BoxImage"
                     className="img-fluid "
-                    onClick={() => {
-                      handleUserProfile("trackingmodal");
-                    }}
                   />
                 </div>
                 <div className="lockScreenBox">
@@ -663,7 +667,6 @@ const Overview = () => {
                                   //             <span className='orderId'>00:03:06</span>
                                   //         </div>
                                   //     </td>
-                                  // </tr>
                                 );
                               })}
                             </>
@@ -700,11 +703,20 @@ const Overview = () => {
             ? "commonWidth customContent"
             : ""
         }
-        ids={modalDetail.flag === "trackingmodal" ? "trackingModal" : ""}
+        ids={
+          modalDetail.flag === "trackingmodal"
+            ? "trackingModal"
+            : "invoiceModal"
+            ? "invoiceModal"
+            : ""
+        }
         child={
           modalDetail.flag === "trackingmodal" ? (
             <SessionModal close={() => handleOnCloseModal()} />
           ) : (
+            // : modalDetail.flag === "invoiceModal" ? (
+            //   <Invoices close={() => handleOnCloseModal()} />
+            // )
             ""
           )
         }

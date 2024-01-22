@@ -15,17 +15,19 @@ import {
 import CustomModal from "../../../components/customModal/CustomModal";
 import AddCashModal from "../../../components/modals/cashDrawerModals/addCashModal";
 import Link from "next/link";
+// import AccordionBody from "react-bootstrap/esm/AccordionBody";
 
 const ViewSession = () => {
   ChartJS.register(...registerables);
   const [key, setKey] = useState(Math.random());
-  const [modalTitle, setModalTitle] = useState("Add Cash");
+
   const [modalDetail, setModalDetail] = useState({
     show: false,
     title: "Add Cash",
     type: "add",
     flag: "trackingmodal",
   });
+
   const handleShowModal = (title, type) => {
     setModalDetail({
       show: true,
@@ -98,27 +100,308 @@ const ViewSession = () => {
                 </div>
               </div>
             </div>
-            <div className="topBox2">
-              <div className="allCashBox">
-                <p className="allCashText">All Cash Payments</p>
-              </div>
-              <div className="allCashBox">
-                <Accordion defaultActiveKey="0">
-                  <Accordion.Item eventKey="0">
-                    <Accordion.Header>
-                      <div className="totoalCashInView">
-                        <p className="totoalCashInHeading">Total Cash In</p>
-                        <div className="gaping"></div>
-                        <Image className="clockStyle" src={arrowDown} />
-                      </div>
-                      <div className="cashInsideView"></div>
-                      <p className="totalAmmount">$15220.00</p>
-                    </Accordion.Header>
-                    <Accordion.Body></Accordion.Body>
-                  </Accordion.Item>
-                </Accordion>
-              </div>
+            <div className="allCashBox">
+              <h6 className="allCashText">All Cash Payments</h6>
             </div>
+            {/* Accordian First  */}
+            <div className="accordianBox">
+              <Accordion flush>
+                <Accordion.Item eventKey="0">
+                  <Accordion.Header className="accordnHead">
+                    <div className="flexDiv w-100 mainAccordn">
+                      <h4 className="accordnText">Total Cash In</h4>
+                      <h4 className="accordnText">$5,590.00</h4>
+                    </div>
+                  </Accordion.Header>
+                  <Accordion.Body>
+                    <div className="saleAccordian">
+                      <Accordion flush>
+                        <Accordion.Item eventKey="0">
+                          <Accordion.Header>
+                            <div className="flexDiv w-100 subAccordn">
+                              <h4 className="appointSub m-0">Sales</h4>
+                              <h4 className="appointSub m-0">$5,590.00</h4>
+                            </div>
+                          </Accordion.Header>
+                          <Accordion.Body>
+                            <div className="flexDiv mt-2">
+                              <h4 className="appointSub m-0 ps-3">Cash</h4>
+                              <h4 className="appointSub m-0">$5,590.00</h4>
+                            </div>
+                            <div className="flexDiv mt-2">
+                              <h4 className="appointSub m-0 ps-3">Card</h4>
+                              <h4 className="appointSub m-0">$5,590.00</h4>
+                            </div>
+                            <div className="flexDiv mt-2">
+                              <h4 className="appointSub m-0 ps-3">Jobr Coin</h4>
+                              <h4 className="appointSub m-0">$5,590.00</h4>
+                            </div>
+                          </Accordion.Body>
+                        </Accordion.Item>
+                      </Accordion>
+                    </div>
+                    <div className="saleAccordian">
+                      <Accordion flush>
+                        <Accordion.Item eventKey="0">
+                          <Accordion.Header>
+                            <div className="flexDiv w-100 subAccordn">
+                              <h4 className="appointSub m-0">Manual</h4>
+                              <h4 className="appointSub m-0">$5,590.00</h4>
+                            </div>
+                          </Accordion.Header>
+                          <Accordion.Body>
+                            <div className="flexDiv mt-2">
+                              <h4 className="appointSub m-0 ps-3">Cash</h4>
+                              <h4 className="appointSub m-0">$5,590.00</h4>
+                            </div>
+                            <div className="flexDiv mt-2">
+                              <h4 className="appointSub m-0 ps-3">Card</h4>
+                              <h4 className="appointSub m-0">$5,590.00</h4>
+                            </div>
+                            <div className="flexDiv mt-2">
+                              <h4 className="appointSub m-0 ps-3">Jobr Coin</h4>
+                              <h4 className="appointSub m-0">$5,590.00</h4>
+                            </div>
+                          </Accordion.Body>
+                        </Accordion.Item>
+                      </Accordion>
+                    </div>
+                    <div className="saleAccordian">
+                      <Accordion flush>
+                        <Accordion.Item eventKey="0">
+                          <Accordion.Header>
+                            <div className="flexDiv w-100 subAccordn">
+                              <h4 className="appointSub m-0">Refund</h4>
+                              <h4 className="appointSub m-0">$5,590.00</h4>
+                            </div>
+                          </Accordion.Header>
+                          <Accordion.Body>
+                            <div className="flexDiv mt-2">
+                              <h4 className="appointSub m-0 ps-3">Cash</h4>
+                              <h4 className="appointSub m-0">$5,590.00</h4>
+                            </div>
+                            <div className="flexDiv mt-2">
+                              <h4 className="appointSub m-0 ps-3">Card</h4>
+                              <h4 className="appointSub m-0">$5,590.00</h4>
+                            </div>
+                            <div className="flexDiv mt-2">
+                              <h4 className="appointSub m-0 ps-3">Jobr Coin</h4>
+                              <h4 className="appointSub m-0">$5,590.00</h4>
+                            </div>
+                          </Accordion.Body>
+                        </Accordion.Item>
+                      </Accordion>
+                    </div>
+                    <div className="saleAccordian">
+                      <Accordion flush>
+                        <Accordion.Item eventKey="0">
+                          <Accordion.Header>
+                            <div className="flexDiv w-100 subAccordn">
+                              <h4 className="appointSub m-0">Delivery Fees</h4>
+                              <h4 className="appointSub m-0">$5,590.00</h4>
+                            </div>
+                          </Accordion.Header>
+                          <Accordion.Body>
+                            <div className="flexDiv mt-2">
+                              <h4 className="appointSub m-0 ps-3">Cash</h4>
+                              <h4 className="appointSub m-0">$5,590.00</h4>
+                            </div>
+                            <div className="flexDiv mt-2">
+                              <h4 className="appointSub m-0 ps-3">Card</h4>
+                              <h4 className="appointSub m-0">$5,590.00</h4>
+                            </div>
+                            <div className="flexDiv mt-2">
+                              <h4 className="appointSub m-0 ps-3">Jobr Coin</h4>
+                              <h4 className="appointSub m-0">$5,590.00</h4>
+                            </div>
+                          </Accordion.Body>
+                        </Accordion.Item>
+                      </Accordion>
+                    </div>
+                    <div className="saleAccordian">
+                      <Accordion flush>
+                        <Accordion.Item eventKey="0">
+                          <Accordion.Header>
+                            <div className="flexDiv w-100 subAccordn">
+                              <h4 className="appointSub m-0">Shipping Fees</h4>
+                              <h4 className="appointSub m-0">$5,590.00</h4>
+                            </div>
+                          </Accordion.Header>
+                          <Accordion.Body>
+                            <div className="flexDiv mt-2">
+                              <h4 className="appointSub m-0 ps-3">Cash</h4>
+                              <h4 className="appointSub m-0">$5,590.00</h4>
+                            </div>
+                            <div className="flexDiv mt-2">
+                              <h4 className="appointSub m-0 ps-3">Card</h4>
+                              <h4 className="appointSub m-0">$5,590.00</h4>
+                            </div>
+                            <div className="flexDiv mt-2">
+                              <h4 className="appointSub m-0 ps-3">Jobr Coin</h4>
+                              <h4 className="appointSub m-0">$5,590.00</h4>
+                            </div>
+                          </Accordion.Body>
+                        </Accordion.Item>
+                      </Accordion>
+                    </div>
+                  </Accordion.Body>
+                </Accordion.Item>
+              </Accordion>
+            </div>
+            {/* Accordian Second  */}
+            <div className="accordianBox">
+              <Accordion flush>
+                <Accordion.Item eventKey="0">
+                  <Accordion.Header className="accordnHead">
+                    <div className="flexDiv w-100 mainAccordn">
+                      <h4 className="accordnText">Total Cash Out</h4>
+                      <h4 className="accordnText">$5,590.00</h4>
+                    </div>
+                  </Accordion.Header>
+                  <Accordion.Body>
+                    <div className="saleAccordian">
+                      <Accordion flush>
+                        <Accordion.Item eventKey="0">
+                          <Accordion.Header>
+                            <div className="flexDiv w-100 subAccordn">
+                              <h4 className="appointSub m-0">Sales</h4>
+                              <h4 className="appointSub m-0">$5,590.00</h4>
+                            </div>
+                          </Accordion.Header>
+                          <Accordion.Body>
+                            <div className="flexDiv mt-2">
+                              <h4 className="appointSub m-0 ps-3">Cash</h4>
+                              <h4 className="appointSub m-0">$5,590.00</h4>
+                            </div>
+                            <div className="flexDiv mt-2">
+                              <h4 className="appointSub m-0 ps-3">Card</h4>
+                              <h4 className="appointSub m-0">$5,590.00</h4>
+                            </div>
+                            <div className="flexDiv mt-2">
+                              <h4 className="appointSub m-0 ps-3">Jobr Coin</h4>
+                              <h4 className="appointSub m-0">$5,590.00</h4>
+                            </div>
+                          </Accordion.Body>
+                        </Accordion.Item>
+                      </Accordion>
+                    </div>
+                    <div className="saleAccordian">
+                      <Accordion flush>
+                        <Accordion.Item eventKey="0">
+                          <Accordion.Header>
+                            <div className="flexDiv w-100 subAccordn">
+                              <h4 className="appointSub m-0">Manual</h4>
+                              <h4 className="appointSub m-0">$5,590.00</h4>
+                            </div>
+                          </Accordion.Header>
+                          <Accordion.Body>
+                            <div className="flexDiv mt-2">
+                              <h4 className="appointSub m-0 ps-3">Cash</h4>
+                              <h4 className="appointSub m-0">$5,590.00</h4>
+                            </div>
+                            <div className="flexDiv mt-2">
+                              <h4 className="appointSub m-0 ps-3">Card</h4>
+                              <h4 className="appointSub m-0">$5,590.00</h4>
+                            </div>
+                            <div className="flexDiv mt-2">
+                              <h4 className="appointSub m-0 ps-3">Jobr Coin</h4>
+                              <h4 className="appointSub m-0">$5,590.00</h4>
+                            </div>
+                          </Accordion.Body>
+                        </Accordion.Item>
+                      </Accordion>
+                    </div>
+                    <div className="saleAccordian">
+                      <Accordion flush>
+                        <Accordion.Item eventKey="0">
+                          <Accordion.Header>
+                            <div className="flexDiv w-100 subAccordn">
+                              <h4 className="appointSub m-0">Refund</h4>
+                              <h4 className="appointSub m-0">$5,590.00</h4>
+                            </div>
+                          </Accordion.Header>
+                          <Accordion.Body>
+                            <div className="flexDiv mt-2">
+                              <h4 className="appointSub m-0 ps-3">Cash</h4>
+                              <h4 className="appointSub m-0">$5,590.00</h4>
+                            </div>
+                            <div className="flexDiv mt-2">
+                              <h4 className="appointSub m-0 ps-3">Card</h4>
+                              <h4 className="appointSub m-0">$5,590.00</h4>
+                            </div>
+                            <div className="flexDiv mt-2">
+                              <h4 className="appointSub m-0 ps-3">Jobr Coin</h4>
+                              <h4 className="appointSub m-0">$5,590.00</h4>
+                            </div>
+                          </Accordion.Body>
+                        </Accordion.Item>
+                      </Accordion>
+                    </div>
+                    <div className="saleAccordian">
+                      <Accordion flush>
+                        <Accordion.Item eventKey="0">
+                          <Accordion.Header>
+                            <div className="flexDiv w-100 subAccordn">
+                              <h4 className="appointSub m-0">Delivery Fees</h4>
+                              <h4 className="appointSub m-0">$5,590.00</h4>
+                            </div>
+                          </Accordion.Header>
+                          <Accordion.Body>
+                            <div className="flexDiv mt-2">
+                              <h4 className="appointSub m-0 ps-3">Cash</h4>
+                              <h4 className="appointSub m-0">$5,590.00</h4>
+                            </div>
+                            <div className="flexDiv mt-2">
+                              <h4 className="appointSub m-0 ps-3">Card</h4>
+                              <h4 className="appointSub m-0">$5,590.00</h4>
+                            </div>
+                            <div className="flexDiv mt-2">
+                              <h4 className="appointSub m-0 ps-3">Jobr Coin</h4>
+                              <h4 className="appointSub m-0">$5,590.00</h4>
+                            </div>
+                          </Accordion.Body>
+                        </Accordion.Item>
+                      </Accordion>
+                    </div>
+                    <div className="saleAccordian">
+                      <Accordion flush>
+                        <Accordion.Item eventKey="0">
+                          <Accordion.Header>
+                            <div className="flexDiv w-100 subAccordn">
+                              <h4 className="appointSub m-0">Shipping Fees</h4>
+                              <h4 className="appointSub m-0">$5,590.00</h4>
+                            </div>
+                          </Accordion.Header>
+                          <Accordion.Body>
+                            <div className="flexDiv mt-2">
+                              <h4 className="appointSub m-0 ps-3">Cash</h4>
+                              <h4 className="appointSub m-0">$5,590.00</h4>
+                            </div>
+                            <div className="flexDiv mt-2">
+                              <h4 className="appointSub m-0 ps-3">Card</h4>
+                              <h4 className="appointSub m-0">$5,590.00</h4>
+                            </div>
+                            <div className="flexDiv mt-2">
+                              <h4 className="appointSub m-0 ps-3">Jobr Coin</h4>
+                              <h4 className="appointSub m-0">$5,590.00</h4>
+                            </div>
+                          </Accordion.Body>
+                        </Accordion.Item>
+                      </Accordion>
+                    </div>
+                  </Accordion.Body>
+                </Accordion.Item>
+              </Accordion>
+            </div>
+            <div className="netPaymentView">
+              <h2 className="netPaymentText">Net Payment</h2>
+              <h1 className="totalAmmount">$15220.00</h1>
+            </div>
+            <Link href="viewSession/endSession" className="closeView">
+              <div>
+                <h6 className="closeText">{"Close Batch"}</h6>
+              </div>
+            </Link>
           </div>
         </div>
       </div>

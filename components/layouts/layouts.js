@@ -42,7 +42,8 @@ export default function Layout({ children, isLoggedIn, userType }) {
     "/settings/walletConfig",
     '/transactions',
     '/transactions/transactionList',
-    '/transactions/transactionList/invoice'
+    '/transactions/transactionList/invoice',
+    '/settings/plans/planFit'
 
   ];
 

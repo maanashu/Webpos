@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-    orderDeliveries: "",
+    orderDeliveries: {},
     todaySales:"",
     drawerSession:"",
     getProfileInfo:"",
