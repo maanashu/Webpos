@@ -16,12 +16,11 @@ import AddedCartItemsCard from "../../components/AddedCartItemsCard";
 const ShowPaidAmountCart = () => {
   const router = useRouter();
   const { cart, paymentData } = router.query;
-  const cartData = JSON.parse(cart);
-  const payableData = JSON.parse(paymentData);
+  const cartData = cart ? JSON.parse(cart) : "";
+  const payableData = paymentData ? JSON.parse(paymentData) : "";
   const retailData = useSelector(selectRetailData);
   const authData = useSelector(selectLoginAuth);
   const posUserData = authData?.posUserLoginDetails;
-  console.log("posUserData", JSON.stringify(posUserData));
   const merchentDetails = authData?.usersInfo?.payload?.user?.user_profiles;
 
   // change due function
