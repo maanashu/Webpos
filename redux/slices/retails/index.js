@@ -9,10 +9,18 @@ const initialState = {
   cartDetails: {},
   checkSuppliedVariantLoad: false,
   addTocartLoad: false,
-  clearCartLoading:false,
+  clearCartLoading: false,
   getTipsLoad: false,
   getTipsData: {},
   updateCartByTipLoad: false,
+  createOrderLoad: false,
+  createOrderData: {},
+  drawerSession: {},
+  drawerSessionLoad: false,
+  productCartLoad: false,
+  clearCartLoad: false,
+  attachCustomerLoad: false,
+  attachCustomerData: {},
 };
 
 export const retailsSlice = createSlice({
@@ -57,9 +65,11 @@ export const retailsSlice = createSlice({
     },
     productCart: (state) => {
       state.loading = true;
+      state.productCartLoad = true;
     },
     setProductCart: (state, action) => {
       state.loading = false;
+      state.productCartLoad = false;
       state.productCart = action?.payload?.payload;
       state.cartDetails = action?.payload?.payload;
     },
@@ -85,9 +95,11 @@ export const retailsSlice = createSlice({
     },
     clearCart: (state) => {
       state.loading = true;
+      state.clearCartLoad = true;
     },
     setClearCart: (state) => {
-      state.clearCartLoading = true;
+      state.loading = false;
+      state.clearCartLoad = false;
     },
     checkSuppliedVariant: (state) => {
       state.loading = true;
@@ -112,7 +124,33 @@ export const retailsSlice = createSlice({
     },
     setUpdateCartByTip: (state) => {
       state.updateCartByTipLoad = false;
-      // state.getTipsData = action?.payload;
+    },
+    createOrder: (state) => {
+      state.createOrderLoad = true;
+    },
+    setCreateOrder: (state, action) => {
+      state.createOrderLoad = false;
+      state.createOrderData = action?.payload?.payload;
+    },
+    clearCart: (state) => {
+      state.loading = true;
+    },
+    getDrawerSession: (state) => {
+      state.loading = true;
+      state.drawerSessionLoad = true;
+    },
+    setDrawerSession: (state, action) => {
+      state.loading = false;
+      state.drawerSessionLoad = false;
+      state.drawerSession = action?.payload?.payload;
+    },
+
+    attachCustomer: (state) => {
+      state.attachCustomerLoad = true;
+    },
+    setAttachCustomer: (state, action) => {
+      state.attachCustomerLoad = false;
+      // state.attachCustomerData = action?.payload?.payload;
     },
     onErrorStopLoad: (state) => {
       state.loading = false;
@@ -139,7 +177,6 @@ export const {
   setNotes,
   addTocart,
   setAddTocart,
-  clearCart,
   setDiscount,
   addDiscount,
   checkSuppliedVariant,
@@ -148,6 +185,13 @@ export const {
   setGetTips,
   updateCartByTip,
   setUpdateCartByTip,
+  createOrder,
+  setCreateOrder,
+  clearCart,
+  getDrawerSession,
+  setDrawerSession,
+  attachCustomer,
+  setAttachCustomer,
 } = retailsSlice.actions;
 
 export const selectRetailData = (state) => state.retails;

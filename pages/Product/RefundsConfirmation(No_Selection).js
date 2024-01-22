@@ -5,7 +5,7 @@ import Image from "next/image";
 const RefundsConfirmation = () => {
     return (
         <>
-            <div className='refundConfirmation'>
+            <div className='refundConfirmation me-3'>
                 <div className='row'>
                     <div className='col-lg-7'>
                         <div className='commanOuter commonSubOuter me-0'>

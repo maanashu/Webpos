@@ -32,7 +32,7 @@ const Devices = () => {
             flag: flag,
             type: flag,
         });
-        setKey(Math.random());
+        setKey(Math.random()); 
     };
     return (
         <>

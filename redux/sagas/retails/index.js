@@ -20,11 +20,15 @@ import {
   setAddTocart,
   setGetTips,
   setUpdateCartByTip,
+  setCreateOrder,
+  setDrawerSession,
+  setAttachCustomer,
 } from "../../slices/retails";
 import { all, call, put, takeLatest } from "redux-saga/effects";
 
 const ORDER_API_URL_V1 = ORDER_API_URL + "/api/v1/";
 const PRODUCT_API_URL_V1 = PRODUCT_API_URL + "/api/v1/";
+const USER_API_URL_V1 = AUTH_API_URL + "/api/v1/";
 
 function* getMainProduct(action) {
   const dataToSend = { ...action.payload };
@@ -164,7 +168,6 @@ function* clearCart(action) {
       ApiClient.delete,
       `${ORDER_API_URL}/api/v1/poscarts`
     );
-
     if (resp.status) {
       yield call(action.payload.cb, (action.res = resp));
     } else {
@@ -232,7 +235,7 @@ function* checkSuppliedVariant(action) {
   try {
     const resp = yield call(
       ApiClient.get,
-      `${PRODUCT_API_URL_V1}supply_variants/by-attribute-value-ids?attribute_value_ids=${colorSizeId}&supply_id=${suppliedId}`,
+      `${PRODUCT_API_URL_V1}supply_variants/by-attribute-value-ids?attribute_value_ids=${colorSizeId}&supply_id=${suppliedId}`
     );
     if (resp.status) {
       yield put(setCheckSuppliedVariant(resp.data));
@@ -266,7 +269,6 @@ function* getTips(action) {
 }
 
 function* updateCartByTip(action) {
-  console.log("action", action?.payload);
   const body = { ...action.payload };
   delete body.cartId;
   try {
@@ -280,6 +282,72 @@ function* updateCartByTip(action) {
       yield call(action.payload.cb, (action.res = resp));
     } else {
       throw resp;
+    }
+  } catch (e) {
+    yield put(onErrorStopLoad());
+    toast.error(e?.error?.response?.data?.msg);
+  }
+}
+
+function* createOrder(action) {
+  const body = { ...action.payload };
+  delete body.tips;
+  // delete body.mode_of_payment;
+  try {
+    const resp = yield call(
+      ApiClient.post,
+      `${ORDER_API_URL_V1}orders/pos`,
+      body
+    );
+    if (resp.status) {
+      yield put(setCreateOrder(resp.data));
+      yield call(action.payload.cb, (action.res = resp));
+      toast.success(resp?.data?.msg);
+    } else {
+      throw resp;
+    }
+  } catch (e) {
+    yield put(onErrorStopLoad());
+    toast.error(e?.error?.response?.data?.msg);
+  }
+}
+
+function* getDrawerSession(action) {
+  const body = { ...action?.payload };
+
+  try {
+    const resp = yield call(
+      ApiClient.post,
+      `${USER_API_URL_V1}drawer_management/drawer-session`,
+      body
+    );
+    if (resp.status) {
+      yield put(setDrawerSession(resp.data));
+      yield call(action.payload.cb, (action.res = resp));
+    } else {
+      throw resp;
+    }
+  } catch (e) {
+    yield put(onErrorStopLoad());
+    toast.error(e?.error?.response?.data?.msg);
+  }
+}
+
+function* attachCustomer(action) {
+  const body = { ...action?.payload };
+  delete body.cartId;
+
+  try {
+    const resp = yield call(
+      ApiClient.post,
+      `${ORDER_API_URL_V1}poscarts/attach/user/${action?.payload?.cartId}`,
+      body
+    );
+    if (resp.status) {
+      toast.success(resp?.data?.msg);
+      yield put(setAttachCustomer(resp.data));
+      yield call(action.payload.cb, (action.res = resp));
+    } else {
     }
   } catch (e) {
     yield put(onErrorStopLoad());
@@ -303,6 +371,9 @@ function* retailsSaga() {
     takeLatest("retails/checkSuppliedVariant", checkSuppliedVariant),
     takeLatest("retails/getTips", getTips),
     takeLatest("retails/updateCartByTip", updateCartByTip),
+    takeLatest("retails/createOrder", createOrder),
+    takeLatest("retails/getDrawerSession", getDrawerSession),
+    takeLatest("retails/attachCustomer", attachCustomer),
   ]);
 }
 

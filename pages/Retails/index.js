@@ -60,7 +60,7 @@ const Retails = () => {
         params,
         serviceId,
         cb: (resp) => {
-         router.push({ pathname: "/Retails/AddService" });
+          router.push({ pathname: "/Retails/AddService" });
         },
       })
     );
@@ -105,7 +105,7 @@ const Retails = () => {
   return (
     <>
       <div className="flexBox">
-        <div className="commanOuter">
+        <div className="commanOuter w-100">
           <ProductInnerNav
             productCount={productPagination?.total}
             ServicesCount={servicesCount?.total}
@@ -186,9 +186,7 @@ const Retails = () => {
                         >
                           <div
                             className="productsCard"
-                            onClick={() =>
-                              getOneService(services?.id, index)
-                            }
+                            onClick={() => getOneService(services?.id, index)}
                           >
                             <figure className="productImageBox">
                               <Image

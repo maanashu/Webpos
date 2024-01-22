@@ -8,7 +8,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import moment from 'moment-timezone';
 import { useRouter } from 'next/router';
 
-const StaffDetail = ({ selectedItemId }) => {
+const StaffDetail = ({ selectedItemId,handleTouch }) => {
     const router = useRouter();
     const [getStaffInfo, setGetStaffInfo] = useState("");
     const targetDate = moment(getStaffInfo?.pos_staff_detail?.created_at);
@@ -41,20 +41,18 @@ const StaffDetail = ({ selectedItemId }) => {
         if (typeof minutes !== 'number' || minutes < 0) {
             return 'Invalid input';
         }
-
         const hours = Math.floor(minutes / 60);
         const remainingMinutes = minutes % 60;
-
         return hours + ' h ' + remainingMinutes?.toFixed(0) + ' m';
     }
 
-    const handleRequest = (status, startDate, endDate) => {
-        if (status === 0) {
+    const handleRequest = (status, startDate, endDate, data) => {
+        if (status === 0 || status === 1) {
             let data = {
                 "start_date": moment(startDate).format('YYYY-MM-DD'),
                 "end_date": moment(endDate).format('YYYY-MM-DD'),
-                // "staff_details_id": selectedItemId?.toString()
-                "staff_details_id": '2'
+                "staff_details_id": selectedItemId?.toString()
+                // "staff_details_id": '2'
             }
             dispatch(requestPayment({
                 ...data,
@@ -67,7 +65,7 @@ const StaffDetail = ({ selectedItemId }) => {
             );
         }
         else {
-            router.push("/StaffLocation")
+            handleTouch("staffLocation",data)
         }
     }
 
@@ -89,7 +87,7 @@ const StaffDetail = ({ selectedItemId }) => {
                         ) : (
                             <div className='settingOuter staffDetailRight'>
                                 <div className='flexTable'>
-                                    <Image src={Images.boldLeftArrow} alt="boldLeftArrow " className="img-fluid me-2" />
+                                    <Image style={{cursor:'pointer'}} src={Images.boldLeftArrow} onClick={()=>handleTouch("Staff")} alt="boldLeftArrow " className="img-fluid me-2" />
                                     <h4 className='appointMain'>Staff Details</h4>
                                 </div>
                                 <div className='staffInfoBox'>
@@ -235,7 +233,7 @@ const StaffDetail = ({ selectedItemId }) => {
                                                             <button className={data?.status === 2 ? 'paidBtn ' : "unpaidBtn"} type='button'>{data?.status === 2 ? 'Paid' : 'Unpaid'}</button>
                                                         </div>
                                                         <div className='staffBoxData'>
-                                                            <button className={data?.status === 2 ? 'viewBtn ' : 'requestBtn'} onClick={() => handleRequest(data?.status, data?.start_date, data?.end_date)} type='button'>{data?.status === 0 ? "Request" : data?.status === 1 ? "Requested" : 'view'}</button>
+                                                            <button className={data?.status === 2 ? 'viewBtn ' : 'requestBtn'} onClick={() => handleRequest(data?.status, data?.start_date, data?.end_date, data)} type='button'>{data?.status === 0 ? "Request" : data?.status === 1 ? "Requested" : 'view'}</button>
                                                         </div>
                                                     </div>
                                                 </div>
