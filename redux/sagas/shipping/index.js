@@ -11,6 +11,7 @@ const ORDER_API_URL_V1 = ORDER_API_URL + "/api/v1/";
 
 function* getShippingsSidebarCount(action) {
   const dataToSend = { ...action.payload };
+  delete dataToSend.cb;
   const params = new URLSearchParams(dataToSend).toString();
   try {
     const resp = yield call(
@@ -19,7 +20,7 @@ function* getShippingsSidebarCount(action) {
     );
     if (resp.status) {
       yield put(setSidebarCountData(resp.data));
-      // yield call(action.payload.cb, (action.res = resp));
+      yield call(action.payload.cb, (action.res = resp));
       console.log(resp, "response");
     } else {
       throw resp;

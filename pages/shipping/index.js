@@ -8,30 +8,37 @@ import { getShippingsSidebarCount, selectsShippingData } from '../../redux/slice
 import { getOrdersList } from '../../redux/slices/delivery';
 import NoOrderFound from '../../components/NoOrderFound';
 import OrderListItem from '../Deliveries/Component/OrderListItem';
+import { useRouter } from 'next/router';
 
 const Shipping = () => {
     const dispatch = useDispatch()
+    const router = useRouter();
     const authData = useSelector(selectLoginAuth);
     const [orderLoading, setOrderLoading] = useState(false);
     const [orderData, setOrderData] = useState([]);
-    console.log(orderData, 'orderdataaaaaa');
+    const [orderCount, setOrderCount] = useState([]);
     const shippingData = useSelector(selectsShippingData);
     const sellerUid = authData?.usersInfo?.payload?.uniqe_id;
-
     const customerSidebardata = shippingData?.sidebarCountData?.payload
-    const itemPressHandler = (item, index) => {
+    const [orderListType, setOrderListType] = useState({
+        status: "0",
+        title: "Order to Review"
+    });
+    console.log(orderListType, 'list type');
+    const itemPressHandler = (id) => {
         router.push({
-            pathname: "/Deliveries/order",
+            pathname: "/shipping/orderReview",
             query: {
-                item: item,
-                index: index,
-                // Add more properties as needed
+                id: id,
+                status: orderListType?.status,
+                title: orderListType?.title
             },
         });
     };
     const getAllShippingOrdeshandle = () => {
         let orderListParam = {
             seller_id: sellerUid,
+            status: orderListType?.status,
             delivery_option: "4"
         };
         dispatch(
@@ -46,17 +53,30 @@ const Shipping = () => {
         );
     }
 
-    console.log(customerSidebardata, sellerUid, "customersidebar data");
+    const getAllShippingOrdesCountHandle = () => {
+        let orderParam = {
+            seller_id: sellerUid,
+            delivery_option: "4"
+        };
+        dispatch(
+            getShippingsSidebarCount({
+                ...orderParam,
+                cb(res) {
+                    console.log(res, 'ressssssssssssssss');
+                    if (res) {
+                        setOrderCount(res?.data?.payload);
+                    }
+                },
+            })
+        );
+    }
+
     useEffect(() => {
         if (sellerUid) {
             getAllShippingOrdeshandle()
-            dispatch(
-                getShippingsSidebarCount({
-                    "seller_id": sellerUid
-                })
-            );
+            getAllShippingOrdesCountHandle()
         }
-    }, [sellerUid]);
+    }, [sellerUid, orderListType]);
 
 
     return (
@@ -155,283 +175,83 @@ const Shipping = () => {
                         </div>
                         <div className='deliverOrderData'>
                             <div className='flexDiv'>
-                                <h4 className="loginMain">Order Deliveries</h4>
+                                <h4 className="loginMain">{orderListType?.title}</h4>
                                 <div className='flexTable pointHand'>
                                     <h4 className='confirmBack '>See All</h4>
                                     <Image src={Images.lightArrowRight} alt="lightArrowRight image" className="img-fluid ms-1" />
                                 </div>
                             </div>
                             <div className="table-responsive deliverTable">
-                                {/* <table id="DeliverDashboard" className="deliverDashboardTable">
+                                <table id="DeliverDashboard" className="deliverDashboardTable">
                                     <tbody>
-                                        <tr className='product_invoice'>
-                                            <td className='invoice_subhead verticalBase'>
-                                                <h4 className='orderId'>#7869YZ</h4>
-                                            </td>
-                                            <td className="invoice_subhead">
-                                                <div className="nameLocation">
-                                                    <h4 className="assignId">Samara Schwansteiger</h4>
-                                                    <div className="deliverTableBx">
-                                                        <Image
-                                                            src={Images.OrderLocation}
-                                                            alt="location Image"
-                                                            className="img-fluid ms-1"
-                                                        />
-                                                        <span className="locateDistance">2.5 miles</span>
-                                                    </div>
-                                                </div>
-                                            </td>
-                                            <td className="invoice_subhead">
-                                                <div className="itemMoney">
-                                                    <h4 className="assignId">3 items</h4>
-                                                    <div className="deliverTableBx">
-                                                        <Image
-                                                            src={Images.MoneyItem}
-                                                            alt="MoneyItemImage "
-                                                            className="img-fluid ms-1"
-                                                        />
-                                                        <span className="locateDistance">$500.50
-                                                        </span>
-                                                    </div>
-                                                </div>
-                                            </td>
-                                            <td className="invoice_subhead">
-                                                <div className='expresSaver'>
-                                                    <Image src={Images.shipFed} alt="pickupImg image" className="img-fluid shipPickImg m-0" />
-                                                    <div className='subSaver'>
-                                                        <h4 className='assignId'>FedEx Express Saver</h4>
-                                                        <div className='immediateBox mt-1'>
-                                                            <Image src={Images.Fast} alt="deliverFast image" className="img-fluid m-0" />
-                                                            <h4 className='immediateText'>3 Days Shipping</h4>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </td>
-                                            <td className='invoice_subhead verticalBase'>
-                                                <div className='deliverArrow text-end'>
-                                                    <Image src={Images.RightArrow} alt="RightArrow image" className="img-fluid ms-1" />
-                                                </div>
-                                            </td>
-                                        </tr>
-                                        <tr className='product_invoice'>
-                                            <td className='invoice_subhead verticalBase'>
-                                                <h4 className='orderId'>#7869YZ</h4>
-                                            </td>
-                                            <td className="invoice_subhead">
-                                                <div className="nameLocation">
-                                                    <h4 className="assignId">Samara Schwansteiger</h4>
-                                                    <div className="deliverTableBx">
-                                                        <Image
-                                                            src={Images.OrderLocation}
-                                                            alt="location Image"
-                                                            className="img-fluid ms-1"
-                                                        />
-                                                        <span className="locateDistance">2.5 miles</span>
-                                                    </div>
-                                                </div>
-                                            </td>
-                                            <td className="invoice_subhead">
-                                                <div className="itemMoney">
-                                                    <h4 className="assignId">3 items</h4>
-                                                    <div className="deliverTableBx">
-                                                        <Image
-                                                            src={Images.MoneyItem}
-                                                            alt="MoneyItemImage "
-                                                            className="img-fluid ms-1"
-                                                        />
-                                                        <span className="locateDistance">$500.50
-                                                        </span>
-                                                    </div>
-                                                </div>
-                                            </td>
-                                            <td className="invoice_subhead">
-                                                <div className='expresSaver'>
-                                                    <Image src={Images.shipFed} alt="pickupImg image" className="img-fluid shipPickImg m-0" />
-                                                    <div className='subSaver'>
-                                                        <h4 className='assignId'>FedEx Express Saver</h4>
-                                                        <div className='immediateBox mt-1'>
-                                                            <Image src={Images.Fast} alt="deliverFast image" className="img-fluid m-0" />
-                                                            <h4 className='immediateText'>3 Days Shipping</h4>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </td>
-                                            <td className='invoice_subhead verticalBase'>
-                                                <div className='deliverArrow text-end'>
-                                                    <Image src={Images.RightArrow} alt="RightArrow image" className="img-fluid ms-1" />
-                                                </div>
-                                            </td>
-                                        </tr>
-                                        <tr className='product_invoice'>
-                                            <td className='invoice_subhead verticalBase'>
-                                                <h4 className='orderId'>#7869YZ</h4>
-                                            </td>
-                                            <td className="invoice_subhead">
-                                                <div className="nameLocation">
-                                                    <h4 className="assignId">Samara Schwansteiger</h4>
-                                                    <div className="deliverTableBx">
-                                                        <Image
-                                                            src={Images.OrderLocation}
-                                                            alt="location Image"
-                                                            className="img-fluid ms-1"
-                                                        />
-                                                        <span className="locateDistance">2.5 miles</span>
-                                                    </div>
-                                                </div>
-                                            </td>
-                                            <td className="invoice_subhead">
-                                                <div className="itemMoney">
-                                                    <h4 className="assignId">3 items</h4>
-                                                    <div className="deliverTableBx">
-                                                        <Image
-                                                            src={Images.MoneyItem}
-                                                            alt="MoneyItemImage "
-                                                            className="img-fluid ms-1"
-                                                        />
-                                                        <span className="locateDistance">$500.50
-                                                        </span>
-                                                    </div>
-                                                </div>
-                                            </td>
-                                            <td className="invoice_subhead">
-                                                <div className='expresSaver'>
-                                                    <Image src={Images.shipFed} alt="pickupImg image" className="img-fluid shipPickImg m-0" />
-                                                    <div className='subSaver'>
-                                                        <h4 className='assignId'>FedEx Express Saver</h4>
-                                                        <div className='immediateBox mt-1'>
-                                                            <Image src={Images.Fast} alt="deliverFast image" className="img-fluid m-0" />
-                                                            <h4 className='immediateText'>3 Days Shipping</h4>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </td>
-                                            <td className='invoice_subhead verticalBase'>
-                                                <div className='deliverArrow text-end'>
-                                                    <Image src={Images.RightArrow} alt="RightArrow image" className="img-fluid ms-1" />
-                                                </div>
-                                            </td>
-                                        </tr>
-                                        <tr className='product_invoice'>
-                                            <td className='invoice_subhead verticalBase'>
-                                                <h4 className='orderId'>#7869YZ</h4>
-                                            </td>
-                                            <td className="invoice_subhead">
-                                                <div className="nameLocation">
-                                                    <h4 className="assignId">Samara Schwansteiger</h4>
-                                                    <div className="deliverTableBx">
-                                                        <Image
-                                                            src={Images.OrderLocation}
-                                                            alt="location Image"
-                                                            className="img-fluid ms-1"
-                                                        />
-                                                        <span className="locateDistance">2.5 miles</span>
-                                                    </div>
-                                                </div>
-                                            </td>
-                                            <td className="invoice_subhead">
-                                                <div className="itemMoney">
-                                                    <h4 className="assignId">3 items</h4>
-                                                    <div className="deliverTableBx">
-                                                        <Image
-                                                            src={Images.MoneyItem}
-                                                            alt="MoneyItemImage "
-                                                            className="img-fluid ms-1"
-                                                        />
-                                                        <span className="locateDistance">$500.50
-                                                        </span>
-                                                    </div>
-                                                </div>
-                                            </td>
-                                            <td className="invoice_subhead">
-                                                <div className='expresSaver'>
-                                                    <Image src={Images.shipFed} alt="pickupImg image" className="img-fluid shipPickImg m-0" />
-                                                    <div className='subSaver'>
-                                                        <h4 className='assignId'>FedEx Express Saver</h4>
-                                                        <div className='immediateBox mt-1'>
-                                                            <Image src={Images.Fast} alt="deliverFast image" className="img-fluid m-0" />
-                                                            <h4 className='immediateText'>3 Days Shipping</h4>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </td>
-                                            <td className='invoice_subhead verticalBase'>
-                                                <div className='deliverArrow text-end'>
-                                                    <Image src={Images.RightArrow} alt="RightArrow image" className="img-fluid ms-1" />
-                                                </div>
-                                            </td>
-                                        </tr>
-                                        <tr className='product_invoice'>
-                                            <td className='invoice_subhead verticalBase'>
-                                                <h4 className='orderId'>#7869YZ</h4>
-                                            </td>
-                                            <td className="invoice_subhead">
-                                                <div className="nameLocation">
-                                                    <h4 className="assignId">Samara Schwansteiger</h4>
-                                                    <div className="deliverTableBx">
-                                                        <Image
-                                                            src={Images.OrderLocation}
-                                                            alt="location Image"
-                                                            className="img-fluid ms-1"
-                                                        />
-                                                        <span className="locateDistance">2.5 miles</span>
-                                                    </div>
-                                                </div>
-                                            </td>
-                                            <td className="invoice_subhead">
-                                                <div className="itemMoney">
-                                                    <h4 className="assignId">3 items</h4>
-                                                    <div className="deliverTableBx">
-                                                        <Image
-                                                            src={Images.MoneyItem}
-                                                            alt="MoneyItemImage "
-                                                            className="img-fluid ms-1"
-                                                        />
-                                                        <span className="locateDistance">$500.50
-                                                        </span>
-                                                    </div>
-                                                </div>
-                                            </td>
-                                            <td className="invoice_subhead">
-                                                <div className='expresSaver'>
-                                                    <Image src={Images.shipFed} alt="pickupImg image" className="img-fluid shipPickImg m-0" />
-                                                    <div className='subSaver'>
-                                                        <h4 className='assignId'>FedEx Express Saver</h4>
-                                                        <div className='immediateBox mt-1'>
-                                                            <Image src={Images.Fast} alt="deliverFast image" className="img-fluid m-0" />
-                                                            <h4 className='immediateText'>3 Days Shipping</h4>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </td>
-                                            <td className='invoice_subhead verticalBase'>
-                                                <div className='deliverArrow text-end'>
-                                                    <Image src={Images.RightArrow} alt="RightArrow image" className="img-fluid ms-1" />
-                                                </div>
-                                            </td>
-                                        </tr>
+                                        {
+                                            orderData?.length > 0 ?
+                                                orderData?.map((item, i) => {
+                                                    return (
+                                                        <tr key={i} className='product_invoice'>
+                                                            <td className='invoice_subhead verticalBase'>
+                                                                <h4 className='orderId'>#{item?.id}</h4>
+                                                            </td>
+                                                            <td className="invoice_subhead">
+                                                                <div className="nameLocation">
+                                                                    <h4 className="assignId">{item?.user_details?.firstname + " " + item?.user_details?.lastname}</h4>
+                                                                    <div className="deliverTableBx">
+                                                                        <Image
+                                                                            src={Images.OrderLocation}
+                                                                            alt="location Image"
+                                                                            className="img-fluid ms-1"
+                                                                        />
+                                                                        <span className="locateDistance">{item?.distance ? `${item.distance} miles` : "0"}</span>
+                                                                    </div>
+                                                                </div>
+                                                            </td>
+                                                            <td className="invoice_subhead">
+                                                                <div className="itemMoney">
+                                                                    <h4 className="assignId">{item?.total_items} items</h4>
+                                                                    <div className="deliverTableBx">
+                                                                        <Image
+                                                                            src={Images.MoneyItem}
+                                                                            alt="MoneyItemImage "
+                                                                            className="img-fluid ms-1"
+                                                                        />
+                                                                        <span className="locateDistance">${item?.payable_amount || "00"}
+                                                                        </span>
+                                                                    </div>
+                                                                </div>
+                                                            </td>
+                                                            <td className="invoice_subhead">
+                                                                {
+                                                                    item?.shipping_details &&
+                                                                    <div className='expresSaver'>
+                                                                        <Image width={50} height={50} src={item?.shipping_details?.image} alt="pickupImg image" className="img-fluid shipPickImg m-0" />
+                                                                        <div className='subSaver'>
+                                                                            <h4 className='assignId'>{item?.shipping_details?.title}</h4>
+                                                                            <div className='immediateBox mt-1'>
+                                                                                <Image src={Images.Fast} alt="deliverFast image" className="img-fluid m-0" />
+                                                                                <h4 className='immediateText'>3 Days Shipping</h4>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>}
+                                                            </td>
+                                                            <td className='invoice_subhead verticalBase'>
+                                                                <div className='deliverArrow text-end'>
+                                                                    <Image onClick={() => itemPressHandler(item?.id)} src={Images.RightArrow} alt="RightArrow image" className="img-fluid ms-1" />
+                                                                </div>
+                                                            </td>
+                                                        </tr>
+                                                    )
+                                                })
+                                                :
+                                                <NoOrderFound />
+                                        }
                                     </tbody>
-                                </table> */}
-                                {orderLoading ? (
-                                    <Loading />
-                                ) : (
-                                    <div className="table-responsive deliverTable">
-                                        {orderData?.length == 0 ? (
-                                            <NoOrderFound />
-                                        ) : (
-                                            <OrderListItem
-                                                screen={"DashBoard"}
-                                                orderList={orderData}
-                                                itemPressHandler={itemPressHandler}
-                                            />
-                                        )}
-                                    </div>
-                                )}
+                                </table>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-            <ShipRightSidebar data={customerSidebardata} />
+            <ShipRightSidebar data={orderCount} setOrderListType={setOrderListType} />
         </div>
     )
 }
