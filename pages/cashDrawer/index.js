@@ -9,7 +9,7 @@ import {
   salesTracking,
   DrawerID,
   arrowDown,
-  searchMoney
+  searchMoney,
 } from "../../utilities/images";
 import { Line } from "react-chartjs-2";
 import { Chart as ChartJS, registerables } from "chart.js";
@@ -67,15 +67,21 @@ const CashDrawer = () => {
             <div className="batchDataSub">
               <h4 className="cartText">Batch</h4>
               <div className="flexBox">
-                <Image src={DrawerID} className="img-fluid" alt="mainIcon Image" />
+                <Image
+                  src={DrawerID}
+                  className="img-fluid"
+                  alt="mainIcon Image"
+                />
                 <h4 className="locateDistance">Drawer ID 1</h4>
               </div>
             </div>
-            <button className="viewSessionBtn" type="submit">
-              View Session
-            </button>
+            <Link href="cashDrawer/viewSession">
+              <button className="viewSessionBtn" type="submit">
+                View Session
+              </button>
+            </Link>
           </div>
-          <div className="batchData">
+          {/* <div className="batchData">
             <div className="batchDataSub">
               <h4 className="cartText">Batch</h4>
               <div className="flexBox">
@@ -87,11 +93,9 @@ const CashDrawer = () => {
               Start Tracking Session
               <Image src={searchMoney} className="img-fluid" alt="searchMoney Image" />
             </button>
-          </div>
+          </div> */}
           <div className="cashSession">
-            <h4 className="activateText text-start">
-              Session History
-            </h4>
+            <h4 className="activateText text-start">Session History</h4>
             <Link href="cashDrawer/sessionHistory">
               <Image src={arrowDown} className="img-fluid" alt="arrow image" />
             </Link>

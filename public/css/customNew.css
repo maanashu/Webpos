@@ -23,11 +23,11 @@ figure {
     width: 150px;
     height: 150px;
     border-radius: 128px;
-    border: 6px solid #FFF;
+    border: 6px solid #fff;
 }
 
 .cashierHeading {
-    color: #636E9F;
+    color: #636e9f;
     font-size: 16px;
     font-weight: 500;
     line-height: normal;
@@ -36,7 +36,7 @@ figure {
 }
 
 .userIdText {
-    color: #636E9F;
+    color: #636e9f;
     font-size: 12px;
     font-weight: 500;
     margin: 0 6px;
@@ -51,7 +51,7 @@ figure {
 
 .IdTextMain {
     border-radius: 20px;
-    background: #F7F9FF;
+    background: #f7f9ff;
     mix-blend-mode: multiply;
     padding: 8px 8px 8px 22px;
     position: relative;
@@ -64,7 +64,7 @@ figure {
     width: 8px;
     height: 8px;
     border-radius: 50%;
-    background-color: #58C2E8;
+    background-color: #58c2e8;
     top: 12px;
     left: 10px;
 }
@@ -81,8 +81,9 @@ figure {
 
 .todaySale {
     border-radius: 15px;
-    background: #FFF;
-    box-shadow: -2px 4px 25px 0px rgba(50, 80, 127, 0.02), -5px 10px 80px 0px rgba(50, 80, 127, 0.04);
+    background: #fff;
+    box-shadow: -2px 4px 25px 0px rgba(50, 80, 127, 0.02),
+        -5px 10px 80px 0px rgba(50, 80, 127, 0.04);
     padding: 18px;
     margin-top: 26px;
 }
@@ -108,7 +109,7 @@ figure {
 }
 
 .saleHeading {
-    color: #333B42;
+    color: #333b42;
     font-size: 13px;
     font-weight: 400;
 }
@@ -127,7 +128,7 @@ figure {
     margin-top: 14px;
     border-radius: 15px;
     padding: 24px;
-    background: #F5F6FC;
+    background: #f5f6fc;
 }
 
 .productReturn {
@@ -143,7 +144,7 @@ figure {
 .lockScreenBox {
     border-radius: 30px;
     border: 0px solid #263682;
-    background: #E4E6F2;
+    background: #e4e6f2;
     padding: 14px 24px;
     display: flex;
     justify-content: space-between;
@@ -152,7 +153,7 @@ figure {
 }
 
 .homeRight {
-    background: #FFF;
+    background: #fff;
     padding: 24px;
     height: 100vh;
 }
@@ -163,15 +164,15 @@ figure {
 
 .searchControl {
     border-radius: 50px !important;
-    background: #F5F6FC !important;
-    color: #636E9F !important;
+    background: #f5f6fc !important;
+    color: #636e9f !important;
     font-size: 16px !important;
     font-weight: 400 !important;
     padding: 18px 50px;
 }
 
 .searchControl::placeholder {
-    color: #636E9F;
+    color: #636e9f;
     font-size: 16px;
     font-weight: 400;
 }
@@ -206,7 +207,7 @@ figure {
 }
 
 .sellingOrder .smallText {
-    color: #58C2E8;
+    color: #58c2e8;
     margin-left: 7px;
 }
 
@@ -242,8 +243,8 @@ figure {
 
 .bellOuter {
     border-radius: 50px;
-    border: 1px solid #58C2E8;
-    background: rgba(88, 194, 232, 0.10);
+    border: 1px solid #58c2e8;
+    background: rgba(88, 194, 232, 0.1);
     padding: 10px;
     position: relative;
 }
@@ -253,21 +254,20 @@ figure {
     position: absolute;
     width: 10px;
     height: 10px;
-    background-color: #F97066;
+    background-color: #f97066;
     border-radius: 50%;
     border: 2px solid #111633;
     bottom: 3px;
-
 }
 
 .OrderBtn {
-    color: #58C2E8;
+    color: #58c2e8;
     font-size: 12px;
     font-weight: 500;
     padding: 8px;
     border-radius: 30px;
-    border: 1px solid #58C2E8;
-    background: rgba(88, 194, 232, 0.10);
+    border: 1px solid #58c2e8;
+    background: rgba(88, 194, 232, 0.1);
     margin-top: 10px;
 }
 
@@ -286,7 +286,7 @@ figure {
 }
 
 .orderId {
-    color: #2F3552;
+    color: #2f3552;
     font-size: 12px;
     font-weight: 400;
     max-width: 20ch;
@@ -303,18 +303,18 @@ figure {
 }
 
 .locateDistance {
-    color: #7233C2;
+    color: #7233c2;
     font-size: 12px;
     font-weight: 500;
     margin-left: 4px;
 }
 
 .itemMoney .locateDistance {
-    color: #3CAF77;
+    color: #3caf77;
 }
 
 .itemTime .locateDistance {
-    color: #47B0D6;
+    color: #47b0d6;
 }
 
 .deliveryTime .orderId {
@@ -332,11 +332,11 @@ figure {
 }
 
 .profileSaleData::-webkit-scrollbar-track {
-    background-color: #F5F6FC;
+    background-color: #f5f6fc;
 }
 
 .deliverTable::-webkit-scrollbar-track {
-    background-color: #FFF;
+    background-color: #fff;
 }
 
 .homeOverview {
@@ -350,21 +350,20 @@ figure {
 }
 
 .deliverSubdata {
-    border-bottom: 1px solid #E4E6F2;
-    border-top: 1px solid #E4E6F2;
+    border-bottom: 1px solid #e4e6f2;
+    border-top: 1px solid #e4e6f2;
     padding: 14px;
-
 }
 
 .deliverSubdata:first-child {
     border-radius: 10px 0 0 10px !important;
-    border-left: 1px solid #E4E6F2;
+    border-left: 1px solid #e4e6f2;
     vertical-align: baseline;
 }
 
 .deliverSubdata:last-child {
     border-radius: 0 10px 10px 0px;
-    border-right: 1px solid #E4E6F2;
+    border-right: 1px solid #e4e6f2;
 }
 
 #tableProduct {
@@ -382,9 +381,11 @@ figure {
 
 #trackingModal .modal-content {
     border-radius: 30px;
-    background: #FFF;
+    background: #fff;
     padding: 0 !important;
-    box-shadow: -3px 6px 7px 0px rgba(52, 79, 117, 0.03), -12px 28px 25px 0px rgba(52, 79, 117, 0.04), -31px 74px 80px 0px rgba(52, 79, 117, 0.07);
+    box-shadow: -3px 6px 7px 0px rgba(52, 79, 117, 0.03),
+        -12px 28px 25px 0px rgba(52, 79, 117, 0.04),
+        -31px 74px 80px 0px rgba(52, 79, 117, 0.07);
 }
 
 .modal_cancel {
@@ -417,15 +418,16 @@ figure {
     display: flex;
     padding: 18px 24px;
     border-radius: 50px;
-    border: 1px solid #D7DEFF;
-    background: #FFF;
-    box-shadow: -2px 4px 25px 0px rgba(50, 80, 127, 0.02), -5px 10px 80px 0px rgba(50, 80, 127, 0.04);
+    border: 1px solid #d7deff;
+    background: #fff;
+    box-shadow: -2px 4px 25px 0px rgba(50, 80, 127, 0.02),
+        -5px 10px 80px 0px rgba(50, 80, 127, 0.04);
 }
 
 .trackingSelect {
     border: none !important;
     outline: none;
-    background-color: #FFF;
+    background-color: #fff;
     color: #263682 !important;
     font-size: 18px !important;
     font-weight: 400 !important;
@@ -434,7 +436,7 @@ figure {
 }
 
 .trackingInput {
-    background-color: #FFF;
+    background-color: #fff;
     color: #263682 !important;
     font-size: 18px !important;
     font-weight: 400 !important;
@@ -466,15 +468,16 @@ figure {
 
 .textControl {
     border-radius: 16px;
-    border: 1px solid #D7DEFF !important;
-    background: #FFF !important;
-    box-shadow: -5px 10px 80px 0px rgba(50, 80, 127, 0.04), 0px 0px 0px 5px rgba(38, 54, 130, 0.06), 0px 1px 2px 0px rgba(127, 143, 217, 0.47) !important;
+    border: 1px solid #d7deff !important;
+    background: #fff !important;
+    box-shadow: -5px 10px 80px 0px rgba(50, 80, 127, 0.04),
+        0px 0px 0px 5px rgba(38, 54, 130, 0.06),
+        0px 1px 2px 0px rgba(127, 143, 217, 0.47) !important;
     outline: none;
     color: #263682 !important;
     font-size: 16px !important;
     font-weight: 400 !important;
     padding: 18px 18px 18px 40px;
-
 }
 
 .textAreaSection {
@@ -505,18 +508,21 @@ figure {
     top: 183px;
     height: calc(100vh - 214px);
     border-radius: 20px;
-    border: 1px solid #F5F6FC;
+    border: 1px solid #f5f6fc;
     padding: 24px 16px;
-    background: #FFF;
+    background: #fff;
     width: 100%;
     max-width: 500px;
-    box-shadow: -3px 6px 7px 0px rgba(52, 79, 117, 0.03), -12px 28px 25px 0px rgba(52, 79, 117, 0.04), -31px 74px 80px 0px rgba(52, 79, 117, 0.07), -152px 0px 90px 62px rgba(52, 79, 117, 0.10);
+    box-shadow: -3px 6px 7px 0px rgba(52, 79, 117, 0.03),
+        -12px 28px 25px 0px rgba(52, 79, 117, 0.04),
+        -31px 74px 80px 0px rgba(52, 79, 117, 0.07),
+        -152px 0px 90px 62px rgba(52, 79, 117, 0.1);
 }
 
 .cartSubInfo {
     display: flex;
     border-radius: 8px;
-    border: 1px solid #F5F6FC;
+    border: 1px solid #f5f6fc;
     padding: 8px 16px;
     align-items: center;
     justify-content: space-between;
@@ -530,19 +536,18 @@ figure {
 }
 
 .cartText {
-    color: #2F3552;
+    color: #2f3552;
     font-size: 12px;
     font-weight: 500;
 }
 
 .orderTime {
     display: flex;
-
 }
 
 .cartProfileImg {
     border-radius: 50%;
-    border: 1.25px solid #FFF;
+    border: 1.25px solid #fff;
     width: 20px;
     height: 20px;
     border-radius: 50%;
@@ -561,8 +566,8 @@ figure {
 }
 
 .tomorrowCart .appointmentDate {
-    background-color: #EFFBFF !important;
-    color: #47B0D6 !important;
+    background-color: #effbff !important;
+    color: #47b0d6 !important;
 }
 
 .AddtoCart .appointmentDate {
@@ -572,18 +577,18 @@ figure {
 }
 
 .todayCart .appointmentDate {
-    background-color: #D1FADF;
+    background-color: #d1fadf;
     color: #039855;
 }
 
 .afterCart .appointmentDate {
-    background-color: #FFF7D7;
-    color: #DC6803;
+    background-color: #fff7d7;
+    color: #dc6803;
 }
 
 .incrementBtn {
     border-radius: 8px;
-    border: 1px solid #F5F6FC;
+    border: 1px solid #f5f6fc;
     display: flex;
     align-items: center;
 }
@@ -591,15 +596,15 @@ figure {
 .incrementBtn:hover,
 .incrementBtn.active {
     border-radius: 6px;
-    border: 1px solid #D7DEFF !important;
-    background: #FFF;
+    border: 1px solid #d7deff !important;
+    background: #fff;
     box-shadow: 0px 0px 0px 4px rgba(127, 143, 217, 0.05);
 }
 
 .unitPriceControl.active {
     border-radius: 6px;
-    border: 1px solid #D7DEFF !important;
-    background: #FFF;
+    border: 1px solid #d7deff !important;
+    background: #fff;
     box-shadow: 0px 0px 0px 4px rgba(127, 143, 217, 0.05);
 }
 
@@ -610,12 +615,12 @@ figure {
 }
 
 .addBtnControl {
-    color: #636E9F !important;
+    color: #636e9f !important;
     text-align: center !important;
     font-size: 14px !important;
     font-weight: 400 !important;
-    border-left: 1px solid #D7DEFF;
-    border-right: 1px solid #D7DEFF;
+    border-left: 1px solid #d7deff;
+    border-right: 1px solid #d7deff;
     background-color: #fff !important;
     border-radius: 0 !important;
     max-width: 40px;
@@ -624,7 +629,7 @@ figure {
 }
 
 .addBtnControl::placeholder {
-    color: #636E9F;
+    color: #636e9f;
 }
 
 .cartSubInfo .checkmark {
@@ -632,15 +637,17 @@ figure {
 }
 
 .cartSubInfo.active {
-    border: 1px solid #D7DEFF;
-    background: #FFF;
-    box-shadow: -2px 4px 25px 0px rgba(50, 80, 127, 0.02), -5px 10px 80px 0px rgba(50, 80, 127, 0.04);
+    border: 1px solid #d7deff;
+    background: #fff;
+    box-shadow: -2px 4px 25px 0px rgba(50, 80, 127, 0.02),
+        -5px 10px 80px 0px rgba(50, 80, 127, 0.04);
 }
 
 .cartSubInfo:hover {
-    border: 1px solid #D7DEFF;
-    background: #FFF;
-    box-shadow: -2px 4px 25px 0px rgba(50, 80, 127, 0.02), -5px 10px 80px 0px rgba(50, 80, 127, 0.04);
+    border: 1px solid #d7deff;
+    background: #fff;
+    box-shadow: -2px 4px 25px 0px rgba(50, 80, 127, 0.02),
+        -5px 10px 80px 0px rgba(50, 80, 127, 0.04);
 }
 
 .addBtnControl::-webkit-outer-spin-button,
@@ -705,7 +712,7 @@ figure {
 }
 
 .divideBorder {
-    background-color: #E4E6F2;
+    background-color: #e4e6f2;
 }
 
 .subFooter {
@@ -734,7 +741,7 @@ figure {
 }
 
 .addServicePara {
-    color: #636E9F;
+    color: #636e9f;
     font-size: 14px;
     font-weight: 400;
     margin-top: 8px;
@@ -772,7 +779,7 @@ figure {
 
 .consultInfo .Timezone {
     border-radius: 20px;
-    background: rgba(228, 230, 242, 0.50);
+    background: rgba(228, 230, 242, 0.5);
     display: flex;
     align-items: center;
 }
@@ -784,27 +791,28 @@ figure {
 
 .addServiceProfile {
     border-radius: 16px;
-    border: 1px solid #D7DEFF;
+    border: 1px solid #d7deff;
     padding: 12px 10px;
     margin-top: 12px;
     text-align: center;
 }
 
 .addServiceProfile.active {
-    border: 1px solid #6F84E8;
-    background: #F5F6FC;
-    box-shadow: -2px 4px 25px 0px rgba(50, 80, 127, 0.02), -5px 10px 80px 0px rgba(50, 80, 127, 0.04);
+    border: 1px solid #6f84e8;
+    background: #f5f6fc;
+    box-shadow: -2px 4px 25px 0px rgba(50, 80, 127, 0.02),
+        -5px 10px 80px 0px rgba(50, 80, 127, 0.04);
 }
 
 .providerImage {
-    border: 3px solid #E4E6F2;
+    border: 3px solid #e4e6f2;
     width: 48px;
     height: 48px;
     border-radius: 50%;
 }
 
 .providerSubText {
-    color: #7E8AC1;
+    color: #7e8ac1;
     font-size: 12px;
     font-weight: 500;
     text-align: center;
@@ -820,7 +828,6 @@ figure {
     display: flex;
     align-items: flex-start;
     justify-content: space-between;
-
 }
 
 .appointMain {
@@ -838,9 +845,10 @@ figure {
 
 .appointmenMonth {
     border-radius: 50px;
-    border: 1px solid #D7DEFF;
-    background: #FFF;
-    box-shadow: -2px 4px 25px 0px rgba(50, 80, 127, 0.02), -5px 10px 80px 0px rgba(50, 80, 127, 0.04);
+    border: 1px solid #d7deff;
+    background: #fff;
+    box-shadow: -2px 4px 25px 0px rgba(50, 80, 127, 0.02),
+        -5px 10px 80px 0px rgba(50, 80, 127, 0.04);
     padding: 10px;
     cursor: pointer;
 }
@@ -866,7 +874,7 @@ figure {
 
 .scheduleTime {
     border-radius: 8px;
-    border: 1px solid #D7DEFF;
+    border: 1px solid #d7deff;
     padding: 12px 10px;
     text-align: center;
     width: 100%;
@@ -874,8 +882,8 @@ figure {
 
 .scheduleTime.active {
     border-radius: 8px;
-    border: 1px solid #12B76A;
-    background: #D1FADF;
+    border: 1px solid #12b76a;
+    background: #d1fadf;
 }
 
 .scheduleTime.active .addServicePara {
@@ -885,7 +893,7 @@ figure {
 
 .scheduleTimeImg {
     border-radius: 8px;
-    border: 1px solid #D7DEFF;
+    border: 1px solid #d7deff;
     padding: 12px 10px;
     width: 100%;
     height: 45px;
@@ -911,7 +919,6 @@ figure {
 .appointmentSection {
     position: relative;
     padding: 30px 26px !important;
-
 }
 
 .fullCartSection {
@@ -934,7 +941,7 @@ figure {
 }
 
 .cartDivide {
-    background-color: #D7DEFF;
+    background-color: #d7deff;
     margin: 30px 0;
 }
 
@@ -967,8 +974,8 @@ figure {
 
 .unitPriceControl {
     border-radius: 6px;
-    border: 1px solid #E4E6F2;
-    background: #F5F6FC;
+    border: 1px solid #e4e6f2;
+    background: #f5f6fc;
     padding: 8px !important;
     width: 70px !important;
     margin: 0 !important;
@@ -1005,7 +1012,7 @@ figure {
 
 .addproductCart {
     border-radius: 12px;
-    background: #F5F6FC;
+    background: #f5f6fc;
     padding: 10px 16px;
     display: flex;
     align-items: center;
@@ -1014,7 +1021,7 @@ figure {
 
 .deleteProductCart {
     border-radius: 12px;
-    background: #FEE4E2;
+    background: #fee4e2;
     padding: 10px 16px;
     display: flex;
     align-items: center;
@@ -1022,18 +1029,18 @@ figure {
 }
 
 .deleteProductCart .monthText {
-    color: #D92D20;
+    color: #d92d20;
 }
 
 .cartOfferSection {
     border-radius: 20px;
-    border: 1.5px solid #FFD74B;
+    border: 1.5px solid #ffd74b;
     margin-top: 30px;
 }
 
 .availablePercent {
     border-radius: 12px 12px 0px 0px;
-    background: #FFD74B;
+    background: #ffd74b;
     padding: 12px 16px;
     display: flex;
 }
@@ -1045,19 +1052,19 @@ figure {
 }
 
 .offerHeading {
-    color: #5D4800;
+    color: #5d4800;
     font-size: 20px;
     font-weight: 500;
 }
 
 .offerCartImg {
     border-radius: 7.5px;
-    background: #FFF7D7;
+    background: #fff7d7;
     padding: 5px 10px;
 }
 
 .offerCartImg.active {
-    border: 1.25px solid #FFEEB3;
+    border: 1.25px solid #ffeeb3;
 }
 
 .availableoffer {
@@ -1065,8 +1072,7 @@ figure {
     align-items: flex-start;
     justify-content: space-between;
     padding: 8px 8px 16px 8px;
-    border-bottom: 1px solid #FEEFC6;
-
+    border-bottom: 1px solid #feefc6;
 }
 
 .offerdata {
@@ -1083,7 +1089,7 @@ figure {
 
 .availablemain {
     overflow: hidden;
-    color: #5D4800;
+    color: #5d4800;
     text-overflow: ellipsis;
     font-size: 12px;
     font-weight: 500;
@@ -1093,7 +1099,7 @@ figure {
 }
 
 .availableTime {
-    color: #C29613;
+    color: #c29613;
     font-size: 12px;
     font-weight: 500;
     margin-top: 4px;
@@ -1104,29 +1110,29 @@ figure {
 }
 
 .availablePrice {
-    color: #C29613;
+    color: #c29613;
     font-size: 12px;
     font-weight: 400;
     margin-top: 16px;
 }
 
 .actualPrice {
-    color: #5D4800;
+    color: #5d4800;
     font-size: 12px;
     font-weight: 400;
     margin: 16px 0 0 16px;
 }
 
 .offerdata::-webkit-scrollbar-thumb {
-    background-color: #FFEEB3 !important;
+    background-color: #ffeeb3 !important;
 }
 
 .discountBtn {
     border-radius: 12px;
-    background: #FFD74B;
+    background: #ffd74b;
     padding: 10px 24px;
     border: none;
-    color: #5D4800;
+    color: #5d4800;
     font-size: 16px;
     font-weight: 500;
     outline: none;
@@ -1141,7 +1147,7 @@ figure {
 
 .notesBtn {
     border-radius: 12px;
-    background: #F5F6FC;
+    background: #f5f6fc;
     padding: 10px 16px;
     color: #263682;
     font-size: 16px;
@@ -1152,23 +1158,23 @@ figure {
 
 .totalCheckout {
     border-radius: 16px;
-    background: #F5F6FC;
+    background: #f5f6fc;
     padding: 16px;
 }
 
 .lightOfferText {
-    color: #7E8AC1;
+    color: #7e8ac1;
     font-size: 14px;
     font-weight: 400;
 }
 
 .offerCartTotal {
-    border-bottom: 2px dotted #7E8AC1;
+    border-bottom: 2px dotted #7e8ac1;
     padding-bottom: 10px;
 }
 
 .totalText {
-    color: #2F3552;
+    color: #2f3552;
     font-size: 14px;
     font-weight: 600;
 }
@@ -1193,7 +1199,7 @@ figure {
 
 .serviceDate {
     border-radius: 16px;
-    border: 1px solid #F7F9FF;
+    border: 1px solid #f7f9ff;
     padding: 10px;
 }
 
@@ -1205,13 +1211,13 @@ figure {
 }
 
 .serviceDate.active {
-    background: #12B76A;
+    background: #12b76a;
     border: none;
 }
 
 .serviceDate.active .productName,
 .serviceDate.active .dateText {
-    color: #ECFDF3;
+    color: #ecfdf3;
 }
 
 .serviceDayTime {
@@ -1235,8 +1241,10 @@ figure {
 #returnInventoryModal .modal-content,
 #confirmShipModal .modal-content {
     border-radius: 30px !important;
-    background: #FFF !important;
-    box-shadow: -3px 6px 6px 0px rgba(52, 79, 117, 0.03), -12px 28px 25px 0px rgba(52, 79, 117, 0.04), -31px 74px 80px 0px rgba(52, 79, 117, 0.07) !important;
+    background: #fff !important;
+    box-shadow: -3px 6px 6px 0px rgba(52, 79, 117, 0.03),
+        -12px 28px 25px 0px rgba(52, 79, 117, 0.04),
+        -31px 74px 80px 0px rgba(52, 79, 117, 0.07) !important;
     padding: 30px 24px;
 }
 
@@ -1278,8 +1286,10 @@ figure {
 #createCustomerModal .modal-content,
 #customerFoundModal .modal-content {
     border-radius: 30px !important;
-    background: #FFF !important;
-    box-shadow: -3px 6px 6px 0px rgba(52, 79, 117, 0.03), -12px 28px 25px 0px rgba(52, 79, 117, 0.04), -31px 74px 80px 0px rgba(52, 79, 117, 0.07) !important;
+    background: #fff !important;
+    box-shadow: -3px 6px 6px 0px rgba(52, 79, 117, 0.03),
+        -12px 28px 25px 0px rgba(52, 79, 117, 0.04),
+        -31px 74px 80px 0px rgba(52, 79, 117, 0.07) !important;
     padding: 24px;
 }
 
@@ -1291,8 +1301,8 @@ figure {
 
 .customerInput {
     border-radius: 50px !important;
-    border: 1px solid #E4E6F2 !important;
-    background: #FFF !important;
+    border: 1px solid #e4e6f2 !important;
+    background: #fff !important;
     box-shadow: 0px 0px 0px 4px rgba(127, 143, 217, 0.05) !important;
     padding: 16px 8px 16px 46px !important;
     color: #263682 !important;
@@ -1335,7 +1345,7 @@ figure {
     font-weight: 400;
     padding: 18px 40px;
     border-radius: 30px;
-    background: #E4E6F2;
+    background: #e4e6f2;
     border: none;
 }
 
@@ -1375,9 +1385,10 @@ figure {
 
 .nameControl {
     border-radius: 50px;
-    border: 1px solid #D7DEFF !important;
-    background: #FFF;
-    box-shadow: -2px 4px 25px 0px rgba(50, 80, 127, 0.02), -5px 10px 80px 0px rgba(50, 80, 127, 0.04);
+    border: 1px solid #d7deff !important;
+    background: #fff;
+    box-shadow: -2px 4px 25px 0px rgba(50, 80, 127, 0.02),
+        -5px 10px 80px 0px rgba(50, 80, 127, 0.04);
     padding: 12px 18px 12px 24px !important;
     color: #263682 !important;
     font-size: 18px !important;
@@ -1385,7 +1396,7 @@ figure {
 }
 
 .nameControl::placeholder {
-    color: #636E9F !important;
+    color: #636e9f !important;
     font-size: 18px !important;
     font-weight: 400 !important;
 }
@@ -1417,7 +1428,7 @@ figure {
 }
 
 .confirmBack {
-    color: #4659B5;
+    color: #4659b5;
     font-size: 14px;
     font-weight: 400;
 }
@@ -1454,8 +1465,8 @@ figure {
 
 .coinAverageSub {
     border-radius: 16px;
-    border: 1.5px solid #D8B9FF;
-    background: rgba(245, 237, 255, 0.50);
+    border: 1.5px solid #d8b9ff;
+    background: rgba(245, 237, 255, 0.5);
     padding: 16px;
     width: 100%;
     max-width: 200px;
@@ -1475,14 +1486,14 @@ figure {
 }
 
 .coinHeading {
-    color: #7233C2;
+    color: #7233c2;
     text-align: center;
     font-size: 30px;
     font-weight: 500;
 }
 
 .coinSubText {
-    color: #7233C2;
+    color: #7233c2;
     text-align: center;
     font-size: 12px;
     font-weight: 500;
@@ -1490,7 +1501,7 @@ figure {
 
 .confirmRightSub {
     padding: 24px !important;
-    border-bottom: 2px dashed #D7DEFF !important;
+    border-bottom: 2px dashed #d7deff !important;
 }
 
 .confirmRight .maplePriceBox {
@@ -1516,12 +1527,11 @@ figure {
 }
 
 .coinAverageSub.active .coinHeading {
-    color: #F5EDFF;
+    color: #f5edff;
 }
 
 .coinAverageSub.active .coinSubText {
-    color: #F5EDFF;
-
+    color: #f5edff;
 }
 
 .confirmSubSuccess {
@@ -1533,7 +1543,7 @@ figure {
 
 .ThankBox {
     border-radius: 40px;
-    background: #F5F6FC;
+    background: #f5f6fc;
     padding: 60px 50px;
     width: 100%;
     max-width: 344px;
@@ -1545,8 +1555,8 @@ figure {
 
 .coinPercentSelect {
     border-radius: 16px;
-    border: 1.5px solid #D8B9FF;
-    background: rgba(245, 237, 255, 0.50);
+    border: 1.5px solid #d8b9ff;
+    background: rgba(245, 237, 255, 0.5);
     padding: 30px 0;
     width: 100%;
     cursor: pointer;
@@ -1554,12 +1564,12 @@ figure {
 
 .coinPercentSelect.active {
     border-radius: 16px;
-    background: #914BEB;
+    background: #914beb;
 }
 
 .coinPercentSelect.active .coinHeading,
 .coinPercentSelect.active .coinSubText {
-    color: #F5EDFF;
+    color: #f5edff;
 }
 
 .coinAverageSelect {
@@ -1578,7 +1588,6 @@ figure {
 
 .confirmFirst {
     padding: 0 20px 20px 20px;
-
 }
 
 .confirmStep .coinSubText {
@@ -1614,9 +1623,8 @@ figure {
     font-size: 16px;
     font-weight: 500;
     border-radius: 30px;
-    background: #FEDF89;
+    background: #fedf89;
     padding: 0 8px;
-
 }
 
 .jobrCoinFooter {
@@ -1628,7 +1636,7 @@ figure {
 
 .giftCardBox {
     border-radius: 20px;
-    background: #F5EDFF;
+    background: #f5edff;
     padding: 6px;
     display: flex;
     align-items: center;
@@ -1638,7 +1646,7 @@ figure {
 }
 
 .giftHeading {
-    color: #7233C2;
+    color: #7233c2;
     font-size: 12px;
     font-weight: 600;
 }
@@ -1668,9 +1676,9 @@ figure {
 
 .eReciptBtn {
     border-radius: 30px;
-    background: #12B76A;
+    background: #12b76a;
     padding: 18px 20px;
-    color: #F5F6FC;
+    color: #f5f6fc;
     font-size: 18px;
     font-weight: 400;
     border: none;
@@ -1683,7 +1691,7 @@ figure {
 .jobrCoinBox.active {
     background: #172461;
     box-shadow: 0px 0px 0px 4px rgba(127, 143, 217, 0.15);
-    color: #E4E6F2;
+    color: #e4e6f2;
 }
 
 .jobrCoinBox.active .jobrCoinDark {
@@ -1704,7 +1712,7 @@ figure {
     font-size: 18px;
     font-weight: 500;
     border-radius: 8px;
-    background: #D1FADF;
+    background: #d1fadf;
     padding: 12px;
 }
 
@@ -1714,9 +1722,9 @@ figure {
 
 .giftCardBox.active {
     border-radius: 20px;
-    border: 0px solid #914BEB;
-    background: #7233C2;
-    box-shadow: 0px 0px 0px 3px rgba(145, 75, 235, 0.10);
+    border: 0px solid #914beb;
+    background: #7233c2;
+    box-shadow: 0px 0px 0px 3px rgba(145, 75, 235, 0.1);
 }
 
 .giftCardBox.active .giftLightOffer {
@@ -1728,7 +1736,7 @@ figure {
 }
 
 .giftCardBox.active .giftHeading {
-    color: #F5EDFF;
+    color: #f5edff;
 }
 
 .cardControl {
@@ -1738,9 +1746,10 @@ figure {
     font-weight: 500 !important;
     padding: 18px 18px 18px 24px;
     border-radius: 50px;
-    border: 1px solid #D7DEFF;
-    background: #FFF;
-    box-shadow: -2px 4px 25px 0px rgba(50, 80, 127, 0.02), -5px 10px 80px 0px rgba(50, 80, 127, 0.04);
+    border: 1px solid #d7deff;
+    background: #fff;
+    box-shadow: -2px 4px 25px 0px rgba(50, 80, 127, 0.02),
+        -5px 10px 80px 0px rgba(50, 80, 127, 0.04);
 }
 
 .cardControl::placeholder {
@@ -1761,7 +1770,7 @@ figure {
 .totalBtn {
     border-radius: 30px;
     border: 0px solid #263682;
-    background: #F5F6FC;
+    background: #f5f6fc;
     color: #263682;
     font-size: 18px;
     font-weight: 500;
@@ -1780,8 +1789,10 @@ figure {
 
 #jobrWalletModal .modal-content {
     border-radius: 30px !important;
-    background: #FFF !important;
-    box-shadow: -3px 6px 6px 0px rgba(52, 79, 117, 0.03), -12px 28px 25px 0px rgba(52, 79, 117, 0.04), -31px 74px 80px 0px rgba(52, 79, 117, 0.07);
+    background: #fff !important;
+    box-shadow: -3px 6px 6px 0px rgba(52, 79, 117, 0.03),
+        -12px 28px 25px 0px rgba(52, 79, 117, 0.04),
+        -31px 74px 80px 0px rgba(52, 79, 117, 0.07);
     padding: 24px 40px 40px 40px !important;
 }
 
@@ -1809,7 +1820,7 @@ figure {
     font-weight: 500;
     padding: 12px;
     border-radius: 30px;
-    background: #F5F6FC;
+    background: #f5f6fc;
     margin: 12px 0;
 }
 
@@ -1830,9 +1841,10 @@ figure {
 
 .walletControl {
     border-radius: 50px;
-    border: 1px solid #D7DEFF;
-    background: #FFF !important;
-    box-shadow: -2px 4px 25px 0px rgba(50, 80, 127, 0.02), -5px 10px 80px 0px rgba(50, 80, 127, 0.04) !important;
+    border: 1px solid #d7deff;
+    background: #fff !important;
+    box-shadow: -2px 4px 25px 0px rgba(50, 80, 127, 0.02),
+        -5px 10px 80px 0px rgba(50, 80, 127, 0.04) !important;
     color: #263682 !important;
     text-align: center !important;
     font-size: 20px !important;
@@ -1859,7 +1871,7 @@ figure {
 .walletModalBtn .nextverifyBtn {
     border-radius: 30px;
     background: #263682;
-    color: #F5F6FC;
+    color: #f5f6fc;
     font-size: 18px;
     font-weight: 400;
     letter-spacing: -0.36px;
@@ -1869,7 +1881,6 @@ figure {
 
 .walletModalBtn .serviceCancel {
     padding: 18px 30px;
-
 }
 
 .walletForm::before {
@@ -1879,7 +1890,7 @@ figure {
     position: absolute;
     left: -40px;
     top: -50px;
-    background: var(--Neutrals-N-100, #D7DEFF);
+    background: var(--Neutrals-N-100, #d7deff);
 }
 
 .walletForm {
@@ -1897,14 +1908,14 @@ figure {
 
 .rightSidebarItems.active .sidebarBg {
     border-radius: 12px;
-    background: #F5F6FC;
+    background: #f5f6fc;
 }
 
 .cartNum {
     border-radius: 50px;
-    border: 1.5px solid #F5F6FC;
+    border: 1.5px solid #f5f6fc;
     background: #263682;
-    color: #F5F6FC;
+    color: #f5f6fc;
     font-size: 12px;
     font-weight: 500;
     position: absolute;
@@ -1944,7 +1955,7 @@ figure {
 .productIncrement {
     margin: 30px 0 !important;
     border-radius: 16px !important;
-    border: 1px solid #D7DEFF !important;
+    border: 1px solid #d7deff !important;
     justify-content: space-between;
 }
 
@@ -1952,7 +1963,6 @@ figure {
     max-width: 100% !important;
     padding: 10px !important;
     margin: 0 !important;
-
 }
 
 .productIncrement .plusMinus {
@@ -1975,7 +1985,7 @@ figure {
 
 .productSubData {
     border-radius: 6px;
-    background: #F5F6FC;
+    background: #f5f6fc;
     padding: 4px 8px;
     display: flex;
     align-items: center;
@@ -1998,7 +2008,7 @@ figure {
 
 .stockSub {
     border-radius: 16px;
-    border: 1px solid #D7DEFF;
+    border: 1px solid #d7deff;
     margin-top: 16px;
     padding: 16px;
 }
@@ -2012,15 +2022,15 @@ figure {
 
 .stockSubBox {
     border-radius: 10px;
-    border: 1px solid #D7DEFF;
+    border: 1px solid #d7deff;
     padding: 16px;
     width: 100%;
 }
 
 .blueSize {
     border-radius: 6px;
-    border: 1px solid #D7DEFF;
-    background: #F7F9FF;
+    border: 1px solid #d7deff;
+    background: #f7f9ff;
     padding: 4px 8px;
 }
 
@@ -2033,52 +2043,52 @@ figure {
 
 .redSize {
     border-radius: 6px;
-    border: 1px solid #F04438;
-    background: #F97066;
+    border: 1px solid #f04438;
+    background: #f97066;
     padding: 4px 8px;
 }
 
 .redSize .sizeText {
-    color: #5B0600;
+    color: #5b0600;
 }
 
 .redStock {
     border-radius: 6px;
-    border: 0px solid #D7DEFF;
-    background: #FEE4E2;
+    border: 0px solid #d7deff;
+    background: #fee4e2;
     padding: 4px 8px;
 }
 
 .redStock .sizeText {
-    color: #5B0600;
+    color: #5b0600;
 }
 
 .Notify {
     border-radius: 50px;
-    background: #F5F6FC;
+    background: #f5f6fc;
     padding: 2px 6px;
 }
 
 .yellowSize {
     border-radius: 6px;
-    border: 1px solid #FEC84B;
-    background: #FEDF89;
+    border: 1px solid #fec84b;
+    background: #fedf89;
     padding: 4px 8px;
 }
 
 .yellowSize .sizeText {
-    color: #93370D;
+    color: #93370d;
 }
 
 .yellowStock {
     border-radius: 6px;
-    border: 0px solid #D7DEFF;
-    background: #FEEFC6;
+    border: 0px solid #d7deff;
+    background: #feefc6;
     padding: 4px 8px;
 }
 
 .yellowStock .sizeText {
-    color: #93370D;
+    color: #93370d;
 }
 
 .noNotify {
@@ -2088,7 +2098,7 @@ figure {
 
 .storeAvailable {
     border-radius: 12px;
-    border: 1px solid #E4E6F2;
+    border: 1px solid #e4e6f2;
     padding: 10px 12px;
     display: flex;
     align-items: center;
@@ -2126,12 +2136,12 @@ figure {
     transform: translate(100%, -50%);
     background: #fff;
     border: none;
-    border: 2px solid #fff
+    border: 2px solid #fff;
 }
 
 .roundCheck input[type="checkbox"]:checked {
-    background: #4659B5;
-    border: 2px solid #4659B5;
+    background: #4659b5;
+    border: 2px solid #4659b5;
 }
 
 .roundCheck {
@@ -2141,7 +2151,7 @@ figure {
 }
 
 .productGreyDot {
-    background-color: #D7DEFF;
+    background-color: #d7deff;
     width: 8px;
     height: 8px;
     border-radius: 50%;
@@ -2154,8 +2164,8 @@ figure {
 
 .orderAroundImg {
     border-radius: 50px;
-    border: 0px solid #E4E6F2;
-    background: #F5F6FC;
+    border: 0px solid #e4e6f2;
+    background: #f5f6fc;
     padding: 10px;
 }
 
@@ -2186,12 +2196,12 @@ figure {
 
 .deliverOrderStatus {
     border-radius: 16px;
-    background: #FFF;
+    background: #fff;
     padding: 24px;
 }
 
 .deliverMainText {
-    color: #2F3552;
+    color: #2f3552;
     font-size: 14px;
     font-weight: 400;
 }
@@ -2199,8 +2209,9 @@ figure {
 .currentStatus {
     margin: 20px 0;
     border-radius: 16px;
-    background: #FFF;
-    box-shadow: -2px 4px 25px 0px rgba(50, 80, 127, 0.02), -5px 10px 80px 0px rgba(50, 80, 127, 0.04);
+    background: #fff;
+    box-shadow: -2px 4px 25px 0px rgba(50, 80, 127, 0.02),
+        -5px 10px 80px 0px rgba(50, 80, 127, 0.04);
     padding: 24px 16px;
 }
 
@@ -2209,14 +2220,14 @@ figure {
     align-items: center;
     gap: 10px;
     border-radius: 12px;
-    border: 1px solid #914BEB;
+    border: 1px solid #914beb;
     padding: 10px;
     margin-top: 20px;
 }
 
 .expressImg {
     border-radius: 8px;
-    background: rgba(228, 230, 242, 0.50);
+    background: rgba(228, 230, 242, 0.5);
     padding: 5px;
 }
 
@@ -2231,13 +2242,13 @@ figure {
     align-items: center;
     gap: 10px;
     border-radius: 12px;
-    border: 1px solid #B985FD;
+    border: 1px solid #b985fd;
     padding: 10px;
     margin-top: 20px;
 }
 
 .oneHrDeliver .expessText {
-    color: #7233C2;
+    color: #7233c2;
 }
 
 .twoHrDelivery {
@@ -2245,13 +2256,13 @@ figure {
     align-items: center;
     gap: 10px;
     border-radius: 12px;
-    border: 1px solid #D8B9FF;
+    border: 1px solid #d8b9ff;
     padding: 10px;
     margin-top: 20px;
 }
 
 .twoHrDelivery .expessText {
-    color: #914BEB;
+    color: #914beb;
 }
 
 .pickupDeliver {
@@ -2259,15 +2270,16 @@ figure {
     align-items: center;
     gap: 10px;
     border-radius: 12px;
-    border: 1px solid #D7DEFF;
+    border: 1px solid #d7deff;
     padding: 10px;
     margin-top: 20px;
 }
 
 .deliverOrder {
     border-radius: 16px;
-    background: #FFF;
-    box-shadow: -2px 4px 25px 0px rgba(50, 80, 127, 0.02), -5px 10px 80px 0px rgba(50, 80, 127, 0.04);
+    background: #fff;
+    box-shadow: -2px 4px 25px 0px rgba(50, 80, 127, 0.02),
+        -5px 10px 80px 0px rgba(50, 80, 127, 0.04);
     padding: 24px;
 }
 
@@ -2282,16 +2294,16 @@ figure {
 }
 
 .orderDeliverText {
-    color: #7233C2;
+    color: #7233c2;
     font-size: 14px;
     font-weight: 400;
 }
 
 .deliverPercent {
     border-radius: 20px;
-    background: #F5EDFF;
+    background: #f5edff;
     padding: 3px 6px 3px 23px;
-    color: #7233C2;
+    color: #7233c2;
     font-size: 12px;
     font-weight: 500;
     position: relative;
@@ -2303,36 +2315,36 @@ figure {
     position: absolute;
     width: 8px;
     height: 8px;
-    background-color: #B985FD;
+    background-color: #b985fd;
     border-radius: 50%;
     top: 7px;
     left: 10px;
 }
 
 .returnOrder .orderDeliverText {
-    color: #C29613;
+    color: #c29613;
 }
 
 .returnOrder .deliverPercent {
-    background-color: #FFF7D7 !important;
-    color: #C29613 !important;
+    background-color: #fff7d7 !important;
+    color: #c29613 !important;
 }
 
 .returnOrder .deliverPercent::before {
-    background-color: #FFD74B !important;
+    background-color: #ffd74b !important;
 }
 
 .cancelOrder .orderDeliverText {
-    color: #F04438;
+    color: #f04438;
 }
 
 .cancelOrder .deliverPercent {
-    background-color: #FEF3F2 !important;
-    color: #D92D20 !important;
+    background-color: #fef3f2 !important;
+    color: #d92d20 !important;
 }
 
 .cancelOrder .deliverPercent::before {
-    background-color: #F97066 !important;
+    background-color: #f97066 !important;
 }
 
 /* .deliverSubOuter {
@@ -2346,7 +2358,7 @@ figure {
 
 .deliverGraphSection {
     border-radius: 20px;
-    background: #FFF;
+    background: #fff;
     /* box-shadow: -2px 4px 25px 0px rgba(50, 80, 127, 0.02), -5px 10px 80px 0px rgba(50, 80, 127, 0.04); */
     padding: 24px;
 }
@@ -2366,11 +2378,12 @@ figure {
 }
 
 .checkBlue label:before {
-    content: '';
+    content: "";
     -webkit-appearance: none;
-    background-color: #D7DEFF;
-    border: 1px solid #4659B5;
-    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05), inset 0px -15px 10px -12px rgba(0, 0, 0, 0.05);
+    background-color: #d7deff;
+    border: 1px solid #4659b5;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05),
+        inset 0px -15px 10px -12px rgba(0, 0, 0, 0.05);
     padding: 8px;
     display: inline-block;
     position: relative;
@@ -2381,7 +2394,7 @@ figure {
 }
 
 .checkBlue input:checked+label:after {
-    content: '';
+    content: "";
     display: block;
     position: absolute;
     top: 3px;
@@ -2400,45 +2413,45 @@ figure {
 }
 
 .checkPurple label:before {
-    border: 1px solid #7233C2;
-    background-color: #F5EDFF;
+    border: 1px solid #7233c2;
+    background-color: #f5edff;
 }
 
 .checkPurple input:checked+label:after {
-    border: solid #914BEB;
+    border: solid #914beb;
     border-width: 0 2px 2px 0;
 }
 
 .checkPurple .appointSub {
-    color: #7233C2;
+    color: #7233c2;
 }
 
 .checkYellow label:before {
-    border: 1px solid #FFD74B;
-    background-color: #FFF7D7;
+    border: 1px solid #ffd74b;
+    background-color: #fff7d7;
 }
 
 .checkYellow input:checked+label:after {
-    border: solid #FDB022;
+    border: solid #fdb022;
     border-width: 0 2px 2px 0;
 }
 
 .checkYellow .appointSub {
-    color: #DBAF18;
+    color: #dbaf18;
 }
 
 .checkRed label:before {
-    border: 1px solid #F97066;
-    background-color: #FEE4E2;
+    border: 1px solid #f97066;
+    background-color: #fee4e2;
 }
 
 .checkRed input:checked+label:after {
-    border: solid #F04438;
+    border: solid #f04438;
     border-width: 0 2px 2px 0;
 }
 
 .checkRed .appointSub {
-    color: #F04438;
+    color: #f04438;
 }
 
 .barChartImg {
@@ -2453,26 +2466,27 @@ figure {
 
 .deliverOrderData {
     border-radius: 20px;
-    background: #FFF;
-    box-shadow: -2px 4px 25px 0px rgba(50, 80, 127, 0.02), -5px 10px 80px 0px rgba(50, 80, 127, 0.04);
+    background: #fff;
+    box-shadow: -2px 4px 25px 0px rgba(50, 80, 127, 0.02),
+        -5px 10px 80px 0px rgba(50, 80, 127, 0.04);
     padding: 16px;
     margin-top: 20px;
 }
 
 .deliverTableBx {
     border-radius: 20px;
-    background: #F5EDFF;
+    background: #f5edff;
     padding: 2px 4px;
     display: inline-block;
     margin-top: 5px;
 }
 
 .itemMoney .deliverTableBx {
-    background: #ECFDF3;
+    background: #ecfdf3;
 }
 
 .itemTime .deliverTableBx {
-    background: #EFFBFF;
+    background: #effbff;
 }
 
 .deliverOrderData .deliverTable {
@@ -2495,7 +2509,7 @@ figure {
 
 .collapseToggle {
     border-radius: 30px;
-    background: #F5F6FC;
+    background: #f5f6fc;
     padding: 8px 24px 8px 6px;
     display: flex;
     align-items: center;
@@ -2526,8 +2540,8 @@ figure {
     transition: 1s;
     z-index: 999;
     border-radius: 30px;
-    border: 0px solid #D7DEFF;
-    background: #FFF;
+    border: 0px solid #d7deff;
+    background: #fff;
     padding: 16px 10px;
 }
 
@@ -2544,8 +2558,8 @@ figure {
     transition: 1s;
     z-index: 999;
     border-radius: 30px;
-    border: 0px solid #D7DEFF;
-    background: #FFF;
+    border: 0px solid #d7deff;
+    background: #fff;
     padding: 16px 10px;
 }
 
@@ -2567,45 +2581,46 @@ figure {
 }
 
 .orderReview .deliverPercent {
-    background-color: #F5F6FC;
-    color: #7E8AC1;
+    background-color: #f5f6fc;
+    color: #7e8ac1;
 }
 
 .orderReview .deliverPercent::before {
-    background-color: #B6C2FF;
+    background-color: #b6c2ff;
 }
 
 .purpleOrder .deliverPercent {
-    background-color: #F5EDFF;
-    color: #7233C2;
+    background-color: #f5edff;
+    color: #7233c2;
 }
 
 .purpleOrder .deliverPercent::before {
-    background-color: #B985FD;
+    background-color: #b985fd;
 }
 
 .purpleOrder .loginSub {
-    color: #7233C2;
+    color: #7233c2;
 }
 
 .cancelOrder .loginSub {
-    color: #D92D20;
+    color: #d92d20;
 }
 
 .returnOrder .loginSub {
-    color: #F79009;
+    color: #f79009;
 }
 
 .deliverOrderLeft {
     border-radius: 20px;
-    background: #FFF;
-    box-shadow: -2px 4px 25px 0px rgba(50, 80, 127, 0.02), -5px 9px 80px 0px rgba(50, 80, 127, 0.04);
+    background: #fff;
+    box-shadow: -2px 4px 25px 0px rgba(50, 80, 127, 0.02),
+        -5px 9px 80px 0px rgba(50, 80, 127, 0.04);
     padding: 24px 16px;
 }
 
 .deliverOrderRight {
     border-radius: 20px;
-    background: #FFF;
+    background: #fff;
     padding: 16px;
 }
 
@@ -2618,7 +2633,7 @@ figure {
 
 .deliverDashboardTable .product_invoice {
     border-radius: 12px;
-    outline: 2px solid #F7F9FF;
+    outline: 2px solid #f7f9ff;
     background-color: transparent;
 }
 
@@ -2628,29 +2643,29 @@ figure {
 
 .cartSubInfo.active .incrementBtn {
     border-radius: 6px;
-    border: 1px solid #D7DEFF !important;
-    background: #FFF;
+    border: 1px solid #d7deff !important;
+    background: #fff;
     box-shadow: 0px 0px 0px 4px rgba(127, 143, 217, 0.05);
 }
 
 .cartSubInfo:hover .incrementBtn {
     border-radius: 6px;
-    border: 1px solid #D7DEFF !important;
-    background: #FFF;
+    border: 1px solid #d7deff !important;
+    background: #fff;
     box-shadow: 0px 0px 0px 4px rgba(127, 143, 217, 0.05);
 }
 
 .cartSubInfo.active .unitPriceControl {
     border-radius: 6px;
-    border: 1px solid #D7DEFF !important;
-    background: #FFF;
+    border: 1px solid #d7deff !important;
+    background: #fff;
     box-shadow: 0px 0px 0px 4px rgba(127, 143, 217, 0.05);
 }
 
 .cartSubInfo:hover .unitPriceControl {
     border-radius: 6px;
-    border: 1px solid #D7DEFF !important;
-    background: #FFF;
+    border: 1px solid #d7deff !important;
+    background: #fff;
     box-shadow: 0px 0px 0px 4px rgba(127, 143, 217, 0.05);
 }
 
@@ -2663,7 +2678,7 @@ figure {
 
 .orderDeliverTable .product_invoice {
     border-radius: 12px;
-    outline: 2px solid #F7F9FF;
+    outline: 2px solid #f7f9ff;
     background-color: transparent;
 }
 
@@ -2673,16 +2688,18 @@ figure {
 
 .orderDeliverTable .product_invoice.active {
     border-radius: 12px;
-    outline: 1px solid #B6C2FF;
-    background: #FFF;
-    box-shadow: -2px 4px 25px 0px rgba(50, 80, 127, 0.02), -5px 10px 80px 0px rgba(50, 80, 127, 0.04);
+    outline: 1px solid #b6c2ff;
+    background: #fff;
+    box-shadow: -2px 4px 25px 0px rgba(50, 80, 127, 0.02),
+        -5px 10px 80px 0px rgba(50, 80, 127, 0.04);
 }
 
 .orderDeliverTable .product_invoice:hover {
     border-radius: 12px;
-    outline: 1px solid #B6C2FF;
-    background: #FFF;
-    box-shadow: -2px 4px 25px 0px rgba(50, 80, 127, 0.02), -5px 10px 80px 0px rgba(50, 80, 127, 0.04);
+    outline: 1px solid #b6c2ff;
+    background: #fff;
+    box-shadow: -2px 4px 25px 0px rgba(50, 80, 127, 0.02),
+        -5px 10px 80px 0px rgba(50, 80, 127, 0.04);
 }
 
 .orderLeftInfo {
@@ -2705,7 +2722,7 @@ figure {
 }
 
 .expressText {
-    color: #7233C2;
+    color: #7233c2;
     font-size: 16px;
     font-weight: 500;
 }
@@ -2715,12 +2732,12 @@ figure {
     align-items: center;
     gap: 4px;
     border-radius: 20px;
-    background: #FFF7D7;
+    background: #fff7d7;
     padding: 3px 4px;
 }
 
 .immediateText {
-    color: #DC6803;
+    color: #dc6803;
     font-size: 12px;
     font-weight: 500;
 }
@@ -2739,9 +2756,9 @@ figure {
     display: flex;
     padding: 8px 20px;
     border-radius: 30px;
-    background: #58C2E8;
+    background: #58c2e8;
     align-items: center;
-    color: #F5F6FC;
+    color: #f5f6fc;
     font-size: 14px;
     font-weight: 500;
     border: none;
@@ -2749,14 +2766,14 @@ figure {
 }
 
 .assignId {
-    color: #2F3552;
+    color: #2f3552;
     font-size: 12px;
     font-weight: 500;
 }
 
 .driverImg {
     border-radius: 166px;
-    border: 1.25px solid #FFF;
+    border: 1.25px solid #fff;
     width: 20px;
     height: 20px;
 }
@@ -2767,8 +2784,9 @@ figure {
 
 .assignLeft {
     border-radius: 20px;
-    background: #FFF;
-    box-shadow: -2px 4px 25px 0px rgba(50, 80, 127, 0.02), -5px 10px 80px 0px rgba(50, 80, 127, 0.04);
+    background: #fff;
+    box-shadow: -2px 4px 25px 0px rgba(50, 80, 127, 0.02),
+        -5px 10px 80px 0px rgba(50, 80, 127, 0.04);
     padding: 24px 16px 12px 16px;
 }
 
@@ -2783,8 +2801,10 @@ figure {
 
 .orderStatusBox {
     border-radius: 20px;
-    background: #FFF;
-    box-shadow: -3px 6px 6px 0px rgba(52, 79, 117, 0.03), -12px 28px 25px 0px rgba(52, 79, 117, 0.04), -31px 74px 80px 0px rgba(52, 79, 117, 0.07);
+    background: #fff;
+    box-shadow: -3px 6px 6px 0px rgba(52, 79, 117, 0.03),
+        -12px 28px 25px 0px rgba(52, 79, 117, 0.04),
+        -31px 74px 80px 0px rgba(52, 79, 117, 0.07);
     padding: 18px 24px;
     position: absolute;
     bottom: 16px;
@@ -2801,9 +2821,11 @@ figure {
     right: 16px;
     padding: 16px;
     border-radius: 30px;
-    background: #FFF;
+    background: #fff;
     cursor: pointer;
-    box-shadow: -3px 6px 6px 0px rgba(52, 79, 117, 0.03), -12px 28px 25px 0px rgba(52, 79, 117, 0.04), -31px 74px 80px 0px rgba(52, 79, 117, 0.07);
+    box-shadow: -3px 6px 6px 0px rgba(52, 79, 117, 0.03),
+        -12px 28px 25px 0px rgba(52, 79, 117, 0.04),
+        -31px 74px 80px 0px rgba(52, 79, 117, 0.07);
 }
 
 .orderFlex {
@@ -2829,7 +2851,7 @@ figure {
 }
 
 .orderPara {
-    color: #7E8AC1;
+    color: #7e8ac1;
     font-size: 12px;
     font-weight: 400;
     margin-top: 5px;
@@ -2837,7 +2859,7 @@ figure {
 
 .jobrPickUp {
     border-radius: 20px;
-    background: #F5EDFF;
+    background: #f5edff;
     padding: 4px 6px;
     display: flex;
     align-items: center;
@@ -2860,13 +2882,14 @@ figure {
 
 .mapleLeft {
     border-radius: 20px;
-    background: #FFF;
-    box-shadow: -2px 4px 25px 0px rgba(50, 80, 127, 0.02), -5px 10px 80px 0px rgba(50, 80, 127, 0.04);
+    background: #fff;
+    box-shadow: -2px 4px 25px 0px rgba(50, 80, 127, 0.02),
+        -5px 10px 80px 0px rgba(50, 80, 127, 0.04);
 }
 
 .orderDeliverTime {
     border-radius: 20px;
-    background: #FFF7D7;
+    background: #fff7d7;
     padding: 2px 4px;
     display: inline-block;
     margin-top: 5px;
@@ -2890,48 +2913,49 @@ figure {
 
 .cancelUserBx {
     border-radius: 20px;
-    background: rgba(228, 235, 241, 0.60);
+    background: rgba(228, 235, 241, 0.6);
     padding: 3px 4px;
     display: inline-flex;
     align-items: center;
 }
 
 .cancelText {
-    color: #535E68;
+    color: #535e68;
     font-size: 12px;
     font-weight: 500;
 }
 
 .canceltimeBx {
     border-radius: 8px;
-    background: #FEF3F2;
+    background: #fef3f2;
     padding: 3px 12px 3px 6px;
     display: inline-flex;
     align-items: center;
 }
 
 .cancelLight {
-    color: #F04438;
+    color: #f04438;
     font-size: 12px;
     font-weight: 400;
 }
 
 .cancelBold {
-    color: #F04438;
+    color: #f04438;
     font-size: 12px;
     font-weight: 500;
 }
 
 .cancelOrderLeft {
     border-radius: 20px;
-    background: var(--Surfaces-S-Top, #FFF);
-    box-shadow: -2px 4px 25px 0px rgba(50, 80, 127, 0.02), -5px 10px 80px 0px rgba(50, 80, 127, 0.04);
+    background: var(--Surfaces-S-Top, #fff);
+    box-shadow: -2px 4px 25px 0px rgba(50, 80, 127, 0.02),
+        -5px 10px 80px 0px rgba(50, 80, 127, 0.04);
     padding: 24px 16px 12px 16px;
 }
 
 .cancelOrderRight {
     border-radius: 20px;
-    background: #FFF;
+    background: #fff;
     padding: 16px;
 }
 
@@ -2943,7 +2967,7 @@ figure {
 
 .locationOrder {
     border-radius: 8px;
-    background: #F5EDFF;
+    background: #f5edff;
     padding: 4px 6px;
     display: inline-flex;
     align-items: center;
@@ -2966,16 +2990,16 @@ figure {
 
 .cancelUserBtn {
     border-radius: 30px;
-    background: #9BA8E3;
+    background: #9ba8e3;
     padding: 10px 20px;
-    color: #F5F6FC;
+    color: #f5f6fc;
     font-size: 14px;
     font-weight: 500;
     border: none;
 }
 
 .recentText {
-    border-bottom: 0.75px solid #D7DEFF;
+    border-bottom: 0.75px solid #d7deff;
     color: #263682;
     font-size: 12px;
     font-weight: 500;
@@ -3003,7 +3027,7 @@ figure {
 }
 
 .cancelHeading {
-    color: #F04438;
+    color: #f04438;
     font-size: 14px;
     font-weight: 500;
 }
@@ -3019,7 +3043,7 @@ figure {
 
 .constomerBx {
     border-radius: 15px;
-    border: 1px solid #F5F6FC;
+    border: 1px solid #f5f6fc;
     padding: 12px;
     display: flex;
     align-items: center;
@@ -3067,7 +3091,7 @@ figure {
 
 .checkBtn {
     border-radius: 30px;
-    background: #E4E6F2;
+    background: #e4e6f2;
     display: flex;
     align-items: center;
     padding: 18px 24px;
@@ -3084,20 +3108,21 @@ figure {
     border: none;
     border-radius: 30px;
     background: #263682;
-    color: #F5F6FC;
+    color: #f5f6fc;
     font-size: 18px;
     font-weight: 400;
 }
 
 .constomerBx.active,
 .constomerBx:hover {
-    border: 1px solid #B4BEEB;
-    background: #FFF;
-    box-shadow: -2px 3px 25px 0px rgba(50, 80, 127, 0.02), -4px 9px 80px 0px rgba(50, 80, 127, 0.04);
+    border: 1px solid #b4beeb;
+    background: #fff;
+    box-shadow: -2px 3px 25px 0px rgba(50, 80, 127, 0.02),
+        -4px 9px 80px 0px rgba(50, 80, 127, 0.04);
 }
 
 .returnPara {
-    color: #8D99D2;
+    color: #8d99d2;
     font-size: 11px;
     font-weight: 400;
     text-overflow: ellipsis;
@@ -3111,7 +3136,7 @@ figure {
     align-items: center;
     justify-content: space-between;
     border-radius: 8px;
-    border: 1px solid #F5F6FC;
+    border: 1px solid #f5f6fc;
     padding: 8px 16px;
     gap: 16px;
     margin-top: 8px;
@@ -3127,7 +3152,7 @@ figure {
     position: absolute;
     top: 0;
     left: 0;
-    height: 100Vh;
+    height: 100vh;
     z-index: -1;
     width: 100%;
 }
@@ -3177,7 +3202,7 @@ figure {
 }
 
 .shipReturnText {
-    color: #12B76A;
+    color: #12b76a;
     font-size: 24px;
     font-weight: 500;
 }
@@ -3188,18 +3213,19 @@ figure {
 
 .shipDeliverLeft {
     border-radius: 20px;
-    background: #FFF;
-    box-shadow: -2px 4px 25px 0px rgba(50, 80, 127, 0.02), -5px 10px 80px 0px rgba(50, 80, 127, 0.04);
+    background: #fff;
+    box-shadow: -2px 4px 25px 0px rgba(50, 80, 127, 0.02),
+        -5px 10px 80px 0px rgba(50, 80, 127, 0.04);
     padding: 24px 16px 12px 16px;
 }
 
 .innerHead {
-    border-bottom: 1px solid #D7DEFF;
+    border-bottom: 1px solid #d7deff;
     padding: 8px 12px;
 }
 
 .processText {
-    color: #4659B5;
+    color: #4659b5;
     font-size: 12px;
     font-weight: 500;
 }
@@ -3216,7 +3242,7 @@ figure {
 
 .barcodeBtn {
     border-radius: 30px;
-    background: #F5F6FC;
+    background: #f5f6fc;
     padding: 8px 10px;
     border: none;
     outline: none;
@@ -3239,8 +3265,9 @@ figure {
 /*setting css start*/
 .deviceLeft {
     border-radius: 20px;
-    background: #FFF;
-    box-shadow: -2px 4px 25px 0px rgba(50, 80, 127, 0.02), -5px 10px 80px 0px rgba(50, 80, 127, 0.04);
+    background: #fff;
+    box-shadow: -2px 4px 25px 0px rgba(50, 80, 127, 0.02),
+        -5px 10px 80px 0px rgba(50, 80, 127, 0.04);
     padding: 16px;
 }
 
@@ -3259,8 +3286,8 @@ figure {
 
 .settingList {
     border-radius: 8px;
-    border: 1px solid #F5F6FC;
-    background: #FFF;
+    border: 1px solid #f5f6fc;
+    background: #fff;
     padding: 8px 8px 8px 6px;
     display: flex;
     align-items: center;
@@ -3269,13 +3296,13 @@ figure {
 }
 
 .settingText {
-    color: #7E8AC1;
+    color: #7e8ac1;
     font-size: 14px;
     font-weight: 500;
 }
 
 .settingSub {
-    color: #7E8AC1;
+    color: #7e8ac1;
     font-size: 12px;
     font-weight: 500;
 }
@@ -3289,8 +3316,9 @@ figure {
 .settingList:hover {
     border-radius: 8px;
     border: 1px solid transparent;
-    background: #FFF;
-    box-shadow: -2px 4px 25px 0px rgb(50 80 127 / 2%), -5px 10px 80px 0px rgb(50 80 127 / 4%);
+    background: #fff;
+    box-shadow: -2px 4px 25px 0px rgb(50 80 127 / 2%),
+        -5px 10px 80px 0px rgb(50 80 127 / 4%);
 }
 
 .settingList.active .settingText,
@@ -3314,8 +3342,9 @@ figure {
 
 .deviceRight {
     border-radius: 20px;
-    background: #FFF;
-    box-shadow: -2px 4px 25px 0px rgba(50, 80, 127, 0.02), -5px 10px 80px 0px rgba(50, 80, 127, 0.04);
+    background: #fff;
+    box-shadow: -2px 4px 25px 0px rgba(50, 80, 127, 0.02),
+        -5px 10px 80px 0px rgba(50, 80, 127, 0.04);
     padding: 40px 30px 24px 30px;
     display: flex;
     align-items: start;
@@ -3336,7 +3365,7 @@ figure {
 
 .SubReader {
     border-radius: 16px;
-    background: #F5F6FC;
+    background: #f5f6fc;
     padding: 12px;
     text-align: center;
     width: 100%;
@@ -3345,14 +3374,15 @@ figure {
 
 .configureBox {
     border-radius: 16px;
-    border: 1px solid #D7DEFF;
+    border: 1px solid #d7deff;
     padding: 24px;
 }
 
 .staffRight {
     border-radius: 20px;
-    background: #FFF;
-    box-shadow: -2px 4px 25px 0px rgba(50, 80, 127, 0.02), -5px 9px 80px 0px rgba(50, 80, 127, 0.04);
+    background: #fff;
+    box-shadow: -2px 4px 25px 0px rgba(50, 80, 127, 0.02),
+        -5px 9px 80px 0px rgba(50, 80, 127, 0.04);
     padding: 40px 40px 24px 40px;
     display: flex;
     align-items: start;
@@ -3365,7 +3395,7 @@ figure {
 
 .staffListSub {
     border-radius: 16px;
-    border: 1px solid #D7DEFF;
+    border: 1px solid #d7deff;
     padding: 16px 24px;
     margin-top: 10px;
     display: flex;
@@ -3390,7 +3420,7 @@ figure {
 
 .staffUserImg {
     border-radius: 215px;
-    border: 3px solid #FFF;
+    border: 3px solid #fff;
     width: 40px;
     height: 40px;
 }
@@ -3418,8 +3448,10 @@ figure {
 #AddNotes .modal-content,
 #AddDiscount .modal-content {
     border-radius: 20px !important;
-    background: #FFF !important;
-    box-shadow: -2px 6px 6px 0px rgba(52, 79, 117, 0.03), -11px 28px 25px 0px rgba(52, 79, 117, 0.04), -31px 74px 80px 0px rgba(52, 79, 117, 0.07) !important;
+    background: #fff !important;
+    box-shadow: -2px 6px 6px 0px rgba(52, 79, 117, 0.03),
+        -11px 28px 25px 0px rgba(52, 79, 117, 0.04),
+        -31px 74px 80px 0px rgba(52, 79, 117, 0.07) !important;
     padding: 24px !important;
     border: none;
 }
@@ -3445,8 +3477,9 @@ figure {
 
 .selectRole .form-select {
     border-radius: 50px;
-    border: 1px solid #D7DEFF;
-    box-shadow: -2px 4px 25px 0px rgba(50, 80, 127, 0.02), -5px 10px 80px 0px rgba(50, 80, 127, 0.04);
+    border: 1px solid #d7deff;
+    box-shadow: -2px 4px 25px 0px rgba(50, 80, 127, 0.02),
+        -5px 10px 80px 0px rgba(50, 80, 127, 0.04);
     padding: 12px 18px;
     color: #263682;
     font-size: 18px;
@@ -3457,8 +3490,9 @@ figure {
 
 .memberColor {
     border-radius: 50px;
-    border: 1px solid #D7DEFF;
-    box-shadow: -2px 4px 25px 0px rgba(50, 80, 127, 0.02), -5px 10px 80px 0px rgba(50, 80, 127, 0.04);
+    border: 1px solid #d7deff;
+    box-shadow: -2px 4px 25px 0px rgba(50, 80, 127, 0.02),
+        -5px 10px 80px 0px rgba(50, 80, 127, 0.04);
     padding: 18px;
     display: flex;
     align-items: center;
@@ -3493,13 +3527,13 @@ figure {
 
 .staffDetailRight {
     border-radius: 20px;
-    background: #FFF;
+    background: #fff;
     padding: 16px 24px;
 }
 
 .staffInfoBox {
     border-radius: 20px;
-    background: #F5F6FC;
+    background: #f5f6fc;
     padding: 16px 28px;
     margin: 25px 0 12px 0;
     display: flex;
@@ -3552,19 +3586,19 @@ figure {
 
 .staffSubTime {
     border-radius: 16px;
-    border: 1px solid #D7DEFF;
+    border: 1px solid #d7deff;
     padding: 12px;
     width: 100%;
 }
 
 .staffTimeDivide {
-    background: #E4E6F2;
+    background: #e4e6f2;
     margin: 8px 0;
 }
 
 .staffDetailtable {
     border-radius: 20px;
-    border: 1px solid #D7DEFF;
+    border: 1px solid #d7deff;
     margin: 12px 0;
     padding: 12px 16px;
     height: calc(70vh - 178px);
@@ -3590,8 +3624,8 @@ figure {
 
 .staffTableOuter {
     border-radius: 30px;
-    border: 1px solid #F5F6FC;
-    background: #FFF;
+    border: 1px solid #f5f6fc;
+    background: #fff;
     padding: 12px 8px !important;
     margin-top: 12px;
 }
@@ -3601,14 +3635,14 @@ figure {
 }
 
 .staffTableText {
-    color: #636E9F;
+    color: #636e9f;
     font-size: 12px;
     font-weight: 500;
 }
 
 .paidBtn {
     border-radius: 30px;
-    background: #A6F4C5;
+    background: #a6f4c5;
     padding: 4px 13px;
     color: #027547;
     font-size: 12px;
@@ -3619,7 +3653,7 @@ figure {
 .viewBtn {
     padding: 4px 6px;
     border-radius: 30px;
-    background: #E4E6F2;
+    background: #e4e6f2;
     color: #263682;
     border: none;
     font-size: 12px;
@@ -3628,9 +3662,9 @@ figure {
 
 .unpaidBtn {
     border-radius: 30px;
-    background: #FEE4E2;
+    background: #fee4e2;
     padding: 4px 13px;
-    color: #D92D20;
+    color: #d92d20;
     font-size: 12px;
     font-weight: 500;
     border: none;
@@ -3641,16 +3675,17 @@ figure {
     background: #263682;
     padding: 4px 8px;
     border: none;
-    color: #FFF;
+    color: #fff;
     font-size: 12px;
     font-weight: 500;
 }
 
 .staffSubData {
     border-radius: 20px;
-    border: 1px solid #D7DEFF;
-    background: #FFF;
-    box-shadow: -2px 4px 25px 0px rgba(50, 80, 127, 0.02), -4px 10px 80px 0px rgba(50, 80, 127, 0.04);
+    border: 1px solid #d7deff;
+    background: #fff;
+    box-shadow: -2px 4px 25px 0px rgba(50, 80, 127, 0.02),
+        -4px 10px 80px 0px rgba(50, 80, 127, 0.04);
 }
 
 .staffTableHeading {
@@ -3673,8 +3708,8 @@ figure {
 
 .staffBoxSub {
     border-radius: 30px;
-    border: 1px solid #D7DEFF;
-    background: #FFF;
+    border: 1px solid #d7deff;
+    background: #fff;
     padding: 12px 8px !important;
     width: 90%;
     display: flex;
@@ -3695,8 +3730,8 @@ figure {
 
 .staffSecond {
     border-radius: 30px;
-    border: 1px solid #D7DEFF;
-    background: #FFF;
+    border: 1px solid #d7deff;
+    background: #fff;
     padding: 12px 8px !important;
     width: 90%;
     display: flex;
@@ -3704,7 +3739,6 @@ figure {
     justify-content: space-between;
     position: relative;
     margin-top: 8px;
-
 }
 
 .staffSecond::before {
@@ -3720,19 +3754,20 @@ figure {
 .staffTableOuter.active,
 .staffTableOuter:hover {
     border-radius: 20px;
-    border: 1px solid #D7DEFF;
-    background: #FFF;
-    box-shadow: -2px 3px 25px 0px rgba(50, 80, 127, 0.02), -5px 10px 80px 0px rgba(50, 80, 127, 0.04);
+    border: 1px solid #d7deff;
+    background: #fff;
+    box-shadow: -2px 3px 25px 0px rgba(50, 80, 127, 0.02),
+        -5px 10px 80px 0px rgba(50, 80, 127, 0.04);
 }
 
 .staffLocateRight {
     border-radius: 20px;
-    background: #FFF;
+    background: #fff;
     padding: 16px 24px;
 }
 
 .JobrLocation {
-    background-color: #F5F6FC;
+    background-color: #f5f6fc;
     padding: 40px;
     border-radius: 12px;
     width: 85%;
@@ -3775,7 +3810,7 @@ figure {
 
 .billSection {
     border-radius: 15.955px;
-    border: 1px solid #D7DEFF;
+    border: 1px solid #d7deff;
     padding: 20px 40px;
 }
 
@@ -3842,15 +3877,16 @@ figure {
 
 .locationAddBtn {
     border-radius: 50px;
-    border: 1px solid #D7DEFF;
+    border: 1px solid #d7deff;
     padding: 10px;
     background-color: transparent;
 }
 
 .securityRight {
     border-radius: 20px;
-    background: #FFF;
-    box-shadow: -2px 4px 25px 0px rgba(50, 80, 127, 0.02), -5px 10px 80px 0px rgba(50, 80, 127, 0.04);
+    background: #fff;
+    box-shadow: -2px 4px 25px 0px rgba(50, 80, 127, 0.02),
+        -5px 10px 80px 0px rgba(50, 80, 127, 0.04);
     padding: 24px 30px;
     display: flex;
     align-items: start;
@@ -3859,8 +3895,9 @@ figure {
 
 .agreementRight {
     border-radius: 20px;
-    background: #FFF;
-    box-shadow: -2px 4px 25px 0px rgba(50, 80, 127, 0.02), -5px 9px 80px 0px rgba(50, 80, 127, 0.04);
+    background: #fff;
+    box-shadow: -2px 4px 25px 0px rgba(50, 80, 127, 0.02),
+        -5px 9px 80px 0px rgba(50, 80, 127, 0.04);
 }
 
 .agreePrimary {
@@ -3872,16 +3909,16 @@ figure {
 
 .publishSection {
     border-radius: 10px;
-    border: 1px solid #D7DEFF;
-    background: #FFF;
+    border: 1px solid #d7deff;
+    background: #fff;
     padding: 15px;
     height: 100%;
 }
 
 .policyPublish {
     border-radius: 10px;
-    border: 1px solid #D7DEFF;
-    background: #FFF;
+    border: 1px solid #d7deff;
+    background: #fff;
     padding: 15px;
     margin: 24px;
 }
@@ -3892,7 +3929,7 @@ figure {
 
 .activeBox {
     border-radius: 20px;
-    background: #D1FADF;
+    background: #d1fadf;
     padding: 4px 6px;
     display: flex;
     align-items: center;
@@ -3900,7 +3937,7 @@ figure {
 }
 
 .activeDot {
-    background-color: #32D583;
+    background-color: #32d583;
     width: 8px;
     height: 8px;
     border-radius: 50%;
@@ -3926,7 +3963,7 @@ figure {
 
 .refundData {
     border-radius: 10px;
-    border: 1px solid #D7DEFF;
+    border: 1px solid #d7deff;
     padding: 10px;
     margin: 16px 0;
 }
@@ -3937,7 +3974,7 @@ figure {
 
 .refundRight {
     border-radius: 20px;
-    background: #FFF;
+    background: #fff;
     padding: 40px;
     display: flex;
     align-items: start;
@@ -3949,13 +3986,13 @@ figure {
 }
 
 .refundMainText {
-    color: #636E9F;
+    color: #636e9f;
     font-size: 18px;
     font-weight: 500;
 }
 
 .refundSubText {
-    color: #636E9F;
+    color: #636e9f;
     font-size: 16px;
     font-weight: 400;
 }
@@ -3974,8 +4011,9 @@ figure {
 
 .bussinessRight {
     border-radius: 20px;
-    background: #FFF;
-    box-shadow: -2px 4px 25px 0px rgba(50, 80, 127, 0.02), -5px 10px 80px 0px rgba(50, 80, 127, 0.04);
+    background: #fff;
+    box-shadow: -2px 4px 25px 0px rgba(50, 80, 127, 0.02),
+        -5px 10px 80px 0px rgba(50, 80, 127, 0.04);
     padding: 40px 40px 24px 40px;
     display: flex;
     align-items: start;
@@ -3988,7 +4026,7 @@ figure {
 
 .bussinessSub {
     border-radius: 16px;
-    background: #F5F6FC;
+    background: #f5f6fc;
     padding: 16px 24px;
     display: flex;
     align-items: start;
@@ -4008,8 +4046,9 @@ figure {
 
 .walletConfigRight {
     border-radius: 20px;
-    background: #FFF;
-    box-shadow: -2px 4px 25px 0px rgba(50, 80, 127, 0.02), -5px 10px 80px 0px rgba(50, 80, 127, 0.04);
+    background: #fff;
+    box-shadow: -2px 4px 25px 0px rgba(50, 80, 127, 0.02),
+        -5px 10px 80px 0px rgba(50, 80, 127, 0.04);
     padding: 40px 40px 24px 40px;
     display: flex;
     align-items: start;
@@ -4017,21 +4056,22 @@ figure {
 }
 
 .walletPara {
-    color: #7E8AC1;
+    color: #7e8ac1;
     font-size: 16px;
     font-weight: 400;
 }
 
 .taxRight {
     border-radius: 20px;
-    background: #FFF;
-    box-shadow: -2px 4px 25px 0px rgba(50, 80, 127, 0.02), -5px 10px 80px 0px rgba(50, 80, 127, 0.04);
+    background: #fff;
+    box-shadow: -2px 4px 25px 0px rgba(50, 80, 127, 0.02),
+        -5px 10px 80px 0px rgba(50, 80, 127, 0.04);
     padding: 24px 30px 24px 60px;
 }
 
 .activateMain {
     border-radius: 16px;
-    border: 1px solid #D7DEFF;
+    border: 1px solid #d7deff;
     padding: 16px 24px;
     margin-top: 24px;
     display: flex;
@@ -4043,7 +4083,7 @@ figure {
     border-radius: 30px;
     background: #263682;
     padding: 10px 16px;
-    color: #F5F6FC;
+    color: #f5f6fc;
     font-size: 14px;
     font-weight: 400;
     border: none;
@@ -4062,8 +4102,9 @@ figure {
 
 .selectRole .searchWrapper {
     border-radius: 50px;
-    border: 1px solid #D7DEFF;
-    box-shadow: -2px 4px 25px 0px rgba(50, 80, 127, 0.02), -5px 10px 80px 0px rgba(50, 80, 127, 0.04);
+    border: 1px solid #d7deff;
+    box-shadow: -2px 4px 25px 0px rgba(50, 80, 127, 0.02),
+        -5px 10px 80px 0px rgba(50, 80, 127, 0.04);
     padding: 12px 18px;
     color: #263682;
     font-size: 18px;
@@ -4072,7 +4113,7 @@ figure {
 
 .taxVerifySection {
     border-radius: 16px;
-    background: #F5F6FC;
+    background: #f5f6fc;
     padding: 16px 24px;
     margin-top: 24px;
     display: flex;
@@ -4082,9 +4123,9 @@ figure {
 
 .taxVerifySection .eReciptBtn {
     border-radius: 30px;
-    background: #12B76A;
+    background: #12b76a;
     padding: 10px 16px;
-    color: #F5F6FC;
+    color: #f5f6fc;
     font-size: 14px;
     font-weight: 500;
     border: none;
@@ -4101,7 +4142,7 @@ figure {
 
 .taxCountryMain {
     border-radius: 16px;
-    border: 1px solid #D7DEFF;
+    border: 1px solid #d7deff;
     padding: 16px 24px;
     display: flex;
     align-items: start;
@@ -4148,7 +4189,7 @@ figure {
 .createTaxBtn {
     border-radius: 30px;
     border: 0px solid #263682;
-    background: #F5F6FC;
+    background: #f5f6fc;
     padding: 10px;
     color: #263682;
     font-size: 14px;
@@ -4159,7 +4200,7 @@ figure {
 
 .taxTableMain {
     border-radius: 20px;
-    border: 1px solid #D7DEFF;
+    border: 1px solid #d7deff;
     padding: 16px;
     height: calc(50vh - 100px);
     overflow-y: scroll;
@@ -4177,8 +4218,9 @@ figure {
 
 .areaselect .form-select {
     border-radius: 12px;
-    border: 1px solid #D7DEFF;
-    box-shadow: -2px 4px 25px 0px rgba(50, 80, 127, 0.02), -5px 10px 80px 0px rgba(50, 80, 127, 0.04);
+    border: 1px solid #d7deff;
+    box-shadow: -2px 4px 25px 0px rgba(50, 80, 127, 0.02),
+        -5px 10px 80px 0px rgba(50, 80, 127, 0.04);
     padding: 10px 12px;
     color: #263682;
     font-size: 18px;
@@ -4189,12 +4231,11 @@ figure {
     width: 100%;
     max-width: 110px;
     cursor: pointer;
-
 }
 
 .taxRowTable {
     border-radius: 30px;
-    outline: 1px solid #F5F6FC;
+    outline: 1px solid #f5f6fc;
     padding: 12px 6px;
 }
 
@@ -4203,7 +4244,7 @@ figure {
 }
 
 .taxText {
-    color: #2F3552;
+    color: #2f3552;
     font-size: 12px;
     font-weight: 500;
 }
@@ -4213,7 +4254,7 @@ figure {
 }
 
 .activateText {
-    color: #636E9F;
+    color: #636e9f;
     text-align: center;
     font-size: 18px;
     font-weight: 400;
@@ -4221,14 +4262,14 @@ figure {
 
 .activateCountry {
     border-radius: 20px;
-    border: 1px solid #D7DEFF;
+    border: 1px solid #d7deff;
     padding: 16px;
     margin: 24px 0;
 }
 
 .activteOperating {
     border-radius: 16px;
-    border: 1px solid #D7DEFF;
+    border: 1px solid #d7deff;
     padding: 16px 24px;
     display: flex;
     align-items: center;
@@ -4237,7 +4278,7 @@ figure {
 
 .activateSubCountry {
     border-radius: 16px;
-    border: 1px solid #D7DEFF;
+    border: 1px solid #d7deff;
     padding: 16px 24px;
     width: 80%;
     margin-top: 10px;
@@ -4248,7 +4289,7 @@ figure {
 }
 
 .taxPrimary {
-    color: #47B0D6;
+    color: #47b0d6;
     font-size: 12px;
     font-weight: 500;
 }
@@ -4295,14 +4336,14 @@ figure {
 
 .TaxExemptionBx {
     border-radius: 12px;
-    border: 1px solid #D7DEFF;
+    border: 1px solid #d7deff;
     padding: 24px;
     margin: 12px 0;
 }
 
 .dottedDivide {
     border: none;
-    border-top: 2px dotted #8D99D2;
+    border-top: 2px dotted #8d99d2;
     color: #fff;
     background-color: #fff;
     height: 1px;
@@ -4322,8 +4363,10 @@ figure {
 #barcodeScanModal .modal-content,
 #bluetoothScanModal .modal-content {
     border-radius: 30px !important;
-    background: #FFF !important;
-    box-shadow: -3px 6px 7px 0px rgba(52, 79, 117, 0.03), -12px 28px 25px 0px rgba(52, 79, 117, 0.04), -31px 74px 80px 0px rgba(52, 79, 117, 0.07) !important;
+    background: #fff !important;
+    box-shadow: -3px 6px 7px 0px rgba(52, 79, 117, 0.03),
+        -12px 28px 25px 0px rgba(52, 79, 117, 0.04),
+        -31px 74px 80px 0px rgba(52, 79, 117, 0.07) !important;
     padding: 40px 60px !important;
     border: none !important;
 }
@@ -4351,8 +4394,8 @@ figure {
 
 .codeSubDisplay {
     border-radius: 12px;
-    border: 0px solid #E4E6F2;
-    background: #F5F6FC;
+    border: 0px solid #e4e6f2;
+    background: #f5f6fc;
     padding: 10px 8px;
     height: 42px;
     width: 100%;
@@ -4367,7 +4410,7 @@ figure {
 
 .deviceBarcodeSub {
     border-radius: 16px;
-    background: #F5F6FC;
+    background: #f5f6fc;
     padding: 16px 24px;
     display: flex;
     align-items: start;
@@ -4376,7 +4419,7 @@ figure {
 }
 
 .outer-circle {
-    background-image: linear-gradient(#58C2E8, #58C2E8, #D7DEFF, #D7DEFF);
+    background-image: linear-gradient(#58c2e8, #58c2e8, #d7deff, #d7deff);
     width: 160px;
     height: 160px;
     border-style: solid;
@@ -4401,7 +4444,6 @@ figure {
     align-items: center;
     justify-content: center;
 }
-
 
 @keyframes rotateCircle {
     0% {
@@ -4439,14 +4481,14 @@ figure {
 }
 
 .scanLink {
-    color: #47B0D6 !important;
+    color: #47b0d6 !important;
     font-size: 14px;
     font-weight: 500;
 }
 
 .notificationSection {
     border-radius: 20px;
-    background: #FFF;
+    background: #fff;
     padding: 16px;
 }
 
@@ -4464,18 +4506,20 @@ figure {
     justify-content: space-between;
     margin: 12px 0;
 }
-.dhlImg{
+
+.dhlImg {
     width: 18px;
     height: 18px;
     border-radius: 6px;
 }
+
 /*setting css end*/
 /* cash Drawer css start*/
 .cashDrawOuter {
     height: calc(100vh - 130px);
     overflow-y: hidden;
     border-radius: 20px;
-    background: #FFF;
+    background: #fff;
     margin: 0 16px;
 }
 
@@ -4501,8 +4545,8 @@ figure {
 
 .cashSearchBX {
     border-radius: 50px;
-    border: 1px solid #E4E6F2 !important;
-    background: #FFF;
+    border: 1px solid #e4e6f2 !important;
+    background: #fff;
     padding: 12px 12px 12px 40px !important;
     color: #263682 !important;
     font-size: 14px;
@@ -4514,7 +4558,7 @@ figure {
 }
 
 .cashSearchBX::placeholder {
-    color: #7E8AC1 !important;
+    color: #7e8ac1 !important;
     font-size: 14px !important;
     font-weight: 400 !important;
 }
@@ -4544,8 +4588,8 @@ figure {
 
 .batchData {
     border-radius: 30px;
-    border: 1px solid #F5F6FC;
-    background: #F5F6FC;
+    border: 1px solid #f5f6fc;
+    background: #f5f6fc;
     padding: 8px 8px 8px 26px;
     display: flex;
     align-items: center;
@@ -4562,7 +4606,7 @@ figure {
 .viewSessionBtn {
     border-radius: 30px;
     border: 0px solid #263682;
-    background: #FFF;
+    background: #fff;
     padding: 12px 18px;
     color: #263682;
     font-size: 14px;
@@ -4573,7 +4617,7 @@ figure {
     border-radius: 30px;
     background: #263682;
     padding: 12px 18px;
-    color: #F5F6FC;
+    color: #f5f6fc;
     font-size: 14px;
     font-weight: 400;
     display: flex;
@@ -4589,8 +4633,9 @@ figure {
     margin-top: 24px;
     padding: 18px 18px 18px 24px;
     border-radius: 50px;
-    border: 1px solid #D7DEFF;
-    box-shadow: -2px 4px 25px 0px rgba(50, 80, 127, 0.02), -5px 10px 80px 0px rgba(50, 80, 127, 0.04);
+    border: 1px solid #d7deff;
+    box-shadow: -2px 4px 25px 0px rgba(50, 80, 127, 0.02),
+        -5px 10px 80px 0px rgba(50, 80, 127, 0.04);
 }
 
 .paginationMain {
@@ -4601,7 +4646,7 @@ figure {
 }
 
 .prevText {
-    color: #B4BEEB;
+    color: #b4beeb;
     font-size: 12px;
     font-weight: 500;
 }
@@ -4641,7 +4686,7 @@ figure {
 
 .planRight {
     border-radius: 20px;
-    background: #FFF;
+    background: #fff;
     padding: 24px 40px;
     display: flex;
     align-items: start;
@@ -4650,9 +4695,10 @@ figure {
 
 .planApps {
     border-radius: 20px;
-    border: 2px solid #58C2E8;
-    background: #FFF;
-    box-shadow: -2px 4px 25px 0px rgba(50, 80, 127, 0.02), -5px 10px 80px 0px rgba(50, 80, 127, 0.04);
+    border: 2px solid #58c2e8;
+    background: #fff;
+    box-shadow: -2px 4px 25px 0px rgba(50, 80, 127, 0.02),
+        -5px 10px 80px 0px rgba(50, 80, 127, 0.04);
     padding: 24px 32px;
     margin-top: 24px;
 }
@@ -4668,20 +4714,19 @@ figure {
 }
 
 .entreText {
-    color: #47B0D6;
+    color: #47b0d6;
     font-size: 30px;
     font-weight: 400;
 }
 
 .planAppSub {
-    border-top: 1px dotted #8D99D2;
-    border-bottom: 1px dotted #8D99D2;
+    border-top: 1px dotted #8d99d2;
+    border-bottom: 1px dotted #8d99d2;
     margin: 10px 0;
     padding: 10px 0;
     display: flex;
     align-items: start;
     gap: 50px;
-
 }
 
 .planTickBox {
@@ -4692,13 +4737,13 @@ figure {
 }
 
 .planCyan {
-    color: #47B0D6;
+    color: #47b0d6;
     font-size: 14px;
     font-weight: 500;
 }
 
 .planPara {
-    color: #9BA8E3;
+    color: #9ba8e3;
     font-size: 14px;
     font-weight: 500;
 }
@@ -4927,9 +4972,91 @@ figure {
     cursor: pointer;
 }
 
+.deviceDetailSub {
+    margin-top: 24px;
+}
+
+.SoftwareUpdateBx {
+    border-radius: 16px;
+    border: 1px solid #D7DEFF;
+    padding: 16px 16px;
+    display: flex;
+    align-items: start;
+    gap: 16px;
+}
+
+.deviceInfo {
+    border-radius: 16px;
+    border: 1px solid #D7DEFF;
+    padding: 16px;
+    margin-top: 10px;
+}
+
+.deviceDetailData .cartDivide {
+    margin: 16px 0;
+}
+
+.accordianBox {
+    width: 100%;
+}
+
+.accordianBox .accordion-button:focus {
+    box-shadow: none !important;
+}
+
+.accordianBox .accordion-body {
+    border: none !important;
+}
+
+.accordianBox .accordion-button {
+    position: relative;
+}
+
+.accordianBox .accordion-button::after {
+    position: absolute;
+    left: 260px;
+    margin: 0 auto;
+    width: 24px !important;
+    height: 24px !important;
+    background-size: 20px 20px;
+
+}
+
+.accordnHead .accordion-button::after {
+    border: 2px solid #263682 !important;
+    border-radius: 50% !important;
+    left: 270px;
+}
+
+.saleAccordian {
+    border-radius: 30px;
+    border: 1px solid #F5F6FC;
+    padding: 6px 8px;
+    margin-top: 10px;
+}
+
+.mainAccordn {
+    padding: 0 16px !important;
+}
+
+.accordnText {
+    color: #263682;
+    font-size: 18px;
+    font-weight: 600;
+}
+.sessionBox{
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+.sessionImg{
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+}
 /* cash Drawer css end*/
 /*media query start*/
-@media (max-width:1600px) {
+@media (max-width: 1600px) {
     .cartOfferSection {
         margin-top: 20px;
     }
@@ -4983,7 +5110,7 @@ figure {
     }
 }
 
-@media (max-width:1400px) {
+@media (max-width: 1400px) {
     .serviceDayTime {
         height: calc(50vh - 120px);
         overflow-y: scroll;
@@ -4994,8 +5121,7 @@ figure {
     }
 }
 
-@media (max-width:1366px) {
-
+@media (max-width: 1366px) {
     .offerImg {
         display: flex;
         justify-content: start;
@@ -5009,10 +5135,9 @@ figure {
     .staffInfoBox::before {
         left: 45px;
     }
-
 }
 
-@media (max-width:1280px) {
+@media (max-width: 1280px) {
     .cartInfo {
         height: 200px;
         overflow-y: scroll;
@@ -5053,17 +5178,23 @@ figure {
     }
 }
 
-@media (max-width:1200px) {
-
+@media (max-width: 1200px) {
     .staffInfoBox::before {
         display: none;
     }
 }
 
+/* cashDrawer session history css */
 
+.cashDrawSessionMain {
+    position: relative;
+}
 
-
-
+.sessionHeader {
+    align-items: center;
+    flex-direction: row;
+    display: flex;
+}
 
 /*gaurav arora sir css start*/
 .headingTextStyle {

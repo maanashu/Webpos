@@ -91,7 +91,7 @@ function Plan() {
                             <div className='planMethod'>
                                 <h4 className='amountText m-0'>Payment Method</h4>
                                 <div className='scannerBx mt-2'>
-                                    <Image src={Images.mastercard} alt="mastercard image" className="img-fluid masterImg" />
+                                    <Image src={Images.mastercardImg} alt="mastercard image" className="img-fluid masterImg" />
                                     <h4 className='orderPara m-0'>●●●●  ●●●●  ●●●●  7224</h4>
                                 </div>
                             </div>

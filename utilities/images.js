@@ -335,7 +335,7 @@ import blueCircleTick from "../public/images/blueCircleTick.svg"
 import cyanCircleTick from "../public/images/cyanCircleTick.svg"
 import lightCircleTick from "../public/images/lightCircleTick.svg"
 import simpleCheck from "../public/images/simpleCheck.svg"
-import mastercard from "../public/images/mastercard.svg"
+import mastercardImg from "../public/images/mastercardImg.svg"
 import fillCheck from "../public/images/fillCheck.svg"
 import bussinessCheck from "../public/images/bussinessCheck.svg"
 import locateOuline from "../public/images/locateOuline.svg"
@@ -347,7 +347,7 @@ export {
   locateOuline,
   bussinessCheck,
   fillCheck,
-  mastercard,
+  mastercardImg,
   simpleCheck,
   lightCircleTick,
   cyanCircleTick,
