@@ -14,7 +14,7 @@ import Image from "next/image";
 import { phoneRegex } from "../../utilities/validators";
 import { useRouter } from "next/router";
 
-const AttachWithPhone = ({ phoneModalClose }) => {
+const AttachWithPhone = ({ phoneModalClose, tipUpdate }) => {
   const router = useRouter();
   const dispatch = useDispatch();
   const retailData = useSelector(selectRetailData);
@@ -60,7 +60,8 @@ const AttachWithPhone = ({ phoneModalClose }) => {
               pathname: "/Retails/CartPayByCash",
             });
             dispatch(productCart());
-            phoneModalClose();
+            // phoneModalClose();
+            tipUpdate();
           },
         })
       );

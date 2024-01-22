@@ -17,6 +17,7 @@ import {
   formattedReturnPrice,
 } from "../../utilities/globalMethods";
 import { digitWithDot } from "../../utilities/validators";
+import AddedCartItemsCard from "../../components/AddedCartItemsCard";
 
 const CartPayByCash = () => {
   const dispatch = useDispatch();
@@ -220,24 +221,7 @@ const CartPayByCash = () => {
               </div>
               <div className="mapleProductDetails confirmRightSub">
                 {cartData?.poscart_products?.map((data, index) => {
-                  return (
-                    <div key={index} className="flexBox mapleProductDetailsBox">
-                      <div className="flexbase">
-                        <p className="mapleProductcount">× {index + 1}</p>
-                        <article className="ms-3">
-                          <p className="mapleProductHeading">
-                            {data?.product_details?.name}
-                          </p>
-                          <span className="mapleProductcount">Yellow / M</span>
-                        </article>
-                      </div>
-                      <article>
-                        <p className="mapleProductPrice">
-                          ${data?.product_details?.price}
-                        </p>
-                      </article>
-                    </div>
-                  );
+                  return <AddedCartItemsCard data={data} key={index} />;
                 })}
               </div>
               <div className="flexBox mapleInvoiceBox confirmRightSub">

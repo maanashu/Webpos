@@ -13,7 +13,7 @@ import Image from "next/image";
 import { emailReg, phoneRegex } from "../../utilities/validators";
 import { useRouter } from "next/router";
 
-const AttachWithEmail = ({ emailModalClose }) => {
+const AttachWithEmail = ({ emailModalClose, tipUpdate }) => {
   const router = useRouter();
   const dispatch = useDispatch();
   const retailData = useSelector(selectRetailData);
@@ -45,7 +45,8 @@ const AttachWithEmail = ({ emailModalClose }) => {
               pathname: "/Retails/CartPayByCash",
             });
             dispatch(productCart());
-            emailModalClose();
+            // emailModalClose();
+            tipUpdate();
           },
         })
       );

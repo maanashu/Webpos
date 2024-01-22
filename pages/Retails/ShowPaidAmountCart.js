@@ -11,6 +11,7 @@ import {
   formattedReturnPrice,
 } from "../../utilities/globalMethods";
 import moment from "moment-timezone";
+import AddedCartItemsCard from "../../components/AddedCartItemsCard";
 
 const ShowPaidAmountCart = () => {
   const router = useRouter();
@@ -20,6 +21,7 @@ const ShowPaidAmountCart = () => {
   const retailData = useSelector(selectRetailData);
   const authData = useSelector(selectLoginAuth);
   const posUserData = authData?.posUserLoginDetails;
+  console.log("posUserData", JSON.stringify(posUserData));
   const merchentDetails = authData?.usersInfo?.payload?.user?.user_profiles;
 
   // change due function
@@ -114,25 +116,13 @@ const ShowPaidAmountCart = () => {
                 <h4 className="mapleAddress text-center p-0">
                   {merchentDetails?.full_phone_number}
                 </h4>
+                <p className="mapleProductHeading text-center p-2">
+                  Invoice No. #{"787"}
+                </p>
               </div>
               <div className="mapleProductDetails confirmRightSub">
                 {cartData?.poscart_products?.map((item, index) => (
-                  <div className="flexBox mapleProductDetailsBox" key={index}>
-                    <div className="flexbase">
-                      <p className="mapleProductcount">× {item?.qty}</p>
-                      <article className="ms-3">
-                        <p className="mapleProductHeading">
-                          {item?.product_details?.name}
-                        </p>
-                        <span className="mapleProductcount">Yellow / M</span>
-                      </article>
-                    </div>
-                    <article>
-                      <p className="mapleProductPrice">
-                        ${item?.product_details?.price}
-                      </p>
-                    </article>
-                  </div>
+                  <AddedCartItemsCard data={item} key={index} />
                 ))}
               </div>
               <div className="flexBox mapleInvoiceBox confirmRightSub">

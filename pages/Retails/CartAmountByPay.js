@@ -28,6 +28,7 @@ import { Modal } from "react-bootstrap";
 import PhoneInput from "react-phone-input-2";
 import AttachWithPhone from "./AttachWithPhone";
 import AttachWithEmail from "./AttachWithEmail";
+import AddedCartItemsCard from "../../components/AddedCartItemsCard";
 
 const CartAmountByPay = () => {
   const router = useRouter();
@@ -55,12 +56,11 @@ const CartAmountByPay = () => {
     flag: "",
   });
   const locallyTips = (tips) => {
-    const arr = retailData?.productCart;
-    arr.amount.tip = parseFloat(tips);
+    var cart = { ...retailData?.productCart };
+    cart.amount = { ...cart.amount, tip: parseFloat(tips) };
     var DATA = {
-      payload: arr,
+      payload: cart,
     };
-    console.log("12345", DATA);
 
     dispatch(setProductCart(DATA));
   };
@@ -468,24 +468,7 @@ const CartAmountByPay = () => {
               </div>
               <div className="mapleProductDetails confirmRightSub">
                 {cartData?.poscart_products?.map((data, index) => {
-                  return (
-                    <div key={index} className="flexBox mapleProductDetailsBox">
-                      <div className="flexbase">
-                        <p className="mapleProductcount">× {index + 1}</p>
-                        <article className="ms-3">
-                          <p className="mapleProductHeading">
-                            {data?.product_details?.name}
-                          </p>
-                          <span className="mapleProductcount">Yellow / M</span>
-                        </article>
-                      </div>
-                      <article>
-                        <p className="mapleProductPrice">
-                          ${data?.product_details?.price}
-                        </p>
-                      </article>
-                    </div>
-                  );
+                  return <AddedCartItemsCard data={data} key={index} />;
                 })}
               </div>
               <div className="flexBox mapleInvoiceBox confirmRightSub">
@@ -495,7 +478,14 @@ const CartAmountByPay = () => {
                   <p className="mapleProductPrice">Invoice</p>
                   <p className="mapleProductHeading"># 9836-1238</p>
                 </article>
+
                 <article>
+                  <p className="mapleProductPrice">Payment Option</p>
+                  <p className="mapleProductHeading">Cash</p>
+                  {/* <p className="mapleProductPrice">Invoice</p>
+                  <p className="mapleProductHeading"># 9836-1238</p> */}
+                </article>
+                {/* <article>
                   <p className="mapleProductPrice">Date</p>
                   <p className="mapleProductHeading">Wed 10/10/23</p>
                   <p className="mapleProductPrice">POS No.</p>
@@ -506,7 +496,7 @@ const CartAmountByPay = () => {
                   <p className="mapleProductHeading">Walk-In</p>
                   <p className="mapleProductPrice">User UD</p>
                   <p className="mapleProductHeading">****331</p>
-                </article>
+                </article> */}
               </div>
               <div className="flexBox maplePriceBox">
                 <article>
@@ -554,12 +544,24 @@ const CartAmountByPay = () => {
 
       {/* attach with phone number popup */}
       <Modal show={phoneModal} centered keyboard={false}>
-        <AttachWithPhone phoneModalClose={() => setPhoneModal(false)} />
+        <AttachWithPhone
+          phoneModalClose={() => setPhoneModal(false)}
+          tipUpdate={() => {
+            noThanksHandler();
+            setPhoneModal(false);
+          }}
+        />
       </Modal>
 
       {/* attach with email popup */}
       <Modal show={emailModal} centered keyboard={false}>
-        <AttachWithEmail emailModalClose={() => setEmailModal(false)} />
+        <AttachWithEmail
+          emailModalClose={() => setEmailModal(false)}
+          tipUpdate={() => {
+            noThanksHandler();
+            setEmailModal(false);
+          }}
+        />
       </Modal>
 
       {/* <CustomModal
