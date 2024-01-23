@@ -104,6 +104,7 @@
   display: flex;
   align-items: center;
   padding: 10px 21px;
+  justify-content: center;
 }
 
 .main-sidebar.hide .Logo {
@@ -127,13 +128,21 @@
   width: 24px;
   margin-right: 18px;
 }
+
+.main-sidebar .showImg {
+  width: 24px;
+  margin-right: 0px;
+}
+
 .sidebarLinks.active .showImg {
   display: none;
 }
+
 .sidebarLinks.active .hideImg {
   display: block;
-  margin-right: 18px;
+  /* margin-right: 18px; */
 }
+
 .sidebarLinks .hideImg {
   display: none;
 }
@@ -141,6 +150,7 @@
 .userDetails {
   display: flex;
   align-items: center;
+  justify-content: center;
 }
 
 .sidebarLinks.active {
@@ -178,15 +188,16 @@
 .sidebarProfile {
   width: 50px;
   height: 50px;
-  margin: 10px 10px 10px 22px;
+  /* margin: 10px 10px 10px 22px; */
   border-radius: 50%;
   border: 2px solid #e4e6f1;
   padding: 5px;
+  margin: 0;
 }
 
-.main-sidebar.hide .sidebarProfile {
+/* .main-sidebar.hide .sidebarProfile {
   margin-left: 10px;
-}
+} */
 
 .sidbarfixedMenus {
   margin-top: auto;
@@ -368,6 +379,7 @@
   justify-content: center;
   margin-left: 10px;
 }
+
 .rejectedByUser {
   padding: 8px 12px;
   border-radius: 30px;
@@ -381,6 +393,7 @@
   justify-content: center;
   margin-left: 10px;
 }
+
 .AddedBtn {
   padding: 8px 12px;
   border-radius: 30px;
@@ -474,9 +487,11 @@
   position: relative;
   cursor: pointer;
 }
+
 .rightSidebarItems:first-child {
   margin-top: 0;
 }
+
 .rightSidebarItems:last-child {
   position: fixed;
   bottom: 32px;
@@ -622,7 +637,7 @@
   border-radius: 4px;
 }
 
-.custom-checkbox input:checked + .checkmark {
+.custom-checkbox input:checked+.checkmark {
   border: 1px solid #263682;
   color: #fff;
 }
@@ -633,7 +648,7 @@
   display: none;
 }
 
-.custom-checkbox input:checked + .checkmark:after {
+.custom-checkbox input:checked+.checkmark:after {
   display: block;
 }
 
@@ -678,9 +693,11 @@
   padding: 0 !important;
   padding-bottom: 30px !important;
 }
+
 #AddProduct .plusMinus {
   padding: 0;
 }
+
 .addProductHeading {
   color: #263682;
   text-align: center;
@@ -701,6 +718,7 @@
   font-weight: 400;
   letter-spacing: -0.36px;
 }
+
 .customInputDiscount {
   background: #ffffff;
   box-shadow: -2px 4px 26px 0px rgba(50, 80, 127, 0.02),
@@ -794,9 +812,11 @@
   border-left: none !important;
   border-right: none !important;
 }
+
 .addCart .plusMinus {
   padding: 0;
 }
+
 .addProductBtn {
   border-radius: 0px 16px 16px 0px;
   border: 1px solid #d7deff;
@@ -1293,11 +1313,13 @@
 #ReturnInventory .modal-header {
   padding-bottom: 0 !important;
 }
+
 #ReturnInventory .plusMinus {
   color: #263682;
   cursor: pointer;
   padding: 0;
 }
+
 .closeButton {
   position: absolute;
   right: 12px;
@@ -1773,15 +1795,18 @@ button.comfirmatiopnBtn {
   width: 375px;
   text-align: center;
 }
+
 .returnConfirmedHeading {
   color: #4659b5;
   font-size: 30px;
   font-weight: 400;
   padding: 24px 0;
 }
+
 .ReturnConfirmedBox .userPosition {
   font-weight: 400;
 }
+
 /* End Return Confirmed */
 
 /* invoice  */
@@ -1792,6 +1817,7 @@ button.comfirmatiopnBtn {
   justify-content: center;
   position: relative;
 }
+
 .invoice_view {
   background-color: white;
   border-radius: 10px;
