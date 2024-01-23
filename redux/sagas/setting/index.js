@@ -278,6 +278,7 @@ function* updateSettings(action) {
     );
     if (resp.status) {
       yield put(setUpdateSettings(resp.data?.payload));
+      yield call(action.payload.cb, (action.res = resp));
       toast.success(resp?.data?.msg);
     } else {
       throw resp;

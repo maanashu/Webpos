@@ -20,20 +20,74 @@ import Router, { useRouter } from "next/router";
 import { wrapper } from "../redux";
 import { useDispatch, useSelector } from "react-redux";
 import auth, { selectLoginAuth } from "../redux/slices/auth";
+import { getSecuritySettingInfo, settingInfo } from "../redux/slices/setting";
+
 
 function App({ Component, pageProps }) {
   const dispatch = useDispatch();
-
+  const settingData = useSelector(settingInfo)
+  const authData = useSelector(selectLoginAuth)
+  const UniqueId = authData?.usersInfo?.payload?.uniqe_id
   const [loading, setLoading] = useState(true);
   const [activeSidebar, setActiveSidebar] = useState(true);
-  const authData = useSelector(selectLoginAuth);
+  const [getSelectedLanguages, setGetSelectedLanguages] = useState()
   // const Token = authData?.posUserLoginDetails?.payload?.token
   //   ? authData?.posUserLoginDetails?.payload?.token
   //   : "";
+  const getSecuritySetting = () => {
+    let params = {
+      app_name: "pos",
+      seller_id: UniqueId
+    };
+    dispatch(getSecuritySettingInfo({
+      ...params,
+      cb(res) {
+        if (res.status) {
+          console.log(res?.data?.payload, "res?.data?.payload");
+          setGetSelectedLanguages(res?.data?.payload?.languages)
+        }
+      },
+    })
+    );
+  };
+
+  useEffect(() => {
+    if (UniqueId) {
+      getSecuritySetting();
+    }
+  }, [UniqueId]);
 
   const toggleSidebar = () => {
     setActiveSidebar((prev) => !prev);
   };
+
+  const googleTranslateElementInit = () => {
+    new window.google.translate.TranslateElement(
+      {
+        pageLanguage: 'en',
+        autoDisplay: false,
+        includedLanguages: 'en,fr,es,de,it',
+        layout: window.google.translate.TranslateElement.InlineLayout.SIMPLE,
+        multilanguagePage: true,
+      },
+      'google_translate_element'
+    );
+  };
+
+  useEffect(() => {
+    const addScript = document.createElement('script');
+    addScript.setAttribute(
+      'src',
+      '//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit'
+    );
+    document.body.appendChild(addScript);
+    window.googleTranslateElementInit = googleTranslateElementInit;
+
+    return () => {
+      // Cleanup the script tag when the component unmounts
+      document.body.removeChild(addScript);
+    };
+  }, []);
 
   // useEffect(() => {
   //   // Simulate an asynchronous delay (replace with actual authentication data fetching)
@@ -66,13 +120,15 @@ function App({ Component, pageProps }) {
 
   return (
     <>
+      <div id="google_translate_element"></div>
+      {/* <h4>Start building your app. Happy Coding!</h4> */}
       {Token ? (
         <>
           <Layout activeSidebar={activeSidebar} toggleSidebar={toggleSidebar}>
             <Component {...pageProps} />
             <ToastContainer autoClose={800} />
           </Layout>
-        </> 
+        </>
       ) : (
         <>
           <AuthLayout>
