@@ -18,7 +18,8 @@ module.exports = (phase, { defaultConfig }) => {
         "www.shutterstock.com",
         "target.scene7.com",
         'parivaargroup.com',
-        'flagcdn.com',
+        'flagcdn.com',  
+        "cloudfront-us-east-2.images.arcpublishing.com"
       ],
     },
     env: {
