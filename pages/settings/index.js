@@ -38,14 +38,13 @@ import Notification from "./notification";
 import Language from "./language";
 import Plan from "./plans";
 import ShippingPickup from "./shipPickup";
+import PlanFit from "./plans/planFit";
 
 export default function Settings() {
   const [selectedItem, setSelectedItem] = useState("Security");
   const [selectedItemId, setSelectedItemId] = useState("");
   const [policyInfo, setPolicyInfo] = useState("");
-  console.log(selectedItemId, "selectedItemId");
-
-  const [activeTab, setActiveTab] = useState("")
+  const [activeTab, setActiveTab] = useState("");
 
   const settingsOptions = [
     { id: 1, name: "Security", info: "Not Updated", image: securityTick },
@@ -74,10 +73,15 @@ export default function Settings() {
     { id: 14, name: "Shop", info: "Locations", image: settingHome },
   ];
   const SettingsBar = ({ item }) => {
-    console.log(selectedItem,  "responseeeeeeeeeeee");
     return (
-      <Link className={selectedItem == item.name ? "settingList active" :"settingList"} href="#" onClick={() => handleTouch(item)}>
-        <Image src={item?.image} className="SecurityImg" alt="img"/>
+      <Link
+        className={
+          selectedItem == item.name ? "settingList active" : "settingList"
+        }
+        href=""
+        onClick={() => handleTouch(item)}
+      >
+        <Image src={item?.image} className="SecurityImg" alt="img" />
         <div className="securityHeading">
           <h1 className="settingText">{item?.name}</h1>
           <h1 className="settingSub mt-1">{item?.info}</h1>{" "}
@@ -87,21 +91,20 @@ export default function Settings() {
   };
 
   const handleTouch = (item, id, name) => {
-    console.log(item, "item");
-    if(item){
+    if (item) {
       setPolicyInfo(id);
       setSelectedItemId(id ? id : "");
       setSelectedItem(item?.name ? item?.name : item);
     }
-    if(name){
-      setActiveTab(name)
+    if (name) {
+      setActiveTab(name);
     }
   };
 
   const renderComponent = () => {
     switch (selectedItem) {
       case "Security":
-        return <Security handleTouch={handleTouch}/>;
+        return <Security handleTouch={handleTouch} />;
       case "Staff":
         return <StaffList handleTouch={handleTouch} />;
       case "Devices":
@@ -121,7 +124,9 @@ export default function Settings() {
       case "staffDetail":
         return <StaffDetail selectedItemId={selectedItemId} />;
       case "legalPolicy":
-        return <LegalPolicy policyInfo={policyInfo} handleTouch={handleTouch} />;
+        return (
+          <LegalPolicy policyInfo={policyInfo} handleTouch={handleTouch} />
+        );
       case "PolicyInfo":
         return <PolicyInfo policyInfo={policyInfo} handleTouch={handleTouch} />;
       case "Wallet":
@@ -129,7 +134,9 @@ export default function Settings() {
       case "Notifications":
         return <Notification />;
       case "Plans":
-        return <Plan />;
+        return <Plan handleTouch={handleTouch} />;
+      case "allPlans":
+        return <PlanFit handleTouch={handleTouch} />;
       case "Shipping & Pick Up":
         return <ShippingPickup />;
       default:
