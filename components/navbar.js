@@ -18,18 +18,18 @@ const Navbar = () => {
     <>
       <div className='headerSection'>
         {/* <div {...(!token && {className: 'container'})}> */}
-        <div className={!token ? 'container' : ""}>
+        <div className={!token ? 'authHeader' : ""}>
           <div className='row'>
-            <div className='col-lg-6 col-md-6  d-flex align-items-center'>
+            <div className='col-lg-6 col-md-6 leftMainHeader'>
               <div className='leftHeader'>
                 <div className='timeNav'>
                   <Image src={Images.SunImg} alt="image" className="img-fluid" />
                   <h4 className='timeHeading'>12:24 pm</h4>
                 </div>
-                <h4 className='timeHeading'>Thursday, 12th October 2023</h4>
+                <h4 className='timeHeading '>Thursday, 12th October 2023</h4>
               </div>
             </div>
-            <div className='col-lg-6 col-md-6   '>
+            <div className='col-lg-6 col-md-6 '>
               <div className='rightMainHeader'>
                 <div className='rightheader'>
                   <h4 className='timeHeading'>POS Ni. <span>#Front-CC01</span></h4>
