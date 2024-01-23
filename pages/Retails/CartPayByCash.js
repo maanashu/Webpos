@@ -18,11 +18,13 @@ import {
 } from "../../utilities/globalMethods";
 import { digitWithDot } from "../../utilities/validators";
 import AddedCartItemsCard from "../../components/AddedCartItemsCard";
+import moment from "moment-timezone";
 
 const CartPayByCash = () => {
   const dispatch = useDispatch();
   const router = useRouter();
   const authData = useSelector(selectLoginAuth);
+  const posUserData = authData?.posUserLoginDetails;
   const merchentDetails = authData?.usersInfo?.payload?.user?.user_profiles;
   const retailData = useSelector(selectRetailData);
   const cartData = retailData?.productCart;
@@ -94,6 +96,7 @@ const CartPayByCash = () => {
         mode_of_payment: "cash",
         drawer_id: drawerData?.id,
       };
+
       dispatch(
         createOrder({
           ...params,
@@ -117,6 +120,44 @@ const CartPayByCash = () => {
       );
     }
   };
+
+  const invoiceData = [
+    {
+      title: "Payment Option",
+      data: "Cash",
+      id: 1,
+    },
+    {
+      title: "POS No.",
+      data: posUserData?.payload?.pos_number,
+      id: 2,
+    },
+    {
+      title: "Date",
+      // data: moment().format('ddd') + ' ' + moment().subtract(10, 'days').calendar();
+      data: moment().format("ddd") + " " + moment().format("MM/DD/YY"),
+      id: 3,
+    },
+    {
+      title: "User ID",
+      data: posUserData?.payload?.id,
+      id: 4,
+    },
+    {
+      title: "Mode",
+      data: "Walk-In",
+      id: 5,
+    },
+  ];
+  // Function to  array into groups of 3
+  const threeGroupArray = (array, chunkSize) => {
+    const result = [];
+    for (let i = 0; i < array.length; i += chunkSize) {
+      result.push(array.slice(i, i + chunkSize));
+    }
+    return result;
+  };
+  const rows = threeGroupArray(invoiceData, 2);
   return (
     <>
       <div className="confirmSelectSection confirmationSection">
@@ -179,9 +220,7 @@ const CartPayByCash = () => {
                   value={amount}
                   onChange={(e) => setAmount(e.target.value)}
                 />
-                {retailData?.createOrderLoad ||
-                retailData?.productCartLoad ||
-                retailData?.clearCartLoad ? (
+                {retailData?.createOrderLoad || retailData?.productCartLoad ? (
                   <button
                     className="continueAmountBtn w-100 mt-3"
                     type="button"
@@ -225,7 +264,17 @@ const CartPayByCash = () => {
                 })}
               </div>
               <div className="flexBox mapleInvoiceBox confirmRightSub">
-                <article>
+                {rows?.map((row, index) => (
+                  <div key={index}>
+                    {row?.map((item, ind) => (
+                      <div key={ind}>
+                        <p className="mapleProductPrice">{item?.title}</p>
+                        <p className="mapleProductHeading">{item?.data}</p>
+                      </div>
+                    ))}
+                  </div>
+                ))}
+                {/* <article>
                   <p className="mapleProductPrice">Payment Option</p>
                   <p className="mapleProductHeading">Cash</p>
                   <p className="mapleProductPrice">Invoice</p>
@@ -242,7 +291,7 @@ const CartPayByCash = () => {
                   <p className="mapleProductHeading">Walk-In</p>
                   <p className="mapleProductPrice">User UD</p>
                   <p className="mapleProductHeading">****331</p>
-                </article>
+                </article> */}
               </div>
               <div className="flexBox maplePriceBox">
                 <article>
@@ -277,7 +326,7 @@ const CartPayByCash = () => {
                   className="img-fluid logo"
                 />
                 <Image
-                  src={cartData.barcode}
+                  src={cartData?.barcode}
                   alt="barCodeScanImg"
                   className="img-fluid barCodeScanImg"
                   width="100"

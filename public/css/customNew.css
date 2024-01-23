@@ -5,493 +5,496 @@ h3,
 h4,
 h5,
 h6 {
-    margin: 0;
+  margin: 0;
 }
 
 figure {
-    margin: 0 !important;
+  margin: 0 !important;
 }
 
 .homeLeft {
-    display: flex;
-    justify-content: center;
-    padding: 24px;
-    flex-direction: column;
+  display: flex;
+  justify-content: center;
+  padding: 24px;
+  flex-direction: column;
 }
 
 .homeProfileImg {
-    width: 150px;
-    height: 150px;
-    border-radius: 128px;
-    border: 6px solid #FFF;
+  width: 150px;
+  height: 150px;
+  border-radius: 128px;
+  border: 6px solid #fff;
 }
 
 .cashierHeading {
-    color: #636E9F;
-    font-size: 16px;
-    font-weight: 500;
-    line-height: normal;
-    letter-spacing: -0.32px;
-    margin: 0;
+  color: #636e9f;
+  font-size: 16px;
+  font-weight: 500;
+  line-height: normal;
+  letter-spacing: -0.32px;
+  margin: 0;
 }
 
 .userIdText {
-    color: #636E9F;
-    font-size: 12px;
-    font-weight: 500;
-    margin: 0 6px;
+  color: #636e9f;
+  font-size: 12px;
+  font-weight: 500;
+  margin: 0 6px;
 }
 
 .cashBox {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-top: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 10px;
 }
 
 .IdTextMain {
-    border-radius: 20px;
-    background: #F7F9FF;
-    mix-blend-mode: multiply;
-    padding: 8px 8px 8px 22px;
-    position: relative;
-    margin-left: 10px;
+  border-radius: 20px;
+  background: #f7f9ff;
+  mix-blend-mode: multiply;
+  padding: 8px 8px 8px 22px;
+  position: relative;
+  margin-left: 10px;
 }
 
 .IdTextMain::before {
-    position: absolute;
-    content: "";
-    width: 8px;
-    height: 8px;
-    border-radius: 50%;
-    background-color: #58C2E8;
-    top: 12px;
-    left: 10px;
+  position: absolute;
+  content: "";
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background-color: #58c2e8;
+  top: 12px;
+  left: 10px;
 }
 
 .homeProfile .loginheading {
-    margin: 0;
+  margin: 0;
 }
 
 .profileImage {
-    display: flex;
-    justify-content: center;
-    align-items: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .todaySale {
-    border-radius: 15px;
-    background: #FFF;
-    box-shadow: -2px 4px 25px 0px rgba(50, 80, 127, 0.02), -5px 10px 80px 0px rgba(50, 80, 127, 0.04);
-    padding: 18px;
-    margin-top: 26px;
+  border-radius: 15px;
+  background: #fff;
+  box-shadow: -2px 4px 25px 0px rgba(50, 80, 127, 0.02),
+    -5px 10px 80px 0px rgba(50, 80, 127, 0.04);
+  padding: 18px;
+  margin-top: 26px;
 }
 
 .flexHeading {
-    display: flex;
-    justify-content: space-between;
+  display: flex;
+  justify-content: space-between;
 }
 
 .flexDiv {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
 .todaySale .loginMain {
-    text-align: left;
-    margin: 0;
+  text-align: left;
+  margin: 0;
 }
 
 .homeProfile .loginheading {
-    font-weight: 600;
+  font-weight: 600;
 }
 
 .saleHeading {
-    color: #333B42;
-    font-size: 13px;
-    font-weight: 400;
+  color: #333b42;
+  font-size: 13px;
+  font-weight: 400;
 }
 
 .dayTimeText {
-    color: #172461;
-    font-size: 14px;
-    font-weight: 500;
+  color: #172461;
+  font-size: 14px;
+  font-weight: 500;
 }
 
 .cashDraw {
-    margin-top: 14px;
+  margin-top: 14px;
 }
 
 .timedetail {
-    margin-top: 14px;
-    border-radius: 15px;
-    padding: 24px;
-    background: #F5F6FC;
+  margin-top: 14px;
+  border-radius: 15px;
+  padding: 24px;
+  background: #f5f6fc;
 }
 
 .productReturn {
-    border-radius: 30px;
-    border: 1px solid #263682;
-    padding: 14px 24px;
-    display: flex;
-    justify-content: space-between;
-    margin-top: 16px;
-    cursor: pointer;
+  border-radius: 30px;
+  border: 1px solid #263682;
+  padding: 14px 24px;
+  display: flex;
+  justify-content: space-between;
+  margin-top: 16px;
+  cursor: pointer;
 }
 
 .lockScreenBox {
-    border-radius: 30px;
-    border: 0px solid #263682;
-    background: #E4E6F2;
-    padding: 14px 24px;
-    display: flex;
-    justify-content: space-between;
-    margin-top: 16px;
-    cursor: pointer;
+  border-radius: 30px;
+  border: 0px solid #263682;
+  background: #e4e6f2;
+  padding: 14px 24px;
+  display: flex;
+  justify-content: space-between;
+  margin-top: 16px;
+  cursor: pointer;
 }
 
 .homeRight {
-    background: #FFF;
-    padding: 24px;
-    height: 100vh;
+  background: #fff;
+  padding: 24px;
+  height: 100vh;
 }
 
 .homeLeft {
-    height: 100vh;
+  height: 100vh;
 }
 
 .searchControl {
-    border-radius: 50px !important;
-    background: #F5F6FC !important;
-    color: #636E9F !important;
-    font-size: 16px !important;
-    font-weight: 400 !important;
-    padding: 18px 50px;
+  border-radius: 50px !important;
+  background: #f5f6fc !important;
+  color: #636e9f !important;
+  font-size: 16px !important;
+  font-weight: 400 !important;
+  padding: 18px 50px;
 }
 
 .searchControl::placeholder {
-    color: #636E9F;
-    font-size: 16px;
-    font-weight: 400;
+  color: #636e9f;
+  font-size: 16px;
+  font-weight: 400;
 }
 
 .scanSearch {
-    position: absolute;
-    top: 8px;
-    right: 12px;
+  position: absolute;
+  top: 8px;
+  right: 12px;
 }
 
 .searchControlBox {
-    position: relative;
+  position: relative;
 }
 
 .searchImg {
-    position: absolute;
-    top: 18px;
-    left: 15px;
+  position: absolute;
+  top: 18px;
+  left: 15px;
 }
 
 .startSelling {
-    border-radius: 24px;
-    background: #263682;
-    width: 100%;
-    padding: 30px 0;
+  border-radius: 24px;
+  background: #263682;
+  width: 100%;
+  padding: 30px 0;
 }
 
 .sellingOrder .loginMain {
-    color: rgba(255, 255, 255, 0.95);
-    text-transform: capitalize;
-    margin-top: 15px;
+  color: rgba(255, 255, 255, 0.95);
+  text-transform: capitalize;
+  margin-top: 15px;
 }
 
 .sellingOrder .smallText {
-    color: #58C2E8;
-    margin-left: 7px;
+  color: #58c2e8;
+  margin-left: 7px;
 }
 
 .scanText {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-top: 10px;
-    padding: 8px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 10px;
+  padding: 8px;
 }
 
 .sellingOrder {
-    display: flex;
-    justify-content: space-between;
-    gap: 15px;
-    margin-top: 24px;
+  display: flex;
+  justify-content: space-between;
+  gap: 15px;
+  margin-top: 24px;
 }
 
 .onlineOrder {
-    border-radius: 24px;
-    background: #111633;
-    width: 100%;
-    padding: 30px 0;
-    position: relative;
-    text-align: center;
+  border-radius: 24px;
+  background: #111633;
+  width: 100%;
+  padding: 30px 0;
+  position: relative;
+  text-align: center;
 }
 
 .bellImg {
-    position: absolute;
-    top: 15px;
-    right: 16px;
+  position: absolute;
+  top: 15px;
+  right: 16px;
 }
 
 .bellOuter {
-    border-radius: 50px;
-    border: 1px solid #58C2E8;
-    background: rgba(88, 194, 232, 0.10);
-    padding: 10px;
-    position: relative;
+  border-radius: 50px;
+  border: 1px solid #58c2e8;
+  background: rgba(88, 194, 232, 0.1);
+  padding: 10px;
+  position: relative;
 }
 
 .bellOuter::after {
-    content: "";
-    position: absolute;
-    width: 10px;
-    height: 10px;
-    background-color: #F97066;
-    border-radius: 50%;
-    border: 2px solid #111633;
-    bottom: 3px;
-
+  content: "";
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  background-color: #f97066;
+  border-radius: 50%;
+  border: 2px solid #111633;
+  bottom: 3px;
 }
 
 .OrderBtn {
-    color: #58C2E8;
-    font-size: 12px;
-    font-weight: 500;
-    padding: 8px;
-    border-radius: 30px;
-    border: 1px solid #58C2E8;
-    background: rgba(88, 194, 232, 0.10);
-    margin-top: 10px;
+  color: #58c2e8;
+  font-size: 12px;
+  font-weight: 500;
+  padding: 8px;
+  border-radius: 30px;
+  border: 1px solid #58c2e8;
+  background: rgba(88, 194, 232, 0.1);
+  margin-top: 10px;
 }
 
 .deliverTable {
-    height: calc(60vh - 50px);
-    overflow-y: scroll;
+  height: calc(60vh - 50px);
+  overflow-y: scroll;
 }
 
 .profileMainTable .loginMain {
-    margin: 0 0 20px 0;
-    text-align: left;
+  margin: 0 0 20px 0;
+  text-align: left;
 }
 
 .profileMainTable {
-    margin-top: 24px;
+  margin-top: 24px;
 }
 
 .orderId {
-    color: #2F3552;
-    font-size: 12px;
-    font-weight: 400;
-    max-width: 20ch;
-    text-overflow: ellipsis;
-    overflow: hidden;
-    white-space: nowrap;
+  color: #2f3552;
+  font-size: 12px;
+  font-weight: 400;
+  max-width: 20ch;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
 }
 
 .nameLocation .orderId,
 .deliveryTime .orderId,
 .itemMoney .orderId,
 .itemTime .orderId {
-    font-weight: 500;
+  font-weight: 500;
 }
 
 .locateDistance {
-    color: #7233C2;
-    font-size: 12px;
-    font-weight: 500;
-    margin-left: 4px;
+  color: #7233c2;
+  font-size: 12px;
+  font-weight: 500;
+  margin-left: 4px;
 }
 
 .itemMoney .locateDistance {
-    color: #3CAF77;
+  color: #3caf77;
 }
 
 .itemTime .locateDistance {
-    color: #47B0D6;
+  color: #47b0d6;
 }
 
 .deliveryTime .orderId {
-    margin-left: 8px;
+  margin-left: 8px;
 }
 
 .deliveryTime {
-    display: flex;
-    align-items: center;
+  display: flex;
+  align-items: center;
 }
 
 .profileSaleData {
-    height: calc(63vh - 109px);
-    overflow-y: scroll;
+  height: calc(63vh - 109px);
+  overflow-y: scroll;
 }
 
 .profileSaleData::-webkit-scrollbar-track {
-    background-color: #F5F6FC;
+  background-color: #f5f6fc;
 }
 
 .deliverTable::-webkit-scrollbar-track {
-    background-color: #FFF;
+  background-color: #fff;
 }
 
 .homeOverview {
-    height: 100vh;
-    overflow: hidden;
+  height: 100vh;
+  overflow: hidden;
 }
 
 .flexTable {
-    display: flex;
-    align-items: center;
+  display: flex;
+  align-items: center;
 }
 
 .deliverSubdata {
-    border-bottom: 1px solid #E4E6F2;
-    border-top: 1px solid #E4E6F2;
-    padding: 14px;
-
+  border-bottom: 1px solid #e4e6f2;
+  border-top: 1px solid #e4e6f2;
+  padding: 14px;
 }
 
 .deliverSubdata:first-child {
-    border-radius: 10px 0 0 10px !important;
-    border-left: 1px solid #E4E6F2;
-    vertical-align: baseline;
+  border-radius: 10px 0 0 10px !important;
+  border-left: 1px solid #e4e6f2;
+  vertical-align: baseline;
 }
 
 .deliverSubdata:last-child {
-    border-radius: 0 10px 10px 0px;
-    border-right: 1px solid #E4E6F2;
+  border-radius: 0 10px 10px 0px;
+  border-right: 1px solid #e4e6f2;
 }
 
 #tableProduct {
-    width: 100%;
-    border-spacing: 0 14px;
-    border-collapse: initial;
+  width: 100%;
+  border-spacing: 0 14px;
+  border-collapse: initial;
 }
 
 /*sessionModal css start*/
 
 #trackingModal {
-    width: 100%;
-    max-width: 372px;
+  width: 100%;
+  max-width: 372px;
 }
 
 #trackingModal .modal-content {
-    border-radius: 30px;
-    background: #FFF;
-    padding: 0 !important;
-    box-shadow: -3px 6px 7px 0px rgba(52, 79, 117, 0.03), -12px 28px 25px 0px rgba(52, 79, 117, 0.04), -31px 74px 80px 0px rgba(52, 79, 117, 0.07);
+  border-radius: 30px;
+  background: #fff;
+  padding: 0 !important;
+  box-shadow: -3px 6px 7px 0px rgba(52, 79, 117, 0.03),
+    -12px 28px 25px 0px rgba(52, 79, 117, 0.04),
+    -31px 74px 80px 0px rgba(52, 79, 117, 0.07);
 }
 
 .modal_cancel {
-    margin-left: auto;
-    cursor: pointer;
+  margin-left: auto;
+  cursor: pointer;
 }
 
 #trackingModal .modal-header {
-    border: none;
-    padding: 24px 24px 0 24px !important;
+  border: none;
+  padding: 24px 24px 0 24px !important;
 }
 
 #trackingModal .modal-body {
-    padding: 0 24px 24px 24px !important;
+  padding: 0 24px 24px 24px !important;
 }
 
 .trackingHeading {
-    color: #263682;
-    font-size: 18px;
-    font-weight: 400;
-    text-align: center;
+  color: #263682;
+  font-size: 18px;
+  font-weight: 400;
+  text-align: center;
 }
 
 .trackingSub .loginheading {
-    margin: 12px 0;
-    font-size: 24px;
+  margin: 12px 0;
+  font-size: 24px;
 }
 
 .inputSelect {
-    display: flex;
-    padding: 18px 24px;
-    border-radius: 50px;
-    border: 1px solid #D7DEFF;
-    background: #FFF;
-    box-shadow: -2px 4px 25px 0px rgba(50, 80, 127, 0.02), -5px 10px 80px 0px rgba(50, 80, 127, 0.04);
+  display: flex;
+  padding: 18px 24px;
+  border-radius: 50px;
+  border: 1px solid #d7deff;
+  background: #fff;
+  box-shadow: -2px 4px 25px 0px rgba(50, 80, 127, 0.02),
+    -5px 10px 80px 0px rgba(50, 80, 127, 0.04);
 }
 
 .trackingSelect {
-    border: none !important;
-    outline: none;
-    background-color: #FFF;
-    color: #263682 !important;
-    font-size: 18px !important;
-    font-weight: 400 !important;
-    padding: 0 !important;
-    width: 65px;
+  border: none !important;
+  outline: none;
+  background-color: #fff;
+  color: #263682 !important;
+  font-size: 18px !important;
+  font-weight: 400 !important;
+  padding: 0 !important;
+  width: 65px;
 }
 
 .trackingInput {
-    background-color: #FFF;
-    color: #263682 !important;
-    font-size: 18px !important;
-    font-weight: 400 !important;
-    padding: 0 !important;
+  background-color: #fff;
+  color: #263682 !important;
+  font-size: 18px !important;
+  font-weight: 400 !important;
+  padding: 0 !important;
 }
 
 .trackingInput::placeholder {
-    color: #263682 !important;
-    font-size: 18px !important;
-    font-weight: 400 !important;
+  color: #263682 !important;
+  font-size: 18px !important;
+  font-weight: 400 !important;
 }
 
 .amountText {
-    color: #263682;
-    font-size: 14px;
-    font-weight: 500;
-    margin-left: 24px;
+  color: #263682;
+  font-size: 14px;
+  font-weight: 500;
+  margin-left: 24px;
 }
 
 .trackingForm {
-    margin-top: 24px;
+  margin-top: 24px;
 }
 
 .trackingForm .loginSub {
-    text-align: left;
-    margin: 8px 18px;
-    font-weight: 400;
+  text-align: left;
+  margin: 8px 18px;
+  font-weight: 400;
 }
 
 .textControl {
-    border-radius: 16px;
-    border: 1px solid #D7DEFF !important;
-    background: #FFF !important;
-    box-shadow: -5px 10px 80px 0px rgba(50, 80, 127, 0.04), 0px 0px 0px 5px rgba(38, 54, 130, 0.06), 0px 1px 2px 0px rgba(127, 143, 217, 0.47) !important;
-    outline: none;
-    color: #263682 !important;
-    font-size: 16px !important;
-    font-weight: 400 !important;
-    padding: 18px 18px 18px 40px;
-
+  border-radius: 16px;
+  border: 1px solid #d7deff !important;
+  background: #fff !important;
+  box-shadow: -5px 10px 80px 0px rgba(50, 80, 127, 0.04),
+    0px 0px 0px 5px rgba(38, 54, 130, 0.06),
+    0px 1px 2px 0px rgba(127, 143, 217, 0.47) !important;
+  outline: none;
+  color: #263682 !important;
+  font-size: 16px !important;
+  font-weight: 400 !important;
+  padding: 18px 18px 18px 40px;
 }
 
 .textAreaSection {
-    position: relative;
-    margin-top: 24px;
+  position: relative;
+  margin-top: 24px;
 }
 
 .commentImg {
-    position: absolute;
-    top: 18px;
-    left: 12px;
+  position: absolute;
+  top: 18px;
+  left: 12px;
 }
 
 .textControl::placeholder {
-    color: #263682 !important;
-    font-size: 16px !important;
-    font-weight: 400 !important;
+  color: #263682 !important;
+  font-size: 16px !important;
+  font-weight: 400 !important;
 }
 
 /*sessionModal css end*/
@@ -500,731 +503,734 @@ figure {
 
 /*service pages css start*/
 .AddtoCart {
-    position: absolute;
-    right: 108px;
-    top: 183px;
-    height: calc(100vh - 214px);
-    border-radius: 20px;
-    border: 1px solid #F5F6FC;
-    padding: 24px 16px;
-    background: #FFF;
-    width: 100%;
-    max-width: 500px;
-    box-shadow: -3px 6px 7px 0px rgba(52, 79, 117, 0.03), -12px 28px 25px 0px rgba(52, 79, 117, 0.04), -31px 74px 80px 0px rgba(52, 79, 117, 0.07), -152px 0px 90px 62px rgba(52, 79, 117, 0.10);
+  position: absolute;
+  right: 108px;
+  top: 183px;
+  height: calc(100vh - 214px);
+  border-radius: 20px;
+  border: 1px solid #f5f6fc;
+  padding: 24px 16px;
+  background: #fff;
+  width: 100%;
+  max-width: 500px;
+  box-shadow: -3px 6px 7px 0px rgba(52, 79, 117, 0.03),
+    -12px 28px 25px 0px rgba(52, 79, 117, 0.04),
+    -31px 74px 80px 0px rgba(52, 79, 117, 0.07),
+    -152px 0px 90px 62px rgba(52, 79, 117, 0.1);
 }
 
 .cartSubInfo {
-    display: flex;
-    border-radius: 8px;
-    border: 1px solid #F5F6FC;
-    padding: 8px 16px;
-    align-items: center;
-    justify-content: space-between;
-    margin: 10px 0;
+  display: flex;
+  border-radius: 8px;
+  border: 1px solid #f5f6fc;
+  padding: 8px 16px;
+  align-items: center;
+  justify-content: space-between;
+  margin: 10px 0;
 }
 
 .cartFoodImg {
-    height: 34px;
-    width: 34px;
-    border-radius: 6px;
+  height: 34px;
+  width: 34px;
+  border-radius: 6px;
 }
 
 .cartText {
-    color: #2F3552;
-    font-size: 12px;
-    font-weight: 500;
+  color: #2f3552;
+  font-size: 12px;
+  font-weight: 500;
 }
 
 .orderTime {
-    display: flex;
-
+  display: flex;
 }
 
 .cartProfileImg {
-    border-radius: 50%;
-    border: 1.25px solid #FFF;
-    width: 20px;
-    height: 20px;
-    border-radius: 50%;
+  border-radius: 50%;
+  border: 1.25px solid #fff;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
 }
 
 .cartMoney {
-    color: #000;
-    font-size: 13px;
-    font-weight: 400;
+  color: #000;
+  font-size: 13px;
+  font-weight: 400;
 }
 
 .orderCalculate {
-    display: flex;
-    align-items: center;
-    gap: 12px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
 }
 
 .tomorrowCart .appointmentDate {
-    background-color: #EFFBFF !important;
-    color: #47B0D6 !important;
+  background-color: #effbff !important;
+  color: #47b0d6 !important;
 }
 
 .AddtoCart .appointmentDate {
-    margin: 4px 0 !important;
-    border-radius: 6px !important;
-    display: flex !important;
+  margin: 4px 0 !important;
+  border-radius: 6px !important;
+  display: flex !important;
 }
 
 .todayCart .appointmentDate {
-    background-color: #D1FADF;
-    color: #039855;
+  background-color: #d1fadf;
+  color: #039855;
 }
 
 .afterCart .appointmentDate {
-    background-color: #FFF7D7;
-    color: #DC6803;
+  background-color: #fff7d7;
+  color: #dc6803;
 }
 
 .incrementBtn {
-    border-radius: 8px;
-    border: 1px solid #F5F6FC;
-    display: flex;
-    align-items: center;
+  border-radius: 8px;
+  border: 1px solid #f5f6fc;
+  display: flex;
+  align-items: center;
 }
 
 .incrementBtn:hover,
 .incrementBtn.active {
-    border-radius: 6px;
-    border: 1px solid #D7DEFF !important;
-    background: #FFF;
-    box-shadow: 0px 0px 0px 4px rgba(127, 143, 217, 0.05);
+  border-radius: 6px;
+  border: 1px solid #d7deff !important;
+  background: #fff;
+  box-shadow: 0px 0px 0px 4px rgba(127, 143, 217, 0.05);
 }
 
 .unitPriceControl.active {
-    border-radius: 6px;
-    border: 1px solid #D7DEFF !important;
-    background: #FFF;
-    box-shadow: 0px 0px 0px 4px rgba(127, 143, 217, 0.05);
+  border-radius: 6px;
+  border: 1px solid #d7deff !important;
+  background: #fff;
+  box-shadow: 0px 0px 0px 4px rgba(127, 143, 217, 0.05);
 }
 
 .plusMinus {
-    color: #263682;
-    cursor: pointer;
-    padding: 5px 10px;
+  color: #263682;
+  cursor: pointer;
+  padding: 5px 10px;
 }
 
 .addBtnControl {
-    color: #636E9F !important;
-    text-align: center !important;
-    font-size: 14px !important;
-    font-weight: 400 !important;
-    border-left: 1px solid #D7DEFF;
-    border-right: 1px solid #D7DEFF;
-    background-color: #fff !important;
-    border-radius: 0 !important;
-    max-width: 40px;
-    padding: 5px 0px !important;
-    appearance: none !important;
+  color: #636e9f !important;
+  text-align: center !important;
+  font-size: 14px !important;
+  font-weight: 400 !important;
+  border-left: 1px solid #d7deff;
+  border-right: 1px solid #d7deff;
+  background-color: #fff !important;
+  border-radius: 0 !important;
+  max-width: 40px;
+  padding: 5px 0px !important;
+  appearance: none !important;
 }
 
 .addBtnControl::placeholder {
-    color: #636E9F;
+  color: #636e9f;
 }
 
 .cartSubInfo .checkmark {
-    top: -7px;
+  top: -7px;
 }
 
 .cartSubInfo.active {
-    border: 1px solid #D7DEFF;
-    background: #FFF;
-    box-shadow: -2px 4px 25px 0px rgba(50, 80, 127, 0.02), -5px 10px 80px 0px rgba(50, 80, 127, 0.04);
+  border: 1px solid #d7deff;
+  background: #fff;
+  box-shadow: -2px 4px 25px 0px rgba(50, 80, 127, 0.02),
+    -5px 10px 80px 0px rgba(50, 80, 127, 0.04);
 }
 
 .cartSubInfo:hover {
-    border: 1px solid #D7DEFF;
-    background: #FFF;
-    box-shadow: -2px 4px 25px 0px rgba(50, 80, 127, 0.02), -5px 10px 80px 0px rgba(50, 80, 127, 0.04);
+  border: 1px solid #d7deff;
+  background: #fff;
+  box-shadow: -2px 4px 25px 0px rgba(50, 80, 127, 0.02),
+    -5px 10px 80px 0px rgba(50, 80, 127, 0.04);
 }
 
 .addBtnControl::-webkit-outer-spin-button,
 .addBtnControl::-webkit-inner-spin-button {
-    -webkit-appearance: none;
-    margin: 0;
+  -webkit-appearance: none;
+  margin: 0;
 }
 
 .walletControl::-webkit-outer-spin-button,
 .walletControl::-webkit-inner-spin-button {
-    -webkit-appearance: none;
-    margin: 0;
+  -webkit-appearance: none;
+  margin: 0;
 }
 
 .trackingInput::-webkit-outer-spin-button,
 .trackingInput::-webkit-inner-spin-button {
-    -webkit-appearance: none;
-    margin: 0;
+  -webkit-appearance: none;
+  margin: 0;
 }
 
 .unitPriceControl::-webkit-outer-spin-button,
 .unitPriceControl::-webkit-inner-spin-button {
-    -webkit-appearance: none;
-    margin: 0;
+  -webkit-appearance: none;
+  margin: 0;
 }
 
 .customerInput::-webkit-outer-spin-button,
 .customerInput::-webkit-inner-spin-button {
-    -webkit-appearance: none;
-    margin: 0;
+  -webkit-appearance: none;
+  margin: 0;
 }
 
 .cardControl::-webkit-outer-spin-button,
 .cardControl::-webkit-inner-spin-button {
-    -webkit-appearance: none;
-    margin: 0;
+  -webkit-appearance: none;
+  margin: 0;
 }
 
 .zipForm::-webkit-outer-spin-button,
 .zipForm::-webkit-inner-spin-button {
-    -webkit-appearance: none;
-    margin: 0;
+  -webkit-appearance: none;
+  margin: 0;
 }
 
 .dividesection {
-    padding: 0 30px;
+  padding: 0 30px;
 }
 
 .cartTotalsection {
-    padding: 25px;
+  padding: 25px;
 }
 
 .cartTotal {
-    display: flex;
-    justify-content: space-between;
-    margin-bottom: 10px;
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 10px;
 }
 
 .cartTotalsection .nextverifyBtn {
-    margin-top: 30px;
-    padding: 14px 16px;
+  margin-top: 30px;
+  padding: 14px 16px;
 }
 
 .divideBorder {
-    background-color: #E4E6F2;
+  background-color: #e4e6f2;
 }
 
 .subFooter {
-    position: fixed;
-    margin: 0 auto;
-    width: 100%;
-    max-width: 455px;
-    bottom: 32px;
+  position: fixed;
+  margin: 0 auto;
+  width: 100%;
+  max-width: 455px;
+  bottom: 32px;
 }
 
 .cartInfo {
-    height: 295px;
-    overflow-y: scroll;
+  height: 295px;
+  overflow-y: scroll;
 }
 
 .addServiceSection {
-    padding: 0 24px 0 0;
+  padding: 0 24px 0 0;
 }
 
 .commonSubOuter {
-    overflow-y: scroll !important;
+  overflow-y: scroll !important;
 }
 
 .newServiceSection {
-    padding: 30px 26px !important;
+  padding: 30px 26px !important;
 }
 
 .addServicePara {
-    color: #636E9F;
-    font-size: 14px;
-    font-weight: 400;
-    margin-top: 8px;
+  color: #636e9f;
+  font-size: 14px;
+  font-weight: 400;
+  margin-top: 8px;
 }
 
 .newServiceDetail {
-    display: flex;
-    align-items: flex-start;
+  display: flex;
+  align-items: flex-start;
 }
 
 .addSeviceImg {
-    height: 100%;
-    max-height: 200px;
-    width: 100%;
-    border-radius: 16px;
+  height: 100%;
+  max-height: 200px;
+  width: 100%;
+  border-radius: 16px;
 }
 
 .serviceProfile {
-    margin: 24px 0;
-    position: relative;
+  margin: 24px 0;
+  position: relative;
 }
 
 .rotateImage {
-    position: absolute;
-    background-color: #fff;
-    border-radius: 30px;
-    padding: 6px;
-    bottom: -14px;
-    right: -3px;
+  position: absolute;
+  background-color: #fff;
+  border-radius: 30px;
+  padding: 6px;
+  bottom: -14px;
+  right: -3px;
 }
 
 .consultInfo .userIdText {
-    margin: 16px 0;
+  margin: 16px 0;
 }
 
 .consultInfo .Timezone {
-    border-radius: 20px;
-    background: rgba(228, 230, 242, 0.50);
-    display: flex;
-    align-items: center;
+  border-radius: 20px;
+  background: rgba(228, 230, 242, 0.5);
+  display: flex;
+  align-items: center;
 }
 
 .providerSection {
-    padding: 0 12px;
-    margin: 24px 0;
+  padding: 0 12px;
+  margin: 24px 0;
 }
 
 .addServiceProfile {
-    border-radius: 16px;
-    border: 1px solid #D7DEFF;
-    padding: 12px 10px;
-    margin-top: 12px;
-    text-align: center;
+  border-radius: 16px;
+  border: 1px solid #d7deff;
+  padding: 12px 10px;
+  margin-top: 12px;
+  text-align: center;
 }
 
 .addServiceProfile.active {
-    border: 1px solid #6F84E8;
-    background: #F5F6FC;
-    box-shadow: -2px 4px 25px 0px rgba(50, 80, 127, 0.02), -5px 10px 80px 0px rgba(50, 80, 127, 0.04);
+  border: 1px solid #6f84e8;
+  background: #f5f6fc;
+  box-shadow: -2px 4px 25px 0px rgba(50, 80, 127, 0.02),
+    -5px 10px 80px 0px rgba(50, 80, 127, 0.04);
 }
 
 .providerImage {
-    border: 3px solid #E4E6F2;
-    width: 48px;
-    height: 48px;
-    border-radius: 50%;
+  border: 3px solid #e4e6f2;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
 }
 
 .providerSubText {
-    color: #7E8AC1;
-    font-size: 12px;
-    font-weight: 500;
-    text-align: center;
-    margin-top: 2px;
+  color: #7e8ac1;
+  font-size: 12px;
+  font-weight: 500;
+  text-align: center;
+  margin-top: 2px;
 }
 
 .addServiceProfile .amountText {
-    margin: 10px 0 0 0 !important;
-    text-align: center;
+  margin: 10px 0 0 0 !important;
+  text-align: center;
 }
 
 .appointmentSub {
-    display: flex;
-    align-items: flex-start;
-    justify-content: space-between;
-
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
 }
 
 .appointMain {
-    color: #263682;
-    font-size: 24px;
-    font-weight: 500;
+  color: #263682;
+  font-size: 24px;
+  font-weight: 500;
 }
 
 .appointSub {
-    color: #263682;
-    font-size: 14px;
-    font-weight: 400;
-    margin-top: 10px;
+  color: #263682;
+  font-size: 14px;
+  font-weight: 400;
+  margin-top: 10px;
 }
 
 .appointmenMonth {
-    border-radius: 50px;
-    border: 1px solid #D7DEFF;
-    background: #FFF;
-    box-shadow: -2px 4px 25px 0px rgba(50, 80, 127, 0.02), -5px 10px 80px 0px rgba(50, 80, 127, 0.04);
-    padding: 10px;
-    cursor: pointer;
+  border-radius: 50px;
+  border: 1px solid #d7deff;
+  background: #fff;
+  box-shadow: -2px 4px 25px 0px rgba(50, 80, 127, 0.02),
+    -5px 10px 80px 0px rgba(50, 80, 127, 0.04);
+  padding: 10px;
+  cursor: pointer;
 }
 
 .monthText {
-    color: #263682;
-    font-size: 16px;
-    font-weight: 400;
+  color: #263682;
+  font-size: 16px;
+  font-weight: 400;
 }
 
 .scheduleSection {
-    text-align: center;
-    margin: 24px 0;
+  text-align: center;
+  margin: 24px 0;
 }
 
 .daycalendar {
-    margin: 20px 0;
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    justify-content: space-between;
+  margin: 20px 0;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  justify-content: space-between;
 }
 
 .scheduleTime {
-    border-radius: 8px;
-    border: 1px solid #D7DEFF;
-    padding: 12px 10px;
-    text-align: center;
-    width: 100%;
+  border-radius: 8px;
+  border: 1px solid #d7deff;
+  padding: 12px 10px;
+  text-align: center;
+  width: 100%;
 }
 
 .scheduleTime.active {
-    border-radius: 8px;
-    border: 1px solid #12B76A;
-    background: #D1FADF;
+  border-radius: 8px;
+  border: 1px solid #12b76a;
+  background: #d1fadf;
 }
 
 .scheduleTime.active .addServicePara {
-    color: #027547;
-    font-weight: 500;
+  color: #027547;
+  font-weight: 500;
 }
 
 .scheduleTimeImg {
-    border-radius: 8px;
-    border: 1px solid #D7DEFF;
-    padding: 12px 10px;
-    width: 100%;
-    height: 45px;
+  border-radius: 8px;
+  border: 1px solid #d7deff;
+  padding: 12px 10px;
+  width: 100%;
+  height: 45px;
 }
 
 .scheduleDay {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 6px;
-    margin-top: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 6px;
+  margin-top: 10px;
 }
 
 .serviceFooter {
-    position: absolute;
-    bottom: 24px;
-    width: 100%;
-    right: 0;
-    margin: 0 auto;
-    padding: 0 24px;
+  position: absolute;
+  bottom: 24px;
+  width: 100%;
+  right: 0;
+  margin: 0 auto;
+  padding: 0 24px;
 }
 
 .appointmentSection {
-    position: relative;
-    padding: 30px 26px !important;
-
+  position: relative;
+  padding: 30px 26px !important;
 }
 
 .fullCartSection {
-    padding: 0 24px 0 0;
+  padding: 0 24px 0 0;
 }
 
 .fullCartLeft {
-    padding: 24px !important;
+  padding: 24px !important;
 }
 
 .fullCartInfo {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
 
 .fullCartInfo .appointmentHeading {
-    display: flex;
-    align-items: center;
+  display: flex;
+  align-items: center;
 }
 
 .cartDivide {
-    background-color: #D7DEFF;
-    margin: 30px 0;
+  background-color: #d7deff;
+  margin: 30px 0;
 }
 
 .modal-backdrop.show {
-    opacity: 1.5 !important;
-    background-color: rgba(255, 255, 255, 0.5) !important;
-    backdrop-filter: blur(10px) !important;
+  opacity: 1.5 !important;
+  background-color: rgba(255, 255, 255, 0.5) !important;
+  backdrop-filter: blur(10px) !important;
 }
 
 .cartDetails {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    margin-top: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 30px;
 }
 
 .cartItemDetail {
-    display: flex;
-    align-items: flex-start;
+  display: flex;
+  align-items: flex-start;
 }
 
 .fullCartSection .cartSubInfo {
-    padding: 9px 12px;
-    align-items: flex-start;
+  padding: 9px 12px;
+  align-items: flex-start;
 }
 
 .cartDetails {
-    padding: 9px 12px;
+  padding: 9px 12px;
 }
 
 .unitPriceControl {
-    border-radius: 6px;
-    border: 1px solid #E4E6F2;
-    background: #F5F6FC;
-    padding: 8px !important;
-    width: 70px !important;
-    margin: 0 !important;
-    color: #263682 !important;
-    font-size: 12px !important;
-    font-weight: 400 !important;
+  border-radius: 6px;
+  border: 1px solid #e4e6f2;
+  background: #f5f6fc;
+  padding: 8px !important;
+  width: 70px !important;
+  margin: 0 !important;
+  color: #263682 !important;
+  font-size: 12px !important;
+  font-weight: 400 !important;
 }
 
 .unitPriceControl::placeholder {
-    color: #263682 !important;
-    font-size: 12px !important;
-    font-weight: 400 !important;
+  color: #263682 !important;
+  font-size: 12px !important;
+  font-weight: 400 !important;
 }
 
 .cartInfoText {
-    color: #172461;
-    font-size: 12px;
-    font-weight: 500;
+  color: #172461;
+  font-size: 12px;
+  font-weight: 500;
 }
 
 .fullCartSection .appointmentDate {
-    display: flex;
+  display: flex;
 }
 
 .insertProductSection {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
 
 .fullCartRight {
-    padding: 16px !important;
+  padding: 16px !important;
 }
 
 .addproductCart {
-    border-radius: 12px;
-    background: #F5F6FC;
-    padding: 10px 16px;
-    display: flex;
-    align-items: center;
-    gap: 6px;
+  border-radius: 12px;
+  background: #f5f6fc;
+  padding: 10px 16px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
 }
 
 .deleteProductCart {
-    border-radius: 12px;
-    background: #FEE4E2;
-    padding: 10px 16px;
-    display: flex;
-    align-items: center;
-    gap: 6px;
+  border-radius: 12px;
+  background: #fee4e2;
+  padding: 10px 16px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
 }
 
 .deleteProductCart .monthText {
-    color: #D92D20;
+  color: #d92d20;
 }
 
 .cartOfferSection {
-    border-radius: 20px;
-    border: 1.5px solid #FFD74B;
-    margin-top: 30px;
+  border-radius: 20px;
+  border: 1.5px solid #ffd74b;
+  margin-top: 30px;
 }
 
 .availablePercent {
-    border-radius: 12px 12px 0px 0px;
-    background: #FFD74B;
-    padding: 12px 16px;
-    display: flex;
+  border-radius: 12px 12px 0px 0px;
+  background: #ffd74b;
+  padding: 12px 16px;
+  display: flex;
 }
 
 .offerImg {
-    display: flex;
-    justify-content: start;
-    width: 40%;
+  display: flex;
+  justify-content: start;
+  width: 40%;
 }
 
 .offerHeading {
-    color: #5D4800;
-    font-size: 20px;
-    font-weight: 500;
+  color: #5d4800;
+  font-size: 20px;
+  font-weight: 500;
 }
 
 .offerCartImg {
-    border-radius: 7.5px;
-    background: #FFF7D7;
-    padding: 5px 10px;
+  border-radius: 7.5px;
+  background: #fff7d7;
+  padding: 5px 10px;
 }
 
 .offerCartImg.active {
-    border: 1.25px solid #FFEEB3;
+  border: 1.25px solid #ffeeb3;
 }
 
 .availableoffer {
-    display: flex;
-    align-items: flex-start;
-    justify-content: space-between;
-    padding: 8px 8px 16px 8px;
-    border-bottom: 1px solid #FEEFC6;
-
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  padding: 8px 8px 16px 8px;
+  border-bottom: 1px solid #feefc6;
 }
 
 .offerdata {
-    margin: 8px 4px 8px 8px;
-    height: calc(40vh - 120px);
-    overflow-y: scroll;
+  margin: 8px 4px 8px 8px;
+  height: calc(40vh - 120px);
+  overflow-y: scroll;
 }
 
 .cartOfferInfo {
-    display: flex;
-    align-items: flex-start;
-    gap: 10px;
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
 }
 
 .availablemain {
-    overflow: hidden;
-    color: #5D4800;
-    text-overflow: ellipsis;
-    font-size: 12px;
-    font-weight: 500;
-    white-space: nowrap;
-    overflow: hidden;
-    max-width: 28ch;
+  overflow: hidden;
+  color: #5d4800;
+  text-overflow: ellipsis;
+  font-size: 12px;
+  font-weight: 500;
+  white-space: nowrap;
+  overflow: hidden;
+  max-width: 28ch;
 }
 
 .availableTime {
-    color: #C29613;
-    font-size: 12px;
-    font-weight: 500;
-    margin-top: 4px;
-    text-overflow: ellipsis;
-    overflow: hidden;
-    white-space: nowrap;
-    max-width: 22ch;
+  color: #c29613;
+  font-size: 12px;
+  font-weight: 500;
+  margin-top: 4px;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+  max-width: 22ch;
 }
 
 .availablePrice {
-    color: #C29613;
-    font-size: 12px;
-    font-weight: 400;
-    margin-top: 16px;
+  color: #c29613;
+  font-size: 12px;
+  font-weight: 400;
+  margin-top: 16px;
 }
 
 .actualPrice {
-    color: #5D4800;
-    font-size: 12px;
-    font-weight: 400;
-    margin: 16px 0 0 16px;
+  color: #5d4800;
+  font-size: 12px;
+  font-weight: 400;
+  margin: 16px 0 0 16px;
 }
 
 .offerdata::-webkit-scrollbar-thumb {
-    background-color: #FFEEB3 !important;
+  background-color: #ffeeb3 !important;
 }
 
 .discountBtn {
-    border-radius: 12px;
-    background: #FFD74B;
-    padding: 10px 24px;
-    border: none;
-    color: #5D4800;
-    font-size: 16px;
-    font-weight: 500;
-    outline: none;
+  border-radius: 12px;
+  background: #ffd74b;
+  padding: 10px 24px;
+  border: none;
+  color: #5d4800;
+  font-size: 16px;
+  font-weight: 500;
+  outline: none;
 }
 
 .discountOfferMain {
-    margin: 30px 0;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
+  margin: 30px 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
 
 .notesBtn {
-    border-radius: 12px;
-    background: #F5F6FC;
-    padding: 10px 16px;
-    color: #263682;
-    font-size: 16px;
-    font-weight: 400;
-    border: none;
-    outline: none;
+  border-radius: 12px;
+  background: #f5f6fc;
+  padding: 10px 16px;
+  color: #263682;
+  font-size: 16px;
+  font-weight: 400;
+  border: none;
+  outline: none;
 }
 
 .totalCheckout {
-    border-radius: 16px;
-    background: #F5F6FC;
-    padding: 16px;
+  border-radius: 16px;
+  background: #f5f6fc;
+  padding: 16px;
 }
 
 .lightOfferText {
-    color: #7E8AC1;
-    font-size: 14px;
-    font-weight: 400;
+  color: #7e8ac1;
+  font-size: 14px;
+  font-weight: 400;
 }
 
 .offerCartTotal {
-    border-bottom: 2px dotted #7E8AC1;
-    padding-bottom: 10px;
+  border-bottom: 2px dotted #7e8ac1;
+  padding-bottom: 10px;
 }
 
 .totalText {
-    color: #2F3552;
-    font-size: 14px;
-    font-weight: 600;
+  color: #2f3552;
+  font-size: 14px;
+  font-weight: 600;
 }
 
 .totalSubText {
-    color: #263682;
-    font-size: 14px;
-    font-weight: 600;
+  color: #263682;
+  font-size: 14px;
+  font-weight: 600;
 }
 
 .serviceArrow {
-    cursor: pointer;
+  cursor: pointer;
 }
 
 .daysubCalendar {
-    display: flex;
-    gap: 10px;
-    align-items: center;
-    width: 100%;
-    overflow-x: scroll;
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  width: 100%;
+  overflow-x: scroll;
 }
 
 .serviceDate {
-    border-radius: 16px;
-    border: 1px solid #F7F9FF;
-    padding: 10px;
+  border-radius: 16px;
+  border: 1px solid #f7f9ff;
+  padding: 10px;
 }
 
 .dateText {
-    color: #263682;
-    text-align: center;
-    font-size: 20px;
-    font-weight: 400;
+  color: #263682;
+  text-align: center;
+  font-size: 20px;
+  font-weight: 400;
 }
 
 .serviceDate.active {
-    background: #12B76A;
-    border: none;
+  background: #12b76a;
+  border: none;
 }
 
 .serviceDate.active .productName,
 .serviceDate.active .dateText {
-    color: #ECFDF3;
+  color: #ecfdf3;
 }
 
 .serviceDayTime {
-    height: calc(50vh - 80px);
-    overflow-y: scroll;
+  height: calc(50vh - 80px);
+  overflow-y: scroll;
 }
 
 #addCustomerModal,
 #PhoneReceiptModal,
 #emailReceiptModal,
 #giftCardModal {
-    width: 100%;
-    max-width: 420px;
+  width: 100%;
+  max-width: 420px;
 }
 
 #addCustomerModal .modal-content,
@@ -1234,10 +1240,12 @@ figure {
 #confirmReturnModal .modal-content,
 #returnInventoryModal .modal-content,
 #confirmShipModal .modal-content {
-    border-radius: 30px !important;
-    background: #FFF !important;
-    box-shadow: -3px 6px 6px 0px rgba(52, 79, 117, 0.03), -12px 28px 25px 0px rgba(52, 79, 117, 0.04), -31px 74px 80px 0px rgba(52, 79, 117, 0.07) !important;
-    padding: 30px 24px;
+  border-radius: 30px !important;
+  background: #fff !important;
+  box-shadow: -3px 6px 6px 0px rgba(52, 79, 117, 0.03),
+    -12px 28px 25px 0px rgba(52, 79, 117, 0.04),
+    -31px 74px 80px 0px rgba(52, 79, 117, 0.07) !important;
+  padding: 30px 24px;
 }
 
 #addCustomerModal .modal-header,
@@ -1247,8 +1255,8 @@ figure {
 #confirmReturnModal .modal-header,
 #returnInventoryModal .modal-header,
 #confirmShipModal .modal-header {
-    border: none;
-    padding: 0 !important;
+  border: none;
+  padding: 0 !important;
 }
 
 #addCustomerModal .modal-body,
@@ -1259,1080 +1267,1083 @@ figure {
 #confirmReturnModal .modal-body,
 #returnInventoryModal .modal-body,
 #confirmShipModal .modal-body {
-    padding: 0 !important;
+  padding: 0 !important;
 }
 
 #createCustomerModal,
 #confirmReturnModal,
 #confirmShipModal {
-    width: 100%;
-    max-width: 430px;
+  width: 100%;
+  max-width: 430px;
 }
 
 #customerFoundModal,
 #returnInventoryModal {
-    width: 100%;
-    max-width: 470px;
+  width: 100%;
+  max-width: 470px;
 }
 
 #createCustomerModal .modal-content,
 #customerFoundModal .modal-content {
-    border-radius: 30px !important;
-    background: #FFF !important;
-    box-shadow: -3px 6px 6px 0px rgba(52, 79, 117, 0.03), -12px 28px 25px 0px rgba(52, 79, 117, 0.04), -31px 74px 80px 0px rgba(52, 79, 117, 0.07) !important;
-    padding: 24px;
+  border-radius: 30px !important;
+  background: #fff !important;
+  box-shadow: -3px 6px 6px 0px rgba(52, 79, 117, 0.03),
+    -12px 28px 25px 0px rgba(52, 79, 117, 0.04),
+    -31px 74px 80px 0px rgba(52, 79, 117, 0.07) !important;
+  padding: 24px;
 }
 
 #createCustomerModal .modal-header,
 #customerFoundModal .modal-header {
-    border: none;
-    padding: 0 !important;
+  border: none;
+  padding: 0 !important;
 }
 
 .customerInput {
-    border-radius: 50px !important;
-    border: 1px solid #E4E6F2 !important;
-    background: #FFF !important;
-    box-shadow: 0px 0px 0px 4px rgba(127, 143, 217, 0.05) !important;
-    padding: 16px 8px 16px 46px !important;
-    color: #263682 !important;
-    font-size: 14px !important;
-    font-weight: 400 !important;
+  border-radius: 50px !important;
+  border: 1px solid #e4e6f2 !important;
+  background: #fff !important;
+  box-shadow: 0px 0px 0px 4px rgba(127, 143, 217, 0.05) !important;
+  padding: 16px 8px 16px 46px !important;
+  color: #263682 !important;
+  font-size: 14px !important;
+  font-weight: 400 !important;
 }
 
 .customerControl {
-    margin: 32px 0;
-    position: relative;
+  margin: 32px 0;
+  position: relative;
 }
 
 .addSearch {
-    position: absolute;
-    top: 16px;
-    left: 16px;
+  position: absolute;
+  top: 16px;
+  left: 16px;
 }
 
 .customerInput::placeholder {
-    color: #263682 !important;
-    font-size: 14px !important;
-    font-weight: 400 !important;
+  color: #263682 !important;
+  font-size: 14px !important;
+  font-weight: 400 !important;
 }
 
 .customerLink {
-    color: #263682 !important;
-    text-align: center;
-    font-size: 18px;
-    font-weight: 500;
+  color: #263682 !important;
+  text-align: center;
+  font-size: 18px;
+  font-weight: 500;
 }
 
 .addCustomerForm {
-    display: flex;
-    flex-direction: column;
+  display: flex;
+  flex-direction: column;
 }
 
 .serviceCancel {
-    color: #263682;
-    font-size: 18px;
-    font-weight: 400;
-    padding: 18px 40px;
-    border-radius: 30px;
-    background: #E4E6F2;
-    border: none;
+  color: #263682;
+  font-size: 18px;
+  font-weight: 400;
+  padding: 18px 40px;
+  border-radius: 30px;
+  background: #e4e6f2;
+  border: none;
 }
 
 .addCustomerBtn {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
 
 .headerModal {
-    position: relative;
-    width: 100%;
+  position: relative;
+  width: 100%;
 }
 
 .crossModal {
-    position: absolute;
-    top: 0;
-    right: 0;
-    cursor: pointer;
+  position: absolute;
+  top: 0;
+  right: 0;
+  cursor: pointer;
 }
 
 .inputPosition {
-    position: relative;
+  position: relative;
 }
 
 .phoneIcon {
-    position: relative;
+  position: relative;
 }
 
 .createCustomForm {
-    margin: 30px 0 0 0;
+  margin: 30px 0 0 0;
 }
 
 .emailField {
-    margin: 16px 0;
+  margin: 16px 0;
 }
 
 .nameControl {
-    border-radius: 50px;
-    border: 1px solid #D7DEFF !important;
-    background: #FFF;
-    box-shadow: -2px 4px 25px 0px rgba(50, 80, 127, 0.02), -5px 10px 80px 0px rgba(50, 80, 127, 0.04);
-    padding: 12px 18px 12px 24px !important;
-    color: #263682 !important;
-    font-size: 18px !important;
-    font-weight: 400 !important;
+  border-radius: 50px;
+  border: 1px solid #d7deff !important;
+  background: #fff;
+  box-shadow: -2px 4px 25px 0px rgba(50, 80, 127, 0.02),
+    -5px 10px 80px 0px rgba(50, 80, 127, 0.04);
+  padding: 12px 18px 12px 24px !important;
+  color: #263682 !important;
+  font-size: 18px !important;
+  font-weight: 400 !important;
 }
 
 .nameControl::placeholder {
-    color: #636E9F !important;
-    font-size: 18px !important;
-    font-weight: 400 !important;
+  color: #636e9f !important;
+  font-size: 18px !important;
+  font-weight: 400 !important;
 }
 
 .emailField .verifyControl {
-    padding: 12px 50px;
+  padding: 12px 50px;
 }
 
 .emailField .lockImg {
-    top: 12px;
+  top: 12px;
 }
 
 .phoneDetail {
-    margin: 24px 0 16px 0;
+  margin: 24px 0 16px 0;
 }
 
 .emailDetailSub {
-    display: flex;
-    align-items: center;
-    gap: 12px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
 }
 
 .emailDetail {
-    margin-bottom: 16px;
+  margin-bottom: 16px;
 }
 
 .payDetail {
-    margin-top: 16px;
+  margin-top: 16px;
 }
 
 .confirmBack {
-    color: #4659B5;
-    font-size: 14px;
-    font-weight: 400;
+  color: #4659b5;
+  font-size: 14px;
+  font-weight: 400;
 }
 
 .arrowShort {
-    width: 18px !important;
-    height: 18px !important;
+  width: 18px !important;
+  height: 18px !important;
 }
 
 .confirmLeft {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
 }
 
 .backArrow {
-    position: absolute;
-    top: 16px;
-    left: 16px;
+  position: absolute;
+  top: 16px;
+  left: 16px;
 }
 
 .confirmationSub {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
 }
 
 .coinInfoSection {
-    margin-top: 60px;
-    width: 100%;
+  margin-top: 60px;
+  width: 100%;
 }
 
 .coinAverageSub {
-    border-radius: 16px;
-    border: 1.5px solid #D8B9FF;
-    background: rgba(245, 237, 255, 0.50);
-    padding: 16px;
-    width: 100%;
-    max-width: 200px;
-    height: 100%;
-    min-height: 140px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
+  border-radius: 16px;
+  border: 1.5px solid #d8b9ff;
+  background: rgba(245, 237, 255, 0.5);
+  padding: 16px;
+  width: 100%;
+  max-width: 200px;
+  height: 100%;
+  min-height: 140px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
 }
 
 .coinAverage {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
 }
 
 .coinHeading {
-    color: #7233C2;
-    text-align: center;
-    font-size: 30px;
-    font-weight: 500;
+  color: #7233c2;
+  text-align: center;
+  font-size: 30px;
+  font-weight: 500;
 }
 
 .coinSubText {
-    color: #7233C2;
-    text-align: center;
-    font-size: 12px;
-    font-weight: 500;
+  color: #7233c2;
+  text-align: center;
+  font-size: 12px;
+  font-weight: 500;
 }
 
 .confirmRightSub {
-    padding: 24px !important;
-    border-bottom: 2px dashed #D7DEFF !important;
+  padding: 24px !important;
+  border-bottom: 2px dashed #d7deff !important;
 }
 
 .confirmRight .maplePriceBox {
-    padding: 24px;
+  padding: 24px;
 }
 
 .confirmFooter {
-    padding: 0px 24px 24px 24px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+  padding: 0px 24px 24px 24px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 #customerFoundModal .modal-body {
-    padding: 0 !important;
+  padding: 0 !important;
 }
 
 .coinAverageSub.active {
-    border-radius: 16px;
-    background: #552099;
-    box-shadow: 0px 0px 0px 4px rgba(85, 32, 153, 0.15);
-    border: none;
+  border-radius: 16px;
+  background: #552099;
+  box-shadow: 0px 0px 0px 4px rgba(85, 32, 153, 0.15);
+  border: none;
 }
 
 .coinAverageSub.active .coinHeading {
-    color: #F5EDFF;
+  color: #f5edff;
 }
 
 .coinAverageSub.active .coinSubText {
-    color: #F5EDFF;
-
+  color: #f5edff;
 }
 
 .confirmSubSuccess {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
 }
 
 .ThankBox {
-    border-radius: 40px;
-    background: #F5F6FC;
-    padding: 60px 50px;
-    width: 100%;
-    max-width: 344px;
+  border-radius: 40px;
+  background: #f5f6fc;
+  padding: 60px 50px;
+  width: 100%;
+  max-width: 344px;
 }
 
 .confirmSelectLeft .fullCartInfo {
-    margin: 10px;
+  margin: 10px;
 }
 
 .coinPercentSelect {
-    border-radius: 16px;
-    border: 1.5px solid #D8B9FF;
-    background: rgba(245, 237, 255, 0.50);
-    padding: 30px 0;
-    width: 100%;
-    cursor: pointer;
+  border-radius: 16px;
+  border: 1.5px solid #d8b9ff;
+  background: rgba(245, 237, 255, 0.5);
+  padding: 30px 0;
+  width: 100%;
+  cursor: pointer;
 }
 
 .coinPercentSelect.active {
-    border-radius: 16px;
-    background: #914BEB;
+  border-radius: 16px;
+  background: #914beb;
 }
 
 .coinPercentSelect.active .coinHeading,
 .coinPercentSelect.active .coinSubText {
-    color: #F5EDFF;
+  color: #f5edff;
 }
 
 .coinAverageSelect {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    margin-top: 26px;
-    gap: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 26px;
+  gap: 16px;
 }
 
 .confirmStep {
-    padding: 0 30px;
-    height: calc(80vh - 110px);
-    overflow-y: scroll;
+  padding: 0 30px;
+  height: calc(80vh - 110px);
+  overflow-y: scroll;
 }
 
 .confirmFirst {
-    padding: 0 20px 20px 20px;
-
+  padding: 0 20px 20px 20px;
 }
 
 .confirmStep .coinSubText {
-    font-size: 11px;
+  font-size: 11px;
 }
 
 .confirmStep .coinHeading {
-    font-size: 18px;
+  font-size: 18px;
 }
 
 .confirmationSection {
-    padding: 0 24px 0 0;
+  padding: 0 24px 0 0;
 }
 
 .confirmSecond,
 .confirmThird {
-    padding: 20px;
+  padding: 20px;
 }
 
 .debitText {
-    font-size: 16px;
-    font-weight: 500;
+  font-size: 16px;
+  font-weight: 500;
 }
 
 .priceRefunded {
-    font-size: 20px;
-    font-weight: 500;
+  font-size: 20px;
+  font-weight: 500;
 }
 
 .savingText {
-    color: #263682;
-    text-align: center;
-    font-size: 16px;
-    font-weight: 500;
-    border-radius: 30px;
-    background: #FEDF89;
-    padding: 0 8px;
-
+  color: #263682;
+  text-align: center;
+  font-size: 16px;
+  font-weight: 500;
+  border-radius: 30px;
+  background: #fedf89;
+  padding: 0 8px;
 }
 
 .jobrCoinFooter {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    flex-wrap: wrap;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
 }
 
 .giftCardBox {
-    border-radius: 20px;
-    background: #F5EDFF;
-    padding: 6px;
-    display: flex;
-    align-items: center;
-    gap: 4px;
-    margin-left: 8px;
-    cursor: pointer;
+  border-radius: 20px;
+  background: #f5edff;
+  padding: 6px;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  margin-left: 8px;
+  cursor: pointer;
 }
 
 .giftHeading {
-    color: #7233C2;
-    font-size: 12px;
-    font-weight: 600;
+  color: #7233c2;
+  font-size: 12px;
+  font-weight: 600;
 }
 
 .Tomorrowappointment,
 .Todayappointment,
 .afterappointment,
 .DayTomorrowappointment {
-    height: 100%;
+  height: 100%;
 }
 
 .serviceHomeSection .commanscrollBar {
-    padding-bottom: 60px !important;
+  padding-bottom: 60px !important;
 }
 
 .confirmSelectSection .receiptCard {
-    height: 100%;
+  height: 100%;
 }
 
 .confirmSelectLeft .nextverifyBtn {
-    padding: 18px 100px;
+  padding: 18px 100px;
 }
 
 .pointHand {
-    cursor: pointer;
+  cursor: pointer;
 }
 
 .eReciptBtn {
-    border-radius: 30px;
-    background: #12B76A;
-    padding: 18px 20px;
-    color: #F5F6FC;
-    font-size: 18px;
-    font-weight: 400;
-    border: none;
+  border-radius: 30px;
+  background: #12b76a;
+  padding: 18px 20px;
+  color: #f5f6fc;
+  font-size: 18px;
+  font-weight: 400;
+  border: none;
 }
 
 .phoneReceiptBtn .nextverifyBtn {
-    padding: 18px 35px;
+  padding: 18px 35px;
 }
 
 .jobrCoinBox.active {
-    background: #172461;
-    box-shadow: 0px 0px 0px 4px rgba(127, 143, 217, 0.15);
-    color: #E4E6F2;
+  background: #172461;
+  box-shadow: 0px 0px 0px 4px rgba(127, 143, 217, 0.15);
+  color: #e4e6f2;
 }
 
 .jobrCoinBox.active .jobrCoinDark {
-    display: block;
+  display: block;
 }
 
 .jobrCoinBox.active .JOBRCoinOutline {
-    display: none;
+  display: none;
 }
 
 .jobrCoinDark {
-    display: none;
+  display: none;
 }
 
 .savingBox {
-    color: #027547;
-    text-align: center;
-    font-size: 18px;
-    font-weight: 500;
-    border-radius: 8px;
-    background: #D1FADF;
-    padding: 12px;
+  color: #027547;
+  text-align: center;
+  font-size: 18px;
+  font-weight: 500;
+  border-radius: 8px;
+  background: #d1fadf;
+  padding: 12px;
 }
 
 .giftLightOffer {
-    display: none;
+  display: none;
 }
 
 .giftCardBox.active {
-    border-radius: 20px;
-    border: 0px solid #914BEB;
-    background: #7233C2;
-    box-shadow: 0px 0px 0px 3px rgba(145, 75, 235, 0.10);
+  border-radius: 20px;
+  border: 0px solid #914beb;
+  background: #7233c2;
+  box-shadow: 0px 0px 0px 3px rgba(145, 75, 235, 0.1);
 }
 
 .giftCardBox.active .giftLightOffer {
-    display: block;
+  display: block;
 }
 
 .giftCardBox.active .giftOffer {
-    display: none;
+  display: none;
 }
 
 .giftCardBox.active .giftHeading {
-    color: #F5EDFF;
+  color: #f5edff;
 }
 
 .cardControl {
-    color: #263682 !important;
-    text-align: center;
-    font-size: 18px !important;
-    font-weight: 500 !important;
-    padding: 18px 18px 18px 24px;
-    border-radius: 50px;
-    border: 1px solid #D7DEFF;
-    background: #FFF;
-    box-shadow: -2px 4px 25px 0px rgba(50, 80, 127, 0.02), -5px 10px 80px 0px rgba(50, 80, 127, 0.04);
+  color: #263682 !important;
+  text-align: center;
+  font-size: 18px !important;
+  font-weight: 500 !important;
+  padding: 18px 18px 18px 24px;
+  border-radius: 50px;
+  border: 1px solid #d7deff;
+  background: #fff;
+  box-shadow: -2px 4px 25px 0px rgba(50, 80, 127, 0.02),
+    -5px 10px 80px 0px rgba(50, 80, 127, 0.04);
 }
 
 .cardControl::placeholder {
-    color: #263682 !important;
-    text-align: center;
-    font-size: 18px !important;
-    font-weight: 500 !important;
+  color: #263682 !important;
+  text-align: center;
+  font-size: 18px !important;
+  font-weight: 500 !important;
 }
 
 .giftOfferBtn .nextverifyBtn {
-    padding: 18px 55px;
+  padding: 18px 55px;
 }
 
 .giftOfferBtn .serviceCancel {
-    padding: 18px 50px;
+  padding: 18px 50px;
 }
 
 .totalBtn {
-    border-radius: 30px;
-    border: 0px solid #263682;
-    background: #F5F6FC;
-    color: #263682;
-    font-size: 18px;
-    font-weight: 500;
-    padding: 12px 16px;
+  border-radius: 30px;
+  border: 0px solid #263682;
+  background: #f5f6fc;
+  color: #263682;
+  font-size: 18px;
+  font-weight: 500;
+  padding: 12px 16px;
 }
 
 .flexbase {
-    display: flex;
-    align-items: baseline;
+  display: flex;
+  align-items: baseline;
 }
 
 #jobrWalletModal {
-    width: 100%;
-    max-width: 675px;
+  width: 100%;
+  max-width: 675px;
 }
 
 #jobrWalletModal .modal-content {
-    border-radius: 30px !important;
-    background: #FFF !important;
-    box-shadow: -3px 6px 6px 0px rgba(52, 79, 117, 0.03), -12px 28px 25px 0px rgba(52, 79, 117, 0.04), -31px 74px 80px 0px rgba(52, 79, 117, 0.07);
-    padding: 24px 40px 40px 40px !important;
+  border-radius: 30px !important;
+  background: #fff !important;
+  box-shadow: -3px 6px 6px 0px rgba(52, 79, 117, 0.03),
+    -12px 28px 25px 0px rgba(52, 79, 117, 0.04),
+    -31px 74px 80px 0px rgba(52, 79, 117, 0.07);
+  padding: 24px 40px 40px 40px !important;
 }
 
 #jobrWalletModal .modal-header {
-    border: none !important;
-    padding: 0 !important;
+  border: none !important;
+  padding: 0 !important;
 }
 
 .walletLeftModal {
-    text-align: center;
+  text-align: center;
 }
 
 .payHeading {
-    color: #172461;
-    text-align: center;
-    font-size: 18px;
-    font-weight: 500;
-    margin-top: 16px;
+  color: #172461;
+  text-align: center;
+  font-size: 18px;
+  font-weight: 500;
+  margin-top: 16px;
 }
 
 .JbrAmount {
-    color: #263682;
-    text-align: center;
-    font-size: 24px;
-    font-weight: 500;
-    padding: 12px;
-    border-radius: 30px;
-    background: #F5F6FC;
-    margin: 12px 0;
+  color: #263682;
+  text-align: center;
+  font-size: 24px;
+  font-weight: 500;
+  padding: 12px;
+  border-radius: 30px;
+  background: #f5f6fc;
+  margin: 12px 0;
 }
 
 .scannerImg {
-    height: 170px;
-    width: 215px !important;
-    margin-top: 32px;
+  height: 170px;
+  width: 215px !important;
+  margin-top: 32px;
 }
 
 .walletRightModal {
-    text-align: center;
+  text-align: center;
 }
 
 .walletImg_ {
-    width: 40px;
-    height: 40px;
+  width: 40px;
+  height: 40px;
 }
 
 .walletControl {
-    border-radius: 50px;
-    border: 1px solid #D7DEFF;
-    background: #FFF !important;
-    box-shadow: -2px 4px 25px 0px rgba(50, 80, 127, 0.02), -5px 10px 80px 0px rgba(50, 80, 127, 0.04) !important;
-    color: #263682 !important;
-    text-align: center !important;
-    font-size: 20px !important;
-    font-weight: 500 !important;
+  border-radius: 50px;
+  border: 1px solid #d7deff;
+  background: #fff !important;
+  box-shadow: -2px 4px 25px 0px rgba(50, 80, 127, 0.02),
+    -5px 10px 80px 0px rgba(50, 80, 127, 0.04) !important;
+  color: #263682 !important;
+  text-align: center !important;
+  font-size: 20px !important;
+  font-weight: 500 !important;
 }
 
 .walletControl::placeholder {
-    color: #263682 !important;
-    text-align: center !important;
-    font-size: 20px !important;
-    font-weight: 500 !important;
+  color: #263682 !important;
+  text-align: center !important;
+  font-size: 20px !important;
+  font-weight: 500 !important;
 }
 
 .jobrWalletSection {
-    display: flex;
-    align-items: center;
-    gap: 80px;
+  display: flex;
+  align-items: center;
+  gap: 80px;
 }
 
 .walletField {
-    margin: 62px 0px;
+  margin: 62px 0px;
 }
 
 .walletModalBtn .nextverifyBtn {
-    border-radius: 30px;
-    background: #263682;
-    color: #F5F6FC;
-    font-size: 18px;
-    font-weight: 400;
-    letter-spacing: -0.36px;
-    border: none;
-    padding: 18px 35px;
+  border-radius: 30px;
+  background: #263682;
+  color: #f5f6fc;
+  font-size: 18px;
+  font-weight: 400;
+  letter-spacing: -0.36px;
+  border: none;
+  padding: 18px 35px;
 }
 
 .walletModalBtn .serviceCancel {
-    padding: 18px 30px;
-
+  padding: 18px 30px;
 }
 
 .walletForm::before {
-    content: "";
-    width: 1px;
-    height: 170px;
-    position: absolute;
-    left: -40px;
-    top: -50px;
-    background: var(--Neutrals-N-100, #D7DEFF);
+  content: "";
+  width: 1px;
+  height: 170px;
+  position: absolute;
+  left: -40px;
+  top: -50px;
+  background: var(--Neutrals-N-100, #d7deff);
 }
 
 .walletForm {
-    position: relative;
+  position: relative;
 }
 
 .imgSize {
-    width: 24px;
-    height: 24px;
+  width: 24px;
+  height: 24px;
 }
 
 .sidebarBg {
-    padding: 12px;
+  padding: 12px;
 }
 
 .rightSidebarItems.active .sidebarBg {
-    border-radius: 12px;
-    background: #F5F6FC;
+  border-radius: 12px;
+  background: #f5f6fc;
 }
 
 .cartNum {
-    border-radius: 50px;
-    border: 1.5px solid #F5F6FC;
-    background: #263682;
-    color: #F5F6FC;
-    font-size: 12px;
-    font-weight: 500;
-    position: absolute;
-    height: 18px;
-    width: 18px;
-    bottom: 12px;
-    right: 3px;
+  border-radius: 50px;
+  border: 1.5px solid #f5f6fc;
+  background: #263682;
+  color: #f5f6fc;
+  font-size: 12px;
+  font-weight: 500;
+  position: absolute;
+  height: 18px;
+  width: 18px;
+  bottom: 12px;
+  right: 3px;
 }
 
 /*service pages css end*/
 /*product module css start*/
 .productDetailLeft {
-    padding: 40px !important;
+  padding: 40px !important;
 }
 
 .productInfo {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin-top: 30px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 30px;
 }
 
 .productBag {
-    width: 155px;
-    height: 155px;
-    border-radius: 24px;
+  width: 155px;
+  height: 155px;
+  border-radius: 24px;
 }
 
 .productRefresh {
-    position: relative;
+  position: relative;
 }
 
 .colorChart {
-    margin: 24px 0;
+  margin: 24px 0;
 }
 
 .productIncrement {
-    margin: 30px 0 !important;
-    border-radius: 16px !important;
-    border: 1px solid #D7DEFF !important;
-    justify-content: space-between;
+  margin: 30px 0 !important;
+  border-radius: 16px !important;
+  border: 1px solid #d7deff !important;
+  justify-content: space-between;
 }
 
 .productIncrement .addBtnControl {
-    max-width: 100% !important;
-    padding: 10px !important;
-    margin: 0 !important;
-
+  max-width: 100% !important;
+  padding: 10px !important;
+  margin: 0 !important;
 }
 
 .productIncrement .plusMinus {
-    padding: 10px 10px;
-    font-size: 24px;
-    width: 100%;
-    text-align: center;
+  padding: 10px 10px;
+  font-size: 24px;
+  width: 100%;
+  text-align: center;
 }
 
 .productDetailRight {
-    padding: 40px 24px;
+  padding: 40px 24px;
 }
 
 .detailText {
-    color: #172461;
-    font-size: 14px;
-    font-weight: 400;
-    width: 100%;
+  color: #172461;
+  font-size: 14px;
+  font-weight: 400;
+  width: 100%;
 }
 
 .productSubData {
-    border-radius: 6px;
-    background: #F5F6FC;
-    padding: 4px 8px;
-    display: flex;
-    align-items: center;
+  border-radius: 6px;
+  background: #f5f6fc;
+  padding: 4px 8px;
+  display: flex;
+  align-items: center;
 }
 
 .productData {
-    margin: 16px 0;
+  margin: 16px 0;
 }
 
 .productSubDataLight {
-    border-radius: 6px;
-    padding: 4px 8px;
-    display: flex;
-    align-items: center;
+  border-radius: 6px;
+  padding: 4px 8px;
+  display: flex;
+  align-items: center;
 }
 
 .stockHandSetion {
-    margin: 24px 0;
+  margin: 24px 0;
 }
 
 .stockSub {
-    border-radius: 16px;
-    border: 1px solid #D7DEFF;
-    margin-top: 16px;
-    padding: 16px;
+  border-radius: 16px;
+  border: 1px solid #d7deff;
+  margin-top: 16px;
+  padding: 16px;
 }
 
 .stockBox {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
 }
 
 .stockSubBox {
-    border-radius: 10px;
-    border: 1px solid #D7DEFF;
-    padding: 16px;
-    width: 100%;
+  border-radius: 10px;
+  border: 1px solid #d7deff;
+  padding: 16px;
+  width: 100%;
 }
 
 .blueSize {
-    border-radius: 6px;
-    border: 1px solid #D7DEFF;
-    background: #F7F9FF;
-    padding: 4px 8px;
+  border-radius: 6px;
+  border: 1px solid #d7deff;
+  background: #f7f9ff;
+  padding: 4px 8px;
 }
 
 .sizeText {
-    color: #172461;
-    text-align: center;
-    font-size: 12px;
-    font-weight: 500;
+  color: #172461;
+  text-align: center;
+  font-size: 12px;
+  font-weight: 500;
 }
 
 .redSize {
-    border-radius: 6px;
-    border: 1px solid #F04438;
-    background: #F97066;
-    padding: 4px 8px;
+  border-radius: 6px;
+  border: 1px solid #f04438;
+  background: #f97066;
+  padding: 4px 8px;
 }
 
 .redSize .sizeText {
-    color: #5B0600;
+  color: #5b0600;
 }
 
 .redStock {
-    border-radius: 6px;
-    border: 0px solid #D7DEFF;
-    background: #FEE4E2;
-    padding: 4px 8px;
+  border-radius: 6px;
+  border: 0px solid #d7deff;
+  background: #fee4e2;
+  padding: 4px 8px;
 }
 
 .redStock .sizeText {
-    color: #5B0600;
+  color: #5b0600;
 }
 
 .Notify {
-    border-radius: 50px;
-    background: #F5F6FC;
-    padding: 2px 6px;
+  border-radius: 50px;
+  background: #f5f6fc;
+  padding: 2px 6px;
 }
 
 .yellowSize {
-    border-radius: 6px;
-    border: 1px solid #FEC84B;
-    background: #FEDF89;
-    padding: 4px 8px;
+  border-radius: 6px;
+  border: 1px solid #fec84b;
+  background: #fedf89;
+  padding: 4px 8px;
 }
 
 .yellowSize .sizeText {
-    color: #93370D;
+  color: #93370d;
 }
 
 .yellowStock {
-    border-radius: 6px;
-    border: 0px solid #D7DEFF;
-    background: #FEEFC6;
-    padding: 4px 8px;
+  border-radius: 6px;
+  border: 0px solid #d7deff;
+  background: #feefc6;
+  padding: 4px 8px;
 }
 
 .yellowStock .sizeText {
-    color: #93370D;
+  color: #93370d;
 }
 
 .noNotify {
-    padding: 2px 6px;
-    border-radius: 6px;
+  padding: 2px 6px;
+  border-radius: 6px;
 }
 
 .storeAvailable {
-    border-radius: 12px;
-    border: 1px solid #E4E6F2;
-    padding: 10px 12px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    width: 100%;
+  border-radius: 12px;
+  border: 1px solid #e4e6f2;
+  padding: 10px 12px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
 }
 
 .roundCheck input[type="checkbox"] {
-    position: relative;
-    width: 31px;
-    height: 18px;
-    -webkit-appearance: none;
-    appearance: none;
-    outline: none;
-    cursor: pointer;
-    border-radius: 12px;
-    background: #E4E6F2;
+  position: relative;
+  width: 31px;
+  height: 18px;
+  -webkit-appearance: none;
+  appearance: none;
+  outline: none;
+  cursor: pointer;
+  border-radius: 12px;
+  background: #e4e6f2;
 }
 
 .roundCheck input[type="checkbox"]::before {
-    content: "";
-    width: 12px;
-    height: 13px;
-    border-radius: 50%;
-    background: #fff;
-    position: absolute;
-    top: 50%;
-    transform: translate(0%, -50%);
-    left: 3px;
-    transition: 0.5s;
-
+  content: "";
+  width: 12px;
+  height: 13px;
+  border-radius: 50%;
+  background: #fff;
+  position: absolute;
+  top: 50%;
+  transform: translate(0%, -50%);
+  left: 3px;
+  transition: 0.5s;
 }
 
 .roundCheck input[type="checkbox"]:checked::before {
-    transform: translate(100%, -50%);
-    background: #fff;
-    border: none;
-    border: 2px solid #fff
+  transform: translate(100%, -50%);
+  background: #fff;
+  border: none;
+  border: 2px solid #fff;
 }
 
 .roundCheck input[type="checkbox"]:checked {
-    background: #4659B5;
-    border: 2px solid #4659B5;
+  background: #4659b5;
+  border: 2px solid #4659b5;
 }
 
 .roundCheck {
-    display: flex;
-    align-items: center;
-    gap: 10px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
 }
 
 .productGreyDot {
-    background-color: #D7DEFF;
-    width: 8px;
-    height: 8px;
-    border-radius: 50%;
+  background-color: #d7deff;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
 }
 
 .orderPerson {
-    width: 26px;
-    height: 26px;
+  width: 26px;
+  height: 26px;
 }
 
 .orderAroundImg {
-    border-radius: 50px;
-    border: 0px solid #E4E6F2;
-    background: #F5F6FC;
-    padding: 10px;
+  border-radius: 50px;
+  border: 0px solid #e4e6f2;
+  background: #f5f6fc;
+  padding: 10px;
 }
 
 .detailScroll {
-    height: calc(100% - 337px);
-    overflow-y: scroll;
+  height: calc(100% - 337px);
+  overflow-y: scroll;
 }
 
 /*product module css end*/
 /*deliver Module css start*/
 .deliveryOuter {
-    height: calc(100vh - 129px);
-    overflow-y: scroll;
-    margin: 0 16px;
+  height: calc(100vh - 129px);
+  overflow-y: scroll;
+  margin: 0 16px;
 }
 
 .smallImg {
-    width: 24px;
-    height: 24px;
+  width: 24px;
+  height: 24px;
 }
 
 .rightLinkBar {
-    padding: 8px;
-    display: flex;
-    align-items: center;
-    gap: 12px;
+  padding: 8px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
 }
 
 .deliverOrderStatus {
-    border-radius: 16px;
-    background: #FFF;
-    padding: 24px;
+  border-radius: 16px;
+  background: #fff;
+  padding: 24px;
 }
 
 .deliverMainText {
-    color: #2F3552;
-    font-size: 14px;
-    font-weight: 400;
+  color: #2f3552;
+  font-size: 14px;
+  font-weight: 400;
 }
 
 .currentStatus {
-    margin: 20px 0;
-    border-radius: 16px;
-    background: #FFF;
-    box-shadow: -2px 4px 25px 0px rgba(50, 80, 127, 0.02), -5px 10px 80px 0px rgba(50, 80, 127, 0.04);
-    padding: 24px 16px;
+  margin: 20px 0;
+  border-radius: 16px;
+  background: #fff;
+  box-shadow: -2px 4px 25px 0px rgba(50, 80, 127, 0.02),
+    -5px 10px 80px 0px rgba(50, 80, 127, 0.04);
+  padding: 24px 16px;
 }
 
 .expressDeliver {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    border-radius: 12px;
-    border: 1px solid #914BEB;
-    padding: 10px;
-    margin-top: 20px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  border-radius: 12px;
+  border: 1px solid #914beb;
+  padding: 10px;
+  margin-top: 20px;
 }
 
 .expressImg {
-    border-radius: 8px;
-    background: rgba(228, 230, 242, 0.50);
-    padding: 5px;
+  border-radius: 8px;
+  background: rgba(228, 230, 242, 0.5);
+  padding: 5px;
 }
 
 .expessText {
-    color: #552099;
-    font-size: 14px;
-    font-weight: 500;
+  color: #552099;
+  font-size: 14px;
+  font-weight: 500;
 }
 
 .oneHrDeliver {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    border-radius: 12px;
-    border: 1px solid #B985FD;
-    padding: 10px;
-    margin-top: 20px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  border-radius: 12px;
+  border: 1px solid #b985fd;
+  padding: 10px;
+  margin-top: 20px;
 }
 
 .oneHrDeliver .expessText {
-    color: #7233C2;
+  color: #7233c2;
 }
 
 .twoHrDelivery {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    border-radius: 12px;
-    border: 1px solid #D8B9FF;
-    padding: 10px;
-    margin-top: 20px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  border-radius: 12px;
+  border: 1px solid #d8b9ff;
+  padding: 10px;
+  margin-top: 20px;
 }
 
 .twoHrDelivery .expessText {
-    color: #914BEB;
+  color: #914beb;
 }
 
 .pickupDeliver {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    border-radius: 12px;
-    border: 1px solid #D7DEFF;
-    padding: 10px;
-    margin-top: 20px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  border-radius: 12px;
+  border: 1px solid #d7deff;
+  padding: 10px;
+  margin-top: 20px;
 }
 
 .deliverOrder {
-    border-radius: 16px;
-    background: #FFF;
-    box-shadow: -2px 4px 25px 0px rgba(50, 80, 127, 0.02), -5px 10px 80px 0px rgba(50, 80, 127, 0.04);
-    padding: 24px;
+  border-radius: 16px;
+  background: #fff;
+  box-shadow: -2px 4px 25px 0px rgba(50, 80, 127, 0.02),
+    -5px 10px 80px 0px rgba(50, 80, 127, 0.04);
+  padding: 24px;
 }
 
 .graphCircleImg {
-    width: 114px !important;
-    height: 114px !important;
+  width: 114px !important;
+  height: 114px !important;
 }
 
 .deliverGraph {
-    text-align: center;
-    margin: 12px 0;
+  text-align: center;
+  margin: 12px 0;
 }
 
 .orderDeliverText {
-    color: #7233C2;
-    font-size: 14px;
-    font-weight: 400;
+  color: #7233c2;
+  font-size: 14px;
+  font-weight: 400;
 }
 
 .deliverPercent {
-    border-radius: 20px;
-    background: #F5EDFF;
-    padding: 3px 6px 3px 23px;
-    color: #7233C2;
-    font-size: 12px;
-    font-weight: 500;
-    position: relative;
-    display: inline-block;
+  border-radius: 20px;
+  background: #f5edff;
+  padding: 3px 6px 3px 23px;
+  color: #7233c2;
+  font-size: 12px;
+  font-weight: 500;
+  position: relative;
+  display: inline-block;
 }
 
 .deliverPercent::before {
-    content: "";
-    position: absolute;
-    width: 8px;
-    height: 8px;
-    background-color: #B985FD;
-    border-radius: 50%;
-    top: 7px;
-    left: 10px;
+  content: "";
+  position: absolute;
+  width: 8px;
+  height: 8px;
+  background-color: #b985fd;
+  border-radius: 50%;
+  top: 7px;
+  left: 10px;
 }
 
 .returnOrder .orderDeliverText {
-    color: #C29613;
+  color: #c29613;
 }
 
 .returnOrder .deliverPercent {
-    background-color: #FFF7D7 !important;
-    color: #C29613 !important;
+  background-color: #fff7d7 !important;
+  color: #c29613 !important;
 }
 
 .returnOrder .deliverPercent::before {
-    background-color: #FFD74B !important;
+  background-color: #ffd74b !important;
 }
 
 .cancelOrder .orderDeliverText {
-    color: #F04438;
+  color: #f04438;
 }
 
 .cancelOrder .deliverPercent {
-    background-color: #FEF3F2 !important;
-    color: #D92D20 !important;
+  background-color: #fef3f2 !important;
+  color: #d92d20 !important;
 }
 
 .cancelOrder .deliverPercent::before {
-    background-color: #F97066 !important;
+  background-color: #f97066 !important;
 }
 
 /* .deliverSubOuter {
@@ -2341,1073 +2352,1093 @@ figure {
 } */
 
 .deliveryOuter::-webkit-scrollbar {
-    display: none;
+  display: none;
 }
 
 .deliverGraphSection {
-    border-radius: 20px;
-    background: #FFF;
-    /* box-shadow: -2px 4px 25px 0px rgba(50, 80, 127, 0.02), -5px 10px 80px 0px rgba(50, 80, 127, 0.04); */
-    padding: 24px;
+  border-radius: 20px;
+  background: #fff;
+  /* box-shadow: -2px 4px 25px 0px rgba(50, 80, 127, 0.02), -5px 10px 80px 0px rgba(50, 80, 127, 0.04); */
+  padding: 24px;
 }
 
-.form-group input {
+/* .form-group input {
     padding: 0;
     height: initial;
     width: initial;
     margin-bottom: 0;
     display: none;
     cursor: pointer;
-}
+} */
 
 .checkBlue label {
-    position: relative;
-    cursor: pointer;
+  position: relative;
+  cursor: pointer;
 }
 
 .checkBlue label:before {
-    content: '';
-    -webkit-appearance: none;
-    background-color: #D7DEFF;
-    border: 1px solid #4659B5;
-    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05), inset 0px -15px 10px -12px rgba(0, 0, 0, 0.05);
-    padding: 8px;
-    display: inline-block;
-    position: relative;
-    vertical-align: middle;
-    cursor: pointer;
-    margin-right: 5px;
-    border-radius: 4px;
+  content: "";
+  -webkit-appearance: none;
+  background-color: #d7deff;
+  border: 1px solid #4659b5;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05),
+    inset 0px -15px 10px -12px rgba(0, 0, 0, 0.05);
+  padding: 8px;
+  display: inline-block;
+  position: relative;
+  vertical-align: middle;
+  cursor: pointer;
+  margin-right: 5px;
+  border-radius: 4px;
 }
 
-.checkBlue input:checked+label:after {
-    content: '';
-    display: block;
-    position: absolute;
-    top: 3px;
-    left: 6px;
-    width: 6px;
-    height: 13px;
-    border: solid #263682;
-    border-width: 0 2px 2px 0;
-    transform: rotate(45deg);
+.checkBlue input:checked + label:after {
+  content: "";
+  display: block;
+  position: absolute;
+  top: 3px;
+  left: 6px;
+  width: 6px;
+  height: 13px;
+  border: solid #263682;
+  border-width: 0 2px 2px 0;
+  transform: rotate(45deg);
 }
 
 .deliverCheck {
-    display: flex;
-    justify-content: end;
-    gap: 20px;
+  display: flex;
+  justify-content: end;
+  gap: 20px;
 }
 
 .checkPurple label:before {
-    border: 1px solid #7233C2;
-    background-color: #F5EDFF;
+  border: 1px solid #7233c2;
+  background-color: #f5edff;
 }
 
-.checkPurple input:checked+label:after {
-    border: solid #914BEB;
-    border-width: 0 2px 2px 0;
+.checkPurple input:checked + label:after {
+  border: solid #914beb;
+  border-width: 0 2px 2px 0;
 }
 
 .checkPurple .appointSub {
-    color: #7233C2;
+  color: #7233c2;
 }
 
 .checkYellow label:before {
-    border: 1px solid #FFD74B;
-    background-color: #FFF7D7;
+  border: 1px solid #ffd74b;
+  background-color: #fff7d7;
 }
 
-.checkYellow input:checked+label:after {
-    border: solid #FDB022;
-    border-width: 0 2px 2px 0;
+.checkYellow input:checked + label:after {
+  border: solid #fdb022;
+  border-width: 0 2px 2px 0;
 }
 
 .checkYellow .appointSub {
-    color: #DBAF18;
+  color: #dbaf18;
 }
 
 .checkRed label:before {
-    border: 1px solid #F97066;
-    background-color: #FEE4E2;
+  border: 1px solid #f97066;
+  background-color: #fee4e2;
 }
 
-.checkRed input:checked+label:after {
-    border: solid #F04438;
-    border-width: 0 2px 2px 0;
+.checkRed input:checked + label:after {
+  border: solid #f04438;
+  border-width: 0 2px 2px 0;
 }
 
 .checkRed .appointSub {
-    color: #F04438;
+  color: #f04438;
 }
 
 .barChartImg {
-    width: 100%;
-    height: 350px !important;
+  width: 100%;
+  height: 350px !important;
 }
 
 .checkBlue {
-    display: flex;
-    align-items: center;
+  display: flex;
+  align-items: center;
 }
 
 .deliverOrderData {
-    border-radius: 20px;
-    background: #FFF;
-    box-shadow: -2px 4px 25px 0px rgba(50, 80, 127, 0.02), -5px 10px 80px 0px rgba(50, 80, 127, 0.04);
-    padding: 16px;
-    margin-top: 20px;
+  border-radius: 20px;
+  background: #fff;
+  box-shadow: -2px 4px 25px 0px rgba(50, 80, 127, 0.02),
+    -5px 10px 80px 0px rgba(50, 80, 127, 0.04);
+  padding: 16px;
+  margin-top: 20px;
 }
 
 .deliverTableBx {
-    border-radius: 20px;
-    background: #F5EDFF;
-    padding: 2px 4px;
-    display: inline-block;
-    margin-top: 5px;
+  border-radius: 20px;
+  background: #f5edff;
+  padding: 2px 4px;
+  display: inline-block;
+  margin-top: 5px;
 }
 
 .itemMoney .deliverTableBx {
-    background: #ECFDF3;
+  background: #ecfdf3;
 }
 
 .itemTime .deliverTableBx {
-    background: #EFFBFF;
+  background: #effbff;
 }
 
 .deliverOrderData .deliverTable {
-    height: calc(50vh - 130px);
-    overflow: scroll;
+  height: calc(50vh - 130px);
+  overflow: scroll;
 }
 
 .deliverLeft {
-    padding-bottom: 20px;
+  padding-bottom: 20px;
 }
 
 .deliverRight {
-    padding-bottom: 20px;
+  padding-bottom: 20px;
 }
 
 .rightInnerToggle {
-    padding: 8px;
-    cursor: pointer;
+  padding: 8px;
+  cursor: pointer;
 }
 
 .collapseToggle {
-    border-radius: 30px;
-    background: #F5F6FC;
-    padding: 8px 24px 8px 6px;
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    cursor: pointer;
-    width: 100%;
-    max-width: 130px;
+  border-radius: 30px;
+  background: #f5f6fc;
+  padding: 8px 24px 8px 6px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  cursor: pointer;
+  width: 100%;
+  max-width: 130px;
 }
 
 .hideDeliver .collapseToggle {
-    display: none;
+  display: none;
 }
 
 .fullDeliver .collapseToggle {
-    display: flex;
+  display: flex;
 }
 
 .fullDeliver .rightInnerToggle {
-    display: none;
+  display: none;
 }
 
 .deliverRightBar {
-    float: none;
-    right: 24px;
-    position: fixed;
-    top: 107px;
-    width: 60px;
-    transition: 1s;
-    z-index: 999;
-    border-radius: 30px;
-    border: 0px solid #D7DEFF;
-    background: #FFF;
-    padding: 16px 10px;
+  float: none;
+  right: 24px;
+  position: fixed;
+  top: 107px;
+  width: 60px;
+  transition: 1s;
+  z-index: 999;
+  border-radius: 30px;
+  border: 0px solid #d7deff;
+  background: #fff;
+  padding: 16px 10px;
 }
 
 .deliverRightBar.fullDeliver {
-    width: 300px;
+  width: 300px;
 }
 
 .shipRightBar {
-    float: none;
-    right: 24px;
-    position: fixed;
-    top: 107px;
-    width: 60px;
-    transition: 1s;
-    z-index: 999;
-    border-radius: 30px;
-    border: 0px solid #D7DEFF;
-    background: #FFF;
-    padding: 16px 10px;
+  float: none;
+  right: 24px;
+  position: fixed;
+  top: 107px;
+  width: 60px;
+  transition: 1s;
+  z-index: 999;
+  border-radius: 30px;
+  border: 0px solid #d7deff;
+  background: #fff;
+  padding: 16px 10px;
 }
 
 .shipRightBar.fullDeliver {
-    width: 300px;
+  width: 300px;
 }
 
 .deliverySection {
-    min-width: calc(100% - 95px);
-    margin-right: 95px;
+  min-width: calc(100% - 95px);
+  margin-right: 95px;
 }
 
 .hideDeliver .orderReview {
-    display: none;
+  display: none;
 }
 
 .fullDeliver .orderReview {
-    display: block;
+  display: block;
 }
 
 .orderReview .deliverPercent {
-    background-color: #F5F6FC;
-    color: #7E8AC1;
+  background-color: #f5f6fc;
+  color: #7e8ac1;
 }
 
 .orderReview .deliverPercent::before {
-    background-color: #B6C2FF;
+  background-color: #b6c2ff;
 }
 
 .purpleOrder .deliverPercent {
-    background-color: #F5EDFF;
-    color: #7233C2;
+  background-color: #f5edff;
+  color: #7233c2;
 }
 
 .purpleOrder .deliverPercent::before {
-    background-color: #B985FD;
+  background-color: #b985fd;
 }
 
 .purpleOrder .loginSub {
-    color: #7233C2;
+  color: #7233c2;
 }
 
 .cancelOrder .loginSub {
-    color: #D92D20;
+  color: #d92d20;
 }
 
 .returnOrder .loginSub {
-    color: #F79009;
+  color: #f79009;
 }
 
 .deliverOrderLeft {
-    border-radius: 20px;
-    background: #FFF;
-    box-shadow: -2px 4px 25px 0px rgba(50, 80, 127, 0.02), -5px 9px 80px 0px rgba(50, 80, 127, 0.04);
-    padding: 24px 16px;
+  border-radius: 20px;
+  background: #fff;
+  box-shadow: -2px 4px 25px 0px rgba(50, 80, 127, 0.02),
+    -5px 9px 80px 0px rgba(50, 80, 127, 0.04);
+  padding: 24px 16px;
 }
 
 .deliverOrderRight {
-    border-radius: 20px;
-    background: #FFF;
-    padding: 16px;
+  border-radius: 20px;
+  background: #fff;
+  padding: 16px;
 }
 
 .deliverDashboardTable {
-    width: 100%;
-    border-collapse: separate;
-    border-spacing: 0 12px;
-    padding: 0 1px;
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0 12px;
+  padding: 0 1px;
 }
 
 .deliverDashboardTable .product_invoice {
-    border-radius: 12px;
-    outline: 2px solid #F7F9FF;
-    background-color: transparent;
+  border-radius: 12px;
+  outline: 2px solid #f7f9ff;
+  background-color: transparent;
 }
 
 .deliverDashboardTable .invoice_subhead {
-    padding: 8px;
+  padding: 8px;
 }
 
 .cartSubInfo.active .incrementBtn {
-    border-radius: 6px;
-    border: 1px solid #D7DEFF !important;
-    background: #FFF;
-    box-shadow: 0px 0px 0px 4px rgba(127, 143, 217, 0.05);
+  border-radius: 6px;
+  border: 1px solid #d7deff !important;
+  background: #fff;
+  box-shadow: 0px 0px 0px 4px rgba(127, 143, 217, 0.05);
 }
 
 .cartSubInfo:hover .incrementBtn {
-    border-radius: 6px;
-    border: 1px solid #D7DEFF !important;
-    background: #FFF;
-    box-shadow: 0px 0px 0px 4px rgba(127, 143, 217, 0.05);
+  border-radius: 6px;
+  border: 1px solid #d7deff !important;
+  background: #fff;
+  box-shadow: 0px 0px 0px 4px rgba(127, 143, 217, 0.05);
 }
 
 .cartSubInfo.active .unitPriceControl {
-    border-radius: 6px;
-    border: 1px solid #D7DEFF !important;
-    background: #FFF;
-    box-shadow: 0px 0px 0px 4px rgba(127, 143, 217, 0.05);
+  border-radius: 6px;
+  border: 1px solid #d7deff !important;
+  background: #fff;
+  box-shadow: 0px 0px 0px 4px rgba(127, 143, 217, 0.05);
 }
 
 .cartSubInfo:hover .unitPriceControl {
-    border-radius: 6px;
-    border: 1px solid #D7DEFF !important;
-    background: #FFF;
-    box-shadow: 0px 0px 0px 4px rgba(127, 143, 217, 0.05);
+  border-radius: 6px;
+  border: 1px solid #d7deff !important;
+  background: #fff;
+  box-shadow: 0px 0px 0px 4px rgba(127, 143, 217, 0.05);
 }
 
 .orderDeliverTable {
-    width: 100%;
-    border-collapse: separate;
-    border-spacing: 0 12px;
-    padding: 0 1px;
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0 12px;
+  padding: 0 1px;
 }
 
 .orderDeliverTable .product_invoice {
-    border-radius: 12px;
-    outline: 2px solid #F7F9FF;
-    background-color: transparent;
+  border-radius: 12px;
+  outline: 2px solid #f7f9ff;
+  background-color: transparent;
 }
 
 .orderDeliverTable .invoice_subhead {
-    padding: 8px;
+  padding: 8px;
 }
 
 .orderDeliverTable .product_invoice.active {
-    border-radius: 12px;
-    outline: 1px solid #B6C2FF;
-    background: #FFF;
-    box-shadow: -2px 4px 25px 0px rgba(50, 80, 127, 0.02), -5px 10px 80px 0px rgba(50, 80, 127, 0.04);
+  border-radius: 12px;
+  outline: 1px solid #b6c2ff;
+  background: #fff;
+  box-shadow: -2px 4px 25px 0px rgba(50, 80, 127, 0.02),
+    -5px 10px 80px 0px rgba(50, 80, 127, 0.04);
 }
 
 .orderDeliverTable .product_invoice:hover {
-    border-radius: 12px;
-    outline: 1px solid #B6C2FF;
-    background: #FFF;
-    box-shadow: -2px 4px 25px 0px rgba(50, 80, 127, 0.02), -5px 10px 80px 0px rgba(50, 80, 127, 0.04);
+  border-radius: 12px;
+  outline: 1px solid #b6c2ff;
+  background: #fff;
+  box-shadow: -2px 4px 25px 0px rgba(50, 80, 127, 0.02),
+    -5px 10px 80px 0px rgba(50, 80, 127, 0.04);
 }
 
 .orderLeftInfo {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
 
 .orderLeftInfo .linkHeading {
-    width: 100%;
-    max-width: 15ch;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    overflow: hidden;
+  width: 100%;
+  max-width: 15ch;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
 }
 
 .expressBike {
-    width: 24px;
-    height: 24px;
+  width: 24px;
+  height: 24px;
 }
 
 .expressText {
-    color: #7233C2;
-    font-size: 16px;
-    font-weight: 500;
+  color: #7233c2;
+  font-size: 16px;
+  font-weight: 500;
 }
 
 .immediateBox {
-    display: inline-flex;
-    align-items: center;
-    gap: 4px;
-    border-radius: 20px;
-    background: #FFF7D7;
-    padding: 3px 4px;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  border-radius: 20px;
+  background: #fff7d7;
+  padding: 3px 4px;
 }
 
 .immediateText {
-    color: #DC6803;
-    font-size: 12px;
-    font-weight: 500;
+  color: #dc6803;
+  font-size: 12px;
+  font-weight: 500;
 }
 
 .declineButton {
-    border-radius: 30px;
-    border: 1px solid #263682;
-    padding: 8px 10px;
-    color: #263682;
-    font-size: 14px;
-    font-weight: 400;
-    background-color: transparent;
+  border-radius: 30px;
+  border: 1px solid #263682;
+  padding: 8px 10px;
+  color: #263682;
+  font-size: 14px;
+  font-weight: 400;
+  background-color: transparent;
 }
 
 .pickupBtn {
-    display: flex;
-    padding: 8px 20px;
-    border-radius: 30px;
-    background: #58C2E8;
-    align-items: center;
-    color: #F5F6FC;
-    font-size: 14px;
-    font-weight: 500;
-    border: none;
-    justify-content: space-between;
+  display: flex;
+  padding: 8px 20px;
+  border-radius: 30px;
+  background: #58c2e8;
+  align-items: center;
+  color: #f5f6fc;
+  font-size: 14px;
+  font-weight: 500;
+  border: none;
+  justify-content: space-between;
 }
 
 .assignId {
-    color: #2F3552;
-    font-size: 12px;
-    font-weight: 500;
+  color: #2f3552;
+  font-size: 12px;
+  font-weight: 500;
 }
 
 .driverImg {
-    border-radius: 166px;
-    border: 1.25px solid #FFF;
-    width: 20px;
-    height: 20px;
+  border-radius: 166px;
+  border: 1.25px solid #fff;
+  width: 20px;
+  height: 20px;
 }
 
 .verticalBase {
-    vertical-align: baseline;
+  vertical-align: baseline;
 }
 
 .assignLeft {
-    border-radius: 20px;
-    background: #FFF;
-    box-shadow: -2px 4px 25px 0px rgba(50, 80, 127, 0.02), -5px 10px 80px 0px rgba(50, 80, 127, 0.04);
-    padding: 24px 16px 12px 16px;
+  border-radius: 20px;
+  background: #fff;
+  box-shadow: -2px 4px 25px 0px rgba(50, 80, 127, 0.02),
+    -5px 10px 80px 0px rgba(50, 80, 127, 0.04);
+  padding: 24px 16px 12px 16px;
 }
 
 .mapImg {
-    width: 100%;
-    height: 100%;
+  width: 100%;
+  height: 100%;
 }
 
 .assignMapRight {
-    position: relative;
+  position: relative;
 }
 
 .orderStatusBox {
-    border-radius: 20px;
-    background: #FFF;
-    box-shadow: -3px 6px 6px 0px rgba(52, 79, 117, 0.03), -12px 28px 25px 0px rgba(52, 79, 117, 0.04), -31px 74px 80px 0px rgba(52, 79, 117, 0.07);
-    padding: 18px 24px;
-    position: absolute;
-    bottom: 16px;
-    width: 100%;
-    max-width: 350px;
-    margin: 0 auto;
-    left: 0;
-    right: 0;
+  border-radius: 20px;
+  background: #fff;
+  box-shadow: -3px 6px 6px 0px rgba(52, 79, 117, 0.03),
+    -12px 28px 25px 0px rgba(52, 79, 117, 0.04),
+    -31px 74px 80px 0px rgba(52, 79, 117, 0.07);
+  padding: 18px 24px;
+  position: absolute;
+  bottom: 16px;
+  width: 100%;
+  max-width: 350px;
+  margin: 0 auto;
+  left: 0;
+  right: 0;
 }
 
 .maximizeImg {
-    position: absolute;
-    bottom: 16px;
-    right: 16px;
-    padding: 16px;
-    border-radius: 30px;
-    background: #FFF;
-    cursor: pointer;
-    box-shadow: -3px 6px 6px 0px rgba(52, 79, 117, 0.03), -12px 28px 25px 0px rgba(52, 79, 117, 0.04), -31px 74px 80px 0px rgba(52, 79, 117, 0.07);
+  position: absolute;
+  bottom: 16px;
+  right: 16px;
+  padding: 16px;
+  border-radius: 30px;
+  background: #fff;
+  cursor: pointer;
+  box-shadow: -3px 6px 6px 0px rgba(52, 79, 117, 0.03),
+    -12px 28px 25px 0px rgba(52, 79, 117, 0.04),
+    -31px 74px 80px 0px rgba(52, 79, 117, 0.07);
 }
 
 .orderFlex {
-    display: flex;
-    align-items: center;
-    gap: 12px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
 }
 
 .subOrderTime {
-    display: flex;
-    align-items: flex-start;
-    gap: 13px;
+  display: flex;
+  align-items: flex-start;
+  gap: 13px;
 }
 
 .lineStepImg {
-    margin: 8px 0;
+  margin: 8px 0;
 }
 
 .positionImg {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .orderPara {
-    color: #7E8AC1;
-    font-size: 12px;
-    font-weight: 400;
-    margin-top: 5px;
+  color: #7e8ac1;
+  font-size: 12px;
+  font-weight: 400;
+  margin-top: 5px;
 }
 
 .jobrPickUp {
-    border-radius: 20px;
-    background: #F5EDFF;
-    padding: 4px 6px;
-    display: flex;
-    align-items: center;
-    margin-left: 32px;
+  border-radius: 20px;
+  background: #f5edff;
+  padding: 4px 6px;
+  display: flex;
+  align-items: center;
+  margin-left: 32px;
 }
 
 .dotStepImg {
-    width: 20px !important;
-    height: 20px !important;
-    border-radius: 50%;
+  width: 20px !important;
+  height: 20px !important;
+  border-radius: 50%;
 }
 
 .orderTrackStatus {
-    margin-top: 24px;
+  margin-top: 24px;
 }
 
 .mapleLeft .maplePriceBox {
-    padding: 24px;
+  padding: 24px;
 }
 
 .mapleLeft {
-    border-radius: 20px;
-    background: #FFF;
-    box-shadow: -2px 4px 25px 0px rgba(50, 80, 127, 0.02), -5px 10px 80px 0px rgba(50, 80, 127, 0.04);
+  border-radius: 20px;
+  background: #fff;
+  box-shadow: -2px 4px 25px 0px rgba(50, 80, 127, 0.02),
+    -5px 10px 80px 0px rgba(50, 80, 127, 0.04);
 }
 
 .orderDeliverTime {
-    border-radius: 20px;
-    background: #FFF7D7;
-    padding: 2px 4px;
-    display: inline-block;
-    margin-top: 5px;
+  border-radius: 20px;
+  background: #fff7d7;
+  padding: 2px 4px;
+  display: inline-block;
+  margin-top: 5px;
 }
 
 .flexContent {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
 
 .cancelCalendar {
-    width: 100%;
-    max-width: 195px;
-    border-radius: 12px !important;
-    margin: 16px 0;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
+  width: 100%;
+  max-width: 195px;
+  border-radius: 12px !important;
+  margin: 16px 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
 
 .cancelUserBx {
-    border-radius: 20px;
-    background: rgba(228, 235, 241, 0.60);
-    padding: 3px 4px;
-    display: inline-flex;
-    align-items: center;
+  border-radius: 20px;
+  background: rgba(228, 235, 241, 0.6);
+  padding: 3px 4px;
+  display: inline-flex;
+  align-items: center;
 }
 
 .cancelText {
-    color: #535E68;
-    font-size: 12px;
-    font-weight: 500;
+  color: #535e68;
+  font-size: 12px;
+  font-weight: 500;
 }
 
 .canceltimeBx {
-    border-radius: 8px;
-    background: #FEF3F2;
-    padding: 3px 12px 3px 6px;
-    display: inline-flex;
-    align-items: center;
+  border-radius: 8px;
+  background: #fef3f2;
+  padding: 3px 12px 3px 6px;
+  display: inline-flex;
+  align-items: center;
 }
 
 .cancelLight {
-    color: #F04438;
-    font-size: 12px;
-    font-weight: 400;
+  color: #f04438;
+  font-size: 12px;
+  font-weight: 400;
 }
 
 .cancelBold {
-    color: #F04438;
-    font-size: 12px;
-    font-weight: 500;
+  color: #f04438;
+  font-size: 12px;
+  font-weight: 500;
 }
 
 .cancelOrderLeft {
-    border-radius: 20px;
-    background: var(--Surfaces-S-Top, #FFF);
-    box-shadow: -2px 4px 25px 0px rgba(50, 80, 127, 0.02), -5px 10px 80px 0px rgba(50, 80, 127, 0.04);
-    padding: 24px 16px 12px 16px;
+  border-radius: 20px;
+  background: var(--Surfaces-S-Top, #fff);
+  box-shadow: -2px 4px 25px 0px rgba(50, 80, 127, 0.02),
+    -5px 10px 80px 0px rgba(50, 80, 127, 0.04);
+  padding: 24px 16px 12px 16px;
 }
 
 .cancelOrderRight {
-    border-radius: 20px;
-    background: #FFF;
-    padding: 16px;
+  border-radius: 20px;
+  background: #fff;
+  padding: 16px;
 }
 
 .cancelOrderText {
-    color: #263682;
-    font-size: 16px;
-    font-weight: 500;
+  color: #263682;
+  font-size: 16px;
+  font-weight: 500;
 }
 
 .locationOrder {
-    border-radius: 8px;
-    background: #F5EDFF;
-    padding: 4px 6px;
-    display: inline-flex;
-    align-items: center;
-    gap: 4px;
+  border-radius: 8px;
+  background: #f5edff;
+  padding: 4px 6px;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
 }
 
 .locationText {
-    color: #552099;
-    font-size: 12px;
-    font-weight: 400;
+  color: #552099;
+  font-size: 12px;
+  font-weight: 400;
 }
 
 .cancelOrderRight .OrderCheckoutBox {
-    padding: 20px 0;
+  padding: 20px 0;
 }
 
 .OrderCheckoutBox:last-child {
-    border: none;
+  border: none;
 }
 
 .cancelUserBtn {
-    border-radius: 30px;
-    background: #9BA8E3;
-    padding: 10px 20px;
-    color: #F5F6FC;
-    font-size: 14px;
-    font-weight: 500;
-    border: none;
+  border-radius: 30px;
+  background: #9ba8e3;
+  padding: 10px 20px;
+  color: #f5f6fc;
+  font-size: 14px;
+  font-weight: 500;
+  border: none;
 }
 
 .recentText {
-    border-bottom: 0.75px solid #D7DEFF;
-    color: #263682;
-    font-size: 12px;
-    font-weight: 500;
-    padding-bottom: 4px;
-    text-align: center;
-    display: inline-block;
-    margin: 6px 0;
+  border-bottom: 0.75px solid #d7deff;
+  color: #263682;
+  font-size: 12px;
+  font-weight: 500;
+  padding-bottom: 4px;
+  text-align: center;
+  display: inline-block;
+  margin: 6px 0;
 }
 
 .recentFlex {
-    display: flex;
-    align-items: center;
-    justify-content: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .startFlex {
-    display: flex;
-    align-items: flex-start;
+  display: flex;
+  align-items: flex-start;
 }
 
 .mapleCardImg {
-    width: 14px;
-    height: 14px;
-    margin-right: 5px;
+  width: 14px;
+  height: 14px;
+  margin-right: 5px;
 }
 
 .cancelHeading {
-    color: #F04438;
-    font-size: 14px;
-    font-weight: 500;
+  color: #f04438;
+  font-size: 14px;
+  font-weight: 500;
 }
 
 .confirmImg {
-    width: 48px;
-    height: 48px;
+  width: 48px;
+  height: 48px;
 }
 
 .customerConfirm {
-    margin-top: 32px;
+  margin-top: 32px;
 }
 
 .constomerBx {
-    border-radius: 15px;
-    border: 1px solid #F5F6FC;
-    padding: 12px;
-    display: flex;
-    align-items: center;
-    margin-top: 8px;
-    gap: 10px;
+  border-radius: 15px;
+  border: 1px solid #f5f6fc;
+  padding: 12px;
+  display: flex;
+  align-items: center;
+  margin-top: 8px;
+  gap: 10px;
 }
 
 .customerConfirmImg {
-    width: 56px;
-    height: 56px;
-    border-radius: 128px;
+  width: 56px;
+  height: 56px;
+  border-radius: 128px;
 }
 
 .subConfirm .locationOrder {
-    border-radius: 20px;
-    margin-top: 6px;
+  border-radius: 20px;
+  margin-top: 6px;
 }
 
 .driverConfirm {
-    margin-top: 12px;
+  margin-top: 12px;
 }
 
 .confirmReturnSection .cartDivide {
-    margin: 12px 0;
+  margin: 12px 0;
 }
 
 .confirmReturnSection .locationText {
-    font-weight: 500;
+  font-weight: 500;
 }
 
 .itemConfirm {
-    display: flex;
-    align-items: center;
-    justify-content: flex-end;
-    gap: 40px;
-    margin: 8px 12px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 40px;
+  margin: 8px 12px;
 }
 
 .confirmReturnBtn {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    margin-top: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 32px;
 }
 
 .checkBtn {
-    border-radius: 30px;
-    background: #E4E6F2;
-    display: flex;
-    align-items: center;
-    padding: 18px 24px;
-    border: none;
-    color: #263682;
-    font-size: 18px;
-    font-weight: 400;
+  border-radius: 30px;
+  background: #e4e6f2;
+  display: flex;
+  align-items: center;
+  padding: 18px 24px;
+  border: none;
+  color: #263682;
+  font-size: 18px;
+  font-weight: 400;
 }
 
 .reCheckBtn {
-    display: flex;
-    align-items: center;
-    padding: 18px 24px;
-    border: none;
-    border-radius: 30px;
-    background: #263682;
-    color: #F5F6FC;
-    font-size: 18px;
-    font-weight: 400;
+  display: flex;
+  align-items: center;
+  padding: 18px 24px;
+  border: none;
+  border-radius: 30px;
+  background: #263682;
+  color: #f5f6fc;
+  font-size: 18px;
+  font-weight: 400;
 }
 
 .constomerBx.active,
 .constomerBx:hover {
-    border: 1px solid #B4BEEB;
-    background: #FFF;
-    box-shadow: -2px 3px 25px 0px rgba(50, 80, 127, 0.02), -4px 9px 80px 0px rgba(50, 80, 127, 0.04);
+  border: 1px solid #b4beeb;
+  background: #fff;
+  box-shadow: -2px 3px 25px 0px rgba(50, 80, 127, 0.02),
+    -4px 9px 80px 0px rgba(50, 80, 127, 0.04);
 }
 
 .returnPara {
-    color: #8D99D2;
-    font-size: 11px;
-    font-weight: 400;
-    text-overflow: ellipsis;
-    overflow: hidden;
-    white-space: nowrap;
-    max-width: 30ch;
+  color: #8d99d2;
+  font-size: 11px;
+  font-weight: 400;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+  max-width: 30ch;
 }
 
 .subInventoryBx {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    border-radius: 8px;
-    border: 1px solid #F5F6FC;
-    padding: 8px 16px;
-    gap: 16px;
-    margin-top: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-radius: 8px;
+  border: 1px solid #f5f6fc;
+  padding: 8px 16px;
+  gap: 16px;
+  margin-top: 8px;
 }
 
 .inventoryBox {
-    margin: 16px 0 24px;
-    height: 250px;
-    overflow-y: scroll;
+  margin: 16px 0 24px;
+  height: 250px;
+  overflow-y: scroll;
 }
 
 .deliverMapSection {
-    position: absolute;
-    top: 0;
-    left: 0;
-    height: 100Vh;
-    z-index: -1;
-    width: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  z-index: -1;
+  width: 100%;
 }
 
 .deliverSubMap {
-    position: absolute;
-    min-width: calc(100% - 95px);
-    margin-right: 95px;
-    top: 106px;
-    left: 100px;
+  position: absolute;
+  min-width: calc(100% - 95px);
+  margin-right: 95px;
+  top: 106px;
+  left: 100px;
 }
 
 .barCodeScanImg {
-    width: 100%;
-    max-width: 300px !important;
+  width: 100%;
+  max-width: 300px !important;
 }
 
 /*deliver Module css end*/
 /*shipping Module css start*/
 .shippingSection {
-    min-width: calc(100% - 95px);
-    margin-right: 95px;
+  min-width: calc(100% - 95px);
+  margin-right: 95px;
 }
 
 .shipPickImg {
-    width: 36px !important;
-    height: 36px !important;
-    border-radius: 4px;
+  width: 36px !important;
+  height: 36px !important;
+  border-radius: 4px;
 }
 
 .expresSaver {
-    display: flex;
-    align-items: center;
-    gap: 6px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
 }
 
 .deliverRightBar .list-group-item {
-    padding: 2px 0 !important;
+  padding: 2px 0 !important;
 }
 
 .shipRightBar .list-group-item {
-    padding: 2px 0 !important;
+  padding: 2px 0 !important;
 }
 
 .shipOrderSection .BlueBtn {
-    padding: 8px;
+  padding: 8px;
 }
 
 .shipReturnText {
-    color: #12B76A;
-    font-size: 24px;
-    font-weight: 500;
+  color: #12b76a;
+  font-size: 24px;
+  font-weight: 500;
 }
 
 .shipImgReturn {
-    filter: invert(50%) sepia(45%) saturate(980%) hue-rotate(102deg) brightness(110%) contrast(66%);
+  filter: invert(50%) sepia(45%) saturate(980%) hue-rotate(102deg)
+    brightness(110%) contrast(66%);
 }
 
 .shipDeliverLeft {
-    border-radius: 20px;
-    background: #FFF;
-    box-shadow: -2px 4px 25px 0px rgba(50, 80, 127, 0.02), -5px 10px 80px 0px rgba(50, 80, 127, 0.04);
-    padding: 24px 16px 12px 16px;
+  border-radius: 20px;
+  background: #fff;
+  box-shadow: -2px 4px 25px 0px rgba(50, 80, 127, 0.02),
+    -5px 10px 80px 0px rgba(50, 80, 127, 0.04);
+  padding: 24px 16px 12px 16px;
 }
 
 .innerHead {
-    border-bottom: 1px solid #D7DEFF;
-    padding: 8px 12px;
+  border-bottom: 1px solid #d7deff;
+  padding: 8px 12px;
 }
 
 .processText {
-    color: #4659B5;
-    font-size: 12px;
-    font-weight: 500;
+  color: #4659b5;
+  font-size: 12px;
+  font-weight: 500;
 }
 
 .shipExpress {
-    display: flex;
-    align-items: start;
-    gap: 6px;
+  display: flex;
+  align-items: start;
+  gap: 6px;
 }
 
 .returnShipSection .BlueBtn {
-    padding: 8px;
+  padding: 8px;
 }
 
 .barcodeBtn {
-    border-radius: 30px;
-    background: #F5F6FC;
-    padding: 8px 10px;
-    border: none;
-    outline: none;
-    margin-top: 8px;
-    color: #263682;
-    font-size: 14px;
-    font-weight: 400;
+  border-radius: 30px;
+  background: #f5f6fc;
+  padding: 8px 10px;
+  border: none;
+  outline: none;
+  margin-top: 8px;
+  color: #263682;
+  font-size: 14px;
+  font-weight: 400;
 }
 
 .returnShipSection .detailScroll {
-    height: calc(100% - 380px);
-    overflow-y: scroll;
+  height: calc(100% - 380px);
+  overflow-y: scroll;
 }
 
 .settings-main-container .modal-backdrop.show {
-    display: none !important;
+  display: none !important;
 }
 
 /*shipping Module css end*/
 /*setting css start*/
 .deviceLeft {
-    border-radius: 20px;
-    background: #FFF;
-    box-shadow: -2px 4px 25px 0px rgba(50, 80, 127, 0.02), -5px 10px 80px 0px rgba(50, 80, 127, 0.04);
-    padding: 16px;
+  border-radius: 20px;
+  background: #fff;
+  box-shadow: -2px 4px 25px 0px rgba(50, 80, 127, 0.02),
+    -5px 10px 80px 0px rgba(50, 80, 127, 0.04);
+  padding: 16px;
 }
 
 .settingMain {
-    padding: 16px;
+  padding: 16px;
 }
 
 .settingOuter {
-    height: calc(100vh - 45px);
-    overflow-y: scroll;
+  height: calc(100vh - 45px);
+  overflow-y: scroll;
 }
 
 .settingOuter::-webkit-scrollbar {
-    display: none;
+  display: none;
 }
 
 .settingList {
-    border-radius: 8px;
-    border: 1px solid #F5F6FC;
-    background: #FFF;
-    padding: 8px 8px 8px 6px;
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    margin-top: 8px;
+  border-radius: 8px;
+  border: 1px solid #f5f6fc;
+  background: #fff;
+  padding: 8px 8px 8px 6px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-top: 8px;
 }
 
 .settingText {
-    color: #7E8AC1;
-    font-size: 14px;
-    font-weight: 500;
+  color: #7e8ac1;
+  font-size: 14px;
+  font-weight: 500;
 }
 
 .settingSub {
-    color: #7E8AC1;
-    font-size: 12px;
-    font-weight: 500;
+  color: #7e8ac1;
+  font-size: 12px;
+  font-weight: 500;
 }
 
 .SecurityImg {
-    width: 24px;
-    height: 24px;
+  width: 24px;
+  height: 24px;
 }
 
 .settingList.active,
 .settingList:hover {
-    border-radius: 8px;
-    border: 1px solid transparent;
-    background: #FFF;
-    box-shadow: -2px 4px 25px 0px rgb(50 80 127 / 2%), -5px 10px 80px 0px rgb(50 80 127 / 4%);
+  border-radius: 8px;
+  border: 1px solid transparent;
+  background: #fff;
+  box-shadow: -2px 4px 25px 0px rgb(50 80 127 / 2%),
+    -5px 10px 80px 0px rgb(50 80 127 / 4%);
 }
 
 .settingList.active .settingText,
 .settingList:hover .settingText {
-    color: #263682;
+  color: #263682;
 }
 
 .settingList.active .settingSub,
 .settingList:hover .settingSub {
-    color: #263682;
+  color: #263682;
 }
 
 .settingList.active .SecurityImg,
 .settingList:hover .SecurityImg {
-    filter: invert(19%) sepia(61%) saturate(1030%) hue-rotate(196deg) brightness(55%) contrast(99%);
+  filter: invert(19%) sepia(61%) saturate(1030%) hue-rotate(196deg)
+    brightness(55%) contrast(99%);
 }
 
 .deviceLeft .settingListMain {
-    padding: 0 !important;
+  padding: 0 !important;
 }
 
 .deviceRight {
-    border-radius: 20px;
-    background: #FFF;
-    box-shadow: -2px 4px 25px 0px rgba(50, 80, 127, 0.02), -5px 10px 80px 0px rgba(50, 80, 127, 0.04);
-    padding: 40px 30px 24px 30px;
-    display: flex;
-    align-items: start;
-    gap: 12px;
+  border-radius: 20px;
+  background: #fff;
+  box-shadow: -2px 4px 25px 0px rgba(50, 80, 127, 0.02),
+    -5px 10px 80px 0px rgba(50, 80, 127, 0.04);
+  padding: 40px 30px 24px 30px;
+  display: flex;
+  align-items: start;
+  gap: 12px;
 }
 
 .addDeviceSection {
-    margin: 24px 0;
+  margin: 24px 0;
 }
 
 .addDeviceSub {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    margin-top: 16px;
-    gap: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 16px;
+  gap: 12px;
 }
 
 .SubReader {
-    border-radius: 16px;
-    background: #F5F6FC;
-    padding: 12px;
-    text-align: center;
-    width: 100%;
-    cursor: pointer;
+  border-radius: 16px;
+  background: #f5f6fc;
+  padding: 12px;
+  text-align: center;
+  width: 100%;
+  cursor: pointer;
 }
 
 .configureBox {
-    border-radius: 16px;
-    border: 1px solid #D7DEFF;
-    padding: 24px;
+  border-radius: 16px;
+  border: 1px solid #d7deff;
+  padding: 24px;
 }
 
 .staffRight {
-    border-radius: 20px;
-    background: #FFF;
-    box-shadow: -2px 4px 25px 0px rgba(50, 80, 127, 0.02), -5px 9px 80px 0px rgba(50, 80, 127, 0.04);
-    padding: 40px 40px 24px 40px;
-    display: flex;
-    align-items: start;
-    gap: 16px;
+  border-radius: 20px;
+  background: #fff;
+  box-shadow: -2px 4px 25px 0px rgba(50, 80, 127, 0.02),
+    -5px 9px 80px 0px rgba(50, 80, 127, 0.04);
+  padding: 40px 40px 24px 40px;
+  display: flex;
+  align-items: start;
+  gap: 16px;
 }
 
 .staffListData {
-    margin: 24px 0;
+  margin: 24px 0;
 }
 
 .staffListSub {
-    border-radius: 16px;
-    border: 1px solid #D7DEFF;
-    padding: 16px 24px;
-    margin-top: 10px;
-    display: flex;
-    align-items: start;
-    justify-content: space-between;
+  border-radius: 16px;
+  border: 1px solid #d7deff;
+  padding: 16px 24px;
+  margin-top: 10px;
+  display: flex;
+  align-items: start;
+  justify-content: space-between;
 }
 
 .staffData {
-    width: 100%;
+  width: 100%;
 }
 
 .staffArrow {
-    width: 20px !important;
-    height: 20px !important;
+  width: 20px !important;
+  height: 20px !important;
 }
 
 .staffUser {
-    display: flex;
-    align-items: center;
-    gap: 16px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
 }
 
 .staffUserImg {
-    border-radius: 215px;
-    border: 3px solid #FFF;
-    width: 40px;
-    height: 40px;
+  border-radius: 215px;
+  border: 3px solid #fff;
+  width: 40px;
+  height: 40px;
 }
 
 .addStaff {
-    display: inline-flex;
-    align-items: center;
-    gap: 16px;
-    margin-top: 10px;
-    padding: 16px 24px;
-    cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 16px;
+  margin-top: 10px;
+  padding: 16px 24px;
+  cursor: pointer;
 }
 
 #addStoreModal,
 #taxPayerModal {
-    width: 100%;
-    max-width: 540px;
+  width: 100%;
+  max-width: 540px;
 }
 
 #addStoreModal .modal-content,
@@ -3417,1517 +3448,1523 @@ figure {
 #addlanguageModal .modal-content,
 #AddNotes .modal-content,
 #AddDiscount .modal-content {
-    border-radius: 20px !important;
-    background: #FFF !important;
-    box-shadow: -2px 6px 6px 0px rgba(52, 79, 117, 0.03), -11px 28px 25px 0px rgba(52, 79, 117, 0.04), -31px 74px 80px 0px rgba(52, 79, 117, 0.07) !important;
-    padding: 24px !important;
-    border: none;
+  border-radius: 20px !important;
+  background: #fff !important;
+  box-shadow: -2px 6px 6px 0px rgba(52, 79, 117, 0.03),
+    -11px 28px 25px 0px rgba(52, 79, 117, 0.04),
+    -31px 74px 80px 0px rgba(52, 79, 117, 0.07) !important;
+  padding: 24px !important;
+  border: none;
 }
 
 #addStoreModal .modal-header,
 #taxPayerModal .modal-header,
 #activateTaxModal .modal-header,
 #createModalTax .modal-header {
-    border: none;
-    padding: 0 !important;
-    display: block;
-    text-align: center;
+  border: none;
+  padding: 0 !important;
+  display: block;
+  text-align: center;
 }
 
 #activateTaxModal {
-    width: 100%;
-    max-width: 480px;
+  width: 100%;
+  max-width: 480px;
 }
 
 .addStoreData {
-    margin: 20px 0;
+  margin: 20px 0;
 }
 
 .selectRole .form-select {
-    border-radius: 50px;
-    border: 1px solid #D7DEFF;
-    box-shadow: -2px 4px 25px 0px rgba(50, 80, 127, 0.02), -5px 10px 80px 0px rgba(50, 80, 127, 0.04);
-    padding: 12px 18px;
-    color: #263682;
-    font-size: 18px;
-    font-weight: 400;
-    background-image: url("../images/arrowDown.svg") !important;
-    background-size: 24px 24px !important;
+  border-radius: 50px;
+  border: 1px solid #d7deff;
+  box-shadow: -2px 4px 25px 0px rgba(50, 80, 127, 0.02),
+    -5px 10px 80px 0px rgba(50, 80, 127, 0.04);
+  padding: 12px 18px;
+  color: #263682;
+  font-size: 18px;
+  font-weight: 400;
+  background-image: url("../images/arrowDown.svg") !important;
+  background-size: 24px 24px !important;
 }
 
 .memberColor {
-    border-radius: 50px;
-    border: 1px solid #D7DEFF;
-    box-shadow: -2px 4px 25px 0px rgba(50, 80, 127, 0.02), -5px 10px 80px 0px rgba(50, 80, 127, 0.04);
-    padding: 18px;
-    display: flex;
-    align-items: center;
-    justify-content: space-around;
+  border-radius: 50px;
+  border: 1px solid #d7deff;
+  box-shadow: -2px 4px 25px 0px rgba(50, 80, 127, 0.02),
+    -5px 10px 80px 0px rgba(50, 80, 127, 0.04);
+  padding: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
 }
 
 .colorBox {
-    width: 70px;
-    height: 25px;
-    display: inline-block;
-    background-color: #000;
-    cursor: pointer;
+  width: 70px;
+  height: 25px;
+  display: inline-block;
+  background-color: #000;
+  cursor: pointer;
 }
 
 .colorSelect {
-    display: flex;
-    align-items: center;
-    gap: 16px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
 }
 
 .addStoreForm .addCustomerBtn {
-    gap: 20px;
+  gap: 20px;
 }
 
 .addStoreForm .serviceCancel {
-    padding: 14px;
+  padding: 14px;
 }
 
 .addStoreForm .nextverifyBtn {
-    padding: 14px;
+  padding: 14px;
 }
 
 .staffDetailRight {
-    border-radius: 20px;
-    background: #FFF;
-    padding: 16px 24px;
+  border-radius: 20px;
+  background: #fff;
+  padding: 16px 24px;
 }
 
 .staffInfoBox {
-    border-radius: 20px;
-    background: #F5F6FC;
-    padding: 16px 28px;
-    margin: 25px 0 12px 0;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    position: relative;
-    flex-wrap: wrap;
+  border-radius: 20px;
+  background: #f5f6fc;
+  padding: 16px 28px;
+  margin: 25px 0 12px 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: relative;
+  flex-wrap: wrap;
 }
 
 .staffInfoBox::before {
-    content: "";
-    position: absolute;
-    background-image: url(/_next/static/media/Interline.a4b71d07.svg);
-    top: 0;
-    right: 0;
-    width: 2px;
-    height: 113px;
-    left: 0;
-    margin: 7px auto;
+  content: "";
+  position: absolute;
+  background-image: url(/_next/static/media/Interline.a4b71d07.svg);
+  top: 0;
+  right: 0;
+  width: 2px;
+  height: 113px;
+  left: 0;
+  margin: 7px auto;
 }
 
 .staffProfileInfo {
-    display: flex;
-    align-items: start;
-    gap: 12px;
+  display: flex;
+  align-items: start;
+  gap: 12px;
 }
 
 .staffProfileImg {
-    width: 50px;
-    height: 50px;
-    border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
 }
 
 .staffAddress {
-    display: flex;
-    align-items: center;
-    gap: 4px;
-    margin-top: 4px;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  margin-top: 4px;
 }
 
 .staffProfileData {
-    width: 40%;
+  width: 40%;
 }
 
 .staffTimeSection {
-    display: flex;
-    align-items: center;
-    gap: 16px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
 }
 
 .staffSubTime {
-    border-radius: 16px;
-    border: 1px solid #D7DEFF;
-    padding: 12px;
-    width: 100%;
+  border-radius: 16px;
+  border: 1px solid #d7deff;
+  padding: 12px;
+  width: 100%;
 }
 
 .staffTimeDivide {
-    background: #E4E6F2;
-    margin: 8px 0;
+  background: #e4e6f2;
+  margin: 8px 0;
 }
 
 .staffDetailtable {
-    border-radius: 20px;
-    border: 1px solid #D7DEFF;
-    margin: 12px 0;
-    padding: 12px 16px;
-    height: calc(70vh - 178px);
-    overflow-y: scroll;
+  border-radius: 20px;
+  border: 1px solid #d7deff;
+  margin: 12px 0;
+  padding: 12px 16px;
+  height: calc(70vh - 178px);
+  overflow-y: scroll;
 }
 
 .staffDetailtable::-webkit-scrollbar {
-    display: none;
+  display: none;
 }
 
 .staffTable {
-    width: 100%;
-    border-collapse: separate;
-    border-spacing: 0 10px;
-    padding: 0 1px;
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0 10px;
+  padding: 0 1px;
 }
 
 .staffTableData {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
 
 .staffTableOuter {
-    border-radius: 30px;
-    border: 1px solid #F5F6FC;
-    background: #FFF;
-    padding: 12px 8px !important;
-    margin-top: 12px;
+  border-radius: 30px;
+  border: 1px solid #f5f6fc;
+  background: #fff;
+  padding: 12px 8px !important;
+  margin-top: 12px;
 }
 
 .staffSubHead {
-    padding: 16px 10px;
+  padding: 16px 10px;
 }
 
 .staffTableText {
-    color: #636E9F;
-    font-size: 12px;
-    font-weight: 500;
+  color: #636e9f;
+  font-size: 12px;
+  font-weight: 500;
 }
 
 .paidBtn {
-    border-radius: 30px;
-    background: #A6F4C5;
-    padding: 4px 13px;
-    color: #027547;
-    font-size: 12px;
-    font-weight: 500;
-    border: none;
+  border-radius: 30px;
+  background: #a6f4c5;
+  padding: 4px 13px;
+  color: #027547;
+  font-size: 12px;
+  font-weight: 500;
+  border: none;
 }
 
 .viewBtn {
-    padding: 4px 6px;
-    border-radius: 30px;
-    background: #E4E6F2;
-    color: #263682;
-    border: none;
-    font-size: 12px;
-    font-weight: 500;
+  padding: 4px 6px;
+  border-radius: 30px;
+  background: #e4e6f2;
+  color: #263682;
+  border: none;
+  font-size: 12px;
+  font-weight: 500;
 }
 
 .unpaidBtn {
-    border-radius: 30px;
-    background: #FEE4E2;
-    padding: 4px 13px;
-    color: #D92D20;
-    font-size: 12px;
-    font-weight: 500;
-    border: none;
+  border-radius: 30px;
+  background: #fee4e2;
+  padding: 4px 13px;
+  color: #d92d20;
+  font-size: 12px;
+  font-weight: 500;
+  border: none;
 }
 
 .requestBtn {
-    border-radius: 30px;
-    background: #263682;
-    padding: 4px 8px;
-    border: none;
-    color: #FFF;
-    font-size: 12px;
-    font-weight: 500;
+  border-radius: 30px;
+  background: #263682;
+  padding: 4px 8px;
+  border: none;
+  color: #fff;
+  font-size: 12px;
+  font-weight: 500;
 }
 
 .staffSubData {
-    border-radius: 20px;
-    border: 1px solid #D7DEFF;
-    background: #FFF;
-    box-shadow: -2px 4px 25px 0px rgba(50, 80, 127, 0.02), -4px 10px 80px 0px rgba(50, 80, 127, 0.04);
+  border-radius: 20px;
+  border: 1px solid #d7deff;
+  background: #fff;
+  box-shadow: -2px 4px 25px 0px rgba(50, 80, 127, 0.02),
+    -4px 10px 80px 0px rgba(50, 80, 127, 0.04);
 }
 
 .staffTableHeading {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8px;
 }
 
 .staffBoxData {
-    width: 25%;
-    text-align: center;
+  width: 25%;
+  text-align: center;
 }
 
 .staffTableSub {
-    display: flex;
-    align-items: center;
-    justify-content: end;
+  display: flex;
+  align-items: center;
+  justify-content: end;
 }
 
 .staffBoxSub {
-    border-radius: 30px;
-    border: 1px solid #D7DEFF;
-    background: #FFF;
-    padding: 12px 8px !important;
-    width: 90%;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    position: relative;
+  border-radius: 30px;
+  border: 1px solid #d7deff;
+  background: #fff;
+  padding: 12px 8px !important;
+  width: 90%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: relative;
 }
 
 .staffBoxSub::before {
-    content: "";
-    background-image: url(/_next/static/media/SubLine.1d9c78fd.svg);
-    width: 80px;
-    height: 30px;
-    position: absolute;
-    left: -69px;
-    top: 0;
+  content: "";
+  background-image: url(/_next/static/media/SubLine.1d9c78fd.svg);
+  width: 80px;
+  height: 30px;
+  position: absolute;
+  left: -69px;
+  top: 0;
 }
 
 .staffSecond {
-    border-radius: 30px;
-    border: 1px solid #D7DEFF;
-    background: #FFF;
-    padding: 12px 8px !important;
-    width: 90%;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    position: relative;
-    margin-top: 8px;
-
+  border-radius: 30px;
+  border: 1px solid #d7deff;
+  background: #fff;
+  padding: 12px 8px !important;
+  width: 90%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: relative;
+  margin-top: 8px;
 }
 
 .staffSecond::before {
-    content: "";
-    background-image: url(/_next/static/media/SubLineLg.db03f272.svg);
-    width: 80px;
-    height: 85px;
-    position: absolute;
-    left: -69px;
-    top: -33px;
+  content: "";
+  background-image: url(/_next/static/media/SubLineLg.db03f272.svg);
+  width: 80px;
+  height: 85px;
+  position: absolute;
+  left: -69px;
+  top: -33px;
 }
 
 .staffTableOuter.active,
 .staffTableOuter:hover {
-    border-radius: 20px;
-    border: 1px solid #D7DEFF;
-    background: #FFF;
-    box-shadow: -2px 3px 25px 0px rgba(50, 80, 127, 0.02), -5px 10px 80px 0px rgba(50, 80, 127, 0.04);
+  border-radius: 20px;
+  border: 1px solid #d7deff;
+  background: #fff;
+  box-shadow: -2px 3px 25px 0px rgba(50, 80, 127, 0.02),
+    -5px 10px 80px 0px rgba(50, 80, 127, 0.04);
 }
 
 .staffLocateRight {
-    border-radius: 20px;
-    background: #FFF;
-    padding: 16px 24px;
+  border-radius: 20px;
+  background: #fff;
+  padding: 16px 24px;
 }
 
 .JobrLocation {
-    background-color: #F5F6FC;
-    padding: 40px;
-    border-radius: 12px;
-    width: 85%;
+  background-color: #f5f6fc;
+  padding: 40px;
+  border-radius: 12px;
+  width: 85%;
 }
 
 .LocateDetail {
-    display: flex;
-    align-items: start;
-    gap: 50px;
-    margin: 40px 0;
+  display: flex;
+  align-items: start;
+  gap: 50px;
+  margin: 40px 0;
 }
 
 .LocateHeading {
-    color: #203289;
-    font-size: 12px;
-    font-weight: 500;
+  color: #203289;
+  font-size: 12px;
+  font-weight: 500;
 }
 
 .LocateSubText {
-    color: #203289;
-    font-size: 12px;
-    font-weight: 400;
+  color: #203289;
+  font-size: 12px;
+  font-weight: 400;
 }
 
 .jobrBtn {
-    border-radius: 24px;
-    border: 1px solid #263682;
-    padding: 4px 7px;
-    color: #203289;
-    font-size: 12px;
-    font-weight: 400;
-    background-color: transparent;
+  border-radius: 24px;
+  border: 1px solid #263682;
+  padding: 4px 7px;
+  color: #203289;
+  font-size: 12px;
+  font-weight: 400;
+  background-color: transparent;
 }
 
 .locateLightText {
-    color: #203289;
-    font-size: 12px;
-    font-weight: 300;
+  color: #203289;
+  font-size: 12px;
+  font-weight: 300;
 }
 
 .billSection {
-    border-radius: 15.955px;
-    border: 1px solid #D7DEFF;
-    padding: 20px 40px;
+  border-radius: 15.955px;
+  border: 1px solid #d7deff;
+  padding: 20px 40px;
 }
 
 .billHeading {
-    color: #203289;
-    font-size: 14px;
-    font-weight: 500;
+  color: #203289;
+  font-size: 14px;
+  font-weight: 500;
 }
 
 .billFlex {
-    display: flex;
-    align-items: baseline;
-    justify-content: space-between;
-    padding-left: 40px;
-    margin-top: 18px;
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  padding-left: 40px;
+  margin-top: 18px;
 }
 
 .billSubtotal {
-    display: flex;
-    align-items: center;
-    justify-content: end;
+  display: flex;
+  align-items: center;
+  justify-content: end;
 }
 
 .descriptRight {
-    display: flex;
-    align-items: center;
-    gap: 10px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
 }
 
 .billSubtotal {
-    display: flex;
-    align-items: end;
-    flex-direction: column;
+  display: flex;
+  align-items: end;
+  flex-direction: column;
 }
 
 .billSubArea {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 20px;
-    margin-top: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  margin-top: 16px;
 }
 
 .paymentCondition {
-    display: flex;
-    align-items: start;
-    gap: 30px;
-    margin: 24px 0;
+  display: flex;
+  align-items: start;
+  gap: 30px;
+  margin: 24px 0;
 }
 
 .staffSubLocate {
-    display: flex;
-    align-items: center;
-    justify-content: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .locationAdd {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 24px;
-    margin: 16px 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 24px;
+  margin: 16px 0;
 }
 
 .locationAddBtn {
-    border-radius: 50px;
-    border: 1px solid #D7DEFF;
-    padding: 10px;
-    background-color: transparent;
+  border-radius: 50px;
+  border: 1px solid #d7deff;
+  padding: 10px;
+  background-color: transparent;
 }
 
 .securityRight {
-    border-radius: 20px;
-    background: #FFF;
-    box-shadow: -2px 4px 25px 0px rgba(50, 80, 127, 0.02), -5px 10px 80px 0px rgba(50, 80, 127, 0.04);
-    padding: 24px 30px;
-    display: flex;
-    align-items: start;
-    gap: 12px;
+  border-radius: 20px;
+  background: #fff;
+  box-shadow: -2px 4px 25px 0px rgba(50, 80, 127, 0.02),
+    -5px 10px 80px 0px rgba(50, 80, 127, 0.04);
+  padding: 24px 30px;
+  display: flex;
+  align-items: start;
+  gap: 12px;
 }
 
 .agreementRight {
-    border-radius: 20px;
-    background: #FFF;
-    box-shadow: -2px 4px 25px 0px rgba(50, 80, 127, 0.02), -5px 9px 80px 0px rgba(50, 80, 127, 0.04);
+  border-radius: 20px;
+  background: #fff;
+  box-shadow: -2px 4px 25px 0px rgba(50, 80, 127, 0.02),
+    -5px 9px 80px 0px rgba(50, 80, 127, 0.04);
 }
 
 .agreePrimary {
-    display: flex;
-    align-items: start;
-    gap: 16px;
-    padding: 24px 40px 0 40px;
+  display: flex;
+  align-items: start;
+  gap: 16px;
+  padding: 24px 40px 0 40px;
 }
 
 .publishSection {
-    border-radius: 10px;
-    border: 1px solid #D7DEFF;
-    background: #FFF;
-    padding: 15px;
-    height: 100%;
+  border-radius: 10px;
+  border: 1px solid #d7deff;
+  background: #fff;
+  padding: 15px;
+  height: 100%;
 }
 
 .policyPublish {
-    border-radius: 10px;
-    border: 1px solid #D7DEFF;
-    background: #FFF;
-    padding: 15px;
-    margin: 24px;
+  border-radius: 10px;
+  border: 1px solid #d7deff;
+  background: #fff;
+  padding: 15px;
+  margin: 24px;
 }
 
 .publishMain {
-    margin: 0 24px;
+  margin: 0 24px;
 }
 
 .activeBox {
-    border-radius: 20px;
-    background: #D1FADF;
-    padding: 4px 6px;
-    display: flex;
-    align-items: center;
-    gap: 2px;
+  border-radius: 20px;
+  background: #d1fadf;
+  padding: 4px 6px;
+  display: flex;
+  align-items: center;
+  gap: 2px;
 }
 
 .activeDot {
-    background-color: #32D583;
-    width: 8px;
-    height: 8px;
-    border-radius: 50%;
+  background-color: #32d583;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
 }
 
 .activeText {
-    color: #039855;
-    font-size: 12px;
-    font-weight: 500;
+  color: #039855;
+  font-size: 12px;
+  font-weight: 500;
 }
 
 .agreeCalendar {
-    width: 16px !important;
-    height: 16px !important;
+  width: 16px !important;
+  height: 16px !important;
 }
 
 .agreementDate {
-    display: flex;
-    align-items: center;
-    gap: 6px;
-    margin-top: 10px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 10px;
 }
 
 .refundData {
-    border-radius: 10px;
-    border: 1px solid #D7DEFF;
-    padding: 10px;
-    margin: 16px 0;
+  border-radius: 10px;
+  border: 1px solid #d7deff;
+  padding: 10px;
+  margin: 16px 0;
 }
 
 .refundData .orderPara {
-    margin-top: 10px;
+  margin-top: 10px;
 }
 
 .refundRight {
-    border-radius: 20px;
-    background: #FFF;
-    padding: 40px;
-    display: flex;
-    align-items: start;
-    gap: 12px;
+  border-radius: 20px;
+  background: #fff;
+  padding: 40px;
+  display: flex;
+  align-items: start;
+  gap: 12px;
 }
 
 .refundIntro {
-    margin-top: 32px;
+  margin-top: 32px;
 }
 
 .refundMainText {
-    color: #636E9F;
-    font-size: 18px;
-    font-weight: 500;
+  color: #636e9f;
+  font-size: 18px;
+  font-weight: 500;
 }
 
 .refundSubText {
-    color: #636E9F;
-    font-size: 16px;
-    font-weight: 400;
+  color: #636e9f;
+  font-size: 16px;
+  font-weight: 400;
 }
 
 .refundList li {
-    list-style: disc;
+  list-style: disc;
 }
 
 .refundList {
-    margin-top: 16px;
+  margin-top: 16px;
 }
 
 .colorPick {
-    position: absolute;
+  position: absolute;
 }
 
 .bussinessRight {
-    border-radius: 20px;
-    background: #FFF;
-    box-shadow: -2px 4px 25px 0px rgba(50, 80, 127, 0.02), -5px 10px 80px 0px rgba(50, 80, 127, 0.04);
-    padding: 40px 40px 24px 40px;
-    display: flex;
-    align-items: start;
-    gap: 16px;
+  border-radius: 20px;
+  background: #fff;
+  box-shadow: -2px 4px 25px 0px rgba(50, 80, 127, 0.02),
+    -5px 10px 80px 0px rgba(50, 80, 127, 0.04);
+  padding: 40px 40px 24px 40px;
+  display: flex;
+  align-items: start;
+  gap: 16px;
 }
 
 .bussinessMain {
-    margin-top: 16px;
+  margin-top: 16px;
 }
 
 .bussinessSub {
-    border-radius: 16px;
-    background: #F5F6FC;
-    padding: 16px 24px;
-    display: flex;
-    align-items: start;
-    justify-content: space-between;
-    margin-top: 10px;
+  border-radius: 16px;
+  background: #f5f6fc;
+  padding: 16px 24px;
+  display: flex;
+  align-items: start;
+  justify-content: space-between;
+  margin-top: 10px;
 }
 
 .locationHead {
-    display: flex;
-    align-items: start;
-    gap: 16px;
+  display: flex;
+  align-items: start;
+  gap: 16px;
 }
 
 .bussinessData {
-    width: 100%;
+  width: 100%;
 }
 
 .walletConfigRight {
-    border-radius: 20px;
-    background: #FFF;
-    box-shadow: -2px 4px 25px 0px rgba(50, 80, 127, 0.02), -5px 10px 80px 0px rgba(50, 80, 127, 0.04);
-    padding: 40px 40px 24px 40px;
-    display: flex;
-    align-items: start;
-    gap: 16px;
+  border-radius: 20px;
+  background: #fff;
+  box-shadow: -2px 4px 25px 0px rgba(50, 80, 127, 0.02),
+    -5px 10px 80px 0px rgba(50, 80, 127, 0.04);
+  padding: 40px 40px 24px 40px;
+  display: flex;
+  align-items: start;
+  gap: 16px;
 }
 
 .walletPara {
-    color: #7E8AC1;
-    font-size: 16px;
-    font-weight: 400;
+  color: #7e8ac1;
+  font-size: 16px;
+  font-weight: 400;
 }
 
 .taxRight {
-    border-radius: 20px;
-    background: #FFF;
-    box-shadow: -2px 4px 25px 0px rgba(50, 80, 127, 0.02), -5px 10px 80px 0px rgba(50, 80, 127, 0.04);
-    padding: 24px 30px 24px 60px;
+  border-radius: 20px;
+  background: #fff;
+  box-shadow: -2px 4px 25px 0px rgba(50, 80, 127, 0.02),
+    -5px 10px 80px 0px rgba(50, 80, 127, 0.04);
+  padding: 24px 30px 24px 60px;
 }
 
 .activateMain {
-    border-radius: 16px;
-    border: 1px solid #D7DEFF;
-    padding: 16px 24px;
-    margin-top: 24px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
+  border-radius: 16px;
+  border: 1px solid #d7deff;
+  padding: 16px 24px;
+  margin-top: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
 
 .blueActiveBtn {
-    border-radius: 30px;
-    background: #263682;
-    padding: 10px 16px;
-    color: #F5F6FC;
-    font-size: 14px;
-    font-weight: 400;
-    border: none;
+  border-radius: 30px;
+  background: #263682;
+  padding: 10px 16px;
+  color: #f5f6fc;
+  font-size: 14px;
+  font-weight: 400;
+  border: none;
 }
 
 .taxpayData {
-    margin: 16px 0;
-    height: calc(100vh - 300px);
-    overflow-y: scroll;
+  margin: 16px 0;
+  height: calc(100vh - 300px);
+  overflow-y: scroll;
 }
 
 .createTaxData {
-    height: calc(100vh - 325px);
-    overflow-y: scroll;
+  height: calc(100vh - 325px);
+  overflow-y: scroll;
 }
 
 .selectRole .searchWrapper {
-    border-radius: 50px;
-    border: 1px solid #D7DEFF;
-    box-shadow: -2px 4px 25px 0px rgba(50, 80, 127, 0.02), -5px 10px 80px 0px rgba(50, 80, 127, 0.04);
-    padding: 12px 18px;
-    color: #263682;
-    font-size: 18px;
-    font-weight: 400;
+  border-radius: 50px;
+  border: 1px solid #d7deff;
+  box-shadow: -2px 4px 25px 0px rgba(50, 80, 127, 0.02),
+    -5px 10px 80px 0px rgba(50, 80, 127, 0.04);
+  padding: 12px 18px;
+  color: #263682;
+  font-size: 18px;
+  font-weight: 400;
 }
 
 .taxVerifySection {
-    border-radius: 16px;
-    background: #F5F6FC;
-    padding: 16px 24px;
-    margin-top: 24px;
-    display: flex;
-    align-items: start;
-    justify-content: space-between;
+  border-radius: 16px;
+  background: #f5f6fc;
+  padding: 16px 24px;
+  margin-top: 24px;
+  display: flex;
+  align-items: start;
+  justify-content: space-between;
 }
 
 .taxVerifySection .eReciptBtn {
-    border-radius: 30px;
-    background: #12B76A;
-    padding: 10px 16px;
-    color: #F5F6FC;
-    font-size: 14px;
-    font-weight: 500;
-    border: none;
+  border-radius: 30px;
+  background: #12b76a;
+  padding: 10px 16px;
+  color: #f5f6fc;
+  font-size: 14px;
+  font-weight: 500;
+  border: none;
 }
 
 .taxVerifyImg {
-    width: 16px !important;
-    height: 16px !important;
+  width: 16px !important;
+  height: 16px !important;
 }
 
 .taxCountrySection {
-    margin: 10px 0;
+  margin: 10px 0;
 }
 
 .taxCountryMain {
-    border-radius: 16px;
-    border: 1px solid #D7DEFF;
-    padding: 16px 24px;
-    display: flex;
-    align-items: start;
-    justify-content: space-between;
+  border-radius: 16px;
+  border: 1px solid #d7deff;
+  padding: 16px 24px;
+  display: flex;
+  align-items: start;
+  justify-content: space-between;
 }
 
 .countryImg {
-    width: 30px;
-    height: 30px;
+  width: 30px;
+  height: 30px;
 }
 
 .operatingCountry {
-    display: flex;
-    align-items: start;
-    gap: 16px;
+  display: flex;
+  align-items: start;
+  gap: 16px;
 }
 
 .taxCountrySub {
-    display: flex;
-    align-items: center;
-    justify-content: end;
+  display: flex;
+  align-items: center;
+  justify-content: end;
 }
 
 .taxCountrySub .taxCountryMain {
-    width: 90%;
-    margin-top: 10px;
+  width: 90%;
+  margin-top: 10px;
 }
 
 .countryMainSub::before {
-    content: "";
-    background-image: url(/_next/static/media/SubLineLg.db03f272.svg);
-    width: 80px;
-    height: 85px;
-    position: absolute;
-    left: -69px;
-    top: -12px;
-    background-repeat: no-repeat;
+  content: "";
+  background-image: url(/_next/static/media/SubLineLg.db03f272.svg);
+  width: 80px;
+  height: 85px;
+  position: absolute;
+  left: -69px;
+  top: -12px;
+  background-repeat: no-repeat;
 }
 
 .countryMainSub {
-    position: relative;
+  position: relative;
 }
 
 .createTaxBtn {
-    border-radius: 30px;
-    border: 0px solid #263682;
-    background: #F5F6FC;
-    padding: 10px;
-    color: #263682;
-    font-size: 14px;
-    font-weight: 400;
-    display: flex;
-    margin: 10px 0 0 70px;
+  border-radius: 30px;
+  border: 0px solid #263682;
+  background: #f5f6fc;
+  padding: 10px;
+  color: #263682;
+  font-size: 14px;
+  font-weight: 400;
+  display: flex;
+  margin: 10px 0 0 70px;
 }
 
 .taxTableMain {
-    border-radius: 20px;
-    border: 1px solid #D7DEFF;
-    padding: 16px;
-    height: calc(50vh - 100px);
-    overflow-y: scroll;
+  border-radius: 20px;
+  border: 1px solid #d7deff;
+  padding: 16px;
+  height: calc(50vh - 100px);
+  overflow-y: scroll;
 }
 
 .taxTableMain::-webkit-scrollbar {
-    display: none;
+  display: none;
 }
 
 .taxDateArea {
-    display: flex;
-    align-items: center;
-    gap: 16px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
 }
 
 .areaselect .form-select {
-    border-radius: 12px;
-    border: 1px solid #D7DEFF;
-    box-shadow: -2px 4px 25px 0px rgba(50, 80, 127, 0.02), -5px 10px 80px 0px rgba(50, 80, 127, 0.04);
-    padding: 10px 12px;
-    color: #263682;
-    font-size: 18px;
-    font-weight: 400;
-    background-color: #fff;
-    background-image: url("../images/arrowDown.svg") !important;
-    background-size: 24px 24px !important;
-    width: 100%;
-    max-width: 110px;
-    cursor: pointer;
-
+  border-radius: 12px;
+  border: 1px solid #d7deff;
+  box-shadow: -2px 4px 25px 0px rgba(50, 80, 127, 0.02),
+    -5px 10px 80px 0px rgba(50, 80, 127, 0.04);
+  padding: 10px 12px;
+  color: #263682;
+  font-size: 18px;
+  font-weight: 400;
+  background-color: #fff;
+  background-image: url("../images/arrowDown.svg") !important;
+  background-size: 24px 24px !important;
+  width: 100%;
+  max-width: 110px;
+  cursor: pointer;
 }
 
 .taxRowTable {
-    border-radius: 30px;
-    outline: 1px solid #F5F6FC;
-    padding: 12px 6px;
+  border-radius: 30px;
+  outline: 1px solid #f5f6fc;
+  padding: 12px 6px;
 }
 
 .taxSubHead {
-    padding: 12px;
+  padding: 12px;
 }
 
 .taxText {
-    color: #2F3552;
-    font-size: 12px;
-    font-weight: 500;
+  color: #2f3552;
+  font-size: 12px;
+  font-weight: 500;
 }
 
 .taxTableHead .invoiceHeading {
-    padding: 8px 16px;
+  padding: 8px 16px;
 }
 
 .activateText {
-    color: #636E9F;
-    text-align: center;
-    font-size: 18px;
-    font-weight: 400;
+  color: #636e9f;
+  text-align: center;
+  font-size: 18px;
+  font-weight: 400;
 }
 
 .activateCountry {
-    border-radius: 20px;
-    border: 1px solid #D7DEFF;
-    padding: 16px;
-    margin: 24px 0;
+  border-radius: 20px;
+  border: 1px solid #d7deff;
+  padding: 16px;
+  margin: 24px 0;
 }
 
 .activteOperating {
-    border-radius: 16px;
-    border: 1px solid #D7DEFF;
-    padding: 16px 24px;
-    display: flex;
-    align-items: center;
-    gap: 16px;
+  border-radius: 16px;
+  border: 1px solid #d7deff;
+  padding: 16px 24px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
 }
 
 .activateSubCountry {
-    border-radius: 16px;
-    border: 1px solid #D7DEFF;
-    padding: 16px 24px;
-    width: 80%;
-    margin-top: 10px;
-    display: flex;
-    align-items: start;
-    gap: 16px;
-    position: relative;
+  border-radius: 16px;
+  border: 1px solid #d7deff;
+  padding: 16px 24px;
+  width: 80%;
+  margin-top: 10px;
+  display: flex;
+  align-items: start;
+  gap: 16px;
+  position: relative;
 }
 
 .taxPrimary {
-    color: #47B0D6;
-    font-size: 12px;
-    font-weight: 500;
+  color: #47b0d6;
+  font-size: 12px;
+  font-weight: 500;
 }
 
 .activateSubCountry::before {
-    content: "";
-    background-image: url(/_next/static/media/SubLineLg.db03f272.svg);
-    width: 80px;
-    height: 85px;
-    position: absolute;
-    left: -69px;
-    top: -12px;
-    background-repeat: no-repeat;
+  content: "";
+  background-image: url(/_next/static/media/SubLineLg.db03f272.svg);
+  width: 80px;
+  height: 85px;
+  position: absolute;
+  left: -69px;
+  top: -12px;
+  background-repeat: no-repeat;
 }
 
 .activateTaxBtn {
-    display: flex;
-    align-items: center;
-    gap: 20px;
+  display: flex;
+  align-items: center;
+  gap: 20px;
 }
 
 .activateTaxBtn .serviceCancel {
-    padding: 14px 16px;
+  padding: 14px 16px;
 }
 
 .activateTaxBtn .nextverifyBtn {
-    padding: 14px 16px;
+  padding: 14px 16px;
 }
 
 #createModalTax {
-    width: 100%;
-    max-width: 550px;
+  width: 100%;
+  max-width: 550px;
 }
 
 .createTaxInfo {
-    display: flex;
-    align-items: start;
-    gap: 14px;
+  display: flex;
+  align-items: start;
+  gap: 14px;
 }
 
 .createTaxInfo .checkBlue label:before {
-    background-color: #d7deff2b;
+  background-color: #d7deff2b;
 }
 
 .TaxExemptionBx {
-    border-radius: 12px;
-    border: 1px solid #D7DEFF;
-    padding: 24px;
-    margin: 12px 0;
+  border-radius: 12px;
+  border: 1px solid #d7deff;
+  padding: 24px;
+  margin: 12px 0;
 }
 
 .dottedDivide {
-    border: none;
-    border-top: 2px dotted #8D99D2;
-    color: #fff;
-    background-color: #fff;
-    height: 1px;
-    width: 100%;
+  border: none;
+  border-top: 2px dotted #8d99d2;
+  color: #fff;
+  background-color: #fff;
+  height: 1px;
+  width: 100%;
 }
 
 #barcodeScanModal {
-    width: 100%;
-    max-width: 450px;
+  width: 100%;
+  max-width: 450px;
 }
 
 #bluetoothScanModal {
-    width: 100%;
-    max-width: 550px;
+  width: 100%;
+  max-width: 550px;
 }
 
 #barcodeScanModal .modal-content,
 #bluetoothScanModal .modal-content {
-    border-radius: 30px !important;
-    background: #FFF !important;
-    box-shadow: -3px 6px 7px 0px rgba(52, 79, 117, 0.03), -12px 28px 25px 0px rgba(52, 79, 117, 0.04), -31px 74px 80px 0px rgba(52, 79, 117, 0.07) !important;
-    padding: 40px 60px !important;
-    border: none !important;
+  border-radius: 30px !important;
+  background: #fff !important;
+  box-shadow: -3px 6px 7px 0px rgba(52, 79, 117, 0.03),
+    -12px 28px 25px 0px rgba(52, 79, 117, 0.04),
+    -31px 74px 80px 0px rgba(52, 79, 117, 0.07) !important;
+  padding: 40px 60px !important;
+  border: none !important;
 }
 
 #barcodeScanModal .modal-header,
 #bluetoothScanModal .modal-header {
-    display: none;
+  display: none;
 }
 
 .scannerMain {
-    text-align: center;
+  text-align: center;
 }
 
 .barcodeScanSection {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .barcodeDevice {
-    width: 240px;
-    height: 46px;
-    margin: 30px 0;
+  width: 240px;
+  height: 46px;
+  margin: 30px 0;
 }
 
 .codeSubDisplay {
-    border-radius: 12px;
-    border: 0px solid #E4E6F2;
-    background: #F5F6FC;
-    padding: 10px 8px;
-    height: 42px;
-    width: 100%;
-    margin-top: 12px;
+  border-radius: 12px;
+  border: 0px solid #e4e6f2;
+  background: #f5f6fc;
+  padding: 10px 8px;
+  height: 42px;
+  width: 100%;
+  margin-top: 12px;
 }
 
 .codeDisplayMain {
-    width: 100%;
-    margin-bottom: 30px;
-    text-align: center;
+  width: 100%;
+  margin-bottom: 30px;
+  text-align: center;
 }
 
 .deviceBarcodeSub {
-    border-radius: 16px;
-    background: #F5F6FC;
-    padding: 16px 24px;
-    display: flex;
-    align-items: start;
-    justify-content: space-between;
-    margin-top: 24px;
+  border-radius: 16px;
+  background: #f5f6fc;
+  padding: 16px 24px;
+  display: flex;
+  align-items: start;
+  justify-content: space-between;
+  margin-top: 24px;
 }
 
 .outer-circle {
-    background-image: linear-gradient(#58C2E8, #58C2E8, #D7DEFF, #D7DEFF);
-    width: 160px;
-    height: 160px;
-    border-style: solid;
-    border-color: transparent;
-    border-radius: 50%;
-    border-width: 0;
-    animation: rotateCircle 3s linear infinite;
-    padding: 6px;
-    display: table;
+  background-image: linear-gradient(#58c2e8, #58c2e8, #d7deff, #d7deff);
+  width: 160px;
+  height: 160px;
+  border-style: solid;
+  border-color: transparent;
+  border-radius: 50%;
+  border-width: 0;
+  animation: rotateCircle 3s linear infinite;
+  padding: 6px;
+  display: table;
 }
 
 .inner-circle {
-    background: white;
-    height: 160px;
-    width: 160px;
-    border-style: solid;
-    border-color: transparent;
-    border-radius: 50%;
-    border-width: 1px;
-    animation: rotateCircle 3s linear infinite reverse;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+  background: white;
+  height: 160px;
+  width: 160px;
+  border-style: solid;
+  border-color: transparent;
+  border-radius: 50%;
+  border-width: 1px;
+  animation: rotateCircle 3s linear infinite reverse;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-
 @keyframes rotateCircle {
-    0% {
-        transform: rotate(0);
-    }
+  0% {
+    transform: rotate(0);
+  }
 
-    25% {
-        transform: rotate(90deg);
-    }
+  25% {
+    transform: rotate(90deg);
+  }
 
-    50% {
-        transform: rotate(180deg);
-    }
+  50% {
+    transform: rotate(180deg);
+  }
 
-    75% {
-        transform: rotate(270deg);
-    }
+  75% {
+    transform: rotate(270deg);
+  }
 
-    100% {
-        transform: rotate(360deg);
-    }
+  100% {
+    transform: rotate(360deg);
+  }
 }
 
 .bluetoothLoader {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin: 30px 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 30px 0;
 }
 
 .scannerBx {
-    display: flex;
-    align-items: center;
-    gap: 6px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
 }
 
 .scanLink {
-    color: #47B0D6 !important;
-    font-size: 14px;
-    font-weight: 500;
+  color: #47b0d6 !important;
+  font-size: 14px;
+  font-weight: 500;
 }
 
 .notificationSection {
-    border-radius: 20px;
-    background: #FFF;
-    padding: 16px;
+  border-radius: 20px;
+  background: #fff;
+  padding: 16px;
 }
 
 .notifySub {
-    padding: 14px 24px;
+  padding: 14px 24px;
 }
 
 .notifySub .cartDivide {
-    margin: 8px 0;
+  margin: 8px 0;
 }
 
 .notifyCheck {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    margin: 12px 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 12px 0;
 }
 
 /*setting css end*/
 /* cash Drawer css start*/
 .cashDrawOuter {
-    height: calc(100vh - 130px);
-    overflow-y: hidden;
-    border-radius: 20px;
-    background: #FFF;
-    margin: 0 16px;
+  height: calc(100vh - 130px);
+  overflow-y: hidden;
+  border-radius: 20px;
+  background: #fff;
+  margin: 0 16px;
 }
 
 .cashDrawOuter::-webkit-scrollbar {
-    display: none;
+  display: none;
 }
 
 .cashDrawHead {
-    padding: 16px 24px;
+  padding: 16px 24px;
 }
 
 .leftCashHead {
-    display: flex;
-    align-items: center;
-    gap: 12px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
 }
 
 .rightCashHead {
-    display: flex;
-    align-items: center;
-    gap: 12px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
 }
 
 .cashSearchBX {
-    border-radius: 50px;
-    border: 1px solid #E4E6F2 !important;
-    background: #FFF;
-    padding: 12px 12px 12px 40px !important;
-    color: #263682 !important;
-    font-size: 14px;
-    font-weight: 400;
+  border-radius: 50px;
+  border: 1px solid #e4e6f2 !important;
+  background: #fff;
+  padding: 12px 12px 12px 40px !important;
+  color: #263682 !important;
+  font-size: 14px;
+  font-weight: 400;
 }
 
 .cashSearchBX:focus {
-    outline: none;
+  outline: none;
 }
 
 .cashSearchBX::placeholder {
-    color: #7E8AC1 !important;
-    font-size: 14px !important;
-    font-weight: 400 !important;
+  color: #7e8ac1 !important;
+  font-size: 14px !important;
+  font-weight: 400 !important;
 }
 
 .cashSearch {
-    position: relative;
+  position: relative;
 }
 
 .cashSearchImg {
-    position: absolute;
-    left: 12px;
-    top: 12px;
+  position: absolute;
+  left: 12px;
+  top: 12px;
 }
 
 .outerCashFlex {
-    display: flex;
-    align-items: center;
-    gap: 70px;
-    padding: 16px 26px;
+  display: flex;
+  align-items: center;
+  gap: 70px;
+  padding: 16px 26px;
 }
 
 .cashDrawSub {
-    padding: 16px;
-    height: calc(100vh - 270px);
-    overflow-y: scroll;
+  padding: 16px;
+  height: calc(100vh - 270px);
+  overflow-y: scroll;
 }
 
 .batchData {
-    border-radius: 30px;
-    border: 1px solid #F5F6FC;
-    background: #F5F6FC;
-    padding: 8px 8px 8px 26px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    margin-top: 8px;
+  border-radius: 30px;
+  border: 1px solid #f5f6fc;
+  background: #f5f6fc;
+  padding: 8px 8px 8px 26px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 8px;
 }
 
 .batchDataSub {
-    display: flex;
-    align-items: center;
-    gap: 70px;
+  display: flex;
+  align-items: center;
+  gap: 70px;
 }
 
 .viewSessionBtn {
-    border-radius: 30px;
-    border: 0px solid #263682;
-    background: #FFF;
-    padding: 12px 18px;
-    color: #263682;
-    font-size: 14px;
-    font-weight: 400;
+  border-radius: 30px;
+  border: 0px solid #263682;
+  background: #fff;
+  padding: 12px 18px;
+  color: #263682;
+  font-size: 14px;
+  font-weight: 400;
 }
 
 .trackBtn {
-    border-radius: 30px;
-    background: #263682;
-    padding: 12px 18px;
-    color: #F5F6FC;
-    font-size: 14px;
-    font-weight: 400;
-    display: flex;
-    align-items: center;
-    border: none;
-    gap: 4px;
+  border-radius: 30px;
+  background: #263682;
+  padding: 12px 18px;
+  color: #f5f6fc;
+  font-size: 14px;
+  font-weight: 400;
+  display: flex;
+  align-items: center;
+  border: none;
+  gap: 4px;
 }
 
 .cashSession {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    margin-top: 24px;
-    padding: 18px 18px 18px 24px;
-    border-radius: 50px;
-    border: 1px solid #D7DEFF;
-    box-shadow: -2px 4px 25px 0px rgba(50, 80, 127, 0.02), -5px 10px 80px 0px rgba(50, 80, 127, 0.04);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 24px;
+  padding: 18px 18px 18px 24px;
+  border-radius: 50px;
+  border: 1px solid #d7deff;
+  box-shadow: -2px 4px 25px 0px rgba(50, 80, 127, 0.02),
+    -5px 10px 80px 0px rgba(50, 80, 127, 0.04);
 }
 
 .paginationMain {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 5px 10px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 5px 10px;
 }
 
 .prevText {
-    color: #B4BEEB;
-    font-size: 12px;
-    font-weight: 500;
+  color: #b4beeb;
+  font-size: 12px;
+  font-weight: 500;
 }
 
 .paginationArrowImg {
-    width: 16px;
-    height: 16px;
+  width: 16px;
+  height: 16px;
 }
 
 .paginateFlex {
-    display: flex;
-    align-items: center;
-    gap: 6px;
-    cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  cursor: pointer;
 }
 
 .paginateFlex.active .prevText,
 .paginateFlex:hover .prevText {
-    color: #263682;
+  color: #263682;
 }
 
 .paginateFlex.active .paginationArrowImg,
 .paginateFlex:hover .paginationArrowImg {
-    filter: invert(65%) sepia(92%) saturate(373%) hue-rotate(163deg) brightness(93%) contrast(95%);
+  filter: invert(65%) sepia(92%) saturate(373%) hue-rotate(163deg)
+    brightness(93%) contrast(95%);
 }
 
 .cashDrawMain {
-    position: relative;
+  position: relative;
 }
 
 .paginatePosition {
-    position: absolute;
-    bottom: 16px;
-    left: 0;
-    right: 0;
+  position: absolute;
+  bottom: 16px;
+  left: 0;
+  right: 0;
 }
 
 .planRight {
-    border-radius: 20px;
-    background: #FFF;
-    padding: 24px 40px;
-    display: flex;
-    align-items: start;
-    gap: 16px;
+  border-radius: 20px;
+  background: #fff;
+  padding: 24px 40px;
+  display: flex;
+  align-items: start;
+  gap: 16px;
 }
 
 .planApps {
-    border-radius: 20px;
-    border: 2px solid #58C2E8;
-    background: #FFF;
-    box-shadow: -2px 4px 25px 0px rgba(50, 80, 127, 0.02), -5px 10px 80px 0px rgba(50, 80, 127, 0.04);
-    padding: 24px 32px;
-    margin-top: 24px;
+  border-radius: 20px;
+  border: 2px solid #58c2e8;
+  background: #fff;
+  box-shadow: -2px 4px 25px 0px rgba(50, 80, 127, 0.02),
+    -5px 10px 80px 0px rgba(50, 80, 127, 0.04);
+  padding: 24px 32px;
+  margin-top: 24px;
 }
 
 .planFlex {
-    display: flex;
-    align-items: start;
-    justify-content: space-between;
+  display: flex;
+  align-items: start;
+  justify-content: space-between;
 }
 
 .planSubSection {
-    width: 100%;
+  width: 100%;
 }
 
 .entreText {
-    color: #47B0D6;
-    font-size: 30px;
-    font-weight: 400;
+  color: #47b0d6;
+  font-size: 30px;
+  font-weight: 400;
 }
 
 .planAppSub {
-    border-top: 1px dotted #8D99D2;
-    border-bottom: 1px dotted #8D99D2;
-    margin: 10px 0;
-    padding: 10px 0;
-    display: flex;
-    align-items: start;
-    gap: 50px;
-
+  border-top: 1px dotted #8d99d2;
+  border-bottom: 1px dotted #8d99d2;
+  margin: 10px 0;
+  padding: 10px 0;
+  display: flex;
+  align-items: start;
+  gap: 50px;
 }
 
 .planTickBox {
-    display: flex;
-    align-items: center;
-    margin-top: 10px;
-    gap: 10px;
+  display: flex;
+  align-items: center;
+  margin-top: 10px;
+  gap: 10px;
 }
 
 .planCyan {
-    color: #47B0D6;
-    font-size: 14px;
-    font-weight: 500;
+  color: #47b0d6;
+  font-size: 14px;
+  font-weight: 500;
 }
 
 .planPara {
-    color: #9BA8E3;
-    font-size: 14px;
-    font-weight: 500;
+  color: #9ba8e3;
+  font-size: 14px;
+  font-weight: 500;
 }
-.subscribeBox{
-    display: flex;
-    align-items: center;
-    gap: 50px;
+.subscribeBox {
+  display: flex;
+  align-items: center;
+  gap: 50px;
 }
 /* cash Drawer css end*/
 /*media query start*/
-@media (max-width:1600px) {
-    .cartOfferSection {
-        margin-top: 20px;
-    }
+@media (max-width: 1600px) {
+  .cartOfferSection {
+    margin-top: 20px;
+  }
 
-    .discountOfferMain {
-        margin: 20px 0;
-    }
+  .discountOfferMain {
+    margin: 20px 0;
+  }
 
-    .offerdata {
-        height: calc(40vh - 137px);
-    }
+  .offerdata {
+    height: calc(40vh - 137px);
+  }
 
-    .shipTableData .invoice_subhead {
-        width: 100%;
-        min-width: 175px;
-    }
+  .shipTableData .invoice_subhead {
+    width: 100%;
+    min-width: 175px;
+  }
 
-    .shipTableData .invoice_subhead:first-child {
-        width: 100%;
-        min-width: 100px;
-    }
+  .shipTableData .invoice_subhead:first-child {
+    width: 100%;
+    min-width: 100px;
+  }
 
-    .shipTableData .invoice_subhead:last-child {
-        width: 100%;
-        min-width: 50px;
-    }
+  .shipTableData .invoice_subhead:last-child {
+    width: 100%;
+    min-width: 50px;
+  }
 
-    .shipTableData .invoice_subhead:nth-child(3) {
-        width: 100%;
-        min-width: 270px;
-    }
+  .shipTableData .invoice_subhead:nth-child(3) {
+    width: 100%;
+    min-width: 270px;
+  }
 
-    .cancelShipData .invoice_subhead {
-        width: 100%;
-        min-width: 175px;
-    }
+  .cancelShipData .invoice_subhead {
+    width: 100%;
+    min-width: 175px;
+  }
 
-    .cancelShipData .invoice_subhead:last-child {
-        width: 100%;
-        min-width: 50px;
-    }
+  .cancelShipData .invoice_subhead:last-child {
+    width: 100%;
+    min-width: 50px;
+  }
 
-    .cancelShipData .invoice_subhead:nth-child(2) {
-        width: 100%;
-        min-width: 220px;
-    }
+  .cancelShipData .invoice_subhead:nth-child(2) {
+    width: 100%;
+    min-width: 220px;
+  }
 
-    .cancelShipData .invoice_subhead:nth-child(3) {
-        width: 100%;
-        min-width: 150px;
-    }
+  .cancelShipData .invoice_subhead:nth-child(3) {
+    width: 100%;
+    min-width: 150px;
+  }
 }
 
-@media (max-width:1400px) {
-    .serviceDayTime {
-        height: calc(50vh - 120px);
-        overflow-y: scroll;
-    }
+@media (max-width: 1400px) {
+  .serviceDayTime {
+    height: calc(50vh - 120px);
+    overflow-y: scroll;
+  }
 
-    .staffInfoBox::before {
-        left: 30px;
-    }
+  .staffInfoBox::before {
+    left: 30px;
+  }
 }
 
-@media (max-width:1366px) {
+@media (max-width: 1366px) {
+  .offerImg {
+    display: flex;
+    justify-content: start;
+    width: 35%;
+  }
 
-    .offerImg {
-        display: flex;
-        justify-content: start;
-        width: 35%;
-    }
+  .offerdata {
+    height: calc(40vh - 164px);
+  }
 
-    .offerdata {
-        height: calc(40vh - 164px);
-    }
-
-    .staffInfoBox::before {
-        left: 45px;
-    }
-
+  .staffInfoBox::before {
+    left: 45px;
+  }
 }
 
-@media (max-width:1280px) {
-    .cartInfo {
-        height: 200px;
-        overflow-y: scroll;
-    }
+@media (max-width: 1280px) {
+  .cartInfo {
+    height: 200px;
+    overflow-y: scroll;
+  }
 
-    .deliverCheck {
-        display: flex;
-        justify-content: end;
-        gap: 12px;
-    }
+  .deliverCheck {
+    display: flex;
+    justify-content: end;
+    gap: 12px;
+  }
 
-    .offerImg {
-        display: flex;
-        justify-content: start;
-        width: 30%;
-    }
+  .offerImg {
+    display: flex;
+    justify-content: start;
+    width: 30%;
+  }
 
-    .serviceDayTime {
-        height: calc(50vh - 140px);
-        overflow-y: scroll;
-    }
+  .serviceDayTime {
+    height: calc(50vh - 140px);
+    overflow-y: scroll;
+  }
 
-    .cartOfferSection {
-        margin-top: 15px;
-    }
+  .cartOfferSection {
+    margin-top: 15px;
+  }
 
-    .discountOfferMain {
-        margin: 15px 0;
-    }
+  .discountOfferMain {
+    margin: 15px 0;
+  }
 
-    .deliverOrderData .deliverSubdata {
-        width: 100%;
-        min-width: 120px;
-    }
+  .deliverOrderData .deliverSubdata {
+    width: 100%;
+    min-width: 120px;
+  }
 
-    .staffInfoBox::before {
-        left: 80px;
-    }
+  .staffInfoBox::before {
+    left: 80px;
+  }
 }
 
-@media (max-width:1200px) {
-
-    .staffInfoBox::before {
-        display: none;
-    }
+@media (max-width: 1200px) {
+  .staffInfoBox::before {
+    display: none;
+  }
 }
-
-
-
-
-
 
 /*gaurav arora sir css start*/
 .headingTextStyle {
-    color: #263682;
-    font-size: 24px;
-    font-weight: 500;
+  color: #263682;
+  font-size: 24px;
+  font-weight: 500;
 }
 
 .textInformationStyle {
-    color: var(--Neutrals-N-600, #7e8ac1);
+  color: var(--Neutrals-N-600, #7e8ac1);
 
-    font-family: Roobert;
-    font-size: 14px;
-    font-style: normal;
-    font-weight: 400;
-    line-height: normal;
+  font-family: Roobert;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
 }
 
 .shadowBox {
-    border-radius: 20px;
-    border: 1px solid var(--Neutrals-N-100, #d7deff);
-    padding: 20px;
-    margin-top: 50px;
-    flex-direction: row;
-    box-shadow: "20 100px 16px 0 rgba(0, 0, 0, 0.15)";
+  border-radius: 20px;
+  border: 1px solid var(--Neutrals-N-100, #d7deff);
+  padding: 20px;
+  margin-top: 50px;
+  flex-direction: row;
+  box-shadow: "20 100px 16px 0 rgba(0, 0, 0, 0.15)";
 }
 
 .boxTopTitleTextStyle {
-    color: var(--Primary-P-600-Main, #263682);
+  color: var(--Primary-P-600-Main, #263682);
 
-    font-family: Roobert;
-    font-size: 16px;
-    font-style: normal;
-    font-weight: 500;
-    line-height: normal;
-    letter-spacing: -0.32px;
-    flex-direction: row;
-    display: flex;
-    justify-content: space-between;
+  font-family: Roobert;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+  letter-spacing: -0.32px;
+  flex-direction: row;
+  display: flex;
+  justify-content: space-between;
 }
 
 .boxbottomTextStyle {
-    margin-top: 20px;
-    color: var(--Neutrals-N-600, #7e8ac1);
+  margin-top: 20px;
+  color: var(--Neutrals-N-600, #7e8ac1);
 
-    font-family: Roobert;
-    font-size: 14px;
-    font-style: normal;
-    font-weight: 400;
-    line-height: normal;
+  font-family: Roobert;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
 }
 
 .modalTitleStyle {
-    align-items: center;
-    justify-content: center;
-    display: flex;
-    color: var(--Primary-P-600-Main, #263682);
+  align-items: center;
+  justify-content: center;
+  display: flex;
+  color: var(--Primary-P-600-Main, #263682);
 
-    font-family: Roobert;
-    font-size: 24px;
+  font-family: Roobert;
+  font-size: 24px;
 
-    font-weight: 500;
-    line-height: normal;
+  font-weight: 500;
+  line-height: normal;
 }
 
 .descriptionTextStyle {
-    color: var(--Neutrals-N-800, #636e9f);
-    margin-top: 20px;
-    font-family: Roobert;
-    font-size: 18px;
-    font-style: normal;
-    font-weight: 400;
-    line-height: normal;
-    letter-spacing: -0.36px;
+  color: var(--Neutrals-N-800, #636e9f);
+  margin-top: 20px;
+  font-family: Roobert;
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  letter-spacing: -0.36px;
 }
 
 .box {
-    display: flex;
-    width: 420px;
-    padding: 16px 18px 20px 18px;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    gap: 6px;
-    height: 100px;
-    border-radius: 16px;
-    border: 1px solid var(--Neutrals-N-100, #d7deff);
-    margin-top: 40px;
+  display: flex;
+  width: 420px;
+  padding: 16px 18px 20px 18px;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 6px;
+  height: 100px;
+  border-radius: 16px;
+  border: 1px solid var(--Neutrals-N-100, #d7deff);
+  margin-top: 40px;
 }
 
 /*gaurav arora sir css end*/
