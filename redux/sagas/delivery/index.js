@@ -4,6 +4,7 @@ import { ORDER_API_URL } from "../../../utilities/config";
 
 import { all, call, put, takeLatest } from "redux-saga/effects";
 import {
+  setAcceptOrder,
   setDrawerOrdersCount,
   setOrderDetailById,
   setOrdersList,
@@ -16,7 +17,7 @@ const API_URL = {
   getOrderList: "/api/v1/orders?",
   getDrawerCount: "/api/v1/orders/pos/statistics?",
   getOrderDetailById: "/api/v1/orders/pos/",
-  acceptOrder: "orders/status",
+  acceptOrder: "/api/v1/orders/status/",
 };
 
 function* getTodayOrderCount(action) {
@@ -131,7 +132,6 @@ function* getDrawerOrdersCount(action) {
 
 function* getOrderDetailById(action, callbackFn) {
   const dataToSend = action.payload;
-  console.log("callbacccckkck", action.payload);
   // const params = new URLSearchParams(dataToSend).toString();
   // console.log("IIISSS", JSON.stringify(dataToSend));
   try {
@@ -157,7 +157,10 @@ function* getOrderDetailById(action, callbackFn) {
 }
 function* acceptOrder(action, callbackFn) {
   const dataToSend = action.payload;
-  console.log("accept order", action.payload);
+  console.log(
+    "Endpoin",
+    `${ORDER_API_URL}${API_URL.acceptOrder}${dataToSend?.orderId}`
+  );
   // const params = new URLSearchParams(dataToSend).toString();
   // console.log("IIISSS", JSON.stringify(dataToSend));
   const body = {
@@ -169,18 +172,20 @@ function* acceptOrder(action, callbackFn) {
       `${ORDER_API_URL}${API_URL.acceptOrder}${dataToSend?.orderId}`,
       body
     );
+    console.log("Response--", resp);
     if (resp) {
-      console.log("accept OrderId  ", JSON.stringify(resp));
+      console.log("accept-OrderId  ", JSON.stringify(resp));
       // yield put(
       //   setOrderDetailById(resp?.data == "" ? [] : resp?.data?.payload)
       // );
       // callbackFn && callbackFn(resp);
-
+      setAcceptOrder();
       yield call(action.payload.cb, (action.res = resp));
     } else {
       throw resp;
     }
   } catch (e) {
+    console.log("Errorr0", e);
     // yield put(onErrorStopLoad());
     toast.error(e?.error?.response?.data?.msg);
   }
