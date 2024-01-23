@@ -9,7 +9,7 @@ const ButtonComponent = ({
   trackHandler,
 }) => {
   const orderStatus = orderData?.status;
-
+  console.log("selecetd Order type", selected);
   const [isProductDetailLoading, setIsProductDetailLoading] = useState(false);
 
   return (

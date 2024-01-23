@@ -177,6 +177,9 @@ const Login = () => {
                             </div>
                         </div>
                     </div>
+                    <div className='loginLogo'>
+                        <Image src={Images.headLogo} className='img-fluid' alt='headLogo image'/>
+                    </div>
                 </div>
             </ProtectedRoute>
         </>

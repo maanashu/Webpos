@@ -1,9 +1,17 @@
-import React from "react";
+import React, { useState } from "react";
 import DeliveryRightSidebar from "../../components/commanComonets/Delivery/deliveryRightSidebar";
 import * as Images from "../../utilities/images";
 import Image from "next/image";
+import moment from "moment-timezone";
 
-const OrderDeliver = () => {
+const OrderDeliver = ({ orderDetail }) => {
+  const orderStatus = orderDetail?.status;
+  const shopName = orderDetail?.seller_details?.organization_name;
+  const shopAddress =
+    orderDetail?.seller_details?.current_address?.street_address;
+
+  const [isMaximize, setIsMaximize] = useState(true);
+  console.log("Ordeer", JSON.stringify(orderStatus));
   return (
     <>
       {/* <div className=' orderDeliverSection deliverySection'>
@@ -429,7 +437,7 @@ const OrderDeliver = () => {
         <div className="deliverSubMap">
           <div className="row">
             <div className="col-lg-6">
-              <div className="assignLeft deliveryOuter me-0">
+              {/* <div className="assignLeft deliveryOuter me-0">
                 <div className="flexTable">
                   <Image
                     src={Images.boldLeftArrow}
@@ -827,7 +835,7 @@ const OrderDeliver = () => {
                     </tbody>
                   </table>
                 </div>
-              </div>
+              </div> */}
             </div>
             <div className="col-lg-6">
               <div className=" deliveryOuter assignMapRight ms-0">
@@ -841,121 +849,183 @@ const OrderDeliver = () => {
                     />
                     <h4 className="customerLink ">Order Status</h4>
                   </div>
-                  <div className="orderTrackStatus">
-                    <div className="subOrderTime">
-                      <div className="positionImg">
-                        <Image
-                          src={Images.pickupStep}
-                          alt="pickupStep Image"
-                          className="img-fluid dotStepImg"
-                        />
-                        <Image
-                          src={Images.lineStep}
-                          alt="lineStep Image"
-                          className="img-fluid lineStepImg"
-                        />
+
+                  {isMaximize ? (
+                    <div className="orderTrackStatus">
+                      <div className="subOrderTime">
+                        <div className="positionImg">
+                          <Image
+                            src={Images.pickupStep}
+                            alt="pickupStep Image"
+                            className="img-fluid dotStepImg"
+                          />
+                          <Image
+                            src={Images.lineStep}
+                            alt="lineStep Image"
+                            className="img-fluid lineStepImg"
+                          />
+                        </div>
+                        <div className="positionText">
+                          <h4 className="appointSub mt-0">Verified</h4>
+                          <h4 className="orderPara">
+                            {orderDetail?.status_desc?.status_5_updated_at
+                              ? moment
+                                  .utc(
+                                    orderDetail?.status_desc
+                                      ?.status_5_updated_at
+                                  )
+                                  .format("DD MMM YYYY | HH:mm A")
+                              : ""}
+                          </h4>
+                        </div>
                       </div>
-                      <div className="positionText">
-                        <h4 className="appointSub mt-0">Verify Code</h4>
-                        <h4 className="orderPara">****</h4>
+                      <div className="subOrderTime">
+                        <div className="positionImg">
+                          <Image
+                            src={Images.deliverDot}
+                            alt="deliverDot Image"
+                            className="img-fluid dotStepImg"
+                          />
+                          <Image
+                            src={Images.lineStep}
+                            alt="lineStep Image"
+                            className="img-fluid lineStepImg"
+                          />
+                        </div>
+                        <div className="positionText">
+                          <h4 className="appointSub mt-0">Delivered</h4>
+                          <h4 className="orderPara">
+                            {orderDetail?.status_desc?.status_5_updated_at
+                              ? moment
+                                  .utc(
+                                    orderDetail?.status_desc
+                                      ?.status_5_updated_at
+                                  )
+                                  .format("DD MMM YYYY | HH:mm A")
+                              : ""}
+                          </h4>
+                        </div>
                       </div>
-                    </div>
-                    <div className="subOrderTime">
-                      <div className="positionImg">
-                        <Image
-                          src={Images.deliverDot}
-                          alt="deliverDot Image"
-                          className="img-fluid dotStepImg"
-                        />
-                        <Image
-                          src={Images.lineStep}
-                          alt="lineStep Image"
-                          className="img-fluid lineStepImg"
-                        />
-                      </div>
-                      <div className="positionText">
-                        <h4 className="appointSub mt-0">Delivered</h4>
-                        <h4 className="orderPara">Within 10 minutes</h4>
-                      </div>
-                    </div>
-                    <div className="subOrderTime">
-                      <div className="positionImg">
-                        <Image
-                          src={Images.deliverDot}
-                          alt="deliverDot Image"
-                          className="img-fluid dotStepImg"
-                        />
-                        <Image
-                          src={Images.lineStep}
-                          alt="lineStep Image"
-                          className="img-fluid lineStepImg"
-                        />
-                      </div>
-                      <div className="positionText">
-                        <h4 className="appointSub mt-0">Product Pickup</h4>
-                        <h4 className="orderPara">Within 10 minutes</h4>
-                      </div>
-                      <div className="jobrPickUp">
+                      <div className="subOrderTime">
+                        <div className="positionImg">
+                          <Image
+                            src={Images.deliverDot}
+                            alt="deliverDot Image"
+                            className="img-fluid dotStepImg"
+                          />
+                          <Image
+                            src={Images.lineStep}
+                            alt="lineStep Image"
+                            className="img-fluid lineStepImg"
+                          />
+                        </div>
+                        <div className="positionText">
+                          <h4 className="appointSub mt-0">Product Pickup</h4>
+                          <h4 className="orderPara">
+                            {orderDetail?.status_desc?.status_4_updated_at
+                              ? moment
+                                  .utc(
+                                    orderDetail?.status_desc
+                                      ?.status_4_updated_at
+                                  )
+                                  .format("DD MMM YYYY | HH:mm A")
+                              : ""}
+                          </h4>
+                        </div>
+                        {/* <div className="jobrPickUp">
                         <Image
                           src={Images.deliverBox}
                           alt="deliverBox Image"
                           className="img-fluid"
                         />
                         <h4 className="locateDistance ">JOBR-899</h4>
+                      </div> */}
+                      </div>
+                      <div className="subOrderTime">
+                        <div className="positionImg">
+                          <Image
+                            src={Images.readyStep}
+                            alt="readyStep Image"
+                            className="img-fluid dotStepImg"
+                          />
+                          <Image
+                            src={Images.lineStep}
+                            alt="lineStep Image"
+                            className="img-fluid lineStepImg"
+                          />
+                        </div>
+
+                        {orderDetail?.delivery_option !== "3" && (
+                          <div className="positionText">
+                            <h4 className="appointSub mt-0">Assign Driver</h4>
+                            <h4 className="orderPara">
+                              {orderDetail?.status_desc?.status_3_updated_at
+                                ? moment
+                                    .utc(
+                                      orderDetail?.status_desc
+                                        ?.status_3_updated_at
+                                    )
+                                    .format("DD MMM YYYY | HH:mm A")
+                                : ""}
+                            </h4>
+                          </div>
+                        )}
+                      </div>
+                      <div className="subOrderTime">
+                        <div className="positionImg">
+                          <Image
+                            src={Images.readyStep}
+                            alt="readyStep Image"
+                            className="img-fluid dotStepImg"
+                          />
+                          <Image
+                            src={Images.lineStep}
+                            alt="lineStep Image"
+                            className="img-fluid lineStepImg"
+                          />
+                        </div>
+                        <div className="positionText">
+                          <h4 className="appointSub mt-0">Ready to Pickup</h4>
+                          <h4 className="orderPara">
+                            {orderDetail?.status_desc?.status_2_updated_at
+                              ? moment
+                                  .utc(
+                                    orderDetail?.status_desc
+                                      ?.status_2_updated_at
+                                  )
+                                  .format("DD MMM YYYY | HH:mm A")
+                              : ""}
+                          </h4>
+                        </div>
+                      </div>
+                      <div className="subOrderTime">
+                        <div className="positionImg">
+                          <Image
+                            src={Images.acceptStep}
+                            alt="acceptStep Image"
+                            className="img-fluid dotStepImg"
+                          />
+                        </div>
+                        <div className="positionText">
+                          <h4 className="appointSub mt-0">Order Accepted</h4>
+                          <h4 className="orderPara">
+                            {orderDetail?.status_desc?.status_1_updated_at
+                              ? moment
+                                  .utc(
+                                    orderDetail?.status_desc
+                                      ?.status_1_updated_at
+                                  )
+                                  .format("DD MMM YYYY | HH:mm A")
+                              : ""}
+                          </h4>
+                        </div>
                       </div>
                     </div>
-                    <div className="subOrderTime">
-                      <div className="positionImg">
-                        <Image
-                          src={Images.readyStep}
-                          alt="readyStep Image"
-                          className="img-fluid dotStepImg"
-                        />
-                        <Image
-                          src={Images.lineStep}
-                          alt="lineStep Image"
-                          className="img-fluid lineStepImg"
-                        />
-                      </div>
-                      <div className="positionText">
-                        <h4 className="appointSub mt-0">Assign Driver</h4>
-                        <h4 className="orderPara">21 Jun, 2022 | 10:02 am</h4>
-                      </div>
-                    </div>
-                    <div className="subOrderTime">
-                      <div className="positionImg">
-                        <Image
-                          src={Images.readyStep}
-                          alt="readyStep Image"
-                          className="img-fluid dotStepImg"
-                        />
-                        <Image
-                          src={Images.lineStep}
-                          alt="lineStep Image"
-                          className="img-fluid lineStepImg"
-                        />
-                      </div>
-                      <div className="positionText">
-                        <h4 className="appointSub mt-0">Ready to Pickup</h4>
-                        <h4 className="orderPara">21 Jun, 2022 | 12:09 am</h4>
-                      </div>
-                    </div>
-                    <div className="subOrderTime">
-                      <div className="positionImg">
-                        <Image
-                          src={Images.acceptStep}
-                          alt="acceptStep Image"
-                          className="img-fluid dotStepImg"
-                        />
-                      </div>
-                      <div className="positionText">
-                        <h4 className="appointSub mt-0">Order Accepted</h4>
-                        <h4 className="orderPara">21 Jun, 2022 | 02:10 am</h4>
-                      </div>
-                    </div>
-                  </div>
+                  ) : (
+                    <div className="orderTrackStatus"></div>
+                  )}
                 </div>
-                <div className="maximizeImg">
+                <div onClick={() => alert("ff")} className="maximizeImg">
                   <Image
                     src={Images.maximize}
                     alt="maximize Image"

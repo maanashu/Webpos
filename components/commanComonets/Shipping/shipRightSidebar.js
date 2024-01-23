@@ -10,6 +10,45 @@ import { useDispatch, useSelector } from "react-redux";
 const ShipRightSidebar = (props) => {
     const [activeSidebar, setActiveSidebar] = useState(true);
     console.log(props?.data, "dtaassas");
+
+    const onPressHandler = (status, count) => {
+        if (!activeSidebar && count > 0) {
+            props?.setOrderListType({
+                title: status == "ordersToReview" ?
+                    "Order to Review" :
+                    status == "acceptedOrders" ?
+                        "Order Accepted" :
+                        status == "prepairingOrders" ?
+                            "Order Prepared" :
+                            status == "readyForPickupOrders" ?
+                                "Printing Label" :
+                                status == "shippedOrders" ?
+                                    "Shipped" :
+                                    status == "canceledAndRejectedOrders" ?
+                                        "Rejected/Cancelled" :
+                                        status == "returnedOrders" ?
+                                            "Returned" :
+                                            "",
+                status: status == "ordersToReview" ?
+                    "0" :
+                    status == "acceptedOrders" ?
+                        "1" :
+                        status == "prepairingOrders" ?
+                            "2" :
+                            status == "readyForPickupOrders" ?
+                                "3" :
+                                status == "shippedOrders" ?
+                                    "5" :
+                                    status == "canceledAndRejectedOrders" ?
+                                        "7,8" :
+                                        status == "returnedOrders" ?
+                                            "9" :
+                                            ""
+            });
+            setActiveSidebar("hideDeliver");
+        }
+    };
+
     return (
         <>
             <div className={`shipRightBar ${activeSidebar ? "hideDeliver" : "fullDeliver"}`}>
@@ -29,55 +68,57 @@ const ShipRightSidebar = (props) => {
                             <>
                                 {
                                     props?.data?.map((val, index) => {
-                                        <ListGroupItem className='deliverRightItem'>
-                                            <Link href="#" className='rightLinkBar'>
-                                                <Image src={
-                                                    val?.title == "ordersToReview" ?
-                                                        Images.ordersReview :
-                                                        val?.title == "acceptedOrders" ?
-                                                            Images.deliveryCheck :
-                                                            val?.title == "prepairingOrders" ?
-                                                                Images.deliverClock :
-                                                                val?.title == "readyForPickupOrders" ?
-                                                                    Images.sticker :
-                                                                    val?.title == "shippedOrders" ?
-                                                                        Images.trackDeliver :
-                                                                        val?.title == "deliverdOrders" ?
-                                                                            Images.deliverSend :
-                                                                            val?.title == "canceledAndRejectedOrders" ?
-                                                                                Images.deliveryClose :
-                                                                                val?.title == "returnedOrders" ?
-                                                                                    Images.deliverBack :
-                                                                                    ""
-                                                }
+                                        return (
+                                            <ListGroupItem onClick={() => onPressHandler(val?.title, val?.count)} key={index} className='deliverRightItem'>
+                                                <Link href="#" className='rightLinkBar'>
+                                                    <Image src={
+                                                        val?.title == "ordersToReview" ?
+                                                            Images.ordersReview :
+                                                            val?.title == "acceptedOrders" ?
+                                                                Images.deliveryCheck :
+                                                                val?.title == "prepairingOrders" ?
+                                                                    Images.deliverClock :
+                                                                    val?.title == "readyForPickupOrders" ?
+                                                                        Images.sticker :
+                                                                        val?.title == "shippedOrders" ?
+                                                                            Images.trackDeliver :
+                                                                            val?.title == "deliverdOrders" ?
+                                                                                Images.deliverSend :
+                                                                                val?.title == "canceledAndRejectedOrders" ?
+                                                                                    Images.deliveryClose :
+                                                                                    val?.title == "returnedOrders" ?
+                                                                                        Images.deliverBack :
+                                                                                        ""
+                                                    }
 
-                                                    alt="ordersReview image" className="img-fluid" />
-                                                <div className={`orderReview ${(index <= 4) ? "" : (index == 5) ? "purpleOrder" : (index == 6) ? "cancelOrder" : "returnOrder"}`}>
-                                                    <h4 className='loginSub text-start'>
-                                                        {
-                                                            val?.title == "ordersToReview" ?
-                                                                "Order to Review" :
-                                                                val?.title == "acceptedOrders" ?
-                                                                    "Order Accepted" :
-                                                                    val?.title == "prepairingOrders" ?
-                                                                        "Order Prepared" :
-                                                                        val?.title == "readyForPickupOrders" ?
-                                                                            "Printing Label" :
-                                                                            val?.title == "shippedOrders" ?
-                                                                                "Track Delivery" :
-                                                                                val?.title == "deliverdOrders" ?
-                                                                                    "Delivered" :
-                                                                                    val?.title == "canceledAndRejectedOrders" ?
-                                                                                        "Rejected/Cancelled" :
-                                                                                        val?.title == "returnedOrders" ?
-                                                                                            "Returned" :
-                                                                                            ""
-                                                        }
-                                                    </h4>
-                                                    <div className='deliverPercent '>{val?.count}</div>
-                                                </div>
-                                            </Link>
-                                        </ListGroupItem>
+                                                        alt="ordersReview image" className="img-fluid" />
+                                                    <div className={`orderReview ${(index <= 4) ? "" : (index == 5) ? "purpleOrder" : (index == 6) ? "cancelOrder" : "returnOrder"}`}>
+                                                        <h4 className='loginSub text-start'>
+                                                            {
+                                                                val?.title == "ordersToReview" ?
+                                                                    "Order to Review" :
+                                                                    val?.title == "acceptedOrders" ?
+                                                                        "Order Accepted" :
+                                                                        val?.title == "prepairingOrders" ?
+                                                                            "Order Prepared" :
+                                                                            val?.title == "readyForPickupOrders" ?
+                                                                                "Printing Label" :
+                                                                                val?.title == "shippedOrders" ?
+                                                                                    "Track Delivery" :
+                                                                                    val?.title == "deliverdOrders" ?
+                                                                                        "Shipped" :
+                                                                                        val?.title == "canceledAndRejectedOrders" ?
+                                                                                            "Rejected/Cancelled" :
+                                                                                            val?.title == "returnedOrders" ?
+                                                                                                "Returned" :
+                                                                                                ""
+                                                            }
+                                                        </h4>
+                                                        <div className='deliverPercent '>{val?.count}</div>
+                                                    </div>
+                                                </Link>
+                                            </ListGroupItem>
+                                        )
                                     })
                                 }
                             </>

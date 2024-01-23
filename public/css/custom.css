@@ -185,7 +185,6 @@ a {
   transition: 0.4s;
   border-radius: 34px;
 }
-
 .switch-slider:before {
   position: absolute;
   content: "";
