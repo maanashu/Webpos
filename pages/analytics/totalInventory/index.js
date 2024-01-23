@@ -19,7 +19,8 @@ const index = () => {
   const handleChange = (selectedOption) => {
     setChannelSelected(selectedOption)
   };
-
+  const auth = useSelector(selectLoginAuth)
+  const sellerId = auth?.usersInfo?.payload?.uniqe_id
   const dispatch = useDispatch()
   console.log(totalInventoryData, "analytics data")
 
@@ -68,13 +69,13 @@ const index = () => {
       filter: timeSpan,
       channel: channelSelected.value,
       // seller_id: auth?.usersInfo?.payload?.uniqe_id
-      seller_id: "b169ed4d-be27-44eb-9a08-74f997bc6a2f",
+      seller_id: sellerId,
     };
     if (startDate && endDate) {
       params = {
         channel: channelSelected.value,
         // seller_id: auth?.usersInfo?.payload?.uniqe_id
-        seller_id: "b169ed4d-be27-44eb-9a08-74f997bc6a2f",
+        seller_id: sellerId,
         start_date: moment(startDate).format("YYYY-MM-DD"),
         end_date: moment(endDate).format("YYYY-MM-DD"),
       };

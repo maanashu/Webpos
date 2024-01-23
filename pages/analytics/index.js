@@ -27,6 +27,7 @@ const Analytics = () => {
         setEndDate(end);
     }
     const auth = useSelector(selectLoginAuth)
+    const sellerId = auth?.usersInfo?.payload?.uniqe_id
     const handleChange = (selectedOption) => {
         setChannelSelected(selectedOption)
     };
@@ -260,7 +261,7 @@ const Analytics = () => {
             filter: timeSpan,
             channel: channelSelected.value,
             // seller_id: auth?.usersInfo?.payload?.uniqe_id
-            seller_id: "016b1b3a-d7d3-4fc3-a76b-995b23c43852",
+            seller_id: sellerId,
         };
         if (startDate && endDate) {
             params = {
@@ -269,7 +270,7 @@ const Analytics = () => {
                 end_date: moment(endDate).format("YYYY-MM-DD"),
                 channel: channelSelected.value,
                 // seller_id: auth?.usersInfo?.payload?.uniqe_id
-                seller_id: "016b1b3a-d7d3-4fc3-a76b-995b23c43852",
+                seller_id: sellerId,
             };
         }
 
@@ -289,13 +290,13 @@ const Analytics = () => {
             filter: timeSpan,
             channel: channelSelected.value,
             // seller_id: auth?.usersInfo?.payload?.uniqe_id
-            seller_id: "016b1b3a-d7d3-4fc3-a76b-995b23c43852",
+            seller_id: sellerId,
         };
         if (startDate && endDate) {
             params = {
                 channel: channelSelected.value,
                 // seller_id: auth?.usersInfo?.payload?.uniqe_id
-                seller_id: "016b1b3a-d7d3-4fc3-a76b-995b23c43852",
+                seller_id: sellerId,
                 start_date: moment(startDate).format("YYYY-MM-DD"),
                 end_date: moment(endDate).format("YYYY-MM-DD"),
             };
@@ -316,7 +317,7 @@ const Analytics = () => {
             filter: timeSpan,
             channel: channelSelected.value,
             // seller_id: auth?.usersInfo?.payload?.uniqe_id
-            seller_id: "016b1b3a-d7d3-4fc3-a76b-995b23c43852",
+            seller_id: sellerId,
         }
 
         if (startDate && endDate) {
@@ -325,7 +326,7 @@ const Analytics = () => {
                 end_date: moment(endDate).format("YYYY-MM-DD"),
                 channel: channelSelected.value,
                 // seller_id: auth?.usersInfo?.payload?.uniqe_id
-                seller_id: "016b1b3a-d7d3-4fc3-a76b-995b23c43852",
+                seller_id: sellerId,
             }
         }
 
@@ -345,7 +346,7 @@ const Analytics = () => {
             filter: timeSpan,
             channel: channelSelected.value,
             // seller_id: auth?.usersInfo?.payload?.uniqe_id
-            seller_id: "016b1b3a-d7d3-4fc3-a76b-995b23c43852",
+            seller_id: sellerId,
         }
 
         if (startDate && endDate) {
@@ -354,7 +355,7 @@ const Analytics = () => {
                 end_date: moment(endDate).format("YYYY-MM-DD"),
                 channel: channelSelected.value,
                 // seller_id: auth?.usersInfo?.payload?.uniqe_id
-                seller_id: "016b1b3a-d7d3-4fc3-a76b-995b23c43852",
+                seller_id: sellerId,
             }
         }
 
@@ -374,13 +375,13 @@ const Analytics = () => {
             filter: timeSpan,
             channel: channelSelected.value,
             // seller_id: auth?.usersInfo?.payload?.uniqe_id
-            seller_id: "b169ed4d-be27-44eb-9a08-74f997bc6a2f",
+            seller_id: sellerId,
         };
         if (startDate && endDate) {
             params = {
                 channel: channelSelected.value,
                 // seller_id: auth?.usersInfo?.payload?.uniqe_id
-                seller_id: "b169ed4d-be27-44eb-9a08-74f997bc6a2f",
+                seller_id: sellerId,
                 start_date: moment(startDate).format("YYYY-MM-DD"),
                 end_date: moment(endDate).format("YYYY-MM-DD"),
             };
@@ -400,12 +401,14 @@ const Analytics = () => {
 
 
     useEffect(() => {
-        newUserDataHandle();
-        orderAnalyticsHandle();
-        totalOrderAnalyticsHandle();
-        totalProductSoldAnalyticsHandle();
-        totalInventoryHandle()
-    }, [timeSpan, channelSelected, endDate]);
+        if(sellerId){
+            newUserDataHandle();
+            orderAnalyticsHandle();
+            totalOrderAnalyticsHandle();
+            totalProductSoldAnalyticsHandle();
+            totalInventoryHandle()
+        }
+    }, [timeSpan, channelSelected, endDate, sellerId]);
     return (
         <div className="main-container-customers">
             <AnalyticsHeader

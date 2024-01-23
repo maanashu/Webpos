@@ -49,7 +49,7 @@ const Sidebar = (props) => {
           onClick={() => router.push("/home/overview")}
         />
         <Image src={Images.Logo} alt="image" className="img-fluid Logo" />
-        <div
+        {/* <div
           onClick={() => setActiveSidebar((prev) => !prev)}
           className="ToggleIcon"
         >
@@ -58,7 +58,7 @@ const Sidebar = (props) => {
             alt="image"
             className="img-fluid sideToggle"
           />
-        </div>
+        </div> */}
       </div>
       <div className="userDetails">
         <figure>

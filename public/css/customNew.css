@@ -2108,8 +2108,8 @@ figure {
 
 .roundCheck input[type="checkbox"] {
   position: relative;
-  width: 31px;
-  height: 18px;
+  width: 36px;
+  height: 20px;
   -webkit-appearance: none;
   appearance: none;
   outline: none;
@@ -2120,8 +2120,8 @@ figure {
 
 .roundCheck input[type="checkbox"]::before {
   content: "";
-  width: 12px;
-  height: 13px;
+  width: 14px;
+  height: 14px;
   border-radius: 50%;
   background: #fff;
   position: absolute;
@@ -2825,6 +2825,7 @@ figure {
   box-shadow: -3px 6px 6px 0px rgba(52, 79, 117, 0.03),
     -12px 28px 25px 0px rgba(52, 79, 117, 0.04),
     -31px 74px 80px 0px rgba(52, 79, 117, 0.07);
+  z-index: 1;
 }
 
 .orderFlex {
@@ -4508,6 +4509,12 @@ figure {
   margin: 12px 0;
 }
 
+.dhlImg {
+  width: 18px;
+  height: 18px;
+  border-radius: 6px;
+}
+
 /*setting css end*/
 /* cash Drawer css start*/
 .cashDrawOuter {
@@ -4748,136 +4755,372 @@ figure {
   align-items: center;
   gap: 50px;
 }
+
+.subscribeBtn {
+  border-radius: 30px;
+  border: 0px solid #58c2e8;
+  background: #effbff;
+  padding: 12px 24px 14px 24px;
+  color: #58c2e8;
+  font-size: 16px;
+  font-weight: 500;
+}
+
+.subscribeText {
+  color: #47b0d6;
+  font-size: 24px;
+  font-weight: 400;
+}
+
+.SubscribePara {
+  color: #47b0d6;
+  font-size: 18px;
+  font-weight: 500;
+}
+
+.planMethod {
+  border-radius: 16px;
+  border: 1px solid #d7deff;
+  padding: 24px;
+}
+
+.masterImg {
+  width: 34px !important;
+  height: 24px !important;
+}
+
+.planFitRight {
+  border-radius: 20px;
+  background: #fff;
+  padding: 24px;
+}
+
+.PlansTabSection {
+  margin-top: 24px;
+}
+
+.plansTabBtn {
+  border-radius: 30px;
+  background: #f5f6fc;
+  padding: 6px 8px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.planSubTab {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.billingActiveBtn {
+  border-radius: 30px;
+  background: transparent;
+  color: #263682;
+  font-size: 14px;
+  font-weight: 400;
+  padding: 8px 12px;
+  border: none;
+}
+
+.billingActiveBtn.active {
+  color: #f5f6fc;
+  background: #263682;
+}
+
+.monthEnter {
+  border-radius: 20px;
+  border: 3px solid #58c2e8;
+  padding: 16px 20px;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%;
+}
+
+.monthSubEnter {
+  margin: 10px 0;
+}
+
+.monthSubEnter .dottedDivide {
+  margin: 10px 0;
+}
+
+.monthBtn {
+  border-radius: 30px;
+  border: 0px solid #58c2e8;
+  background: transparent;
+  padding: 12px 24px 14px 24px;
+  color: #58c2e8;
+  font-size: 16px;
+  font-weight: 500;
+}
+
+.professionEnter {
+  border-radius: 20px;
+  border: 1px solid #d7deff;
+  padding: 16px 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 100%;
+  justify-content: space-between;
+}
+
+.professionText {
+  color: #4659b5;
+  font-size: 14px;
+  font-weight: 500;
+  margin-top: 4px;
+}
+
+.professionEnter .subscribeText {
+  color: #4659b5;
+}
+
+.professionEnter .SubscribePara {
+  color: #4659b5;
+}
+
+.bussinessEnter .subscribeText {
+  color: #172461;
+}
+
+.bussinessEnter .SubscribePara {
+  color: #172461;
+}
+
+.bussinessEnter .changeBtn {
+  background-color: #172461;
+}
+
+.changeBtn {
+  border-radius: 30px;
+  background: #4659b5;
+  padding: 12px 24px 14px 24px;
+  color: #e4e6f2;
+  font-size: 16px;
+  font-weight: 500;
+  border: none;
+}
+
+.bussinessEnter {
+  border-radius: 20px;
+  border: 1px solid #d7deff;
+  padding: 16px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-direction: column;
+  height: 100%;
+}
+
+.bussinessEnter .returnConfirmedHeading {
+  color: #172461;
+}
+
+.shippingRight {
+  border-radius: 20px;
+  background-color: #fff;
+  padding: 24px 24px 16px 24px;
+}
+
+.localPickupBx {
+  border-radius: 20px;
+  border: 1px solid #e4e6f2;
+  padding: 16px 24px;
+  display: flex;
+  align-items: start;
+  gap: 12px;
+  margin-top: 10px;
+}
+
+.georgiaBox {
+  border-radius: 16px;
+  border: 1px solid #d7deff;
+  padding: 12px 16px;
+  margin-top: 10px;
+  display: flex;
+  align-items: start;
+  justify-content: space-between;
+}
+
+.darkCheck input[type="checkbox"]:checked {
+  background: #263682;
+  border: 2px solid #263682;
+}
+
+.localPickupBx .appointMain {
+  font-size: 20px;
+}
+
+.shippSub {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+}
+
+.dhlConnect {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  border-radius: 8px;
+  border: 1px solid #e4e6f2;
+  background: #f5f6fc;
+  padding: 4px;
+  cursor: pointer;
+}
+
+.deviceDetailSub {
+  margin-top: 24px;
+}
+
+.SoftwareUpdateBx {
+  border-radius: 16px;
+  border: 1px solid #d7deff;
+  padding: 16px 16px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.softwareInnerBx {
+  display: flex;
+  align-items: start;
+  gap: 16px;
+}
+
+.SoftwareUpdateBx.active {
+  border-radius: 16px;
+  border: 1px solid #47b0d6;
+  background: #effbff;
+}
+
+.SoftwareUpdateBx.active .cancelOrderText,
+.SoftwareUpdateBx.active .orderPara {
+  color: #308cad;
+}
+
+.SoftwareUpdateBx.active .imgSize {
+  filter: invert(40%) sepia(93%) saturate(322%) hue-rotate(150deg)
+    brightness(100%) contrast(95%);
+}
+
+.deviceInfo {
+  border-radius: 16px;
+  border: 1px solid #d7deff;
+  padding: 16px;
+  margin-top: 10px;
+}
+
+.deviceDetailData .cartDivide {
+  margin: 16px 0;
+}
+
+.accordianBox {
+  width: 100%;
+}
+
+.accordianBox .accordion-button:focus {
+  box-shadow: none !important;
+}
+
+.accordianBox .accordion-body {
+  border: none !important;
+}
+
+.accordianBox .accordion-button {
+  position: relative;
+}
+
+.accordianBox .accordion-button::after {
+  position: absolute;
+  left: 260px;
+  margin: 0 auto;
+  width: 24px !important;
+  height: 24px !important;
+  background-size: 20px 20px;
+}
+
+.accordnHead .accordion-button::after {
+  border: 2px solid #263682 !important;
+  border-radius: 50% !important;
+  left: 270px;
+}
+
+.saleAccordian {
+  border-radius: 30px;
+  border: 1px solid #f5f6fc;
+  padding: 6px 8px;
+  margin-top: 10px;
+}
+
+.mainAccordn {
+  padding: 0 16px !important;
+}
+
+.accordnText {
+  color: #263682;
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.sessionBox {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.sessionImg {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+}
+
+.accordianBox .accordion-button:not(.collapsed) {
+  box-shadow: none !important;
+}
+
 /* cash Drawer css end*/
-/*media query start*/
-@media (max-width: 1600px) {
-  .cartOfferSection {
-    margin-top: 20px;
-  }
+/* cashDrawer session history css */
 
-  .discountOfferMain {
-    margin: 20px 0;
-  }
-
-  .offerdata {
-    height: calc(40vh - 137px);
-  }
-
-  .shipTableData .invoice_subhead {
-    width: 100%;
-    min-width: 175px;
-  }
-
-  .shipTableData .invoice_subhead:first-child {
-    width: 100%;
-    min-width: 100px;
-  }
-
-  .shipTableData .invoice_subhead:last-child {
-    width: 100%;
-    min-width: 50px;
-  }
-
-  .shipTableData .invoice_subhead:nth-child(3) {
-    width: 100%;
-    min-width: 270px;
-  }
-
-  .cancelShipData .invoice_subhead {
-    width: 100%;
-    min-width: 175px;
-  }
-
-  .cancelShipData .invoice_subhead:last-child {
-    width: 100%;
-    min-width: 50px;
-  }
-
-  .cancelShipData .invoice_subhead:nth-child(2) {
-    width: 100%;
-    min-width: 220px;
-  }
-
-  .cancelShipData .invoice_subhead:nth-child(3) {
-    width: 100%;
-    min-width: 150px;
-  }
+.cashDrawSessionMain {
+  position: relative;
 }
 
-@media (max-width: 1400px) {
-  .serviceDayTime {
-    height: calc(50vh - 120px);
-    overflow-y: scroll;
-  }
-
-  .staffInfoBox::before {
-    left: 30px;
-  }
+.sessionHeader {
+  align-items: center;
+  flex-direction: row;
+  display: flex;
 }
 
-@media (max-width: 1366px) {
-  .offerImg {
+.verifySuccess {
     display: flex;
-    justify-content: start;
-    width: 35%;
-  }
-
-  .offerdata {
-    height: calc(40vh - 164px);
-  }
-
-  .staffInfoBox::before {
-    left: 45px;
-  }
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
 }
 
-@media (max-width: 1280px) {
-  .cartInfo {
-    height: 200px;
-    overflow-y: scroll;
-  }
-
-  .deliverCheck {
+.loginLogo {
+    border-radius: 60px;
+    background: #FFF;
+    box-shadow: -2px 4px 25px 0px rgba(50, 80, 127, 0.02), -5px 10px 80px 0px rgba(50, 80, 127, 0.04);
+    padding: 16px 20px;
+    position: absolute;
+    top: 30px;
+    left: 24px;
+}
+.rightheader{
     display: flex;
+    align-items: center;
+}
+.rightMainHeader{
+    display: flex;
+    align-items: center;
     justify-content: end;
-    gap: 12px;
-  }
-
-  .offerImg {
-    display: flex;
-    justify-content: start;
-    width: 30%;
-  }
-
-  .serviceDayTime {
-    height: calc(50vh - 140px);
-    overflow-y: scroll;
-  }
-
-  .cartOfferSection {
-    margin-top: 15px;
-  }
-
-  .discountOfferMain {
-    margin: 15px 0;
-  }
-
-  .deliverOrderData .deliverSubdata {
-    width: 100%;
-    min-width: 120px;
-  }
-
-  .staffInfoBox::before {
-    left: 80px;
-  }
 }
-
-@media (max-width: 1200px) {
-  .staffInfoBox::before {
-    display: none;
-  }
-}
-
 /*gaurav arora sir css start*/
 .headingTextStyle {
   color: #263682;

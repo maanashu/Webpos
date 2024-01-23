@@ -336,8 +336,23 @@ import blueCircleTick from "../public/images/blueCircleTick.svg";
 import cyanCircleTick from "../public/images/cyanCircleTick.svg";
 import lightCircleTick from "../public/images/lightCircleTick.svg";
 import simpleCheck from "../public/images/simpleCheck.svg";
+import mastercardImg from "../public/images/mastercardImg.svg";
+import fillCheck from "../public/images/fillCheck.svg";
+import bussinessCheck from "../public/images/bussinessCheck.svg"
+import locateOuline from "../public/images/locateOuline.svg";
+import postMotor from "../public/images/postMotor.svg";
+import Receiptbill from "../public/images/Receiptbill.png";
+import cloudImg from "../public/images/cloudImg.svg";
+import headLogo from "../public/images/headLogo.svg";
 
 export {
+  headLogo,
+  cloudImg,
+  postMotor,
+  locateOuline,
+  bussinessCheck,
+  fillCheck,
+  mastercardImg,
   simpleCheck,
   lightCircleTick,
   cyanCircleTick,
