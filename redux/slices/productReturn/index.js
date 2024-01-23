@@ -3,6 +3,7 @@ import { createSlice } from "@reduxjs/toolkit";
 const initialState = {
  loading:false,
  invoiceByInvoiceId:null,
+ searchBySKU:null,
 };
 
 export const returnSlice = createSlice({
@@ -16,6 +17,13 @@ export const returnSlice = createSlice({
       state.loading = false;
       state.invoiceByInvoiceId = action?.payload?.payload;
     },
+    searchBySKU: (state) => {
+      state.loading = true;
+    },
+    setSearchBySKU: (state, action) => {
+      state.loading = false;
+      state.searchBySKU = action?.payload?.payload;
+    },
 
     onErrorStopLoad: (state) => {
       state.loading = false;
@@ -27,6 +35,8 @@ export const returnSlice = createSlice({
 export const {
   onErrorStopLoad,
   setSearchInvoiceByInvoiceId,
+  searchBySKU,
+  setSearchBySKU,
   searchInvoiceByInvoiceId,
 } = returnSlice.actions;
 

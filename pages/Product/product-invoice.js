@@ -11,6 +11,8 @@ import { selectLoginAuth } from "../../redux/slices/auth";
 import moment from "moment-timezone";
 import { useRouter } from "next/router";
 import { toast } from "react-toastify";
+import CustomModal from "../../components/customModal/CustomModal";
+import Manualinvoice from "./manual-entry(search)";
 
 const ProductInvoice = () => {
   const dispatch = useDispatch();
@@ -21,9 +23,22 @@ const ProductInvoice = () => {
   const [searchInvoiceId, setSearchInvoiceId] = useState(null);
   const invoiceData = useSelector(selectReturnData);
   const SearchInvoiceRespones = invoiceData?.invoiceByInvoiceId;
-  console.log(SearchInvoiceRespones, "SearchInvoiceRespones");
   const orderDetails = SearchInvoiceRespones?.order;
-  console.log(orderDetails, "orderDetails");
+  console.log(orderDetails,'orderDetails');
+  const [key, setKey] = useState(Math.random());
+  const [modalDetail, setModalDetail] = useState({
+    show: false,
+    title: "",
+    flag: "",
+  });
+  const handleOnCloseModal = () => {
+    setModalDetail({
+      show: false,
+      title: "",
+      flag: "",
+    });
+    setKey(Math.random());
+  };
 
   const handleSearchInvoice = (e) => {
     setSearchInvoiceId(e.target.value);
@@ -47,6 +62,10 @@ const ProductInvoice = () => {
   };
   const handleCheckboxChange = () => {
     setSelectedProductItems(!selectedProductItems);
+  };
+  const handleGoToManualEntry = () => {
+    setModalDetail({ show: true, flag: "manualEntry" });
+    setKey(Math.random());
   };
   return (
     <>
@@ -198,7 +217,7 @@ const ProductInvoice = () => {
                       alt="tableImg"
                       className="costumerImg"
                     />
-                    <span className="innerHeading ps-2">Costumer</span>
+                    <span className="innerHeading ps-2">Customer</span>
                   </figure>
                   <figure className="">
                     <Image
@@ -240,7 +259,11 @@ const ProductInvoice = () => {
                     </div>
                   </div>
                   <div className="invoiceButtonBox">
-                    <button type="button" className="boderdManualButton">
+                    <button
+                      type="button"
+                      className="boderdManualButton"
+                      onClick={(e) => handleGoToManualEntry(e)}
+                    >
                       Manual Entry
                       <Image
                         src={Images.plusRound}
@@ -251,8 +274,9 @@ const ProductInvoice = () => {
                   </div>
                 </div>
 
-                {orderDetails?.order_details?.length > 0 ? (
+                {orderDetails.order_details?.length > 0 ? (
                   orderDetails?.order_details?.map((data, idx) => {
+                    console.log(data, "data");
                     <div className="selectedProductDetails" key={idx}>
                       <div className="d-flex">
                         <figure>
@@ -284,7 +308,11 @@ const ProductInvoice = () => {
                       <p className="productPriceinvoice">${data?.cost_price}</p>
                       <article>
                         <label className="custom-checkbox">
-                          <input type="checkbox" />
+                          <input
+                            type="checkbox"
+                            checked={selectedProductItems}
+                            onChange={(e) => handleCheckboxChange(e)}
+                          />
                           <span className="checkmark"></span>
                         </label>
                       </article>
@@ -302,6 +330,86 @@ const ProductInvoice = () => {
                   </>
                 )}
 
+                <div className="selectedProductDetails">
+                  <div className="d-flex">
+                    <figure>
+                      <Image
+                        src={Images.jokerImg}
+                        alt="tableImg"
+                        className="costumerImg"
+                      />
+                    </figure>
+                    <div className="ps-1">
+                      <p className="aboutProduct">
+                        Name Product Gender and Quality
+                      </p>
+                      <div className="d-flex">
+                        <article className="productColor">
+                          <span className="Yellow"></span>
+                          <span className="Red"></span>
+                          <span className="Pink"></span>
+                          <span className="Blue"></span>
+                          <span className="Black"></span>
+                          <span className="White"></span>
+                        </article>
+                        <span className="productSize">Colors / Size</span>
+                      </div>
+                    </div>
+                  </div>
+                  <p className="productPriceinvoice">$90.00</p>
+                  <p className="productPriceinvoice">1</p>
+                  <p className="productPriceinvoice">$90.00</p>
+                  <article>
+                    <label className="custom-checkbox">
+                      <input
+                        type="checkbox"
+                        checked={selectedProductItems}
+                        onChange={(e) => handleCheckboxChange(e)}
+                      />
+                      <span className="checkmark"></span>
+                    </label>
+                  </article>
+                </div>
+                <div className="selectedProductDetails">
+                  <div className="d-flex">
+                    <figure>
+                      <Image
+                        src={Images.jokerImg}
+                        alt="tableImg"
+                        className="costumerImg"
+                      />
+                    </figure>
+                    <div className="ps-1">
+                      <p className="aboutProduct">
+                        Name Product Gender and Quality
+                      </p>
+                      <div className="d-flex">
+                        <article className="productColor">
+                          <span className="Yellow"></span>
+                          <span className="Red"></span>
+                          <span className="Pink"></span>
+                          <span className="Blue"></span>
+                          <span className="Black"></span>
+                          <span className="White"></span>
+                        </article>
+                        <span className="productSize">Colors / Size</span>
+                      </div>
+                    </div>
+                  </div>
+                  <p className="productPriceinvoice">$90.00</p>
+                  <p className="productPriceinvoice">1</p>
+                  <p className="productPriceinvoice">$90.00</p>
+                  <article>
+                    <label className="custom-checkbox">
+                      <input
+                        type="checkbox"
+                        checked={selectedProductItems}
+                        onChange={(e) => handleCheckboxChange(e)}
+                      />
+                      <span className="checkmark"></span>
+                    </label>
+                  </article>
+                </div>
                 <div className="selectedProductDetails">
                   <div className="d-flex">
                     <figure>
@@ -387,13 +495,16 @@ const ProductInvoice = () => {
                         <div className="flexBox">
                           <p className="orderHeading">Discount</p>
                           <p className="orderSubHeading">
-                            -${orderDetails?.discount?orderDetails?.discount:"0.00"}
+                            -$
+                            {orderDetails?.discount
+                              ? orderDetails?.discount
+                              : "0.00"}
                           </p>
                         </div>
                         <div className="flexBox">
                           <p className="orderHeading">Other Fees</p>
                           <p className="orderSubHeading">
-                            ${orderDetails?.tips?orderDetails?.tips:"0.00"}
+                            ${orderDetails?.tips ? orderDetails?.tips : "0.00"}
                           </p>
                         </div>
                         <div className="flexBox">
@@ -443,6 +554,23 @@ const ProductInvoice = () => {
           )}
         </div>
       </div>
+      <CustomModal
+        key={key}
+        show={modalDetail.show}
+        backdrop="static"
+        showCloseBtn={false}
+        isRightSideModal={false}
+        mediumWidth={false}
+        ids={modalDetail.flag === "manualEntry" ? "manualEntry" : ""}
+        child={
+          modalDetail.flag === "manualEntry" ? (
+            <Manualinvoice closeManulModal={() => handleOnCloseModal()} />
+          ) : (
+            ""
+          )
+        }
+        onCloseModal={() => handleOnCloseModal()}
+      />
     </>
   );
 };

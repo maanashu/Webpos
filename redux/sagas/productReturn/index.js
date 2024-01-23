@@ -1,16 +1,20 @@
 import { toast } from "react-toastify";
 import { ApiClient } from "../../../utilities/api";
-import { ORDER_API_URL } from "../../../utilities/config";
+import { ORDER_API_URL, PRODUCT_API_URL } from "../../../utilities/config";
 import { all, call, put, takeLatest } from "redux-saga/effects";
-import { setSearchInvoiceByInvoiceId } from "../../slices/productReturn";
+import {
+  setSearchInvoiceByInvoiceId,
+  setSearchBySKU,
+} from "../../slices/productReturn";
 
 const ORDER_API_URL_V1 = ORDER_API_URL + "/api/v1/";
-const invoiceKey="invoices/by-invoice-number";
+const PRODUCT_API_URL_V1 = PRODUCT_API_URL + "/api/v1/";
+const invoiceKey = "invoices/by-invoice-number";
 
 function* searchInvoiceByInvoiceId(action) {
-    const dataToSend = { ...action.payload };;
-    delete dataToSend.cb;
-    delete dataToSend.invoiceId;
+  const dataToSend = { ...action.payload };
+  delete dataToSend.cb;
+  delete dataToSend.invoiceId;
   try {
     const resp = yield call(
       ApiClient.get,
@@ -19,11 +23,31 @@ function* searchInvoiceByInvoiceId(action) {
     if (resp.status) {
       yield put(setSearchInvoiceByInvoiceId(resp.data));
       yield call(action.payload.cb, (action.res = resp));
-    }
-    else if(!resp.data){
+    } else if (!resp.data) {
       yield put(setSearchInvoiceByInvoiceId(null));
+    } else {
+      throw resp;
     }
-    else {
+  } catch (e) {
+    yield put(onErrorStopLoad());
+    toast.error(e?.error?.response?.data?.msg);
+  }
+}
+function* searchBySKU(action) {
+  const dataToSend = { ...action.payload };
+  delete dataToSend.cb;
+  delete dataToSend.search;
+  try {
+    const resp = yield call(
+      ApiClient.get,
+      `${PRODUCT_API_URL_V1}products/search-one?app_name=pos&seller_id=${action.payload.seller_id}&search=${action.payload.search}`
+    );
+    if (resp.status) {
+      yield put(setSearchBySKU(resp.data));
+      yield call(action.payload.cb, (action.res = resp));
+    } else if (!resp.data) {
+      yield put(setSearchBySKU(null));
+    } else {
       throw resp;
     }
   } catch (e) {
@@ -32,9 +56,11 @@ function* searchInvoiceByInvoiceId(action) {
   }
 }
 
-
 function* returnSaga() {
-  yield all([takeLatest("return/searchInvoiceByInvoiceId", searchInvoiceByInvoiceId)]);
+  yield all([
+    takeLatest("return/searchInvoiceByInvoiceId", searchInvoiceByInvoiceId),
+  ]);
+  yield all([takeLatest("return/searchBySKU", searchBySKU)]);
 }
 
 export default returnSaga;
