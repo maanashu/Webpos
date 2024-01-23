@@ -2363,14 +2363,14 @@ figure {
     padding: 24px;
 }
 
-.form-group input {
+/* .form-group input {
     padding: 0;
     height: initial;
     width: initial;
     margin-bottom: 0;
     display: none;
     cursor: pointer;
-}
+} */
 
 .checkBlue label {
     position: relative;
@@ -5096,6 +5096,31 @@ figure {
     display: flex;
 }
 
+.verifySuccess {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+}
+
+.loginLogo {
+    border-radius: 60px;
+    background: #FFF;
+    box-shadow: -2px 4px 25px 0px rgba(50, 80, 127, 0.02), -5px 10px 80px 0px rgba(50, 80, 127, 0.04);
+    padding: 16px 20px;
+    position: absolute;
+    top: 30px;
+    left: 24px;
+}
+.rightheader{
+    display: flex;
+    align-items: center;
+}
+.rightMainHeader{
+    display: flex;
+    align-items: center;
+    justify-content: end;
+}
 /*gaurav arora sir css start*/
 .headingTextStyle {
     color: #263682;

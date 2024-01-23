@@ -14,7 +14,7 @@ const SuccessVerify = () => {
     }, [])
     return (
         <>
-            <div className='verificationSection verifySuccess'>
+            <div className='verifySuccess'>
                 <div className='verifyBox'>
                     <figure className='successImg'>
                         <Image src={Images.SuccessTick} alt="tickImage" className="img-fluid" />
