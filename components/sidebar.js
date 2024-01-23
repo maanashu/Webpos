@@ -102,7 +102,9 @@ const Sidebar = (props) => {
             <Link
               //  href="/Retails"
               href="/Retails?parameter=product"
-              className="sidebarLinks active"
+              className={`sidebarLinks ${
+                router?.pathname == "/Retails" ? "active" : ""
+              }`}
             >
               <Image
                 src={Images.ProductsServices}
@@ -161,7 +163,7 @@ const Sidebar = (props) => {
             <Link
               href="/shipping"
               className={`sidebarLinks ${
-                router?.pathname == "/Shipping" ? "active" : ""
+                router?.pathname == "/shipping" ? "active" : ""
               }`}
             >
               <Image
