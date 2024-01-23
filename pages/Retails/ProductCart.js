@@ -32,9 +32,7 @@ const ProductCart = () => {
   const dispatch = useDispatch();
   const authData = useSelector(selectLoginAuth);
   const retailData = useSelector(selectRetailData);
-  console.log(retailData,'retailData');
   const cartData = retailData?.productCart;
-  console.log(cartData,'cartData');
   const cartAmount = cartData?.amount;
   const sellerId = authData?.usersInfo?.payload?.uniqe_id;
   const availableOffersArray = retailData?.availableOffers?.data || [];
@@ -194,6 +192,7 @@ const ProductCart = () => {
                             src={Images.redCross}
                             alt="crossImage"
                             className="img-fluid ms-2"
+                           
                           />
                         </div>
                       </div>

@@ -419,3 +419,11 @@ input:checked + .switch-slider:before {
   width: 100%;
   margin-right: 10px;
 }
+.sku
+{
+color: var(--Neutrals-N-800, #636E9F);
+font-size: 12px;
+font-style: normal;
+font-weight: 400;
+line-height: normal
+}

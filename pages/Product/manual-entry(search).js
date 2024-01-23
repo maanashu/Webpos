@@ -3,15 +3,19 @@ import * as Images from "../../utilities/images";
 import Image from "next/image";
 import ReturnInventory from "../../components/commanComonets/Product/ProductModal/returnInventory";
 import CustomModal from "../../components/customModal/CustomModal";
-import { searchBySKU } from "../../redux/slices/productReturn";
+import {
+  searchBySKU,
+  selectReturnData,
+} from "../../redux/slices/productReturn";
 import { selectLoginAuth } from "../../redux/slices/auth";
 import { useDispatch, useSelector } from "react-redux";
 
 const Manualinvoice = (props) => {
-    const dispatch=useDispatch();
+  const dispatch = useDispatch();
   const authData = useSelector(selectLoginAuth);
   const sellerId = authData?.usersInfo?.payload?.uniqe_id;
   const [key, setKey] = useState(Math.random());
+  const [productsSearchBySku, setProductsSearchBySku] = useState("");
   const [modalDetail, setModalDetail] = useState({
     show: false,
     title: "",
@@ -33,7 +37,9 @@ const Manualinvoice = (props) => {
     dispatch(
       searchBySKU({
         ...params,
-        cb(resp) {},
+        cb(resp) {
+          setProductsSearchBySku(resp?.data?.payload);
+        },
       })
     );
   };
@@ -45,7 +51,7 @@ const Manualinvoice = (props) => {
             <input
               type="text"
               className="form-control searchControl"
-              placeholder="0199 - 322"
+              placeholder="search sku here..."
               onChange={(e) => handleSearchSku(e)}
             />
             <Image
@@ -61,36 +67,52 @@ const Manualinvoice = (props) => {
               />
             </button>
           </div>
+
           <div className="manualSelectedProduct">
-            <div className="selectedProductDetails active">
-              <div className="d-flex">
-                <figure>
-                  <Image
-                    src={Images.jokerImg}
-                    alt="tableImg"
-                    className="costumerImg"
-                  />
-                </figure>
-                <div className="ps-1">
-                  <p className="aboutProduct">
-                    Name Product Gender and Quality
-                  </p>
-                  <div className="d-flex">
-                    <article className="productColor">
-                      <span className="Yellow"></span>
-                      <span className="Red"></span>
-                      <span className="Pink"></span>
-                      <span className="Blue"></span>
-                      <span className="Black"></span>
-                      <span className="White"></span>
-                    </article>
-                    <span className="productSize">Colors / Size</span>
+            {productsSearchBySku ? (
+              <div className="selectedProductDetails active">
+                <div className="d-flex">
+                  <figure>
+                    <Image
+                      src={productsSearchBySku?.product_detail?.image}
+                      alt="tableImg"
+                      className="costumerImg"
+                      height={100}
+                      width={100}
+                    />
+                  </figure>
+                  <div className="ps-1">
+                    <p className="aboutProduct">
+                      {productsSearchBySku?.product_detail?.name}
+                    </p>
+                    <div className="d-flex">
+                      <article className="productColor">
+                        <span className="Yellow"></span>
+                        <span className="Red"></span>
+                        <span className="Pink"></span>
+                        <span className="Blue"></span>
+                        <span className="Black"></span>
+                        <span className="White"></span>
+                      </article>
+                      
+                      <span className="sku">
+                        {productsSearchBySku?.product_detail?.sku
+                          ? productsSearchBySku?.product_detail?.sku
+                          : ""}
+                      </span>
+                      <span className="productSize">Colors / Size</span>
+                    </div>
                   </div>
                 </div>
+                <p className="productPriceinvoice">
+                  ${productsSearchBySku?.product_detail?.price}
+                </p>
               </div>
-              <p className="productPriceinvoice">$90.00</p>
-            </div>
+            ) : (
+              ""
+            )}
           </div>
+
           <div className="flexBox buttonBox">
             <button
               type="button"

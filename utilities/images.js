@@ -328,7 +328,6 @@ import lang4 from "../public/images/lang4.png";
 import orderFrequency from "../public/images/order_frequency.png";
 import setreceipt from "../public/images/setreceipt.svg";
 import walletOuter from "../public/images/walletOuter.svg";
-import Receiptbill from "../public/images/Receiptbill.png";
 import searchMoney from "../public/images/searchMoney.svg";
 import paginationRight from "../public/images/paginationRight.svg";
 import checkCircle from "../public/images/checkCircle.svg";

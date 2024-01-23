@@ -17,14 +17,17 @@ import Manualinvoice from "./manual-entry(search)";
 const ProductInvoice = () => {
   const dispatch = useDispatch();
   const router = useRouter();
-  const [selectedProductItems, setSelectedProductItems] = useState(false);
+  const [selectedProductItems, setSelectedProductItems] = useState([]);
+  console.log(selectedProductItems,'selectedProductItems');
   const authData = useSelector(selectLoginAuth);
   const sellerId = authData?.usersInfo?.payload?.uniqe_id;
   const [searchInvoiceId, setSearchInvoiceId] = useState(null);
   const invoiceData = useSelector(selectReturnData);
   const SearchInvoiceRespones = invoiceData?.invoiceByInvoiceId;
   const orderDetails = SearchInvoiceRespones?.order;
-  console.log(orderDetails,'orderDetails');
+  const productDetails = SearchInvoiceRespones?.order?.order_details;
+  console.log(productDetails,'productDetails');
+
   const [key, setKey] = useState(Math.random());
   const [modalDetail, setModalDetail] = useState({
     show: false,
@@ -54,14 +57,21 @@ const ProductInvoice = () => {
     );
   };
   const handleGoToNext = () => {
-    if (selectedProductItems === true) {
+    if (selectedProductItems?.length>0) {
       router.push("/Product/productrefunds(Price-format)");
     } else {
       toast.error("Please select products to refund!");
     }
   };
-  const handleCheckboxChange = () => {
-    setSelectedProductItems(!selectedProductItems);
+
+  const handleCheckboxChange = (productId) => {
+    setSelectedProductItems((prevSelectedItems) => {
+      if (prevSelectedItems.includes(productId)) {
+        return prevSelectedItems.filter((id) => id !== productId);
+      } else {
+        return [...prevSelectedItems, productId];
+      }
+    });
   };
   const handleGoToManualEntry = () => {
     setModalDetail({ show: true, flag: "manualEntry" });
@@ -129,11 +139,11 @@ const ProductInvoice = () => {
                                 className="costumerImg"
                               />
                               <span>
-                                {SearchInvoiceRespones?.order?.seller_details
+                                {SearchInvoiceRespones?.order?.user_details
                                   ?.user_profiles?.firstname
-                                  ? SearchInvoiceRespones?.order?.seller_details
+                                  ? SearchInvoiceRespones?.order?.user_details
                                       ?.user_profiles?.firstname
-                                  : "Customer"}
+                                  : "NA"}
                               </span>
                             </figure>
                           </td>
@@ -162,10 +172,7 @@ const ProductInvoice = () => {
                             </figure>
                           </td>
                           <td className="invoice_subhead">
-                            {
-                              SearchInvoiceRespones?.order?.order_details[0]
-                                ?.qty
-                            }
+                            {SearchInvoiceRespones?.order?.total_items}
                           </td>
                           {/* {SearchInvoiceRespones?.order?.order_details?.map(
                           (data) => { */}
@@ -177,11 +184,7 @@ const ProductInvoice = () => {
                                 className="moneyImg"
                               />
                               <span>
-                                $
-                                {
-                                  SearchInvoiceRespones?.order?.order_details[0]
-                                    ?.price
-                                }
+                                ${SearchInvoiceRespones?.order?.actual_amount}
                               </span>
                             </figure>
                           </td>
@@ -274,9 +277,8 @@ const ProductInvoice = () => {
                   </div>
                 </div>
 
-                {orderDetails.order_details?.length > 0 ? (
-                  orderDetails?.order_details?.map((data, idx) => {
-                    console.log(data, "data");
+                {productDetails?.length > 0 ? (
+                  productDetails?.map((data, idx) => (
                     <div className="selectedProductDetails" key={idx}>
                       <div className="d-flex">
                         <figure>
@@ -284,6 +286,8 @@ const ProductInvoice = () => {
                             src={data?.product_image}
                             alt="tableImg"
                             className="costumerImg"
+                            height={100}
+                            width={100}
                           />
                         </figure>
                         <div className="ps-1">
@@ -310,17 +314,17 @@ const ProductInvoice = () => {
                         <label className="custom-checkbox">
                           <input
                             type="checkbox"
-                            checked={selectedProductItems}
-                            onChange={(e) => handleCheckboxChange(e)}
+                            checked={selectedProductItems?.includes(data.product_id)}
+                            onChange={() => handleCheckboxChange(data.product_id)}
                           />
                           <span className="checkmark"></span>
                         </label>
                       </article>
-                    </div>;
-                  })
+                    </div>
+                  ))
                 ) : (
                   <>
-                    {orderDetails?.order_details?.length === 0 ? (
+                    {productDetails?.length === 0 ? (
                       <h3 className="mt-3 mb-3">No Data Found!</h3>
                     ) : (
                       <div className="loaderOuter">
@@ -329,127 +333,6 @@ const ProductInvoice = () => {
                     )}
                   </>
                 )}
-
-                <div className="selectedProductDetails">
-                  <div className="d-flex">
-                    <figure>
-                      <Image
-                        src={Images.jokerImg}
-                        alt="tableImg"
-                        className="costumerImg"
-                      />
-                    </figure>
-                    <div className="ps-1">
-                      <p className="aboutProduct">
-                        Name Product Gender and Quality
-                      </p>
-                      <div className="d-flex">
-                        <article className="productColor">
-                          <span className="Yellow"></span>
-                          <span className="Red"></span>
-                          <span className="Pink"></span>
-                          <span className="Blue"></span>
-                          <span className="Black"></span>
-                          <span className="White"></span>
-                        </article>
-                        <span className="productSize">Colors / Size</span>
-                      </div>
-                    </div>
-                  </div>
-                  <p className="productPriceinvoice">$90.00</p>
-                  <p className="productPriceinvoice">1</p>
-                  <p className="productPriceinvoice">$90.00</p>
-                  <article>
-                    <label className="custom-checkbox">
-                      <input
-                        type="checkbox"
-                        checked={selectedProductItems}
-                        onChange={(e) => handleCheckboxChange(e)}
-                      />
-                      <span className="checkmark"></span>
-                    </label>
-                  </article>
-                </div>
-                <div className="selectedProductDetails">
-                  <div className="d-flex">
-                    <figure>
-                      <Image
-                        src={Images.jokerImg}
-                        alt="tableImg"
-                        className="costumerImg"
-                      />
-                    </figure>
-                    <div className="ps-1">
-                      <p className="aboutProduct">
-                        Name Product Gender and Quality
-                      </p>
-                      <div className="d-flex">
-                        <article className="productColor">
-                          <span className="Yellow"></span>
-                          <span className="Red"></span>
-                          <span className="Pink"></span>
-                          <span className="Blue"></span>
-                          <span className="Black"></span>
-                          <span className="White"></span>
-                        </article>
-                        <span className="productSize">Colors / Size</span>
-                      </div>
-                    </div>
-                  </div>
-                  <p className="productPriceinvoice">$90.00</p>
-                  <p className="productPriceinvoice">1</p>
-                  <p className="productPriceinvoice">$90.00</p>
-                  <article>
-                    <label className="custom-checkbox">
-                      <input
-                        type="checkbox"
-                        checked={selectedProductItems}
-                        onChange={(e) => handleCheckboxChange(e)}
-                      />
-                      <span className="checkmark"></span>
-                    </label>
-                  </article>
-                </div>
-                <div className="selectedProductDetails">
-                  <div className="d-flex">
-                    <figure>
-                      <Image
-                        src={Images.jokerImg}
-                        alt="tableImg"
-                        className="costumerImg"
-                      />
-                    </figure>
-                    <div className="ps-1">
-                      <p className="aboutProduct">
-                        Name Product Gender and Quality
-                      </p>
-                      <div className="d-flex">
-                        <article className="productColor">
-                          <span className="Yellow"></span>
-                          <span className="Red"></span>
-                          <span className="Pink"></span>
-                          <span className="Blue"></span>
-                          <span className="Black"></span>
-                          <span className="White"></span>
-                        </article>
-                        <span className="productSize">Colors / Size</span>
-                      </div>
-                    </div>
-                  </div>
-                  <p className="productPriceinvoice">$90.00</p>
-                  <p className="productPriceinvoice">1</p>
-                  <p className="productPriceinvoice">$90.00</p>
-                  <article>
-                    <label className="custom-checkbox">
-                      <input
-                        type="checkbox"
-                        checked={selectedProductItems}
-                        onChange={(e) => handleCheckboxChange(e)}
-                      />
-                      <span className="checkmark"></span>
-                    </label>
-                  </article>
-                </div>
 
                 <div className="row">
                   <div className="col-lg-4">
