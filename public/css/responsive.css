@@ -347,16 +347,27 @@
 }
 
 @media (max-width: 768px) {
+    .leftHeader {
+        display: flex;
+        align-items: center;
+        width: 100%;
+        justify-content: space-between;
+    }
+
+    .timeNav::before {
+        display: none;
+    }
+
     .driverNavigationCon {
         flex-wrap: wrap;
     }
 
     .authHeader {
-        padding: 0 50px;
+        padding: 0 50px 0 70px;
     }
 
     .loginLogo {
-        padding: 6px 8px;
+        padding: 8px 12px;
         top: 24px;
         left: 15px;
     }
@@ -366,10 +377,24 @@
         align-items: center;
         justify-content: center;
     }
+
     .rightMainHeader {
         display: flex;
         align-items: center;
         justify-content: center;
+    }
+
+    .navBtn {
+        margin-left: 0;
+        padding: 8px;
+        font-size: 14px;
+    }
+
+    .rightheader {
+        display: flex;
+        align-items: center;
+        width: 100%;
+        justify-content: space-between;
     }
 }
 
@@ -447,9 +472,28 @@
         font-weight: 400 !important;
     }
 
+    .loginheading {
+        font-size: 24px;
+        margin-bottom: 0;
+    }
+
+    .loginPasswordOtp .verifyBox {
+        margin-top: 40px;
+        padding: 35px 10px;
+    }
+
+    .loginOtpSub {
+        width: 100%;
+        max-width: 370px;
+        margin-top: 0;
+    }
 }
 
 @media (max-width: 475px) {
+    .loginOtpSub {
+        width: 100%;
+        max-width: 360px;
+    }
 
     .verificationSection .verifyBox {
         padding: 30px 40px;
@@ -482,6 +526,8 @@
     .verifyHeading {
         font-size: 25px;
     }
+
+
 }
 
 @media (max-width: 425px) {
@@ -497,10 +543,24 @@
     .otpMain {
         margin: 35px 0;
     }
+
+    .mainAuthHead {
+        padding: 0 12px 0 60px;
+    }
+
+    .loginOtpSub {
+        width: 100%;
+        max-width: 325px;
+    }
 }
 
 @media (max-width: 375px) {
     .verificationSection .verifyBox {
         padding: 35px 15px;
+    }
+
+    .timeNav::before {
+        right: -7px;
+        display: block;
     }
 }

@@ -18,7 +18,7 @@ const Navbar = () => {
     <>
       <div className='headerSection'>
         {/* <div {...(!token && {className: 'container'})}> */}
-        <div className={!token ? 'authHeader' : ""}>
+        <div className={!token ? 'authHeader mainAuthHead' : ""}>
           <div className='row'>
             <div className='col-lg-6 col-md-6 leftMainHeader'>
               <div className='leftHeader'>
