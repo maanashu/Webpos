@@ -22,6 +22,7 @@ import {
   setUpdateCartByTip,
   setCreateOrder,
   setDrawerSession,
+  setAttachCustomer,
 } from "../../slices/retails";
 import { all, call, put, takeLatest } from "redux-saga/effects";
 
@@ -234,11 +235,7 @@ function* checkSuppliedVariant(action) {
   try {
     const resp = yield call(
       ApiClient.get,
-      `${PRODUCT_API_URL_V1}supply_variants/by-attribute-value-ids?attribute_value_ids=${colorSizeId}&supply_id=${suppliedId}`,
-      console.log(
-        "11111",
-        `${PRODUCT_API_URL_V1}supply_variants/by-attribute-value-ids?attribute_value_ids=${colorSizeId}&supply_id=${suppliedId}`
-      )
+      `${PRODUCT_API_URL_V1}supply_variants/by-attribute-value-ids?attribute_value_ids=${colorSizeId}&supply_id=${suppliedId}`
     );
     if (resp.status) {
       yield put(setCheckSuppliedVariant(resp.data));
@@ -293,7 +290,6 @@ function* updateCartByTip(action) {
 }
 
 function* createOrder(action) {
-  console.log("action", action?.payload);
   const body = { ...action.payload };
   delete body.tips;
   // delete body.mode_of_payment;
@@ -318,7 +314,7 @@ function* createOrder(action) {
 
 function* getDrawerSession(action) {
   const body = { ...action?.payload };
-  // console.log("body", action);
+
   try {
     const resp = yield call(
       ApiClient.post,
@@ -326,14 +322,34 @@ function* getDrawerSession(action) {
       body
     );
     if (resp.status) {
-      console.log("resp", resp.data);
       yield put(setDrawerSession(resp.data));
       yield call(action.payload.cb, (action.res = resp));
     } else {
       throw resp;
     }
   } catch (e) {
-    console.log("resp111", e);
+    yield put(onErrorStopLoad());
+    toast.error(e?.error?.response?.data?.msg);
+  }
+}
+
+function* attachCustomer(action) {
+  const body = { ...action?.payload };
+  delete body.cartId;
+
+  try {
+    const resp = yield call(
+      ApiClient.post,
+      `${ORDER_API_URL_V1}poscarts/attach/user/${action?.payload?.cartId}`,
+      body
+    );
+    if (resp.status) {
+      toast.success(resp?.data?.msg);
+      yield put(setAttachCustomer(resp.data));
+      yield call(action.payload.cb, (action.res = resp));
+    } else {
+    }
+  } catch (e) {
     yield put(onErrorStopLoad());
     toast.error(e?.error?.response?.data?.msg);
   }
@@ -357,6 +373,7 @@ function* retailsSaga() {
     takeLatest("retails/updateCartByTip", updateCartByTip),
     takeLatest("retails/createOrder", createOrder),
     takeLatest("retails/getDrawerSession", getDrawerSession),
+    takeLatest("retails/attachCustomer", attachCustomer),
   ]);
 }
 

@@ -12,7 +12,7 @@ const OrderListItem = ({ screen, orderList, itemPressHandler }) => {
         <li key={index} style={{ listStyle: "none" }}>
           <OrderDetailsItem
             item={item}
-            onPressHandler={(item) => itemPressHandler(item, index)}
+            onPressHandler={() => itemPressHandler(item, index)}
           />
         </li>
       ))}

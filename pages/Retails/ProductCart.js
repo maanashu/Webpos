@@ -132,7 +132,7 @@ const ProductCart = () => {
               {cartData?.poscart_products?.length > 0 ? (
                 cartData?.poscart_products?.map((data, index) => {
                   return (
-                    <div className="cartSubInfo active ">
+                    <div className="cartSubInfo active " key={index}>
                       <div className="cartItemDetail w-50">
                         <h4 className="invoice_subhead p-0 ">{index + 1}</h4>
                         <div className="orderTime ms-2">
@@ -303,7 +303,7 @@ const ProductCart = () => {
 
                               {offers?.supplies?.map((sup) => {
                                 return (
-                                  <>
+                                  <div key={index}>
                                     {sup?.supply_prices?.map((price) => {
                                       return (
                                         <h4 className="availablePrice">
@@ -322,7 +322,7 @@ const ProductCart = () => {
                                         </h4>
                                       );
                                     })}
-                                  </>
+                                  </div>
                                 );
                               })}
                             </div>
@@ -422,7 +422,6 @@ const ProductCart = () => {
                     let params = {
                       seller_id: sellerId,
                     };
-                    console.log(params);
                     dispatch(getDrawerSession(params));
                   }}
                 >

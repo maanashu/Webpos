@@ -28,8 +28,8 @@ const DeliverDashboard = () => {
   const [currentOrderCount, setcurrentOrderCount] = useState(null);
   const [orderStatData, setOrderStatData] = useState(null);
   const [orderListType, setOrderListType] = useState({
-    status: "0",
     title: "Orders to review",
+    status: "0",
   });
 
   useEffect(() => {
@@ -111,10 +111,12 @@ const DeliverDashboard = () => {
   // };
   const itemPressHandler = (item, index) => {
     router.push({
-      pathname: "/Deliveries/order",
+      pathname: "/Deliveries/orderDeliver",
       query: {
-        item: item,
+        item: JSON.stringify(item),
         index: index,
+        listType: JSON.stringify(orderListType),
+
         // Add more properties as needed
       },
     });
@@ -301,9 +303,12 @@ const DeliverDashboard = () => {
                     {orderList?.data?.length > 0 && (
                       <Link
                         href={{
-                          pathname: "Deliveries/order",
+                          pathname: "Deliveries/orderDeliver",
 
-                          query: { index: null, orderListType: orderListType },
+                          query: {
+                            index: 0,
+                            listType: JSON.stringify(orderListType),
+                          },
                         }}
                       >
                         <div className="flexTable pointHand">

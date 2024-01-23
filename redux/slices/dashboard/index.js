@@ -55,6 +55,9 @@ export const dashboardSlice = createSlice({
         onErrorStopLoad: (state) => {
             state.loading = false;
         },
+        getOrderDetailsById: (state) => {
+            state.loading = false;
+        },
     },
 });
 
@@ -71,7 +74,8 @@ export const {
     dashboardLogout,
     getProfile,
     setGetProfile,
-    onErrorStopLoad
+    onErrorStopLoad,
+    getOrderDetailsById
 } = dashboardSlice.actions;
 
 export const dashboardDetails = (state) => state.dashboard;

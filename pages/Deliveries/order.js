@@ -13,6 +13,7 @@ import {
 import { useRouter } from "next/router";
 import OrderDetail from "./Component/OrderDetails";
 import Link from "next/link";
+import OrderDeliver from "./orderDeliver";
 const Order = () => {
   const router = useRouter();
   const selectedIndex = router?.query?.["index"];
@@ -103,422 +104,424 @@ const Order = () => {
     // }
   };
 
-  const changeOrderStatusAfterPickup = (id) => {
-    alert("decline");
+  // const changeOrderStatusAfterPickup = (id) => {
+  //   alert("decline");
 
-    // setPickupModalVisible(false);
-    // const data = {
-    //   orderId: id,
-    //   status: 5,
-    //   sellerID: sellerID,
-    // };
-    // dispatch(
-    //   acceptOrder(data, openShippingOrders, 1, (res) => {
-    //     if (res?.msg) {
-    //       if (
-    //         getDeliveryData?.getReviewDef?.length > 0 &&
-    //         getDeliveryData?.getReviewDef?.length === 1
-    //       ) {
-    //         dispatch(getOrderCount(getUpdatedCount));
-    //       } else {
-    //         dispatch(getReviewDefault(openShippingOrders));
-    //         dispatch(orderStatusCount());
-    //         dispatch(todayOrders());
-    //         dispatch(getOrderstatistics('1,3'));
-    //         dispatch(getGraphOrders('1,3'));
-    //         setGetOrderDetail('ViewAllScreen');
-    //         setUserDetail(ordersList?.[0] ?? []);
-    //         setViewAllOrder(true);
-    //         setOrderDetail(ordersList?.[0]?.order_details ?? []);
-    //       }
-    //     }
-    //   })
-    // );
-  };
-  const declineHandler = (id) => {
-    alert("decline");
+  //   // setPickupModalVisible(false);
+  //   // const data = {
+  //   //   orderId: id,
+  //   //   status: 5,
+  //   //   sellerID: sellerID,
+  //   // };
+  //   // dispatch(
+  //   //   acceptOrder(data, openShippingOrders, 1, (res) => {
+  //   //     if (res?.msg) {
+  //   //       if (
+  //   //         getDeliveryData?.getReviewDef?.length > 0 &&
+  //   //         getDeliveryData?.getReviewDef?.length === 1
+  //   //       ) {
+  //   //         dispatch(getOrderCount(getUpdatedCount));
+  //   //       } else {
+  //   //         dispatch(getReviewDefault(openShippingOrders));
+  //   //         dispatch(orderStatusCount());
+  //   //         dispatch(todayOrders());
+  //   //         dispatch(getOrderstatistics('1,3'));
+  //   //         dispatch(getGraphOrders('1,3'));
+  //   //         setGetOrderDetail('ViewAllScreen');
+  //   //         setUserDetail(ordersList?.[0] ?? []);
+  //   //         setViewAllOrder(true);
+  //   //         setOrderDetail(ordersList?.[0]?.order_details ?? []);
+  //   //       }
+  //   //     }
+  //   //   })
+  //   // );
+  // };
+  // const declineHandler = (id) => {
+  //   alert("decline");
 
-    // const data = {
-    //   orderId: id,
-    //   status: 8,
-    //   sellerID: sellerID,
-    // };
-    // dispatch(
-    //   acceptOrder(data, openShippingOrders, 1, (res) => {
-    //     if (res?.msg) {
-    //       setViewAllOrder(true);
-    //       dispatch(getReviewDefault(openShippingOrders));
-    //       dispatch(orderStatusCount());
-    //       dispatch(todayOrders());
-    //       dispatch(getOrderstatistics('1,3'));
-    //       dispatch(getGraphOrders(1));
-    //       setGetOrderDetail('ViewAllScreen');
-    //       setUserDetail(ordersList?.[0] ?? []);
-    //       setOrderDetail(ordersList?.[0]?.order_details ?? []);
-    //     }
-    //   })
-    // );
-  };
-  const trackHandler = () => {
-    alert("Track");
-  };
+  //   // const data = {
+  //   //   orderId: id,
+  //   //   status: 8,
+  //   //   sellerID: sellerID,
+  //   // };
+  //   // dispatch(
+  //   //   acceptOrder(data, openShippingOrders, 1, (res) => {
+  //   //     if (res?.msg) {
+  //   //       setViewAllOrder(true);
+  //   //       dispatch(getReviewDefault(openShippingOrders));
+  //   //       dispatch(orderStatusCount());
+  //   //       dispatch(todayOrders());
+  //   //       dispatch(getOrderstatistics('1,3'));
+  //   //       dispatch(getGraphOrders(1));
+  //   //       setGetOrderDetail('ViewAllScreen');
+  //   //       setUserDetail(ordersList?.[0] ?? []);
+  //   //       setOrderDetail(ordersList?.[0]?.order_details ?? []);
+  //   //     }
+  //   //   })
+  //   // );
+  // };
+  // const trackHandler = () => {
+  //   alert("Track");
+  // };
   return (
-    <>
-      <div className="deliverySection deliverOrderSection">
-        <div className="deliverMain w-100">
-          <div className="row ">
-            <div className="col-lg-6">
-              <div className="deliverOrderLeft deliveryOuter me-0">
-                <Link href="/Deliveries">
-                  <div className="flexTable">
-                    <Image
-                      src={Images.boldLeftArrow}
-                      alt="boldLeftArrow "
-                      className="img-fluid me-2"
-                    />
-                    <h4 className="loginMain text-start m-0">
-                      {orderListType?.title}
-                    </h4>
-                  </div>
-                </Link>
-                <div className="table-responsive mt-3">
-                  {/* <table id="" className="orderDeliverTable">
-                    <tbody>
-                      <tr className="product_invoice active">
-                        <td className="invoice_subhead">
-                          <div className="nameLocation">
-                            <h4 className="assignId">Samara Schwansteiger</h4>
-                            <div className="deliverTableBx">
-                              <Image
-                                src={Images.OrderLocation}
-                                alt="location Image"
-                                className="img-fluid ms-1"
-                              />
-                              <span className="locateDistance">2.5 miles</span>
-                            </div>
-                          </div>
-                        </td>
-                        <td className="invoice_subhead">
-                          <div className="itemMoney">
-                            <h4 className="assignId">3 items</h4>
-                            <div className="deliverTableBx">
-                              <Image
-                                src={Images.MoneyItem}
-                                alt="MoneyItemImage "
-                                className="img-fluid ms-1"
-                              />
-                              <span className="locateDistance">$500.50</span>
-                            </div>
-                          </div>
-                        </td>
-                        <td className="invoice_subhead">
-                          <div className="itemTime">
-                            <h4 className="assignId">1 hour delivery window</h4>
-                            <div className="deliverTableBx">
-                              <Image
-                                src={Images.Time}
-                                alt="MoneyItemImage "
-                                className="img-fluid ms-1"
-                              />
-                              <span className="locateDistance">
-                                Immediately
-                              </span>
-                            </div>
-                          </div>
-                        </td>
-                        <td className="invoice_subhead">
-                          <div className="deliverArrow text-end">
-                            <Image
-                              src={Images.RightArrow}
-                              alt="RightArrow image"
-                              className="img-fluid ms-1"
-                            />
-                          </div>
-                        </td>
-                      </tr>
-                      <tr className="product_invoice">
-                        <td className="invoice_subhead">
-                          <div className="nameLocation">
-                            <h4 className="assignId">Samara Schwansteiger</h4>
-                            <div className="deliverTableBx">
-                              <Image
-                                src={Images.OrderLocation}
-                                alt="location Image"
-                                className="img-fluid ms-1"
-                              />
-                              <span className="locateDistance">2.5 miles</span>
-                            </div>
-                          </div>
-                        </td>
-                        <td className="invoice_subhead">
-                          <div className="itemMoney">
-                            <h4 className="assignId">3 items</h4>
-                            <div className="deliverTableBx">
-                              <Image
-                                src={Images.MoneyItem}
-                                alt="MoneyItemImage "
-                                className="img-fluid ms-1"
-                              />
-                              <span className="locateDistance">$500.50</span>
-                            </div>
-                          </div>
-                        </td>
-                        <td className="invoice_subhead">
-                          <div className="itemTime">
-                            <h4 className="assignId">1 hour delivery window</h4>
-                            <div className="deliverTableBx">
-                              <Image
-                                src={Images.Time}
-                                alt="MoneyItemImage "
-                                className="img-fluid ms-1"
-                              />
-                              <span className="locateDistance">
-                                Immediately
-                              </span>
-                            </div>
-                          </div>
-                        </td>
-                        <td className="invoice_subhead">
-                          <div className="deliverArrow text-end">
-                            <Image
-                              src={Images.RightArrow}
-                              alt="RightArrow image"
-                              className="img-fluid ms-1"
-                            />
-                          </div>
-                        </td>
-                      </tr>
-                      <tr className="product_invoice">
-                        <td className="invoice_subhead">
-                          <div className="nameLocation">
-                            <h4 className="assignId">Samara Schwansteiger</h4>
-                            <div className="deliverTableBx">
-                              <Image
-                                src={Images.OrderLocation}
-                                alt="location Image"
-                                className="img-fluid ms-1"
-                              />
-                              <span className="locateDistance">2.5 miles</span>
-                            </div>
-                          </div>
-                        </td>
-                        <td className="invoice_subhead">
-                          <div className="itemMoney">
-                            <h4 className="assignId">3 items</h4>
-                            <div className="deliverTableBx">
-                              <Image
-                                src={Images.MoneyItem}
-                                alt="MoneyItemImage "
-                                className="img-fluid ms-1"
-                              />
-                              <span className="locateDistance">$500.50</span>
-                            </div>
-                          </div>
-                        </td>
-                        <td className="invoice_subhead">
-                          <div className="itemTime">
-                            <h4 className="assignId">1 hour delivery window</h4>
-                            <div className="deliverTableBx">
-                              <Image
-                                src={Images.Time}
-                                alt="MoneyItemImage "
-                                className="img-fluid ms-1"
-                              />
-                              <span className="locateDistance">
-                                Immediately
-                              </span>
-                            </div>
-                          </div>
-                        </td>
-                        <td className="invoice_subhead">
-                          <div className="deliverArrow text-end">
-                            <Image
-                              src={Images.RightArrow}
-                              alt="RightArrow image"
-                              className="img-fluid ms-1"
-                            />
-                          </div>
-                        </td>
-                      </tr>
-                      <tr className="product_invoice">
-                        <td className="invoice_subhead">
-                          <div className="nameLocation">
-                            <h4 className="assignId">Samara Schwansteiger</h4>
-                            <div className="deliverTableBx">
-                              <Image
-                                src={Images.OrderLocation}
-                                alt="location Image"
-                                className="img-fluid ms-1"
-                              />
-                              <span className="locateDistance">2.5 miles</span>
-                            </div>
-                          </div>
-                        </td>
-                        <td className="invoice_subhead">
-                          <div className="itemMoney">
-                            <h4 className="assignId">3 items</h4>
-                            <div className="deliverTableBx">
-                              <Image
-                                src={Images.MoneyItem}
-                                alt="MoneyItemImage "
-                                className="img-fluid ms-1"
-                              />
-                              <span className="locateDistance">$500.50</span>
-                            </div>
-                          </div>
-                        </td>
-                        <td className="invoice_subhead">
-                          <div className="itemTime">
-                            <h4 className="assignId">1 hour delivery window</h4>
-                            <div className="deliverTableBx">
-                              <Image
-                                src={Images.Time}
-                                alt="MoneyItemImage "
-                                className="img-fluid ms-1"
-                              />
-                              <span className="locateDistance">
-                                Immediately
-                              </span>
-                            </div>
-                          </div>
-                        </td>
-                        <td className="invoice_subhead">
-                          <div className="deliverArrow text-end">
-                            <Image
-                              src={Images.RightArrow}
-                              alt="RightArrow image"
-                              className="img-fluid ms-1"
-                            />
-                          </div>
-                        </td>
-                      </tr>
-                      <tr className="product_invoice">
-                        <td className="invoice_subhead">
-                          <div className="nameLocation">
-                            <h4 className="assignId">Samara Schwansteiger</h4>
-                            <div className="deliverTableBx">
-                              <Image
-                                src={Images.OrderLocation}
-                                alt="location Image"
-                                className="img-fluid ms-1"
-                              />
-                              <span className="locateDistance">2.5 miles</span>
-                            </div>
-                          </div>
-                        </td>
-                        <td className="invoice_subhead">
-                          <div className="itemMoney">
-                            <h4 className="assignId">3 items</h4>
-                            <div className="deliverTableBx">
-                              <Image
-                                src={Images.MoneyItem}
-                                alt="MoneyItemImage "
-                                className="img-fluid ms-1"
-                              />
-                              <span className="locateDistance">$500.50</span>
-                            </div>
-                          </div>
-                        </td>
-                        <td className="invoice_subhead">
-                          <div className="itemTime">
-                            <h4 className="assignId">1 hour delivery window</h4>
-                            <div className="deliverTableBx">
-                              <Image
-                                src={Images.Time}
-                                alt="MoneyItemImage "
-                                className="img-fluid ms-1"
-                              />
-                              <span className="locateDistance">
-                                Immediately
-                              </span>
-                            </div>
-                          </div>
-                        </td>
-                        <td className="invoice_subhead">
-                          <div className="deliverArrow text-end">
-                            <Image
-                              src={Images.RightArrow}
-                              alt="RightArrow image"
-                              className="img-fluid ms-1"
-                            />
-                          </div>
-                        </td>
-                      </tr>
-                      <tr className="product_invoice">
-                        <td className="invoice_subhead">
-                          <div className="nameLocation">
-                            <h4 className="assignId">Samara Schwansteiger</h4>
-                            <div className="deliverTableBx">
-                              <Image
-                                src={Images.OrderLocation}
-                                alt="location Image"
-                                className="img-fluid ms-1"
-                              />
-                              <span className="locateDistance">2.5 miles</span>
-                            </div>
-                          </div>
-                        </td>
-                        <td className="invoice_subhead">
-                          <div className="itemMoney">
-                            <h4 className="assignId">3 items</h4>
-                            <div className="deliverTableBx">
-                              <Image
-                                src={Images.MoneyItem}
-                                alt="MoneyItemImage "
-                                className="img-fluid ms-1"
-                              />
-                              <span className="locateDistance">$500.50</span>
-                            </div>
-                          </div>
-                        </td>
-                        <td className="invoice_subhead">
-                          <div className="itemTime">
-                            <h4 className="assignId">1 hour delivery window</h4>
-                            <div className="deliverTableBx">
-                              <Image
-                                src={Images.Time}
-                                alt="MoneyItemImage "
-                                className="img-fluid ms-1"
-                              />
-                              <span className="locateDistance">
-                                Immediately
-                              </span>
-                            </div>
-                          </div>
-                        </td>
-                        <td className="invoice_subhead">
-                          <div className="deliverArrow text-end">
-                            <Image
-                              src={Images.RightArrow}
-                              alt="RightArrow image"
-                              className="img-fluid ms-1"
-                            />
-                          </div>
-                        </td>
-                      </tr>
-                    </tbody>
-                  </table> */}
-                  <OrderListItem
-                    screen={"SeeAll"}
-                    orderList={orderList?.data}
-                    itemPressHandler={itemPressHandler}
-                  />
-                </div>
-              </div>
-            </div>
-            <OrderDetail
-              orderData={selectedOrderData}
-              selectedOrderIndex={selectedOrderIndex}
-              acceptHandler={acceptHandler}
-              declineHandler={declineHandler}
-              trackHandler={trackHandler}
-              orderListType={orderListType}
-            />
-          </div>
-        </div>
-        <DeliveryRightSidebar setOrderListType={setOrderListType} />
-      </div>
-    </>
+    <></>
+    // <>
+    //   <div className="deliverySection deliverOrderSection">
+    //     <div className="deliverMain w-100">
+    //       <div className="row ">
+    //         <div className="col-lg-6">
+    //           <div className="deliverOrderLeft deliveryOuter me-0">
+    //             <Link href="/Deliveries">
+    //               <div className="flexTable">
+    //                 <Image
+    //                   src={Images.boldLeftArrow}
+    //                   alt="boldLeftArrow "
+    //                   className="img-fluid me-2"
+    //                 />
+    //                 <h4 className="loginMain text-start m-0">
+    //                   {orderListType?.title}
+    //                 </h4>
+    //               </div>
+    //             </Link>
+    //             <div className="table-responsive mt-3">
+    //               {/* <table id="" className="orderDeliverTable">
+    //                 <tbody>
+    //                   <tr className="product_invoice active">
+    //                     <td className="invoice_subhead">
+    //                       <div className="nameLocation">
+    //                         <h4 className="assignId">Samara Schwansteiger</h4>
+    //                         <div className="deliverTableBx">
+    //                           <Image
+    //                             src={Images.OrderLocation}
+    //                             alt="location Image"
+    //                             className="img-fluid ms-1"
+    //                           />
+    //                           <span className="locateDistance">2.5 miles</span>
+    //                         </div>
+    //                       </div>
+    //                     </td>
+    //                     <td className="invoice_subhead">
+    //                       <div className="itemMoney">
+    //                         <h4 className="assignId">3 items</h4>
+    //                         <div className="deliverTableBx">
+    //                           <Image
+    //                             src={Images.MoneyItem}
+    //                             alt="MoneyItemImage "
+    //                             className="img-fluid ms-1"
+    //                           />
+    //                           <span className="locateDistance">$500.50</span>
+    //                         </div>
+    //                       </div>
+    //                     </td>
+    //                     <td className="invoice_subhead">
+    //                       <div className="itemTime">
+    //                         <h4 className="assignId">1 hour delivery window</h4>
+    //                         <div className="deliverTableBx">
+    //                           <Image
+    //                             src={Images.Time}
+    //                             alt="MoneyItemImage "
+    //                             className="img-fluid ms-1"
+    //                           />
+    //                           <span className="locateDistance">
+    //                             Immediately
+    //                           </span>
+    //                         </div>
+    //                       </div>
+    //                     </td>
+    //                     <td className="invoice_subhead">
+    //                       <div className="deliverArrow text-end">
+    //                         <Image
+    //                           src={Images.RightArrow}
+    //                           alt="RightArrow image"
+    //                           className="img-fluid ms-1"
+    //                         />
+    //                       </div>
+    //                     </td>
+    //                   </tr>
+    //                   <tr className="product_invoice">
+    //                     <td className="invoice_subhead">
+    //                       <div className="nameLocation">
+    //                         <h4 className="assignId">Samara Schwansteiger</h4>
+    //                         <div className="deliverTableBx">
+    //                           <Image
+    //                             src={Images.OrderLocation}
+    //                             alt="location Image"
+    //                             className="img-fluid ms-1"
+    //                           />
+    //                           <span className="locateDistance">2.5 miles</span>
+    //                         </div>
+    //                       </div>
+    //                     </td>
+    //                     <td className="invoice_subhead">
+    //                       <div className="itemMoney">
+    //                         <h4 className="assignId">3 items</h4>
+    //                         <div className="deliverTableBx">
+    //                           <Image
+    //                             src={Images.MoneyItem}
+    //                             alt="MoneyItemImage "
+    //                             className="img-fluid ms-1"
+    //                           />
+    //                           <span className="locateDistance">$500.50</span>
+    //                         </div>
+    //                       </div>
+    //                     </td>
+    //                     <td className="invoice_subhead">
+    //                       <div className="itemTime">
+    //                         <h4 className="assignId">1 hour delivery window</h4>
+    //                         <div className="deliverTableBx">
+    //                           <Image
+    //                             src={Images.Time}
+    //                             alt="MoneyItemImage "
+    //                             className="img-fluid ms-1"
+    //                           />
+    //                           <span className="locateDistance">
+    //                             Immediately
+    //                           </span>
+    //                         </div>
+    //                       </div>
+    //                     </td>
+    //                     <td className="invoice_subhead">
+    //                       <div className="deliverArrow text-end">
+    //                         <Image
+    //                           src={Images.RightArrow}
+    //                           alt="RightArrow image"
+    //                           className="img-fluid ms-1"
+    //                         />
+    //                       </div>
+    //                     </td>
+    //                   </tr>
+    //                   <tr className="product_invoice">
+    //                     <td className="invoice_subhead">
+    //                       <div className="nameLocation">
+    //                         <h4 className="assignId">Samara Schwansteiger</h4>
+    //                         <div className="deliverTableBx">
+    //                           <Image
+    //                             src={Images.OrderLocation}
+    //                             alt="location Image"
+    //                             className="img-fluid ms-1"
+    //                           />
+    //                           <span className="locateDistance">2.5 miles</span>
+    //                         </div>
+    //                       </div>
+    //                     </td>
+    //                     <td className="invoice_subhead">
+    //                       <div className="itemMoney">
+    //                         <h4 className="assignId">3 items</h4>
+    //                         <div className="deliverTableBx">
+    //                           <Image
+    //                             src={Images.MoneyItem}
+    //                             alt="MoneyItemImage "
+    //                             className="img-fluid ms-1"
+    //                           />
+    //                           <span className="locateDistance">$500.50</span>
+    //                         </div>
+    //                       </div>
+    //                     </td>
+    //                     <td className="invoice_subhead">
+    //                       <div className="itemTime">
+    //                         <h4 className="assignId">1 hour delivery window</h4>
+    //                         <div className="deliverTableBx">
+    //                           <Image
+    //                             src={Images.Time}
+    //                             alt="MoneyItemImage "
+    //                             className="img-fluid ms-1"
+    //                           />
+    //                           <span className="locateDistance">
+    //                             Immediately
+    //                           </span>
+    //                         </div>
+    //                       </div>
+    //                     </td>
+    //                     <td className="invoice_subhead">
+    //                       <div className="deliverArrow text-end">
+    //                         <Image
+    //                           src={Images.RightArrow}
+    //                           alt="RightArrow image"
+    //                           className="img-fluid ms-1"
+    //                         />
+    //                       </div>
+    //                     </td>
+    //                   </tr>
+    //                   <tr className="product_invoice">
+    //                     <td className="invoice_subhead">
+    //                       <div className="nameLocation">
+    //                         <h4 className="assignId">Samara Schwansteiger</h4>
+    //                         <div className="deliverTableBx">
+    //                           <Image
+    //                             src={Images.OrderLocation}
+    //                             alt="location Image"
+    //                             className="img-fluid ms-1"
+    //                           />
+    //                           <span className="locateDistance">2.5 miles</span>
+    //                         </div>
+    //                       </div>
+    //                     </td>
+    //                     <td className="invoice_subhead">
+    //                       <div className="itemMoney">
+    //                         <h4 className="assignId">3 items</h4>
+    //                         <div className="deliverTableBx">
+    //                           <Image
+    //                             src={Images.MoneyItem}
+    //                             alt="MoneyItemImage "
+    //                             className="img-fluid ms-1"
+    //                           />
+    //                           <span className="locateDistance">$500.50</span>
+    //                         </div>
+    //                       </div>
+    //                     </td>
+    //                     <td className="invoice_subhead">
+    //                       <div className="itemTime">
+    //                         <h4 className="assignId">1 hour delivery window</h4>
+    //                         <div className="deliverTableBx">
+    //                           <Image
+    //                             src={Images.Time}
+    //                             alt="MoneyItemImage "
+    //                             className="img-fluid ms-1"
+    //                           />
+    //                           <span className="locateDistance">
+    //                             Immediately
+    //                           </span>
+    //                         </div>
+    //                       </div>
+    //                     </td>
+    //                     <td className="invoice_subhead">
+    //                       <div className="deliverArrow text-end">
+    //                         <Image
+    //                           src={Images.RightArrow}
+    //                           alt="RightArrow image"
+    //                           className="img-fluid ms-1"
+    //                         />
+    //                       </div>
+    //                     </td>
+    //                   </tr>
+    //                   <tr className="product_invoice">
+    //                     <td className="invoice_subhead">
+    //                       <div className="nameLocation">
+    //                         <h4 className="assignId">Samara Schwansteiger</h4>
+    //                         <div className="deliverTableBx">
+    //                           <Image
+    //                             src={Images.OrderLocation}
+    //                             alt="location Image"
+    //                             className="img-fluid ms-1"
+    //                           />
+    //                           <span className="locateDistance">2.5 miles</span>
+    //                         </div>
+    //                       </div>
+    //                     </td>
+    //                     <td className="invoice_subhead">
+    //                       <div className="itemMoney">
+    //                         <h4 className="assignId">3 items</h4>
+    //                         <div className="deliverTableBx">
+    //                           <Image
+    //                             src={Images.MoneyItem}
+    //                             alt="MoneyItemImage "
+    //                             className="img-fluid ms-1"
+    //                           />
+    //                           <span className="locateDistance">$500.50</span>
+    //                         </div>
+    //                       </div>
+    //                     </td>
+    //                     <td className="invoice_subhead">
+    //                       <div className="itemTime">
+    //                         <h4 className="assignId">1 hour delivery window</h4>
+    //                         <div className="deliverTableBx">
+    //                           <Image
+    //                             src={Images.Time}
+    //                             alt="MoneyItemImage "
+    //                             className="img-fluid ms-1"
+    //                           />
+    //                           <span className="locateDistance">
+    //                             Immediately
+    //                           </span>
+    //                         </div>
+    //                       </div>
+    //                     </td>
+    //                     <td className="invoice_subhead">
+    //                       <div className="deliverArrow text-end">
+    //                         <Image
+    //                           src={Images.RightArrow}
+    //                           alt="RightArrow image"
+    //                           className="img-fluid ms-1"
+    //                         />
+    //                       </div>
+    //                     </td>
+    //                   </tr>
+    //                   <tr className="product_invoice">
+    //                     <td className="invoice_subhead">
+    //                       <div className="nameLocation">
+    //                         <h4 className="assignId">Samara Schwansteiger</h4>
+    //                         <div className="deliverTableBx">
+    //                           <Image
+    //                             src={Images.OrderLocation}
+    //                             alt="location Image"
+    //                             className="img-fluid ms-1"
+    //                           />
+    //                           <span className="locateDistance">2.5 miles</span>
+    //                         </div>
+    //                       </div>
+    //                     </td>
+    //                     <td className="invoice_subhead">
+    //                       <div className="itemMoney">
+    //                         <h4 className="assignId">3 items</h4>
+    //                         <div className="deliverTableBx">
+    //                           <Image
+    //                             src={Images.MoneyItem}
+    //                             alt="MoneyItemImage "
+    //                             className="img-fluid ms-1"
+    //                           />
+    //                           <span className="locateDistance">$500.50</span>
+    //                         </div>
+    //                       </div>
+    //                     </td>
+    //                     <td className="invoice_subhead">
+    //                       <div className="itemTime">
+    //                         <h4 className="assignId">1 hour delivery window</h4>
+    //                         <div className="deliverTableBx">
+    //                           <Image
+    //                             src={Images.Time}
+    //                             alt="MoneyItemImage "
+    //                             className="img-fluid ms-1"
+    //                           />
+    //                           <span className="locateDistance">
+    //                             Immediately
+    //                           </span>
+    //                         </div>
+    //                       </div>
+    //                     </td>
+    //                     <td className="invoice_subhead">
+    //                       <div className="deliverArrow text-end">
+    //                         <Image
+    //                           src={Images.RightArrow}
+    //                           alt="RightArrow image"
+    //                           className="img-fluid ms-1"
+    //                         />
+    //                       </div>
+    //                     </td>
+    //                   </tr>
+    //                 </tbody>
+    //               </table> */}
+    //               <OrderListItem
+    //                 screen={"SeeAll"}
+    //                 orderList={orderList?.data}
+    //                 itemPressHandler={itemPressHandler}
+    //               />
+    //             </div>
+    //           </div>
+    //         </div>
+    //         <OrderDetail
+    //           orderData={selectedOrderData}
+    //           selectedOrderIndex={selectedOrderIndex}
+    //           acceptHandler={acceptHandler}
+    //           declineHandler={declineHandler}
+    //           trackHandler={trackHandler}
+    //           orderListType={orderListType}
+    //         />
+    //       </div>
+    //     </div>
+    //     <DeliveryRightSidebar setOrderListType={setOrderListType} />
+    //   </div>
+    // </>
+    // <OrderDeliver />
   );
 };
 

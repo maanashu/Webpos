@@ -8,7 +8,16 @@ import { useRouter } from "next/router";
 import { useDispatch, useSelector } from "react-redux";
 import { deliveryData, getOrdersList } from "../../../redux/slices/delivery";
 import { selectLoginAuth } from "../../../redux/slices/auth";
-
+export const deliveryDrawerStatus = [
+  "Orders to review",
+  "Order Accepted",
+  "Orders Prepared",
+  "Assign to Driver",
+  "Picked up",
+  "Delivered",
+  "Rejected/Cancelled",
+  "Returned",
+];
 const DeliveryRightSidebar = ({ setOrderListType }) => {
   const dispatch = useDispatch();
   const [activeSidebar, setActiveSidebar] = useState(true);
@@ -16,16 +25,7 @@ const DeliveryRightSidebar = ({ setOrderListType }) => {
   const uniqueId = authData?.usersInfo?.payload?.uniqe_id;
   const { drawerOrderCount } = useSelector(deliveryData);
   const statusDrawer = drawerOrderCount?.status_count ?? [];
-  const deliveryDrawerStatus = [
-    "Orders to review",
-    "Order Accepted",
-    "Orders Prepared",
-    "Assign to Driver",
-    "Picked up",
-    "Delivered",
-    "Rejected/Cancelled",
-    "Returned",
-  ];
+
   const getOrderList = (status) => {
     let orderListParam = {
       status: status,
@@ -39,12 +39,12 @@ const DeliveryRightSidebar = ({ setOrderListType }) => {
       })
     );
   };
-  const onPressHandler = (status, count) => {
+  const onPressHandler = (titleIndex, status, count) => {
     if (!activeSidebar && count > 0) {
       if (setOrderListType) {
         setOrderListType({
-          title: deliveryDrawerStatus[status],
-          status: status.toString(),
+          title: deliveryDrawerStatus[titleIndex],
+          status: status,
         });
       }
       setActiveSidebar("hideDeliver");
@@ -81,6 +81,7 @@ const DeliveryRightSidebar = ({ setOrderListType }) => {
               onClick={() =>
                 onPressHandler(
                   0,
+                  "0",
                   statusDrawer?.length > 0 ? statusDrawer[0]?.count : 0
                 )
               }
@@ -105,6 +106,7 @@ const DeliveryRightSidebar = ({ setOrderListType }) => {
               onClick={() =>
                 onPressHandler(
                   1,
+                  "1",
                   statusDrawer?.length > 0 ? statusDrawer[1]?.count : 0
                 )
               }
@@ -129,6 +131,7 @@ const DeliveryRightSidebar = ({ setOrderListType }) => {
               onClick={() =>
                 onPressHandler(
                   2,
+                  "2",
                   statusDrawer?.length > 0 ? statusDrawer[2]?.count : 0
                 )
               }
@@ -153,6 +156,7 @@ const DeliveryRightSidebar = ({ setOrderListType }) => {
               onClick={() =>
                 onPressHandler(
                   3,
+                  "3",
                   statusDrawer?.length > 0 ? statusDrawer[3]?.count : 0
                 )
               }
@@ -177,6 +181,7 @@ const DeliveryRightSidebar = ({ setOrderListType }) => {
               onClick={() =>
                 onPressHandler(
                   4,
+                  "4",
                   statusDrawer?.length > 0 ? statusDrawer[4]?.count : 0
                 )
               }
@@ -201,6 +206,7 @@ const DeliveryRightSidebar = ({ setOrderListType }) => {
               onClick={() =>
                 onPressHandler(
                   5,
+                  "5",
                   statusDrawer?.length > 0 ? statusDrawer[5]?.count : 0
                 )
               }
@@ -224,6 +230,7 @@ const DeliveryRightSidebar = ({ setOrderListType }) => {
             <Link
               onClick={() =>
                 onPressHandler(
+                  6,
                   "7,8",
                   parseInt(
                     statusDrawer?.length > 0 ? statusDrawer[7]?.count : 0
@@ -258,7 +265,8 @@ const DeliveryRightSidebar = ({ setOrderListType }) => {
             <Link
               onClick={() =>
                 onPressHandler(
-                  9,
+                  7,
+                  "9",
                   statusDrawer?.length > 0 ? statusDrawer[9]?.count : 0
                 )
               }

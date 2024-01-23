@@ -19,6 +19,8 @@ const initialState = {
   drawerSessionLoad: false,
   productCartLoad: false,
   clearCartLoad: false,
+  attachCustomerLoad: false,
+  attachCustomerData: {},
 };
 
 export const retailsSlice = createSlice({
@@ -142,6 +144,14 @@ export const retailsSlice = createSlice({
       state.drawerSessionLoad = false;
       state.drawerSession = action?.payload?.payload;
     },
+
+    attachCustomer: (state) => {
+      state.attachCustomerLoad = true;
+    },
+    setAttachCustomer: (state, action) => {
+      state.attachCustomerLoad = false;
+      // state.attachCustomerData = action?.payload?.payload;
+    },
     onErrorStopLoad: (state) => {
       state.loading = false;
     },
@@ -180,6 +190,8 @@ export const {
   clearCart,
   getDrawerSession,
   setDrawerSession,
+  attachCustomer,
+  setAttachCustomer,
 } = retailsSlice.actions;
 
 export const selectRetailData = (state) => state.retails;

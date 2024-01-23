@@ -16,6 +16,8 @@ import {
   amountFormat,
   formattedReturnPrice,
 } from "../../utilities/globalMethods";
+import { digitWithDot } from "../../utilities/validators";
+import AddedCartItemsCard from "../../components/AddedCartItemsCard";
 
 const CartPayByCash = () => {
   const dispatch = useDispatch();
@@ -30,6 +32,7 @@ const CartPayByCash = () => {
   const [cashRate, setCashRate] = useState();
   const [amount, setAmount] = useState();
   const drawerData = retailData?.drawerSession;
+  console.log("drawerData", drawerData);
 
   const handleContineAmount = () => {
     if (!selectedCart) {
@@ -83,34 +86,39 @@ const CartPayByCash = () => {
   }, [selectedId, selectCashArray]);
 
   const createOrderHandler = () => {
-    let params = {
-      cart_id: cartData.id,
-      tips: amount === undefined || amount === "" ? cashRate : amount,
-      mode_of_payment: "cash",
-      drawer_id: drawerData?.id,
-    };
+    if (amount && digitWithDot.test(amount) === false) {
+      toast.error("Please enter valid amount");
+    } else {
+      let params = {
+        cart_id: cartData.id,
+        tips: amount === undefined || amount === "" ? cashRate : amount,
+        mode_of_payment: "cash",
+        drawer_id: drawerData?.id,
+      };
+      router.push({ pathname: "/Retails/ShowPaidAmountCart" });
 
-    dispatch(
-      createOrder({
-        ...params,
-        cb() {
-          dispatch(
-            clearCart({
-              cb: () => {
-                dispatch(productCart());
-              },
-            })
-          );
-          router.push({
-            pathname: "/Retails/ShowPaidAmountCart",
-            query: {
-              cart: JSON.stringify(cartData),
-              paymentData: JSON.stringify(params),
-            },
-          });
-        },
-      })
-    );
+      // dispatch(
+      //   createOrder({
+      //     ...params,
+      //     cb() {
+      //       dispatch(
+      //         clearCart({
+      //           cb: () => {
+      //             dispatch(productCart());
+      //           },
+      //         })
+      //       );
+      //       router.push({
+      //         pathname: "/Retails/ShowPaidAmountCart",
+      //         query: {
+      //           cart: JSON.stringify(cartData),
+      //           paymentData: JSON.stringify(params),
+      //         },
+      //       });
+      //     },
+      //   })
+      // );
+    }
   };
   return (
     <>
@@ -174,7 +182,7 @@ const CartPayByCash = () => {
                   value={amount}
                   onChange={(e) => setAmount(e.target.value)}
                 />
-                {retailData?.createOrderLoad ||
+                {/* {retailData?.createOrderLoad ||
                 retailData?.productCartLoad ||
                 retailData?.clearCartLoad ? (
                   <button
@@ -193,7 +201,15 @@ const CartPayByCash = () => {
                   >
                     Continue
                   </button>
-                )}
+                )} */}
+                <button
+                  className="continueAmountBtn w-100 mt-3"
+                  type="button"
+                  // onClick={(e) => handleContineAmount(e)}
+                  onClick={() => createOrderHandler()}
+                >
+                  Continue
+                </button>
               </div>
             </div>
           </div>
@@ -216,24 +232,7 @@ const CartPayByCash = () => {
               </div>
               <div className="mapleProductDetails confirmRightSub">
                 {cartData?.poscart_products?.map((data, index) => {
-                  return (
-                    <div key={index} className="flexBox mapleProductDetailsBox">
-                      <div className="flexbase">
-                        <p className="mapleProductcount">× {index + 1}</p>
-                        <article className="ms-3">
-                          <p className="mapleProductHeading">
-                            {data?.product_details?.name}
-                          </p>
-                          <span className="mapleProductcount">Yellow / M</span>
-                        </article>
-                      </div>
-                      <article>
-                        <p className="mapleProductPrice">
-                          ${data?.product_details?.price}
-                        </p>
-                      </article>
-                    </div>
-                  );
+                  return <AddedCartItemsCard data={data} key={index} />;
                 })}
               </div>
               <div className="flexBox mapleInvoiceBox confirmRightSub">
@@ -289,7 +288,7 @@ const CartPayByCash = () => {
                   className="img-fluid logo"
                 />
                 <Image
-                  src={cartData.barcode}
+                  src={cartData?.barcode}
                   alt="barCodeScanImg"
                   className="img-fluid barCodeScanImg"
                   width="100"

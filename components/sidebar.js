@@ -49,7 +49,7 @@ const Sidebar = (props) => {
           onClick={() => router.push("/home/overview")}
         />
         <Image src={Images.Logo} alt="image" className="img-fluid Logo" />
-        <div
+        {/* <div
           onClick={() => setActiveSidebar((prev) => !prev)}
           className="ToggleIcon"
         >
@@ -58,7 +58,7 @@ const Sidebar = (props) => {
             alt="image"
             className="img-fluid sideToggle"
           />
-        </div>
+        </div> */}
       </div>
       <div className="userDetails">
         <figure>
@@ -79,7 +79,7 @@ const Sidebar = (props) => {
         </figure>
         <article>
           <p className="userName">{`${authData?.posUserLoginDetails?.payload?.user_profiles?.firstname} ${authData?.posUserLoginDetails?.payload?.user_profiles?.lastname}`}</p>
-          <p className="userPosition">
+          <div className="userPosition">
             {authData?.posUserLoginDetails?.payload?.user_roles.length > 0 ? (
               authData?.posUserLoginDetails?.payload?.user_roles?.map(
                 (data, index) => {
@@ -93,7 +93,7 @@ const Sidebar = (props) => {
             ) : (
               <h4 className="loginSub">Admin / Manager</h4>
             )}
-          </p>
+          </div>
         </article>
       </div>
       <ListGroup className="sidebarMenus navbar_overlay_content_">
