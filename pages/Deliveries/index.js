@@ -111,7 +111,7 @@ const DeliverDashboard = () => {
   // };
   const itemPressHandler = (item, index) => {
     router.push({
-      pathname: "/Deliveries/order",
+      pathname: "/Deliveries/orderDeliver",
       query: {
         item: JSON.stringify(item),
         index: index,
@@ -303,9 +303,12 @@ const DeliverDashboard = () => {
                     {orderList?.data?.length > 0 && (
                       <Link
                         href={{
-                          pathname: "Deliveries/order",
+                          pathname: "Deliveries/orderDeliver",
 
-                          query: { index: null, orderListType: orderListType },
+                          query: {
+                            index: 0,
+                            listType: JSON.stringify(orderListType),
+                          },
                         }}
                       >
                         <div className="flexTable pointHand">
