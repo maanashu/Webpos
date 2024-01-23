@@ -55,7 +55,7 @@ function* getDrawerSessionInfo(action) {
   // const dataToSend = { ...action.payload }
   // delete dataToSend.cb
   try {
-    const resp = yield call(ApiClient.post, (`${AUTH_API_URL}/api/v1/drawer_management/drawer-session`),(action.payload = action.payload))
+    const resp = yield call(ApiClient.post, (`${AUTH_API_URL}/api/v1/drawer_management/drawer-session`), (action.payload = action.payload))
     if (resp.status) {
       yield put(setGetDrawerSessionInfo(resp.data));
       yield call(action.payload.cb, (action.res = resp));
@@ -108,6 +108,26 @@ function* getProfile(action) {
   }
 }
 
+function* getOrderDetailsById(action) {
+  console.log(action,"actioneeeeeeeeeeeee");
+  const dataToSend = { ...action.payload }
+  console.log(action,'data to send');
+  delete dataToSend.cb
+  try {
+    const resp = yield call(ApiClient.get, (`${ORDER_API_URL}/api/v1/orders/${action.payload.id}`));
+    if (resp.status) {
+      yield call(action.payload.cb, (action.res = resp));
+      // toast.success(resp?.data?.msg);
+    }
+    else {
+      throw resp
+    }
+  } catch (e) {
+    yield put(onErrorStopLoad())
+    toast.error(e?.error?.response?.data?.msg);
+  }
+}
+
 function* dashboardSaga() {
   yield all([
     takeLatest("dashboard/getAllOrderDeliveries", getAllOrderDeliveries),
@@ -115,6 +135,7 @@ function* dashboardSaga() {
     takeLatest("dashboard/getDrawerSessionInfo", getDrawerSessionInfo),
     takeLatest("dashboard/getPosLoginDetails", getPosLoginDetails),
     takeLatest("dashboard/getProfile", getProfile),
+    takeLatest("dashboard/getOrderDetailsById", getOrderDetailsById),
   ]);
 }
 
