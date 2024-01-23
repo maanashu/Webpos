@@ -7,9 +7,11 @@ import moment from "moment-timezone";
 import { deliveryData } from "../../../redux/slices/delivery";
 import { useSelector } from "react-redux";
 import ButtonComponent from "./ButtonComponent";
+import MapleOrder from "../mapleOrder";
+import OrderDeliver from "../orderDeliver";
 
 const OrderDetail = ({
-  orderDetail,
+  orderDetails,
   selectedOrderIndex,
   acceptHandler,
   declineHandler,
@@ -17,7 +19,7 @@ const OrderDetail = ({
   orderListType,
 }) => {
   const { orderList } = useSelector(deliveryData);
-
+  console.log("SCreenneee", JSON.stringify(orderDetails));
   const orderData =
     selectedOrderIndex !== null && selectedOrderIndex !== undefined
       ? (orderList?.data && orderList?.data[selectedOrderIndex]) || null
@@ -290,7 +292,8 @@ const OrderDetail = ({
         </div>
       );
     } else {
-      return <div className="col-lg-6"></div>;
+      return <OrderDeliver orderDetail={orderDetails} />;
+      // <div className="col-lg-6"></div>;
     }
   };
 

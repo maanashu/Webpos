@@ -28,8 +28,8 @@ const DeliverDashboard = () => {
   const [currentOrderCount, setcurrentOrderCount] = useState(null);
   const [orderStatData, setOrderStatData] = useState(null);
   const [orderListType, setOrderListType] = useState({
-    status: "0",
     title: "Orders to review",
+    status: "0",
   });
 
   useEffect(() => {
@@ -113,8 +113,10 @@ const DeliverDashboard = () => {
     router.push({
       pathname: "/Deliveries/order",
       query: {
-        item: item,
+        item: JSON.stringify(item),
         index: index,
+        listType: JSON.stringify(orderListType),
+
         // Add more properties as needed
       },
     });
