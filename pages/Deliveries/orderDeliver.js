@@ -29,7 +29,7 @@ const OrderDeliver = ({ orderDetail }) => {
   const router = useRouter();
   const selectedIndex = router?.query?.["index"];
   const item = router?.query?.["item"];
-  const listType = JSON.parse(router?.query?.["listType"]);
+  const listType = router?.query?.["listType"] ?JSON.parse(router?.query?.["listType"]):"";
 
   const dispatch = useDispatch();
   const authData = useSelector(selectLoginAuth);
@@ -63,6 +63,43 @@ const OrderDeliver = ({ orderDetail }) => {
     //     },
     //   })
     // );
+  };
+
+  const checkOtherOrder = () => {
+    const statusData = shipingCount;
+    var index = 0;
+    if (statusData[0].count > 0) {
+      if (statusData[0].count == 1) {
+        index = 3;
+      } else {
+        index = 0;
+      }
+    } else if (statusData[3].count > 0) {
+      if (statusData[3].count == 1) {
+        index = 4;
+      } else {
+        index = 3;
+      }
+    } else if (statusData[4].count > 0) {
+      if (statusData[4].count == 1) {
+        index = 5;
+      } else {
+        index = 4;
+      }
+    } else if (statusData[5].count > 0) {
+      if (statusData[5].count == 1) {
+        index = 6;
+      } else {
+        index = 5;
+      }
+    } else if (statusData[7].count > 0) {
+      if (statusData[6].count == 1) {
+        index = 8;
+      } else {
+        index = 7;
+      }
+    }
+    getLatestdata(index);
   };
   const acceptHandler = (id) => {
     let params = {
@@ -175,42 +212,7 @@ const OrderDeliver = ({ orderDetail }) => {
     alert("Track");
   };
 
-  const checkOtherOrder = () => {
-    const statusData = shipingCount;
-    var index = 0;
-    if (statusData[0].count > 0) {
-      if (statusData[0].count == 1) {
-        index = 3;
-      } else {
-        index = 0;
-      }
-    } else if (statusData[3].count > 0) {
-      if (statusData[3].count == 1) {
-        index = 4;
-      } else {
-        index = 3;
-      }
-    } else if (statusData[4].count > 0) {
-      if (statusData[4].count == 1) {
-        index = 5;
-      } else {
-        index = 4;
-      }
-    } else if (statusData[5].count > 0) {
-      if (statusData[5].count == 1) {
-        index = 6;
-      } else {
-        index = 5;
-      }
-    } else if (statusData[7].count > 0) {
-      if (statusData[6].count == 1) {
-        index = 8;
-      } else {
-        index = 7;
-      }
-    }
-    getLatestdata(index);
-  };
+
   const getLatestdata = () => {
     let orderCountparams = {
       seller_id: uniqueId,
