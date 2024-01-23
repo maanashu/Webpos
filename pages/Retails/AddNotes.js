@@ -1,5 +1,5 @@
 import { useDispatch, useSelector } from "react-redux";
-import { addNotes, selectRetailData } from "../../redux/slices/retails";
+import { addNotes, productCart, selectRetailData } from "../../redux/slices/retails";
 import { useState } from "react";
 import { toast } from "react-toastify";
 
@@ -23,6 +23,7 @@ const AddNotes = (props) => {
       addNotes({
         ...params,
         cb(res) {
+          dispatch(productCart());
           toast.success("Notes Added!");
           props.close();
         },
@@ -31,9 +32,10 @@ const AddNotes = (props) => {
   };
 
   return (
-    <div className="addnotesMain">
+    <div className="">
       <form className="otpForm" onSubmit={(e) => handleAddNotes(e)}>
-          <div className="verify-part mt-4 mb-3">
+        <div className="otpMain">
+          <div className="verify-part">
             <div className="verify-box text-center">
               <textarea
                 className="notesBox"
@@ -46,6 +48,7 @@ const AddNotes = (props) => {
               />
             </div>
           </div>
+        </div>
         <div className="noteButton">
           {/* <button className="addnotesBtn" type="submit">
             Add Notes

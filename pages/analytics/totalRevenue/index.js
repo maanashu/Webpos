@@ -19,6 +19,7 @@ const index = () => {
   const [totalRecords, setTotalRecords] = useState(0)
   const analyticsData = useSelector(analyticsDetails);
   const auth = useSelector(selectLoginAuth)
+  const sellerId = auth?.usersInfo?.payload?.uniqe_id
   const handleChange = (selectedOption) => {
     setChannelSelected(selectedOption)
   };
@@ -72,7 +73,7 @@ const index = () => {
       filter: timeSpan,
       channel: channelSelected.value,
       // seller_id: auth?.usersInfo?.payload?.uniqe_id
-      seller_id: "016b1b3a-d7d3-4fc3-a76b-995b23c43852",
+      seller_id: sellerId,
       page: page,
       limit: Number(limit),
     };
@@ -83,7 +84,7 @@ const index = () => {
         end_date: moment(endDate).format("YYYY-MM-DD"),
         channel: channelSelected.value,
         // seller_id: auth?.usersInfo?.payload?.uniqe_id
-        seller_id: "016b1b3a-d7d3-4fc3-a76b-995b23c43852",
+        seller_id: sellerId,
         page: page,
         limit: Number(limit),
       };
@@ -102,8 +103,10 @@ const index = () => {
   };
 
   useEffect(() => {
-    newUserDataHandle();
-  }, [timeSpan, channelSelected, endDate, limit, page]);
+    if(sellerId){
+      newUserDataHandle();
+    }
+  }, [timeSpan, channelSelected, endDate, limit, page, sellerId]);
   return (
     <div className="main-container-customers">
       <AnalyticsHeader

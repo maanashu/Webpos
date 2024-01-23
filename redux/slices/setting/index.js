@@ -97,6 +97,21 @@ export const settingSlice = createSlice({
         requestPayment: (state) => {
             state.loading = true;
         },
+        viewPayment: (state) => {
+            state.loading = true;
+        },
+        setViewPayment: (state, action) => {
+            state.loading = false;
+        },
+
+        // start language slices..........................................
+        getLanguageList: (state) => {
+            state.loading = true;
+        },
+        setGetLanguageList: (state, action) => {
+            state.loading = false;
+        },
+        // end language slices////////////////////////////////////////////
     },
 });
 
@@ -127,7 +142,11 @@ export const {
     updateLocationSetting,
     setUpdateLocationSetting,
     onErrorStopLoad,
-    requestPayment
+    requestPayment,
+    viewPayment,
+    setViewPayment,
+    getLanguageList,
+    setGetLanguageList
 } = settingSlice.actions;
 
 export const settingInfo = (state) => state.setting;

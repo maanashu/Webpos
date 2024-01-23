@@ -40,6 +40,4 @@ const makeStore = () => {
   return store;
 };
 
-console.log(makeStore,"makestore")
-
 export const wrapper = createWrapper(makeStore, { debug: true });

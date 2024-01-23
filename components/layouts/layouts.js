@@ -30,6 +30,7 @@ export default function Layout({ children, isLoggedIn, userType }) {
     "/analytics/totalInventory",
     "/settings",
     "/settings/devices",
+    "/settings/device/deviceDetail",
     "/settings/staffList",
     "/settings/staff/staffDetail",
     "/settings/staff/staffLocation",
@@ -39,10 +40,10 @@ export default function Layout({ children, isLoggedIn, userType }) {
     "/settings/polices",
     "/settings/bussinessLocation",
     "/settings/walletConfig",
-    
     '/transactions',
     '/transactions/transactionList',
-    '/transactions/transactionList/invoice'
+    '/transactions/transactionList/invoice',
+    '/settings/plans/planFit'
 
   ];
 

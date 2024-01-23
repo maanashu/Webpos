@@ -1,9 +1,53 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import * as Images from "../../utilities/images"
 import Image from "next/image";
 import ShipRightSidebar from '../../components/commanComonets/Shipping/shipRightSidebar';
+import { useDispatch, useSelector } from 'react-redux';
+import { selectLoginAuth } from '../../redux/slices/auth';
+import { getShippingsSidebarCount, selectsShippingData } from '../../redux/slices/shipping';
+import { getOrdersList } from '../../redux/slices/delivery';
 
 const Shipping = () => {
+    const dispatch = useDispatch()
+    const authData = useSelector(selectLoginAuth);
+    const [orderData, setOrderData] = useState([]);
+    console.log(orderData,'orderdataaaaaa');
+    const shippingData = useSelector(selectsShippingData);
+    const sellerUid = authData?.usersInfo?.payload?.uniqe_id;
+
+    const customerSidebardata = shippingData?.sidebarCountData?.payload
+
+    const getAllShippingOrdeshandle = () => {
+        let orderListParam = {
+            seller_id: authData?.usersInfo?.payload?.uniqe_id,
+            delivery_option: "4"
+        };
+        dispatch(
+            getOrdersList({
+                ...orderListParam,
+                cb(res) {
+                    if (res) {
+                        setOrderData(res?.data?.payload);
+                    }
+                },
+            })
+        );
+    }
+
+    console.log(customerSidebardata, sellerUid, "customersidebar data");
+    useEffect(() => {
+        if (sellerUid) {
+            dispatch(
+                getShippingsSidebarCount({
+                    "seller_id": sellerUid
+                })
+            );
+        }
+    }, [sellerUid]);
+
+    useEffect(() => {
+        getAllShippingOrdeshandle()
+    }, [])
     return (
         <div className='shippingSection'>
             <div className='row '>
@@ -361,7 +405,7 @@ const Shipping = () => {
                     </div>
                 </div>
             </div>
-            <ShipRightSidebar />
+            <ShipRightSidebar data={customerSidebardata}/>
         </div>
     )
 }

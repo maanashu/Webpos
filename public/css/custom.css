@@ -360,7 +360,6 @@ input:checked + .switch-slider:before {
   width: 100%;
   overflow-y: auto;
 }
-
 #AddNotes .modal-body {
   padding: 0;
 }

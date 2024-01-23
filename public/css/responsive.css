@@ -1,199 +1,408 @@
-@media screen and (max-width: 1400px) {
+@media (max-width: 1600px) {
+    .cartOfferSection {
+        margin-top: 20px;
+    }
+
+    .discountOfferMain {
+        margin: 20px 0;
+    }
+
+    .offerdata {
+        height: calc(40vh - 137px);
+    }
+
+    .shipTableData .invoice_subhead {
+        width: 100%;
+        min-width: 175px;
+    }
+
+    .shipTableData .invoice_subhead:first-child {
+        width: 100%;
+        min-width: 100px;
+    }
+
+    .shipTableData .invoice_subhead:last-child {
+        width: 100%;
+        min-width: 50px;
+    }
+
+    .shipTableData .invoice_subhead:nth-child(3) {
+        width: 100%;
+        min-width: 270px;
+    }
+
+    .cancelShipData .invoice_subhead {
+        width: 100%;
+        min-width: 175px;
+    }
+
+    .cancelShipData .invoice_subhead:last-child {
+        width: 100%;
+        min-width: 50px;
+    }
+
+    .cancelShipData .invoice_subhead:nth-child(2) {
+        width: 100%;
+        min-width: 220px;
+    }
+
+    .cancelShipData .invoice_subhead:nth-child(3) {
+        width: 100%;
+        min-width: 150px;
+    }
+}
+
+@media (max-width: 1400px) {
     .navbar-nav .nav-item {
         padding: 0 30px;
     }
 
+    .serviceDayTime {
+        height: calc(50vh - 120px);
+        overflow-y: scroll;
+    }
+
+    .staffInfoBox::before {
+        left: 30px;
+    }
+
 }
 
-@media screen and (max-width: 1200px) {
+@media (max-width:1366px) {
+    .monthText {
+        font-size: 13px;
+    }
+
+    .tabsappointment {
+        margin-right: 8px;
+    }
+
+    .offerImg {
+        display: flex;
+        justify-content: start;
+        width: 35%;
+    }
+
+    .offerdata {
+        height: calc(40vh - 164px);
+    }
+
+    .staffInfoBox::before {
+        left: 45px;
+    }
+}
+
+@media (max-width: 1280px) {
+    .cartInfo {
+        height: 200px;
+        overflow-y: scroll;
+    }
+
+    .deliverCheck {
+        display: flex;
+        justify-content: end;
+        gap: 12px;
+    }
+
+    .offerImg {
+        display: flex;
+        justify-content: start;
+        width: 30%;
+    }
+
+    .serviceDayTime {
+        height: calc(50vh - 140px);
+        overflow-y: scroll;
+    }
+
+    .cartOfferSection {
+        margin-top: 15px;
+    }
+
+    .discountOfferMain {
+        margin: 15px 0;
+    }
+
+    .deliverOrderData .deliverSubdata {
+        width: 100%;
+        min-width: 120px;
+    }
+
+    .staffInfoBox::before {
+        left: 80px;
+    }
+}
+
+@media (max-width: 1200px) {
+    .staffInfoBox::before {
+        display: none;
+    }
+
     .dollar {
         padding: 20px 15px;
     }
-    .smallImages{
+
+    .smallImages {
         max-width: 222px;
     }
+
     .otherAppImage {
         max-width: 486px;
-      }
-      .navbar-nav .nav-item {
+    }
+
+    .navbar-nav .nav-item {
         padding: 0 12px;
     }
-    .headingBlue{
+
+    .headingBlue {
         font-size: 40px;
     }
-    .headingLight64{
+
+    .headingLight64 {
         font-size: 50px;
     }
-    .headingBold64{
+
+    .headingBold64 {
         font-size: 50px;
     }
-    .subHeading20{
+
+    .subHeading20 {
         font-size: 16px;
     }
-    .heading36{
+
+    .heading36 {
         font-size: 30px;
     }
-    .heading24{
+
+    .heading24 {
         font-size: 20px;
     }
-    .subHeading16{
+
+    .subHeading16 {
         font-size: 14px;
     }
+
     .getApp {
         padding: 41px 40px;
         margin-top: 82px;
         position: relative;
     }
+
     .desclimer {
         margin-top: 25px;
     }
-    .getAppInner .primaryBtn{
+
+    .getAppInner .primaryBtn {
         margin-top: 10px;
-        padding:12px 50px;
+        padding: 12px 50px;
     }
 }
-@media screen and (max-width: 1020px) {
-    
-    .customInput{
+
+@media (max-width: 1020px) {
+
+    .customInput {
         max-width: 400px;
     }
-    .seemInner img:last-child{
-        margin-top:10px;
+
+    .seemInner img:last-child {
+        margin-top: 10px;
     }
-    
-      .navbar-nav li {
+
+    .navbar-nav li {
         padding: 0;
     }
-    .seemInner{
+
+    .seemInner {
         flex-wrap: wrap;
     }
+
     header {
         padding: 14px 29px;
     }
+
     .navbar-nav .nav-item {
         padding: 0 10px;
     }
-    }
-    @media screen and (min-width:991){
-        header .navbar-nav{
-            position: absolute;
-            background: #fff;
-            width: 100%;
-            box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
-            align-items: start !important;
-            padding: 10px;
-            border-radius: 0 0 10px 10px;
-            left: 0;
-        }
-        .navbar-expand-lg .navbar-nav {
-            margin-top: 0;
-        }
-    }
-  @media screen and (max-width: 992px){
-  .customInput {
-      max-width: 100%;
-  }
-  .getAppInner .primaryBtn{
-    margin-top:10px;
-  }
-  .allRightReserve {
-    margin-top: 46px !important;
 }
 
-.indedTable td{
-    width: 100%;
-}
-.ourCoreImages{
-    display: none;
-}
-.loginBtnCon{
-    display: none;
-}
-.afterRes{
-    display: block;
-}
-.navbar-expand-lg .navbar-nav {
-    /* flex-direction: row; */
-    align-items: left;
-}
-.navbar-toggler-icon i{
-    padding:5px 0;
-}
-header {
-    padding: 14px 36px;
-}
-.navbar-expand-lg .navbar-nav {
-    margin-top: 0;
-}
-.navbar-nav li {
-    padding: 8px 14px;
+@media (min-width:991) {
+    header .navbar-nav {
+        position: absolute;
+        background: #fff;
+        width: 100%;
+        box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+        align-items: start !important;
+        padding: 10px;
+        border-radius: 0 0 10px 10px;
+        left: 0;
+    }
+
+    .navbar-expand-lg .navbar-nav {
+        margin-top: 0;
+    }
 }
 
-header .dropdown-menu{
-    min-width: 320px;
+@media (max-width: 992px) {
+    .customInput {
+        max-width: 100%;
+    }
+
+    .getAppInner .primaryBtn {
+        margin-top: 10px;
+    }
+
+    .allRightReserve {
+        margin-top: 46px !important;
+    }
+
+    .indedTable td {
+        width: 100%;
+    }
+
+    .ourCoreImages {
+        display: none;
+    }
+
+    .loginBtnCon {
+        display: none;
+    }
+
+    .afterRes {
+        display: block;
+    }
+
+    .navbar-expand-lg .navbar-nav {
+        /* flex-direction: row; */
+        align-items: left;
+    }
+
+    .navbar-toggler-icon i {
+        padding: 5px 0;
+    }
+
+    header {
+        padding: 14px 36px;
+    }
+
+    .navbar-expand-lg .navbar-nav {
+        margin-top: 0;
+    }
+
+    .navbar-nav li {
+        padding: 8px 14px;
+    }
+
+    header .dropdown-menu {
+        min-width: 320px;
+    }
+
+    .navbar-nav .nav-item {
+        padding: 9px 10px;
+    }
 }
-.navbar-nav .nav-item {
-    padding: 9px 10px;
-}
-}
-@media screen and (max-width: 768px){
+
+@media (max-width: 768px) {
     .driverNavigationCon {
         flex-wrap: wrap;
     }
-    
+
 }
-@media screen and (max-width: 576px){
+
+@media (max-width: 576px) {
     .getApp {
         padding: 45px 35px;
     }
+
     .headingLight64 {
         font-size: 50px;
     }
+
     .allAppCard {
         padding: 34px 15px 0 28px;
     }
-    .productImg{
-        margin-top:auto;
+
+    .productImg {
+        margin-top: auto;
     }
-    .extensiveCatInner{
-       
+
+    .extensiveCatInner {
+
         flex-wrap: wrap;
     }
-    .manufacturerInner{
+
+    .manufacturerInner {
         flex-wrap: wrap;
     }
+
     header {
         padding: 14px 0;
     }
+
     .commonCard {
         margin-top: 44px;
     }
+
     .getApp {
         margin-top: 40px;
     }
+
     .commonSection {
         padding: 42px 0;
     }
+
     .primaryBtn {
         padding: 15px 32px;
     }
+
     .commonCard {
         padding: 27px 33px 0 33px;
     }
+
+    .verificationSection .verifyBox {
+        margin: 0 25px;
+        padding: 40px 50px;
+    }
+
+    .verifyHeading {
+        font-size: 27px;
+    }
+
+    .verifySub {
+        font-size: 16px;
+        margin-top: 10px;
+    }
+
+    .pin-box input {
+        width: 55px !important;
+        height: 55px !important;
+    }
+
 }
 
+@media (max-width: 475px) {
 
-/* Responsive Delveries css */
-@media screen and (max-width:1366px) {
-    .monthText {
-    font-size: 13px;   
+    .verificationSection .verifyBox {
+        padding: 30px 40px;
     }
-    .tabsappointment {
-        margin-right: 8px;
+    .verificationSection {
+        flex-direction: column;
+    }
+    .dottedImg {
+        position: static;
+    }
+    .verifyBtn {
+        gap: 26px;
     }
 }
 
+@media (max-width: 425px) {
+    .verificationSection .verifyBox {
+        padding: 25px 20px;
+    }
+}
 
-
-
-/* Responsive Delveries css */
+@media (max-width: 375px) {
+    .verificationSection .verifyBox {
+        padding: 25px 15px;
+    }
+}

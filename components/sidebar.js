@@ -79,7 +79,7 @@ const Sidebar = (props) => {
         </figure>
         <article>
           <p className="userName">{`${authData?.posUserLoginDetails?.payload?.user_profiles?.firstname} ${authData?.posUserLoginDetails?.payload?.user_profiles?.lastname}`}</p>
-          <p className="userPosition">
+          <div className="userPosition">
             {authData?.posUserLoginDetails?.payload?.user_roles.length > 0 ? (
               authData?.posUserLoginDetails?.payload?.user_roles?.map(
                 (data, index) => {
@@ -93,7 +93,7 @@ const Sidebar = (props) => {
             ) : (
               <h4 className="loginSub">Admin / Manager</h4>
             )}
-          </p>
+          </div>
         </article>
       </div>
       <ListGroup className="sidebarMenus navbar_overlay_content_">
@@ -137,6 +137,26 @@ const Sidebar = (props) => {
               <span className="sidebarTxt">Delivery Orders</span>
             </Link>
           </ListGroupItem>
+          {/* <ListGroupItem className="sidebarItems">
+            <Link href="/dashboard" className="sidebarLinks active">
+              <Image
+                src={Images.ProductsServices}
+                alt="image"
+                className="img-fluid showImg"
+              />
+              <span className="sidebarTxt">Products & Services</span>
+            </Link>
+          </ListGroupItem> */}
+          {/* <ListGroupItem className="sidebarItems">
+            <Link href="/dashboard" className="sidebarLinks">
+              <Image
+                src={Images.DeliveryOrders}
+                alt="image"
+                className="img-fluid showImg"
+              />
+              <span className="sidebarTxt">Delivery Orders</span>
+            </Link>
+          </ListGroupItem> */}
           <ListGroupItem className="sidebarItems">
             <Link
               href="/shipping"
@@ -220,7 +240,10 @@ const Sidebar = (props) => {
             </Link>
           </ListGroupItem>
           <ListGroupItem className="sidebarItems">
-            <Link href="#" className={`sidebarLinks ${"" ? "active" : ""}`}>
+            <Link
+              href="/cashDrawer"
+              className={`sidebarLinks ${"" ? "active" : ""}`}
+            >
               <Image
                 src={Images.CashDrawer}
                 alt="image"

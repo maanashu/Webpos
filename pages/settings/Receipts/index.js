@@ -74,7 +74,7 @@ const Receipts = () => {
 
             <div class="roundCheck">
               <input
-                class="form-check-input"
+                class="checkbox"
                 type="checkbox"
                 id="flexSwitchCheckChecked"
                 checked={smsStatus}
@@ -113,7 +113,7 @@ const Receipts = () => {
 
             <div class="roundCheck">
               <input
-                class="form-check-input"
+                class="checkbox"
                 type="checkbox"
                 id="flexSwitchCheckChecked"
                 checked={emailStatus}
@@ -152,7 +152,7 @@ const Receipts = () => {
 
             <div class="roundCheck">
               <input
-                class="form-check-input"
+                class="checkbox"
                 type="checkbox"
                 id="flexSwitchCheckChecked"
                 checked={invoiceStatus}
