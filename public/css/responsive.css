@@ -552,6 +552,15 @@
         width: 100%;
         max-width: 325px;
     }
+
+    .otherHead .timeHeading {
+        font-size: 11px;
+    }
+
+    .otherHead .navBtn {
+        padding: 6px 8px;
+        font-size: 12px;
+    }
 }
 
 @media (max-width: 375px) {
