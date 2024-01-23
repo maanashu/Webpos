@@ -31,10 +31,36 @@ function* getShippingsSidebarCount(action) {
     toast.error(e?.error?.response?.data?.msg);
   }
 }
+function* changeStatusOfOrder(action) {
+  const dataToSend = { ...action.payload };
+  let id = dataToSend?.orderId
+  delete dataToSend.cb;
+  delete dataToSend.orderId;
+  console.log(dataToSend,'data to send');
+  const params = new URLSearchParams(dataToSend).toString();
+  try {
+    const resp = yield call(
+      ApiClient.put,
+      `${ORDER_API_URL_V1}orders/status/${id}`,dataToSend
+    );
+    if (resp.status) {
+      // yield put(setSidebarCountData(resp.data));
+      yield call(action.payload.cb, (action.res = resp));
+      console.log(resp, "response");
+    } else {
+      throw resp;
+    }
+  } catch (e) {
+    yield put(onErrorStopLoad());
+    console.log(e, "error");
+    toast.error(e?.error?.response?.data?.msg);
+  }
+}
 
 function* shippingSaga() {
     yield all([
       takeLatest("shipping/getShippingsSidebarCount", getShippingsSidebarCount),
+      takeLatest("shipping/changeStatusOfOrder", changeStatusOfOrder),
     ]);
   }
   

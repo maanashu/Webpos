@@ -5,7 +5,7 @@ import ShipRightSidebar from '../../components/commanComonets/Shipping/shipRight
 import { useDispatch, useSelector } from 'react-redux';
 import { selectLoginAuth } from '../../redux/slices/auth';
 import { getShippingsSidebarCount, selectsShippingData } from '../../redux/slices/shipping';
-import { getOrdersList } from '../../redux/slices/delivery';
+import { getCurrentOrderStatus, getOrdersList, getTodayOrderCount } from '../../redux/slices/delivery';
 import NoOrderFound from '../../components/NoOrderFound';
 import OrderListItem from '../Deliveries/Component/OrderListItem';
 import { useRouter } from 'next/router';
@@ -17,6 +17,9 @@ const Shipping = () => {
     const [orderLoading, setOrderLoading] = useState(false);
     const [orderData, setOrderData] = useState([]);
     const [orderCount, setOrderCount] = useState([]);
+    const [todayOrdersCount, setTodayOrdersCount] = useState(null);
+    const [currentOrderCount, setcurrentOrderCount] = useState(null);
+    console.log(currentOrderCount, 'todayyyyyyyyyy');
     const shippingData = useSelector(selectsShippingData);
     const sellerUid = authData?.usersInfo?.payload?.uniqe_id;
     const customerSidebardata = shippingData?.sidebarCountData?.payload
@@ -62,7 +65,6 @@ const Shipping = () => {
             getShippingsSidebarCount({
                 ...orderParam,
                 cb(res) {
-                    console.log(res, 'ressssssssssssssss');
                     if (res) {
                         setOrderCount(res?.data?.payload);
                     }
@@ -70,11 +72,44 @@ const Shipping = () => {
             })
         );
     }
-
+    const todayOrdersHandle = () => {
+        let countparams = {
+            seller_id: sellerUid,
+            // delivery_option: "4",
+        };
+        dispatch(
+            getTodayOrderCount({
+                ...countparams,
+                cb(res) {
+                    if (res) {
+                        setTodayOrdersCount(res?.data?.payload);
+                    }
+                },
+            })
+        );
+    }
+    const currentStatusHandle = () => {
+        let params = {
+            seller_id: sellerUid,
+            // delivery_option: "4",
+        };
+        dispatch(
+            getCurrentOrderStatus({
+                ...params,
+                cb(res) {
+                    if (res) {
+                        setcurrentOrderCount(res?.data?.payload);
+                    }
+                },
+            })
+        );
+    }
     useEffect(() => {
         if (sellerUid) {
             getAllShippingOrdeshandle()
             getAllShippingOrdesCountHandle()
+            todayOrdersHandle()
+            currentStatusHandle()
         }
     }, [sellerUid, orderListType]);
 
@@ -86,46 +121,40 @@ const Shipping = () => {
                     <div className='deliverLeft deliveryOuter me-0'>
                         <div className='deliverOrderStatus'>
                             <h4 className='customerLink text-start'>Today Shipping Status</h4>
-                            <div className='flexDiv mt-4'>
-                                <h4 className='deliverMainText'>Shipping Order</h4>
-                                <h4 className='deliverMainText'>23</h4>
+                            <div className="flexDiv mt-4">
+                                <h4 className="deliverMainText">Delivery Order</h4>
+                                <h4 className="deliverMainText">
+                                    {todayOrdersCount?.length > 0
+                                        ? todayOrdersCount?.[0]?.count
+                                        : 0}
+                                </h4>
                             </div>
-                            <div className='flexDiv mt-3'>
-                                <h4 className='deliverMainText'>Shipped Orders</h4>
-                                <h4 className='deliverMainText'>10</h4>
+                            <div className="flexDiv mt-3">
+                                <h4 className="deliverMainText">Pickup Orders</h4>
+                                <h4 className="deliverMainText">
+                                    {todayOrdersCount?.length > 0
+                                        ? todayOrdersCount?.[1]?.count
+                                        : 0}
+                                </h4>
                             </div>
                         </div>
                         <div className='currentStatus'>
                             <h4 className='customerLink text-start'>Current Status</h4>
                             <div className='currentSubStatus'>
-                                <div className='pickupDeliver'>
-                                    <Image src={Images.shipDhl} alt="pickupImg image" className="img-fluid shipPickImg" />
-                                    <div className='expressMain'>
-                                        <h4 className='amountText ms-0'>DHL</h4>
-                                        <h4 className='providerSubText text-start mt-2'> 17 Shippings</h4>
-                                    </div>
-                                </div>
-                                <div className='pickupDeliver'>
-                                    <Image src={Images.shipUps} alt="pickupImg image" className="img-fluid shipPickImg" />
-                                    <div className='expressMain'>
-                                        <h4 className='amountText ms-0'>UPS</h4>
-                                        <h4 className='providerSubText text-start mt-2'> 17 Shippings</h4>
-                                    </div>
-                                </div>
-                                <div className='pickupDeliver'>
-                                    <Image src={Images.shipFed} alt="pickupImg image" className="img-fluid shipPickImg" />
-                                    <div className='expressMain'>
-                                        <h4 className='amountText ms-0'>FedEx</h4>
-                                        <h4 className='providerSubText text-start mt-2'> 17 Shippings</h4>
-                                    </div>
-                                </div>
-                                <div className='pickupDeliver'>
-                                    <Image src={Images.shipUsps} alt="pickupImg image" className="img-fluid shipPickImg" />
-                                    <div className='expressMain'>
-                                        <h4 className='amountText ms-0'>USPS</h4>
-                                        <h4 className='providerSubText text-start mt-2'>17 Shippings</h4>
-                                    </div>
-                                </div>
+                                {
+                                    currentOrderCount?.length > 0 ?
+                                        currentOrderCount?.map((v, i) => {
+                                            return (
+                                                <div key={i} className='pickupDeliver'>
+                                                <Image src={Images.shipDhl} alt="pickupImg image" className="img-fluid shipPickImg" />
+                                                <div className='expressMain'>
+                                                    <h4 className='amountText ms-0'>DHL</h4>
+                                                    <h4 className='providerSubText text-start mt-2'> {v?.count}</h4>
+                                                </div>
+                                            </div>
+    )
+                                        }) : <></>
+                                }
                             </div>
                         </div>
                         <div className='deliverOrder'>

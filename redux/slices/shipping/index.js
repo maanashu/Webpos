@@ -15,14 +15,18 @@ export const shippingSlice = createSlice({
         setSidebarCountData: (state, action) => {
             state.loading = false;
             state.sidebarCountData = action?.payload;
-        }
+        },
+        changeStatusOfOrder: (state) => {
+            state.loading = true;
+        },
     },
 });
 
 // Action creators are generated for each case reducer function
 export const {
     getShippingsSidebarCount,
-    setSidebarCountData
+    setSidebarCountData,
+    changeStatusOfOrder
 } = shippingSlice.actions;
 
 export const selectsShippingData = (state) => state.shipping;
