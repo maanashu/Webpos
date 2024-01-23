@@ -9,15 +9,14 @@ import { useSelector } from "react-redux";
 import * as Images from "../../../utilities/images";
 import Image from "next/image";
 import { settingInfo } from "../../../redux/slices/setting";
-import { useRouter } from "next/router";
 
 const PlanFit = ({ handleTouch }) => {
   const dispatch = useDispatch();
-  const router = useRouter();
   const settingData = useSelector(settingInfo);
   const [activeTab, setActiveTab] = useState("monthly");
   const [plansData, setPlansData] = useState([]);
   const [activePlan, setActivePlan] = useState([]);
+
 
   // get all plans
   useEffect(() => {
