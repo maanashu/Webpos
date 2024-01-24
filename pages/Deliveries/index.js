@@ -30,6 +30,13 @@ const DeliverDashboard = () => {
   const [currentOrderCount, setcurrentOrderCount] = useState(null);
   const [orderStatData, setOrderStatData] = useState(null);
   const [graphData, setGraphData] = useState(null);
+  let [dataSets, setDataSets] = useState([]);
+  const [checked, setChecked] = useState({
+    Incoming: true,
+    Delivery: true,
+    Returned: true,
+    Cancelled: true,
+  });
   const [orderListType, setOrderListType] = useState({
     title: "Orders to review",
     status: "0",
@@ -99,6 +106,44 @@ const DeliverDashboard = () => {
           if (res) {
             console.log("Data-=-=-=", JSON.stringify(res));
             setGraphData(res?.data?.payload);
+            setDataSets([
+              {
+                fill: false,
+                label: "Incoming Orders",
+                data: res?.data?.payload?.datasets
+                  ? res?.data?.payload?.datasets[0]?.data
+                  : "",
+                borderColor: "#4659B5",
+                cubicInterpolationMode: "monotone",
+              },
+              {
+                fill: false,
+                label: "Delivery Orders",
+                data: res?.data?.payload?.datasets
+                  ? res?.data?.payload?.datasets[1]?.data
+                  : "",
+                borderColor: "#7233C2",
+                cubicInterpolationMode: "monotone",
+              },
+              {
+                fill: false,
+                label: "Returned Orders",
+                data: res?.data?.payload?.datasets
+                  ? res?.data?.payload?.datasets[2]?.data
+                  : "",
+                borderColor: "#F0C01A",
+                cubicInterpolationMode: "monotone",
+              },
+              {
+                fill: false,
+                label: "Cancelled Orders",
+                data: res?.data?.payload?.datasets
+                  ? res?.data?.payload?.datasets[3]?.data
+                  : "",
+                borderColor: "#F04438",
+                cubicInterpolationMode: "monotone",
+              },
+            ]);
           }
         },
       })
@@ -143,52 +188,29 @@ const DeliverDashboard = () => {
       },
     });
   };
-  const chartData = {
-    labels: graphData?.labels, // Assuming x values are the same for all datasets
-    datasets: [
-      {
-        fill: true,
-        label: "Incoming Orders",
-        data: graphData?.datasets ? graphData?.datasets[0]?.data : "",
-        borderColor: "#4659B5",
-        backgroundColor: "#4659B5",
-        cubicInterpolationMode: "monotone",
-      },
-      {
-        fill: true,
-        label: "Delivery Orders",
-        data: graphData?.datasets ? graphData?.datasets[1]?.data : "",
-        borderColor: "#7233C2",
-        backgroundColor: "#7233C2",
-        cubicInterpolationMode: "monotone",
-      },
-      {
-        fill: true,
-        label: "Returned Orders",
-        data: graphData?.datasets ? graphData?.datasets[2]?.data : "",
-        borderColor: "#F0C01A",
-        backgroundColor: "#F0C01A",
-        cubicInterpolationMode: "monotone",
-      },
-      {
-        fill: true,
-        label: "Cancelled Orders",
-        data: graphData?.datasets ? graphData?.datasets[3]?.data : "",
-        borderColor: "#F04438",
-        backgroundColor: "#F04438",
-        cubicInterpolationMode: "monotone",
-      },
-    ],
+  const handelDataSetChange = (e, value, num, color) => {
+    console.log(value, e.target.checked);
+    if (e.target.checked) {
+      setDataSets([
+        ...dataSets,
+        {
+          fill: false,
+          label: value,
+          data: graphData?.datasets ? graphData.datasets[num]?.data : "",
+          borderColor: color,
+        },
+      ]);
+      console.log(dataSets);
+    } else {
+      setDataSets(dataSets.filter((item) => item.label !== value));
+    }
   };
+
   const options = {
     responsive: true,
-
     plugins: {
       legend: {
-        display: true,
-        labels: {
-          usePointStyle: true, // Use point style for legend items (checkbox-like)
-        },
+        display: false,
       },
     },
     scales: {
@@ -381,12 +403,103 @@ const DeliverDashboard = () => {
                       </label>
                     </div>
                   </form> */}
+                  <form className="deliverCheck">
+                    <div className="form-group checkBlue">
+                      <input
+                        type="checkbox"
+                        id="Incoming Orders"
+                        checked={checked.Incoming}
+                        onChange={(e) => {
+                          handelDataSetChange(
+                            e,
+                            "Incoming Orders",
+                            0,
+                            "#4659B5"
+                          );
+                          setChecked({
+                            ...checked,
+                            Incoming: checked.Incoming === true ? false : true,
+                          });
+                        }}
+                      />
+                      <label for="Incoming Orders" className="appointSub  m-0">
+                        Incoming Orders
+                      </label>
+                    </div>
+                    <div className="form-group checkBlue checkPurple">
+                      <input
+                        type="checkbox"
+                        id="Delivery Orders"
+                        checked={checked.Delivery}
+                        onChange={(e) => {
+                          handelDataSetChange(
+                            e,
+                            "Delivery Orders",
+                            1,
+                            "#7233C2"
+                          );
+                          setChecked({
+                            ...checked,
+                            Delivery: checked.Delivery === true ? false : true,
+                          });
+                        }}
+                      />
+                      <label for="Delivery Orders" className="appointSub  m-0">
+                        Delivery Orders
+                      </label>
+                    </div>
+                    <div className="form-group checkBlue checkYellow">
+                      <input
+                        type="checkbox"
+                        id="Returned Orders"
+                        checked={checked.Returned}
+                        onChange={(e) => {
+                          handelDataSetChange(
+                            e,
+                            "Returned Orders",
+                            2,
+                            "#F0C01A"
+                          );
+                          setChecked({
+                            ...checked,
+                            Returned: checked.Returned === true ? false : true,
+                          });
+                        }}
+                      />
+                      <label for="Returned Orders" className="appointSub  m-0">
+                        Returned Orders
+                      </label>
+                    </div>
+                    <div className="form-group checkBlue checkRed">
+                      <input
+                        type="checkbox"
+                        id="Cancelled Orders"
+                        checked={checked.Cancelled}
+                        onChange={(e) => {
+                          handelDataSetChange(
+                            e,
+                            "Cancelled Orders",
+                            3,
+                            "#F04438"
+                          );
+                          setChecked({
+                            ...checked,
+                            Cancelled:
+                              checked.Cancelled === true ? false : true,
+                          });
+                        }}
+                      />
+                      <label for="Cancelled Orders" className="appointSub  m-0">
+                        Cancelled Orders
+                      </label>
+                    </div>
+                  </form>
                   <div className="barChartGraph">
                     <ChartCommon
                       className="col-md-12"
                       header=""
                       options={options}
-                      data={chartData}
+                      data={{ labels: graphData?.labels, datasets: dataSets }}
                       chartType="Line"
                     />
                   </div>
