@@ -97,16 +97,16 @@ const Analytics = () => {
     const TotalInventoryAnalytics = {
         labels: [],
         datasets: [
-          {
-            fill: true,
-            label: "Inventory",
-            data: [],
-            borderColor: "#275AFF",
-            backgroundColor: "#FFFFFF00",
-            cubicInterpolationMode: "monotone",
-          },
+            {
+                fill: true,
+                label: "Inventory",
+                data: [],
+                borderColor: "#275AFF",
+                backgroundColor: "#FFFFFF00",
+                cubicInterpolationMode: "monotone",
+            },
         ],
-      };
+    };
 
     const DeliveryOrderAnalytics = {
         labels: analyticsOrderData?.delivery_graph?.graph_data?.labels,
@@ -401,7 +401,7 @@ const Analytics = () => {
 
 
     useEffect(() => {
-        if(sellerId){
+        if (sellerId) {
             newUserDataHandle();
             orderAnalyticsHandle();
             totalOrderAnalyticsHandle();
@@ -495,7 +495,7 @@ const Analytics = () => {
 
                 <div className="col-lg-4 col-md-6 col-12 mt-4">
                     <div className="chartsOuter"
-                      onClick={() => router.push("/analytics/totalPosOrder")}
+                        onClick={() => router.push("/analytics/totalPosOrder")}
                     >
                         <h4 className="expectedHeading ">Total POS Orders</h4>
                         <h4 className="successMain">
@@ -517,7 +517,7 @@ const Analytics = () => {
 
                 <div className="col-lg-4 col-md-6 col-12 mt-4">
                     <div className="chartsOuter"
-                                          onClick={() => router.push("/analytics/totalDeliveryOrder")}>
+                        onClick={() => router.push("/analytics/totalDeliveryOrder")}>
                         <h4 className="expectedHeading ">Total Delivery Orders</h4>
                         <h4 className="successMain">
                             {" "}
@@ -538,7 +538,7 @@ const Analytics = () => {
 
                 <div className="col-lg-4 col-md-6 col-12 mt-4">
                     <div className="chartsOuter"
-                                          onClick={() => router.push("/analytics/totalShippingOrder")}>
+                        onClick={() => router.push("/analytics/totalShippingOrder")}>
                         <h4 className="expectedHeading ">Total Shipping Orders</h4>
                         <h4 className="successMain">
                             {" "}
@@ -559,7 +559,7 @@ const Analytics = () => {
 
                 <div className="col-lg-4 col-md-6 col-12 mt-4">
                     <div className="chartsOuter"
-                    onClick={() => router.push("/analytics/totalOrder")}>
+                        onClick={() => router.push("/analytics/totalOrder")}>
                         <h4 className="expectedHeading ">Total Orders</h4>
                         <h4 className="successMain">
                             {" "}
@@ -581,7 +581,7 @@ const Analytics = () => {
 
                 <div className="col-lg-4 col-md-6 col-12 mt-4">
                     <div className="chartsOuter"
-                    onClick={() => router.push("/analytics/totalInventory")}>
+                        onClick={() => router.push("/analytics/totalInventory")}>
                         <h4 className="expectedHeading ">Total Inventory</h4>
                         <h4 className="successMain">
                             {" "}

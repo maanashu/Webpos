@@ -114,54 +114,56 @@ const Verify = () => {
   return (
     <>
       <ProtectedRoute>
-      <div className='verifyOtpSection loginPasswordOtp'>
-        <div className='loginOtpSub'>
-          <div className='loginheading'>Welcome to <span>JOBR POS</span></div>
-          <div className='verifyBox'>
-            <h1 className='verifyHeading'> Password</h1>
-            <h4 className='verifySub'>Please enter the 4 digit code </h4>
-            <form className='otpForm'>
-              <div className='otpMain'>
-                <div className="verify-part">
-                  <div className="verify-box text-center">
-                    <div className="pin-box d-flex justify-content-center" >
-                      <OTPInput numInputs={4}
-                        className='input_digits_'
-                        value={posSecurityPin}
-                        data-cy="pin-field"
-                        name={generateRandomName()}
-                        autoComplete="new-password"
-                        isInputNum={true}
-                        isInputSecure={true}
-                        renderInput={(props) => <input {...props} type="text" maxLength={4} />}
-                        onChange={onComplete}
-                      // onComplete={(code) => onComplete(code)}
-                      />
+        <div className='verifyOtpSection loginPasswordOtp'>
+          <div className='loginOtpSub'>
+            <div className='loginheading'>Welcome to <span>JOBR POS</span></div>
+            <div className='verifyBox'>
+              <h1 className='verifyHeading'> Password</h1>
+              <h4 className='verifySub'>Please enter the 4 digit code </h4>
+              <form className='otpForm'>
+                <div className='otpMain'>
+                  <div className="verify-part">
+                    <div className="verify-box text-center">
+                      <div className="pin-box d-flex justify-content-center" >
+                        <OTPInput numInputs={4}
+                          className='input_digits_'
+                          value={posSecurityPin}
+                          data-cy="pin-field"
+                          name={generateRandomName()}
+                          autoComplete="new-password"
+                          isInputNum={true}
+                          isInputSecure={true}
+                          renderInput={(props) => <input {...props} type="text" maxLength={4} />}
+                          onChange={onComplete}
+                        // onComplete={(code) => onComplete(code)}
+                        />
+                      </div>
                     </div>
                   </div>
                 </div>
-
-              </div>
-              <div className='verifyBtn'>
-                <button className='backverifyBtn w-100' type='button' onClick={() => router.push(`/auth/login`)}>
-                  <Image src={Images.DarkLeft} alt="leftArrow" className="img-fluid leftImg" />
-                  Back
-                </button>
-
-                {authData.loading ?
-                  <button className='nextverifyBtn w-100' type='button' disabled>
-                    <span className="spinner-border spinner-border-sm"></span>
-                  </button> :
-                  <button className='nextverifyBtn w-100' type='button' onClick={() => enterPinSubmit()} >
-                    Next
-                    <Image src={Images.ArrowRight} alt="rightArrow" className="img-fluid rightImg" />
+                <div className='verifyBtn'>
+                  <button className='backverifyBtn w-100' type='button' onClick={() => router.push(`/auth/login`)}>
+                    <Image src={Images.DarkLeft} alt="leftArrow" className="img-fluid leftImg" />
+                    Back
                   </button>
-                }
-              </div>
-            </form>
+
+                  {authData.loading ?
+                    <button className='nextverifyBtn w-100' type='button' disabled>
+                      <span className="spinner-border spinner-border-sm"></span>
+                    </button> :
+                    <button className='nextverifyBtn w-100' type='button' onClick={() => enterPinSubmit()} >
+                      Next
+                      <Image src={Images.ArrowRight} alt="rightArrow" className="img-fluid rightImg" />
+                    </button>
+                  }
+                </div>
+              </form>
+            </div>
+          </div>
+          <div className='loginLogo'>
+            <Image src={Images.headLogo} className='img-fluid' alt='headLogo image' />
           </div>
         </div>
-      </div>
       </ProtectedRoute>
 
       <CustomModal

@@ -8,7 +8,16 @@ import { useRouter } from "next/router";
 import { useDispatch, useSelector } from "react-redux";
 import { deliveryData, getOrdersList } from "../../../redux/slices/delivery";
 import { selectLoginAuth } from "../../../redux/slices/auth";
-
+export const deliveryDrawerStatus = [
+  "Orders to review",
+  "Order Accepted",
+  "Orders Prepared",
+  "Assign to Driver",
+  "Picked up",
+  "Delivered",
+  "Rejected/Cancelled",
+  "Returned",
+];
 const DeliveryRightSidebar = ({ setOrderListType }) => {
   const dispatch = useDispatch();
   const [activeSidebar, setActiveSidebar] = useState(true);
@@ -16,16 +25,7 @@ const DeliveryRightSidebar = ({ setOrderListType }) => {
   const uniqueId = authData?.usersInfo?.payload?.uniqe_id;
   const { drawerOrderCount } = useSelector(deliveryData);
   const statusDrawer = drawerOrderCount?.status_count ?? [];
-  const deliveryDrawerStatus = [
-    "Orders to review",
-    "Order Accepted",
-    "Orders Prepared",
-    "Assign to Driver",
-    "Picked up",
-    "Delivered",
-    "Rejected/Cancelled",
-    "Returned",
-  ];
+
   const getOrderList = (status) => {
     let orderListParam = {
       status: status,
