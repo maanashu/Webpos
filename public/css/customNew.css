@@ -5220,5 +5220,7 @@ figure {
   border: 1px solid var(--Neutrals-N-100, #d7deff);
   margin-top: 40px;
 }
-
+.backarrow-plan{
+  cursor: pointer;
+}
 /*gaurav arora sir css end*/

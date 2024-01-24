@@ -15,17 +15,86 @@ import {
   setGetStaffDetails,
   setGetLocationDetails,
   setUpdateLocationSetting,
-  setViewPayment
+  setViewPayment,
+  setGetAllPlans,
+  setSubScribePlan,
+  setGetActivePlan,
 } from "../../slices/setting";
 import { toast } from "react-toastify";
 import {
   ORDER_API_URL,
   AUTH_API_URL,
   USER_SERVICE_URL,
+  WALLET_API_URL,
 } from "../../../utilities/config";
-import queryString from 'query-string';
+import queryString from "query-string";
 
 // security module generator function start........................
+
+function* getActivePlan(action) {
+  const dataToSend = { ...action.payload };
+  delete dataToSend.cb;
+  try {
+    const resp = yield call(
+      ApiClient.get,
+      `${WALLET_API_URL}/api/v1/subscription/active`
+    );
+    if (resp.status) {
+      yield put(setGetActivePlan(resp?.data?.payload));
+      yield call(action.payload.cb, (action.res = resp));
+      // toast.success(resp?.data?.msg);
+    } else {
+      throw resp;
+    }
+  } catch (e) {
+    yield put(onErrorStopLoad());
+    toast.error(e?.error?.response?.data?.msg);
+  }
+}
+
+function* subScribePlan(action) {
+  const dataToSend = { ...action.payload };
+  delete dataToSend.cb;
+  try {
+    const resp = yield call(
+      ApiClient.post,
+      `${WALLET_API_URL}/api/v1/subscription`,
+      (action.payload = action.payload)
+    );
+    if (resp.status) {
+      yield put(setSubScribePlan(resp.data));
+      yield call(action.payload.cb, (action.res = resp));
+      toast.success(resp?.data?.msg);
+    } else {
+      throw resp;
+    }
+  } catch (e) {
+    yield put(onErrorStopLoad());
+    toast.error(e?.error?.response?.data?.msg);
+  }
+}
+
+function* getAllPlans(action) {
+  const dataToSend = { ...action.payload };
+  delete dataToSend.cb;
+  try {
+    const resp = yield call(
+      ApiClient.get,
+      `${WALLET_API_URL}/api/v1/plans?tenure=${action.payload.tenure}`
+    );
+    if (resp.status) {
+      yield put(setGetAllPlans(resp.data?.payload));
+      yield call(action.payload.cb, (action.res = resp));
+      // toast.success(resp?.data?.msg);
+    } else {
+      throw resp;
+    }
+  } catch (e) {
+    yield put(onErrorStopLoad());
+    toast.error(e?.error?.response?.data?.msg);
+  }
+}
+
 function* getSecuritySettingInfo(action) {
   const dataToSend = { ...action.payload };
   delete dataToSend.cb;
@@ -312,11 +381,13 @@ function* viewPayment(action) {
   const dataToSend = { ...action.payload };
   delete dataToSend.cb;
   let query = queryString.stringify(dataToSend);
-  console.log(query, 'action in view');
+  console.log(query, "action in view");
   try {
     const resp = yield call(
       ApiClient.get,
-      `${AUTH_API_URL}/api/v1/pos_staff_salary/pos/paid-salary-details` + "?" + query,
+      `${AUTH_API_URL}/api/v1/pos_staff_salary/pos/paid-salary-details` +
+        "?" +
+        query
     );
     if (resp.status) {
       yield put(setViewPayment(resp.data));
@@ -350,8 +421,10 @@ function* settingSaga() {
     // setting/location API START
     takeLatest("setting/getLocationDetails", getLocationDetails),
     takeLatest("setting/updateLocationSetting", updateLocationSetting),
-
     takeLatest("setting/updateSettings", updateSettings),
+    takeLatest("setting/getAllPlans", getAllPlans),
+    takeLatest("setting/subScribePlan", subScribePlan),
+    takeLatest("setting/getActivePlan", getActivePlan),
   ]);
 }
 
