@@ -343,6 +343,16 @@ import postMotor from "../public/images/postMotor.svg";
 import Receiptbill from "../public/images/Receiptbill.png";
 import cloudImg from "../public/images/cloudImg.svg";
 import headLogo from "../public/images/headLogo.svg";
+import grossprofit from "../public/images/grossprofit.svg";
+import totalrevenue from "../public/images/totalrevenue.svg";
+import totalsale from "../public/images/totalsale.svg";
+import salebychannel from "../public/images/salebychannel.svg";
+import averageorder from "../public/images/averageorder.svg";
+import topsales from "../public/images/topsales.svg";
+import saleLocation from "../public/images/saleLocation.svg";
+import totalOrders from "../public/images/totalOrders.svg";
+import totalCost from "../public/images/totalCost.svg";
+
 
 export {
   headLogo,
@@ -685,4 +695,13 @@ export {
   orderFrequency,
   setreceipt,
   walletOuter,
+  grossprofit,
+  totalrevenue,
+  totalsale,
+  salebychannel,
+  averageorder,
+  topsales,
+  saleLocation,
+  totalOrders,
+  totalCost
 };
