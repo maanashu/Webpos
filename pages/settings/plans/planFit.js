@@ -65,6 +65,7 @@ const PlanFit = ({ handleTouch }) => {
     );
   };
 
+  
   return (
     <>
       <div className="settingMain">
