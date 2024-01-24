@@ -9,6 +9,7 @@ import { useSelector } from "react-redux";
 import ButtonComponent from "./ButtonComponent";
 import MapleOrder from "../mapleOrder";
 import OrderDeliver from "../orderDeliver";
+import GoogleMap from "../../../components/commanComonets/GoogleMap/GoogleMap";
 
 const OrderDetail = ({
   orderDetails,
@@ -294,7 +295,8 @@ const OrderDetail = ({
     } else {
       return (
         <div className=" deliveryOuter assignMapRight ms-0">
-          <Image src={Images.map} alt="map Image" className="mapImg" />
+          <GoogleMap />
+          {/* <Image src={Images.map} alt="map Image" className="mapImg" /> */}
           <div className="orderStatusBox">
             <div className="orderFlex">
               <Image

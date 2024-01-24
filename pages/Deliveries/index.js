@@ -14,8 +14,10 @@ import { useDispatch, useSelector } from "react-redux";
 import { selectLoginAuth } from "../../redux/slices/auth";
 import OrderListItem from "./Component/OrderListItem";
 import NoOrderFound from "../../components/NoOrderFound";
+import ChartCommon from "../../components/commanComonets/ChartCommon";
 import Link from "next/link";
 import { useRouter } from "next/router";
+import { getShippingGraphData } from "../../redux/slices/shipping";
 const DeliverDashboard = () => {
   const router = useRouter();
 
@@ -27,6 +29,7 @@ const DeliverDashboard = () => {
   const [todayOrdersCount, setTodayOrdersCount] = useState(null);
   const [currentOrderCount, setcurrentOrderCount] = useState(null);
   const [orderStatData, setOrderStatData] = useState(null);
+  const [graphData, setGraphData] = useState(null);
   const [orderListType, setOrderListType] = useState({
     title: "Orders to review",
     status: "0",
@@ -38,7 +41,7 @@ const DeliverDashboard = () => {
     };
     let orderStatParam = {
       seller_id: uniqueId,
-      filter: "week",
+      filter: "year",
       delivery_option: "1,3",
     };
     let orderListParam = {
@@ -51,6 +54,11 @@ const DeliverDashboard = () => {
     let orderCountparams = {
       seller_id: uniqueId,
       delivery_option: "1,3",
+    };
+    let graphParams = {
+      seller_id: uniqueId,
+      filter: "year",
+      delivery_option: "3",
     };
     dispatch(
       getTodayOrderCount({
@@ -77,11 +85,25 @@ const DeliverDashboard = () => {
         ...orderStatParam,
         cb(res) {
           if (res) {
-            setOrderStatData(res?.data?.payload);
+            console.log("responeee", JSON.stringify(res));
+            setOrderStatData(res?.data?.payload?.data);
           }
         },
       })
     );
+
+    dispatch(
+      getShippingGraphData({
+        ...graphParams,
+        cb(res) {
+          if (res) {
+            console.log("Data-=-=-=", JSON.stringify(res));
+            setGraphData(res?.data?.payload);
+          }
+        },
+      })
+    );
+
     dispatch(
       getOrdersList({
         ...orderListParam,
@@ -120,6 +142,76 @@ const DeliverDashboard = () => {
         // Add more properties as needed
       },
     });
+  };
+  const chartData = {
+    labels: graphData?.labels, // Assuming x values are the same for all datasets
+    datasets: [
+      {
+        fill: true,
+        label: "Incoming Orders",
+        data: graphData?.datasets ? graphData?.datasets[0]?.data : "",
+        borderColor: "#4659B5",
+        backgroundColor: "#4659B5",
+        cubicInterpolationMode: "monotone",
+      },
+      {
+        fill: true,
+        label: "Delivery Orders",
+        data: graphData?.datasets ? graphData?.datasets[1]?.data : "",
+        borderColor: "#7233C2",
+        backgroundColor: "#7233C2",
+        cubicInterpolationMode: "monotone",
+      },
+      {
+        fill: true,
+        label: "Returned Orders",
+        data: graphData?.datasets ? graphData?.datasets[2]?.data : "",
+        borderColor: "#F0C01A",
+        backgroundColor: "#F0C01A",
+        cubicInterpolationMode: "monotone",
+      },
+      {
+        fill: true,
+        label: "Cancelled Orders",
+        data: graphData?.datasets ? graphData?.datasets[3]?.data : "",
+        borderColor: "#F04438",
+        backgroundColor: "#F04438",
+        cubicInterpolationMode: "monotone",
+      },
+    ],
+  };
+  const options = {
+    responsive: true,
+
+    plugins: {
+      legend: {
+        display: true,
+        labels: {
+          usePointStyle: true, // Use point style for legend items (checkbox-like)
+        },
+      },
+    },
+    scales: {
+      y: {
+        border: {
+          dash: [2, 2],
+          display: false,
+          color: "rgba(180, 190, 235, 1)",
+        }, // for the grid lines
+        beginAtZero: true,
+      },
+      x: {
+        grid: {
+          display: false,
+        },
+        border: {
+          display: false,
+        },
+        ticks: {
+          color: "#7E8AC1",
+        },
+      },
+    },
   };
 
   return (
@@ -237,7 +329,7 @@ const DeliverDashboard = () => {
                     <h4 className="orderDeliverText">Delivery Order</h4>
                     <div className="deliverPercent">
                       {orderStatData?.length > 0
-                        ? orderStatData?.[0]?.count
+                        ? ` ${parseInt(orderStatData?.[0]?.percentage)} %`
                         : "0%"}
                     </div>
                   </div>
@@ -245,7 +337,7 @@ const DeliverDashboard = () => {
                     <h4 className="orderDeliverText">Returned</h4>
                     <div className="deliverPercent">
                       {orderStatData?.length > 0
-                        ? orderStatData?.[1]?.count
+                        ? ` ${parseInt(orderStatData?.[1]?.percentage)} %`
                         : "0%"}
                     </div>
                   </div>
@@ -253,7 +345,7 @@ const DeliverDashboard = () => {
                     <h4 className="orderDeliverText">Cancelled</h4>
                     <div className="deliverPercent">
                       {orderStatData?.length > 0
-                        ? orderStatData?.[2]?.count
+                        ? ` ${parseInt(orderStatData?.[2]?.percentage)} %`
                         : "0%"}
                     </div>
                   </div>
@@ -263,7 +355,7 @@ const DeliverDashboard = () => {
             <div className="col-lg-8">
               <div className=" deliveryOuter deliverRight ms-0">
                 <div className="deliverGraphSection">
-                  <form className="deliverCheck">
+                  {/* <form className="deliverCheck">
                     <div className="form-group checkBlue">
                       <input type="checkbox" id="Incoming Orders" />
                       <label for="Incoming Orders" className="appointSub  m-0">
@@ -288,12 +380,14 @@ const DeliverDashboard = () => {
                         Cancelled Orders
                       </label>
                     </div>
-                  </form>
+                  </form> */}
                   <div className="barChartGraph">
-                    <Image
-                      src={Images.barChart}
-                      alt="barChart image"
-                      className="barChartImg"
+                    <ChartCommon
+                      className="col-md-12"
+                      header=""
+                      options={options}
+                      data={chartData}
+                      chartType="Line"
                     />
                   </div>
                 </div>
