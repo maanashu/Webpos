@@ -140,7 +140,6 @@ a {
   background: #b4beeb;
   right: -15px;
 }
-
 .timeHeading span {
   font-weight: 500;
 }
@@ -155,7 +154,6 @@ a {
   border: none;
 }
 /*header css end*/
-
 /* SwitchToggle.css */
 .switch-container {
   display: flex;

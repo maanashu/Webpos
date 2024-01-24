@@ -4,11 +4,12 @@ import Image from "next/image";
 import ShipRightSidebar from '../../components/commanComonets/Shipping/shipRightSidebar';
 import { useDispatch, useSelector } from 'react-redux';
 import { selectLoginAuth } from '../../redux/slices/auth';
-import { getShippingsSidebarCount, selectsShippingData } from '../../redux/slices/shipping';
-import { getOrdersList } from '../../redux/slices/delivery';
+import { getShippingGraphData, getShippingsSidebarCount, getShippingsStatus, getShippingstodayStatus, selectsShippingData } from '../../redux/slices/shipping';
+import { getCurrentOrderStatus, getOrderStat, getOrdersList, getTodayOrderCount } from '../../redux/slices/delivery';
 import NoOrderFound from '../../components/NoOrderFound';
 import OrderListItem from '../Deliveries/Component/OrderListItem';
 import { useRouter } from 'next/router';
+import ChartCommon from '../../components/commanComonets/ChartCommon';
 
 const Shipping = () => {
     const dispatch = useDispatch()
@@ -17,7 +18,13 @@ const Shipping = () => {
     const [orderLoading, setOrderLoading] = useState(false);
     const [orderData, setOrderData] = useState([]);
     const [orderCount, setOrderCount] = useState([]);
+    const [todayOrdersCount, setTodayOrdersCount] = useState([]);
+    const [currentOrderCount, setcurrentOrderCount] = useState([]);
+    console.log(todayOrdersCount, 'todayOrdersCount');
     const shippingData = useSelector(selectsShippingData);
+    const [orderStatData, setOrderStatData] = useState([]);
+    const [graphData, setGraphData] = useState('');
+    console.log(graphData,'graph data');
     const sellerUid = authData?.usersInfo?.payload?.uniqe_id;
     const customerSidebardata = shippingData?.sidebarCountData?.payload
     const [orderListType, setOrderListType] = useState({
@@ -35,6 +42,58 @@ const Shipping = () => {
             },
         });
     };
+
+    const chartData = {
+        labels: graphData?.labels, // Assuming x values are the same for all datasets
+        datasets: [
+            {
+                fill: true,
+                label: 'Incoming Orders',
+                data: graphData?.datasets ? graphData?.datasets[0]?.data : "",
+                borderColor: '#4659B5',
+                backgroundColor: '#4659B5',
+                cubicInterpolationMode: 'monotone',
+            },
+            {
+                fill: true,
+                label: 'Delivery Orders',
+                data: graphData?.datasets ? graphData?.datasets[1]?.data : "",
+                borderColor: '#7233C2',
+                backgroundColor: '#7233C2',
+                cubicInterpolationMode: 'monotone',
+            },
+            {
+                fill: true,
+                label: 'Returned Orders',
+                data: graphData?.datasets ? graphData?.datasets[2]?.data : "",
+                borderColor: '#F0C01A',
+                backgroundColor: '#F0C01A',
+                cubicInterpolationMode: 'monotone',
+            },
+            {
+                fill: true,
+                label: 'Cancelled Orders',
+                data: graphData?.datasets ? graphData?.datasets[3]?.data : "",
+                borderColor: '#F04438',
+                backgroundColor: '#F04438',
+                cubicInterpolationMode: 'monotone',
+            },
+        ],
+    };
+
+    const options = {
+        scales: {
+            x: {
+                type: 'linear',
+                position: 'bottom',
+            },
+            y: {
+                type: 'linear',
+                position: 'left',
+            },
+        },
+    };
+
     const getAllShippingOrdeshandle = () => {
         let orderListParam = {
             seller_id: sellerUid,
@@ -62,7 +121,6 @@ const Shipping = () => {
             getShippingsSidebarCount({
                 ...orderParam,
                 cb(res) {
-                    console.log(res, 'ressssssssssssssss');
                     if (res) {
                         setOrderCount(res?.data?.payload);
                     }
@@ -70,11 +128,81 @@ const Shipping = () => {
             })
         );
     }
-
+    const todayOrdersHandle = () => {
+        let countparams = {
+            seller_id: sellerUid,
+            type: 'shipping'
+        };
+        dispatch(
+            getShippingstodayStatus({
+                ...countparams,
+                cb(res) {
+                    if (res) {
+                        console.log(res, 'ressssssssss');
+                        setTodayOrdersCount(res?.data?.payload);
+                    }
+                },
+            })
+        );
+    }
+    const orderStatHandle = () => {
+        let orderStatParam = {
+            seller_id: sellerUid,
+            filter: "week",
+            delivery_option: "4",
+        };
+        dispatch(
+            getOrderStat({
+                ...orderStatParam,
+                cb(res) {
+                    if (res) {
+                        setOrderStatData(res?.data?.payload?.data);
+                    }
+                },
+            })
+        );
+    }
+    const currentStatusHandle = () => {
+        let params = {
+            seller_id: sellerUid,
+            type: 'current'
+        };
+        dispatch(
+            getShippingsStatus({
+                ...params,
+                cb(res) {
+                    if (res) {
+                        setcurrentOrderCount(res?.data?.payload);
+                    }
+                },
+            })
+        );
+    }
+    const ordersGraphHandle = () => {
+        let params = {
+            seller_id: sellerUid,
+            filter: "year",
+            delivery_option: "4",
+        };
+        dispatch(
+            getShippingGraphData({
+                ...params,
+                cb(res) {
+                    if (res) {
+                        setGraphData(res?.data?.payload);
+                    }
+                },
+            })
+        );
+    }
     useEffect(() => {
         if (sellerUid) {
             getAllShippingOrdeshandle()
             getAllShippingOrdesCountHandle()
+            todayOrdersHandle()
+            currentStatusHandle()
+            orderStatHandle()
+            ordersGraphHandle()
         }
     }, [sellerUid, orderListType]);
 
@@ -86,46 +214,35 @@ const Shipping = () => {
                     <div className='deliverLeft deliveryOuter me-0'>
                         <div className='deliverOrderStatus'>
                             <h4 className='customerLink text-start'>Today Shipping Status</h4>
-                            <div className='flexDiv mt-4'>
-                                <h4 className='deliverMainText'>Shipping Order</h4>
-                                <h4 className='deliverMainText'>23</h4>
-                            </div>
-                            <div className='flexDiv mt-3'>
-                                <h4 className='deliverMainText'>Shipped Orders</h4>
-                                <h4 className='deliverMainText'>10</h4>
-                            </div>
+                            {
+                                todayOrdersCount?.length > 0 ?
+                                    todayOrdersCount?.map((v, i) => {
+                                        return (
+                                            <div className="flexDiv mt-4">
+                                                <h4 className="deliverMainText">{v?.type === "shipping_orders_count" ? "Shipping Orders" : "Shipped Orders"}</h4>
+                                                <h4 className="deliverMainText">{v?.count}</h4>
+                                            </div>
+                                        )
+                                    }) : <></>
+                            }
                         </div>
                         <div className='currentStatus'>
                             <h4 className='customerLink text-start'>Current Status</h4>
                             <div className='currentSubStatus'>
-                                <div className='pickupDeliver'>
-                                    <Image src={Images.shipDhl} alt="pickupImg image" className="img-fluid shipPickImg" />
-                                    <div className='expressMain'>
-                                        <h4 className='amountText ms-0'>DHL</h4>
-                                        <h4 className='providerSubText text-start mt-2'> 17 Shippings</h4>
-                                    </div>
-                                </div>
-                                <div className='pickupDeliver'>
-                                    <Image src={Images.shipUps} alt="pickupImg image" className="img-fluid shipPickImg" />
-                                    <div className='expressMain'>
-                                        <h4 className='amountText ms-0'>UPS</h4>
-                                        <h4 className='providerSubText text-start mt-2'> 17 Shippings</h4>
-                                    </div>
-                                </div>
-                                <div className='pickupDeliver'>
-                                    <Image src={Images.shipFed} alt="pickupImg image" className="img-fluid shipPickImg" />
-                                    <div className='expressMain'>
-                                        <h4 className='amountText ms-0'>FedEx</h4>
-                                        <h4 className='providerSubText text-start mt-2'> 17 Shippings</h4>
-                                    </div>
-                                </div>
-                                <div className='pickupDeliver'>
-                                    <Image src={Images.shipUsps} alt="pickupImg image" className="img-fluid shipPickImg" />
-                                    <div className='expressMain'>
-                                        <h4 className='amountText ms-0'>USPS</h4>
-                                        <h4 className='providerSubText text-start mt-2'>17 Shippings</h4>
-                                    </div>
-                                </div>
+                                {
+                                    currentOrderCount?.length > 0 ?
+                                        currentOrderCount?.map((v, i) => {
+                                            return (
+                                                <div key={i} className='pickupDeliver'>
+                                                    <Image width={50} height={50} src={v?.shipping_image} alt="pickupImg image" className="img-fluid shipPickImg" />
+                                                    <div className='expressMain'>
+                                                        <h4 className='amountText ms-0'>{v?.shiping_name}</h4>
+                                                        <h4 className='providerSubText text-start mt-2'> {v?.count}</h4>
+                                                    </div>
+                                                </div>
+                                            )
+                                        }) : <></>
+                                }
                             </div>
                         </div>
                         <div className='deliverOrder'>
@@ -133,18 +250,17 @@ const Shipping = () => {
                             <div className="deliverGraph" >
                                 <Image src={Images.garphCircle} alt="pickupImg image" className="img-fluid graphCircleImg" />
                             </div>
-                            <div className='flexDiv mt-3'>
-                                <h4 className='orderDeliverText'>Delivery Order</h4>
-                                <div className='deliverPercent'>88%</div>
-                            </div>
-                            <div className='flexDiv returnOrder mt-3'>
-                                <h4 className='orderDeliverText'>Returned</h4>
-                                <div className='deliverPercent'>88%</div>
-                            </div>
-                            <div className='flexDiv cancelOrder mt-3'>
-                                <h4 className='orderDeliverText'>Cancelled</h4>
-                                <div className='deliverPercent'>88%</div>
-                            </div>
+                            {
+                                orderStatData?.length > 0 ?
+                                    orderStatData?.filter(item => (item?.title === 'Deliverd Order' || item?.title === 'Returned Order' || item?.title === 'Cancelled Order'))?.map((v, i) => {
+                                        return (
+                                            <div key={i} className={`flexDiv ${v?.title === 'Returned Order' ? "returnOrder" : v?.title === 'Cancelled Order' ? "cancelOrder" : ""} mt-3`}>
+                                                <h4 className='orderDeliverText'>{v?.title}</h4>
+                                                <div className='deliverPercent'>{v?.percentage}%</div>
+                                            </div>
+                                        )
+                                    }) : <></>
+                            }
                         </div>
                     </div>
                 </div>
@@ -152,7 +268,7 @@ const Shipping = () => {
                     <div className=' deliveryOuter deliverRight ms-0'>
                         <div className='deliverGraphSection'>
                             <form className='deliverCheck'>
-                                <div className="form-group checkBlue">
+                                {/* <div className="form-group checkBlue">
                                     <input type="checkbox" id="Incoming Orders" />
                                     <label for="Incoming Orders" className='appointSub  m-0'>Incoming Orders</label>
                                 </div>
@@ -167,10 +283,18 @@ const Shipping = () => {
                                 <div className="form-group checkBlue checkRed">
                                     <input type="checkbox" id="Cancelled Orders" />
                                     <label for="Cancelled Orders" className='appointSub  m-0'>Cancelled Orders</label>
-                                </div>
+                                </div> */}
                             </form>
                             <div className='barChartGraph'>
-                                <Image src={Images.barChart} alt="barChart image" className="barChartImg" />
+                                {/* <Image src={Images.barChart} alt="barChart image" className="barChartImg" /> */}
+                                {/* <Line data={chartData} options={options} /> */}
+                                <ChartCommon
+                                    className="col-md-12"
+                                    header=""
+                                    options={options}
+                                    data={chartData}
+                                    chartType="Line"
+                                />
                             </div>
                         </div>
                         <div className='deliverOrderData'>
