@@ -5,12 +5,15 @@ import Image from "next/image";
 import CustomModal from '../../components/customModal/CustomModal';
 import ConfirmShip from '../../components/modals/shipping/confirmShip';
 import { useRouter } from 'next/router';
-import { getOrdersList } from '../../redux/slices/delivery';
+import { acceptOrder, getOrdersList } from '../../redux/slices/delivery';
 import { selectLoginAuth } from '../../redux/slices/auth';
 import { useDispatch, useSelector } from 'react-redux';
 import NoOrderFound from '../../components/NoOrderFound';
 import { getOrderDetailsById } from '../../redux/slices/dashboard';
 import moment from 'moment-timezone';
+import { changeStatusOfOrder, getShippingsSidebarCount } from '../../redux/slices/shipping';
+import ShipRightSidebar from '../../components/commanComonets/Shipping/shipRightSidebar';
+import PrintLabelModal from '../../components/modals/shipping/printLabelModal';
 
 const OrderReview = () => {
     const router = useRouter();
@@ -20,10 +23,12 @@ const OrderReview = () => {
     const authData = useSelector(selectLoginAuth);
     const sellerUid = authData?.usersInfo?.payload?.uniqe_id;
     const [selectedItemId, setSelectedItemId] = useState(id)
+    const [orderCount, setOrderCount] = useState([]);
     console.log(selectedItemId, 'iddddddddddddddd');
     const [singleOrderData, setSingleOrderData] = useState('');
     console.log(singleOrderData, 'single order data');
     const [orderData, setOrderData] = useState([]);
+    const [printingUrl, setPrintingUrl] = useState("")
     const [key, setKey] = useState(Math.random());
     const [modalDetail, setModalDetail] = useState({
         show: false,
@@ -50,7 +55,22 @@ const OrderReview = () => {
         });
         setKey(Math.random());
     };
-
+    const getAllShippingOrdesCountHandle = () => {
+        let orderParam = {
+            seller_id: sellerUid,
+            delivery_option: "4"
+        };
+        dispatch(
+            getShippingsSidebarCount({
+                ...orderParam,
+                cb(res) {
+                    if (res) {
+                        setOrderCount(res?.data?.payload);
+                    }
+                },
+            })
+        );
+    }
     const getOrderDetailsByIdHandle = () => {
         let Param = {
             id: selectedItemId,
@@ -85,9 +105,30 @@ const OrderReview = () => {
         );
     }
 
+    const acceptHandler = (status) => {
+        let params = {
+            status: status,
+            orderId: selectedItemId
+        };
+        dispatch(
+            changeStatusOfOrder({
+                ...params,
+                cb(res) {
+                    if (res) {
+                        getOrderDetailsByIdHandle()
+                        getAllShippingOrdeshandle()
+                        getAllShippingOrdesCountHandle()
+                        console.log("screeen response", JSON.stringify(res));
+                    }
+                },
+            })
+        );
+    }
+
     useEffect(() => {
         if (sellerUid) {
             getAllShippingOrdeshandle()
+            getAllShippingOrdesCountHandle()
         }
     }, [sellerUid]);
 
@@ -328,14 +369,14 @@ const OrderReview = () => {
                                                 {
                                                     singleOrderData?.status === 0 ?
                                                         <div className='flexBox '>
-                                                            <button className='declineButton w-100' type='button'> Decline</button>
-                                                            <button type='button' className='BlueBtn w-100'>
+                                                            <button onClick={() => acceptHandler(8)} className='declineButton w-100' type='button'> Decline</button>
+                                                            <button onClick={() => acceptHandler(3)} type='button' className='BlueBtn w-100'>
                                                                 Accept Order
                                                                 <Image src={Images.ArrowRight} alt="ArrowRight" className="img-fluid ArrowRight" />
                                                             </button>
                                                         </div> :
                                                         singleOrderData?.status === 3 ?
-                                                            <button type='button ' className='pickupBtn w-100 mt-2'>
+                                                            <button onClick={() => { setPrintingUrl(singleOrderData?.label_url); setModalDetail({ show: true, flag: "printLabel" }); setKey(Math.random());acceptHandler(4) }} type='button ' className='pickupBtn w-100 mt-2'>
                                                                 Print Label
                                                                 <Image src={Images.btnSticker} alt="deliverHand image" className="img-fluid" />
                                                             </button> :
@@ -365,7 +406,7 @@ const OrderReview = () => {
                         </div>
                     </div>
                 </div>
-                <DeliveryRightSidebar />
+                <ShipRightSidebar data={orderCount} />
             </div>
             <CustomModal
                 key={key}
@@ -375,14 +416,19 @@ const OrderReview = () => {
                 isRightSideModal={true}
                 mediumWidth={false}
                 className={modalDetail.flag === "confirmship" ? "commonWidth customContent" : ""}
-                ids={modalDetail.flag === "confirmship" ? "confirmShipModal" : ""}
+                ids={modalDetail.flag === "confirmship" ? "confirmShipModal" : modalDetail.flag === "printLabel" ? "PrintLabel" : ""}
                 child={
-                    modalDetail.flag === "confirmship" ? (
-                        <ConfirmShip
+                    modalDetail.flag === "printLabel" ? (
+                        <PrintLabelModal printingUrl={printingUrl}
                             close={() => handleOnCloseModal()}
                         />
                     ) :
-                        ""
+                        modalDetail.flag === "confirmship" ? (
+                            <ConfirmShip
+                                close={() => handleOnCloseModal()}
+                            />
+                        ) :
+                            ""
                 }
                 header=
 
@@ -400,9 +446,20 @@ const OrderReview = () => {
                             </p>
                         </div>
 
-                    </>
-                    :
-                    ''
+                    </> :
+                    modalDetail.flag === "printLabel" ?
+                        <>
+                            <div className='headerLeft'>
+                                <h4 className='modalHeading_ me-3'>Print Label</h4>
+                            </div>
+
+                            <p style={{ cursor: "pointer" }} onClick={handleOnCloseModal} className='modal_cancel'>
+                                {/* <img src={modalCancel} className='ModalCancel' alt='modalcancelImg' /> */}
+                                X
+                            </p>
+                        </>
+                        :
+                        ''
                 }
                 onCloseModal={() => handleOnCloseModal()}
             />
