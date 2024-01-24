@@ -4348,6 +4348,7 @@ figure {
   background-color: #fff;
   height: 1px;
   width: 100%;
+  border-style: dashed;
 }
 
 #barcodeScanModal {
@@ -5254,5 +5255,17 @@ figure {
 .backarrow-plan {
   cursor: pointer;
 }
+.no-plan-found-section {
+  width: 100%;
+  height: 95vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 17px;
+}
 
+.no-plan-found-section button {
+  width: 200px;
+}
 /*gaurav arora sir css end*/
