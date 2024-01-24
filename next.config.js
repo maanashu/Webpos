@@ -19,6 +19,8 @@ module.exports = (phase, { defaultConfig }) => {
         "target.scene7.com",
         'parivaargroup.com',
         'flagcdn.com',
+        'upload.wikimedia.org',
+        "cloudfront-us-east-2.images.arcpublishing.com"
       ],
     },
     env: {
