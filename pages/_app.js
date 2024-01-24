@@ -30,11 +30,14 @@ function App({ Component, pageProps }) {
   const UniqueId = authData?.usersInfo?.payload?.uniqe_id
   const [loading, setLoading] = useState(true);
   const [activeSidebar, setActiveSidebar] = useState(true);
-  const [getSelectedLanguages, setGetSelectedLanguages] = useState()
+  const [getSelectedLanguages, setGetSelectedLanguages] = useState('')
+  const [languageCode, setLanguageCode] = useState("")
   // const Token = authData?.posUserLoginDetails?.payload?.token
   //   ? authData?.posUserLoginDetails?.payload?.token
   //   : "";
-  // const getSecuritySetting = () => {
+
+
+  // const getSecuritySetting = async () => {
   //   let params = {
   //     app_name: "pos",
   //     seller_id: UniqueId
@@ -43,60 +46,59 @@ function App({ Component, pageProps }) {
   //     ...params,
   //     cb(res) {
   //       if (res.status) {
-  //         console.log(res?.data?.payload, "res?.data?.payload");
-  //         setGetSelectedLanguages(res?.data?.payload?.languages)
+  //         const languageCode = res?.data?.payload?.languages?.map((item) => item?.lang_code)?.filter(val => val != null)
+
+  //         // Use Set to remove duplicates
+  //         const formattedLanguageCode = `'${languageCode}'`;
+  //         setLanguageCode(formattedLanguageCode)
+
+  //         if (formattedLanguageCode) {
+
+  //           const googleTranslateElementInit = () => {
+  //             new window.google.translate.TranslateElement(
+  //               {
+  //                 pageLanguage: 'en',
+  //                 autoDisplay: false,
+  //                 includedLanguages: formattedLanguageCode ? formattedLanguageCode : "en",
+  //                 layout: window.google.translate.TranslateElement.InlineLayout.SIMPLE,
+  //                 multilanguagePage: true,
+  //               },
+  //               'google_translate_element'
+  //             );
+  //           };
+
+  //           const addScript = document.createElement('script');
+  //           addScript.setAttribute(
+  //             'src',
+  //             '//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit'
+  //           );
+  //           document.body.appendChild(addScript);
+  //           window.googleTranslateElementInit = googleTranslateElementInit;
+  //         }
   //       }
   //     },
   //   })
   //   );
   // };
 
+  const toggleSidebar = () => {
+    setActiveSidebar((prev) => !prev);
+  };
+
+  useEffect(() => {
+    // Simulate an asynchronous delay (replace with actual authentication data fetching)
+    const delay = setTimeout(() => {
+      setLoading(false);
+    }, 100); // Adjust the delay time as needed
+
+    return () => clearTimeout(delay); // Clear the timeout if the component unmounts
+  }, []);
+
   // useEffect(() => {
   //   if (UniqueId) {
   //     getSecuritySetting();
   //   }
   // }, [UniqueId]);
-
-  const toggleSidebar = () => {
-    setActiveSidebar((prev) => !prev);
-  };
-
-  // const googleTranslateElementInit = () => {
-  //   new window.google.translate.TranslateElement(
-  //     {
-  //       pageLanguage: 'en',
-  //       autoDisplay: false,
-  //       includedLanguages: 'en,fr,es,de,it',
-  //       layout: window.google.translate.TranslateElement.InlineLayout.SIMPLE,
-  //       multilanguagePage: true,
-  //     },
-  //     'google_translate_element'
-  //   );
-  // };
-
-  // useEffect(() => {
-  //   const addScript = document.createElement('script');
-  //   addScript.setAttribute(
-  //     'src',
-  //     '//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit'
-  //   );
-  //   document.body.appendChild(addScript);
-  //   window.googleTranslateElementInit = googleTranslateElementInit;
-
-  //   return () => {
-  //     // Cleanup the script tag when the component unmounts
-  //     document.body.removeChild(addScript);
-  //   };
-  // }, []);
-
-  // useEffect(() => {
-  //   // Simulate an asynchronous delay (replace with actual authentication data fetching)
-  //   const delay = setTimeout(() => {
-  //     setLoading(false);
-  //   }, 100); // Adjust the delay time as needed
-
-  //   return () => clearTimeout(delay); // Clear the timeout if the component unmounts
-  // }, []);
 
   // const LayoutPaths = [
   //   "/home",

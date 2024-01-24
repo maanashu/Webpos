@@ -4,7 +4,7 @@ import Image from "next/image";
 import AddlanguageModal from './addlanguageModal';
 import CustomModal from "../../../components/customModal/CustomModal";
 import { selectLoginAuth } from '../../../redux/slices/auth';
-import { getSecuritySettingInfo, settingInfo } from '../../../redux/slices/setting';
+import { getSecuritySettingInfo, settingInfo, updateSettings } from '../../../redux/slices/setting';
 import { useDispatch, useSelector } from 'react-redux';
 
 const Language = () => {
@@ -14,7 +14,6 @@ const Language = () => {
     const UniqueId = authData?.usersInfo?.payload?.uniqe_id
     const [key, setKey] = useState(Math.random());
     const [getSelectedLanguages, setGetSelectedLanguages] = useState()
-    const [getLanguagesStatus, setGetLanguagesStatus] = useState("");
     const [modalDetail, setModalDetail] = useState({
         show: false,
         title: "",
@@ -41,11 +40,27 @@ const Language = () => {
         setKey(Math.random());
     };
 
-    const handleChangeLanguageStatus = (data) => {
-
-
+    // API for set selected Language Enable Disable...................................
+    const setLanguageEnableDisable = (data) => {
+        let params = {
+            languages: [
+                {
+                    id: data?.id,
+                    status: data?.status === 0 ? 1 : 0
+                }
+            ],
+        }
+        dispatch(updateSettings({
+            ...params, cb(res) {
+                if (res.status) {
+                    getselectedLang()
+                }
+            },
+        })
+        );
     }
 
+    // API for get selected Language from language list...................................
     const getselectedLang = () => {
         let params = {
             app_name: "pos",
@@ -55,7 +70,6 @@ const Language = () => {
             ...params,
             cb(res) {
                 if (res.status) {
-                    console.log(res?.data?.payload,"res?.data?.payload");
                     setGetSelectedLanguages(res?.data?.payload?.languages)
                 }
             },
@@ -77,32 +91,32 @@ const Language = () => {
                     <h4 className='appointMain'>Published Languages</h4>
                     <p className='lightOfferText mt-2'>Active in the markets they've been added to and visible to customers.</p>
                     <div className='languageMain mt-4'>
-                    {settingData?.loading ? (
-                        <>
-                            <div className="loaderOuter">
-                                <div className="spinner-grow loaderSpinner text-center my-5"></div>
-                            </div>
-                        </>
-                    ) : (
-                        getSelectedLanguages?.map((data, index) => {
-                            console.log(data,"datanaresh");
-                            return (
-                        <div className="taxCountryMain mb-3">
-                            <div className="operatingCountry">
-                                <Image src={data?.flag} className="countryImg" alt="countryImage" width={50} height = {50}/>
-                                <div className="countryText">
-                                    <h4 className="cancelOrderText">{data?.language} ({data?.country})</h4>
-                                    <h4 className="settingText mt-1">Default</h4>
+                        {settingData?.loading ? (
+                            <>
+                                <div className="loaderOuter">
+                                    <div className="spinner-grow loaderSpinner text-center my-5"></div>
                                 </div>
-                            </div>
-                            <div className="roundCheck mb-0">
-                                <input type="checkbox" checked={data?.status} onChange={(e) => {handleChangeLanguageStatus(data?.status)}}/>
-                                <label className='amountText d-none '></label>
-                            </div>
-                        </div>
-                          )
-                        })
-                    )}
+                            </>
+                        ) : (
+                            getSelectedLanguages?.map((data, index) => {
+                                console.log(data, "datanaresh");
+                                return (
+                                    <div className="taxCountryMain mb-3">
+                                        <div className="operatingCountry">
+                                            <Image src={data?.flag} className="countryImg" alt="countryImage" width={50} height={50} />
+                                            <div className="countryText">
+                                                <h4 className="cancelOrderText">{data?.language} ({data?.country})</h4>
+                                                <h4 className="settingText mt-1">Default</h4>
+                                            </div>
+                                        </div>
+                                        <div className="roundCheck mb-0">
+                                            <input type="checkbox" checked={data?.status} onChange={(e) => { setLanguageEnableDisable(data) }} />
+                                            <label className='amountText d-none '></label>
+                                        </div>
+                                    </div>
+                                )
+                            })
+                        )}
                         <div className='addlanguage_ mt-4 pt-2'>
                             <button className='addlangueBtn_' onClick={() => { handleUserProfile("addlanguageModal") }}>  <Image src={Images.addDark} className="countryImg me-3" alt="countryImage" /> <span>Add language</span></button>
                         </div>
