@@ -16,7 +16,7 @@ import {
 // import CustomModal from '../../customModal/CustomModal';
 // import AddProduct from '../../../components/';
 
-const RightSideBar = () => {
+const RightSideBar = (props) => {
   const dispatch = useDispatch();
   const retailData = useSelector(selectRetailData);
   const cartData = retailData?.productCart;
@@ -40,7 +40,7 @@ const RightSideBar = () => {
   };
   return (
     <>
-      <div className="sidebarRight">
+      <div className={props?.showSidebar ? "sidebarRight show" : "sidebarRight hide"}>
         <ListGroup>
           <ListGroupItem
             className="rightSidebarItems active"

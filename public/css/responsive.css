@@ -50,6 +50,11 @@
         width: 100%;
         min-width: 150px;
     }
+
+    .productSearchBx {
+        width: 100%;
+        max-width: 420px;
+    }
 }
 
 @media (max-width: 1400px) {
@@ -64,6 +69,11 @@
 
     .staffInfoBox::before {
         left: 30px;
+    }
+
+    .productSearchBx {
+        width: 100%;
+        max-width: 385px;
     }
 
 }
@@ -89,6 +99,11 @@
 
     .staffInfoBox::before {
         left: 45px;
+    }
+
+    .productSearchBx {
+        width: 100%;
+        max-width: 340px;
     }
 }
 
@@ -187,6 +202,11 @@
     .homeOverview .dayTimeText {
         font-size: 12px;
     }
+
+    .productSearchBx {
+        width: 100%;
+        max-width: 245px;
+    }
 }
 
 @media (max-width: 1200px) {
@@ -252,6 +272,11 @@
         margin-top: 10px;
         padding: 12px 50px;
     }
+
+    .productSearchBx {
+        width: 100%;
+        max-width: 215px;
+    }
 }
 
 @media (max-width: 1020px) {
@@ -282,6 +307,11 @@
 
     .navbar-nav .nav-item {
         padding: 0 10px;
+    }
+
+    .productSearchBx {
+        width: 100%;
+        max-width: 215px;
     }
 }
 
@@ -396,7 +426,7 @@
     }
 }
 
-@media (max-width: 768px) {
+@media (max-width: 767px) {
     .leftHeader {
         display: flex;
         align-items: center;
@@ -480,10 +510,15 @@
         padding: 6px 8px;
         font-size: 11px;
     }
-    .scanSearchImg{
-        width: 20px;
-        height: 20px;
+
+    .sideMini {
+        display: inline-block;
     }
+
+    /* .sidebarRight {
+        display: none;
+    } */
+
 }
 
 @media (max-width: 576px) {
@@ -587,6 +622,25 @@
         min-width: calc(100% - 102px);
         margin-left: 80px;
     }
+
+    .sellingOrder {
+        flex-wrap: wrap;
+    }
+
+    .bellImage_ {
+        width: 24px;
+        height: 24px;
+    }
+
+    .homeRight {
+        padding: 8px 12px;
+    }
+
+    .commonWidth {
+        display: flex !important;
+        align-items: center;
+        justify-content: center;
+    }
 }
 
 @media (max-width: 475px) {
@@ -679,6 +733,18 @@
     .otherHead .navBtn {
         padding: 6px 8px;
         font-size: 12px;
+    }
+
+    .homeOverview .dayTimeText {
+        font-size: 10px;
+    }
+
+    #trackingModal .modal-body {
+        padding: 0 16px 16px 16px !important;
+    }
+
+    #trackingModal .modal-content {
+        margin: 0 12px;
     }
 }
 

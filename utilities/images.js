@@ -343,8 +343,10 @@ import postMotor from "../public/images/postMotor.svg";
 import Receiptbill from "../public/images/Receiptbill.png";
 import cloudImg from "../public/images/cloudImg.svg";
 import headLogo from "../public/images/headLogo.svg";
+import darkPlus from "../public/images/darkPlus.svg"
 
 export {
+  darkPlus,
   headLogo,
   cloudImg,
   postMotor,

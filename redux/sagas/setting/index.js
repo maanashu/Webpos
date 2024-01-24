@@ -19,6 +19,7 @@ import {
   setGetAllPlans,
   setSubScribePlan,
   setGetActivePlan,
+  setGetLanguageList
 } from "../../slices/setting";
 import { toast } from "react-toastify";
 import {
@@ -377,11 +378,11 @@ function* requestPayment(action) {
     toast.error(e?.error?.response?.data?.msg);
   }
 }
+
 function* viewPayment(action) {
   const dataToSend = { ...action.payload };
   delete dataToSend.cb;
   let query = queryString.stringify(dataToSend);
-  console.log(query, "action in view");
   try {
     const resp = yield call(
       ApiClient.get,
@@ -400,6 +401,26 @@ function* viewPayment(action) {
     toast.error(e?.error?.response?.data?.msg);
   }
 }
+
+function* getLanguageList(action) {
+  const dataToSend = { ...action.payload };
+  delete dataToSend.cb;
+
+  try {
+    const resp = yield call(ApiClient.get,`${AUTH_API_URL}/api/v1/languages`);
+    if (resp.status) {
+      yield put(setGetLanguageList(resp.data));
+      yield call(action.payload.cb, (action.res = resp));
+    } else {
+      throw resp;
+    }
+  } catch (e) {
+    yield put(onErrorStopLoad());
+    toast.error(e?.error?.response?.data?.msg);
+  }
+}
+
+
 function* settingSaga() {
   yield all([
     // setting/security API START
@@ -425,6 +446,8 @@ function* settingSaga() {
     takeLatest("setting/getAllPlans", getAllPlans),
     takeLatest("setting/subScribePlan", subScribePlan),
     takeLatest("setting/getActivePlan", getActivePlan),
+    takeLatest("setting/getLanguageList", getLanguageList),
+    
   ]);
 }
 

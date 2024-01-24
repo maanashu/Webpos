@@ -18,6 +18,7 @@ const Retails = () => {
   const dispatch = useDispatch();
   const authData = useSelector(selectLoginAuth);
   const retailData = useSelector(selectRetailData);
+  const [showSidebar, setShowSidebar] = useState(false)
   const sellerId = authData?.usersInfo?.payload?.uniqe_id;
   const router = useRouter();
   const { parameter } = router.query;
@@ -72,7 +73,7 @@ const Retails = () => {
     dispatch(
       getMainProduct({
         ...params,
-        cb(res) {},
+        cb(res) { },
       })
     );
   };
@@ -87,7 +88,7 @@ const Retails = () => {
     dispatch(
       getMainServices({
         ...params,
-        cb(res) {},
+        cb(res) { },
       })
     );
   };
@@ -105,6 +106,9 @@ const Retails = () => {
   return (
     <>
       <div className="flexBox">
+        <button className='sideMini' type="button" onClick={() => { setShowSidebar(prev => !prev) }}>
+          <Image src={Images.darkPlus} alt="image" className="img-fluid" />
+        </button>
         <div className="commanOuter w-100">
           <ProductInnerNav
             productCount={productPagination?.total}
@@ -147,8 +151,8 @@ const Retails = () => {
                             </p>
                             {item?.supplies?.[0]?.supply_prices?.[0]
                               ?.offer_price &&
-                            item?.supplies?.[0]?.supply_prices?.[0]
-                              ?.actual_price ? (
+                              item?.supplies?.[0]?.supply_prices?.[0]
+                                ?.actual_price ? (
                               <p className="productPrice">
                                 $
                                 {
@@ -271,7 +275,7 @@ const Retails = () => {
           </div>
         </div>
 
-        <RightSideBar />
+        <RightSideBar showSidebar={showSidebar}/>
       </div>
     </>
   );
