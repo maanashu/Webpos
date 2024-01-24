@@ -141,6 +141,52 @@
         top: 24px;
         left: 15px;
     }
+
+    .homeLeft {
+        padding: 24px 12px;
+    }
+
+    .homeRight {
+        padding: 24px 12px;
+    }
+
+    .homeProfileImg {
+        width: 130px;
+        height: 130px;
+    }
+
+    .loginheading {
+        font-size: 26px;
+    }
+
+    .cashierHeading {
+        font-size: 14px;
+    }
+
+    .searchControl {
+        padding: 15px 52px !important;
+    }
+
+    .scanSearch {
+        width: 40px !important;
+        height: 40px !important;
+    }
+
+    .bellOuter {
+        padding: 6px;
+    }
+
+    .sellingOrder .loginMain {
+        font-size: 18px;
+    }
+
+    .OrderBtn {
+        padding: 7px;
+    }
+
+    .homeOverview .dayTimeText {
+        font-size: 12px;
+    }
 }
 
 @media (max-width: 1200px) {
@@ -344,6 +390,10 @@
         margin-left: 30px;
         padding: 8px;
     }
+
+    .homeOverview {
+        height: 100%;
+    }
 }
 
 @media (max-width: 768px) {
@@ -395,6 +445,44 @@
         align-items: center;
         width: 100%;
         justify-content: space-between;
+    }
+
+    .main-sidebar {
+        width: 70px;
+        padding: 8px 10px;
+    }
+
+    .rightWrapper {
+        min-width: calc(100% - 102px);
+        margin-left: 90px;
+    }
+
+    .profileImg {
+        width: 35px;
+        height: 35px;
+    }
+
+    .sellingOrder .loginMain {
+        font-size: 16px;
+        margin-top: 10px;
+    }
+
+    .bellImage_ {
+        width: 20px;
+        height: 20px;
+    }
+
+    .bellOuter {
+        padding: 4px;
+    }
+
+    .OrderBtn {
+        padding: 6px 8px;
+        font-size: 11px;
+    }
+    .scanSearchImg{
+        width: 20px;
+        height: 20px;
     }
 }
 
@@ -451,6 +539,8 @@
     .verificationSection .verifyBox {
         margin: 0 25px;
         padding: 40px 50px;
+        width: 100%;
+        max-width: 410px;
     }
 
     .verifyHeading {
@@ -487,9 +577,34 @@
         max-width: 370px;
         margin-top: 0;
     }
+
+    .main-sidebar {
+        width: 65px;
+        padding: 8px 8px;
+    }
+
+    .rightWrapper {
+        min-width: calc(100% - 102px);
+        margin-left: 80px;
+    }
 }
 
 @media (max-width: 475px) {
+    .main-sidebar {
+        width: 60px;
+        padding: 8px 6px;
+    }
+
+    .rightWrapper {
+        min-width: calc(100% - 102px);
+        margin-left: 75px;
+    }
+
+    .main-sidebar {
+        width: 60px;
+        padding: 8px 6px;
+    }
+
     .loginOtpSub {
         width: 100%;
         max-width: 360px;
@@ -497,6 +612,8 @@
 
     .verificationSection .verifyBox {
         padding: 30px 40px;
+        width: 100%;
+        max-width: 370px;
     }
 
     .verificationSection {
@@ -533,6 +650,8 @@
 @media (max-width: 425px) {
     .verificationSection .verifyBox {
         padding: 35px 20px;
+        width: 100%;
+        max-width: 330px;
     }
 
     .verifyNumber {

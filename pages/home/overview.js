@@ -249,7 +249,7 @@ const Overview = () => {
                       <Image
                         src={Images.HomeIcon}
                         alt="HomeImage"
-                        className="img-fluid"
+                        className="img-fluid profileImg"
                       />
                     </figure>
                     <h4 className="loginMain">Start Selling</h4>
@@ -257,7 +257,7 @@ const Overview = () => {
                       <Image
                         src={Images.SearchLight}
                         alt="SearchImage"
-                        className="img-fluid"
+                        className="img-fluid scanSearchImg"
                       />
                       <span className="smallText">Scan / Search</span>
                     </figure>
@@ -267,7 +267,7 @@ const Overview = () => {
                       <Image
                         src={Images.ShoppingCart}
                         alt="HomeImage"
-                        className="img-fluid"
+                        className="img-fluid profileImg"
                       />
                     </figure>
                     <h4 className="loginMain">Online Orders</h4>

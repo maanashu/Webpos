@@ -13,6 +13,7 @@ const Navbar = () => {
   //     setToken(localStorage.getItem('authToken'))
   //   }
   // }, [])
+  console.log(token, "tokenccccccccccccc");
 
   return (
     <>

@@ -39,6 +39,10 @@
   margin: 20px 16px;
   transition: 0.5s;
   z-index: 999;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-direction: column;
 }
 
 .main-sidebar.hide {
@@ -101,10 +105,16 @@
 
 .sidebarLinks {
   color: #8d99d2 !important;
-  display: flex;
+  display: inline-flex;
   align-items: center;
-  padding: 10px 21px;
-  justify-content: center;
+  padding: 8px 12px;
+  justify-content: start;
+  gap: 5px;
+}
+
+.logoutLink {
+  color: #8d99d2 !important;
+  display: inline-block;
 }
 
 .main-sidebar.hide .Logo {
@@ -156,7 +166,7 @@
 .sidebarLinks.active {
   background: #f5f6fc;
   border-radius: 20px;
-  padding: 10px 21px;
+  padding: 8px 12px;
 }
 
 .sidebarLinks.active .sidebarTxt {
@@ -195,6 +205,15 @@
   margin: 0;
 }
 
+.sidebarInnerIcon {
+  max-height: 620px;
+  overflow-y: scroll;
+}
+
+.sidebarInnerIcon::-webkit-scrollbar {
+  display: none;
+}
+
 /* .main-sidebar.hide .sidebarProfile {
   margin-left: 10px;
 } */
@@ -216,8 +235,8 @@
   background: #f5f6fc;
   border: none;
   padding: 10px 14px;
-  position: fixed;
-  bottom: 40px;
+  /* position: fixed;
+  bottom: 40px; */
   display: flex;
   align-items: center;
 }
