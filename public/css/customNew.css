@@ -2362,14 +2362,14 @@ figure {
   padding: 24px;
 }
 
-/* .form-group input {
+.form-group input[type="checkbox"] {
     padding: 0;
     height: initial;
     width: initial;
     margin-bottom: 0;
     display: none;
     cursor: pointer;
-} */
+}
 
 .checkBlue label {
   position: relative;
@@ -5110,17 +5110,27 @@ figure {
     box-shadow: -2px 4px 25px 0px rgba(50, 80, 127, 0.02), -5px 10px 80px 0px rgba(50, 80, 127, 0.04);
     padding: 16px 20px;
     position: absolute;
-    top: 30px;
+    top: 24px;
     left: 24px;
 }
-.rightheader{
+
+.rightheader {
     display: flex;
     align-items: center;
 }
-.rightMainHeader{
+
+.rightMainHeader {
     display: flex;
     align-items: center;
     justify-content: end;
+}
+
+.authHeader {
+    padding: 0 100px;
+}
+.leftMainHeader{
+    display: flex;
+    align-items: center;
 }
 /*gaurav arora sir css start*/
 .headingTextStyle {

@@ -93,6 +93,10 @@
 }
 
 @media (max-width: 1280px) {
+    .navBtn {
+        padding: 10px;
+    }
+
     .cartInfo {
         height: 200px;
         overflow-y: scroll;
@@ -134,7 +138,7 @@
 
     .loginLogo {
         padding: 12px 16px;
-        top: 30px;
+        top: 24px;
         left: 15px;
     }
 }
@@ -205,6 +209,10 @@
 }
 
 @media (max-width: 1020px) {
+    .navBtn {
+        margin-left: 45px;
+        padding: 10px;
+    }
 
     .customInput {
         max-width: 400px;
@@ -246,9 +254,16 @@
     .navbar-expand-lg .navbar-nav {
         margin-top: 0;
     }
+
 }
 
 @media (max-width: 992px) {
+    .loginLogo {
+        padding: 10px 12px;
+        top: 24px;
+        left: 15px;
+    }
+
     .customInput {
         max-width: 100%;
     }
@@ -305,13 +320,82 @@
     .navbar-nav .nav-item {
         padding: 9px 10px;
     }
+
+    .leftHeader {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+    }
+
+    .timeHeading {
+        font-size: 13px;
+        margin: 0;
+    }
+
+    .timeNav::before {
+        right: -7px;
+    }
+
+    .authHeader {
+        padding: 0 80px;
+    }
+
+    .navBtn {
+        margin-left: 30px;
+        padding: 8px;
+    }
 }
 
 @media (max-width: 768px) {
+    .leftHeader {
+        display: flex;
+        align-items: center;
+        width: 100%;
+        justify-content: space-between;
+    }
+
+    .timeNav::before {
+        display: none;
+    }
+
     .driverNavigationCon {
         flex-wrap: wrap;
     }
 
+    .authHeader {
+        padding: 0 50px 0 70px;
+    }
+
+    .loginLogo {
+        padding: 8px 12px;
+        top: 24px;
+        left: 15px;
+    }
+
+    .leftMainHeader {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .rightMainHeader {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .navBtn {
+        margin-left: 0;
+        padding: 8px;
+        font-size: 14px;
+    }
+
+    .rightheader {
+        display: flex;
+        align-items: center;
+        width: 100%;
+        justify-content: space-between;
+    }
 }
 
 @media (max-width: 576px) {
@@ -383,9 +467,33 @@
         height: 55px !important;
     }
 
+    .otpMain .pin-box input {
+        font-size: 25px !important;
+        font-weight: 400 !important;
+    }
+
+    .loginheading {
+        font-size: 24px;
+        margin-bottom: 0;
+    }
+
+    .loginPasswordOtp .verifyBox {
+        margin-top: 40px;
+        padding: 35px 10px;
+    }
+
+    .loginOtpSub {
+        width: 100%;
+        max-width: 370px;
+        margin-top: 0;
+    }
 }
 
 @media (max-width: 475px) {
+    .loginOtpSub {
+        width: 100%;
+        max-width: 360px;
+    }
 
     .verificationSection .verifyBox {
         padding: 30px 40px;
@@ -402,16 +510,66 @@
     .verifyBtn {
         gap: 26px;
     }
+
+    .nextverifyBtn {
+        padding: 12px 20px;
+    }
+
+    .backverifyBtn {
+        padding: 12px 20px;
+    }
+
+    .verifySub {
+        font-size: 14px;
+    }
+
+    .verifyHeading {
+        font-size: 25px;
+    }
+
+
 }
 
 @media (max-width: 425px) {
     .verificationSection .verifyBox {
-        padding: 25px 20px;
+        padding: 35px 20px;
+    }
+
+    .verifyNumber {
+        margin: 35px 0;
+        position: relative;
+    }
+
+    .otpMain {
+        margin: 35px 0;
+    }
+
+    .mainAuthHead {
+        padding: 0 12px 0 60px;
+    }
+
+    .loginOtpSub {
+        width: 100%;
+        max-width: 325px;
+    }
+
+    .otherHead .timeHeading {
+        font-size: 11px;
+    }
+
+    .otherHead .navBtn {
+        padding: 6px 8px;
+        font-size: 12px;
     }
 }
 
 @media (max-width: 375px) {
     .verificationSection .verifyBox {
-        padding: 25px 15px;
+        padding: 35px 15px;
+    }
+
+    .timeNav::before {
+        right: -7px;
+        display: block;
     }
 }
