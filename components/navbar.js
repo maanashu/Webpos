@@ -6,13 +6,13 @@ import { selectLoginAuth } from '../redux/slices/auth';
 
 const Navbar = () => {
   const authData = useSelector(selectLoginAuth)
-  // const [token, setToken] = useState('')
-  const token = authData?.posUserLoginDetails?.payload?.token
-  // useEffect(() => {
-  //   if (typeof window !== 'undefined') {
-  //     setToken(localStorage.getItem('authToken'))
-  //   }
-  // }, [])
+  const [token, setToken] = useState('')
+  // const token = authData?.posUserLoginDetails?.payload?.token
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      setToken(localStorage.getItem('authToken'))
+    }
+  }, [])
 
   return (
     <>
@@ -34,6 +34,9 @@ const Navbar = () => {
                 <div className='rightheader'>
                   <h4 className='timeHeading'>POS Ni. <span>#Front-CC01</span></h4>
                   <button className='navBtn'>Walk-in</button>
+                  {/* <button className='sideMini' type="button" onClick={() => {localStorage.setItem("sidebarShow", !showSidebar); setShowSidebar(prev => !prev)}}>
+                  <Image src={Images.darkPlus} alt="image" className="img-fluid" />
+                  </button> */}
                 </div>
               </div>
             </div>

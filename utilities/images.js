@@ -353,8 +353,10 @@ import saleLocation from "../public/images/saleLocation.svg";
 import totalOrders from "../public/images/totalOrders.svg";
 import totalCost from "../public/images/totalCost.svg";
 
+import darkPlus from "../public/images/darkPlus.svg"
 
 export {
+  darkPlus,
   headLogo,
   cloudImg,
   postMotor,

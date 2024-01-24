@@ -49,7 +49,7 @@ const Sidebar = (props) => {
           onClick={() => router.push("/home/overview")}
         />
         <Image src={Images.Logo} alt="image" className="img-fluid Logo" />
-        {/* <div
+        <div
           onClick={() => setActiveSidebar((prev) => !prev)}
           className="ToggleIcon"
         >
@@ -58,10 +58,10 @@ const Sidebar = (props) => {
             alt="image"
             className="img-fluid sideToggle"
           />
-        </div> */}
+        </div>
       </div>
       <div className="sidebarInnerIcon">
-        <div className="userDetails">
+        <div className="userDetails mb-2">
           <figure>
             <Image
               src={
@@ -74,7 +74,7 @@ const Sidebar = (props) => {
               alt="image"
               width={100}
               height={100}
-              className="img-fluid sidebarProfile"
+              className="img-fluid sidebarProfile pointHand"
               onClick={() => router.push("/home/overview")}
             />
           </figure>
@@ -329,10 +329,10 @@ const Sidebar = (props) => {
                 </div> */}
         </ListGroup>
       </div>
-      <div className="sidbarfixedMenus ">
+      <div className=" ">
         <Link
           href="#"
-          className={`sidebarLinks ${isLinkActive("/appointment/booking") ? "active" : ""
+          className={`logoutLink ${isLinkActive("/appointment/booking") ? "active" : ""
             }`}
         >
           <button
