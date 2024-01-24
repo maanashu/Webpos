@@ -94,6 +94,37 @@ const Shipping = () => {
         },
     };
 
+
+    const options1 = {
+        responsive: true,
+        plugins: {
+            legend: {
+                display: true,
+            },
+        },
+        scales: {
+            y: {
+                border: {
+                    dash: [2, 2],
+                    display: false,
+                    color: "rgba(180, 190, 235, 1)",
+                }, // for the grid lines
+                beginAtZero: true,
+            },
+            x: {
+                grid: {
+                    display: false,
+                },
+                border: {
+                    display: false,
+                },
+                ticks: {
+                    color: "#7E8AC1",
+                },
+            },
+        }
+    };
+
     const getAllShippingOrdeshandle = () => {
         let orderListParam = {
             seller_id: sellerUid,
@@ -291,7 +322,7 @@ const Shipping = () => {
                                 <ChartCommon
                                     className="col-md-12"
                                     header=""
-                                    options={options}
+                                    options={options1}
                                     data={chartData}
                                     chartType="Line"
                                 />

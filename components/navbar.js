@@ -6,13 +6,13 @@ import { selectLoginAuth } from '../redux/slices/auth';
 
 const Navbar = () => {
   const authData = useSelector(selectLoginAuth)
-  // const [token, setToken] = useState('')
-  const token = authData?.posUserLoginDetails?.payload?.token
-  // useEffect(() => {
-  //   if (typeof window !== 'undefined') {
-  //     setToken(localStorage.getItem('authToken'))
-  //   }
-  // }, [])
+  const [token, setToken] = useState('')
+  // const token = authData?.posUserLoginDetails?.payload?.token
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      setToken(localStorage.getItem('authToken'))
+    }
+  }, [])
 
   return (
     <>

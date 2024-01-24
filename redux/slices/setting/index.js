@@ -125,12 +125,12 @@ export const settingSlice = createSlice({
     setViewPayment: (state, action) => {
       state.loading = false;
     },
-    getLanguageList: (state, action) => {
+    getLanguageList: (state) => {
       state.loading = true;
     },
     setGetLanguageList: (state, action) => {
       state.loading = false;
-    },
+    }
     // end language slices////////////////////////////////////////////
   },
 },
