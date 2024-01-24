@@ -23,7 +23,8 @@ const Shipping = () => {
     console.log(todayOrdersCount, 'todayOrdersCount');
     const shippingData = useSelector(selectsShippingData);
     const [orderStatData, setOrderStatData] = useState([]);
-    const [graphData, setGraphData] = useState([]);
+    const [graphData, setGraphData] = useState('');
+    console.log(graphData,'graph data');
     const sellerUid = authData?.usersInfo?.payload?.uniqe_id;
     const customerSidebardata = shippingData?.sidebarCountData?.payload
     const [orderListType, setOrderListType] = useState({
@@ -49,32 +50,32 @@ const Shipping = () => {
                 fill: true,
                 label: 'Incoming Orders',
                 data: graphData?.datasets ? graphData?.datasets[0]?.data : "",
-                borderColor: '#275AFF',
-                backgroundColor: '#275AFF',
+                borderColor: '#4659B5',
+                backgroundColor: '#4659B5',
                 cubicInterpolationMode: 'monotone',
             },
             {
                 fill: true,
                 label: 'Delivery Orders',
                 data: graphData?.datasets ? graphData?.datasets[1]?.data : "",
-                borderColor: '#D33300',
-                backgroundColor: '#D33300',
+                borderColor: '#7233C2',
+                backgroundColor: '#7233C2',
                 cubicInterpolationMode: 'monotone',
             },
             {
                 fill: true,
                 label: 'Returned Orders',
-                data: graphData?.datasets ? graphData?.datasets[0]?.data : "",
-                borderColor: '#275AFF',
-                backgroundColor: '#275AFF',
+                data: graphData?.datasets ? graphData?.datasets[2]?.data : "",
+                borderColor: '#F0C01A',
+                backgroundColor: '#F0C01A',
                 cubicInterpolationMode: 'monotone',
             },
             {
                 fill: true,
                 label: 'Cancelled Orders',
-                data: graphData?.datasets ? graphData?.datasets[1]?.data : "",
-                borderColor: '#D33300',
-                backgroundColor: '#D33300',
+                data: graphData?.datasets ? graphData?.datasets[3]?.data : "",
+                borderColor: '#F04438',
+                backgroundColor: '#F04438',
                 cubicInterpolationMode: 'monotone',
             },
         ],
@@ -267,7 +268,7 @@ const Shipping = () => {
                     <div className=' deliveryOuter deliverRight ms-0'>
                         <div className='deliverGraphSection'>
                             <form className='deliverCheck'>
-                                <div className="form-group checkBlue">
+                                {/* <div className="form-group checkBlue">
                                     <input type="checkbox" id="Incoming Orders" />
                                     <label for="Incoming Orders" className='appointSub  m-0'>Incoming Orders</label>
                                 </div>
@@ -282,7 +283,7 @@ const Shipping = () => {
                                 <div className="form-group checkBlue checkRed">
                                     <input type="checkbox" id="Cancelled Orders" />
                                     <label for="Cancelled Orders" className='appointSub  m-0'>Cancelled Orders</label>
-                                </div>
+                                </div> */}
                             </form>
                             <div className='barChartGraph'>
                                 {/* <Image src={Images.barChart} alt="barChart image" className="barChartImg" /> */}
