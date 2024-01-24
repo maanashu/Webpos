@@ -31,12 +31,13 @@ const Shipping = () => {
         status: "0",
         title: "Order to Review"
     });
-    console.log(orderListType, 'list type');
+
     const itemPressHandler = (id) => {
+        let newId = id ? id : orderData[0]?.id
         router.push({
             pathname: "/shipping/orderReview",
             query: {
-                id: id,
+                id: newId,
                 status: orderListType?.status,
                 title: orderListType?.title
             },
@@ -82,16 +83,33 @@ const Shipping = () => {
     };
 
     const options = {
-        scales: {
-            x: {
-                type: 'linear',
-                position: 'bottom',
-            },
-            y: {
-                type: 'linear',
-                position: 'left',
+        responsive: true,
+        plugins: {
+            legend: {
+                display: true,
             },
         },
+        scales: {
+            y: {
+                border: {
+                    dash: [2, 2],
+                    display: false,
+                    color: "rgba(180, 190, 235, 1)",
+                }, // for the grid lines
+                beginAtZero: true,
+            },
+            x: {
+                grid: {
+                    display: false,
+                },
+                border: {
+                    display: false,
+                },
+                ticks: {
+                    color: "#7E8AC1",
+                },
+            },
+        }
     };
 
     const getAllShippingOrdeshandle = () => {
@@ -268,7 +286,7 @@ const Shipping = () => {
                     <div className=' deliveryOuter deliverRight ms-0'>
                         <div className='deliverGraphSection'>
                             <form className='deliverCheck'>
-                                {/* <div className="form-group checkBlue">
+                                <div className="form-group checkBlue">
                                     <input type="checkbox" id="Incoming Orders" />
                                     <label for="Incoming Orders" className='appointSub  m-0'>Incoming Orders</label>
                                 </div>
@@ -283,7 +301,7 @@ const Shipping = () => {
                                 <div className="form-group checkBlue checkRed">
                                     <input type="checkbox" id="Cancelled Orders" />
                                     <label for="Cancelled Orders" className='appointSub  m-0'>Cancelled Orders</label>
-                                </div> */}
+                                </div>
                             </form>
                             <div className='barChartGraph'>
                                 {/* <Image src={Images.barChart} alt="barChart image" className="barChartImg" /> */}
@@ -300,7 +318,7 @@ const Shipping = () => {
                         <div className='deliverOrderData'>
                             <div className='flexDiv'>
                                 <h4 className="loginMain">{orderListType?.title}</h4>
-                                <div className='flexTable pointHand'>
+                                <div onClick={() => itemPressHandler()} className='flexTable pointHand'>
                                     <h4 className='confirmBack '>See All</h4>
                                     <Image src={Images.lightArrowRight} alt="lightArrowRight image" className="img-fluid ms-1" />
                                 </div>

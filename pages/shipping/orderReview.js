@@ -146,7 +146,7 @@ const OrderReview = () => {
                         <div className='col-lg-6'>
                             <div className='deliverOrderLeft deliveryOuter me-0'>
                                 <div className='flexTable'>
-                                    <Image src={Images.boldLeftArrow} alt="boldLeftArrow " className="img-fluid me-2" />
+                                    <Image src={Images.boldLeftArrow} style={{cursor:"pointer"}} onClick={()=>router.push('/shipping')} alt="boldLeftArrow " className="img-fluid me-2" />
                                     <h4 className='loginMain text-start m-0'>Shipping {router?.query?.title}</h4>
                                 </div>
                                 <div className='table-responsive mt-3'>
