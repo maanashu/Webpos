@@ -7,13 +7,14 @@ import { toast } from 'react-toastify';
 import { selectLoginAuth } from '../../../redux/slices/auth';
 
 const SessionModal = (props) => {
+    const blockInvalidChar = e => ['e', 'E', '+', '-'].includes(e.key) && e.preventDefault();
     const dispatch = useDispatch();
     const toastId = React.useRef(null)
     const authData = useSelector(selectLoginAuth)
     const [amount, setAmount] = useState("");
     const [notes, setNotes] = useState("");
     const [drawerSessionDetails, setDrawerSessionDetails] = useState("");
- 
+
     const UniqueId = authData?.usersInfo?.payload?.uniqe_id ? authData?.usersInfo?.payload?.uniqe_id : ""
     // API for get Drawer Session Info...............................
     const drawerSessionInfo = () => {
@@ -23,12 +24,12 @@ const SessionModal = (props) => {
             }
             return;
         }
-        else if (!notes) {
-            if (!toast.isActive(toastId.current)) {
-                toastId.current = toast.error("Please enter note");
-            }
-            return
-        }
+        // else if (!notes) {
+        //     if (!toast.isActive(toastId.current)) {
+        //         toastId.current = toast.error("Please enter note");
+        //     }
+        //     return
+        // }
         let params = {
             seller_id: UniqueId,
             amount: amount,
@@ -66,16 +67,17 @@ const SessionModal = (props) => {
                             className="form-control trackingInput"
                             // name={generateRandomName}
                             // autoComplete="new-password"
-                            placeholder=" $  500.00"
+                            placeholder=" $ 500.00"
                             // value={amount}
                             onChange={(e) => setAmount(e.target.value)}
+                            onKeyDown={blockInvalidChar}
                         />
-                        <select name="cars" id="cars" className='trackingSelect'>
-                            <option value="volvo">USD</option>
+                        {/* <select name="cars" id="cars" className='trackingSelect'>
+                            <option value="usd">USD</option>
                             <option value="saab">Saab</option>
                             <option value="mercedes">Mercedes</option>
                             <option value="audi">Audi</option>
-                        </select>
+                        </select> */}
                     </div>
                     <p className='loginSub'>This is a hint text to help user.</p>
                     <div className='textAreaSection'>
