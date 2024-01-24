@@ -5,6 +5,7 @@ import { all, call, put, takeLatest } from "redux-saga/effects";
 import {
   setSearchInvoiceByInvoiceId,
   setSearchBySKU,
+  setReturnToInventory
 } from "../../slices/productReturn";
 
 const ORDER_API_URL_V1 = ORDER_API_URL + "/api/v1/";
@@ -55,12 +56,34 @@ function* searchBySKU(action) {
     toast.error(e?.error?.response?.data?.msg);
   }
 }
+function* returnToInventory(action) {
+  console.log(action,'action');
+  try {
+    const resp = yield call(
+      ApiClient.post,
+      `${ORDER_API_URL}/api/v1/returns`,
+      (action.payload = action.payload)
+    );
+    if (resp.status) {
+      yield put(setReturnToInventory(resp.data));
+      yield call(action.payload.cb, (action.res = resp));
+      // toast.success(resp?.data?.msg);
+    } else {
+      throw resp;
+    }
+  } catch (e) {
+    yield put(onErrorStopLoad());
+    toast.error(e?.error?.response?.data?.msg);
+  }
+}
 
 function* returnSaga() {
   yield all([
     takeLatest("return/searchInvoiceByInvoiceId", searchInvoiceByInvoiceId),
+    takeLatest("return/searchBySKU", searchBySKU),
+    takeLatest("return/returnToInventory", returnToInventory),
   ]);
-  yield all([takeLatest("return/searchBySKU", searchBySKU)]);
+
 }
 
 export default returnSaga;

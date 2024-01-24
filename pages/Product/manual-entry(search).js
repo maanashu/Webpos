@@ -14,21 +14,8 @@ const Manualinvoice = (props) => {
   const dispatch = useDispatch();
   const authData = useSelector(selectLoginAuth);
   const sellerId = authData?.usersInfo?.payload?.uniqe_id;
-  const [key, setKey] = useState(Math.random());
   const [productsSearchBySku, setProductsSearchBySku] = useState("");
-  const [modalDetail, setModalDetail] = useState({
-    show: false,
-    title: "",
-    flag: "",
-  });
-  const handleOnCloseModal = () => {
-    setModalDetail({
-      show: false,
-      title: "",
-      flag: "",
-    });
-    setKey(Math.random());
-  };
+
   const handleSearchSku = (e) => {
     let params = {
       search: e.target.value,
@@ -124,10 +111,7 @@ const Manualinvoice = (props) => {
             <button
               type="button"
               className="BlueBtn"
-              onClick={() => {
-                setModalDetail({ show: true, flag: "ReturnInventory" });
-                setKey(Math.random());
-              }}
+           
             >
               Next
               <Image
@@ -139,72 +123,7 @@ const Manualinvoice = (props) => {
           </div>
         </div>
       </div>
-      <CustomModal
-        key={key}
-        show={modalDetail.show}
-        backdrop="static"
-        showCloseBtn={false}
-        isRightSideModal={false}
-        mediumWidth={false}
-        ids={
-          modalDetail.flag === "ReturnInventory"
-            ? "ReturnInventory"
-            : "ReturnInventory"
-        }
-        child={
-          modalDetail.flag === "ReturnInventory" ? (
-            <ReturnInventory
-              close={() => handleOnCloseModal()}
-              closeManualModal={() => props.close()}
-            />
-          ) : (
-            ""
-          )
-        }
-        header={
-          <>
-            <h2 className="modalHeading mb-0">
-              <figure className="text-center">
-                <Image
-                  src={Images.ShoppingReturn}
-                  alt="Shopping-Return"
-                  className="img-fluid ShoppingReturn"
-                  onClick={() => handleOnCloseModal()}
-                />
-              </figure>
-              <p className="addProductHeading">Return to Inventory</p>
-            </h2>
-            <button className="closeButton">
-              <Image
-                src={Images.modalCross}
-                alt="img"
-                onClick={() => handleOnCloseModal()}
-              />
-            </button>
-          </>
-        }
-        onCloseModal={() => handleOnCloseModal()}
-        footer={
-          <>
-            <div className="modal-footer">
-              <button
-                className="cancelBtn"
-                onClick={() => handleOnCloseModal()}
-              >
-                Cancel
-              </button>
-              <button className="ModalBlue">
-                Return to Inventory
-                <Image
-                  src={Images.ShoppingReturn}
-                  alt="image"
-                  className="img-fluid BtnIcon"
-                />
-              </button>
-            </div>
-          </>
-        }
-      />
+   
     </>
   );
 };

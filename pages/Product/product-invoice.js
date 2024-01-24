@@ -14,11 +14,11 @@ import { toast } from "react-toastify";
 import CustomModal from "../../components/customModal/CustomModal";
 import Manualinvoice from "./manual-entry(search)";
 
+
 const ProductInvoice = () => {
   const dispatch = useDispatch();
   const router = useRouter();
   const [selectedProductItems, setSelectedProductItems] = useState([]);
-  console.log(selectedProductItems,'selectedProductItems');
   const authData = useSelector(selectLoginAuth);
   const sellerId = authData?.usersInfo?.payload?.uniqe_id;
   const [searchInvoiceId, setSearchInvoiceId] = useState(null);
@@ -26,7 +26,6 @@ const ProductInvoice = () => {
   const SearchInvoiceRespones = invoiceData?.invoiceByInvoiceId;
   const orderDetails = SearchInvoiceRespones?.order;
   const productDetails = SearchInvoiceRespones?.order?.order_details;
-  console.log(productDetails,'productDetails');
 
   const [key, setKey] = useState(Math.random());
   const [modalDetail, setModalDetail] = useState({
@@ -57,26 +56,38 @@ const ProductInvoice = () => {
     );
   };
   const handleGoToNext = () => {
-    if (selectedProductItems?.length>0) {
-      router.push("/Product/productrefunds(Price-format)");
+    if (selectedProductItems?.length > 0) {
+      router.push({
+        pathname: "/Product/productrefunds(Price-format)",
+        query: { selectedItems: JSON.stringify(selectedProductItems) },
+      });
     } else {
       toast.error("Please select products to refund!");
     }
   };
 
-  const handleCheckboxChange = (productId) => {
+  const handleCheckboxChange = (data) => {
     setSelectedProductItems((prevSelectedItems) => {
-      if (prevSelectedItems.includes(productId)) {
-        return prevSelectedItems.filter((id) => id !== productId);
+      const isItemChecked = prevSelectedItems.some(
+        (item) => item.product_id === data.product_id
+      );
+
+      if (isItemChecked) {
+        return prevSelectedItems.filter(
+          (item) => item.product_id !== data.product_id
+        );
       } else {
-        return [...prevSelectedItems, productId];
+        return [...prevSelectedItems, data];
       }
     });
   };
+
   const handleGoToManualEntry = () => {
     setModalDetail({ show: true, flag: "manualEntry" });
     setKey(Math.random());
   };
+
+ 
   return (
     <>
       <div className="productInvoice">
@@ -314,8 +325,10 @@ const ProductInvoice = () => {
                         <label className="custom-checkbox">
                           <input
                             type="checkbox"
-                            checked={selectedProductItems?.includes(data.product_id)}
-                            onChange={() => handleCheckboxChange(data.product_id)}
+                            checked={selectedProductItems.some(
+                              (item) => item.product_id === data.product_id
+                            )}
+                            onChange={() => handleCheckboxChange(data)}
                           />
                           <span className="checkmark"></span>
                         </label>
@@ -407,7 +420,9 @@ const ProductInvoice = () => {
                         <button
                           type="button"
                           className="BlueBtn w-100"
-                          onClick={(e) => handleGoToNext(e)}
+                          onClick={(e) => {
+                            handleGoToNext(e);
+                          }}
                         >
                           Next
                           <Image
@@ -444,7 +459,9 @@ const ProductInvoice = () => {
         showCloseBtn={false}
         isRightSideModal={false}
         mediumWidth={false}
-        ids={modalDetail.flag === "manualEntry" ? "manualEntry" : ""}
+        ids={
+          modalDetail.flag === "manualEntry" ? "manualEntry" : "ReturnInventory"
+        }
         child={
           modalDetail.flag === "manualEntry" ? (
             <Manualinvoice closeManulModal={() => handleOnCloseModal()} />

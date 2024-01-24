@@ -4,6 +4,7 @@ const initialState = {
  loading:false,
  invoiceByInvoiceId:null,
  searchBySKU:null,
+ returnToInventory:""
 };
 
 export const returnSlice = createSlice({
@@ -24,6 +25,13 @@ export const returnSlice = createSlice({
       state.loading = false;
       state.searchBySKU = action?.payload?.payload;
     },
+    returnToInventory: (state) => {
+      state.loading = true;
+    },
+    setReturnToInventory: (state, action) => {
+      state.loading = false;
+      state.returnToInventory = action?.payload?.payload;
+    },
 
     onErrorStopLoad: (state) => {
       state.loading = false;
@@ -38,6 +46,8 @@ export const {
   searchBySKU,
   setSearchBySKU,
   searchInvoiceByInvoiceId,
+  setReturnToInventory,
+  returnToInventory
 } = returnSlice.actions;
 
 export const selectReturnData = (state) => state.return;
