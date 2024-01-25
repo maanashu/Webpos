@@ -147,7 +147,7 @@ const Language = () => {
                 {modalDetail.flag === "addlanguageModal" ?
                     <>
                         <Image src={Images.languageIcon} className="languageImg mb-2" alt="languageImage" />
-                        <h4 className='appointMain'>Add a language</h4>
+                        <h4 className='modalHeading_'>Add a language</h4>
                         <p className="activateText mt-2">Select one or more languages to add</p>
 
                     </>
