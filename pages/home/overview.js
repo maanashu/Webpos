@@ -42,6 +42,7 @@ const Overview = () => {
             ...params,
             cb(res) {
                 if (res.status) {
+                    console.log(res?.data,"res?.datares?.data");
                     setOrderDeliveriesInfo(res?.data?.payload?.data)
                 }
             },
@@ -136,7 +137,7 @@ const Overview = () => {
             allOrderDeliveriesInfo()
             userLoginDetails()
         }
-    }, []);
+    }, [UniqueId]);
 
     return (
         <>
