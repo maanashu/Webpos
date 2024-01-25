@@ -26,6 +26,7 @@ import {
   setCustomProuductAdd,
   setUserDetail,
   setTimeSlots,
+  setClearOneProduct,
 } from "../../slices/retails";
 import { all, call, put, takeLatest } from "redux-saga/effects";
 
@@ -438,6 +439,27 @@ function* addToCartService(action) {
   }
 }
 
+function* clearOneProduct(action) {
+  const body = { ...action.payload };
+  try {
+    const resp = yield call(
+      ApiClient.delete,
+      `${ORDER_API_URL_V1}/poscarts/${body?.cartId}/${body?.productId}`,
+      body
+    );
+    if (resp.status) {
+      yield put(setClearOneProduct(resp.data));
+      yield call(action.payload.cb, (action.res = resp));
+      // toast.success(resp?.data?.msg);
+    } else {
+      throw resp;
+    }
+  } catch (e) {
+    yield put(onErrorStopLoad());
+    toast.error(e?.error?.response?.data?.msg);
+  }
+}
+
 function* retailsSaga() {
   yield all([
     takeLatest("retails/getMainProduct", getMainProduct),
@@ -461,6 +483,7 @@ function* retailsSaga() {
     takeLatest("retails/getUserDetail", getUserDetail),
     takeLatest("retails/getTimeSlots", getTimeSlots),
     takeLatest("retails/addToCartService", addToCartService),
+    takeLatest("retails/clearOneProduct", clearOneProduct),
   ]);
 }
 

@@ -7,6 +7,7 @@ import { useRouter } from "next/router";
 import {
   availableOffers,
   clearCart,
+  clearOneProduct,
   getDrawerSession,
   getOneProductById,
   productCart,
@@ -44,6 +45,7 @@ const ProductCart = () => {
   const [key, setKey] = useState(Math.random());
   const [customProductAdd, setCustomProductAdd] = useState(false);
   const [attachCustomerModal, setAttachCustomerModal] = useState(false);
+  const [productById, setProductById] = useState();
 
   const onlyProductCartArray = cartData?.poscart_products?.filter(
     (item) => item?.product_type == "product"
@@ -247,8 +249,17 @@ const ProductCart = () => {
                   <h4 className="providerSubText ">Line Total</h4>
                 </div>
               </div>
-
-              {onlyProductCartArray?.length > 0 ? (
+              {/* 
+              {retailData?.productCartLoad ? (
+                <div className="loaderOuter">
+                  <span className="spinner-border spinner-border-sm mx-1"></span>
+                </div>
+              ) :  */}
+              {Object.keys(cartData)?.length == 0 ? (
+                <div className="mt-5">
+                  <h6 className="mt-2 mb-2 text-center">No Carts Found!</h6>
+                </div>
+              ) : (
                 onlyProductCartArray?.map((data, index) => {
                   return (
                     <div className="cartSubInfo active " key={index}>
@@ -300,27 +311,41 @@ const ProductCart = () => {
                           <h4 className="invoice_subhead p-0">
                             {amountFormat(getProductFinalPrice(data))}
                           </h4>
-                          <Image
-                            src={Images.redCross}
-                            alt="crossImage"
-                            className="img-fluid ms-2"
-                           
-                          />
+                          {retailData?.clearOneProductLoad ||
+                          retailData?.productCartLoad ? (
+                            productById == data?.id && (
+                              <span className="spinner-border spinner-border-sm mx-1"></span>
+                            )
+                          ) : (
+                            <div
+                              onClick={() => {
+                                let params = {
+                                  cartId: cartData?.id,
+                                  productId: data?.id,
+                                };
+                                setProductById(data?.id);
+                                dispatch(
+                                  clearOneProduct({
+                                    ...params,
+                                    cb() {
+                                      dispatch(productCart());
+                                    },
+                                  })
+                                );
+                              }}
+                            >
+                              <Image
+                                src={Images.redCross}
+                                alt="crossImage"
+                                className="img-fluid ms-2"
+                              />
+                            </div>
+                          )}
                         </div>
                       </div>
                     </div>
                   );
                 })
-              ) : (
-                <>
-                  {onlyProductCartArray?.length == null ? (
-                    <h6 className="mt-2 mb-2 text-center">No Carts Found!</h6>
-                  ) : (
-                    <div className="loaderOuter">
-                      <div className="spinner-grow loaderSpinner text-center my-5"></div>
-                    </div>
-                  )}
-                </>
               )}
             </div>
           </div>
