@@ -7,6 +7,7 @@ import { analyticsDetails, getProfitsData } from '../../../redux/slices/analytic
 import moment from 'moment-timezone';
 import { useDispatch, useSelector } from 'react-redux';
 import { selectLoginAuth } from '../../../redux/slices/auth';
+import AnalyticsRightsidebar from '../../../components/commanComonets/analytics/analyticsRightsidebar';
 
 const index = () => {
   const [timeSpan, setTimeSpan] = useState("week");
@@ -102,13 +103,13 @@ const index = () => {
   };
 
   useEffect(() => {
-    if(sellerId){
+    if (sellerId) {
       newUserDataHandle();
     }
 
   }, [timeSpan, channelSelected, endDate, limit, page, sellerId]);
   return (
-    <div className="main-container-customers">
+    <div className="main-container-customers analyticsSection bgtransparent_">
       <AnalyticsHeader
         timeSpan={timeSpan}
         onTimeSpanSelect={setTimeSpan}
@@ -120,194 +121,198 @@ const index = () => {
         startDate={startDate}
         endDate={endDate}
       />
+      <div className='commonbdcontain_ '>
+        <AnalyticsSubHeader
+          mainIcon={gross_profit_blue}
+          title="Total Costs"
+        />
 
-      <AnalyticsSubHeader
-        mainIcon={gross_profit_blue}
-        title="Total Costs"
-      />
+        {/* stats */}
+        <div className="stats flex-row-space-between">
+          {STATS.map(({ bgColor, icon, title, count, textColor }, idx) => (
+            <div
+              key={idx + "stats"}
+              className="stat-box"
+              style={{ backgroundColor: bgColor }}
+            >
+              <Image
+                objectFit="center"
+                width={30}
+                height={30}
+                src={icon}
+                style={{ marginBottom: "35px" }}
+              />
+              <div>
+                <h4
+                  className="stat-box-title"
+                  style={{ color: textColor }}
+                >
+                  {title}
+                </h4>
+                <p
+                  className="stat-box-count"
+                  style={{ color: textColor }}
+                >
+                  {count}
+                </p>
+              </div>
+            </div>
+          ))}
+        </div>
 
-      {/* stats */}
-      <div className="stats flex-row-space-between">
-        {STATS.map(({ bgColor, icon, title, count, textColor }, idx) => (
-          <div
-            key={idx + "stats"}
-            className="stat-box"
-            style={{ backgroundColor: bgColor }}
-          >
-            <Image
-              objectFit="center"
-              width={30}
-              height={30}
-              src={icon}
-              style={{ marginBottom: "35px" }}
-            />
-            <div>
-              <h4
-                className="stat-box-title"
-                style={{ color: textColor }}
+        {/* table stats */}
+        <table className="customers-stats-table">
+          <thead>
+            <tr>
+              <th
+                className="customers-table-data"
+                style={{ border: "none", color: "#7E8AC1", textAlign: "left" }}
               >
-                {title}
-              </h4>
+                Date
+              </th>
+              <th
+                className="customers-table-data"
+                style={{ border: "none", color: "#7E8AC1", textAlign: "center" }}
+              >
+                Transaction Volume
+              </th>
+              <th
+                className="customers-table-data"
+                style={{ border: "none", color: "#7E8AC1", textAlign: "center" }}
+              >
+                Total Product
+              </th>
+              <th
+                className="customers-table-data"
+                style={{ border: "none", color: "#7E8AC1", textAlign: "center" }}
+              >
+                Total Price
+              </th>
+              <th
+                className="customers-table-data"
+                style={{ border: "none", color: "#7E8AC1", textAlign: "center" }}
+              >
+                Margin
+              </th>
+              <th
+                className="customers-table-data"
+                style={{ border: "none", color: "#7E8AC1", textAlign: "center" }}
+              >
+                Total Cost
+              </th>
+            </tr>
+          </thead>
+
+          {
+            analyticsData?.loading ? <tbody>
+              <tr>
+                <td colSpan="6" style={{ textAlign: "center" }}>
+                  Loading...
+                </td>
+              </tr>
+
+            </tbody>
+              : <>
+                {
+                  <>
+                    {
+                      analyticsProfitData?.orderData?.data?.length > 0 ? <tbody>
+                        {analyticsProfitData?.orderData?.data?.map((row, idx) => (
+                          <tr className="customers-table-row">
+                            <td
+                              className="customers-table-data"
+                            >
+                              {moment(row?.order_date).format('MM/DD/YYYY')}
+                            </td>
+                            <td
+                              className="customers-table-data"
+                            // style={{ display: "flex", gap: "12px" }}
+                            >
+                              {`$${(row.transaction).toFixed(2)}`}
+                            </td>
+                            <td
+                              className="customers-table-data"
+                            >
+                              {row.total_items}
+                            </td>
+                            <td
+                              className="customers-table-data"
+                            >
+                              {`$${addThousandSeparator((row.total_price).toFixed(2))}`}
+                            </td>
+                            <td
+                              className="customers-table-data"
+                            >
+                              {`${Math.round(row?.margin)}%`}
+                            </td>
+                            <td
+                              className="customers-table-data"
+                            >
+                              <b>${addThousandSeparator((row?.cost_sum).toFixed(2))}</b>
+                            </td>
+                          </tr>
+                        ))}
+                      </tbody> :
+                        <tbody>
+                          <tr>
+                            <td colSpan="6" style={{ textAlign: "center" }}>
+                              No Record Found
+                            </td>
+                          </tr>
+                        </tbody>
+                    }
+                  </>
+
+                }
+              </>
+          }
+
+        </table>
+        {
+          (analyticsProfitData?.orderData?.data?.length > 0 && !analyticsData?.loading) &&
+          <div className='paginatePosition'>
+            <div className="pagination-footer flex-row-space-between">
+              <div className="flex-row-space-between" onClick={() => {
+                (page > 1) ? setPage(page - 1) : void (0);
+              }}>
+                <Image
+                  src={ArrowLeft}
+                  width={16}
+                  height={16}
+                />
+                <p
+                  style={{
+                    color: "#B4BEEB",
+                  }}
+                  className="pagination-footer-text"
+                >
+                  Prev
+                </p>
+              </div>
               <p
-                className="stat-box-count"
-                style={{ color: textColor }}
+                style={{
+                  color: "#B4BEEB",
+                }}
+                className="pagination-footer-text"
               >
-                {count}
+                Page {page} to {Math.ceil(totalRecords / 10)}
               </p>
+              <div className="flex-row-space-between" onClick={() => {
+                (page < (Math.ceil(totalRecords / 10))) ? setPage(page + 1) : void (0);
+              }}>
+                <p className="pagination-footer-text">Next</p>
+                <Image
+                  src={ArrowRight}
+                  width={16}
+                  height={16}
+                />
+              </div>
             </div>
           </div>
-        ))}
-      </div>
-
-      {/* table stats */}
-      <table className="customers-stats-table">
-        <thead>
-          <tr>
-            <th
-              className="customers-table-data"
-              style={{ border: "none", color: "#7E8AC1", textAlign: "left" }}
-            >
-              Date
-            </th>
-            <th
-              className="customers-table-data"
-              style={{ border: "none", color: "#7E8AC1", textAlign: "left" }}
-            >
-              Transaction Volume
-            </th>
-            <th
-              className="customers-table-data"
-              style={{ border: "none", color: "#7E8AC1", textAlign: "left" }}
-            >
-              Total Product
-            </th>
-            <th
-              className="customers-table-data"
-              style={{ border: "none", color: "#7E8AC1", textAlign: "left" }}
-            >
-              Total Price
-            </th>
-            <th
-              className="customers-table-data"
-              style={{ border: "none", color: "#7E8AC1", textAlign: "left" }}
-            >
-              Margin
-            </th>
-            <th
-              className="customers-table-data"
-              style={{ border: "none", color: "#7E8AC1", textAlign: "left" }}
-            >
-              Total Cost
-            </th>
-          </tr>
-        </thead>
-
-        {
-          analyticsData?.loading ? <tbody>
-            <tr>
-              <td colSpan="6" style={{ textAlign: "center" }}>
-                Loading...
-              </td>
-            </tr>
-
-          </tbody>
-            : <>
-              {
-                <>
-                  {
-                    analyticsProfitData?.orderData?.data?.length > 0 ? <tbody>
-                      {analyticsProfitData?.orderData?.data?.map((row, idx) => (
-                        <tr className="customers-table-row">
-                          <td
-                            className="customers-table-data"
-                          >
-                            {moment(row?.order_date).format('MM/DD/YYYY')}
-                          </td>
-                          <td
-                            className="customers-table-data"
-                          // style={{ display: "flex", gap: "12px" }}
-                          >
-                            {`$${(row.transaction).toFixed(2)}`}
-                          </td>
-                          <td
-                            className="customers-table-data"
-                          >
-                            {row.total_items}
-                          </td>
-                          <td
-                            className="customers-table-data"
-                          >
-                            {`$${addThousandSeparator((row.total_price).toFixed(2))}`}
-                          </td>
-                          <td
-                            className="customers-table-data"
-                          >
-                            {`${Math.round(row?.margin)}%`}
-                          </td>
-                          <td
-                            className="customers-table-data"
-                          >
-                            <b>${addThousandSeparator((row?.cost_sum).toFixed(2))}</b>
-                          </td>
-                        </tr>
-                      ))}
-                    </tbody> :
-                      <tbody>
-                        <tr>
-                          <td colSpan="6" style={{ textAlign: "center" }}>
-                            No Record Found
-                          </td>
-                        </tr>
-                      </tbody>
-                  }
-                </>
-
-              }
-            </>
         }
 
-      </table>
-      {
-        (analyticsProfitData?.orderData?.data?.length > 0 && !analyticsData?.loading) &&
-        <div className="pagination-footer flex-row-space-between">
-          <div className="flex-row-space-between" onClick={() => {
-            (page > 1) ? setPage(page - 1) : void (0);
-          }}>
-            <Image
-              src={ArrowLeft}
-              width={16}
-              height={16}
-            />
-            <p
-              style={{
-                color: "#B4BEEB",
-              }}
-              className="pagination-footer-text"
-            >
-              Prev
-            </p>
-          </div>
-          <p
-            style={{
-              color: "#B4BEEB",
-            }}
-            className="pagination-footer-text"
-          >
-            Page {page} to {Math.ceil(totalRecords / 10)}
-          </p>
-          <div className="flex-row-space-between" onClick={() => {
-            (page < (Math.ceil(totalRecords / 10))) ? setPage(page + 1) : void (0);
-          }}>
-            <p className="pagination-footer-text">Next</p>
-            <Image
-              src={ArrowRight}
-              width={16}
-              height={16}
-            />
-          </div>
-        </div>
-      }
-
+      </div>
+      <AnalyticsRightsidebar />
     </div>
   )
 }

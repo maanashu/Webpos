@@ -125,8 +125,16 @@ export const settingSlice = createSlice({
     setViewPayment: (state, action) => {
       state.loading = false;
     },
+    getLanguageList: (state) => {
+      state.loading = true;
+    },
+    setGetLanguageList: (state, action) => {
+      state.loading = false;
+    }
+    // end language slices////////////////////////////////////////////
   },
-});
+},
+);
 
 // Action creators are generated for each case reducer function
 export const {
@@ -164,6 +172,8 @@ export const {
   setSubScribePlan,
   getActivePlan,
   setGetActivePlan,
+  getLanguageList,
+  setGetLanguageList
 } = settingSlice.actions;
 
 export const settingInfo = (state) => state.setting;

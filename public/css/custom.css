@@ -140,7 +140,6 @@ a {
   background: #b4beeb;
   right: -15px;
 }
-
 .timeHeading span {
   font-weight: 500;
 }
@@ -155,7 +154,6 @@ a {
   border: none;
 }
 /*header css end*/
-
 /* SwitchToggle.css */
 .switch-container {
   display: flex;
@@ -418,4 +416,129 @@ input:checked + .switch-slider:before {
   max-width: 200px;
   width: 100%;
   margin-right: 10px;
+}
+.analytics_box {
+  background: transparent!important;
+}
+.analytics_box .chartsOuter {
+  border-radius: 20px;
+  background: #FFF;
+  box-shadow: -1.908px 3.783px 25.481px 0px rgb(50 80 127 / 2%), -4.954px 9.821px 80px 0px rgb(50 80 127 / 4%);
+  padding: 15px;
+  height: 100%;
+}
+.topheadanalytics_ {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.expectedHeading {
+  color: #263682;
+  font-size: 16px;
+  font-weight: 500;
+}
+.rightcontainBox_ {
+  display: flex;
+  align-items: center;
+}
+.rightcontainBox_ .customer-calendar-cnt i {
+  color: #8D99D2;
+  font-size: 13px;
+}
+.analyticStatus_ {
+  display: flex;
+  align-items: center;
+  justify-content: right;
+  margin-top: 8px;
+}
+.deliveredStatus {
+  border-radius: 20px;
+  background: #F5EDFF;
+  color: #7233C2;
+  font-size: 12px;
+  font-weight: 500;
+  padding: 5px 12px;
+  line-height: normal;
+}
+.statusDot_ {
+  display: inline-block;
+  width: 7px;
+  height: 7px;
+  background: #B985FD;
+  border-radius: 10px;
+  margin-right: 5px;
+}
+.returnstatus {
+  background: #FFF7D7!important;
+  color: #DC6803;
+}
+.returnstatus .statusDot_ {
+  background: #FDB022!important;
+}
+.cancelstatus {
+  background: #FEF3F2;
+  color: #D92D20;
+}
+.cancelstatus .statusDot_ {
+  background: #F97066!important;
+}
+.posorder_ {
+  background: #F5F6FC;
+  color: #263682;
+}
+.posorder_ .statusDot_ {
+  background: #B6C2FF!important;
+}
+.onlineorder {
+  background: #EFFBFF;
+  color: #308CAD;
+}
+.onlineorder .statusDot_ {
+  background: #58C2E8!important;
+}
+.bgtransparent_ {
+  background: transparent!important;
+  min-height: auto!important;
+  padding-bottom: 0!important;
+}
+.commonbdcontain_ {
+  display: inline-block;
+  width: 100%;
+  background: #fff;
+  border-radius: 20px;
+  height: calc(100vh - 112px);
+  overflow-y: scroll;
+}
+.commonbdcontain_::-webkit-scrollbar {
+  display: none!important;
+}
+.analyticsSection {
+  min-width: calc(100% - 107px)!important;
+  margin-right: 95px!important;
+  position: relative;
+}
+.analyticsSection .deliverRightBar {
+  right: 15px;
+  top: 90px;
+}
+.mainanalyticsside_ .deliverPercent {
+  background: #D1FADF!important;
+  color: #027547!important;
+}
+.mainanalyticsside_ .deliverPercent::before {
+  background-color: #32D583!important;
+}
+.mainanalyticsside_ .loginSub {
+  color: #263682;
+ }
+ .secondaryOuterbtn_ {
+  border-radius: 30px;
+  border: 0px solid #263682;
+  background: #F5F6FC;
+  color: #263682;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: normal;
+  padding: 6px 18px;
+  outline: none!important;
 }

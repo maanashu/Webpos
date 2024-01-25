@@ -50,6 +50,11 @@
         width: 100%;
         min-width: 150px;
     }
+
+    .productSearchBx {
+        width: 100%;
+        max-width: 420px;
+    }
 }
 
 @media (max-width: 1400px) {
@@ -64,6 +69,11 @@
 
     .staffInfoBox::before {
         left: 30px;
+    }
+
+    .productSearchBx {
+        width: 100%;
+        max-width: 385px;
     }
 
 }
@@ -90,9 +100,18 @@
     .staffInfoBox::before {
         left: 45px;
     }
+
+    .productSearchBx {
+        width: 100%;
+        max-width: 340px;
+    }
 }
 
 @media (max-width: 1280px) {
+    .navBtn {
+        padding: 10px;
+    }
+
     .cartInfo {
         height: 200px;
         overflow-y: scroll;
@@ -134,8 +153,59 @@
 
     .loginLogo {
         padding: 12px 16px;
-        top: 30px;
+        top: 24px;
         left: 15px;
+    }
+
+    .homeLeft {
+        padding: 24px 12px;
+    }
+
+    .homeRight {
+        padding: 24px 12px;
+    }
+
+    .homeProfileImg {
+        width: 130px;
+        height: 130px;
+    }
+
+    .loginheading {
+        font-size: 26px;
+    }
+
+    .cashierHeading {
+        font-size: 14px;
+    }
+
+    .searchControl {
+        padding: 15px 52px !important;
+    }
+
+    .scanSearch {
+        width: 40px !important;
+        height: 40px !important;
+    }
+
+    .bellOuter {
+        padding: 6px;
+    }
+
+    .sellingOrder .loginMain {
+        font-size: 18px;
+    }
+
+    .OrderBtn {
+        padding: 7px;
+    }
+
+    .homeOverview .dayTimeText {
+        font-size: 12px;
+    }
+
+    .productSearchBx {
+        width: 100%;
+        max-width: 245px;
     }
 }
 
@@ -202,9 +272,18 @@
         margin-top: 10px;
         padding: 12px 50px;
     }
+
+    .productSearchBx {
+        width: 100%;
+        max-width: 215px;
+    }
 }
 
 @media (max-width: 1020px) {
+    .navBtn {
+        margin-left: 45px;
+        padding: 10px;
+    }
 
     .customInput {
         max-width: 400px;
@@ -229,6 +308,11 @@
     .navbar-nav .nav-item {
         padding: 0 10px;
     }
+
+    .productSearchBx {
+        width: 100%;
+        max-width: 215px;
+    }
 }
 
 @media (min-width:991) {
@@ -246,9 +330,16 @@
     .navbar-expand-lg .navbar-nav {
         margin-top: 0;
     }
+
 }
 
 @media (max-width: 992px) {
+    .loginLogo {
+        padding: 10px 12px;
+        top: 24px;
+        left: 15px;
+    }
+
     .customInput {
         max-width: 100%;
     }
@@ -305,12 +396,128 @@
     .navbar-nav .nav-item {
         padding: 9px 10px;
     }
+
+    .leftHeader {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+    }
+
+    .timeHeading {
+        font-size: 13px;
+        margin: 0;
+    }
+
+    .timeNav::before {
+        right: -7px;
+    }
+
+    .authHeader {
+        padding: 0 80px;
+    }
+
+    .navBtn {
+        margin-left: 30px;
+        padding: 8px;
+    }
+
+    .homeOverview {
+        height: 100%;
+    }
 }
 
-@media (max-width: 768px) {
+@media (max-width: 767px) {
+    .leftHeader {
+        display: flex;
+        align-items: center;
+        width: 100%;
+        justify-content: space-between;
+    }
+
+    .timeNav::before {
+        display: none;
+    }
+
     .driverNavigationCon {
         flex-wrap: wrap;
     }
+
+    .authHeader {
+        padding: 0 50px 0 70px;
+    }
+
+    .loginLogo {
+        padding: 8px 12px;
+        top: 24px;
+        left: 15px;
+    }
+
+    .leftMainHeader {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .rightMainHeader {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .navBtn {
+        margin-left: 0;
+        padding: 8px;
+        font-size: 14px;
+    }
+
+    .rightheader {
+        display: flex;
+        align-items: center;
+        width: 100%;
+        justify-content: space-between;
+    }
+
+    .main-sidebar {
+        width: 70px;
+        padding: 8px 10px;
+    }
+
+    .rightWrapper {
+        min-width: calc(100% - 102px);
+        margin-left: 90px;
+    }
+
+    .profileImg {
+        width: 35px;
+        height: 35px;
+    }
+
+    .sellingOrder .loginMain {
+        font-size: 16px;
+        margin-top: 10px;
+    }
+
+    .bellImage_ {
+        width: 20px;
+        height: 20px;
+    }
+
+    .bellOuter {
+        padding: 4px;
+    }
+
+    .OrderBtn {
+        padding: 6px 8px;
+        font-size: 11px;
+    }
+
+    .sideMini {
+        display: inline-block;
+    }
+
+    /* .sidebarRight {
+        display: none;
+    } */
 
 }
 
@@ -367,6 +574,8 @@
     .verificationSection .verifyBox {
         margin: 0 25px;
         padding: 40px 50px;
+        width: 100%;
+        max-width: 410px;
     }
 
     .verifyHeading {
@@ -383,12 +592,82 @@
         height: 55px !important;
     }
 
+    .otpMain .pin-box input {
+        font-size: 25px !important;
+        font-weight: 400 !important;
+    }
+
+    .loginheading {
+        font-size: 24px;
+        margin-bottom: 0;
+    }
+
+    .loginPasswordOtp .verifyBox {
+        margin-top: 40px;
+        padding: 35px 10px;
+    }
+
+    .loginOtpSub {
+        width: 100%;
+        max-width: 370px;
+        margin-top: 0;
+    }
+
+    .main-sidebar {
+        width: 65px;
+        padding: 8px 8px;
+    }
+
+    .rightWrapper {
+        min-width: calc(100% - 102px);
+        margin-left: 80px;
+    }
+
+    .sellingOrder {
+        flex-wrap: wrap;
+    }
+
+    .bellImage_ {
+        width: 24px;
+        height: 24px;
+    }
+
+    .homeRight {
+        padding: 8px 12px;
+    }
+
+    .commonWidth {
+        display: flex !important;
+        align-items: center;
+        justify-content: center;
+    }
 }
 
 @media (max-width: 475px) {
+    .main-sidebar {
+        width: 60px;
+        padding: 8px 6px;
+    }
+
+    .rightWrapper {
+        min-width: calc(100% - 102px);
+        margin-left: 75px;
+    }
+
+    .main-sidebar {
+        width: 60px;
+        padding: 8px 6px;
+    }
+
+    .loginOtpSub {
+        width: 100%;
+        max-width: 360px;
+    }
 
     .verificationSection .verifyBox {
         padding: 30px 40px;
+        width: 100%;
+        max-width: 370px;
     }
 
     .verificationSection {
@@ -402,16 +681,80 @@
     .verifyBtn {
         gap: 26px;
     }
+
+    .nextverifyBtn {
+        padding: 12px 20px;
+    }
+
+    .backverifyBtn {
+        padding: 12px 20px;
+    }
+
+    .verifySub {
+        font-size: 14px;
+    }
+
+    .verifyHeading {
+        font-size: 25px;
+    }
+
+
 }
 
 @media (max-width: 425px) {
     .verificationSection .verifyBox {
-        padding: 25px 20px;
+        padding: 35px 20px;
+        width: 100%;
+        max-width: 330px;
+    }
+
+    .verifyNumber {
+        margin: 35px 0;
+        position: relative;
+    }
+
+    .otpMain {
+        margin: 35px 0;
+    }
+
+    .mainAuthHead {
+        padding: 0 12px 0 60px;
+    }
+
+    .loginOtpSub {
+        width: 100%;
+        max-width: 325px;
+    }
+
+    .otherHead .timeHeading {
+        font-size: 11px;
+    }
+
+    .otherHead .navBtn {
+        padding: 6px 8px;
+        font-size: 12px;
+    }
+
+    .homeOverview .dayTimeText {
+        font-size: 10px;
+    }
+
+    #trackingModal .modal-body {
+        padding: 0 16px 16px 16px !important;
+    }
+
+    #trackingModal .modal-content {
+        margin: 0 12px;
     }
 }
 
 @media (max-width: 375px) {
     .verificationSection .verifyBox {
-        padding: 25px 15px;
+        padding: 35px 15px;
+    }
+
+    .timeNav::before {
+        right: -7px;
+        display: block;
     }
 }

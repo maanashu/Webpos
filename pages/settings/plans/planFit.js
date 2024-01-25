@@ -17,7 +17,6 @@ const PlanFit = ({ handleTouch }) => {
   const [plansData, setPlansData] = useState([]);
   const [activePlan, setActivePlan] = useState([]);
 
-
   // get all plans
   useEffect(() => {
     let params = {
@@ -66,6 +65,7 @@ const PlanFit = ({ handleTouch }) => {
     );
   };
 
+  
   return (
     <>
       <div className="settingMain">
@@ -170,18 +170,16 @@ const PlanFit = ({ handleTouch }) => {
                                             className={
                                               item?._id ===
                                               activePlan?.plan_id?._id
-                                                ? "planCyan"
-                                                : "professionText"
+                                                ? "planCyan text-uppercase"
+                                                : "professionText text-uppercase"
                                             }
                                           >
                                             JOBR {tag}
                                           </h4>
                                         </div>
-                                        {tag?.length - 1 && (
-                                          <hr className="dottedDivide" />
-                                        )}
                                       </>
                                     ))}
+                                    <hr className="dottedDivide" />
                                     {item?.tags?.map((value, index) => (
                                       <>
                                         {item?._id ===
@@ -224,7 +222,8 @@ const PlanFit = ({ handleTouch }) => {
                                       }
                                       className="changeBtn"
                                     >
-                                      Change
+                                      {!activePlan ? "Buy" : "Change"}
+
                                       <Image
                                         src={Images.ArrowRight}
                                         alt="lightCircleTick image"

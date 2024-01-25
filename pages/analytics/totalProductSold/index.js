@@ -7,6 +7,7 @@ import { analyticsDetails, getProfitsData, orderAnalyticsData, totalAnalyticsPro
 import moment from 'moment-timezone';
 import { useDispatch, useSelector } from 'react-redux';
 import { selectLoginAuth } from '../../../redux/slices/auth';
+import AnalyticsRightsidebar from '../../../components/commanComonets/analytics/analyticsRightsidebar';
 
 const index = () => {
   const [timeSpan, setTimeSpan] = useState("week");
@@ -66,39 +67,39 @@ const index = () => {
 
   const totalProductSoldAnalyticsHandle = () => {
     let params = {
-        filter: timeSpan,
-        channel: channelSelected.value,
-        // seller_id: auth?.usersInfo?.payload?.uniqe_id
-        seller_id: sellerId,
+      filter: timeSpan,
+      channel: channelSelected.value,
+      // seller_id: auth?.usersInfo?.payload?.uniqe_id
+      seller_id: sellerId,
     }
 
     if (startDate && endDate) {
-        params = {
-            start_date: moment(startDate).format("YYYY-MM-DD"),
-            end_date: moment(endDate).format("YYYY-MM-DD"),
-            channel: channelSelected.value,
-            // seller_id: auth?.usersInfo?.payload?.uniqe_id
-            seller_id: sellerId,
-        }
+      params = {
+        start_date: moment(startDate).format("YYYY-MM-DD"),
+        end_date: moment(endDate).format("YYYY-MM-DD"),
+        channel: channelSelected.value,
+        // seller_id: auth?.usersInfo?.payload?.uniqe_id
+        seller_id: sellerId,
+      }
     }
 
     dispatch(totalAnalyticsProductSoldData({
-        ...params,
-        cb(res) {
-            if (res.status) {
-                setTotalProductSoldAnalyticsData(res?.data?.payload);
-            }
-        },
+      ...params,
+      cb(res) {
+        if (res.status) {
+          setTotalProductSoldAnalyticsData(res?.data?.payload);
+        }
+      },
     })
     );
-};
+  };
 
   useEffect(() => {
     totalProductSoldAnalyticsHandle();
   }, [timeSpan, channelSelected, endDate]);
 
   return (
-    <div className="main-container-customers">
+    <div className="main-container-customers analyticsSection bgtransparent_">
       <AnalyticsHeader
         timeSpan={timeSpan}
         onTimeSpanSelect={setTimeSpan}
@@ -110,148 +111,149 @@ const index = () => {
         startDate={startDate}
         endDate={endDate}
       />
+      <div className='commonbdcontain_ '>
+        <AnalyticsSubHeader
+          mainIcon={gross_profit_blue}
+          title="Top Selling Product"
+        />
 
-      <AnalyticsSubHeader
-        mainIcon={gross_profit_blue}
-        title="Top Selling Product"
-      />
-
-      {/* stats */}
-      <div className="stats flex-row-space-between">
-        {STATS.map(({ bgColor, icon, title, count, textColor }, idx) => (
-          <div
-            key={idx + "stats"}
-            className="stat-box"
-            style={{ backgroundColor: bgColor }}
-          >
-            <Image
-              objectFit="center"
-              width={30}
-              height={30}
-              src={icon}
-              style={{ marginBottom: "35px" }}
-            />
-            <div>
-              <h4
-                className="stat-box-title"
-                style={{ color: textColor }}
-              >
-                {title}
-              </h4>
-              <p
-                className="stat-box-count"
-                style={{ color: textColor }}
-              >
-                {count}
-              </p>
+        {/* stats */}
+        <div className="stats flex-row-space-between">
+          {STATS.map(({ bgColor, icon, title, count, textColor }, idx) => (
+            <div
+              key={idx + "stats"}
+              className="stat-box"
+              style={{ backgroundColor: bgColor }}
+            >
+              <Image
+                objectFit="center"
+                width={30}
+                height={30}
+                src={icon}
+                style={{ marginBottom: "35px" }}
+              />
+              <div>
+                <h4
+                  className="stat-box-title"
+                  style={{ color: textColor }}
+                >
+                  {title}
+                </h4>
+                <p
+                  className="stat-box-count"
+                  style={{ color: textColor }}
+                >
+                  {count}
+                </p>
+              </div>
             </div>
-          </div>
-        ))}
-      </div>
+          ))}
+        </div>
 
-      {/* table stats */}
-      <table className="customers-stats-table">
-        <thead>
-          <tr>
-            <th
-              className="customers-table-data"
-              style={{ border: "none", color: "#7E8AC1", textAlign: "left" }}
-            >
-              Product Name
-            </th>
-            <th
-              className="customers-table-data"
-              style={{ border: "none", color: "#7E8AC1", textAlign: "left" }}
-            >
-              UPC
-            </th>
-            <th
-              className="customers-table-data"
-              style={{ border: "none", color: "#7E8AC1", textAlign: "left" }}
-            >
-              Price
-            </th>
-            <th
-              className="customers-table-data"
-              style={{ border: "none", color: "#7E8AC1", textAlign: "left" }}
-            >
-              In Stock
-            </th>
-            <th
-              className="customers-table-data"
-              style={{ border: "none", color: "#7E8AC1", textAlign: "left" }}
-            >
-              Last Sold Date
-            </th>
-          </tr>
-        </thead>
-
-        {
-          analyticsData?.loading ? <tbody>
+        {/* table stats */}
+        <table className="customers-stats-table">
+          <thead>
             <tr>
-              <td colSpan="6" style={{ textAlign: "center" }}>
-                Loading...
-              </td>
+              <th
+                className="customers-table-data"
+                style={{ border: "none", color: "#7E8AC1", textAlign: "center" }}
+              >
+                Product Name
+              </th>
+              <th
+                className="customers-table-data"
+                style={{ border: "none", color: "#7E8AC1", textAlign: "center" }}
+              >
+                UPC
+              </th>
+              <th
+                className="customers-table-data"
+                style={{ border: "none", color: "#7E8AC1", textAlign: "center" }}
+              >
+                Price
+              </th>
+              <th
+                className="customers-table-data"
+                style={{ border: "none", color: "#7E8AC1", textAlign: "center" }}
+              >
+                In Stock
+              </th>
+              <th
+                className="customers-table-data"
+                style={{ border: "none", color: "#7E8AC1", textAlign: "center" }}
+              >
+                Last Sold Date
+              </th>
             </tr>
+          </thead>
 
-          </tbody>
-            : <>
-              {
-                <>
-                  {
-                    totalProductSoldAnalyticsData?.totalProductSoldList?.data?.length > 0 ? <tbody>
-                      {totalProductSoldAnalyticsData?.totalProductSoldList?.data?.map((row, idx) => (
-                        <tr className="customers-table-row" key={idx}>
-                          <td
-                            className="customers-table-data"
-                          >
-                            {row?.product_name ? `${row?.product_name?.length > 25 ? `${row?.product_name?.slice(0, 25)}...` : row?.product_name}` : ""}
-                          </td>
-                          <td
-                            className="customers-table-data"
-                          >
-                            {row?.product_upc}
-                          </td>
-                          <td
-                            className="customers-table-data"
-                          // style={{ display: "flex", gap: "12px" }}
-                          >
-                            {`$${row?.total_price ? addThousandSeparator((row?.total_price)?.toFixed(2)) : "0"}`}
-                          </td>
-                          <td
-                            className="customers-table-data"
-                          >
-                            {row?.in_stock_qty}
-                          </td>
-                          <td
-                            className="customers-table-data"
-                          >
-                            {moment(row?.last_sold_date).format('MM/DD/YYYY')}
-                          </td>
-                          <td
-                            className="customers-table-data"
-                          >
-                            <button className="secondaryOuterbtn_" type="button">Review</button>
-                          </td>
-                        </tr>
-                      ))}
-                    </tbody> :
-                      <tbody>
-                        <tr>
-                          <td colSpan="6" style={{ textAlign: "center" }}>
-                            No Record Found
-                          </td>
-                        </tr>
-                      </tbody>
-                  }
-                </>
+          {
+            analyticsData?.loading ? <tbody>
+              <tr>
+                <td colSpan="6" style={{ textAlign: "center" }}>
+                  Loading...
+                </td>
+              </tr>
 
-              }
-            </>
-        }
+            </tbody>
+              : <>
+                {
+                  <>
+                    {
+                      totalProductSoldAnalyticsData?.totalProductSoldList?.data?.length > 0 ? <tbody>
+                        {totalProductSoldAnalyticsData?.totalProductSoldList?.data?.map((row, idx) => (
+                          <tr className="customers-table-row" key={idx}>
+                            <td
+                              className="customers-table-data"
+                            >
+                              {row?.product_name ? `${row?.product_name?.length > 25 ? `${row?.product_name?.slice(0, 25)}...` : row?.product_name}` : ""}
+                            </td>
+                            <td
+                              className="customers-table-data"
+                            >
+                              {row?.product_upc}
+                            </td>
+                            <td
+                              className="customers-table-data"
+                            // style={{ display: "flex", gap: "12px" }}
+                            >
+                              {`$${row?.total_price ? addThousandSeparator((row?.total_price)?.toFixed(2)) : "0"}`}
+                            </td>
+                            <td
+                              className="customers-table-data"
+                            >
+                              {row?.in_stock_qty}
+                            </td>
+                            <td
+                              className="customers-table-data"
+                            >
+                              {moment(row?.last_sold_date).format('MM/DD/YYYY')}
+                            </td>
+                            <td
+                              className="customers-table-data"
+                            >
+                              <button className="secondaryOuterbtn_" type="button">Review</button>
+                            </td>
+                          </tr>
+                        ))}
+                      </tbody> :
+                        <tbody>
+                          <tr>
+                            <td colSpan="6" style={{ textAlign: "center" }}>
+                              No Record Found
+                            </td>
+                          </tr>
+                        </tbody>
+                    }
+                  </>
 
-      </table>
+                }
+              </>
+          }
 
+        </table>
+      </div>
+      <AnalyticsRightsidebar />
     </div>
   )
 }

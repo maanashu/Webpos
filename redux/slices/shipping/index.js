@@ -16,6 +16,15 @@ export const shippingSlice = createSlice({
       state.loading = false;
       state.sidebarCountData = action?.payload;
     },
+    changeStatusOfOrder: (state) => {
+      state.loading = true;
+    },
+    getShippingsStatus: (state) => {
+      state.loading = true;
+    },
+    getShippingstodayStatus: (state) => {
+      state.loading = true;
+    },
     getShippingGraphData: (state) => {
       state.loading = true;
     },
@@ -26,6 +35,9 @@ export const shippingSlice = createSlice({
 export const {
   getShippingsSidebarCount,
   setSidebarCountData,
+  changeStatusOfOrder,
+  getShippingsStatus,
+  getShippingstodayStatus,
   getShippingGraphData,
 } = shippingSlice.actions;
 
