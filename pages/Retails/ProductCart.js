@@ -24,6 +24,8 @@ import {
   getProductFinalPrice,
   getProductPrice,
 } from "../../utilities/globalMethods";
+import { Modal } from "react-bootstrap";
+import CustomProductAdd from "./CustomProductAdd";
 
 const ProductCart = () => {
   const router = useRouter();
@@ -35,6 +37,7 @@ const ProductCart = () => {
   const sellerId = authData?.usersInfo?.payload?.uniqe_id;
   const availableOffersArray = retailData?.availableOffers?.data || [];
   const [key, setKey] = useState(Math.random());
+  const [customProductAdd, setCustomProductAdd] = useState(false);
   const [modalDetail, setModalDetail] = useState({
     show: false,
     title: "",
@@ -189,6 +192,7 @@ const ProductCart = () => {
                             src={Images.redCross}
                             alt="crossImage"
                             className="img-fluid ms-2"
+                           
                           />
                         </div>
                       </div>
@@ -212,21 +216,16 @@ const ProductCart = () => {
           <div className="col-lg-5 col-md-5">
             <div className="commanOuter me-0 ms-0 commonSubOuter fullCartRight">
               <div className="insertProductSection">
-                <div className="addproductCart d-none">
+                <div
+                  className="addproductCart"
+                  onClick={() => setCustomProductAdd(true)}
+                >
                   <Image
                     src={Images.addProductImg}
                     alt="addProductimage"
                     className="img-fluid"
                   />
-                  <h4 className="monthText">Add Product</h4>
-                </div>
-                <div className="addproductCart d-none">
-                  <Image
-                    src={Images.pauseImg}
-                    alt="pauseproductImage"
-                    className="img-fluid"
-                  />
-                  <h4 className="monthText">Pause Product</h4>
+                  {/* <h4 className="monthText">Add Product</h4> */}
                 </div>
                 <div
                   className="deleteProductCart "
@@ -237,30 +236,40 @@ const ProductCart = () => {
                     alt="deleteProductImage"
                     className="img-fluid"
                   />
-                  <h4 className="monthText">Delete Product</h4>
+                  {/* <h4 className="monthText">Delete Product</h4> */}
+                </div>
+                <div className="addproductCart ">
+                  <Image
+                    src={Images.pauseImg}
+                    alt="pauseproductImage"
+                    className="img-fluid"
+                  />
+                  {/* <h4 className="monthText">Pause Product</h4> */}
+                </div>
+                <div className="addproductCart">
+                  <Image
+                    src={Images.addUser}
+                    alt="adduser Image"
+                    className="img-fluid "
+                  />
                 </div>
 
-                <Image
+                {/* <Image
                   src={Images.addProductImg}
                   alt="addproductImage"
-                  className="img-fluid d-none"
-                />
+                  className="img-fluid "
+                /> */}
 
-                <Image
+                {/* <Image
                   src={Images.crossProduct}
                   alt="crossProductImage"
                   className="img-fluid "
-                />
-                <Image
+                /> */}
+                {/* <Image
                   src={Images.pauseImg}
                   alt="pauseProductImage"
                   className="img-fluid "
-                />
-                <Image
-                  src={Images.addUser}
-                  alt="adduser Image"
-                  className="img-fluid "
-                />
+                /> */}
               </div>
               <div className="cartOfferSection">
                 <div className="availablePercent">
@@ -345,7 +354,7 @@ const ProductCart = () => {
                         </h6>
                       ) : (
                         <div className="loaderOuter">
-                          <div className="spinner-grow loaderSpinner text-center my-5"></div>
+                          <span className="spinner-border spinner-border-sm mx-1"></span>
                         </div>
                       )}
                     </>
@@ -437,6 +446,11 @@ const ProductCart = () => {
           </div>
         </div>
       </div>
+      {/* custom product add */}
+      <Modal show={customProductAdd} centered keyboard={false}>
+        <CustomProductAdd crosshandler={() => setCustomProductAdd(false)} />
+      </Modal>
+
       <CustomModal
         key={key}
         show={modalDetail.show}

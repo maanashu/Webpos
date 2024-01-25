@@ -29,11 +29,13 @@ import PhoneInput from "react-phone-input-2";
 import AttachWithPhone from "./AttachWithPhone";
 import AttachWithEmail from "./AttachWithEmail";
 import AddedCartItemsCard from "../../components/AddedCartItemsCard";
+import moment from "moment-timezone";
 
 const CartAmountByPay = () => {
   const router = useRouter();
   const dispatch = useDispatch();
   const authData = useSelector(selectLoginAuth);
+  const posUserData = authData?.posUserLoginDetails;
   const merchentDetails = authData?.usersInfo?.payload?.user?.user_profiles;
   const retailData = useSelector(selectRetailData);
   const getSettingData = useSelector(settingInfo);
@@ -192,6 +194,43 @@ const CartAmountByPay = () => {
       })
     );
   };
+  const invoiceData = [
+    {
+      title: "Payment Option",
+      data: "Cash",
+      id: 1,
+    },
+    {
+      title: "POS No.",
+      data: posUserData?.payload?.pos_number,
+      id: 2,
+    },
+    {
+      title: "Date",
+      // data: moment().format('ddd') + ' ' + moment().subtract(10, 'days').calendar();
+      data: moment().format("ddd") + " " + moment().format("MM/DD/YY"),
+      id: 3,
+    },
+    {
+      title: "User ID",
+      data: posUserData?.payload?.id,
+      id: 4,
+    },
+    {
+      title: "Mode",
+      data: "Walk-In",
+      id: 5,
+    },
+  ];
+  // Function to  array into groups of 3
+  const threeGroupArray = (array, chunkSize) => {
+    const result = [];
+    for (let i = 0; i < array.length; i += chunkSize) {
+      result.push(array.slice(i, i + chunkSize));
+    }
+    return result;
+  };
+  const rows = threeGroupArray(invoiceData, 2);
   return (
     <>
       <div className="confirmSelectSection confirmationSection">
@@ -472,31 +511,16 @@ const CartAmountByPay = () => {
                 })}
               </div>
               <div className="flexBox mapleInvoiceBox confirmRightSub">
-                <article>
-                  <p className="mapleProductPrice">Payment Option</p>
-                  <p className="mapleProductHeading">Cash</p>
-                  <p className="mapleProductPrice">Invoice</p>
-                  <p className="mapleProductHeading"># 9836-1238</p>
-                </article>
-
-                <article>
-                  <p className="mapleProductPrice">Payment Option</p>
-                  <p className="mapleProductHeading">Cash</p>
-                  {/* <p className="mapleProductPrice">Invoice</p>
-                  <p className="mapleProductHeading"># 9836-1238</p> */}
-                </article>
-                {/* <article>
-                  <p className="mapleProductPrice">Date</p>
-                  <p className="mapleProductHeading">Wed 10/10/23</p>
-                  <p className="mapleProductPrice">POS No.</p>
-                  <p className="mapleProductHeading">#Front-CC03</p>
-                </article>
-                <article>
-                  <p className="mapleProductPrice">Mode</p>
-                  <p className="mapleProductHeading">Walk-In</p>
-                  <p className="mapleProductPrice">User UD</p>
-                  <p className="mapleProductHeading">****331</p>
-                </article> */}
+                {rows?.map((row, index) => (
+                  <div key={index}>
+                    {row?.map((item, ind) => (
+                      <div key={ind}>
+                        <p className="mapleProductPrice">{item?.title}</p>
+                        <p className="mapleProductHeading">{item?.data}</p>
+                      </div>
+                    ))}
+                  </div>
+                ))}
               </div>
               <div className="flexBox maplePriceBox">
                 <article>

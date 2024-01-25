@@ -71,7 +71,6 @@ export const getProductPrice = (
 };
 export const getProductFinalPrice = (item) => {
   var productPrice = 0;
-
   productPrice = getProductPrice(
     item.product_details?.supply?.supply_offers,
     item.product_details?.supply?.supply_prices?.selling_price,
