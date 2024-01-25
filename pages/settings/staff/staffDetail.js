@@ -75,9 +75,9 @@ const StaffDetail = ({ selectedItemId,handleTouch }) => {
 
     return (
         <>
-            <div className='settingMain staffDetailSection'>
+            {/* <div className='settingMain staffDetailSection'>
                 <div className='row'>
-                    <div className='col-lg-12'>
+                    <div className='col-lg-12'> */}
                         {settingData?.loading ? (
                             <>
                                 <div className="loaderOuter">
@@ -314,10 +314,10 @@ const StaffDetail = ({ selectedItemId,handleTouch }) => {
                             </div>
                         )
                         }
-                    </div>
+                    {/* </div>
 
                 </div>
-            </div>
+            </div> */}
         </>
     )
 }
