@@ -52,7 +52,8 @@ function* getCurrentOrderStatus(action) {
       `${ORDER_API_URL}${API_URL.getCurrentOrderStat}${params}`
     );
     if (resp) {
-      //   yield put(setProfitData(resp.data));
+      // yield put(setProfitData(resp.data));
+
       yield call(action.payload.cb, (action.res = resp));
     } else {
       throw resp;

@@ -1,393 +1,534 @@
-import React, { useEffect, useState } from 'react'
-import DeliveryRightSidebar from '../../components/commanComonets/Delivery/deliveryRightSidebar'
-import * as Images from "../../utilities/images"
+import React, { useEffect, useState } from "react";
+import DeliveryRightSidebar from "../../components/commanComonets/Delivery/deliveryRightSidebar";
+import * as Images from "../../utilities/images";
 import Image from "next/image";
-import CustomModal from '../../components/customModal/CustomModal';
-import ConfirmShip from '../../components/modals/shipping/confirmShip';
-import { useRouter } from 'next/router';
-import { acceptOrder, getOrdersList } from '../../redux/slices/delivery';
-import { selectLoginAuth } from '../../redux/slices/auth';
-import { useDispatch, useSelector } from 'react-redux';
-import NoOrderFound from '../../components/NoOrderFound';
-import { getOrderDetailsById } from '../../redux/slices/dashboard';
-import moment from 'moment-timezone';
-import { changeStatusOfOrder, getShippingsSidebarCount } from '../../redux/slices/shipping';
-import ShipRightSidebar from '../../components/commanComonets/Shipping/shipRightSidebar';
-import PrintLabelModal from '../../components/modals/shipping/printLabelModal';
-import { flushSync } from 'react-dom';
+import CustomModal from "../../components/customModal/CustomModal";
+import ConfirmShip from "../../components/modals/shipping/confirmShip";
+import { useRouter } from "next/router";
+import { acceptOrder, getOrdersList } from "../../redux/slices/delivery";
+import { selectLoginAuth } from "../../redux/slices/auth";
+import { useDispatch, useSelector } from "react-redux";
+import NoOrderFound from "../../components/NoOrderFound";
+import { getOrderDetailsById } from "../../redux/slices/dashboard";
+import moment from "moment-timezone";
+import {
+  changeStatusOfOrder,
+  getShippingsSidebarCount,
+} from "../../redux/slices/shipping";
+import ShipRightSidebar from "../../components/commanComonets/Shipping/shipRightSidebar";
+import PrintLabelModal from "../../components/modals/shipping/printLabelModal";
+import { flushSync } from "react-dom";
 import ReactDatePicker from "react-datepicker";
 
 const OrderReview = () => {
-    const router = useRouter();
-    const dispatch = useDispatch();
-    const { id, status, title } = router?.query
-    console.log(id, status, title, 'query data');
-    const authData = useSelector(selectLoginAuth);
-    const [loading, setLoading] = useState(false);
-    const [loading1, setLoading1] = useState(false);
-    const sellerUid = authData?.usersInfo?.payload?.uniqe_id;
-    const [selectedItemId, setSelectedItemId] = useState(id)
-    const [orderCount, setOrderCount] = useState([]);
-    console.log(selectedItemId, 'iddddddddddddddd');
-    const [singleOrderData, setSingleOrderData] = useState('');
-    console.log(singleOrderData, 'single order data');
-    const [orderData, setOrderData] = useState([]);
-    const [printingUrl, setPrintingUrl] = useState("")
-    const [key, setKey] = useState(Math.random());
-    const [modalDetail, setModalDetail] = useState({
-        show: false,
-        title: "",
-        flag: "",
+  const router = useRouter();
+  const dispatch = useDispatch();
+  const { id, status, title } = router?.query;
+  console.log(id, status, title, "query data");
+  const authData = useSelector(selectLoginAuth);
+  const [loading, setLoading] = useState(false);
+  const [loading1, setLoading1] = useState(false);
+  const sellerUid = authData?.usersInfo?.payload?.uniqe_id;
+  const [selectedItemId, setSelectedItemId] = useState(id);
+  const [orderCount, setOrderCount] = useState([]);
+  console.log(selectedItemId, "iddddddddddddddd");
+  const [singleOrderData, setSingleOrderData] = useState("");
+  console.log(singleOrderData, "single order data");
+  const [orderData, setOrderData] = useState([]);
+  const [printingUrl, setPrintingUrl] = useState("");
+  const [key, setKey] = useState(Math.random());
+  const [modalDetail, setModalDetail] = useState({
+    show: false,
+    title: "",
+    flag: "",
+  });
+  const [selectedDate, setSelectedDate] = useState(null);
+  console.log(selectedDate, "selected dateeeee");
+
+  const handleDateChange = (date) => {
+    setSelectedDate(date);
+  };
+  //closeModal
+  const handleOnCloseModal = () => {
+    setModalDetail({
+      show: false,
+      title: "",
+      flag: "",
     });
-    const [selectedDate, setSelectedDate] = useState(null);
-    console.log(selectedDate, 'selected dateeeee');
+    setKey(Math.random());
+  };
 
-    const handleDateChange = (date) => {
-        setSelectedDate(date);
+  const handleUserProfile = (flag) => {
+    setModalDetail({
+      show: true,
+      flag: flag,
+      type: flag,
+    });
+    setKey(Math.random());
+  };
+  const getAllShippingOrdesCountHandle = () => {
+    let orderParam = {
+      seller_id: sellerUid,
+      delivery_option: "4",
     };
-    //closeModal
-    const handleOnCloseModal = () => {
-        setModalDetail({
-            show: false,
-            title: "",
-            flag: "",
-        });
-        setKey(Math.random());
+    dispatch(
+      getShippingsSidebarCount({
+        ...orderParam,
+        cb(res) {
+          if (res) {
+            setOrderCount(res?.data?.payload);
+          }
+        },
+      })
+    );
+  };
+  const getOrderDetailsByIdHandle = () => {
+    let Param = {
+      id: selectedItemId,
     };
+    setLoading(true);
+    dispatch(
+      getOrderDetailsById({
+        ...Param,
+        cb(res) {
+          if (res) {
+            setLoading(false);
+            setSingleOrderData(res?.data?.payload);
+          }
+        },
+      })
+    );
+  };
 
-    const handleUserProfile = (flag) => {
-
-        setModalDetail({
-            show: true,
-            flag: flag,
-            type: flag,
-        });
-        setKey(Math.random());
+  const getAllShippingOrdeshandle = () => {
+    let orderListParam = {
+      seller_id: sellerUid,
+      status: status,
+      delivery_option: "4",
     };
-    const getAllShippingOrdesCountHandle = () => {
-        let orderParam = {
-            seller_id: sellerUid,
-            delivery_option: "4"
-        };
-        dispatch(
-            getShippingsSidebarCount({
-                ...orderParam,
-                cb(res) {
-                    if (res) {
-                        setOrderCount(res?.data?.payload);
-                    }
-                },
-            })
-        );
+    if (selectedDate) {
+      orderListParam = {
+        ...orderListParam,
+        date: moment(selectedDate).format("YYYY-MM-DD"),
+      };
     }
-    const getOrderDetailsByIdHandle = () => {
-        let Param = {
-            id: selectedItemId,
-        };
-        setLoading(true)
-        dispatch(
-            getOrderDetailsById({
-                ...Param,
-                cb(res) {
-                    if (res) {
-                        setLoading(false)
-                        setSingleOrderData(res?.data?.payload);
-                    }
-                },
-            })
-        );
+    setLoading1(true);
+    dispatch(
+      getOrdersList({
+        ...orderListParam,
+        cb(res) {
+          if (res) {
+            setLoading1(false);
+            setOrderData(res?.data?.payload?.data);
+          }
+        },
+      })
+    );
+  };
+
+  const acceptHandler = (status) => {
+    let params = {
+      status: status,
+      orderId: selectedItemId,
+    };
+    dispatch(
+      changeStatusOfOrder({
+        ...params,
+        cb(res) {
+          if (res) {
+            getOrderDetailsByIdHandle();
+            getAllShippingOrdeshandle();
+            getAllShippingOrdesCountHandle();
+            console.log("screeen response", JSON.stringify(res));
+          }
+        },
+      })
+    );
+  };
+
+  useEffect(() => {
+    if (sellerUid) {
+      getAllShippingOrdeshandle();
+      getAllShippingOrdesCountHandle();
     }
+  }, [sellerUid, selectedDate]);
 
-    const getAllShippingOrdeshandle = () => {
-        let orderListParam = {
-            seller_id: sellerUid,
-            status: status,
-            delivery_option: "4"
-        };
-        if (selectedDate) {
-            orderListParam = {
-                ...orderListParam, date: moment(selectedDate).format("YYYY-MM-DD")
-            }
-        }
-        setLoading1(true)
-        dispatch(
-            getOrdersList({
-                ...orderListParam,
-                cb(res) {
-                    if (res) {
-                        setLoading1(false)
-                        setOrderData(res?.data?.payload?.data);
-                    }
-                },
-            })
-        );
+  useEffect(() => {
+    if (selectedItemId) {
+      getOrderDetailsByIdHandle();
     }
+  }, [selectedItemId]);
 
-    const acceptHandler = (status) => {
-        let params = {
-            status: status,
-            orderId: selectedItemId
-        };
-        dispatch(
-            changeStatusOfOrder({
-                ...params,
-                cb(res) {
-                    if (res) {
-                        getOrderDetailsByIdHandle()
-                        getAllShippingOrdeshandle()
-                        getAllShippingOrdesCountHandle()
-                        console.log("screeen response", JSON.stringify(res));
-                    }
-                },
-            })
-        );
-    }
-
-    useEffect(() => {
-        if (sellerUid) {
-            getAllShippingOrdeshandle()
-            getAllShippingOrdesCountHandle()
-        }
-    }, [sellerUid,selectedDate]);
-
-    useEffect(() => {
-        if (selectedItemId) {
-            getOrderDetailsByIdHandle()
-        }
-    }, [selectedItemId])
-
-    return (
-        <>
-            <div className='shippingSection shipOrderSection'>
-                <div className='deliverMain w-100'>
-                    <div className='row '>
-                        <div className='col-lg-6'>
-                            <div className='deliverOrderLeft deliveryOuter me-0'>
-                                <div className='flexTable'>
-                                    <Image src={Images.boldLeftArrow} style={{ cursor: "pointer" }} onClick={() => router.push('/shipping')} alt="boldLeftArrow " className="img-fluid me-2" />
-                                    <h4 className='loginMain text-start m-0'>Shipping {router?.query?.title === 'Returned' ? "Order Returns" : router?.query?.title === 'Shipped' ? "Tracking Orders" : router?.query?.title}</h4>
-                                </div>
-                                {
-                                    (status != 0) && (status != 7) && (status != 8) &&
-                                    <div className='appointmenMonth cancelCalendar'>
-                                        <div className='flexTable'>
-                                            <Image src={Images.calendarLight} alt='calendarimage' className='img-fluid' />
-                                            {/* <span className='monthText ms-2'>Today</span> */}
-                                            <ReactDatePicker
-                                                    selected={selectedDate}
-                                                    onChange={handleDateChange}
-                                                    dateFormat="MM/dd/yyyy"
-                                                    placeholderText="Select date"
-                                                />
-                                        </div>
-                                        <Image src={Images.arrowDown} alt='arrowDown image' className='img-fluid text-end' />
+  return (
+    <>
+      <div className="shippingSection shipOrderSection">
+        <div className="deliverMain w-100">
+          <div className="row ">
+            <div className="col-lg-6">
+              <div className="deliverOrderLeft deliveryOuter me-0">
+                <div className="flexTable">
+                  <Image
+                    src={Images.boldLeftArrow}
+                    style={{ cursor: "pointer" }}
+                    onClick={() => router.push("/shipping")}
+                    alt="boldLeftArrow "
+                    className="img-fluid me-2"
+                  />
+                  <h4 className="loginMain text-start m-0">
+                    Shipping{" "}
+                    {router?.query?.title === "Returned"
+                      ? "Order Returns"
+                      : router?.query?.title === "Shipped"
+                      ? "Tracking Orders"
+                      : router?.query?.title}
+                  </h4>
+                </div>
+                {status != 0 && status != 7 && status != 8 && (
+                  <div className="appointmenMonth cancelCalendar">
+                    <div className="flexTable">
+                      <Image
+                        src={Images.calendarLight}
+                        alt="calendarimage"
+                        className="img-fluid"
+                      />
+                      {/* <span className='monthText ms-2'>Today</span> */}
+                      <ReactDatePicker
+                        className="shippingDrop "
+                        selected={selectedDate}
+                        onChange={handleDateChange}
+                        dateFormat="MM/dd/yyyy"
+                        placeholderText="Select date"
+                      />
+                    </div>
+                    {/* <Image
+                      src={Images.arrowDown}
+                      alt="arrowDown image"
+                      className="img-fluid text-end"
+                    /> */}
+                  </div>
+                )}
+                {loading1 ? (
+                  <>
+                    <div className="loaderOuter">
+                      <div className="spinner-grow loaderSpinner text-center my-5"></div>
+                    </div>
+                  </>
+                ) : (
+                  <div className="table-responsive mt-3">
+                    <table id="" className="orderDeliverTable">
+                      {status != 0 && status != 7 && status != 8 && (
+                        <thead className="invoiceHeadingBox">
+                          <tr>
+                            <th className="invoiceHeading">#</th>
+                            <th className="invoiceHeading">Client/Items</th>
+                            <th className="invoiceHeading">
+                              Delivery Type/Shipped Time
+                            </th>
+                            <th className="invoiceHeading"></th>
+                          </tr>
+                        </thead>
+                      )}
+                      <tbody>
+                        {status != 0 && status != 7 && status != 8 && (
+                          <tr>
+                            <td colSpan={4} className="innerHead">
+                              <h4 className="processText">In Process</h4>
+                            </td>
+                          </tr>
+                        )}
+                        {orderData?.length > 0 ? (
+                          orderData?.map((item, i) => {
+                            return (
+                              <tr
+                                key={i}
+                                className={`product_invoice ${
+                                  selectedItemId == item?.id ? "active" : ""
+                                }`}
+                                onClick={() => setSelectedItemId(item?.id)}
+                              >
+                                {item?.status != 0 &&
+                                  item?.status != 7 &&
+                                  item?.status != 8 && (
+                                    <td className="invoice_subhead verticalBase">
+                                      <h4 className="assignId">#{item?.id}</h4>
+                                    </td>
+                                  )}
+                                <td className="invoice_subhead verticalBase">
+                                  <div className="nameLocation">
+                                    <h4 className="assignId">
+                                      {item?.user_details?.firstname +
+                                        " " +
+                                        item?.user_details?.lastname}
+                                    </h4>
+                                    <div className="deliverTableBx">
+                                      <Image
+                                        src={Images.OrderLocation}
+                                        alt="location Image"
+                                        className="img-fluid m-0"
+                                      />
+                                      <span className="locateDistance">
+                                        {item?.user_details?.current_address
+                                          ?.city +
+                                          "," +
+                                          item?.user_details?.current_address
+                                            ?.country}
+                                      </span>
                                     </div>
-                                }
-                                {
-                                    loading1 ? (
-                                        <>
-                                            <div className="loaderOuter">
-                                                <div className="spinner-grow loaderSpinner text-center my-5"></div>
-                                            </div>
-                                        </>
-                                    ) :
-                                        <div className='table-responsive mt-3'>
-                                            <table id="" className="orderDeliverTable">
-                                                {
-                                                    (status != 0) && (status != 7) && (status != 8) &&
-                                                    <thead className='invoiceHeadingBox'>
-                                                        <tr>
-                                                            <th className='invoiceHeading'>#</th>
-                                                            <th className='invoiceHeading'>Client/Items</th>
-                                                            <th className='invoiceHeading'>Delivery Type/Shipped Time</th>
-                                                            <th className='invoiceHeading'></th>
-                                                        </tr>
-                                                    </thead>
-                                                }
-                                                <tbody>
-                                                    {
-                                                        (status != 0) && (status != 7) && (status != 8) &&
-                                                        <tr>
-                                                            <td colSpan={4} className='innerHead'>
-                                                                <h4 className='processText'>In Process</h4>
-                                                            </td>
-                                                        </tr>}
-                                                    {
-                                                        orderData?.length > 0 ?
-                                                            orderData?.map((item, i) => {
-                                                                return (
-                                                                    <tr key={i} className={`product_invoice ${selectedItemId == item?.id ? 'active' : ""}`} onClick={() => setSelectedItemId(item?.id)}>
-                                                                        {
-                                                                            (item?.status != 0) && (item?.status != 7) && (item?.status != 8) &&
-                                                                            <td className='invoice_subhead verticalBase'>
-                                                                                <h4 className='assignId'>#{item?.id}</h4>
-                                                                            </td>
-                                                                        }
-                                                                        <td className="invoice_subhead verticalBase">
-                                                                            <div className="nameLocation">
-                                                                                <h4 className="assignId">{item?.user_details?.firstname + " " + item?.user_details?.lastname}</h4>
-                                                                                <div className="deliverTableBx">
-                                                                                    <Image
-                                                                                        src={Images.OrderLocation}
-                                                                                        alt="location Image"
-                                                                                        className="img-fluid m-0"
-                                                                                    />
-                                                                                    <span className="locateDistance">{item?.user_details?.current_address?.city + "," + item?.user_details?.current_address?.country}</span>
-                                                                                </div>
-                                                                            </div>
-                                                                            {(item?.status >= 3) &&
-                                                                                <div className="itemMoney mt-4">
-                                                                                    <h4 className="assignId">{item?.total_items} items</h4>
-                                                                                    <div className="deliverTableBx">
-                                                                                        <Image
-                                                                                            src={Images.MoneyItem}
-                                                                                            alt="MoneyItemImage "
-                                                                                            className="img-fluid m-0"
-                                                                                        />
-                                                                                        <span className="locateDistance">${item?.payable_amount || "00"}
-                                                                                        </span>
-                                                                                    </div>
-                                                                                </div>
-                                                                            }
-                                                                        </td>
-                                                                        {(item?.status == 0) && (item?.status == 1) && (item?.status == 2) &&
-                                                                            <td className="invoice_subhead">
-                                                                                <div className="itemMoney">
-                                                                                    <h4 className="assignId">{item?.total_items} items</h4>
-                                                                                    <div className="deliverTableBx">
-                                                                                        <Image
-                                                                                            src={Images.MoneyItem}
-                                                                                            alt="MoneyItemImage "
-                                                                                            className="img-fluid m-0"
-                                                                                        />
-                                                                                        <span className="locateDistance">${item?.payable_amount || "00"}
-                                                                                        </span>
-                                                                                    </div>
-                                                                                </div>
-                                                                            </td>}
-                                                                        <td className="invoice_subhead">
-                                                                            {
-                                                                                item?.shipping_details &&
-                                                                                <div className='expresSaver'>
-                                                                                    <Image width={50} height={50} src={item?.shipping_details?.image} alt="pickupImg image" className="img-fluid shipPickImg m-0" />
-                                                                                    <div className='subSaver'>
-                                                                                        <h4 className='assignId'>{item?.shipping_details?.title}</h4>
-                                                                                        {/* <div className='immediateBox mt-1'>
+                                  </div>
+                                  {item?.status >= 3 && (
+                                    <div className="itemMoney mt-4">
+                                      <h4 className="assignId">
+                                        {item?.total_items} items
+                                      </h4>
+                                      <div className="deliverTableBx">
+                                        <Image
+                                          src={Images.MoneyItem}
+                                          alt="MoneyItemImage "
+                                          className="img-fluid m-0"
+                                        />
+                                        <span className="locateDistance">
+                                          ${item?.payable_amount || "00"}
+                                        </span>
+                                      </div>
+                                    </div>
+                                  )}
+                                </td>
+                                {item?.status == 0 &&
+                                  item?.status == 1 &&
+                                  item?.status == 2 && (
+                                    <td className="invoice_subhead">
+                                      <div className="itemMoney">
+                                        <h4 className="assignId">
+                                          {item?.total_items} items
+                                        </h4>
+                                        <div className="deliverTableBx">
+                                          <Image
+                                            src={Images.MoneyItem}
+                                            alt="MoneyItemImage "
+                                            className="img-fluid m-0"
+                                          />
+                                          <span className="locateDistance">
+                                            ${item?.payable_amount || "00"}
+                                          </span>
+                                        </div>
+                                      </div>
+                                    </td>
+                                  )}
+                                <td className="invoice_subhead">
+                                  {item?.shipping_details && (
+                                    <div className="expresSaver">
+                                      <Image
+                                        width={50}
+                                        height={50}
+                                        src={item?.shipping_details?.image}
+                                        alt="pickupImg image"
+                                        className="img-fluid shipPickImg m-0"
+                                      />
+                                      <div className="subSaver">
+                                        <h4 className="assignId">
+                                          {item?.shipping_details?.title}
+                                        </h4>
+                                        {/* <div className='immediateBox mt-1'>
                                                                                             <Image src={Images.Fast} alt="deliverFast image" className="img-fluid m-0" />
                                                                                             <h4 className='immediateText'>3 Days Shipping</h4>
                                                                                         </div> */}
-                                                                                    </div>
-                                                                                </div>}
-                                                                            {(item?.status == 4) || (item?.status == 5) ?
-                                                                                <div className="itemTime mt-3">
-                                                                                    <h4 className="assignId">Shipped</h4>
-                                                                                    <div className="orderDeliverTime">
-                                                                                        <Image
-                                                                                            src={Images.deliverTime}
-                                                                                            alt="deliverTime image "
-                                                                                            className="img-fluid mb-1"
-                                                                                        />
-                                                                                        <span className="immediateText ">Today 29 Oct, 2023 | 10:41 am</span>
-                                                                                    </div>
-                                                                                </div> :
-                                                                                (item?.status == 7) || (item?.status == 8) ?
-                                                                                    <div className='itemType mt-4'>
-                                                                                        <h4 className='assignId'>Cancelled by</h4>
-                                                                                        <div className='cancelUserBx mt-1'>
-                                                                                            <Image src={Images.cancelUser} alt="cancelUser image" className="img-fluid" />
-                                                                                            <h4 className='cancelText'>{item?.status == 7 ? 'User' : "Seller"}</h4>
-                                                                                        </div>
-                                                                                    </div> :
-                                                                                    (item?.status == 9) ?
-                                                                                        <div className="itemTime mt-3">
-                                                                                            <h4 className="assignId">Return Within:</h4>
-                                                                                            <div className="orderDeliverTime">
-                                                                                                <Image
-                                                                                                    src={Images.deliverTime}
-                                                                                                    alt="deliverTime image "
-                                                                                                    className="img-fluid mb-1"
-                                                                                                />
-                                                                                                <span className="immediateText ">In 05:59 min</span>
-                                                                                            </div>
-                                                                                        </div>
-                                                                                        : <></>
-                                                                            }
-                                                                        </td>
-                                                                        {(item?.status == 7 || item?.status == 8) ?
-                                                                            <td className="invoice_subhead verticalBase">
-                                                                                <div className='cancellingTime'>
-                                                                                    <h4 className='assignId'>Cancelled at:</h4>
-                                                                                    <div className='canceltimeBx'>
-                                                                                        <Image src={Images.cancelPackage} alt="cancelUser image" className="img-fluid" />
-                                                                                        <div className='timeAlert'>
-                                                                                            <h4 className='cancelBold'>{item?.status_desc?.status_7_updated_at ? moment(item?.status_desc?.status_7_updated_at).format("DD MMM YY") : moment(item?.status_desc?.status_8_updated_at).format("DD MMM YY")}</h4>
-                                                                                            <h4 className='cancelLight'> {item?.status_desc?.status_7_updated_at ? moment(item?.status_desc?.status_7_updated_at).format("hh : mm a") : moment(item?.status_desc?.status_8_updated_at).format("hh : mm a")}</h4>
-                                                                                        </div>
-                                                                                    </div>
-                                                                                </div>
-                                                                            </td> : <></>
-                                                                        }
-                                                                        <td className='invoice_subhead verticalBase'>
-                                                                            <div className='deliverArrow text-end'>
-                                                                                <Image src={Images.RightArrow} alt="RightArrow image" className="img-fluid ms-1" />
-                                                                            </div>
-                                                                        </td>
-                                                                    </tr>
-                                                                )
-                                                            }) :
-                                                            <NoOrderFound />
-                                                    }
-                                                </tbody>
-                                            </table>
-                                        </div>}
-                            </div>
-                        </div>
-                        <div className='col-lg-6'>
-                            {
-                                loading ? (
-                                    <>
-                                        <div className="loaderOuter">
-                                            <div className="spinner-grow loaderSpinner text-center my-5"></div>
+                                      </div>
+                                    </div>
+                                  )}
+                                  {item?.status == 4 || item?.status == 5 ? (
+                                    <div className="itemTime mt-3">
+                                      <h4 className="assignId">Shipped</h4>
+                                      <div className="orderDeliverTime">
+                                        <Image
+                                          src={Images.deliverTime}
+                                          alt="deliverTime image "
+                                          className="img-fluid mb-1"
+                                        />
+                                        <span className="immediateText ">
+                                          Today 29 Oct, 2023 | 10:41 am
+                                        </span>
+                                      </div>
+                                    </div>
+                                  ) : item?.status == 7 || item?.status == 8 ? (
+                                    <div className="itemType mt-4">
+                                      <h4 className="assignId">Cancelled by</h4>
+                                      <div className="cancelUserBx mt-1">
+                                        <Image
+                                          src={Images.cancelUser}
+                                          alt="cancelUser image"
+                                          className="img-fluid"
+                                        />
+                                        <h4 className="cancelText">
+                                          {item?.status == 7
+                                            ? "User"
+                                            : "Seller"}
+                                        </h4>
+                                      </div>
+                                    </div>
+                                  ) : item?.status == 9 ? (
+                                    <div className="itemTime mt-3">
+                                      <h4 className="assignId">
+                                        Return Within:
+                                      </h4>
+                                      <div className="orderDeliverTime">
+                                        <Image
+                                          src={Images.deliverTime}
+                                          alt="deliverTime image "
+                                          className="img-fluid mb-1"
+                                        />
+                                        <span className="immediateText ">
+                                          In 05:59 min
+                                        </span>
+                                      </div>
+                                    </div>
+                                  ) : (
+                                    <></>
+                                  )}
+                                </td>
+                                {item?.status == 7 || item?.status == 8 ? (
+                                  <td className="invoice_subhead verticalBase">
+                                    <div className="cancellingTime">
+                                      <h4 className="assignId">
+                                        Cancelled at:
+                                      </h4>
+                                      <div className="canceltimeBx">
+                                        <Image
+                                          src={Images.cancelPackage}
+                                          alt="cancelUser image"
+                                          className="img-fluid"
+                                        />
+                                        <div className="timeAlert">
+                                          <h4 className="cancelBold">
+                                            {item?.status_desc
+                                              ?.status_7_updated_at
+                                              ? moment(
+                                                  item?.status_desc
+                                                    ?.status_7_updated_at
+                                                ).format("DD MMM YY")
+                                              : moment(
+                                                  item?.status_desc
+                                                    ?.status_8_updated_at
+                                                ).format("DD MMM YY")}
+                                          </h4>
+                                          <h4 className="cancelLight">
+                                            {" "}
+                                            {item?.status_desc
+                                              ?.status_7_updated_at
+                                              ? moment(
+                                                  item?.status_desc
+                                                    ?.status_7_updated_at
+                                                ).format("hh : mm a")
+                                              : moment(
+                                                  item?.status_desc
+                                                    ?.status_8_updated_at
+                                                ).format("hh : mm a")}
+                                          </h4>
                                         </div>
-                                    </>
-                                ) :
-                                    <div className=' deliveryOuter deliverOrderRight ms-0'>
-                                        <div className='orderLeftInfo'>
-                                            <div className='flexTable'>
-                                                <figure className='orderAroundImg'>
-                                                    <Image width={50} height={50} src={singleOrderData?.user_details?.profile_photo ? singleOrderData?.user_details?.profile_photo : Images.LoginThird} alt="LoginThird image " className="orderPerson" />
-                                                </figure>
-                                                <div className='returnHeading ms-1'>
-                                                    <h4 className='cancelOrderText '>{singleOrderData?.user_details?.firstname + " " + singleOrderData?.user_details?.lastname}</h4>
-                                                    <p className='returnPara'>{singleOrderData?.user_details?.current_address?.street_address}</p>
-                                                </div>
-                                            </div>
-                                            {
-                                                singleOrderData?.shipping_details?.title &&
-                                                <div className='expresSaver'>
-                                                    <Image width={50} height={50} src={singleOrderData?.shipping_details?.image} alt="pickupImg image" className="img-fluid shipPickImg m-0" />
-                                                    <div className='subSaver'>
-                                                        <h4 className='assignId'>{singleOrderData?.shipping_details?.title}</h4>
-                                                        {/* <div className='immediateBox mt-1'>
+                                      </div>
+                                    </div>
+                                  </td>
+                                ) : (
+                                  <></>
+                                )}
+                                <td className="invoice_subhead verticalBase">
+                                  <div className="deliverArrow text-end">
+                                    <Image
+                                      src={Images.RightArrow}
+                                      alt="RightArrow image"
+                                      className="img-fluid ms-1"
+                                    />
+                                  </div>
+                                </td>
+                              </tr>
+                            );
+                          })
+                        ) : (
+                          <NoOrderFound />
+                        )}
+                      </tbody>
+                    </table>
+                  </div>
+                )}
+              </div>
+            </div>
+            <div className="col-lg-6">
+              {loading ? (
+                <>
+                  <div className="loaderOuter">
+                    <div className="spinner-grow loaderSpinner text-center my-5"></div>
+                  </div>
+                </>
+              ) : (
+                <div className=" deliveryOuter deliverOrderRight ms-0">
+                  <div className="orderLeftInfo">
+                    <div className="flexTable">
+                      <figure className="orderAroundImg">
+                        <Image
+                          width={50}
+                          height={50}
+                          src={
+                            singleOrderData?.user_details?.profile_photo
+                              ? singleOrderData?.user_details?.profile_photo
+                              : Images.LoginThird
+                          }
+                          alt="LoginThird image "
+                          className="orderPerson"
+                        />
+                      </figure>
+                      <div className="returnHeading ms-1">
+                        <h4 className="cancelOrderText ">
+                          {singleOrderData?.user_details?.firstname +
+                            " " +
+                            singleOrderData?.user_details?.lastname}
+                        </h4>
+                        <p className="returnPara">
+                          {
+                            singleOrderData?.user_details?.current_address
+                              ?.street_address
+                          }
+                        </p>
+                      </div>
+                    </div>
+                    {singleOrderData?.shipping_details?.title && (
+                      <div className="expresSaver">
+                        <Image
+                          width={50}
+                          height={50}
+                          src={singleOrderData?.shipping_details?.image}
+                          alt="pickupImg image"
+                          className="img-fluid shipPickImg m-0"
+                        />
+                        <div className="subSaver">
+                          <h4 className="assignId">
+                            {singleOrderData?.shipping_details?.title}
+                          </h4>
+                          {/* <div className='immediateBox mt-1'>
                                                             <Image src={Images.Fast} alt="deliverFast image" className="img-fluid m-0" />
                                                             <h4 className='immediateText'>3 Days Shipping</h4>
                                                         </div> */}
-                                                    </div>
-                                                </div>
-                                            }
-                                        </div>
-                                        <hr className='divideBorder my-3' />
-                                        <div className='detailScroll  mt-3'>
-                                            {
-                                                singleOrderData?.order_details?.length > 0 ?
-                                                    singleOrderData?.order_details?.map((v, i) => {
-                                                        return (
-                                                            <div key={i} className='selectedProductDetails'>
-                                                                <div className='d-flex'>
-                                                                    <Image height={50} width={50} src={v?.product_image} alt="cartFoodImg" className="img-fluid cartFoodImg" />
-                                                                    <div className='ps-1'>
-                                                                        <p className='aboutProduct'>{v?.product_name}</p>
-                                                                        {/* <div className='d-flex'>
+                        </div>
+                      </div>
+                    )}
+                  </div>
+                  <hr className="divideBorder my-3" />
+                  <div className="detailScroll  mt-3">
+                    {singleOrderData?.order_details?.length > 0
+                      ? singleOrderData?.order_details?.map((v, i) => {
+                          return (
+                            <div key={i} className="selectedProductDetails">
+                              <div className="d-flex">
+                                <Image
+                                  height={50}
+                                  width={50}
+                                  src={v?.product_image}
+                                  alt="cartFoodImg"
+                                  className="img-fluid cartFoodImg"
+                                />
+                                <div className="ps-1">
+                                  <p className="aboutProduct">
+                                    {v?.product_name}
+                                  </p>
+                                  {/* <div className='d-flex'>
                                                                             <article className='productColor'>
                                                                                 <span className='Yellow'></span>
                                                                                 <span className='Red'></span>
@@ -398,211 +539,339 @@ const OrderReview = () => {
                                                                             </article>
                                                                             <span className='productSize ms-2'>Colors / Size</span>
                                                                         </div> */}
-                                                                    </div>
-                                                                </div>
-                                                                <p className='productPriceinvoice'>${v?.price}</p>
-                                                                <p className='productPriceinvoice'>{v?.qty}</p>
-                                                                <p className='productPriceinvoice'>${(v?.qty) * (v?.price)}</p>
-                                                                {/* <article>
+                                </div>
+                              </div>
+                              <p className="productPriceinvoice">${v?.price}</p>
+                              <p className="productPriceinvoice">{v?.qty}</p>
+                              <p className="productPriceinvoice">
+                                ${v?.qty * v?.price}
+                              </p>
+                              {/* <article>
                                                         <label className="custom-checkbox">
                                                             <input type="checkbox" />
                                                             <span className="checkmark"></span>
                                                         </label>
                                                     </article> */}
-                                                            </div>
-                                                        )
-                                                    }) :
-                                                    singleOrderData?.return_detail?.return_details?.map((v, i) => {
-                                                        return (
-                                                            <div key={i} className='selectedProductDetails'>
-                                                                <div className='d-flex'>
-                                                                    <Image height={50} width={50} src={v?.order_details?.product_image} alt="cartFoodImg" className="img-fluid cartFoodImg" />
-                                                                    <div className='ps-1'>
-                                                                        <p className='aboutProduct'>{v?.order_details?.product_name}</p>
-                                                                        <div className='d-flex'>
-                                                                            <article className='productColor'>
-                                                                                <span className='Yellow'></span>
-                                                                                <span className='Red'></span>
-                                                                                <span className='Pink'></span>
-                                                                                <span className='Blue'></span>
-                                                                                <span className='Black'></span>
-                                                                                <span className='White'></span>
-                                                                            </article>
-                                                                            <span className='productSize ms-2'>Colors / Size</span>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                                <p className='productPriceinvoice'>${v?.order_details?.price}</p>
-                                                                <p className='productPriceinvoice'>{v?.order_details?.qty}</p>
-                                                                <p className='productPriceinvoice'>${(v?.order_details?.qty) * (v?.order_details?.price)}</p>
-                                                                {/* <article>
+                            </div>
+                          );
+                        })
+                      : singleOrderData?.return_detail?.return_details?.map(
+                          (v, i) => {
+                            return (
+                              <div key={i} className="selectedProductDetails">
+                                <div className="d-flex">
+                                  <Image
+                                    height={50}
+                                    width={50}
+                                    src={v?.order_details?.product_image}
+                                    alt="cartFoodImg"
+                                    className="img-fluid cartFoodImg"
+                                  />
+                                  <div className="ps-1">
+                                    <p className="aboutProduct">
+                                      {v?.order_details?.product_name}
+                                    </p>
+                                    {/* <div className="d-flex">
+                                      <article className="productColor">
+                                        <span className="Yellow"></span>
+                                        <span className="Red"></span>
+                                        <span className="Pink"></span>
+                                        <span className="Blue"></span>
+                                        <span className="Black"></span>
+                                        <span className="White"></span>
+                                      </article>
+                                      <span className="productSize ms-2">
+                                        Colors / Size
+                                      </span>
+                                    </div> */}
+                                  </div>
+                                </div>
+                                <p className="productPriceinvoice">
+                                  ${v?.order_details?.price}
+                                </p>
+                                <p className="productPriceinvoice">
+                                  {v?.order_details?.qty}
+                                </p>
+                                <p className="productPriceinvoice">
+                                  $
+                                  {v?.order_details?.qty *
+                                    v?.order_details?.price}
+                                </p>
+                                {/* <article>
                                                         <label className="custom-checkbox">
                                                             <input type="checkbox" />
                                                             <span className="checkmark"></span>
                                                         </label>
                                                     </article> */}
-                                                            </div>
-                                                        )
-                                                    })
-                                            }
-                                        </div>
-                                        <div className='row'>
-                                            <div className='col-lg-4'>
-                                                <div className='OrderBox p-0'>
-                                                    <div className="OrderCheckoutBox">
-                                                        <p className='orderHeading'>Total Items</p>
-                                                        <p className='orderSubHeading'>{singleOrderData?.total_items}</p>
-                                                    </div>
-                                                    <div className="OrderCheckoutBox">
-                                                        <p className='orderHeading'>Order Date</p>
-                                                        <p className='orderSubHeading'>{moment.utc(singleOrderData?.invoices?.delivery_date).format("MM/DD/YYYY")}</p>
-                                                    </div>
-                                                    <div className="OrderCheckoutBox">
-                                                        <p className='orderHeading'>Order ID#</p>
-                                                        <p className='orderSubHeading'>{singleOrderData?.id}</p>
-                                                    </div>
-                                                    <div className="OrderCheckoutBox">
-                                                        <p className='orderHeading'>Payment Method</p>
-                                                        <figure className='priceBtn'>
-                                                            <Image src={Images.moneyImg} alt="money" className="moneyImg" />
-                                                            <span className='ms-1'>{singleOrderData?.mode_of_payment === 'jbr' ? "JBR" : 'Cash'}</span>
-                                                        </figure>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div className='col-lg-8'>
-                                                <div className="productBilling">
-                                                    <div className='OrderDiscountBox'>
-                                                        <div className='flexBox '>
-                                                            <p className='orderHeading'>Sub Total</p>
-                                                            <p className='orderSubHeading'>${singleOrderData?.actual_amount}</p>
-                                                        </div>
-                                                        <div className='flexBox'>
-                                                            <p className='orderHeading'>Discount</p>
-                                                            <p className='orderSubHeading'>-${singleOrderData?.discount}</p>
-                                                        </div>
-                                                        {/* <div className='flexBox'>
+                              </div>
+                            );
+                          }
+                        )}
+                  </div>
+                  <div className="row">
+                    <div className="col-lg-4">
+                      <div className="OrderBox p-0">
+                        <div className="OrderCheckoutBox">
+                          <p className="orderHeading">Total Items</p>
+                          <p className="orderSubHeading">
+                            {singleOrderData?.total_items}
+                          </p>
+                        </div>
+                        <div className="OrderCheckoutBox">
+                          <p className="orderHeading">Order Date</p>
+                          <p className="orderSubHeading">
+                            {moment
+                              .utc(singleOrderData?.invoices?.delivery_date)
+                              .format("MM/DD/YYYY")}
+                          </p>
+                        </div>
+                        <div className="OrderCheckoutBox">
+                          <p className="orderHeading">Order ID#</p>
+                          <p className="orderSubHeading">
+                            {singleOrderData?.id}
+                          </p>
+                        </div>
+                        <div className="OrderCheckoutBox">
+                          <p className="orderHeading">Payment Method</p>
+                          <figure className="priceBtn">
+                            <Image
+                              src={Images.moneyImg}
+                              alt="money"
+                              className="moneyImg"
+                            />
+                            <span className="ms-1">
+                              {singleOrderData?.mode_of_payment === "jbr"
+                                ? "JBR"
+                                : "Cash"}
+                            </span>
+                          </figure>
+                        </div>
+                      </div>
+                    </div>
+                    <div className="col-lg-8">
+                      <div className="productBilling">
+                        <div className="OrderDiscountBox">
+                          <div className="flexBox ">
+                            <p className="orderHeading">Sub Total</p>
+                            <p className="orderSubHeading">
+                              ${singleOrderData?.actual_amount}
+                            </p>
+                          </div>
+                          <div className="flexBox">
+                            <p className="orderHeading">Discount</p>
+                            <p className="orderSubHeading">
+                              -${singleOrderData?.discount}
+                            </p>
+                          </div>
+                          {/* <div className='flexBox'>
                                                     <p className='orderHeading'>Other Fees</p>
                                                     <p className='orderSubHeading'>$14,000</p>
                                                 </div> */}
-                                                        <div className='flexBox'>
-                                                            <p className='orderHeading'>Shipping Charge</p>
-                                                            <p className='orderSubHeading'>${singleOrderData?.shipping_charge}</p>
-                                                        </div>
-                                                        <div className='flexBox'>
-                                                            <p className='orderHeading'>Tax</p>
-                                                            <p className='orderSubHeading'>${singleOrderData?.tax}</p>
-                                                        </div>
-                                                        <div className='flexBox'>
-                                                            <p className='orderHeading'>Tips</p>
-                                                            <p className='orderSubHeading'>${singleOrderData?.tips}</p>
-                                                        </div>
-                                                    </div>
-                                                    <div className='OrderTotal'>
-                                                        <div className='flexBox'>
-                                                            <p className='priceHeading'>Total</p>
-                                                            <p className='priceHeading'>${singleOrderData?.payable_amount}</p>
-                                                        </div>
-                                                        {
-                                                            singleOrderData?.status === 0 ?
-                                                                <div className='flexBox '>
-                                                                    <button onClick={() => acceptHandler(8)} className='declineButton w-100' type='button'> Decline</button>
-                                                                    <button onClick={() => acceptHandler(3)} type='button' className='BlueBtn w-100'>
-                                                                        Accept Order
-                                                                        <Image src={Images.ArrowRight} alt="ArrowRight" className="img-fluid ArrowRight" />
-                                                                    </button>
-                                                                </div> :
-                                                                singleOrderData?.status === 3 ?
-                                                                    <button onClick={() => { setPrintingUrl(singleOrderData?.label_url); setModalDetail({ show: true, flag: "printLabel" }); setKey(Math.random()); acceptHandler(4) }} type='button ' className='pickupBtn w-100 mt-2'>
-                                                                        Print Label
-                                                                        <Image src={Images.btnSticker} alt="deliverHand image" className="img-fluid" />
-                                                                    </button> :
-                                                                    singleOrderData?.status === 4 || singleOrderData?.status === 5 ?
-                                                                        <button onClick={() => window.open(singleOrderData?.tracking_info?.url, '_blank')} type='button ' className='pickupBtn w-100 mt-2'>
-                                                                            Track Order
-                                                                            <Image src={Images.trackOrder} alt="deliverHand image" className="img-fluid" />
-                                                                        </button> :
-                                                                        singleOrderData?.status === 7 ?
-                                                                            <button type='button ' disabled className='cancelUserBtn w-100 mt-2'>
-                                                                                {singleOrderData?.is_returned_order ? "Refunded" : "Cancelled"}
-                                                                            </button> :
-                                                                            singleOrderData?.status === 8 ?
-                                                                                <button type='button ' disabled className='pickupBtn w-100 mt-2'>
-                                                                                    Rejected
-                                                                                </button> :
-                                                                                singleOrderData?.status === 9 ?
-                                                                                    <button type='button ' disabled className='pickupBtn w-100 mt-2'>
-                                                                                        Returned
-                                                                                    </button>
-                                                                                    : <></>
-                                                        }
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>}
-                        </div>
-                    </div>
-                </div>
-                <ShipRightSidebar from='orderReview' data={orderCount} />
-            </div>
-            <CustomModal
-                key={key}
-                show={modalDetail.show}
-                backdrop="static"
-                showCloseBtn={false}
-                isRightSideModal={true}
-                mediumWidth={false}
-                className={modalDetail.flag === "confirmship" ? "commonWidth customContent" : ""}
-                ids={modalDetail.flag === "confirmship" ? "confirmShipModal" : modalDetail.flag === "printLabel" ? "PrintLabel" : ""}
-                child={
-                    modalDetail.flag === "printLabel" ? (
-                        <PrintLabelModal printingUrl={printingUrl}
-                            close={() => handleOnCloseModal()}
-                        />
-                    ) :
-                        modalDetail.flag === "confirmship" ? (
-                            <ConfirmShip
-                                close={() => handleOnCloseModal()}
-                            />
-                        ) :
-                            ""
-                }
-                header=
-
-                {modalDetail.flag === "confirmship" ?
-                    <>
-
-                        <div className='trackingSub headerModal'>
-                            <figure className='profileImage '>
-                                <Image src={Images.deliverBack} alt="trackingImage" className="confirmImg shipImgReturn" />
-                            </figure>
-                            <h4 className='shipReturnText mt-2 text-center'>Returned</h4>
-                            <p className='verifySub mt-1'>This return has been completed.</p>
-                            <p onClick={handleOnCloseModal} className='crossModal'>
-                                <Image src={Images.modalCross} alt="modalCross" className="img-fluid" />
+                          <div className="flexBox">
+                            <p className="orderHeading">Shipping Charge</p>
+                            <p className="orderSubHeading">
+                              ${singleOrderData?.shipping_charge}
                             </p>
+                          </div>
+                          <div className="flexBox">
+                            <p className="orderHeading">Tax</p>
+                            <p className="orderSubHeading">
+                              ${singleOrderData?.tax}
+                            </p>
+                          </div>
+                          <div className="flexBox">
+                            <p className="orderHeading">Tips</p>
+                            <p className="orderSubHeading">
+                              ${singleOrderData?.tips}
+                            </p>
+                          </div>
                         </div>
-
-                    </> :
-                    modalDetail.flag === "printLabel" ?
-                        <>
-                            <div className='headerLeft'>
-                                <h4 className='modalHeading_ me-3'>Print Label</h4>
+                        <div className="OrderTotal">
+                          <div className="flexBox">
+                            <p className="priceHeading">Total</p>
+                            <p className="priceHeading">
+                              ${singleOrderData?.payable_amount}
+                            </p>
+                          </div>
+                          {singleOrderData?.status === 0 ? (
+                            <div className="flexBox ">
+                              <button
+                                onClick={() => acceptHandler(8)}
+                                className="declineButton w-100"
+                                type="button"
+                              >
+                                {" "}
+                                Decline
+                              </button>
+                              <button
+                                onClick={() => acceptHandler(3)}
+                                type="button"
+                                className="BlueBtn w-100"
+                              >
+                                Accept Order
+                                <Image
+                                  src={Images.ArrowRight}
+                                  alt="ArrowRight"
+                                  className="img-fluid ArrowRight"
+                                />
+                              </button>
                             </div>
-
-                            <p style={{ cursor: "pointer" }} onClick={handleOnCloseModal} className='modal_cancel'>
-                                {/* <img src={modalCancel} className='ModalCancel' alt='modalcancelImg' /> */}
-                                X
-                            </p>
-                        </>
-                        :
-                        ''
-                }
-                onCloseModal={() => handleOnCloseModal()}
+                          ) : singleOrderData?.status === 3 ? (
+                            <button
+                              onClick={() => {
+                                setPrintingUrl(singleOrderData?.label_url);
+                                setModalDetail({
+                                  show: true,
+                                  flag: "printLabel",
+                                });
+                                setKey(Math.random());
+                                acceptHandler(4);
+                              }}
+                              type="button "
+                              className="pickupBtn w-100 mt-2"
+                            >
+                              Print Label
+                              <Image
+                                src={Images.btnSticker}
+                                alt="deliverHand image"
+                                className="img-fluid"
+                              />
+                            </button>
+                          ) : singleOrderData?.status === 4 ||
+                            singleOrderData?.status === 5 ? (
+                            <button
+                              onClick={() =>
+                                window.open(
+                                  singleOrderData?.tracking_info?.url,
+                                  "_blank"
+                                )
+                              }
+                              type="button "
+                              className="pickupBtn w-100 mt-2"
+                            >
+                              Track Order
+                              <Image
+                                src={Images.trackOrder}
+                                alt="deliverHand image"
+                                className="img-fluid"
+                              />
+                            </button>
+                          ) : singleOrderData?.status === 7 ? (
+                            <button
+                              type="button "
+                              disabled
+                              className="cancelUserBtn w-100 mt-2"
+                            >
+                              {singleOrderData?.is_returned_order
+                                ? "Refunded"
+                                : "Cancelled"}
+                            </button>
+                          ) : singleOrderData?.status === 8 ? (
+                            <button
+                              type="button "
+                              disabled
+                              className="pickupBtn w-100 mt-2"
+                            >
+                              Rejected
+                            </button>
+                          ) : singleOrderData?.status === 9 ? (
+                            <button
+                              type="button "
+                              disabled
+                              className="pickupBtn w-100 mt-2"
+                            >
+                              Returned
+                            </button>
+                          ) : (
+                            <></>
+                          )}
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              )}
+            </div>
+          </div>
+        </div>
+        <ShipRightSidebar from="orderReview" data={orderCount} />
+      </div>
+      <CustomModal
+        key={key}
+        show={modalDetail.show}
+        backdrop="static"
+        showCloseBtn={false}
+        isRightSideModal={true}
+        mediumWidth={false}
+        className={
+          modalDetail.flag === "confirmship" ? "commonWidth customContent" : ""
+        }
+        ids={
+          modalDetail.flag === "confirmship"
+            ? "confirmShipModal"
+            : modalDetail.flag === "printLabel"
+            ? "PrintLabel"
+            : ""
+        }
+        child={
+          modalDetail.flag === "printLabel" ? (
+            <PrintLabelModal
+              printingUrl={printingUrl}
+              close={() => handleOnCloseModal()}
             />
-        </>
-    )
-}
+          ) : modalDetail.flag === "confirmship" ? (
+            <ConfirmShip close={() => handleOnCloseModal()} />
+          ) : (
+            ""
+          )
+        }
+        header={
+          modalDetail.flag === "confirmship" ? (
+            <>
+              <div className="trackingSub headerModal">
+                <figure className="profileImage ">
+                  <Image
+                    src={Images.deliverBack}
+                    alt="trackingImage"
+                    className="confirmImg shipImgReturn"
+                  />
+                </figure>
+                <h4 className="shipReturnText mt-2 text-center">Returned</h4>
+                <p className="verifySub mt-1">
+                  This return has been completed.
+                </p>
+                <p onClick={handleOnCloseModal} className="crossModal">
+                  <Image
+                    src={Images.modalCross}
+                    alt="modalCross"
+                    className="img-fluid"
+                  />
+                </p>
+              </div>
+            </>
+          ) : modalDetail.flag === "printLabel" ? (
+            <>
+              <div className="headerLeft">
+                <h4 className="modalHeading_ me-3">Print Label</h4>
+              </div>
 
-export default OrderReview
+              <p
+                style={{ cursor: "pointer" }}
+                onClick={handleOnCloseModal}
+                className="modal_cancel"
+              >
+                {/* <img src={modalCancel} className='ModalCancel' alt='modalcancelImg' /> */}
+                X
+              </p>
+            </>
+          ) : (
+            ""
+          )
+        }
+        onCloseModal={() => handleOnCloseModal()}
+      />
+    </>
+  );
+};
+
+export default OrderReview;

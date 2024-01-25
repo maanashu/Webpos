@@ -2392,7 +2392,7 @@ figure {
   border-radius: 4px;
 }
 
-.checkBlue input:checked+label:after {
+.checkBlue input:checked + label:after {
   content: "";
   display: block;
   position: absolute;
@@ -2416,7 +2416,7 @@ figure {
   background-color: #f5edff;
 }
 
-.checkPurple input:checked+label:after {
+.checkPurple input:checked + label:after {
   border: solid #914beb;
   border-width: 0 2px 2px 0;
 }
@@ -2430,7 +2430,7 @@ figure {
   background-color: #fff7d7;
 }
 
-.checkYellow input:checked+label:after {
+.checkYellow input:checked + label:after {
   border: solid #fdb022;
   border-width: 0 2px 2px 0;
 }
@@ -2444,7 +2444,7 @@ figure {
   background-color: #fee4e2;
 }
 
-.checkRed input:checked+label:after {
+.checkRed input:checked + label:after {
   border: solid #f04438;
   border-width: 0 2px 2px 0;
 }
@@ -2910,6 +2910,16 @@ figure {
   align-items: center;
   justify-content: space-between;
 }
+.shippingDrop {
+  width: 100%;
+  max-width: 150px;
+  border-width: 0;
+  /* border-radius: 12px !important; */
+  /* margin: 10px 0; */
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
 
 .cancelUserBx {
   border-radius: 20px;
@@ -3208,7 +3218,8 @@ figure {
 }
 
 .shipImgReturn {
-  filter: invert(50%) sepia(45%) saturate(980%) hue-rotate(102deg) brightness(110%) contrast(66%);
+  filter: invert(50%) sepia(45%) saturate(980%) hue-rotate(102deg)
+    brightness(110%) contrast(66%);
 }
 
 .shipDeliverLeft {
@@ -3333,7 +3344,8 @@ figure {
 
 .settingList.active .SecurityImg,
 .settingList:hover .SecurityImg {
-  filter: invert(19%) sepia(61%) saturate(1030%) hue-rotate(196deg) brightness(55%) contrast(99%);
+  filter: invert(19%) sepia(61%) saturate(1030%) hue-rotate(196deg)
+    brightness(55%) contrast(99%);
 }
 
 .deviceLeft .settingListMain {
@@ -4671,7 +4683,8 @@ figure {
 
 .paginateFlex.active .paginationArrowImg,
 .paginateFlex:hover .paginationArrowImg {
-  filter: invert(65%) sepia(92%) saturate(373%) hue-rotate(163deg) brightness(93%) contrast(95%);
+  filter: invert(65%) sepia(92%) saturate(373%) hue-rotate(163deg)
+    brightness(93%) contrast(95%);
 }
 
 .cashDrawMain {
@@ -5005,7 +5018,8 @@ figure {
 }
 
 .SoftwareUpdateBx.active .imgSize {
-  filter: invert(40%) sepia(93%) saturate(322%) hue-rotate(150deg) brightness(100%) contrast(95%);
+  filter: invert(40%) sepia(93%) saturate(322%) hue-rotate(150deg)
+    brightness(100%) contrast(95%);
 }
 
 .deviceInfo {
@@ -5105,8 +5119,9 @@ figure {
 
 .loginLogo {
   border-radius: 60px;
-  background: #FFF;
-  box-shadow: -2px 4px 25px 0px rgba(50, 80, 127, 0.02), -5px 10px 80px 0px rgba(50, 80, 127, 0.04);
+  background: #fff;
+  box-shadow: -2px 4px 25px 0px rgba(50, 80, 127, 0.02),
+    -5px 10px 80px 0px rgba(50, 80, 127, 0.04);
   padding: 16px 20px;
   position: absolute;
   top: 24px;
