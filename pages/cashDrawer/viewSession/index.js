@@ -1,5 +1,5 @@
 import Image from "next/image";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Accordion from "react-bootstrap/Accordion";
 import { Chart as ChartJS, registerables } from "chart.js";
 import * as Images from "../../../utilities/images";
@@ -15,10 +15,24 @@ import {
 import CustomModal from "../../../components/customModal/CustomModal";
 import AddCashModal from "../../../components/modals/cashDrawerModals/addCashModal";
 import Link from "next/link";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  getDrawerHistory,
+  selectCashDrawerData,
+} from "../../../redux/slices/cashDrawer";
+import moment from "moment-timezone";
 // import AccordionBody from "react-bootstrap/esm/AccordionBody";
 
 const ViewSession = () => {
   ChartJS.register(...registerables);
+
+  const dispatch = useDispatch();
+  const sessionData = useSelector(selectCashDrawerData);
+  const drawerSessionDetail = sessionData?.drawerSession?.payload;
+  const drawerHistoryData = sessionData?.drawerHistory?.payload;
+  const cashIn = drawerHistoryData?.cash_in;
+  const cashOut = drawerHistoryData?.cash_out;
+
   const [key, setKey] = useState(Math.random());
 
   const [modalDetail, setModalDetail] = useState({
@@ -45,6 +59,19 @@ const ViewSession = () => {
     });
     setKey(Math.random());
   };
+
+  useEffect(() => {
+    const drawerId = {
+      drawer_id: drawerSessionDetail?.id,
+    };
+    dispatch(
+      getDrawerHistory({
+        ...drawerId,
+      })
+    );
+  }, []);
+
+  console.log("fdsfsad", drawerHistoryData);
   return (
     <>
       <div className="main-container-customers">
@@ -60,21 +87,27 @@ const ViewSession = () => {
                   <Link href="viewSession/endSession">
                     <div className="drawerBox">
                       <Image className="clockStyle" src={DrawerID} />
-                      <p className="drawerTestStyle">Drawer ID</p>
+                      <p className="drawerTestStyle">
+                        Drawer ID {drawerSessionDetail?.id}
+                      </p>
                     </div>
                   </Link>
                 </div>
                 <div className="dateContainer">
                   <div className="dateBox">
                     <Image className="clockStyle" src={Clock} />
-                    <p className="dateStyle">Today, 10/10/23 | 10:04 am</p>
+                    <h6 className="dateStyle">
+                      {moment.utc().format("dddd, Do MMMM YYYY")}
+                    </h6>
                   </div>
                 </div>
               </div>
               <div className="cashContainer">
                 <div className="cashInnerContainer">
                   <div className="cashbox">
-                    <p className="cashTextStyle">$2.00</p>
+                    <p className="cashTextStyle">
+                      ${drawerHistoryData?.net_amount?.toFixed(2)}
+                    </p>
                     <p className="expectedCash">Expected Cash Balance</p>
                   </div>
                   <div className="buttonBox">
@@ -110,7 +143,9 @@ const ViewSession = () => {
                   <Accordion.Header className="accordnHead">
                     <div className="flexDiv w-100 mainAccordn">
                       <h4 className="accordnText">Total Cash In</h4>
-                      <h4 className="accordnText">$5,590.00</h4>
+                      <h4 className="accordnText">
+                        ${cashIn?.total?.toFixed(2)}
+                      </h4>
                     </div>
                   </Accordion.Header>
                   <Accordion.Body>
@@ -120,21 +155,29 @@ const ViewSession = () => {
                           <Accordion.Header>
                             <div className="flexDiv w-100 subAccordn">
                               <h4 className="appointSub m-0">Sales</h4>
-                              <h4 className="appointSub m-0">$5,590.00</h4>
+                              <h4 className="appointSub m-0">
+                                ${cashIn?.sales?.total?.toFixed(2)}
+                              </h4>
                             </div>
                           </Accordion.Header>
                           <Accordion.Body>
                             <div className="flexDiv mt-2">
                               <h4 className="appointSub m-0 ps-3">Cash</h4>
-                              <h4 className="appointSub m-0">$5,590.00</h4>
+                              <h4 className="appointSub m-0">
+                                ${cashIn?.sales?.cash?.toFixed(2)}
+                              </h4>
                             </div>
                             <div className="flexDiv mt-2">
                               <h4 className="appointSub m-0 ps-3">Card</h4>
-                              <h4 className="appointSub m-0">$5,590.00</h4>
+                              <h4 className="appointSub m-0">
+                                ${cashIn?.sales?.card?.toFixed(2)}
+                              </h4>
                             </div>
                             <div className="flexDiv mt-2">
                               <h4 className="appointSub m-0 ps-3">Jobr Coin</h4>
-                              <h4 className="appointSub m-0">$5,590.00</h4>
+                              <h4 className="appointSub m-0">
+                                ${cashIn?.sales?.jobr_coin?.toFixed(2)}
+                              </h4>
                             </div>
                           </Accordion.Body>
                         </Accordion.Item>
@@ -146,99 +189,29 @@ const ViewSession = () => {
                           <Accordion.Header>
                             <div className="flexDiv w-100 subAccordn">
                               <h4 className="appointSub m-0">Manual</h4>
-                              <h4 className="appointSub m-0">$5,590.00</h4>
+                              <h4 className="appointSub m-0">
+                                ${cashIn?.manual?.total?.toFixed(2)}
+                              </h4>
                             </div>
                           </Accordion.Header>
                           <Accordion.Body>
                             <div className="flexDiv mt-2">
                               <h4 className="appointSub m-0 ps-3">Cash</h4>
-                              <h4 className="appointSub m-0">$5,590.00</h4>
+                              <h4 className="appointSub m-0">
+                                ${cashIn?.manual?.cash?.toFixed(2)}
+                              </h4>
                             </div>
                             <div className="flexDiv mt-2">
                               <h4 className="appointSub m-0 ps-3">Card</h4>
-                              <h4 className="appointSub m-0">$5,590.00</h4>
+                              <h4 className="appointSub m-0">
+                                ${cashIn?.manual?.card?.toFixed(2)}
+                              </h4>
                             </div>
                             <div className="flexDiv mt-2">
                               <h4 className="appointSub m-0 ps-3">Jobr Coin</h4>
-                              <h4 className="appointSub m-0">$5,590.00</h4>
-                            </div>
-                          </Accordion.Body>
-                        </Accordion.Item>
-                      </Accordion>
-                    </div>
-                    <div className="saleAccordian">
-                      <Accordion flush>
-                        <Accordion.Item eventKey="0">
-                          <Accordion.Header>
-                            <div className="flexDiv w-100 subAccordn">
-                              <h4 className="appointSub m-0">Refund</h4>
-                              <h4 className="appointSub m-0">$5,590.00</h4>
-                            </div>
-                          </Accordion.Header>
-                          <Accordion.Body>
-                            <div className="flexDiv mt-2">
-                              <h4 className="appointSub m-0 ps-3">Cash</h4>
-                              <h4 className="appointSub m-0">$5,590.00</h4>
-                            </div>
-                            <div className="flexDiv mt-2">
-                              <h4 className="appointSub m-0 ps-3">Card</h4>
-                              <h4 className="appointSub m-0">$5,590.00</h4>
-                            </div>
-                            <div className="flexDiv mt-2">
-                              <h4 className="appointSub m-0 ps-3">Jobr Coin</h4>
-                              <h4 className="appointSub m-0">$5,590.00</h4>
-                            </div>
-                          </Accordion.Body>
-                        </Accordion.Item>
-                      </Accordion>
-                    </div>
-                    <div className="saleAccordian">
-                      <Accordion flush>
-                        <Accordion.Item eventKey="0">
-                          <Accordion.Header>
-                            <div className="flexDiv w-100 subAccordn">
-                              <h4 className="appointSub m-0">Delivery Fees</h4>
-                              <h4 className="appointSub m-0">$5,590.00</h4>
-                            </div>
-                          </Accordion.Header>
-                          <Accordion.Body>
-                            <div className="flexDiv mt-2">
-                              <h4 className="appointSub m-0 ps-3">Cash</h4>
-                              <h4 className="appointSub m-0">$5,590.00</h4>
-                            </div>
-                            <div className="flexDiv mt-2">
-                              <h4 className="appointSub m-0 ps-3">Card</h4>
-                              <h4 className="appointSub m-0">$5,590.00</h4>
-                            </div>
-                            <div className="flexDiv mt-2">
-                              <h4 className="appointSub m-0 ps-3">Jobr Coin</h4>
-                              <h4 className="appointSub m-0">$5,590.00</h4>
-                            </div>
-                          </Accordion.Body>
-                        </Accordion.Item>
-                      </Accordion>
-                    </div>
-                    <div className="saleAccordian">
-                      <Accordion flush>
-                        <Accordion.Item eventKey="0">
-                          <Accordion.Header>
-                            <div className="flexDiv w-100 subAccordn">
-                              <h4 className="appointSub m-0">Shipping Fees</h4>
-                              <h4 className="appointSub m-0">$5,590.00</h4>
-                            </div>
-                          </Accordion.Header>
-                          <Accordion.Body>
-                            <div className="flexDiv mt-2">
-                              <h4 className="appointSub m-0 ps-3">Cash</h4>
-                              <h4 className="appointSub m-0">$5,590.00</h4>
-                            </div>
-                            <div className="flexDiv mt-2">
-                              <h4 className="appointSub m-0 ps-3">Card</h4>
-                              <h4 className="appointSub m-0">$5,590.00</h4>
-                            </div>
-                            <div className="flexDiv mt-2">
-                              <h4 className="appointSub m-0 ps-3">Jobr Coin</h4>
-                              <h4 className="appointSub m-0">$5,590.00</h4>
+                              <h4 className="appointSub m-0">
+                                ${cashIn?.manual?.jobr_coin?.toFixed(2)}
+                              </h4>
                             </div>
                           </Accordion.Body>
                         </Accordion.Item>
@@ -255,7 +228,9 @@ const ViewSession = () => {
                   <Accordion.Header className="accordnHead">
                     <div className="flexDiv w-100 mainAccordn">
                       <h4 className="accordnText">Total Cash Out</h4>
-                      <h4 className="accordnText">$5,590.00</h4>
+                      <h4 className="accordnText">
+                        ${cashOut?.total?.toFixed(2)}
+                      </h4>
                     </div>
                   </Accordion.Header>
                   <Accordion.Body>
@@ -264,126 +239,65 @@ const ViewSession = () => {
                         <Accordion.Item eventKey="0">
                           <Accordion.Header>
                             <div className="flexDiv w-100 subAccordn">
-                              <h4 className="appointSub m-0">Sales</h4>
-                              <h4 className="appointSub m-0">$5,590.00</h4>
+                              <h4 className="appointSub m-0">Refund</h4>
+                              <h4 className="appointSub m-0">
+                                ${cashOut?.refund?.total?.toFixed(2)}
+                              </h4>
                             </div>
                           </Accordion.Header>
                           <Accordion.Body>
                             <div className="flexDiv mt-2">
                               <h4 className="appointSub m-0 ps-3">Cash</h4>
-                              <h4 className="appointSub m-0">$5,590.00</h4>
+                              <h4 className="appointSub m-0">
+                                ${cashOut?.refund?.cash?.toFixed(2)}
+                              </h4>
                             </div>
                             <div className="flexDiv mt-2">
                               <h4 className="appointSub m-0 ps-3">Card</h4>
-                              <h4 className="appointSub m-0">$5,590.00</h4>
+                              <h4 className="appointSub m-0">
+                                ${cashOut?.refund?.card?.toFixed(2)}
+                              </h4>
                             </div>
                             <div className="flexDiv mt-2">
                               <h4 className="appointSub m-0 ps-3">Jobr Coin</h4>
-                              <h4 className="appointSub m-0">$5,590.00</h4>
+                              <h4 className="appointSub m-0">
+                                ${cashOut?.refund?.jobr_coin?.toFixed(2)}
+                              </h4>
                             </div>
                           </Accordion.Body>
                         </Accordion.Item>
                       </Accordion>
                     </div>
+
                     <div className="saleAccordian">
                       <Accordion flush>
                         <Accordion.Item eventKey="0">
                           <Accordion.Header>
                             <div className="flexDiv w-100 subAccordn">
                               <h4 className="appointSub m-0">Manual</h4>
-                              <h4 className="appointSub m-0">$5,590.00</h4>
+                              <h4 className="appointSub m-0">
+                                ${cashOut?.manual?.total?.toFixed(2)}
+                              </h4>
                             </div>
                           </Accordion.Header>
                           <Accordion.Body>
                             <div className="flexDiv mt-2">
                               <h4 className="appointSub m-0 ps-3">Cash</h4>
-                              <h4 className="appointSub m-0">$5,590.00</h4>
+                              <h4 className="appointSub m-0">
+                                ${cashOut?.manual?.cash?.toFixed(2)}
+                              </h4>
                             </div>
                             <div className="flexDiv mt-2">
                               <h4 className="appointSub m-0 ps-3">Card</h4>
-                              <h4 className="appointSub m-0">$5,590.00</h4>
+                              <h4 className="appointSub m-0">
+                                ${cashOut?.manual?.card?.toFixed(2)}
+                              </h4>
                             </div>
                             <div className="flexDiv mt-2">
                               <h4 className="appointSub m-0 ps-3">Jobr Coin</h4>
-                              <h4 className="appointSub m-0">$5,590.00</h4>
-                            </div>
-                          </Accordion.Body>
-                        </Accordion.Item>
-                      </Accordion>
-                    </div>
-                    <div className="saleAccordian">
-                      <Accordion flush>
-                        <Accordion.Item eventKey="0">
-                          <Accordion.Header>
-                            <div className="flexDiv w-100 subAccordn">
-                              <h4 className="appointSub m-0">Refund</h4>
-                              <h4 className="appointSub m-0">$5,590.00</h4>
-                            </div>
-                          </Accordion.Header>
-                          <Accordion.Body>
-                            <div className="flexDiv mt-2">
-                              <h4 className="appointSub m-0 ps-3">Cash</h4>
-                              <h4 className="appointSub m-0">$5,590.00</h4>
-                            </div>
-                            <div className="flexDiv mt-2">
-                              <h4 className="appointSub m-0 ps-3">Card</h4>
-                              <h4 className="appointSub m-0">$5,590.00</h4>
-                            </div>
-                            <div className="flexDiv mt-2">
-                              <h4 className="appointSub m-0 ps-3">Jobr Coin</h4>
-                              <h4 className="appointSub m-0">$5,590.00</h4>
-                            </div>
-                          </Accordion.Body>
-                        </Accordion.Item>
-                      </Accordion>
-                    </div>
-                    <div className="saleAccordian">
-                      <Accordion flush>
-                        <Accordion.Item eventKey="0">
-                          <Accordion.Header>
-                            <div className="flexDiv w-100 subAccordn">
-                              <h4 className="appointSub m-0">Delivery Fees</h4>
-                              <h4 className="appointSub m-0">$5,590.00</h4>
-                            </div>
-                          </Accordion.Header>
-                          <Accordion.Body>
-                            <div className="flexDiv mt-2">
-                              <h4 className="appointSub m-0 ps-3">Cash</h4>
-                              <h4 className="appointSub m-0">$5,590.00</h4>
-                            </div>
-                            <div className="flexDiv mt-2">
-                              <h4 className="appointSub m-0 ps-3">Card</h4>
-                              <h4 className="appointSub m-0">$5,590.00</h4>
-                            </div>
-                            <div className="flexDiv mt-2">
-                              <h4 className="appointSub m-0 ps-3">Jobr Coin</h4>
-                              <h4 className="appointSub m-0">$5,590.00</h4>
-                            </div>
-                          </Accordion.Body>
-                        </Accordion.Item>
-                      </Accordion>
-                    </div>
-                    <div className="saleAccordian">
-                      <Accordion flush>
-                        <Accordion.Item eventKey="0">
-                          <Accordion.Header>
-                            <div className="flexDiv w-100 subAccordn">
-                              <h4 className="appointSub m-0">Shipping Fees</h4>
-                              <h4 className="appointSub m-0">$5,590.00</h4>
-                            </div>
-                          </Accordion.Header>
-                          <Accordion.Body>
-                            <div className="flexDiv mt-2">
-                              <h4 className="appointSub m-0 ps-3">Cash</h4>
-                              <h4 className="appointSub m-0">$5,590.00</h4>
-                            </div>
-                            <div className="flexDiv mt-2">
-                              <h4 className="appointSub m-0 ps-3">Card</h4>
-                              <h4 className="appointSub m-0">$5,590.00</h4>
-                            </div>
-                            <div className="flexDiv mt-2">
-                              <h4 className="appointSub m-0 ps-3">Jobr Coin</h4>
-                              <h4 className="appointSub m-0">$5,590.00</h4>
+                              <h4 className="appointSub m-0">
+                                ${cashOut?.manual?.jobr_coin?.toFixed(2)}
+                              </h4>
                             </div>
                           </Accordion.Body>
                         </Accordion.Item>
@@ -395,7 +309,9 @@ const ViewSession = () => {
             </div>
             <div className="netPaymentView">
               <h2 className="netPaymentText">Net Payment</h2>
-              <h1 className="totalAmmount">$15220.00</h1>
+              <h1 className="totalAmmount">
+                ${drawerHistoryData?.net_amount.toFixed(2)}
+              </h1>
             </div>
             <Link href="viewSession/endSession" className="closeView">
               <div>
