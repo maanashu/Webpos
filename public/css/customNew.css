@@ -173,7 +173,7 @@ figure {
 
 .searchControl::placeholder {
   color: #636e9f;
-  font-size: 16px;
+  font-size: 16px !important;
   font-weight: 400;
 }
 
@@ -5139,9 +5139,9 @@ figure {
   padding: 8px;
   border: none;
   display: none;
-  position: absolute;
+  /* position: absolute;
   top: 54px;
-  right: 102px;
+  right: 102px; */
 }
 
 .productInnerNavBar {
@@ -5161,6 +5161,13 @@ figure {
 .productSearchBx {
   width: 100%;
   max-width: 500px;
+}
+
+.innerMargin {
+  margin: 0 12px 12px 12px;
+}
+.sideMini {
+  display: none;
 }
 
 /*gaurav arora sir css start*/
@@ -5255,6 +5262,7 @@ figure {
 .backarrow-plan {
   cursor: pointer;
 }
+
 .no-plan-found-section {
   width: 100%;
   height: 95vh;
@@ -5268,4 +5276,5 @@ figure {
 .no-plan-found-section button {
   width: 200px;
 }
+
 /*gaurav arora sir css end*/

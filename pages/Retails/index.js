@@ -106,15 +106,12 @@ const Retails = () => {
   return (
     <>
       <div className="flexBox">
-        <button className='sideMini' type="button" onClick={() => { setShowSidebar(prev => !prev) }}>
-          <Image src={Images.darkPlus} alt="image" className="img-fluid" />
-        </button>
         <div className="commanOuter w-100">
           <ProductInnerNav
             productCount={productPagination?.total}
             ServicesCount={servicesCount?.total}
           />
-          <div className="commanscrollBar">
+          <div className="commanscrollBar productScrollBar">
             {parameter == "product" ? (
               <div className="row">
                 {retailData?.loading ? (

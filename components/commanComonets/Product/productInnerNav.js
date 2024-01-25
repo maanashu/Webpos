@@ -27,7 +27,7 @@ const ProductInnerNav = ({ productCount, ServicesCount }) => {
 
   return (
     <>
-      <div className="row mb-3 mx-3">
+      <div className="row innerMargin">
         <div className="col-lg-6 col-md-12">
           <div className="productInnerNavBar">
             <div className="productAll">

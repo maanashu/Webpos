@@ -40,7 +40,8 @@ const RightSideBar = (props) => {
   };
   return (
     <>
-      <div className={props?.showSidebar ? "sidebarRight show" : "sidebarRight hide"}>
+      {/* <div className={props?.showSidebar ? "sidebarRight show" : "sidebarRight hide"}> */}
+      <div className="sidebarRight">
         <ListGroup>
           <ListGroupItem
             className="rightSidebarItems active"
@@ -165,9 +166,8 @@ const RightSideBar = (props) => {
                 </h4>
               </div>
               <div className="cartTotal">
-                <h4 className="userPosition">{`Discount ${
-                  cartData?.discount_flag === "percentage" ? "(%)" : ""
-                } `}</h4>
+                <h4 className="userPosition">{`Discount ${cartData?.discount_flag === "percentage" ? "(%)" : ""
+                  } `}</h4>
                 <h4 className="amountText m-0">
                   {formattedReturnPrice(cartAmount?.discount || "0.00")}
                 </h4>
