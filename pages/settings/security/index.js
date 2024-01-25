@@ -97,15 +97,15 @@ const Security = () => {
       <div className="securityRight settingOuter">
       <Image src={Images.passwordLock} alt="darkDevices image" className="img-fluid" />
         <div className="w-100">
-          <div className="headingTextStyle">2-Step Verification</div>
-          <div className="textInformationStyle">
+          <div className="headingTextStyle mb-2">2-Step Verification</div>
+          <div className="lightOfferText">
             An extra layer to boost your team members account security. A
             verification code will be required in addition to password each time you
             sign in.
           </div>
-          <div className="shadowBox">
-            <div className="boxTopTitleTextStyle">
-              2-step verification for team members
+          <div className="shadowBox twofaBox_">
+            <div className="twofsContent">
+              <h4 className="cancelOrderText mb-3">2-step verification for team members</h4>
               {/* <div >
               <input
                 type="checkbox"
@@ -114,16 +114,17 @@ const Security = () => {
                   handleChangeActivateSecurity(e)
                 }} />
             </div> */}
-              <div class="form-check form-switch">
-                <input class="form-check-input" type="checkbox" id="flexSwitchCheckChecked" checked={getProfileDetails} onChange={(e) => {
+             <h6 className="settingText">
+              Team members must enable their own verification methods.
+            </h6>
+            </div>
+           
+            <div class="roundCheck mb-0">
+                <input class="checkbox" type="checkbox" id="flexSwitchCheckChecked" checked={getProfileDetails} onChange={(e) => {
                   handleChangeActivateSecurity(e)
                 }} />
-                <label class="form-check-label" for="flexSwitchCheckChecked"></label>
+                <label class="form-check-label d-none" for="flexSwitchCheckChecked"></label>
               </div>
-            </div>
-            <div className="boxbottomTextStyle">
-              Team members must enable their own verification methods.
-            </div>
           </div>
         </div>
       </div>
