@@ -4750,6 +4750,7 @@ figure {
   font-size: 14px;
   font-weight: 500;
 }
+
 .subscribeBox {
   display: flex;
   align-items: center;
@@ -5254,6 +5255,7 @@ figure {
 .backarrow-plan {
   cursor: pointer;
 }
+
 .no-plan-found-section {
   width: 100%;
   height: 95vh;
@@ -5267,4 +5269,35 @@ figure {
 .no-plan-found-section button {
   width: 200px;
 }
+
+.deliverGraph.order-all-progress {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.order-second-progress {
+  position: absolute;
+  top: 11px;
+}
+
+.order-third-progress {
+  position: absolute;
+  top: 21px;
+}
+
+.order-progress-value {
+  position: absolute;
+}
+
+.order-progress-value p {
+  color: #263682;
+  text-align: center;
+  font-family: Roobert;
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 500;
+}
+
 /*gaurav arora sir css end*/

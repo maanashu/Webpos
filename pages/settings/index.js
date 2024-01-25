@@ -122,7 +122,7 @@ export default function Settings() {
       case "Policies":
         return <Policy handleTouch={handleTouch} />;
       case "staffDetail":
-        return <StaffDetail selectedItemId={selectedItemId} />;
+        return <StaffDetail handleTouch={handleTouch} selectedItemId={selectedItemId} />;
       case "legalPolicy":
         return (
           <LegalPolicy policyInfo={policyInfo} handleTouch={handleTouch} />
