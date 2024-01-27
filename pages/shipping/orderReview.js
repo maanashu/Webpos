@@ -23,6 +23,8 @@ const OrderReview = () => {
     const { id, status, title } = router?.query
     console.log(id, status, title, 'query data');
     const authData = useSelector(selectLoginAuth);
+    const [acceptLoading, setAcceptLoading] = useState(false);
+    const [declineLoading, setDeclineLoading] = useState(false);
     const [loading, setLoading] = useState(false);
     const [loading1, setLoading1] = useState(false);
     const sellerUid = authData?.usersInfo?.payload?.uniqe_id;
@@ -128,11 +130,14 @@ const OrderReview = () => {
             status: status,
             orderId: selectedItemId
         };
+        status === 8 ? setDeclineLoading(true) : setAcceptLoading(true)
         dispatch(
             changeStatusOfOrder({
                 ...params,
                 cb(res) {
                     if (res) {
+                        setAcceptLoading(false)
+                        setDeclineLoading(false)
                         getOrderDetailsByIdHandle()
                         getAllShippingOrdeshandle()
                         getAllShippingOrdesCountHandle()
@@ -148,7 +153,7 @@ const OrderReview = () => {
             getAllShippingOrdeshandle()
             getAllShippingOrdesCountHandle()
         }
-    }, [sellerUid,selectedDate]);
+    }, [sellerUid, selectedDate]);
 
     useEffect(() => {
         if (selectedItemId) {
@@ -174,11 +179,11 @@ const OrderReview = () => {
                                             <Image src={Images.calendarLight} alt='calendarimage' className='img-fluid' />
                                             {/* <span className='monthText ms-2'>Today</span> */}
                                             <ReactDatePicker
-                                                    selected={selectedDate}
-                                                    onChange={handleDateChange}
-                                                    dateFormat="MM/dd/yyyy"
-                                                    placeholderText="Select date"
-                                                />
+                                                selected={selectedDate}
+                                                onChange={handleDateChange}
+                                                dateFormat="MM/dd/yyyy"
+                                                placeholderText="Select date"
+                                            />
                                         </div>
                                         <Image src={Images.arrowDown} alt='arrowDown image' className='img-fluid text-end' />
                                     </div>
@@ -506,14 +511,18 @@ const OrderReview = () => {
                                                         {
                                                             singleOrderData?.status === 0 ?
                                                                 <div className='flexBox '>
-                                                                    <button onClick={() => acceptHandler(8)} className='declineButton w-100' type='button'> Decline</button>
+                                                                    <button onClick={() => acceptHandler(8)} className='declineButton w-100' type='button'>
+                                                                        {declineLoading ? <span className="spinner-border spinner-border-sm mx-1"></span> : <></>}
+                                                                        Decline</button>
                                                                     <button onClick={() => acceptHandler(3)} type='button' className='BlueBtn w-100'>
+                                                                        {acceptLoading ? <span className="spinner-border spinner-border-sm mx-1"></span> : <></>}
                                                                         Accept Order
                                                                         <Image src={Images.ArrowRight} alt="ArrowRight" className="img-fluid ArrowRight" />
                                                                     </button>
                                                                 </div> :
                                                                 singleOrderData?.status === 3 ?
                                                                     <button onClick={() => { setPrintingUrl(singleOrderData?.label_url); setModalDetail({ show: true, flag: "printLabel" }); setKey(Math.random()); acceptHandler(4) }} type='button ' className='pickupBtn w-100 mt-2'>
+                                                                        {acceptLoading ? <span className="spinner-border spinner-border-sm mx-1"></span> : <></>}
                                                                         Print Label
                                                                         <Image src={Images.btnSticker} alt="deliverHand image" className="img-fluid" />
                                                                     </button> :
