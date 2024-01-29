@@ -34,12 +34,14 @@ const TransactionsList = () => {
   const [timeSpan, setTimeSpan] = useState(query["time-span"] || "week");
   const [limit, setLimit] = useState("10");
   const [page, setPage] = useState(1);
-  const [date, setDate] = useState("");
-  const [transaction, setTransaction] = useState(query["transaction_type"] || "all");
+  const [date, setDate] = useState(query?.date ? query?.date : "");
+  const [transaction, setTransaction] = useState(
+    query["transaction_type"] || "all"
+  );
   const dispatch = useDispatch();
   const authData = useSelector(selectLoginAuth);
   const getWalletData = useSelector(selectTransactionData);
-
+  console.log("getWalletDatagetWalletData", getWalletData);
   const getTotalTraData = getWalletData?.totalTra?.payload;
   const getTotalTraDetails = getWalletData?.totalTraDetail?.payload?.data ?? [];
   const transactionTypeArray = getWalletData?.totalTraType?.payload;
@@ -70,15 +72,17 @@ const TransactionsList = () => {
       page: page,
       limit: limit,
       sellerId: sellerID,
-      transactionType:transaction,
+      transactionType: transaction,
       orderType: "none",
       status: "none",
+      start_date: date,
+      end_date: date,
     };
     dispatch(getTotalTraDetail(data));
-  }, [limit, page, timeSpan, transaction]);
+  }, [limit, page, timeSpan, transaction, date]);
 
   const handleDateChange = (dates) => {
-    setDate(dates);
+    setDate(moment(dates).format("YYYY-MM-DD"));
   };
 
   // console.log("transactionTypeArray",transactionTypeArray )
@@ -167,7 +171,7 @@ const TransactionsList = () => {
             key={idx + "tabs"}
             onClick={() => {
               setSelectedTab(type);
-              setTransaction(modeOfPayment)
+              setTransaction(modeOfPayment);
             }}
             className="users-tab flex-row-space-between"
             style={{
@@ -177,7 +181,9 @@ const TransactionsList = () => {
           >
             <p
               className="users-tab-text"
-              style={{ color: transaction == modeOfPayment ? "#F5F6FC" : "#263682" }}
+              style={{
+                color: transaction == modeOfPayment ? "#F5F6FC" : "#263682",
+              }}
             >
               {type}
             </p>
@@ -257,75 +263,89 @@ const TransactionsList = () => {
           </tr>
         </thead>
         <tbody>
-          {getTotalTraDetails?.map((item, idx) => (
-            <tr className="customers-table-row">
-              <td
-                onClick={() => handleNavigateToTrackStatus(item)}
-                className="customers-table-data"
-              >
-                {(idx + Number(page > 1 ? limit : 0) > 8 ? "" : "0") +
-                  (idx + 1 + Number(page > 1 ? limit : 0))}
-              </td>
-              <td
-                // onClick={() => handleNavigateToTrackStatus(item)}
-                className="customers-table-data"
-                style={{ display: "flex", gap: "12px" }}
-              >
-                {item?.created_at
-                  ? moment(item.created_at).format("ll")
-                  : "date not found"}
-              </td>
-              <td
-                // onClick={() => handleNavigateToTrackStatus(item)}
-                className="customers-table-data"
-              >
-                {item?.is_returned_order
-                  ? item?.return_detail?.invoices?.invoice_number
-                  : item?.invoices?.invoice_number}
-              </td>
-              <td
-                // onClick={() => handleNavigateToTrackStatus(item)}
-                className="customers-table-data"
-              >
-                {item.created_at
-                  ? moment(item.created_at).format("h:mm A")
-                  : "date not found"}
-              </td>
-              <td
-                // onClick={() => handleNavigateToTrackStatus(item)}
-                className="customers-table-data"
-              >
-                {item?.transaction_id}
-              </td>
-              <td
-                // onClick={() => handleNavigateToTrackStatus(item)}
-                className="customers-table-data"
-              >
-                {DELIVERY_MODE[item?.delivery_option]}
-              </td>
-              <td
-                // onClick={() => handleNavigateToTrackStatus(item)}
-                className="customers-table-data"
-              >
-                {item?.mode_of_payment}
-              </td>
-              <td
-                // onClick={() => handleNavigateToTrackStatus(item)}
-                className="customers-table-data"
-              >
-                ${Number(item?.payable_amount).toFixed(2)}
-              </td>
-              <td
-                // onClick={() => handleNavigateToTrackStatus(item)}
-                className="customers-table-data"
-              >
-                {item?.is_returned_order &&
-                statusFun(item.status) === "Delivered"
-                  ? "Returned"
-                  : statusFun(item.status)}
-              </td>
-            </tr>
-          ))}
+          {getWalletData?.loading ? (
+            <td colSpan={6}>Loading...</td>
+          ) : (
+            <>
+              {getTotalTraDetails && getTotalTraDetails.length > 0 ? (
+                <>
+                  {getTotalTraDetails?.map((item, idx) => (
+                    <tr className="customers-table-row">
+                      <td
+                        onClick={() => handleNavigateToTrackStatus(item)}
+                        className="customers-table-data"
+                      >
+                        {(idx + Number(page > 1 ? limit : 0) > 8 ? "" : "0") +
+                          (idx + 1 + Number(page > 1 ? limit : 0))}
+                      </td>
+                      <td
+                        // onClick={() => handleNavigateToTrackStatus(item)}
+                        className="customers-table-data"
+                        style={{ display: "flex", gap: "12px" }}
+                      >
+                        {item?.created_at
+                          ? moment(item.created_at).format("ll")
+                          : "date not found"}
+                      </td>
+                      <td
+                        // onClick={() => handleNavigateToTrackStatus(item)}
+                        className="customers-table-data"
+                      >
+                        {item?.is_returned_order
+                          ? item?.return_detail?.invoices?.invoice_number
+                          : item?.invoices?.invoice_number}
+                      </td>
+                      <td
+                        // onClick={() => handleNavigateToTrackStatus(item)}
+                        className="customers-table-data"
+                      >
+                        {item.created_at
+                          ? moment(item.created_at).format("h:mm A")
+                          : "date not found"}
+                      </td>
+                      <td
+                        // onClick={() => handleNavigateToTrackStatus(item)}
+                        className="customers-table-data"
+                      >
+                        {item?.transaction_id}
+                      </td>
+                      <td
+                        // onClick={() => handleNavigateToTrackStatus(item)}
+                        className="customers-table-data"
+                      >
+                        {DELIVERY_MODE[item?.delivery_option]}
+                      </td>
+                      <td
+                        // onClick={() => handleNavigateToTrackStatus(item)}
+                        className="customers-table-data"
+                      >
+                        {item?.mode_of_payment}
+                      </td>
+                      <td
+                        // onClick={() => handleNavigateToTrackStatus(item)}
+                        className="customers-table-data"
+                      >
+                        ${Number(item?.payable_amount).toFixed(2)}
+                      </td>
+                      <td
+                        // onClick={() => handleNavigateToTrackStatus(item)}
+                        className="customers-table-data"
+                      >
+                        {item?.is_returned_order &&
+                        statusFun(item.status) === "Delivered"
+                          ? "Returned"
+                          : statusFun(item.status)}
+                      </td>
+                    </tr>
+                  ))}
+                </>
+              ) : (
+                <td className="text-center" colSpan={12}>
+                  No data found
+                </td>
+              )}
+            </>
+          )}{" "}
         </tbody>
       </table>
     </div>
