@@ -4,12 +4,20 @@ import Image from "next/image";
 import { useRouter } from "next/router";
 import { selectLoginAuth } from "../../redux/slices/auth";
 import { useSelector } from "react-redux";
+import { selectReturnData } from "../../redux/slices/productReturn";
+import moment from "moment-timezone";
 
 const RefundsConfirmation = () => {
   const router = useRouter();
   const itemsList = JSON.parse(router.query.selectedItems || "[]");
   const authData = useSelector(selectLoginAuth);
+  const posData=authData?.posUserLoginDetails?.payload
   const merchentDetails = authData?.usersInfo?.payload?.user?.user_profiles;
+  const invoiceData = useSelector(selectReturnData);
+  const invoiceNumber = invoiceData?.invoiceByInvoiceId?.invoice_number;
+  const SearchInvoiceRespones = invoiceData?.invoiceByInvoiceId;
+  const orderDetails = SearchInvoiceRespones?.order;
+  console.log(orderDetails, "orderDetails");
 
   const handleConfirmReturnButton = () => {
     router.push({
@@ -200,15 +208,19 @@ const RefundsConfirmation = () => {
                 <div className="flexBox mapleInvoiceBox">
                   <article>
                     <p className="mapleProductPrice">Payment Option</p>
-                    <p className="mapleProductHeading">Cash</p>
+                    <p className="mapleProductHeading">
+                      {orderDetails?.mode_of_payment.toUpperCase()}
+                    </p>
                     <p className="mapleProductPrice">Invoice</p>
-                    <p className="mapleProductHeading"># 9836-1238</p>
+                    <p className="mapleProductHeading"># {invoiceNumber}</p>
                   </article>
                   <article>
                     <p className="mapleProductPrice">Date</p>
-                    <p className="mapleProductHeading">Wed 10/10/23</p>
+                    <p className="mapleProductHeading">
+                      {moment.utc(orderDetails?.date).format("ddd, DD/MM/YYYY")}
+                    </p>
                     <p className="mapleProductPrice">POS No.</p>
-                    <p className="mapleProductHeading">#Front-CC03</p>
+                    <p className="mapleProductHeading">#{posData?.pos_number}</p>
                   </article>
                   <article>
                     <p className="mapleProductPrice">Mode</p>
@@ -221,13 +233,13 @@ const RefundsConfirmation = () => {
                   <article>
                     <p className="productName">Subtotal</p>
                     <p className="productName">Discount</p>
-                    <p className="productName">Shipping</p>
+                    {/* <p className="productName">Shipping</p> */}
                     <p className="userName">Total</p>
                   </article>
                   <article>
                     <p className="productName">$933.50</p>
                     <p className="productName">15% ($13.50)</p>
-                    <p className="productName">$29.00</p>
+                    {/* <p className="productName">$29.00</p> */}
                     <p className="userName refundTotalBtn">$304.75</p>
                   </article>
                 </div>

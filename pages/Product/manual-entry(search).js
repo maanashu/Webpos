@@ -16,6 +16,11 @@ const Manualinvoice = (props) => {
   const authData = useSelector(selectLoginAuth);
   const sellerId = authData?.usersInfo?.payload?.uniqe_id;
   const [productsSearchBySku, setProductsSearchBySku] = useState("");
+  const productDetails = props?.productDetails;
+
+  const isProductIdMatched = productDetails.some(
+    (product) => product.product_id === productsSearchBySku?.id
+  );
 
   const handleSearchSku = (e) => {
     let params = {
@@ -26,7 +31,7 @@ const Manualinvoice = (props) => {
       searchBySKU({
         ...params,
         cb(resp) {
-          setProductsSearchBySku(resp?.data?.payload);
+          setProductsSearchBySku(resp?.data?.payload?.product_detail);
         },
       })
     );
@@ -35,9 +40,16 @@ const Manualinvoice = (props) => {
     if (!productsSearchBySku) {
       toast.error("Please add Product by search SKU!");
       return;
+    } else {
+      props.closeManulModal();
     }
-    else{
-      props.closeManulModal()
+  };
+  const handleCheckProduct = () => {
+    if (isProductIdMatched === true) {
+      toast.success("Product Checked!");
+      return;
+    } else {
+      toast.error("Product Not found in order!");
     }
   };
   return (
@@ -67,11 +79,14 @@ const Manualinvoice = (props) => {
 
           <div className="manualSelectedProduct">
             {productsSearchBySku ? (
-              <div className="selectedProductDetails active">
+              <div
+                className="selectedProductDetails active"
+                onClick={handleCheckProduct}
+              >
                 <div className="d-flex">
                   <figure>
                     <Image
-                      src={productsSearchBySku?.product_detail?.image}
+                      src={productsSearchBySku?.image}
                       alt="tableImg"
                       className="costumerImg"
                       height={100}
@@ -79,9 +94,7 @@ const Manualinvoice = (props) => {
                     />
                   </figure>
                   <div className="ps-1">
-                    <p className="aboutProduct">
-                      {productsSearchBySku?.product_detail?.name}
-                    </p>
+                    <p className="aboutProduct">{productsSearchBySku?.name}</p>
                     <div className="d-flex">
                       <article className="productColor">
                         <span className="Yellow"></span>
@@ -93,8 +106,8 @@ const Manualinvoice = (props) => {
                       </article>
 
                       <span className="sku">
-                        {productsSearchBySku?.product_detail?.sku
-                          ? productsSearchBySku?.product_detail?.sku
+                        {productsSearchBySku?.sku
+                          ? productsSearchBySku?.sku
                           : ""}
                       </span>
                       <span className="productSize">Colors / Size</span>
@@ -102,7 +115,7 @@ const Manualinvoice = (props) => {
                   </div>
                 </div>
                 <p className="productPriceinvoice">
-                  ${productsSearchBySku?.product_detail?.price}
+                  ${productsSearchBySku?.price}
                 </p>
               </div>
             ) : (
