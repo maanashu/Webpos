@@ -29,6 +29,7 @@ const initialState = {
   getTimeSlotsLoad: false,
   timeSlots: [],
   addToCartServiceLoad: false,
+  clearOneProductLoad: false,
 };
 
 export const retailsSlice = createSlice({
@@ -192,6 +193,14 @@ export const retailsSlice = createSlice({
       state.addToCartServiceLoad = false;
       // state.timeSlots = action?.payload?.payload?.slots;
     },
+
+    clearOneProduct: (state) => {
+      state.clearOneProductLoad = true;
+    },
+    setClearOneProduct: (state, action) => {
+      state.clearOneProductLoad = false;
+      // state.timeSlots = action?.payload?.payload?.slots;
+    },
     onErrorStopLoad: (state) => {
       state.loading = false;
       state.availableOffersLoad = false;
@@ -203,6 +212,7 @@ export const retailsSlice = createSlice({
       state.getTimeSlotsLoad = false;
       state.addToCartServiceLoad = false;
       state.checkSuppliedVariantLoad = false;
+      state.clearOneProductLoad = false;
     },
   },
 });
@@ -249,6 +259,8 @@ export const {
   setTimeSlots,
   addToCartService,
   setAddToCartService,
+  clearOneProduct,
+  setClearOneProduct,
 } = retailsSlice.actions;
 
 export const selectRetailData = (state) => state.retails;

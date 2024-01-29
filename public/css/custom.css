@@ -571,3 +571,11 @@ line-height: normal
 .main-container-customers {
   position: relative;
 }
+.fullheightBox_ {
+  height: calc(100vh - 34px);
+  min-height: 100%!important;
+  overflow-y: auto;
+}
+.fullheightBox_::-webkit-scrollbar {
+  display: none;
+}

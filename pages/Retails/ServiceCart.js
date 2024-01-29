@@ -31,8 +31,10 @@ import { Modal } from "react-bootstrap";
 import CustomProductAdd from "./CustomProductAdd";
 import { flightRouterStateSchema } from "next/dist/server/app-render/types";
 import AttachCustomer from "./AttachCustomer";
+import moment from "moment-timezone";
+import CustomServiceAdd from "./CustomServiceAdd";
 
-const ProductCart = () => {
+const ServiceCart = () => {
   const router = useRouter();
   const dispatch = useDispatch();
   const authData = useSelector(selectLoginAuth);
@@ -45,12 +47,12 @@ const ProductCart = () => {
   const [customProductAdd, setCustomProductAdd] = useState(false);
   const [attachCustomerModal, setAttachCustomerModal] = useState(false);
   const [productById, setProductById] = useState();
-
-  const onlyProductCartArray = cartData?.poscart_products?.filter(
-    (item) => item?.product_type == "product"
+const [customServiceAdd, setCustomServiceAdd] = useState(false)
+  const onlyServiceCartArray = cartData?.poscart_products?.filter(
+    (item) => item?.product_type == "service"
   );
   
-  const cartLength = onlyProductCartArray?.length;
+  const cartLength = onlyServiceCartArray?.length;
 
   const [modalDetail, setModalDetail] = useState({
     show: false,
@@ -70,7 +72,7 @@ const ProductCart = () => {
   const offers = () => {
     let params = {
       seller_id: sellerId,
-      type : 'product'
+      type : 'service'
     };
     dispatch(
       availableOffers({
@@ -262,7 +264,7 @@ const ProductCart = () => {
                   <h6 className="mt-2 mb-2 text-center">No Carts Found!</h6>
                 </div>
               ) : (
-                onlyProductCartArray?.map((data, index) => {
+                onlyServiceCartArray?.map((data, index) => {
                   return (
                     <div className="cartSubInfo active " key={index}>
                       <div className="cartItemDetail w-50">
@@ -280,11 +282,28 @@ const ProductCart = () => {
                               {data?.product_details?.name}
                             </h4>
                             <div className="flexTable mt-1">
-                              <div className="productGreyDot"></div>
+                              {/* <div className="productGreyDot"></div> */}
                               <h6 className="loginPara ms-1">
-                                {data?.product_details?.sku}
+                              {moment.utc(data?.date).format('LL')} @
+                                  {data?.start_time + '-' + data?.end_time}
                               </h6>
+
                             </div>
+                            <div className="flexTable mt-1">
+                            <Image
+                            src={data?.pos_user_details?.user?.user_profiles
+                              ?.profile_photo}
+                            alt="cartFoodImg"
+                            className="img-fluid cartFoodImg"
+                            width="100"
+                            height="100"
+                          />
+                            <h6 className="loginPara ms-1">
+                            {data?.pos_user_details?.user?.user_profiles?.firstname +
+                                      ' ' +
+                                      data?.pos_user_details?.user?.user_profiles?.lastname}
+                              </h6>
+                              </div>
                           </div>
                         </div>
                       </div>
@@ -297,7 +316,8 @@ const ProductCart = () => {
                             data.qty
                           )
                         )}
-                        <div className="incrementBtn ">
+                      <p>{data?.qty}</p>
+                        {/* <div className="incrementBtn ">
                           <i
                             className="fa-solid fa-minus plusMinus"
                             onClick={() => updateQuantity("-", index)}
@@ -308,7 +328,7 @@ const ProductCart = () => {
                             className="fa-solid fa-plus plusMinus"
                             onClick={() => updateQuantity("+", index)}
                           ></i>
-                        </div>
+                        </div> */}
                         <div className="fullCartInfo">
                           <h4 className="invoice_subhead p-0">
                             {amountFormat(getProductFinalPrice(data))}
@@ -393,7 +413,7 @@ const ProductCart = () => {
               <div className="insertProductSection">
                 <div
                   className="addproductCart"
-                  onClick={() => setCustomProductAdd(true)}
+                  onClick={() => setCustomServiceAdd(true)}
                 >
                   <Image
                     src={Images.addProductImg}
@@ -616,11 +636,17 @@ const ProductCart = () => {
                   className="nextverifyBtn w-100 mt-3"
                   type="submit"
                   onClick={() => {
-                    router.push({ pathname: "/Retails/CartAmountByPay" });
-                    let params = {
-                      seller_id: sellerId,
-                    };
-                    dispatch(getDrawerSession(params));
+                    if(Object.keys(cartData?.user_details)?.length == 0){
+                      setAttachCustomerModal(true)
+                    }else{
+                      router.push({ pathname: "/Retails/CartAmountByPay" });
+                      let params = {
+                        seller_id: sellerId,
+                      };
+                      dispatch(getDrawerSession(params));
+                    }
+
+                   
                   }}
                 >
                   Proceed to checkout
@@ -635,9 +661,9 @@ const ProductCart = () => {
           </div>
         </div>
       </div>
-      {/* custom product add */}
-      <Modal show={customProductAdd} centered keyboard={false}>
-        <CustomProductAdd crosshandler={() => setCustomProductAdd(false)} />
+         {/* custom service add popup */}
+         <Modal show={customServiceAdd} centered keyboard={false}>
+        <CustomServiceAdd crosshandler={() => setCustomServiceAdd(false)} />
       </Modal>
 
       {/* custom product add */}
@@ -689,4 +715,4 @@ const ProductCart = () => {
   );
 };
 
-export default ProductCart;
+export default ServiceCart;
