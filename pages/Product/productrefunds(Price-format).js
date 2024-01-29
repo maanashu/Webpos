@@ -1,11 +1,10 @@
 import Link from "next/link";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import * as Images from "../../utilities/images";
 import Image from "next/image";
 import { useRouter } from "next/router";
 import CustomModal from "../../components/customModal/CustomModal";
 import ReturnInventory from "../../components/commanComonets/Product/ProductModal/returnInventory";
-import { toast } from "react-toastify";
 
 const productrefunds = () => {
   const toastId = React.useRef(null);
@@ -25,25 +24,29 @@ const productrefunds = () => {
   };
   const router = useRouter();
   const refundedItems = JSON.parse(router.query.selectedItems || "[]");
-  const [inputValue, setInputValue] = useState("");
   const [refundAmount, setRefundAmount] = useState("");
+  const [inputValues, setInputValues] = useState([]);
+  console.log(inputValues, "inputValues");
 
   const handleGoToinventery = () => {
-    setModalDetail({ show: true, flag: "ReturnInventory" });
-    setKey(Math.random());
+    // setModalDetail({ show: true, flag: "ReturnInventory" });
+    // setKey(Math.random());
     router.push({
       pathname: "/Product/RefundsConfirmation(No_Selection)",
-      query: { selectedItems: refundedItems },
+      query: { selectedItems: JSON.stringify(refundedItems) },
     });
   };
-  const [inputValues, setInputValues] = useState([]);
+
   const handleInputChange = (e, index) => {
     const { value } = e.target;
     const updatedInputValues = [...inputValues];
     updatedInputValues[index] = value;
-
     setInputValues(updatedInputValues);
   };
+
+  useEffect(() => {
+    setInputValues((pre) => [...pre, refundAmount]);
+  }, [refundAmount]);
 
   //   const handleCheckboxChange = (data) => {
   //     setCheckedItems((prevCheckedItems) => ({
@@ -161,7 +164,7 @@ const productrefunds = () => {
                             type="text"
                             placeholder="$00.00"
                             className="tablecustomInput"
-                            value={inputValues[idx] || ''}
+                            value={inputValues[idx] || refundAmount}
                             onChange={(e) => handleInputChange(e, idx)}
                           />
                         </td>
@@ -217,8 +220,8 @@ const productrefunds = () => {
                         ? "ConfirmReturn active"
                         : "comfirmatiopnBtn"
                     }
+                    disabled={!inputValues}
                     onClick={(e) => handleGoToinventery(e)}
-                    disabled={!inputValue}
                   >
                     Confirm
                     <Image
