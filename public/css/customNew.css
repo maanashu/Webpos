@@ -2409,6 +2409,7 @@ figure {
   display: flex;
   justify-content: end;
   gap: 20px;
+  flex-wrap: wrap;
 }
 
 .checkPurple label:before {
@@ -2705,6 +2706,7 @@ figure {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  flex-wrap: wrap;
 }
 
 .orderLeftInfo .linkHeading {
@@ -3254,6 +3256,11 @@ figure {
 
 .returnShipSection .detailScroll {
   height: calc(100% - 380px);
+  overflow-y: scroll;
+}
+
+.deliverOrderRight .detailScroll {
+  height: calc(100% - 368px);
   overflow-y: scroll;
 }
 
@@ -5166,8 +5173,104 @@ figure {
 .innerMargin {
   margin: 0 12px 12px 12px;
 }
+
 .sideMini {
   display: none;
+}
+
+.shippingMainTable .invoice_subhead:nth-child(2) {
+  min-width: 170px;
+}
+
+.shippingMainTable .invoice_subhead:nth-child(3) {
+  min-width: 115px;
+}
+
+.shippingMainTable .invoice_subhead:nth-child(4) {
+  min-width: 240px;
+}
+
+.shippingMainTable .invoice_subhead:first-child {
+  min-width: 80px;
+}
+
+.shippingMainTable .invoice_subhead:last-child {
+  min-width: 50px;
+}
+
+.deliverOrderData .flexDiv {
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.shipDate input {
+  border: 0;
+  width: 100%;
+  max-width: 125px;
+  font-size: 16px !important;
+  font-weight: 400 !important;
+  color: #263682 !important;
+}
+
+.shipDate input:focus {
+  outline: none;
+}
+
+.shipDate input::placeholder {
+  font-size: 16px !important;
+  font-weight: 400 !important;
+  color: #263682 !important;
+}
+
+.shipTrackTable .invoice_subhead:first-child {
+  min-width: 200px;
+}
+
+.shipTrackTable .invoice_subhead:nth-child(2) {
+  min-width: 230px;
+}
+
+.shipTrackTable .invoice_subhead:last-child {
+  min-width: 50px;
+}
+
+.shipTrackTable .invoice_subhead:nth-child(3) {
+  min-width: 250px;
+}
+
+.deliverOrderRight .selectedProductDetails {
+  display: inline-flex;
+  width: 100%;
+  min-width: 552px;
+  overflow-x: scroll;
+}
+
+.deliverOrderRight .aboutProduct {
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+  max-width: 24ch;
+}
+
+.afterViewOuter {
+  height: calc(100vh - 129px);
+  overflow-y: scroll;
+}
+
+.afterViewOuter::-webkit-scrollbar {
+  display: none;
+}
+
+#returnedOrder .invoice_subhead:first-child {
+  min-width: 80px;
+}
+
+#rejectOrder .invoice_subhead:nth-child(3) {
+  min-width: 180px;
+}
+
+#shippedOrders .invoice_subhead:first-child {
+  min-width: 80px;
 }
 
 /*gaurav arora sir css start*/

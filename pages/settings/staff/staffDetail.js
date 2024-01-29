@@ -81,147 +81,77 @@ const StaffDetail = ({ selectedItemId, handleTouch }) => {
     getStaffDetail();
   }, []);
 
-  return (
-    <>
-      <div className="settingMain staffDetailSection">
-        <div className="row">
-          <div className="col-lg-12">
-            {settingData?.loading ? (
-              <>
-                <div className="loaderOuter">
-                  <div className="spinner-grow loaderSpinner text-center my-5"></div>
-                </div>
-              </>
-            ) : (
-              <div className="settingOuter staffDetailRight">
-                <div className="flexTable">
-                  <Image
-                    style={{ cursor: "pointer" }}
-                    src={Images.boldLeftArrow}
-                    onClick={() => handleTouch("Staff")}
-                    alt="boldLeftArrow "
-                    className="img-fluid me-2"
-                  />
-                  <h4 className="appointMain">Staff Details</h4>
-                </div>
-                <div className="staffInfoBox">
-                  <div className="staffProfileInfo">
-                    <Image
-                      src={
-                        getStaffInfo?.pos_staff_detail?.user?.user_profiles
-                          ?.profile_photo
-                          ? getStaffInfo?.pos_staff_detail?.user?.user_profiles
-                              ?.profile_photo
-                          : Images.staffProfile
-                      }
-                      alt="staffProfile image "
-                      className="staffProfileImg"
-                      width={100}
-                      height={100}
-                    />
-                    <div className="staffProfileSub">
-                      <h4 className="appointMain">
-                        {getStaffInfo?.pos_staff_detail?.user?.user_profiles
-                          ?.firstname
-                          ? getStaffInfo?.pos_staff_detail?.user?.user_profiles
-                              ?.lastname
-                            ? `${getStaffInfo?.pos_staff_detail?.user?.user_profiles?.firstname} ${getStaffInfo?.pos_staff_detail?.user?.user_profiles?.lastname}`
-                            : getStaffInfo?.pos_staff_detail?.user
-                                ?.user_profiles?.firstname
-                          : ""}
-                      </h4>
-                      <div className="staffAddress">
-                        <Image
-                          src={Images.staffLocate}
-                          alt="staffProfile image "
-                          className="img-fluid"
-                        />
-                        <h4 className="appointSub m-0">
-                          {getStaffInfo?.pos_staff_detail?.user?.user_profiles
-                            ?.current_address
-                            ? `${getStaffInfo?.pos_staff_detail?.user?.user_profiles?.current_address?.street_address}, ${getStaffInfo?.pos_staff_detail?.user?.user_profiles?.current_address?.city}, ${getStaffInfo?.pos_staff_detail?.user?.user_profiles?.current_address?.state}, ${getStaffInfo?.pos_staff_detail?.user?.user_profiles?.current_address?.zipcode}`
-                            : "---------"}
-                        </h4>
-                      </div>
-                      <div className="staffAddress">
-                        <Image
-                          src={Images.staffMobile}
-                          alt="staffProfile image "
-                          className="img-fluid"
-                        />
-                        <h4 className="appointSub m-0">
-                          {
-                            getStaffInfo?.pos_staff_detail?.user?.user_profiles
-                              ?.full_phone_number
-                          }
-                        </h4>
-                      </div>
-                      <div className="staffAddress">
-                        <Image
-                          src={Images.emailStaff}
-                          alt="staffProfile image "
-                          className="img-fluid"
-                        />
-                        <h4 className="appointSub m-0">
-                          {getStaffInfo?.pos_staff_detail?.user?.email}
-                        </h4>
-                      </div>
-                    </div>
-                  </div>
-                  <div className="staffProfileData">
-                    <div className="flexDiv">
-                      <h4 className="amountText m-0">Joined Date</h4>
-                      <h4 className="appointSub m-0">
-                        {" "}
-                        {moment(
-                          getStaffInfo?.pos_staff_detail?.created_at
-                        ).format("ll")}
-                      </h4>
-                    </div>
-                    <div className="flexDiv mt-1">
-                      <h4 className="amountText m-0">Active since:</h4>
-                      <h4 className="appointSub m-0">
-                        {String(differenceInDays)?.replace("-", "")} {"days"}
-                      </h4>
-                    </div>
-                    <div className="flexDiv mt-1">
-                      <h4 className="amountText m-0">Employment type</h4>
-                      <h4 className="appointSub m-0">
-                        {finalEmploymentType ?? "-----"}
-                      </h4>
-                    </div>
-                    <div className="flexDiv mt-1">
-                      <h4 className="amountText m-0">Days Off</h4>
-                      <h4 className="appointSub m-0">
-                        {getStaffInfo?.pos_staff_detail?.leave ?? "-----"}
-                      </h4>
-                    </div>
-                  </div>
-                </div>
-                <div className="staffTimeSection">
-                  <div className="staffSubTime">
-                    <h4 className="amountText m-0">Time Rate</h4>
-                    <hr className="staffTimeDivide" />
-                    <h4 className="appointSub m-0">
-                      JBR{" "}
-                      {getStaffInfo?.pos_staff_detail?.hourly_rate
-                        ? getStaffInfo?.pos_staff_detail?.hourly_rate
-                        : 0}
-                      /hr
-                    </h4>
-                  </div>
-                  <div className="staffSubTime">
-                    <h4 className="amountText m-0">Over Time Rate</h4>
-                    <hr className="staffTimeDivide" />
-                    <h4 className="appointSub m-0">
-                      JBR{" "}
-                      {getStaffInfo?.pos_staff_detail?.overtime_rate
-                        ? getStaffInfo?.pos_staff_detail?.overtime_rate
-                        : 0}
-                      /hr
-                    </h4>
-                  </div>
-                  {/* {getStaffInfo?.pos_staff_detail?.hourly_rate?.length > 0 ?
+    return (
+        <>
+            {/* <div className='settingMain staffDetailSection'>
+                <div className='row'>
+                    <div className='col-lg-12'> */}
+                        {settingData?.loading ? (
+                            <>
+                                <div className="loaderOuter">
+                                    <div className="spinner-grow loaderSpinner text-center my-5"></div>
+                                </div>
+                            </>
+                        ) : (
+                            <div className='settingOuter staffDetailRight'>
+                                <div className='flexTable'>
+                                    <Image style={{cursor:'pointer'}} src={Images.boldLeftArrow} onClick={()=>handleTouch("Staff")} alt="boldLeftArrow " className="img-fluid me-2" />
+                                    <h4 className='appointMain'>Staff Details</h4>
+                                </div>
+                                <div className='staffInfoBox'>
+                                    <div className='staffProfileInfo'>
+                                        <Image src={getStaffInfo?.pos_staff_detail?.user?.user_profiles?.profile_photo ? getStaffInfo?.pos_staff_detail?.user?.user_profiles?.profile_photo : Images.staffProfile} alt="staffProfile image " className="staffProfileImg" width={100} height={100} />
+                                        <div className='staffProfileSub'>
+                                            <h4 className='appointMain'>{getStaffInfo?.pos_staff_detail?.user?.user_profiles?.firstname
+                                                ? getStaffInfo?.pos_staff_detail?.user?.user_profiles?.lastname
+                                                    ? `${getStaffInfo?.pos_staff_detail?.user?.user_profiles?.firstname} ${getStaffInfo?.pos_staff_detail?.user?.user_profiles?.lastname}`
+                                                    : getStaffInfo?.pos_staff_detail?.user?.user_profiles?.firstname
+                                                : ''}</h4>
+                                            <div className='staffAddress'>
+                                                <Image src={Images.staffLocate} alt="staffProfile image " className="img-fluid" />
+                                                <h4 className='appointSub m-0'>{getStaffInfo?.pos_staff_detail?.user?.user_profiles?.current_address ? `${getStaffInfo?.pos_staff_detail?.user?.user_profiles?.current_address?.street_address}, ${getStaffInfo?.pos_staff_detail?.user?.user_profiles?.current_address?.city}, ${getStaffInfo?.pos_staff_detail?.user?.user_profiles?.current_address?.state}, ${getStaffInfo?.pos_staff_detail?.user?.user_profiles?.current_address?.zipcode}` : "---------"}</h4>
+                                            </div>
+                                            <div className='staffAddress'>
+                                                <Image src={Images.staffMobile} alt="staffProfile image " className="img-fluid" />
+                                                <h4 className='appointSub m-0'>{getStaffInfo?.pos_staff_detail?.user?.user_profiles?.full_phone_number}</h4>
+                                            </div>
+                                            <div className='staffAddress'>
+                                                <Image src={Images.emailStaff} alt="staffProfile image " className="img-fluid" />
+                                                <h4 className='appointSub m-0'>{getStaffInfo?.pos_staff_detail?.user?.email}</h4>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div className='staffProfileData'>
+                                        <div className='flexDiv'>
+                                            <h4 className='amountText m-0'>Joined Date</h4>
+                                            <h4 className='appointSub m-0'> {moment(getStaffInfo?.pos_staff_detail?.created_at).format('ll')}</h4>
+                                        </div>
+                                        <div className='flexDiv mt-1'>
+                                            <h4 className='amountText m-0'>Active since:</h4>
+                                            <h4 className='appointSub m-0'>{String(differenceInDays)?.replace('-', '')} {'days'}</h4>
+                                        </div>
+                                        <div className='flexDiv mt-1'>
+                                            <h4 className='amountText m-0'>Employment type</h4>
+                                            <h4 className='appointSub m-0'>{finalEmploymentType ?? '-----'}</h4>
+                                        </div>
+                                        <div className='flexDiv mt-1'>
+                                            <h4 className='amountText m-0'>Days Off</h4>
+                                            <h4 className='appointSub m-0'>{getStaffInfo?.pos_staff_detail?.leave ?? '-----'}</h4>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div className='staffTimeSection'>
+                                    <div className='staffSubTime'>
+                                        <h4 className='amountText m-0'>Time Rate</h4>
+                                        <hr className='staffTimeDivide' />
+                                        <h4 className='appointSub m-0'>JBR {getStaffInfo?.pos_staff_detail?.hourly_rate ? getStaffInfo?.pos_staff_detail?.hourly_rate : 0}/hr</h4>
+                                    </div>
+                                    <div className='staffSubTime'>
+                                        <h4 className='amountText m-0'>Over Time Rate</h4>
+                                        <hr className='staffTimeDivide' />
+                                        <h4 className='appointSub m-0'>JBR {getStaffInfo?.pos_staff_detail?.overtime_rate ? getStaffInfo?.pos_staff_detail?.overtime_rate : 0}/hr</h4>
+                                    </div>
+                                    {/* {getStaffInfo?.pos_staff_detail?.hourly_rate?.length > 0 ?
                                         getStaffInfo?.pos_staff_detail?.payment_cycle?.map((data, index) => {
                                             return ( */}
                   <div className="staffSubTime">
@@ -444,14 +374,16 @@ const StaffDetail = ({ selectedItemId, handleTouch }) => {
                                             </div>
                                         </div>
                                     </div> */}
+                                </div>
+                            </div>
+                        )
+                        }
+                    {/* </div>
+
                 </div>
-              </div>
-            )}
-          </div>
-        </div>
-      </div>
-    </>
-  );
-};
+            </div> */}
+        </>
+    )
+}
 
 export default StaffDetail;
