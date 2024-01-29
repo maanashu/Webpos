@@ -9,6 +9,7 @@ import {
 } from "../../redux/slices/productReturn";
 import { selectLoginAuth } from "../../redux/slices/auth";
 import { useDispatch, useSelector } from "react-redux";
+import { toast } from "react-toastify";
 
 const Manualinvoice = (props) => {
   const dispatch = useDispatch();
@@ -29,6 +30,15 @@ const Manualinvoice = (props) => {
         },
       })
     );
+  };
+  const handleManulEntry = () => {
+    if (!productsSearchBySku) {
+      toast.error("Please add Product by search SKU!");
+      return;
+    }
+    else{
+      props.closeManulModal()
+    }
   };
   return (
     <>
@@ -81,7 +91,7 @@ const Manualinvoice = (props) => {
                         <span className="Black"></span>
                         <span className="White"></span>
                       </article>
-                      
+
                       <span className="sku">
                         {productsSearchBySku?.product_detail?.sku
                           ? productsSearchBySku?.product_detail?.sku
@@ -111,7 +121,7 @@ const Manualinvoice = (props) => {
             <button
               type="button"
               className="BlueBtn"
-           
+              onClick={(e) => handleManulEntry(e)}
             >
               Next
               <Image
@@ -123,7 +133,6 @@ const Manualinvoice = (props) => {
           </div>
         </div>
       </div>
-   
     </>
   );
 };
