@@ -119,7 +119,7 @@ function* availableOffers(action) {
   try {
     const resp = yield call(
       ApiClient.get,
-      `${PRODUCT_API_URL_V1}offer/products?app_name=pos&delivery_options=1,3,4&service_type=product&${params}`
+      `${PRODUCT_API_URL_V1}offer/products?app_name=pos&delivery_options=${dataToSend?.type == 'product' ? '1,3,4'  : '2'}&service_type=${dataToSend?.type}&${params}`
     );
     if (resp.status) {
       yield put(setAvailableOffers(resp.data));

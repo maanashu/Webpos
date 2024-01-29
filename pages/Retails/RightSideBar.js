@@ -14,10 +14,13 @@ import {
   formattedReturnPrice,
 } from "../../utilities/globalMethods";
 import CustomProductAdd from "./CustomProductAdd";
+import { useRouter } from "next/router";
 // import CustomModal from '../../customModal/CustomModal';
 // import AddProduct from '../../../components/';
 
-const RightSideBar = (props) => {
+const RightSideBar = ({props, parameter}) => {
+  
+  const router = useRouter();
   const dispatch = useDispatch();
   const retailData = useSelector(selectRetailData);
   const cartData = retailData?.productCart;
@@ -25,6 +28,12 @@ const RightSideBar = (props) => {
   const cartLength = cartData?.poscart_products?.length;
   const [filterShow, setFilterShow] = useState(false);
   const [customProductAdd, setCustomProductAdd] = useState(false);
+  const productCart = cartData?.poscart_products?.filter(
+    (item) => item?.product_type == "product"
+  );
+  const serviceCart = cartData?.poscart_products?.filter(
+    (item) => item?.product_type == "service"
+  );
 
   const [key, setKey] = useState(Math.random());
   const [modalDetail, setModalDetail] = useState({
@@ -42,85 +51,169 @@ const RightSideBar = (props) => {
   };
   return (
     <>
+    {
+      parameter == "product"
+      ?
       <div className={props?.showSidebar ? "sidebarRight show" : "sidebarRight hide"}>
-        <ListGroup>
-          <ListGroupItem
-            className="rightSidebarItems active"
-            onClick={() => {
-              cartLength > 0 ? setFilterShow((prev) => !prev) : void 0;
-            }}
-          >
-            <div className="sidebarBg">
-              <Image
-                src={Images.ShoppingOutline}
-                alt="image"
-                className="imgSize"
-              />
-            </div>
-            <span className="cartNum">{cartLength || "0"}</span>
-          </ListGroupItem>
-          {/* <ListGroupItem className="rightSidebarItems" onClick={() => {
-                        setModalDetail({ show: true, flag: "AddProduct" });
-                        setKey(Math.random());
-                    }}>
-                        <div className='sidebarBg'>
-                            <Image src={Images.AddProduct} alt="image" className="img-fluid rightSidebarIcons" />
-                        </div>
-                    </ListGroupItem> */}
+      <ListGroup>
+        <ListGroupItem
+          className="rightSidebarItems active"
+          onClick={() => {
+            productCart?.length > 0 ? setFilterShow((prev) => !prev) : void 0;
+          }}
+        >
+          <div className="sidebarBg">
+            <Image
+              src={Images.ShoppingOutline}
+              alt="image"
+              className="imgSize"
+            />
+          </div>
+          <span className="cartNum">{productCart?.length || "0"}</span>
+        </ListGroupItem>
+        {/* <ListGroupItem className="rightSidebarItems" onClick={() => {
+                      setModalDetail({ show: true, flag: "AddProduct" });
+                      setKey(Math.random());
+                  }}>
+                      <div className='sidebarBg'>
+                          <Image src={Images.AddProduct} alt="image" className="img-fluid rightSidebarIcons" />
+                      </div>
+                  </ListGroupItem> */}
 
-          <ListGroupItem className="rightSidebarItems">
-            <div
-              className="sidebarBg"
-              onClick={() => setCustomProductAdd(true)}
-            >
-              <Image
-                src={Images.AddProduct}
-                alt="image"
-                className="img-fluid rightSidebarIcons"
-              />
-            </div>
-          </ListGroupItem>
-          <ListGroupItem
-            className="rightSidebarItems"
-            onClick={() =>
-              dispatch(
-                clearCart({
-                  cb: () => {
-                    dispatch(productCart());
-                  },
-                })
-              )
-            }
+        <ListGroupItem className="rightSidebarItems">
+          <div
+            className="sidebarBg"
+            onClick={() => setCustomProductAdd(true)}
           >
-            <div className="sidebarBg">
-              <Image
-                src={Images.Cancelproduct}
-                alt="image"
-                className="img-fluid rightSidebarIcons"
-              />
-            </div>
-          </ListGroupItem>
-          <ListGroupItem className="rightSidebarItems">
-            <div className="sidebarBg">
-              <Image
-                src={Images.PauseCircleOutline}
-                alt="image"
-                className="img-fluid rightSidebarIcons"
-              />
-            </div>
-          </ListGroupItem>
+            <Image
+              src={Images.AddProduct}
+              alt="image"
+              className="img-fluid rightSidebarIcons"
+            />
+          </div>
+        </ListGroupItem>
+        <ListGroupItem
+          className="rightSidebarItems"
+          onClick={() =>
+            dispatch(
+              clearCart({
+                cb: () => {
+                  dispatch(productCart());
+                },
+              })
+            )
+          }
+        >
+          <div className="sidebarBg">
+            <Image
+              src={Images.Cancelproduct}
+              alt="image"
+              className="img-fluid rightSidebarIcons"
+            />
+          </div>
+        </ListGroupItem>
+        <ListGroupItem className="rightSidebarItems">
+          <div className="sidebarBg">
+            <Image
+              src={Images.PauseCircleOutline}
+              alt="image"
+              className="img-fluid rightSidebarIcons"
+            />
+          </div>
+        </ListGroupItem>
 
-          <ListGroupItem className="rightSidebarItems">
-            <Link href="/Retails/ProductCart">
-              <Image
-                src={Images.RightArrow}
-                alt="image"
-                className="img-fluid rightSidebarIcons"
-              />
-            </Link>
-          </ListGroupItem>
-        </ListGroup>
-      </div>
+        <ListGroupItem className="rightSidebarItems" onClick={() => productCart?.length > 0 ? router.push({ pathname: "/Retails/ProductCart" }) : void(0)}>
+      <Image
+            src={Images.RightArrow}
+            alt="image"
+            className="img-fluid rightSidebarIcons"
+          />
+      </ListGroupItem>
+
+      </ListGroup>
+    </div>
+    :
+    <div className={props?.showSidebar ? "sidebarRight show" : "sidebarRight hide"}>
+    <ListGroup>
+      <ListGroupItem
+        className="rightSidebarItems active"
+        onClick={() => {
+          serviceCart?.length > 0 ? setFilterShow((prev) => !prev) : void 0;
+        }}
+      >
+        <div className="sidebarBg">
+          <Image
+            src={Images.ShoppingOutline}
+            alt="image"
+            className="imgSize"
+          />
+        </div>
+        <span className="cartNum">{serviceCart?.length || "0"}</span>
+      </ListGroupItem>
+      {/* <ListGroupItem className="rightSidebarItems" onClick={() => {
+                    setModalDetail({ show: true, flag: "AddProduct" });
+                    setKey(Math.random());
+                }}>
+                    <div className='sidebarBg'>
+                        <Image src={Images.AddProduct} alt="image" className="img-fluid rightSidebarIcons" />
+                    </div>
+                </ListGroupItem> */}
+
+      <ListGroupItem className="rightSidebarItems">
+        <div
+          className="sidebarBg"
+          onClick={() => setCustomProductAdd(true)}
+        >
+          <Image
+            src={Images.AddProduct}
+            alt="image"
+            className="img-fluid rightSidebarIcons"
+          />
+        </div>
+      </ListGroupItem>
+      <ListGroupItem
+        className="rightSidebarItems"
+        // onClick={() =>
+        //   dispatch(
+        //     clearCart({
+        //       cb: () => {
+        //         dispatch(productCart());
+        //       },
+        //     })
+        //   )
+        // }
+      >
+        <div className="sidebarBg">
+          <Image
+            src={Images.Cancelproduct}
+            alt="image"
+            className="img-fluid rightSidebarIcons"
+          />
+        </div>
+      </ListGroupItem>
+      <ListGroupItem className="rightSidebarItems">
+        <div className="sidebarBg">
+          <Image
+            src={Images.PauseCircleOutline}
+            alt="image"
+            className="img-fluid rightSidebarIcons"
+          />
+        </div>
+      </ListGroupItem>
+      <ListGroupItem className="rightSidebarItems" onClick={() => serviceCart?.length > 0 ? router.push({ pathname: "/Retails/ServiceCart" }) : void(0)}>
+      <Image
+            src={Images.RightArrow}
+            alt="image"
+            className="img-fluid rightSidebarIcons"
+          />
+      </ListGroupItem>
+
+     
+    </ListGroup>
+  </div>
+
+    }
+     
       {filterShow ? (
         <div className="AddtoCart ProductAddCart">
           {cartData?.poscart_products?.map((data, index) => (
