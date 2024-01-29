@@ -41,8 +41,6 @@ const index = () => {
   const auth = useSelector(selectLoginAuth);
   const sellerId = auth?.usersInfo?.payload?.uniqe_id;
   const dispatch = useDispatch();
-  console.log(analyticsOrderData, "analytics data");
-
   function addThousandSeparator(number) {
     return number?.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
   }
@@ -133,12 +131,9 @@ const index = () => {
 
   // go to the review page
   const handleGoReviewPage = (orderDate) => {
-    console.log("orderDateorderDate", orderDate);
+    // return
     router.push({
       pathname: "/transactions/transactionList",
-      state: {
-        date: orderDate,
-      },
       query: {
         transaction_type: "all",
         date: orderDate,
@@ -264,10 +259,6 @@ const index = () => {
                   {analyticsOrderData?.delivery_graph?.ordersListData?.length >
                   0 ? (
                     <tbody>
-                      {console.log(
-                        "analyticsOrderDatazzz",
-                        analyticsOrderData?.delivery_graph?.ordersListData
-                      )}
                       {analyticsOrderData?.delivery_graph?.ordersListData?.map(
                         (row, idx) => (
                           <tr className="customers-table-row" key={idx}>

@@ -31,7 +31,9 @@ const TransactionsList = () => {
   const { query } = useRouter();
   const router = useRouter();
   const [selectedTab, setSelectedTab] = useState("all_customers");
-  const [timeSpan, setTimeSpan] = useState(query["time-span"] || "week");
+  const [timeSpan, setTimeSpan] = useState(
+    query?.date ? "" : query["time-span"] || "week"
+  );
   const [limit, setLimit] = useState("10");
   const [page, setPage] = useState(1);
   const [date, setDate] = useState(query?.date ? query?.date : "");
@@ -41,21 +43,9 @@ const TransactionsList = () => {
   const dispatch = useDispatch();
   const authData = useSelector(selectLoginAuth);
   const getWalletData = useSelector(selectTransactionData);
-  console.log("getWalletDatagetWalletData", getWalletData);
-  const getTotalTraData = getWalletData?.totalTra?.payload;
   const getTotalTraDetails = getWalletData?.totalTraDetail?.payload?.data ?? [];
   const transactionTypeArray = getWalletData?.totalTraType?.payload;
   const sellerID = authData?.usersInfo?.payload?.uniqe_id;
-
-  useEffect(() => {
-    if (sellerID) {
-      const params = {
-        filter: timeSpan,
-        seller_id: sellerID,
-      };
-      dispatch(getTotalTra(params));
-    }
-  }, [timeSpan]);
 
   useEffect(() => {
     const data = {
@@ -67,7 +57,7 @@ const TransactionsList = () => {
   }, [timeSpan]);
 
   useEffect(() => {
-    const data = {
+    let data = {
       dayWiseFilter: timeSpan,
       page: page,
       limit: limit,
@@ -75,17 +65,22 @@ const TransactionsList = () => {
       transactionType: transaction,
       orderType: "none",
       status: "none",
-      start_date: date,
-      end_date: date,
     };
+    if (date) {
+      data = {
+        ...data,
+        start_date: date,
+        end_date: date,
+      };
+    }
     dispatch(getTotalTraDetail(data));
   }, [limit, page, timeSpan, transaction, date]);
 
   const handleDateChange = (dates) => {
     setDate(moment(dates).format("YYYY-MM-DD"));
+    setTimeSpan("");
   };
 
-  // console.log("transactionTypeArray",transactionTypeArray )
   const TABS = [
     {
       modeOfPayment: "all",
@@ -151,7 +146,11 @@ const TransactionsList = () => {
         title="Transactions"
         descrip={" "}
         timeSpan={timeSpan}
-        onTimeSpanSelect={setTimeSpan}
+        // onTimeSpanSelect={setTimeSpan}
+        onTimeSpanSelect={(data) => {
+          setTimeSpan(data);
+          setDate("");
+        }}
         mainIcon={customerWallet}
       />
 
@@ -162,6 +161,7 @@ const TransactionsList = () => {
         setLimit={setLimit}
         totalItems={getWalletData?.totalTraDetail?.payload?.total}
         onDateChange={handleDateChange}
+        date={date}
       />
 
       {/*  TABS*/}
@@ -264,7 +264,9 @@ const TransactionsList = () => {
         </thead>
         <tbody>
           {getWalletData?.loading ? (
-            <td colSpan={6}>Loading...</td>
+            <td className="text-center" colSpan={12}>
+              Loading...
+            </td>
           ) : (
             <>
               {getTotalTraDetails && getTotalTraDetails.length > 0 ? (
