@@ -21,7 +21,7 @@ import NoOrderFound from "../../components/NoOrderFound";
 import OrderListItem from "../Deliveries/Component/OrderListItem";
 import { useRouter } from "next/router";
 import ChartCommon from "../../components/commanComonets/ChartCommon";
-import { Progress } from "antd";
+import { Circle } from "rc-progress";
 
 const Shipping = () => {
   const dispatch = useDispatch();
@@ -414,37 +414,38 @@ const Shipping = () => {
               <div className="deliverOrder">
                 <h4 className="customerLink text-start">Orders</h4>
                 <div className="deliverGraph order-all-progress">
-                  <div className="order-first-progress">
-                    <Progress
-                      strokeColor="#914BEB"
-                      type="circle"
-                      showInfo={false}
-                      percent={orderPercentageData?.deliveredOrder?.percentage}
-                      strokeWidth={6}
-                    />
-                  </div>
-                  <div className="order-second-progress">
-                    <Progress
-                      strokeColor="#F0C01A"
-                      size={100}
-                      type="circle"
-                      showInfo={false}
-                      percent={orderPercentageData?.returnedOrder?.percentage}
-                      strokeWidth={6}
-                    />
-                  </div>
-                  <div className="order-third-progress">
-                    <Progress
-                      strokeColor="#F97066"
-                      size={80}
-                      type="circle"
-                      showInfo={false}
-                      percent={orderPercentageData?.cancelledOrder?.percentage}
-                      strokeWidth={6}
-                    />
-                  </div>
-                  <div className="order-progress-value">
-                    <p>{orderPercentageData?.total}</p>
+                  <div className="order-all-progress-inner">
+                    <div className="order-first-progress">
+                      <Circle
+                        trailWidth={5}
+                        percent={
+                          orderPercentageData?.deliveredOrder?.percentage
+                        }
+                        strokeWidth={5}
+                        strokeColor="#914BEB"
+                      />
+                    </div>
+                    <div className="order-second-progress">
+                      <Circle
+                        trailWidth={5}
+                        percent={orderPercentageData?.returnedOrder?.percentage}
+                        strokeWidth={5}
+                        strokeColor="#F0C01A"
+                      />
+                    </div>
+                    <div className="order-third-progress">
+                      <Circle
+                        trailWidth={5}
+                        percent={
+                          orderPercentageData?.cancelledOrder?.percentage
+                        }
+                        strokeWidth={5}
+                        strokeColor="#F97066"
+                      />
+                    </div>
+                    <div className="order-progress-value">
+                      <p>{orderPercentageData?.total}</p>
+                    </div>
                   </div>
                 </div>
                 {orderStatData?.length > 0 ? (
