@@ -31,6 +31,8 @@ const Retails = () => {
   const mainProductArray = retailData?.mainProductData?.data || [];
   const mainServicesArray = retailData?.mainServicesData?.data || [];
   const[cartAlert, setCartAlert] = useState(false)
+
+  
   const productPagination = {
     total: retailData?.mainProductData?.total || "0",
   };
@@ -245,7 +247,7 @@ const Retails = () => {
                               <p className="productserviceName">
                                 <div
                                   dangerouslySetInnerHTML={{
-                                    __html: services?.description.slice(0, 200),
+                                    __html: services?.description?.slice(0, 200),
                                   }}
                                 />
                               </p>
@@ -364,7 +366,7 @@ const Retails = () => {
       </div>
       <Modal show={cartAlert} centered keyboard={false}>
       <CartAlert 
-      crossHandler={() => setCartAlert(false)}
+        crossHandler={() => setCartAlert(false)}
       />
       </Modal>
     </>

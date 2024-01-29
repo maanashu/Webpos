@@ -15,6 +15,8 @@ import {
 } from "../../utilities/globalMethods";
 import CustomProductAdd from "./CustomProductAdd";
 import { useRouter } from "next/router";
+import CartAlert from "./CartAlert";
+import CustomServiceAdd from "./CustomServiceAdd";
 // import CustomModal from '../../customModal/CustomModal';
 // import AddProduct from '../../../components/';
 
@@ -28,9 +30,13 @@ const RightSideBar = ({props, parameter}) => {
   const cartLength = cartData?.poscart_products?.length;
   const [filterShow, setFilterShow] = useState(false);
   const [customProductAdd, setCustomProductAdd] = useState(false);
-  const productCart = cartData?.poscart_products?.filter(
+  const [customServiceAdd, setCustomServiceAdd] = useState(false);
+  const [cartAlert, setCartAlert] = useState(false)
+
+  const productCarts = cartData?.poscart_products?.filter(
     (item) => item?.product_type == "product"
   );
+
   const serviceCart = cartData?.poscart_products?.filter(
     (item) => item?.product_type == "service"
   );
@@ -59,7 +65,7 @@ const RightSideBar = ({props, parameter}) => {
         <ListGroupItem
           className="rightSidebarItems active"
           onClick={() => {
-            productCart?.length > 0 ? setFilterShow((prev) => !prev) : void 0;
+            productCarts?.length > 0 ? setFilterShow((prev) => !prev) : void 0;
           }}
         >
           <div className="sidebarBg">
@@ -69,7 +75,7 @@ const RightSideBar = ({props, parameter}) => {
               className="imgSize"
             />
           </div>
-          <span className="cartNum">{productCart?.length || "0"}</span>
+          <span className="cartNum">{productCarts?.length || "0"}</span>
         </ListGroupItem>
         {/* <ListGroupItem className="rightSidebarItems" onClick={() => {
                       setModalDetail({ show: true, flag: "AddProduct" });
@@ -83,7 +89,7 @@ const RightSideBar = ({props, parameter}) => {
         <ListGroupItem className="rightSidebarItems">
           <div
             className="sidebarBg"
-            onClick={() => setCustomProductAdd(true)}
+            onClick={() => {serviceCart?.length > 0 ? setCartAlert(true)  :  setCustomProductAdd(true)}}
           >
             <Image
               src={Images.AddProduct}
@@ -122,7 +128,7 @@ const RightSideBar = ({props, parameter}) => {
           </div>
         </ListGroupItem>
 
-        <ListGroupItem className="rightSidebarItems" onClick={() => productCart?.length > 0 ? router.push({ pathname: "/Retails/ProductCart" }) : void(0)}>
+        <ListGroupItem className="rightSidebarItems" onClick={() => productCarts?.length > 0 ? router.push({ pathname: "/Retails/ProductCart" }) : void(0)}>
       <Image
             src={Images.RightArrow}
             alt="image"
@@ -161,8 +167,9 @@ const RightSideBar = ({props, parameter}) => {
 
       <ListGroupItem className="rightSidebarItems">
         <div
-          className="sidebarBg"
-          onClick={() => setCustomProductAdd(true)}
+          className="sidebarBg"        
+              onClick={() => {serviceCart?.length > 0 ? setCartAlert(true)  :  setCustomServiceAdd(true)}}
+
         >
           <Image
             src={Images.AddProduct}
@@ -308,9 +315,21 @@ const RightSideBar = ({props, parameter}) => {
         <></>
       )}
 
-      {/* attach with phone number popup */}
+      {/* custom product add popup */}
       <Modal show={customProductAdd} centered keyboard={false}>
         <CustomProductAdd crosshandler={() => setCustomProductAdd(false)} />
+      </Modal>
+    {/* cart alert popup */}
+      <Modal show={cartAlert} centered keyboard={false}>
+      <CartAlert 
+      crossHandler={() => setCartAlert(false)}
+      />
+      </Modal>
+
+      
+      {/* custom service add popup */}
+      <Modal show={customServiceAdd} centered keyboard={false}>
+        <CustomServiceAdd crosshandler={() => setCustomServiceAdd(false)} />
       </Modal>
       {/* <CustomModal
                 key={key}

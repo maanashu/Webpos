@@ -32,6 +32,7 @@ import CustomProductAdd from "./CustomProductAdd";
 import { flightRouterStateSchema } from "next/dist/server/app-render/types";
 import AttachCustomer from "./AttachCustomer";
 import moment from "moment-timezone";
+import CustomServiceAdd from "./CustomServiceAdd";
 
 const ServiceCart = () => {
   const router = useRouter();
@@ -46,7 +47,7 @@ const ServiceCart = () => {
   const [customProductAdd, setCustomProductAdd] = useState(false);
   const [attachCustomerModal, setAttachCustomerModal] = useState(false);
   const [productById, setProductById] = useState();
-
+const [customServiceAdd, setCustomServiceAdd] = useState(false)
   const onlyServiceCartArray = cartData?.poscart_products?.filter(
     (item) => item?.product_type == "service"
   );
@@ -412,7 +413,7 @@ const ServiceCart = () => {
               <div className="insertProductSection">
                 <div
                   className="addproductCart"
-                  onClick={() => setCustomProductAdd(true)}
+                  onClick={() => setCustomServiceAdd(true)}
                 >
                   <Image
                     src={Images.addProductImg}
@@ -635,11 +636,17 @@ const ServiceCart = () => {
                   className="nextverifyBtn w-100 mt-3"
                   type="submit"
                   onClick={() => {
-                    router.push({ pathname: "/Retails/CartAmountByPay" });
-                    let params = {
-                      seller_id: sellerId,
-                    };
-                    dispatch(getDrawerSession(params));
+                    if(Object.keys(cartData?.user_details)?.length == 0){
+                      setAttachCustomerModal(true)
+                    }else{
+                      router.push({ pathname: "/Retails/CartAmountByPay" });
+                      let params = {
+                        seller_id: sellerId,
+                      };
+                      dispatch(getDrawerSession(params));
+                    }
+
+                   
                   }}
                 >
                   Proceed to checkout
@@ -654,9 +661,9 @@ const ServiceCart = () => {
           </div>
         </div>
       </div>
-      {/* custom product add */}
-      <Modal show={customProductAdd} centered keyboard={false}>
-        <CustomProductAdd crosshandler={() => setCustomProductAdd(false)} />
+         {/* custom service add popup */}
+         <Modal show={customServiceAdd} centered keyboard={false}>
+        <CustomServiceAdd crosshandler={() => setCustomServiceAdd(false)} />
       </Modal>
 
       {/* custom product add */}

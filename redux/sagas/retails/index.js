@@ -378,6 +378,8 @@ function* customProuductAdd(action) {
     toast.error(e?.error?.response?.data?.msg);
   }
 }
+
+
 function* getUserDetail(action) {
   const body = { ...action.payload };
   try {
