@@ -255,7 +255,7 @@ const Users = () => {
         </tbody>
       </table>
 
-      <div className="pagination-footer flex-row-space-between">
+      <div className="pagination-footer flex-row-space-between paginatePosition">
         <div className="flex-row-space-between">
           <Image
             src={ArrowLeft}

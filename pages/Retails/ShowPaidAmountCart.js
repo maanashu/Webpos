@@ -30,28 +30,28 @@ const ShowPaidAmountCart = () => {
   const invoiceData = [
     {
       title: "Payment Option",
-      data: payableData?.mode_of_payment,
+      data: "Cash",
       id: 1,
+    },
+    {
+      title: "POS No.",
+      data: posUserData?.payload?.pos_number,
+      id: 2,
     },
     {
       title: "Date",
       // data: moment().format('ddd') + ' ' + moment().subtract(10, 'days').calendar();
       data: moment().format("ddd") + " " + moment().format("MM/DD/YY"),
-      id: 2,
-    },
-    {
-      title: "Mode",
-      data: "Walk-In",
       id: 3,
-    },
-    {
-      title: "POS No.",
-      data: posUserData?.payload?.pos_number,
-      id: 4,
     },
     {
       title: "User ID",
       data: posUserData?.payload?.id,
+      id: 4,
+    },
+    {
+      title: "Mode",
+      data: "Walk-In",
       id: 5,
     },
   ];

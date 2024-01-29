@@ -5,48 +5,66 @@ import { useDispatch, useSelector } from "react-redux";
 import { getDrawerSessionInfo } from "../../../redux/slices/dashboard";
 import { toast } from "react-toastify";
 import { selectLoginAuth } from "../../../redux/slices/auth";
+import {
+  getDrawerHistory,
+  getDrawerSession,
+  selectCashDrawerData,
+  trackSessionSave,
+} from "../../../redux/slices/cashDrawer";
 
-const AddCashModal = ({ props, title, modalType }) => {
+const AddCashModal = ({ props, title, modalType, close }) => {
   const dispatch = useDispatch();
-  const toastId = React.useRef(null);
-  const authData = useSelector(selectLoginAuth);
-  const [amount, setAmount] = useState("");
+
+  const [addCashInput, setAddCashInput] = useState("");
   const [notes, setNotes] = useState("");
-  const [drawerSessionDetails, setDrawerSessionDetails] = useState("");
+
+  const sessionData = useSelector(selectCashDrawerData);
+  const drawerSessionDetail = sessionData?.drawerSession?.payload;
+  const authData = useSelector(selectLoginAuth);
 
   const UniqueId = authData?.usersInfo?.payload?.uniqe_id
     ? authData?.usersInfo?.payload?.uniqe_id
     : "";
-  // API for get Drawer Session Info...............................
-  const drawerSessionInfo = () => {
-    if (!amount) {
-      if (!toast.isActive(toastId.current)) {
-        toastId.current = toast.error("Please enter amount");
+  const digits = /^[0-9]+$/;
+  const sellerId = {
+    seller_id: UniqueId,
+  };
+
+  const addCashHandler = async () => {
+    if (!addCashInput) {
+      alert("Please Enter Amount");
+    } else if (addCashInput && digits.test(addCashInput) === false) {
+      alert("Please enter valid amount");
+    } else if (addCashInput <= 0) {
+      alert("Please enter valid amount");
+    } else {
+      const data =
+        modalType == "add"
+          ? {
+              drawer_id: drawerSessionDetail?.id,
+              amount: parseFloat(addCashInput),
+              transaction_type: "manual_cash_in",
+              mode_of_cash: "cash_in",
+            }
+          : {
+              drawer_id: drawerSessionDetail?.id,
+              amount: parseFloat(addCashInput),
+              transaction_type: "manual_cash_out",
+              mode_of_cash: "cash_out",
+            };
+      if (notes) {
+        data.note = notes;
       }
-      return;
-    } else if (!notes) {
-      if (!toast.isActive(toastId.current)) {
-        toastId.current = toast.error("Please enter note");
+
+      const res = await dispatch(trackSessionSave(data));
+      if (res) {
+        dispatch(getDrawerSession(sellerId));
+        dispatch(getDrawerHistory());
+        close();
+        setNotes("");
+        setAddCashInput("");
       }
-      return;
     }
-    let params = {
-      seller_id: UniqueId,
-      amount: amount,
-      notes: notes,
-    };
-    dispatch(
-      getDrawerSessionInfo({
-        ...params,
-        cb(res) {
-          if (res.status) {
-            setAmount("");
-            setNotes("");
-            props.close();
-          }
-        },
-      })
-    );
   };
 
   return (
@@ -72,9 +90,9 @@ const AddCashModal = ({ props, title, modalType }) => {
               className="form-control trackingInput"
               // name={generateRandomName}
               // autoComplete="new-password"
-              placeholder=" $  500.00"
-              // value={amount}
-              onChange={(e) => setAmount(e.target.value)}
+              placeholder=" $ 500.00"
+              value={addCashInput}
+              onChange={(e) => setAddCashInput(e.target.value)}
             />
             <select name="cars" id="cars" className="trackingSelect">
               <option value="volvo">USD</option>
@@ -102,9 +120,9 @@ const AddCashModal = ({ props, title, modalType }) => {
             <button
               className="nextverifyBtn w-100"
               type="button"
-              //   onClick={() => {
-              //     drawerSessionInfo();
-              //   }}
+              onClick={() => {
+                addCashHandler();
+              }}
             >
               Confirm
               <Image

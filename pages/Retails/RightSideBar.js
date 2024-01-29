@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import * as Images from "../../utilities/images";
 import Image from "next/image";
-import { ListGroup, ListGroupItem } from "react-bootstrap";
+import { ListGroup, ListGroupItem, Modal } from "react-bootstrap";
 import Link from "next/link";
 import { useDispatch, useSelector } from "react-redux";
 import {
@@ -13,6 +13,7 @@ import {
   amountFormat,
   formattedReturnPrice,
 } from "../../utilities/globalMethods";
+import CustomProductAdd from "./CustomProductAdd";
 // import CustomModal from '../../customModal/CustomModal';
 // import AddProduct from '../../../components/';
 
@@ -23,6 +24,7 @@ const RightSideBar = (props) => {
   const cartAmount = cartData?.amount;
   const cartLength = cartData?.poscart_products?.length;
   const [filterShow, setFilterShow] = useState(false);
+  const [customProductAdd, setCustomProductAdd] = useState(false);
 
   const [key, setKey] = useState(Math.random());
   const [modalDetail, setModalDetail] = useState({
@@ -66,6 +68,19 @@ const RightSideBar = (props) => {
                             <Image src={Images.AddProduct} alt="image" className="img-fluid rightSidebarIcons" />
                         </div>
                     </ListGroupItem> */}
+
+          <ListGroupItem className="rightSidebarItems">
+            <div
+              className="sidebarBg"
+              onClick={() => setCustomProductAdd(true)}
+            >
+              <Image
+                src={Images.AddProduct}
+                alt="image"
+                className="img-fluid rightSidebarIcons"
+              />
+            </div>
+          </ListGroupItem>
           <ListGroupItem
             className="rightSidebarItems"
             onClick={() =>
@@ -95,6 +110,7 @@ const RightSideBar = (props) => {
               />
             </div>
           </ListGroupItem>
+
           <ListGroupItem className="rightSidebarItems">
             <Link href="/Retails/ProductCart">
               <Image
@@ -198,6 +214,11 @@ const RightSideBar = (props) => {
       ) : (
         <></>
       )}
+
+      {/* attach with phone number popup */}
+      <Modal show={customProductAdd} centered keyboard={false}>
+        <CustomProductAdd crosshandler={() => setCustomProductAdd(false)} />
+      </Modal>
       {/* <CustomModal
                 key={key}
                 show={modalDetail.show}
