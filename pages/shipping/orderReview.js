@@ -148,7 +148,7 @@ const OrderReview = () => {
             getAllShippingOrdeshandle()
             getAllShippingOrdesCountHandle()
         }
-    }, [sellerUid,selectedDate]);
+    }, [sellerUid, selectedDate]);
 
     useEffect(() => {
         if (selectedItemId) {
@@ -158,10 +158,10 @@ const OrderReview = () => {
 
     return (
         <>
-            <div className='shippingSection shipOrderSection'>
+            <div className='shippingSection shipOrderSection afterViewOuter'>
                 <div className='deliverMain w-100'>
                     <div className='row '>
-                        <div className='col-lg-6'>
+                        <div className='col-xl-6 col-lg-12'>
                             <div className='deliverOrderLeft deliveryOuter me-0'>
                                 <div className='flexTable'>
                                     <Image src={Images.boldLeftArrow} style={{ cursor: "pointer" }} onClick={() => router.push('/shipping')} alt="boldLeftArrow " className="img-fluid me-2" />
@@ -173,12 +173,14 @@ const OrderReview = () => {
                                         <div className='flexTable'>
                                             <Image src={Images.calendarLight} alt='calendarimage' className='img-fluid' />
                                             {/* <span className='monthText ms-2'>Today</span> */}
-                                            <ReactDatePicker
+                                            <div className='shipDate ms-1' >
+                                                <ReactDatePicker
                                                     selected={selectedDate}
                                                     onChange={handleDateChange}
                                                     dateFormat="MM/dd/yyyy"
                                                     placeholderText="Select date"
                                                 />
+                                            </div>
                                         </div>
                                         <Image src={Images.arrowDown} alt='arrowDown image' className='img-fluid text-end' />
                                     </div>
@@ -192,7 +194,14 @@ const OrderReview = () => {
                                         </>
                                     ) :
                                         <div className='table-responsive mt-3'>
-                                            <table id="" className="orderDeliverTable">
+                                            <table id={title === "Order to Review" ? "ordersToReview" :
+                                                title === "Order Accepted" ? "acceptedOrders" :
+                                                    title === "Order Prepared" ? "acceptedPrepared" :
+                                                        title === "Printing Label" ? "printingLabel" :
+                                                            title === "Shipped" ? "shippedOrders" :
+                                                                title === "Rejected/Cancelled" ? "rejectOrder" :
+                                                                    title === "Returned" ? "returnedOrder"
+                                                                        : ""} className="orderDeliverTable shipTrackTable">
                                                 {
                                                     (status != 0) && (status != 7) && (status != 8) &&
                                                     <thead className='invoiceHeadingBox'>
@@ -342,7 +351,7 @@ const OrderReview = () => {
                                         </div>}
                             </div>
                         </div>
-                        <div className='col-lg-6'>
+                        <div className='col-xl-6 col-lg-12'>
                             {
                                 loading ? (
                                     <>
@@ -505,7 +514,7 @@ const OrderReview = () => {
                                                         </div>
                                                         {
                                                             singleOrderData?.status === 0 ?
-                                                                <div className='flexBox '>
+                                                                <div className='flexBox wrapFlex'>
                                                                     <button onClick={() => acceptHandler(8)} className='declineButton w-100' type='button'> Decline</button>
                                                                     <button onClick={() => acceptHandler(3)} type='button' className='BlueBtn w-100'>
                                                                         Accept Order

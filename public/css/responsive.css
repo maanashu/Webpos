@@ -293,6 +293,30 @@
     .BtnIcon {
         margin-left: 7px;
     }
+
+    .shippingSection {
+        min-width: calc(100% - 120px);
+        margin-left: 16px;
+        margin-right: 80px;
+    }
+
+    .deliveryOuter {
+        margin: 0;
+    }
+
+    .shipRightBar {
+        width: 44px;
+        padding: 15px 0px;
+    }
+
+    .deliverOrderRight {
+        margin-top: 16px;
+    }
+
+    .deliverOrderRight .detailScroll {
+        height: calc(100% - 368px);
+        overflow-y: scroll;
+    }
 }
 
 @media (max-width: 1080px) {
@@ -470,6 +494,14 @@
     .productScrollBar {
         height: calc(100vh - 255px);
     }
+
+    .deliverCheck {
+        justify-content: space-between;
+    }
+
+    .deliverOrderRight .selectedProductDetails {
+        min-width: 514px;
+    }
 }
 
 @media (max-width: 767px) {
@@ -602,6 +634,23 @@
     .ProductAddCart .cartSubInfo {
         flex-wrap: wrap;
         gap: 10px;
+    }
+
+    .deliverOrderRight .selectedProductDetails {
+        min-width: 356px;
+    }
+
+    .deliverOrderRight .aboutProduct {
+        max-width: 16ch;
+    }
+
+    .shipRightBar {
+        right: 12px;
+    }
+
+    .shippingSection {
+        margin-left: 12px;
+        margin-right: 65px;
     }
 }
 
@@ -765,8 +814,34 @@
         padding: 15px;
     }
 
+    .loginMain {
+        font-size: 18px;
+    }
+
+    .deliverOrderRight .aboutProduct {
+        max-width: 12ch;
+    }
+
+    .appointmenMonth {
+        padding: 7px;
+    }
+
+    .wrapFlex {
+        flex-wrap: wrap;
+        gap: 8px;
+    }
+    .wrapFlex .BlueBtn{
+        margin: 0;
+    }
+}
+
+@media (max-width: 525px) {
     .ProductAddCart .subFooter {
         max-width: 335px;
+    }
+
+    .FilterMultiSelect {
+        left: 0;
     }
 }
 
@@ -878,6 +953,14 @@
     .nextverifyBtn {
         font-size: 16px;
     }
+
+    .FilterMultiSelect {
+        max-width: 235px;
+    }
+
+    .cancelOrderText {
+        font-size: 14px;
+    }
 }
 
 @media (max-width: 425px) {
@@ -938,6 +1021,29 @@
         padding: 14px 8px;
     }
 
+    .FilterMultiSelect {
+        max-width: 180px;
+    }
+
+    .deliverPercent::before {
+        width: 6px;
+        height: 6px;
+        top: 7px;
+        left: 4px;
+    }
+
+    .deliverPercent {
+        padding: 3px 6px 3px 12px;
+        font-size: 10px;
+    }
+
+    .orderDeliverText {
+        font-size: 12px;
+    }
+
+    .loginMain {
+        font-size: 16px;
+    }
 }
 
 @media (max-width: 375px) {

@@ -317,14 +317,14 @@ const Shipping = () => {
 
 
     return (
-        <div className='shippingSection'>
+        <div className='shippingSection afterViewOuter'>
             {
                 orderLoading ?
                     <div className="loaderOuter">
                         <div className="spinner-grow loaderSpinner text-center my-5"></div>
                     </div> :
                     <div className='row '>
-                        <div className='col-lg-4'>
+                        <div className='col-xl-4 col-lg-12'>
                             <div className='deliverLeft deliveryOuter me-0'>
                                 <div className='deliverOrderStatus'>
                                     <h4 className='customerLink text-start'>Today Shipping Status</h4>
@@ -385,7 +385,7 @@ const Shipping = () => {
                                 </div>
                             </div>
                         </div>
-                        <div className='col-lg-8'>
+                        <div className='col-xl-8 col-lg-12'>
                             <div className=' deliveryOuter deliverRight ms-0'>
                                 <div className='deliverGraphSection'>
                                     <form className='deliverCheck'>
@@ -457,7 +457,7 @@ const Shipping = () => {
                                         </div>
                                     </div>
                                     <div className="table-responsive deliverTable">
-                                        <table id="DeliverDashboard" className="deliverDashboardTable">
+                                        <table id="DeliverDashboard" className="deliverDashboardTable shippingMainTable">
                                             <tbody>
                                                 {
                                                     orderData?.length > 0 ?
