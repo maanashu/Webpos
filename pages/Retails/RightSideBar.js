@@ -40,6 +40,8 @@ const RightSideBar = (props) => {
     });
     setKey(Math.random());
   };
+
+  
   return (
     <>
       <div className={props?.showSidebar ? "sidebarRight show" : "sidebarRight hide"}>
