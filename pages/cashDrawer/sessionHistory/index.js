@@ -3,13 +3,14 @@ import React, { useEffect, useState } from "react";
 import { PaginationFooter } from "../../../components/commanComonets/customers/PaginationFooter";
 
 import { Chart as ChartJS, registerables } from "chart.js";
-import { backArrow ,DrawerID } from "../../../utilities/images";
+import { backArrow, DrawerID } from "../../../utilities/images";
 import {
   getSessionHistory,
   selectCashDrawerData,
 } from "../../../redux/slices/cashDrawer";
 import { useDispatch, useSelector } from "react-redux";
 import moment from "moment-timezone";
+import * as Images from "../../../utilities/images";
 
 const SessionHistory = () => {
   ChartJS.register(...registerables);
@@ -124,7 +125,7 @@ const SessionHistory = () => {
               <td
                 // onClick={() => handleNavigateToTrackStatus(item)}
                 className="customers-table-data"
-                style={{ display: "flex", gap: "12px" }}
+                // style={{ display: "flex", gap: "12px" }}
               >
                 {item?.created_at
                   ? moment(item?.created_at).format("YYYY/MM/DD")
@@ -152,9 +153,20 @@ const SessionHistory = () => {
               >
                 <div className="d-flex align-items-center justify-content-center">
                   <div className="sessionBox">
-                    <Image className="sessionImg" src={DrawerID} />
+                    <Image
+                      className="sessionImg"
+                      src={
+                        item?.pos_user_detail?.user_profiles
+                          ? {
+                              uri: item?.pos_user_detail?.user_profiles
+                                ?.profile_photo,
+                            }
+                          : Images.defaultUser
+                      }
+                    />
                     <h6>
-                      {item?.pos_user_details?.user_profiles?.firstname == undefined
+                      {item?.pos_user_details?.user_profiles?.firstname ==
+                      undefined
                         ? "System Ended"
                         : item?.pos_user_details?.user_profiles?.firstname}
                     </h6>

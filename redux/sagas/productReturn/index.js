@@ -1,29 +1,73 @@
 import { toast } from "react-toastify";
 import { ApiClient } from "../../../utilities/api";
-import { ORDER_API_URL } from "../../../utilities/config";
+import { ORDER_API_URL, PRODUCT_API_URL } from "../../../utilities/config";
 import { all, call, put, takeLatest } from "redux-saga/effects";
-import { setSearchInvoiceByInvoiceId } from "../../slices/productReturn";
+import {
+  setSearchInvoiceByInvoiceId,
+  setSearchBySKU,
+  setReturnToInventory
+} from "../../slices/productReturn";
 
 const ORDER_API_URL_V1 = ORDER_API_URL + "/api/v1/";
-const invoiceKey="invoices/by-invoice-number";
+const PRODUCT_API_URL_V1 = PRODUCT_API_URL + "/api/v1/";
+const invoiceKey = "invoices/by-invoice-number";
 
 function* searchInvoiceByInvoiceId(action) {
-    console.log(action,'actionInvoice');
-    const dataToSend = { ...action.payload };
-    console.log(dataToSend,"dataToSend");
-    const params = new URLSearchParams(dataToSend).toString();
-    console.log(params,'params');
-    delete dataToSend.cb;
-    delete dataToSend.invoiceId;
+  const dataToSend = { ...action.payload };
+  delete dataToSend.cb;
+  delete dataToSend.invoiceId;
   try {
     const resp = yield call(
       ApiClient.get,
-      `${ORDER_API_URL_V1}+${invoiceKey}+${action.payload.invoiceId}?${action.payload.seller_id}`
+      `${ORDER_API_URL_V1}${invoiceKey}/${action.payload.invoiceId}?seller_id=${action.payload.seller_id}`
     );
-
     if (resp.status) {
       yield put(setSearchInvoiceByInvoiceId(resp.data));
       yield call(action.payload.cb, (action.res = resp));
+    } else if (!resp.data) {
+      yield put(setSearchInvoiceByInvoiceId(null));
+    } else {
+      throw resp;
+    }
+  } catch (e) {
+    yield put(onErrorStopLoad());
+    toast.error(e?.error?.response?.data?.msg);
+  }
+}
+function* searchBySKU(action) {
+  const dataToSend = { ...action.payload };
+  delete dataToSend.cb;
+  delete dataToSend.search;
+  try {
+    const resp = yield call(
+      ApiClient.get,
+      `${PRODUCT_API_URL_V1}products/search-one?app_name=pos&seller_id=${action.payload.seller_id}&search=${action.payload.search}`
+    );
+    if (resp.status) {
+      yield put(setSearchBySKU(resp.data));
+      yield call(action.payload.cb, (action.res = resp));
+    } else if (!resp.data) {
+      yield put(setSearchBySKU(null));
+    } else {
+      throw resp;
+    }
+  } catch (e) {
+    yield put(onErrorStopLoad());
+    toast.error(e?.error?.response?.data?.msg);
+  }
+}
+function* returnToInventory(action) {
+  console.log(action,'action');
+  try {
+    const resp = yield call(
+      ApiClient.post,
+      `${ORDER_API_URL}/api/v1/returns`,
+      (action.payload = action.payload)
+    );
+    if (resp.status) {
+      yield put(setReturnToInventory(resp.data));
+      yield call(action.payload.cb, (action.res = resp));
+      // toast.success(resp?.data?.msg);
     } else {
       throw resp;
     }
@@ -33,9 +77,13 @@ function* searchInvoiceByInvoiceId(action) {
   }
 }
 
-
 function* returnSaga() {
-  yield all([takeLatest("return/searchInvoiceByInvoiceId", searchInvoiceByInvoiceId)]);
+  yield all([
+    takeLatest("return/searchInvoiceByInvoiceId", searchInvoiceByInvoiceId),
+    takeLatest("return/searchBySKU", searchBySKU),
+    takeLatest("return/returnToInventory", returnToInventory),
+  ]);
+
 }
 
 export default returnSaga;

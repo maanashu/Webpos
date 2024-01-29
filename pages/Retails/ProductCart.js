@@ -11,6 +11,7 @@ import {
   getOneProductById,
   productCart,
   selectRetailData,
+  setProductCart,
 } from "../../redux/slices/retails";
 import { useDispatch, useSelector } from "react-redux";
 import { selectLoginAuth } from "../../redux/slices/auth";
@@ -23,18 +24,31 @@ import {
   formattedReturnPrice,
   getProductFinalPrice,
   getProductPrice,
+  noCartFun,
 } from "../../utilities/globalMethods";
+import { Modal } from "react-bootstrap";
+import CustomProductAdd from "./CustomProductAdd";
+import { flightRouterStateSchema } from "next/dist/server/app-render/types";
+import AttachCustomer from "./AttachCustomer";
 
 const ProductCart = () => {
   const router = useRouter();
   const dispatch = useDispatch();
   const authData = useSelector(selectLoginAuth);
   const retailData = useSelector(selectRetailData);
-  const cartData = retailData?.productCart;
+  const cartData = retailData?.productCart || {};
+  const cartLength = Object.keys(cartData)?.length;
   const cartAmount = cartData?.amount;
   const sellerId = authData?.usersInfo?.payload?.uniqe_id;
   const availableOffersArray = retailData?.availableOffers?.data || [];
   const [key, setKey] = useState(Math.random());
+  const [customProductAdd, setCustomProductAdd] = useState(false);
+  const [attachCustomerModal, setAttachCustomerModal] = useState(false);
+
+  const onlyProductCartArray = cartData?.poscart_products?.filter(
+    (item) => item?.product_type == "product"
+  );
+
   const [modalDetail, setModalDetail] = useState({
     show: false,
     title: "",
@@ -95,6 +109,111 @@ const ProductCart = () => {
       })
     );
   };
+  function calculatePercentageValue(value, percentage) {
+    if (percentage == "") {
+      return "";
+    }
+    const percentageValue = (percentage / 100) * parseFloat(value);
+    return percentageValue.toFixed(2) ?? 0.0;
+  }
+  const calculateOrderAmount = (cart) => {
+    if (cart?.poscart_products) {
+      var subTotalAmount = cartData?.poscart_products?.reduce((acc, curr) => {
+        const productPrice = getProductFinalPrice(curr);
+
+        return acc + productPrice;
+
+        // return acc + productPrice * curr.qty;
+      }, 0);
+      // var subTotalAmount = cartData?.amout?.total_amount;
+
+      var discountAmount = 0;
+      var deliveryFee = 0;
+      var taxesAndOtherCharges = 0;
+
+      // if coupon applied
+      // if (objCoupon) {
+      //   const couponDetail = objCoupon;
+      //   if (couponDetail.discount_percentage) {
+      //     discountAmount =
+      //       (subTotalAmount * couponDetail.discount_percentage) / 100;
+      //     discountAmount = Number(discountAmount).toFixed(2);
+      //   }
+
+      //   if (
+      //     couponDetail.max_discount &&
+      //     discountAmount > couponDetail.max_discount
+      //   ) {
+      //     discountAmount = couponDetail.max_discount;
+      //   }
+      // }
+
+      // var productsDiscountAmount = cartData?.cart_products?.reduce(
+      //   (acc, curr) =>
+      //     acc +
+      //     (curr.product_details?.supply?.supply_prices?.offer_price
+      //       ? curr.product_details?.supply?.supply_prices?.actual_price -
+      //         curr.product_details?.supply?.supply_prices?.offer_price
+      //       : 0) *
+      //       curr.qty,
+      //   0
+      // );
+
+      // if (productsDiscountAmount > 0) {
+      //   discountAmount = discountAmount + productsDiscountAmount;
+      // }
+
+      // if (cartData?.amout?.tax_percentage) {
+      //   taxesAndOtherCharges =
+      //     ((subTotalAmount - discountAmount) *
+      //       cartData?.amout?.tax_percentage) /
+      //     100;
+      // }
+
+      taxesAndOtherCharges = parseFloat(
+        calculatePercentageValue(
+          subTotalAmount,
+          parseInt(cart.amount.tax_percentage)
+        )
+      );
+
+      var totalOrderAmount =
+        subTotalAmount - discountAmount + deliveryFee + taxesAndOtherCharges;
+
+      cart.amount.tax = parseFloat(taxesAndOtherCharges); // Update tax value
+      cart.amount.total_amount = totalOrderAmount;
+      cart.amount.products_price = subTotalAmount;
+
+      var DATA = {
+        payload: cart,
+      };
+      dispatch(setProductCart(DATA));
+    }
+  };
+
+  const updateQuantity = (operation, index) => {
+    // var arr = retailData?.productCart;
+    // const product = arr?.poscart_products[index];
+    // const restProductQty = product?.product_details?.supply?.rest_quantity;
+    // if (operation == "+") {
+    //   if (restProductQty > product?.qty) {
+    //     product.qty += 1;
+    //     calculateOrderAmount(arr);
+    //   } else {
+    //     alert("There are no more quantity left to add");
+    //   }
+    // } else if (operation == "-") {
+    //   if (product.qty > 0) {
+    //     if (product.qty === 1) {
+    //       arr?.poscart_products.splice(index, 1);
+    //       // dispatch(updateCartLength(CART_LENGTH - 1));
+    //     }
+    //     product.qty -= 1;
+    //     calculateOrderAmount(arr);
+    //   }
+    // }
+  };
+
   return (
     <>
       <div className="fullCartSection">
@@ -129,8 +248,8 @@ const ProductCart = () => {
                 </div>
               </div>
 
-              {cartData?.poscart_products?.length > 0 ? (
-                cartData?.poscart_products?.map((data, index) => {
+              {onlyProductCartArray?.length > 0 ? (
+                onlyProductCartArray?.map((data, index) => {
                   return (
                     <div className="cartSubInfo active " key={index}>
                       <div className="cartItemDetail w-50">
@@ -157,11 +276,6 @@ const ProductCart = () => {
                         </div>
                       </div>
                       <div className="fullCartInfo w-50">
-                        {/* <input
-    className="form-control unitPriceControl"
-    type="number"
-    placeholder="$20.00"
-  /> */}
                         {amountFormat(
                           getProductPrice(
                             data.product_details?.supply?.supply_offers,
@@ -171,15 +285,16 @@ const ProductCart = () => {
                           )
                         )}
                         <div className="incrementBtn ">
-                          <i className="fa-solid fa-minus plusMinus"></i>
-                          {/* <input
-    className="form-control addBtnControl"
-    type="number"
-    placeholder=""
-    disabled
-  /> */}
+                          <i
+                            className="fa-solid fa-minus plusMinus"
+                            onClick={() => updateQuantity("-", index)}
+                          ></i>
+
                           {data?.qty}
-                          <i className="fa-solid fa-plus plusMinus"></i>
+                          <i
+                            className="fa-solid fa-plus plusMinus"
+                            onClick={() => updateQuantity("+", index)}
+                          ></i>
                         </div>
                         <div className="fullCartInfo">
                           <h4 className="invoice_subhead p-0">
@@ -189,6 +304,7 @@ const ProductCart = () => {
                             src={Images.redCross}
                             alt="crossImage"
                             className="img-fluid ms-2"
+                           
                           />
                         </div>
                       </div>
@@ -197,7 +313,7 @@ const ProductCart = () => {
                 })
               ) : (
                 <>
-                  {cartData?.poscart_products?.length == null ? (
+                  {onlyProductCartArray?.length == null ? (
                     <h6 className="mt-2 mb-2 text-center">No Carts Found!</h6>
                   ) : (
                     <div className="loaderOuter">
@@ -212,55 +328,67 @@ const ProductCart = () => {
           <div className="col-lg-5 col-md-5">
             <div className="commanOuter me-0 ms-0 commonSubOuter fullCartRight">
               <div className="insertProductSection">
-                <div className="addproductCart d-none">
+                <div
+                  className="addproductCart"
+                  onClick={() => setCustomProductAdd(true)}
+                >
                   <Image
                     src={Images.addProductImg}
                     alt="addProductimage"
                     className="img-fluid"
                   />
-                  <h4 className="monthText">Add Product</h4>
-                </div>
-                <div className="addproductCart d-none">
-                  <Image
-                    src={Images.pauseImg}
-                    alt="pauseproductImage"
-                    className="img-fluid"
-                  />
-                  <h4 className="monthText">Pause Product</h4>
+                  {/* <h4 className="monthText">Add Product</h4> */}
                 </div>
                 <div
                   className="deleteProductCart "
-                  onClick={(e) => handleDeleteCart(e)}
+                  onClick={(e) =>
+                    cartLength > 0 ? handleDeleteCart(e) : noCartFun()
+                  }
                 >
                   <Image
                     src={Images.deleteProduct}
                     alt="deleteProductImage"
                     className="img-fluid"
                   />
-                  <h4 className="monthText">Delete Product</h4>
+                  {/* <h4 className="monthText">Delete Product</h4> */}
+                </div>
+                <div className="addproductCart ">
+                  <Image
+                    src={Images.pauseImg}
+                    alt="pauseproductImage"
+                    className="img-fluid"
+                  />
+                  {/* <h4 className="monthText">Pause Product</h4> */}
+                </div>
+                <div
+                  className="addproductCart"
+                  onClick={() =>
+                    cartLength > 0 ? setAttachCustomerModal(true) : noCartFun()
+                  }
+                >
+                  <Image
+                    src={Images.addUser}
+                    alt="adduser Image"
+                    className="img-fluid "
+                  />
                 </div>
 
-                <Image
+                {/* <Image
                   src={Images.addProductImg}
                   alt="addproductImage"
-                  className="img-fluid d-none"
-                />
+                  className="img-fluid "
+                /> */}
 
-                <Image
+                {/* <Image
                   src={Images.crossProduct}
                   alt="crossProductImage"
                   className="img-fluid "
-                />
-                <Image
+                /> */}
+                {/* <Image
                   src={Images.pauseImg}
                   alt="pauseProductImage"
                   className="img-fluid "
-                />
-                <Image
-                  src={Images.addUser}
-                  alt="adduser Image"
-                  className="img-fluid "
-                />
+                /> */}
               </div>
               <div className="cartOfferSection">
                 <div className="availablePercent">
@@ -345,7 +473,7 @@ const ProductCart = () => {
                         </h6>
                       ) : (
                         <div className="loaderOuter">
-                          <div className="spinner-grow loaderSpinner text-center my-5"></div>
+                          <span className="spinner-border spinner-border-sm mx-1"></span>
                         </div>
                       )}
                     </>
@@ -355,7 +483,9 @@ const ProductCart = () => {
               <div className="discountOfferMain">
                 <button
                   className="discountBtn"
-                  onClick={(e) => handleAddDiscount(e)}
+                  onClick={(e) =>
+                    cartLength > 0 ? handleAddDiscount(e) : noCartFun()
+                  }
                 >
                   <Image
                     src={Images.ticketImg}
@@ -364,7 +494,12 @@ const ProductCart = () => {
                   />
                   Add Discount
                 </button>
-                <button className="notesBtn" onClick={(e) => handleAddNotes(e)}>
+                <button
+                  className="notesBtn"
+                  onClick={(e) =>
+                    cartLength > 0 ? handleAddNotes(e) : noCartFun()
+                  }
+                >
                   <Image
                     src={Images.noteImg}
                     alt="ticket Image"
@@ -437,6 +572,16 @@ const ProductCart = () => {
           </div>
         </div>
       </div>
+      {/* custom product add */}
+      <Modal show={customProductAdd} centered keyboard={false}>
+        <CustomProductAdd crosshandler={() => setCustomProductAdd(false)} />
+      </Modal>
+
+      {/* custom product add */}
+      <Modal show={attachCustomerModal} centered keyboard={false}>
+        <AttachCustomer crosshandler={() => setAttachCustomerModal(false)} />
+      </Modal>
+
       <CustomModal
         key={key}
         show={modalDetail.show}

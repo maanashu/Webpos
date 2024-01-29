@@ -19,6 +19,7 @@ export const deliveryDrawerStatus = [
     "Returned",
 ];
 const AnalyticsRightsidebar = ({ setOrderListType }) => {
+    const router = useRouter()
     const dispatch = useDispatch();
     const [activeSidebar, setActiveSidebar] = useState(true);
     const authData = useSelector(selectLoginAuth);
@@ -58,7 +59,10 @@ const AnalyticsRightsidebar = ({ setOrderListType }) => {
                     }`}
             >
                 <div className="mainanalyticsside_">
-                    <div onClick={() => setActiveSidebar((prev) => !prev)}>
+                    <div onClick={() => {
+                        router.back()
+                        // setActiveSidebar((prev) => !prev)
+                    }}>
                         <div className="rightInnerToggle mb-3">
                             <Image
                                 src={Images.sideArrow}
@@ -78,8 +82,7 @@ const AnalyticsRightsidebar = ({ setOrderListType }) => {
                     <ListGroup>
                         <ListGroupItem className="deliverRightItem p-0">
                             <Link
-                             
-                                href="#"
+                                href="/analytics/grossProfit"
                                 className="rightLinkBar"
                             >
                                 <Image
@@ -97,8 +100,7 @@ const AnalyticsRightsidebar = ({ setOrderListType }) => {
                         </ListGroupItem>
                         <ListGroupItem className="deliverRightItem p-0">
                             <Link
-                             
-                                href="#"
+                                href="/analytics/totalRevenue"
                                 className="rightLinkBar"
                             >
                                 <Image
@@ -116,8 +118,7 @@ const AnalyticsRightsidebar = ({ setOrderListType }) => {
                         </ListGroupItem>
                         <ListGroupItem className="deliverRightItem p-0">
                             <Link
-                              
-                                href="#"
+                                href="/analytics/totalCosts"
                                 className="rightLinkBar"
                             >
                                 <Image
@@ -135,8 +136,7 @@ const AnalyticsRightsidebar = ({ setOrderListType }) => {
                         </ListGroupItem>
                         <ListGroupItem className="deliverRightItem p-0">
                             <Link
-                              
-                                href="#"
+                                href="/analytics/totalPosOrder"
                                 className="rightLinkBar"
                             >
                                 <Image
@@ -154,8 +154,7 @@ const AnalyticsRightsidebar = ({ setOrderListType }) => {
                         </ListGroupItem>
                         <ListGroupItem className="deliverRightItem p-0">
                             <Link
-                             
-                                href="#"
+                                href="/analytics/totalDeliveryOrder"
                                 className="rightLinkBar"
                             >
                                 <Image
@@ -173,8 +172,7 @@ const AnalyticsRightsidebar = ({ setOrderListType }) => {
                         </ListGroupItem>
                         <ListGroupItem className="deliverRightItem p-0">
                             <Link
-                              
-                                href="#"
+                                href="/analytics/totalShippingOrder"
                                 className="rightLinkBar"
                             >
                                 <Image
@@ -192,8 +190,7 @@ const AnalyticsRightsidebar = ({ setOrderListType }) => {
                         </ListGroupItem>
                         <ListGroupItem className="deliverRightItem p-0">
                             <Link
-                            
-                                href="#"
+                                href="/analytics/totalOrder"
                                 className="rightLinkBar"
                             >
                                 <Image
@@ -212,7 +209,7 @@ const AnalyticsRightsidebar = ({ setOrderListType }) => {
                         <ListGroupItem className="deliverRightItem p-0">
                             <Link
                               
-                                href="#"
+                                href="/analytics/totalInventory"
                                 className="rightLinkBar"
                             >
                                 <Image
@@ -231,7 +228,7 @@ const AnalyticsRightsidebar = ({ setOrderListType }) => {
                         <ListGroupItem className="deliverRightItem p-0">
                             <Link
                               
-                                href="#"
+                                href="/analytics/totalProductSold"
                                 className="rightLinkBar"
                             >
                                 <Image

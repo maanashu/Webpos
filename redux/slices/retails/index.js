@@ -21,6 +21,14 @@ const initialState = {
   clearCartLoad: false,
   attachCustomerLoad: false,
   attachCustomerData: {},
+  availableOffersLoad: false,
+  customProuductAddLoad: false,
+  getUserDetailLoad: false,
+  userDetailData: {},
+  productCart: {},
+  getTimeSlotsLoad: false,
+  timeSlots: [],
+  addToCartServiceLoad: false,
 };
 
 export const retailsSlice = createSlice({
@@ -58,9 +66,11 @@ export const retailsSlice = createSlice({
     },
     availableOffers: (state) => {
       state.loading = true;
+      state.availableOffersLoad = true;
     },
     setAvailableOffers: (state, action) => {
       state.loading = false;
+      state.availableOffersLoad = false;
       state.availableOffers = action?.payload?.payload;
     },
     productCart: (state) => {
@@ -152,8 +162,47 @@ export const retailsSlice = createSlice({
       state.attachCustomerLoad = false;
       // state.attachCustomerData = action?.payload?.payload;
     },
+    customProuductAdd: (state) => {
+      state.customProuductAddLoad = true;
+    },
+    setCustomProuductAdd: (state, action) => {
+      state.customProuductAddLoad = false;
+      // state.attachCustomerData = action?.payload?.payload;
+    },
+    getUserDetail: (state) => {
+      state.getUserDetailLoad = true;
+    },
+    setUserDetail: (state, action) => {
+      state.getUserDetailLoad = false;
+      state.userDetailData = action?.payload?.payload;
+    },
+
+    getTimeSlots: (state) => {
+      state.getTimeSlotsLoad = true;
+    },
+    setTimeSlots: (state, action) => {
+      state.getTimeSlotsLoad = false;
+      state.timeSlots = action?.payload?.payload?.slots;
+    },
+
+    addToCartService: (state) => {
+      state.addToCartServiceLoad = true;
+    },
+    setAddToCartService: (state, action) => {
+      state.addToCartServiceLoad = false;
+      // state.timeSlots = action?.payload?.payload?.slots;
+    },
     onErrorStopLoad: (state) => {
       state.loading = false;
+      state.availableOffersLoad = false;
+      state.productCartLoad = false;
+      state.createOrderLoad = false;
+      state.customProuductAddLoad = false;
+      state.getUserDetailLoad = false;
+      state.attachCustomerLoad = false;
+      state.getTimeSlotsLoad = false;
+      state.addToCartServiceLoad = false;
+      state.checkSuppliedVariantLoad = false;
     },
   },
 });
@@ -192,6 +241,14 @@ export const {
   setDrawerSession,
   attachCustomer,
   setAttachCustomer,
+  customProuductAdd,
+  setCustomProuductAdd,
+  getUserDetail,
+  setUserDetail,
+  getTimeSlots,
+  setTimeSlots,
+  addToCartService,
+  setAddToCartService,
 } = retailsSlice.actions;
 
 export const selectRetailData = (state) => state.retails;
