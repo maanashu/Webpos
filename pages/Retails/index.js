@@ -14,6 +14,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { selectLoginAuth } from "../../redux/slices/auth";
 import RightSideBar from "./RightSideBar";
 import { amountFormat } from "../../utilities/globalMethods";
+import { Modal } from "react-bootstrap";
+import CartAlert from "./CartAlert";
 
 const Retails = () => {
   const dispatch = useDispatch();
@@ -28,13 +30,21 @@ const Retails = () => {
   const cartPosCart = cartData?.poscart_products || [];
   const mainProductArray = retailData?.mainProductData?.data || [];
   const mainServicesArray = retailData?.mainServicesData?.data || [];
+  const[cartAlert, setCartAlert] = useState(false)
+
+  
   const productPagination = {
     total: retailData?.mainProductData?.total || "0",
   };
   const servicesCount = {
     total: retailData?.mainServicesData?.total || "0",
   };
-  const completePathName = router.asPath;
+  const onlyProductCartArray = cartData?.poscart_products?.filter(
+    (item) => item?.product_type == "product"
+  );
+  const onlyServiceCartArray = cartData?.poscart_products?.filter(
+    (item) => item?.product_type == "service"
+  );
 
   const productFun = (productId, index, item) => {
     let params = {
@@ -127,6 +137,9 @@ const Retails = () => {
                   </>
                 ) : (
                   mainProductArray?.map((item, index) => {
+                    const cartMatchProduct = cartPosCart?.find(
+                      (data) => data?.product_id == item?.id
+                    );
                     return (
                       <div
                         className="col-xl-2 col-lg-3 col-md-4 mb-3"
@@ -134,8 +147,10 @@ const Retails = () => {
                       >
                         {/* <Link href='/Retails/AddProduct'> */}
                         <div
-                          className="productsCard active"
-                          onClick={() => productFun(item.id, index, item)}
+                          className= {cartMatchProduct?.qty > 0 ? "productsCard active"  : "productsCard" }
+                          onClick={() =>{
+                            onlyServiceCartArray?.length > 0 ? setCartAlert(true)  :  productFun(item.id, index, item) 
+                          }   }
                         >
                           <figure className="productImageBox">
                             <Image
@@ -145,6 +160,13 @@ const Retails = () => {
                               width="100"
                               height="100"
                             />
+                            <div className="overlay ">
+                                <Image
+                                  src={Images.Add}
+                                  alt="image"
+                                  className="img-fluid addIcon"
+                                />
+                              </div>
                           </figure>
                           <article className="productDetails">
                             <p className="productName">{item.name}</p>
@@ -188,7 +210,6 @@ const Retails = () => {
                       const cartMatchService = cartPosCart?.find(
                         (data) => data?.product_id == services?.id
                       );
-                      console.log("cartMatchService", cartMatchService?.qty);
 
                       return (
                         <div
@@ -201,7 +222,9 @@ const Retails = () => {
                                 ? "productsCard active"
                                 : "productsCard"
                             }
-                            onClick={() => getOneService(services?.id, index)}
+                            onClick={() => {
+                              onlyProductCartArray?.length >  0 ? setCartAlert(true)  : getOneService(services?.id, index) 
+                            } }
                           >
                             <figure className="productImageBox">
                               <Image
@@ -224,7 +247,7 @@ const Retails = () => {
                               <p className="productserviceName">
                                 <div
                                   dangerouslySetInnerHTML={{
-                                    __html: services?.description.slice(0, 200),
+                                    __html: services?.description?.slice(0, 200),
                                   }}
                                 />
                               </p>
@@ -339,8 +362,13 @@ const Retails = () => {
           </div>
         </div>
 
-        <RightSideBar showSidebar={showSidebar}/>
+        <RightSideBar showSidebar={showSidebar} parameter = {parameter}/>
       </div>
+      <Modal show={cartAlert} centered keyboard={false}>
+      <CartAlert 
+        crossHandler={() => setCartAlert(false)}
+      />
+      </Modal>
     </>
   );
 };
