@@ -130,11 +130,11 @@ const Notification = () => {
           {appNotifications?.map((item, index) => {
             return (
               <div className="settings-notification-view">
-                <h7>{item?.fieldName}</h7>
+                <h5 className="bluesmallHeading_">{item?.fieldName}</h5>
 
                 <div className="roundCheck  mb-0">
                   <input
-                    className="form-check-input"
+                    className="checkbox"
                     type="checkbox"
                     id="flexSwitchCheckChecked"
                     checked={item?.fieldStatus}
@@ -159,11 +159,11 @@ const Notification = () => {
           {smsNotifications?.map((item, index) => {
             return (
               <div className="settings-notification-view">
-                <h7>{item?.fieldName}</h7>
+                <h5 className="bluesmallHeading_">{item?.fieldName}</h5>
 
                 <div className="roundCheck  mb-0">
                   <input
-                    className="form-check-input"
+                    className="checkbox"
                     type="checkbox"
                     id="flexSwitchCheckChecked"
                     checked={item?.fieldStatus}
@@ -188,11 +188,11 @@ const Notification = () => {
           {emailNotifications?.map((item, index) => {
             return (
               <div className="settings-notification-view">
-                <h7>{item?.fieldName}</h7>
+                <h5 className="bluesmallHeading_">{item?.fieldName}</h5>
 
                 <div className="roundCheck  mb-0">
                   <input
-                    className="form-check-input"
+                    className="checkbox"
                     type="checkbox"
                     id="flexSwitchCheckChecked"
                     checked={item?.fieldStatus}
@@ -207,7 +207,7 @@ const Notification = () => {
             );
           })}
 
-          <div className="notifyCheck"></div>
+          {/* <div className="notifyCheck"></div> */}
         </div>
       </div>
     </>

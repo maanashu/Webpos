@@ -1,36 +1,93 @@
-import React from "react";
+import React, { useState } from "react";
 import * as Images from "../../utilities/images";
 import Image from "next/image";
-import SearchInvoice from "../../components/commanComonets/InvoiceSearch/Search";
-import * as Product from "../../components/commanComonets/Product";
 import Pagination from "../../components/commanComonets/pagination";
 import { useDispatch, useSelector } from "react-redux";
-import { dashboardDetails } from "../../redux/slices/dashboard";
-import { searchInvoiceByInvoiceId } from "../../redux/slices/productReturn";
+import {
+  searchInvoiceByInvoiceId,
+  selectReturnData,
+} from "../../redux/slices/productReturn";
 import { selectLoginAuth } from "../../redux/slices/auth";
+import moment from "moment-timezone";
+import { useRouter } from "next/router";
+import { toast } from "react-toastify";
+import CustomModal from "../../components/customModal/CustomModal";
+import Manualinvoice from "./manual-entry(search)";
+
 
 const ProductInvoice = () => {
   const dispatch = useDispatch();
-  const dashboardDetail = useSelector(dashboardDetails);
+  const router = useRouter();
+  const [selectedProductItems, setSelectedProductItems] = useState([]);
   const authData = useSelector(selectLoginAuth);
   const sellerId = authData?.usersInfo?.payload?.uniqe_id;
-  const orderDetails = dashboardDetail?.orderDeliveries?.payload?.data || [];
-  const InvoiceData = orderDetails?.find((data) => data?.invoices?.id);
+  const [searchInvoiceId, setSearchInvoiceId] = useState(null);
+  const invoiceData = useSelector(selectReturnData);
+  const SearchInvoiceRespones = invoiceData?.invoiceByInvoiceId;
+  const orderDetails = SearchInvoiceRespones?.order;
+  const productDetails = SearchInvoiceRespones?.order?.order_details;
 
-  const handleSearchInvoice = () => {
+  const [key, setKey] = useState(Math.random());
+  const [modalDetail, setModalDetail] = useState({
+    show: false,
+    title: "",
+    flag: "",
+  });
+  const handleOnCloseModal = () => {
+    setModalDetail({
+      show: false,
+      title: "",
+      flag: "",
+    });
+    setKey(Math.random());
+  };
+
+  const handleSearchInvoice = (e) => {
+    setSearchInvoiceId(e.target.value);
     let params = {
-      invoiceId: InvoiceData?.invoices?.id,
-      seller_id:sellerId,
+      invoiceId: e.target.value,
+      seller_id: sellerId,
     };
     dispatch(
       searchInvoiceByInvoiceId({
         ...params,
-        cb(resp) {
-          console.log(resp, "respone");
-        },
+        cb(resp) {},
       })
     );
   };
+  const handleGoToNext = () => {
+    if (selectedProductItems?.length > 0) {
+      router.push({
+        pathname: "/Product/productrefunds(Price-format)",
+        query: { selectedItems: JSON.stringify(selectedProductItems) },
+      });
+    } else {
+      toast.error("Please select products to refund!");
+    }
+  };
+
+  const handleCheckboxChange = (data) => {
+    setSelectedProductItems((prevSelectedItems) => {
+      const isItemChecked = prevSelectedItems.some(
+        (item) => item.product_id === data.product_id
+      );
+
+      if (isItemChecked) {
+        return prevSelectedItems.filter(
+          (item) => item.product_id !== data.product_id
+        );
+      } else {
+        return [...prevSelectedItems, data];
+      }
+    });
+  };
+
+  const handleGoToManualEntry = () => {
+    setModalDetail({ show: true, flag: "manualEntry" });
+    setKey(Math.random());
+  };
+
+ 
   return (
     <>
       <div className="productInvoice">
@@ -59,7 +116,10 @@ const ProductInvoice = () => {
               </div>
               <div className="invoiceHeader">
                 <p className="innerHeading">
-                  Invoices<span className="productCount">(+1280)</span>
+                  Invoices
+                  <span className="productCount">
+                    (#{SearchInvoiceRespones?.invoice_number})
+                  </span>
                 </p>
               </div>
               <div className="commanscrollBar InvoiceTableBox">
@@ -75,1214 +135,342 @@ const ProductInvoice = () => {
                         <th className="invoiceHeading"></th>
                       </tr>
                     </thead>
-                    <tbody>
-                      <tr className="product_invoice active">
-                        <td className="invoice_subhead">#7869YZ</td>
-                        <td className="invoice_subhead">
-                          <figure className="">
-                            <Image
-                              src={Images.jokerImg}
-                              alt="tableImg"
-                              className="costumerImg"
-                            />
-                            <span>Costumer</span>
-                          </figure>
-                        </td>
-                        <td className="invoice_subhead">
-                          <figure className="inStoreBtn">
-                            <Image
-                              src={Images.storeImg}
-                              alt="store"
-                              className="storeimg"
-                            />
-                            <span>In-Store</span>
-                          </figure>
-                        </td>
-                        <td className="invoice_subhead">7</td>
-                        <td className="invoice_subhead">
-                          <figure className="priceBtn">
-                            <Image
-                              src={Images.moneyImg}
-                              alt="money"
-                              className="moneyImg"
-                            />
-                            <span>$59.00</span>
-                          </figure>
-                        </td>
-                        <td className="invoice_subhead">
-                          <Image
-                            src={Images.arrowIcon}
-                            alt="arrows"
-                            className="arrowRight_"
-                          />
-                        </td>
-                      </tr>
-                      <tr className="product_invoice">
-                        <td className="invoice_subhead">#7869YZ</td>
-                        <td className="invoice_subhead">
-                          <figure className="">
-                            <Image
-                              src={Images.jokerImg}
-                              alt="tableImg"
-                              className="costumerImg"
-                            />
-                            <span>Costumer</span>
-                          </figure>
-                        </td>
-                        <td className="invoice_subhead">
-                          <figure className="onlineBtn">
-                            <Image
-                              src={Images.ShoppingSolid}
-                              alt="store"
-                              className="storeimg"
-                            />
-                            <span>Online</span>
-                          </figure>
-                        </td>
-                        <td className="invoice_subhead">7</td>
-                        <td className="invoice_subhead">
-                          <figure className="priceBtn">
-                            <Image
-                              src={Images.moneyImg}
-                              alt="money"
-                              className="moneyImg"
-                            />
-                            <span>$59.00</span>
-                          </figure>
-                        </td>
-                        <td className="invoice_subhead">
-                          <Image
-                            src={Images.arrowIcon}
-                            alt="arrows"
-                            className="arrowRight_"
-                          />
-                        </td>
-                      </tr>
-                      <tr className="product_invoice">
-                        <td className="invoice_subhead">#7869YZ</td>
-                        <td className="invoice_subhead">
-                          <figure className="">
-                            <Image
-                              src={Images.jokerImg}
-                              alt="tableImg"
-                              className="costumerImg"
-                            />
-                            <span>Costumer</span>
-                          </figure>
-                        </td>
-                        <td className="invoice_subhead">
-                          <figure className="inStoreBtn">
-                            <Image
-                              src={Images.storeImg}
-                              alt="store"
-                              className="storeimg"
-                            />
-                            <span>In-Store</span>
-                          </figure>
-                        </td>
-                        <td className="invoice_subhead">7</td>
-                        <td className="invoice_subhead">
-                          <figure className="priceBtn">
-                            <Image
-                              src={Images.moneyImg}
-                              alt="money"
-                              className="moneyImg"
-                            />
-                            <span>$59.00</span>
-                          </figure>
-                        </td>
-                        <td className="invoice_subhead">
-                          <Image
-                            src={Images.arrowIcon}
-                            alt="arrows"
-                            className="arrowRight_"
-                          />
-                        </td>
-                      </tr>
-                      <tr className="product_invoice">
-                        <td className="invoice_subhead">#7869YZ</td>
-                        <td className="invoice_subhead">
-                          <figure className="">
-                            <Image
-                              src={Images.jokerImg}
-                              alt="tableImg"
-                              className="costumerImg"
-                            />
-                            <span>Costumer</span>
-                          </figure>
-                        </td>
-                        <td className="invoice_subhead">
-                          <figure className="onlineBtn">
-                            <Image
-                              src={Images.ShoppingSolid}
-                              alt="store"
-                              className="storeimg"
-                            />
-                            <span>Online</span>
-                          </figure>
-                        </td>
-                        <td className="invoice_subhead">7</td>
-                        <td className="invoice_subhead">
-                          <figure className="priceBtn">
-                            <Image
-                              src={Images.moneyImg}
-                              alt="money"
-                              className="moneyImg"
-                            />
-                            <span>$59.00</span>
-                          </figure>
-                        </td>
-                        <td className="invoice_subhead">
-                          <Image
-                            src={Images.arrowIcon}
-                            alt="arrows"
-                            className="arrowRight_"
-                          />
-                        </td>
-                      </tr>
-                      <tr className="product_invoice">
-                        <td className="invoice_subhead">#7869YZ</td>
-                        <td className="invoice_subhead">
-                          <figure className="">
-                            <Image
-                              src={Images.jokerImg}
-                              alt="tableImg"
-                              className="costumerImg"
-                            />
-                            <span>Costumer</span>
-                          </figure>
-                        </td>
-                        <td className="invoice_subhead">
-                          <figure className="inStoreBtn">
-                            <Image
-                              src={Images.storeImg}
-                              alt="store"
-                              className="storeimg"
-                            />
-                            <span>In-Store</span>
-                          </figure>
-                        </td>
-                        <td className="invoice_subhead">7</td>
-                        <td className="invoice_subhead">
-                          <figure className="priceBtn">
-                            <Image
-                              src={Images.moneyImg}
-                              alt="money"
-                              className="moneyImg"
-                            />
-                            <span>$59.00</span>
-                          </figure>
-                        </td>
-                        <td className="invoice_subhead">
-                          <Image
-                            src={Images.arrowIcon}
-                            alt="arrows"
-                            className="arrowRight_"
-                          />
-                        </td>
-                      </tr>
-                      <tr className="product_invoice">
-                        <td className="invoice_subhead">#7869YZ</td>
-                        <td className="invoice_subhead">
-                          <figure className="">
-                            <Image
-                              src={Images.jokerImg}
-                              alt="tableImg"
-                              className="costumerImg"
-                            />
-                            <span>Costumer</span>
-                          </figure>
-                        </td>
-                        <td className="invoice_subhead">
-                          <figure className="onlineBtn">
-                            <Image
-                              src={Images.ShoppingSolid}
-                              alt="store"
-                              className="storeimg"
-                            />
-                            <span>Online</span>
-                          </figure>
-                        </td>
-                        <td className="invoice_subhead">7</td>
-                        <td className="invoice_subhead">
-                          <figure className="priceBtn">
-                            <Image
-                              src={Images.moneyImg}
-                              alt="money"
-                              className="moneyImg"
-                            />
-                            <span>$59.00</span>
-                          </figure>
-                        </td>
-                        <td className="invoice_subhead">
-                          <Image
-                            src={Images.arrowIcon}
-                            alt="arrows"
-                            className="arrowRight_"
-                          />
-                        </td>
-                      </tr>
-                      <tr className="product_invoice">
-                        <td className="invoice_subhead">#7869YZ</td>
-                        <td className="invoice_subhead">
-                          <figure className="">
-                            <Image
-                              src={Images.jokerImg}
-                              alt="tableImg"
-                              className="costumerImg"
-                            />
-                            <span>Costumer</span>
-                          </figure>
-                        </td>
-                        <td className="invoice_subhead">
-                          <figure className="inStoreBtn">
-                            <Image
-                              src={Images.storeImg}
-                              alt="store"
-                              className="storeimg"
-                            />
-                            <span>In-Store</span>
-                          </figure>
-                        </td>
-                        <td className="invoice_subhead">7</td>
-                        <td className="invoice_subhead">
-                          <figure className="priceBtn">
-                            <Image
-                              src={Images.moneyImg}
-                              alt="money"
-                              className="moneyImg"
-                            />
-                            <span>$59.00</span>
-                          </figure>
-                        </td>
-                        <td className="invoice_subhead">
-                          <Image
-                            src={Images.arrowIcon}
-                            alt="arrows"
-                            className="arrowRight_"
-                          />
-                        </td>
-                      </tr>
-                      <tr className="product_invoice">
-                        <td className="invoice_subhead">#7869YZ</td>
-                        <td className="invoice_subhead">
-                          <figure className="">
-                            <Image
-                              src={Images.jokerImg}
-                              alt="tableImg"
-                              className="costumerImg"
-                            />
-                            <span>Costumer</span>
-                          </figure>
-                        </td>
-                        <td className="invoice_subhead">
-                          <figure className="onlineBtn">
-                            <Image
-                              src={Images.ShoppingSolid}
-                              alt="store"
-                              className="storeimg"
-                            />
-                            <span>Online</span>
-                          </figure>
-                        </td>
-                        <td className="invoice_subhead">7</td>
-                        <td className="invoice_subhead">
-                          <figure className="priceBtn">
-                            <Image
-                              src={Images.moneyImg}
-                              alt="money"
-                              className="moneyImg"
-                            />
-                            <span>$59.00</span>
-                          </figure>
-                        </td>
-                        <td className="invoice_subhead">
-                          <Image
-                            src={Images.arrowIcon}
-                            alt="arrows"
-                            className="arrowRight_"
-                          />
-                        </td>
-                      </tr>
-                      <tr className="product_invoice">
-                        <td className="invoice_subhead">#7869YZ</td>
-                        <td className="invoice_subhead">
-                          <figure className="">
-                            <Image
-                              src={Images.jokerImg}
-                              alt="tableImg"
-                              className="costumerImg"
-                            />
-                            <span>Costumer</span>
-                          </figure>
-                        </td>
-                        <td className="invoice_subhead">
-                          <figure className="inStoreBtn">
-                            <Image
-                              src={Images.storeImg}
-                              alt="store"
-                              className="storeimg"
-                            />
-                            <span>In-Store</span>
-                          </figure>
-                        </td>
-                        <td className="invoice_subhead">7</td>
-                        <td className="invoice_subhead">
-                          <figure className="priceBtn">
-                            <Image
-                              src={Images.moneyImg}
-                              alt="money"
-                              className="moneyImg"
-                            />
-                            <span>$59.00</span>
-                          </figure>
-                        </td>
-                        <td className="invoice_subhead">
-                          <Image
-                            src={Images.arrowIcon}
-                            alt="arrows"
-                            className="arrowRight_"
-                          />
-                        </td>
-                      </tr>
-                      <tr className="product_invoice">
-                        <td className="invoice_subhead">#7869YZ</td>
-                        <td className="invoice_subhead">
-                          <figure className="">
-                            <Image
-                              src={Images.jokerImg}
-                              alt="tableImg"
-                              className="costumerImg"
-                            />
-                            <span>Costumer</span>
-                          </figure>
-                        </td>
-                        <td className="invoice_subhead">
-                          <figure className="onlineBtn">
-                            <Image
-                              src={Images.ShoppingSolid}
-                              alt="store"
-                              className="storeimg"
-                            />
-                            <span>Online</span>
-                          </figure>
-                        </td>
-                        <td className="invoice_subhead">7</td>
-                        <td className="invoice_subhead">
-                          <figure className="priceBtn">
-                            <Image
-                              src={Images.moneyImg}
-                              alt="money"
-                              className="moneyImg"
-                            />
-                            <span>$59.00</span>
-                          </figure>
-                        </td>
-                        <td className="invoice_subhead">
-                          <Image
-                            src={Images.arrowIcon}
-                            alt="arrows"
-                            className="arrowRight_"
-                          />
-                        </td>
-                      </tr>
-                      <tr className="product_invoice">
-                        <td className="invoice_subhead">#7869YZ</td>
-                        <td className="invoice_subhead">
-                          <figure className="">
-                            <Image
-                              src={Images.jokerImg}
-                              alt="tableImg"
-                              className="costumerImg"
-                            />
-                            <span>Costumer</span>
-                          </figure>
-                        </td>
-                        <td className="invoice_subhead">
-                          <figure className="inStoreBtn">
-                            <Image
-                              src={Images.storeImg}
-                              alt="store"
-                              className="storeimg"
-                            />
-                            <span>In-Store</span>
-                          </figure>
-                        </td>
-                        <td className="invoice_subhead">7</td>
-                        <td className="invoice_subhead">
-                          <figure className="priceBtn">
-                            <Image
-                              src={Images.moneyImg}
-                              alt="money"
-                              className="moneyImg"
-                            />
-                            <span>$59.00</span>
-                          </figure>
-                        </td>
-                        <td className="invoice_subhead">
-                          <Image
-                            src={Images.arrowIcon}
-                            alt="arrows"
-                            className="arrowRight_"
-                          />
-                        </td>
-                      </tr>
-                      <tr className="product_invoice">
-                        <td className="invoice_subhead">#7869YZ</td>
-                        <td className="invoice_subhead">
-                          <figure className="">
-                            <Image
-                              src={Images.jokerImg}
-                              alt="tableImg"
-                              className="costumerImg"
-                            />
-                            <span>Costumer</span>
-                          </figure>
-                        </td>
-                        <td className="invoice_subhead">
-                          <figure className="onlineBtn">
-                            <Image
-                              src={Images.ShoppingSolid}
-                              alt="store"
-                              className="storeimg"
-                            />
-                            <span>Online</span>
-                          </figure>
-                        </td>
-                        <td className="invoice_subhead">7</td>
-                        <td className="invoice_subhead">
-                          <figure className="priceBtn">
-                            <Image
-                              src={Images.moneyImg}
-                              alt="money"
-                              className="moneyImg"
-                            />
-                            <span>$59.00</span>
-                          </figure>
-                        </td>
-                        <td className="invoice_subhead">
-                          <Image
-                            src={Images.arrowIcon}
-                            alt="arrows"
-                            className="arrowRight_"
-                          />
-                        </td>
-                      </tr>
-                      <tr className="product_invoice">
-                        <td className="invoice_subhead">#7869YZ</td>
-                        <td className="invoice_subhead">
-                          <figure className="">
-                            <Image
-                              src={Images.jokerImg}
-                              alt="tableImg"
-                              className="costumerImg"
-                            />
-                            <span>Costumer</span>
-                          </figure>
-                        </td>
-                        <td className="invoice_subhead">
-                          <figure className="inStoreBtn">
-                            <Image
-                              src={Images.storeImg}
-                              alt="store"
-                              className="storeimg"
-                            />
-                            <span>In-Store</span>
-                          </figure>
-                        </td>
-                        <td className="invoice_subhead">7</td>
-                        <td className="invoice_subhead">
-                          <figure className="priceBtn">
-                            <Image
-                              src={Images.moneyImg}
-                              alt="money"
-                              className="moneyImg"
-                            />
-                            <span>$59.00</span>
-                          </figure>
-                        </td>
-                        <td className="invoice_subhead">
-                          <Image
-                            src={Images.arrowIcon}
-                            alt="arrows"
-                            className="arrowRight_"
-                          />
-                        </td>
-                      </tr>
-                      <tr className="product_invoice">
-                        <td className="invoice_subhead">#7869YZ</td>
-                        <td className="invoice_subhead">
-                          <figure className="">
-                            <Image
-                              src={Images.jokerImg}
-                              alt="tableImg"
-                              className="costumerImg"
-                            />
-                            <span>Costumer</span>
-                          </figure>
-                        </td>
-                        <td className="invoice_subhead">
-                          <figure className="onlineBtn">
-                            <Image
-                              src={Images.ShoppingSolid}
-                              alt="store"
-                              className="storeimg"
-                            />
-                            <span>Online</span>
-                          </figure>
-                        </td>
-                        <td className="invoice_subhead">7</td>
-                        <td className="invoice_subhead">
-                          <figure className="priceBtn">
-                            <Image
-                              src={Images.moneyImg}
-                              alt="money"
-                              className="moneyImg"
-                            />
-                            <span>$59.00</span>
-                          </figure>
-                        </td>
-                        <td className="invoice_subhead">
-                          <Image
-                            src={Images.arrowIcon}
-                            alt="arrows"
-                            className="arrowRight_"
-                          />
-                        </td>
-                      </tr>
-                      <tr className="product_invoice">
-                        <td className="invoice_subhead">#7869YZ</td>
-                        <td className="invoice_subhead">
-                          <figure className="">
-                            <Image
-                              src={Images.jokerImg}
-                              alt="tableImg"
-                              className="costumerImg"
-                            />
-                            <span>Costumer</span>
-                          </figure>
-                        </td>
-                        <td className="invoice_subhead">
-                          <figure className="inStoreBtn">
-                            <Image
-                              src={Images.storeImg}
-                              alt="store"
-                              className="storeimg"
-                            />
-                            <span>In-Store</span>
-                          </figure>
-                        </td>
-                        <td className="invoice_subhead">7</td>
-                        <td className="invoice_subhead">
-                          <figure className="priceBtn">
-                            <Image
-                              src={Images.moneyImg}
-                              alt="money"
-                              className="moneyImg"
-                            />
-                            <span>$59.00</span>
-                          </figure>
-                        </td>
-                        <td className="invoice_subhead">
-                          <Image
-                            src={Images.arrowIcon}
-                            alt="arrows"
-                            className="arrowRight_"
-                          />
-                        </td>
-                      </tr>
-                      <tr className="product_invoice">
-                        <td className="invoice_subhead">#7869YZ</td>
-                        <td className="invoice_subhead">
-                          <figure className="">
-                            <Image
-                              src={Images.jokerImg}
-                              alt="tableImg"
-                              className="costumerImg"
-                            />
-                            <span>Costumer</span>
-                          </figure>
-                        </td>
-                        <td className="invoice_subhead">
-                          <figure className="onlineBtn">
-                            <Image
-                              src={Images.ShoppingSolid}
-                              alt="store"
-                              className="storeimg"
-                            />
-                            <span>Online</span>
-                          </figure>
-                        </td>
-                        <td className="invoice_subhead">7</td>
-                        <td className="invoice_subhead">
-                          <figure className="priceBtn">
-                            <Image
-                              src={Images.moneyImg}
-                              alt="money"
-                              className="moneyImg"
-                            />
-                            <span>$59.00</span>
-                          </figure>
-                        </td>
-                        <td className="invoice_subhead">
-                          <Image
-                            src={Images.arrowIcon}
-                            alt="arrows"
-                            className="arrowRight_"
-                          />
-                        </td>
-                      </tr>
-                      <tr className="product_invoice">
-                        <td className="invoice_subhead">#7869YZ</td>
-                        <td className="invoice_subhead">
-                          <figure className="">
-                            <Image
-                              src={Images.jokerImg}
-                              alt="tableImg"
-                              className="costumerImg"
-                            />
-                            <span>Costumer</span>
-                          </figure>
-                        </td>
-                        <td className="invoice_subhead">
-                          <figure className="inStoreBtn">
-                            <Image
-                              src={Images.storeImg}
-                              alt="store"
-                              className="storeimg"
-                            />
-                            <span>In-Store</span>
-                          </figure>
-                        </td>
-                        <td className="invoice_subhead">7</td>
-                        <td className="invoice_subhead">
-                          <figure className="priceBtn">
-                            <Image
-                              src={Images.moneyImg}
-                              alt="money"
-                              className="moneyImg"
-                            />
-                            <span>$59.00</span>
-                          </figure>
-                        </td>
-                        <td className="invoice_subhead">
-                          <Image
-                            src={Images.arrowIcon}
-                            alt="arrows"
-                            className="arrowRight_"
-                          />
-                        </td>
-                      </tr>
-                      <tr className="product_invoice">
-                        <td className="invoice_subhead">#7869YZ</td>
-                        <td className="invoice_subhead">
-                          <figure className="">
-                            <Image
-                              src={Images.jokerImg}
-                              alt="tableImg"
-                              className="costumerImg"
-                            />
-                            <span>Costumer</span>
-                          </figure>
-                        </td>
-                        <td className="invoice_subhead">
-                          <figure className="onlineBtn">
-                            <Image
-                              src={Images.ShoppingSolid}
-                              alt="store"
-                              className="storeimg"
-                            />
-                            <span>Online</span>
-                          </figure>
-                        </td>
-                        <td className="invoice_subhead">7</td>
-                        <td className="invoice_subhead">
-                          <figure className="priceBtn">
-                            <Image
-                              src={Images.moneyImg}
-                              alt="money"
-                              className="moneyImg"
-                            />
-                            <span>$59.00</span>
-                          </figure>
-                        </td>
-                        <td className="invoice_subhead">
-                          <Image
-                            src={Images.arrowIcon}
-                            alt="arrows"
-                            className="arrowRight_"
-                          />
-                        </td>
-                      </tr>
-                      <tr className="product_invoice">
-                        <td className="invoice_subhead">#7869YZ</td>
-                        <td className="invoice_subhead">
-                          <figure className="">
-                            <Image
-                              src={Images.jokerImg}
-                              alt="tableImg"
-                              className="costumerImg"
-                            />
-                            <span>Costumer</span>
-                          </figure>
-                        </td>
-                        <td className="invoice_subhead">
-                          <figure className="inStoreBtn">
-                            <Image
-                              src={Images.storeImg}
-                              alt="store"
-                              className="storeimg"
-                            />
-                            <span>In-Store</span>
-                          </figure>
-                        </td>
-                        <td className="invoice_subhead">7</td>
-                        <td className="invoice_subhead">
-                          <figure className="priceBtn">
-                            <Image
-                              src={Images.moneyImg}
-                              alt="money"
-                              className="moneyImg"
-                            />
-                            <span>$59.00</span>
-                          </figure>
-                        </td>
-                        <td className="invoice_subhead">
-                          <Image
-                            src={Images.arrowIcon}
-                            alt="arrows"
-                            className="arrowRight_"
-                          />
-                        </td>
-                      </tr>
-                      <tr className="product_invoice">
-                        <td className="invoice_subhead">#7869YZ</td>
-                        <td className="invoice_subhead">
-                          <figure className="">
-                            <Image
-                              src={Images.jokerImg}
-                              alt="tableImg"
-                              className="costumerImg"
-                            />
-                            <span>Costumer</span>
-                          </figure>
-                        </td>
-                        <td className="invoice_subhead">
-                          <figure className="onlineBtn">
-                            <Image
-                              src={Images.ShoppingSolid}
-                              alt="store"
-                              className="storeimg"
-                            />
-                            <span>Online</span>
-                          </figure>
-                        </td>
-                        <td className="invoice_subhead">7</td>
-                        <td className="invoice_subhead">
-                          <figure className="priceBtn">
-                            <Image
-                              src={Images.moneyImg}
-                              alt="money"
-                              className="moneyImg"
-                            />
-                            <span>$59.00</span>
-                          </figure>
-                        </td>
-                        <td className="invoice_subhead">
-                          <Image
-                            src={Images.arrowIcon}
-                            alt="arrows"
-                            className="arrowRight_"
-                          />
-                        </td>
-                      </tr>
-                      <tr className="product_invoice">
-                        <td className="invoice_subhead">#7869YZ</td>
-                        <td className="invoice_subhead">
-                          <figure className="">
-                            <Image
-                              src={Images.jokerImg}
-                              alt="tableImg"
-                              className="costumerImg"
-                            />
-                            <span>Costumer</span>
-                          </figure>
-                        </td>
-                        <td className="invoice_subhead">
-                          <figure className="inStoreBtn">
-                            <Image
-                              src={Images.storeImg}
-                              alt="store"
-                              className="storeimg"
-                            />
-                            <span>In-Store</span>
-                          </figure>
-                        </td>
-                        <td className="invoice_subhead">7</td>
-                        <td className="invoice_subhead">
-                          <figure className="priceBtn">
-                            <Image
-                              src={Images.moneyImg}
-                              alt="money"
-                              className="moneyImg"
-                            />
-                            <span>$59.00</span>
-                          </figure>
-                        </td>
-                        <td className="invoice_subhead">
-                          <Image
-                            src={Images.arrowIcon}
-                            alt="arrows"
-                            className="arrowRight_"
-                          />
-                        </td>
-                      </tr>
-                      <tr className="product_invoice">
-                        <td className="invoice_subhead">#7869YZ</td>
-                        <td className="invoice_subhead">
-                          <figure className="">
-                            <Image
-                              src={Images.jokerImg}
-                              alt="tableImg"
-                              className="costumerImg"
-                            />
-                            <span>Costumer</span>
-                          </figure>
-                        </td>
-                        <td className="invoice_subhead">
-                          <figure className="onlineBtn">
-                            <Image
-                              src={Images.ShoppingSolid}
-                              alt="store"
-                              className="storeimg"
-                            />
-                            <span>Online</span>
-                          </figure>
-                        </td>
-                        <td className="invoice_subhead">7</td>
-                        <td className="invoice_subhead">
-                          <figure className="priceBtn">
-                            <Image
-                              src={Images.moneyImg}
-                              alt="money"
-                              className="moneyImg"
-                            />
-                            <span>$59.00</span>
-                          </figure>
-                        </td>
-                        <td className="invoice_subhead">
-                          <Image
-                            src={Images.arrowIcon}
-                            alt="arrows"
-                            className="arrowRight_"
-                          />
-                        </td>
-                      </tr>
-                      <tr className="product_invoice">
-                        <td className="invoice_subhead">#7869YZ</td>
-                        <td className="invoice_subhead">
-                          <figure className="">
-                            <Image
-                              src={Images.jokerImg}
-                              alt="tableImg"
-                              className="costumerImg"
-                            />
-                            <span>Costumer</span>
-                          </figure>
-                        </td>
-                        <td className="invoice_subhead">
-                          <figure className="inStoreBtn">
-                            <Image
-                              src={Images.storeImg}
-                              alt="store"
-                              className="storeimg"
-                            />
-                            <span>In-Store</span>
-                          </figure>
-                        </td>
-                        <td className="invoice_subhead">7</td>
-                        <td className="invoice_subhead">
-                          <figure className="priceBtn">
-                            <Image
-                              src={Images.moneyImg}
-                              alt="money"
-                              className="moneyImg"
-                            />
-                            <span>$59.00</span>
-                          </figure>
-                        </td>
-                        <td className="invoice_subhead">
-                          <Image
-                            src={Images.arrowIcon}
-                            alt="arrows"
-                            className="arrowRight_"
-                          />
-                        </td>
-                      </tr>
-                      <tr className="product_invoice">
-                        <td className="invoice_subhead">#7869YZ</td>
-                        <td className="invoice_subhead">
-                          <figure className="">
-                            <Image
-                              src={Images.jokerImg}
-                              alt="tableImg"
-                              className="costumerImg"
-                            />
-                            <span>Costumer</span>
-                          </figure>
-                        </td>
-                        <td className="invoice_subhead">
-                          <figure className="onlineBtn">
-                            <Image
-                              src={Images.ShoppingSolid}
-                              alt="store"
-                              className="storeimg"
-                            />
-                            <span>Online</span>
-                          </figure>
-                        </td>
-                        <td className="invoice_subhead">7</td>
-                        <td className="invoice_subhead">
-                          <figure className="priceBtn">
-                            <Image
-                              src={Images.moneyImg}
-                              alt="money"
-                              className="moneyImg"
-                            />
-                            <span>$59.00</span>
-                          </figure>
-                        </td>
-                        <td className="invoice_subhead">
-                          <Image
-                            src={Images.arrowIcon}
-                            alt="arrows"
-                            className="arrowRight_"
-                          />
-                        </td>
-                      </tr>
-                      <tr className="product_invoice">
-                        <td className="invoice_subhead">#7869YZ</td>
-                        <td className="invoice_subhead">
-                          <figure className="">
-                            <Image
-                              src={Images.jokerImg}
-                              alt="tableImg"
-                              className="costumerImg"
-                            />
-                            <span>Costumer</span>
-                          </figure>
-                        </td>
-                        <td className="invoice_subhead">
-                          <figure className="inStoreBtn">
-                            <Image
-                              src={Images.storeImg}
-                              alt="store"
-                              className="storeimg"
-                            />
-                            <span>In-Store</span>
-                          </figure>
-                        </td>
-                        <td className="invoice_subhead">7</td>
-                        <td className="invoice_subhead">
-                          <figure className="priceBtn">
-                            <Image
-                              src={Images.moneyImg}
-                              alt="money"
-                              className="moneyImg"
-                            />
-                            <span>$59.00</span>
-                          </figure>
-                        </td>
-                        <td className="invoice_subhead">
-                          <Image
-                            src={Images.arrowIcon}
-                            alt="arrows"
-                            className="arrowRight_"
-                          />
-                        </td>
-                      </tr>
-                      <tr className="product_invoice">
-                        <td className="invoice_subhead">#7869YZ</td>
-                        <td className="invoice_subhead">
-                          <figure className="">
-                            <Image
-                              src={Images.jokerImg}
-                              alt="tableImg"
-                              className="costumerImg"
-                            />
-                            <span>Costumer</span>
-                          </figure>
-                        </td>
-                        <td className="invoice_subhead">
-                          <figure className="onlineBtn">
-                            <Image
-                              src={Images.ShoppingSolid}
-                              alt="store"
-                              className="storeimg"
-                            />
-                            <span>Online</span>
-                          </figure>
-                        </td>
-                        <td className="invoice_subhead">7</td>
-                        <td className="invoice_subhead">
-                          <figure className="priceBtn">
-                            <Image
-                              src={Images.moneyImg}
-                              alt="money"
-                              className="moneyImg"
-                            />
-                            <span>$59.00</span>
-                          </figure>
-                        </td>
-                        <td className="invoice_subhead">
-                          <Image
-                            src={Images.arrowIcon}
-                            alt="arrows"
-                            className="arrowRight_"
-                          />
-                        </td>
-                      </tr>
-                    </tbody>
+
+                    {SearchInvoiceRespones ? (
+                      <tbody>
+                        <tr className="product_invoice active">
+                          <td className="invoice_subhead">
+                            #{SearchInvoiceRespones?.invoice_number}
+                          </td>
+                          <td className="invoice_subhead">
+                            <figure className="">
+                              <Image
+                                src={Images.jokerImg}
+                                alt="tableImg"
+                                className="costumerImg"
+                              />
+                              <span>
+                                {SearchInvoiceRespones?.order?.user_details
+                                  ?.user_profiles?.firstname
+                                  ? SearchInvoiceRespones?.order?.user_details
+                                      ?.user_profiles?.firstname
+                                  : "NA"}
+                              </span>
+                            </figure>
+                          </td>
+                          <td className="invoice_subhead">
+                            <figure className="inStoreBtn">
+                              <Image
+                                src={Images.storeImg}
+                                alt="store"
+                                className="storeimg"
+                              />
+                              <span>
+                                {SearchInvoiceRespones?.order
+                                  ?.delivery_option == "1"
+                                  ? "Delivery"
+                                  : SearchInvoiceRespones?.order
+                                      ?.delivery_option === "2"
+                                  ? "Reservation"
+                                  : SearchInvoiceRespones?.order
+                                      ?.delivery_option === "3"
+                                  ? "Instore"
+                                  : SearchInvoiceRespones?.order
+                                      ?.delivery_option === "4"
+                                  ? "Shipping"
+                                  : "Instore"}
+                              </span>
+                            </figure>
+                          </td>
+                          <td className="invoice_subhead">
+                            {SearchInvoiceRespones?.order?.total_items}
+                          </td>
+                          {/* {SearchInvoiceRespones?.order?.order_details?.map(
+                          (data) => { */}
+                          <td className="invoice_subhead">
+                            <figure className="priceBtn">
+                              <Image
+                                src={Images.moneyImg}
+                                alt="money"
+                                className="moneyImg"
+                              />
+                              <span>
+                                ${SearchInvoiceRespones?.order?.actual_amount}
+                              </span>
+                            </figure>
+                          </td>
+
+                          {/* }
+                        )} */}
+                          <td className="invoice_subhead">
+                            <Image
+                              src={Images.arrowIcon}
+                              alt="arrows"
+                              className="arrowRight_"
+                            />
+                          </td>
+                        </tr>
+                      </tbody>
+                    ) : (
+                      <span className="noInvoiceText">No Invoices Found</span>
+                    )}
                   </table>
                 </div>
               </div>
               <Pagination />
             </div>
           </div>
-          <div className="col-lg-6">
-            <div className="commanOuter">
-              <div className="d-flex justify-content-between mb-3">
-                <figure className="">
-                  <Image
-                    src={Images.jokerImg}
-                    alt="tableImg"
-                    className="costumerImg"
-                  />
-                  <span className="innerHeading ps-2">Costumer</span>
-                </figure>
-                <figure className="">
-                  <Image
-                    src={Images.storeImg}
-                    alt="store"
-                    className="storeimg"
-                  />
-                  <span className="innerHeading px-2">In-Store</span>
-                  <button className="inStoreBtn">10/10/23</button>
-                </figure>
-              </div>
-              <div className="d-flex justify-content-between  invoiceSearchBox pb-3">
-                <div className="SearchinvoiceBox">
-                  <div className="ProductsearchBar">
-                    <input
-                      type="text"
-                      className="form-control searchControl"
-                      placeholder="Scan Barcode of each Item"
-                    />
+
+          {SearchInvoiceRespones ? (
+            <div className="col-lg-6">
+              <div className="commanOuter">
+                <div className="d-flex justify-content-between mb-3">
+                  <figure className="">
                     <Image
-                      src={Images.scanImg}
-                      alt="SearchImageIcon"
-                      className="img-fluid scanImg"
+                      src={Images.jokerImg}
+                      alt="tableImg"
+                      className="costumerImg"
                     />
-                  </div>
-                </div>
-                <div className="invoiceButtonBox">
-                  <button type="button" className="boderdManualButton">
-                    Manual Entry
+                    <span className="innerHeading ps-2">Customer</span>
+                  </figure>
+                  <figure className="">
                     <Image
-                      src={Images.plusRound}
-                      alt="SearchImageIcon"
-                      className="img-fluid ms-2"
+                      src={Images.storeImg}
+                      alt="store"
+                      className="storeimg"
                     />
-                  </button>
+                    <span className="innerHeading px-2">
+                      {" "}
+                      {SearchInvoiceRespones?.order?.delivery_option == "1"
+                        ? "Delivery"
+                        : SearchInvoiceRespones?.order?.delivery_option === "2"
+                        ? "Reservation"
+                        : SearchInvoiceRespones?.order?.delivery_option === "3"
+                        ? "In-store"
+                        : SearchInvoiceRespones?.order?.delivery_option === "4"
+                        ? "Shipping"
+                        : "In-store"}
+                    </span>
+                    <button className="inStoreBtn">
+                      {" "}
+                      {moment(orderDetails?.date).format("DD/MM/YYYY")}
+                    </button>
+                  </figure>
                 </div>
-              </div>
-              <div className="commanscrollBar productBoxDetails mt-3">
-                <Product.ProductDetail />
-                <Product.ProductDetail />
-                <Product.ProductDetail />
-                <Product.ProductDetail />
-                <Product.ProductDetail />
-                <Product.ProductDetail />
-                <Product.ProductDetail />
-                <Product.ProductDetail />
-                <Product.ProductDetail />
-                <Product.ProductDetail />
-                <Product.ProductDetail />
-                <Product.ProductDetail />
-                <Product.ProductDetail />
-                <Product.ProductDetail />
-                <Product.ProductDetail />
-                <Product.ProductDetail />
-              </div>
-              <div className="row">
-                <div className="col-lg-4">
-                  <div className="OrderBox">
-                    <div className="OrderCheckoutBox">
-                      <p className="orderHeading">Total Items</p>
-                      <p className="orderSubHeading">7</p>
-                    </div>
-                    <div className="OrderCheckoutBox">
-                      <p className="orderHeading">Order Date</p>
-                      <p className="orderSubHeading">10/10/2023</p>
-                    </div>
-                    <div className="OrderCheckoutBox">
-                      <p className="orderHeading">Order ID#</p>
-                      <p className="orderSubHeading">JOBR00001</p>
-                    </div>
-                    <div className="OrderCheckoutBox">
-                      <p className="orderHeading">Payment Method</p>
-                      <figure className="priceBtn">
-                        <Image
-                          src={Images.moneyImg}
-                          alt="money"
-                          className="moneyImg"
-                        />
-                        <span>Cash</span>
-                      </figure>
+                <div className="d-flex justify-content-between  invoiceSearchBox pb-3">
+                  <div className="SearchinvoiceBox">
+                    <div className="ProductsearchBar">
+                      <input
+                        type="text"
+                        className="form-control searchControl"
+                        placeholder="Scan Barcode of each Item"
+                      />
+                      <Image
+                        src={Images.scanImg}
+                        alt="SearchImageIcon"
+                        className="img-fluid scanImg"
+                      />
                     </div>
                   </div>
+                  <div className="invoiceButtonBox">
+                    <button
+                      type="button"
+                      className="boderdManualButton"
+                      onClick={(e) => handleGoToManualEntry(e)}
+                    >
+                      Manual Entry
+                      <Image
+                        src={Images.plusRound}
+                        alt="SearchImageIcon"
+                        className="img-fluid ms-2"
+                      />
+                    </button>
+                  </div>
                 </div>
-                <div className="col-lg-8">
-                  <div className="productBilling">
-                    <div className="OrderDiscountBox">
-                      <div className="flexBox ">
-                        <p className="orderHeading">Sub Total</p>
-                        <p className="orderSubHeading">$2,396.50</p>
+
+                {productDetails?.length > 0 ? (
+                  productDetails?.map((data, idx) => (
+                    <div className="selectedProductDetails" key={idx}>
+                      <div className="d-flex">
+                        <figure>
+                          <Image
+                            src={data?.product_image}
+                            alt="tableImg"
+                            className="costumerImg"
+                            height={100}
+                            width={100}
+                          />
+                        </figure>
+                        <div className="ps-1">
+                          <p className="aboutProduct">{data?.product_name}</p>
+                          <div className="d-flex">
+                            <article className="productColor">
+                              <span className="Yellow"></span>
+                              <span className="Red"></span>
+                              <span className="Pink"></span>
+                              <span className="Blue"></span>
+                              <span className="Black"></span>
+                              <span className="White"></span>
+                            </article>
+                            <span className="productSize">Colors / Size</span>
+                          </div>
+                        </div>
                       </div>
-                      <div className="flexBox">
-                        <p className="orderHeading">Discount</p>
-                        <p className="orderSubHeading">-$19.00</p>
+                      <p className="productPriceinvoice">
+                        ${data?.actual_price}
+                      </p>
+                      <p className="productPriceinvoice">{data?.qty}</p>
+                      <p className="productPriceinvoice">${data?.cost_price}</p>
+                      <article>
+                        <label className="custom-checkbox">
+                          <input
+                            type="checkbox"
+                            checked={selectedProductItems.some(
+                              (item) => item.product_id === data.product_id
+                            )}
+                            onChange={() => handleCheckboxChange(data)}
+                          />
+                          <span className="checkmark"></span>
+                        </label>
+                      </article>
+                    </div>
+                  ))
+                ) : (
+                  <>
+                    {productDetails?.length === 0 ? (
+                      <h3 className="mt-3 mb-3">No Data Found!</h3>
+                    ) : (
+                      <div className="loaderOuter">
+                        <div className="spinner-grow loaderSpinner text-center my-5"></div>
                       </div>
-                      <div className="flexBox">
-                        <p className="orderHeading">Other Fees</p>
-                        <p className="orderSubHeading">$14,000</p>
+                    )}
+                  </>
+                )}
+
+                <div className="row">
+                  <div className="col-lg-4">
+                    <div className="OrderBox">
+                      <div className="OrderCheckoutBox">
+                        <p className="orderHeading">Total Items</p>
+                        <p className="orderSubHeading">
+                          {orderDetails?.total_items}
+                        </p>
                       </div>
-                      <div className="flexBox">
-                        <p className="orderHeading">Fax</p>
-                        <p className="orderSubHeading">$236</p>
+                      <div className="OrderCheckoutBox">
+                        <p className="orderHeading">Order Date</p>
+                        <p className="orderSubHeading">
+                          {moment(orderDetails?.date).format("DD/MM/YYYY")}
+                        </p>
+                      </div>
+                      <div className="OrderCheckoutBox">
+                        <p className="orderHeading">Order ID#</p>
+                        <p className="orderSubHeading">{orderDetails?.id}</p>
+                      </div>
+                      <div className="OrderCheckoutBox">
+                        <p className="orderHeading">Payment Method</p>
+                        <figure className="priceBtn">
+                          <Image
+                            src={Images.moneyImg}
+                            alt="money"
+                            className="moneyImg"
+                          />
+                          <span>{orderDetails?.mode_of_payment}</span>
+                        </figure>
                       </div>
                     </div>
-                    <div className="OrderTotal">
-                      <div className="flexBox">
-                        <p className="priceHeading">Total</p>
-                        <p className="priceHeading">$254.60</p>
+                  </div>
+                  <div className="col-lg-8">
+                    <div className="productBilling">
+                      <div className="OrderDiscountBox">
+                        <div className="flexBox ">
+                          <p className="orderHeading">Sub Total</p>
+                          <p className="orderSubHeading">
+                            ${orderDetails?.actual_amount}
+                          </p>
+                        </div>
+                        <div className="flexBox">
+                          <p className="orderHeading">Discount</p>
+                          <p className="orderSubHeading">
+                            -$
+                            {orderDetails?.discount
+                              ? orderDetails?.discount
+                              : "0.00"}
+                          </p>
+                        </div>
+                        <div className="flexBox">
+                          <p className="orderHeading">Other Fees</p>
+                          <p className="orderSubHeading">
+                            ${orderDetails?.tips ? orderDetails?.tips : "0.00"}
+                          </p>
+                        </div>
+                        <div className="flexBox">
+                          <p className="orderHeading">Fax</p>
+                          <p className="orderSubHeading">
+                            ${orderDetails?.fax ? orderDetails?.fax : "0.00"}
+                          </p>
+                        </div>
                       </div>
-                      <button type="button" className="BlueBtn w-100">
-                        Next
-                        <Image
-                          src={Images.ArrowRight}
-                          alt="ArrowRight"
-                          className="img-fluid ArrowRight"
-                        />
-                      </button>
+                      <div className="OrderTotal">
+                        <div className="flexBox">
+                          <p className="priceHeading">Total</p>
+                          <p className="priceHeading">
+                            ${orderDetails?.payable_amount}
+                          </p>
+                        </div>
+                        <button
+                          type="button"
+                          className="BlueBtn w-100"
+                          onClick={(e) => {
+                            handleGoToNext(e);
+                          }}
+                        >
+                          Next
+                          <Image
+                            src={Images.ArrowRight}
+                            alt="ArrowRight"
+                            className="img-fluid ArrowRight"
+                          />
+                        </button>
+                      </div>
                     </div>
                   </div>
                 </div>
               </div>
             </div>
-          </div>
+          ) : (
+            <div className="col-md-6">
+              <div className="commonBoxInvoice mt-2 mb-2">
+                <Image src={Images.Receiptbill} />
+                <h2
+                  className="noInvoiceText"
+                  style={{ textAlign: "center", marginTop: 100 }}
+                >
+                  No Invoices selected
+                </h2>
+              </div>
+            </div>
+          )}
         </div>
       </div>
+      <CustomModal
+        key={key}
+        show={modalDetail.show}
+        backdrop="static"
+        showCloseBtn={false}
+        isRightSideModal={false}
+        mediumWidth={false}
+        ids={
+          modalDetail.flag === "manualEntry" ? "manualEntry" : "ReturnInventory"
+        }
+        child={
+          modalDetail.flag === "manualEntry" ? (
+            <Manualinvoice closeManulModal={() => handleOnCloseModal()} />
+          ) : (
+            ""
+          )
+        }
+        onCloseModal={() => handleOnCloseModal()}
+      />
     </>
   );
 };

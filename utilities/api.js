@@ -4,12 +4,16 @@ import { toast } from "react-toastify";
 import Router from "next/router";
 import { selectLoginAuth } from "../redux/slices/auth";
 import { useSelector } from "react-redux";
+import { getCurrentTimeZone } from "./globalMethods";
+
+const getTimeZone = getCurrentTimeZone();
 
 const axiosInstance = axios.create({
   baseURL: "",
   headers: {
     Accept: "application/json",
     "app-name": "pos",
+    // timezone: getTimeZone,
   },
 });
 

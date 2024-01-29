@@ -337,7 +337,7 @@ import lightCircleTick from "../public/images/lightCircleTick.svg";
 import simpleCheck from "../public/images/simpleCheck.svg";
 import mastercardImg from "../public/images/mastercardImg.svg";
 import fillCheck from "../public/images/fillCheck.svg";
-import bussinessCheck from "../public/images/bussinessCheck.svg"
+import bussinessCheck from "../public/images/bussinessCheck.svg";
 import locateOuline from "../public/images/locateOuline.svg";
 import postMotor from "../public/images/postMotor.svg";
 import Receiptbill from "../public/images/Receiptbill.png";
@@ -353,7 +353,8 @@ import saleLocation from "../public/images/saleLocation.svg";
 import totalOrders from "../public/images/totalOrders.svg";
 import totalCost from "../public/images/totalCost.svg";
 
-import darkPlus from "../public/images/darkPlus.svg"
+import darkPlus from "../public/images/darkPlus.svg";
+import defaultUser from "../public/images/defaultUser.png";
 
 export {
   darkPlus,
@@ -705,5 +706,6 @@ export {
   topsales,
   saleLocation,
   totalOrders,
-  totalCost
+  totalCost,
+  defaultUser,
 };
