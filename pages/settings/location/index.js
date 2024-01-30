@@ -60,61 +60,64 @@ const Location = () => {
   return (
     <>
       <div className="settingOuter bussinessRight">
-        <Image
-          src={Images.darkDevices}
-          alt="darkDevices image"
-          className="img-fluid"
-        />
-        <div className="bussinessData">
-          <h4 className="appointMain">Business Locations</h4>
-          <p className="lightOfferText mt-2">
-            An extra layer to boost your team members account security. A
-            verification code will be required in addition to password each time
-            you sign in.
-          </p>
-          <div className="bussinessMain">
-            {settingData?.loading ? (
-              <>
-                <div className="loaderOuter">
-                  <div className="spinner-grow loaderSpinner text-center my-5"></div>
-                </div>
-              </>
-            ) : getLocationInfo?.length > 0 ? (
-              <>
-                {getLocationInfo?.map((data, index) => {
-                  return (
-                    <div className="bussinessSub">
-                      <div className="locationHead">
-                        <Image
-                          src={Images.outlineLocation}
-                          alt="staffLocate image"
-                          className="img-fluid"
-                        />
-                        <div className="bussinessHeading">
-                          <h4 className="cancelOrderText">
-                            {data?.address_type}
-                          </h4>
-                          <p className="settingText">{data?.format_address}</p>
-                        </div>
-                      </div>
-                      <div className="roundCheck mb-0">
-                        <input
-                          type="checkbox"
-                          checked={data?.is_active}
-                          onClick={() =>
-                            updateBussinessLocation(data?.id, data?.is_active)
-                          }
-                        />
-                        <label className="amountText d-none"></label>
+        <div className="topsettingContent_">
+          <Image
+            src={Images.darkDevices}
+            alt="darkDevices image"
+            className="img-fluid me-3"
+          />
+          <div className="rightboxContent_ w-100">
+            <h4 className="appointMain">Business Locations</h4>
+            <p className="lightOfferText mt-2">
+              An extra layer to boost your team members account security. A
+              verification code will be required in addition to password each time
+              you sign in.
+            </p>
+          </div>
+        </div>
+        <div className="bussinessMain bottonContent_">
+          {settingData?.loading ? (
+            <>
+              <div className="loaderOuter">
+                <div className="spinner-grow loaderSpinner text-center my-5"></div>
+              </div>
+            </>
+          ) : getLocationInfo?.length > 0 ? (
+            <>
+              {getLocationInfo?.map((data, index) => {
+                return (
+                  <div className="bussinessSub">
+                    <div className="locationHead">
+                      <Image
+                        src={Images.outlineLocation}
+                        alt="staffLocate image"
+                        className="img-fluid"
+                      />
+                      <div className="bussinessHeading">
+                        <h4 className="cancelOrderText">
+                          {data?.address_type}
+                        </h4>
+                        <p className="settingText">{data?.format_address}</p>
                       </div>
                     </div>
-                  );
-                })}
-              </>
-            ) : (
-              <h2 className="text-center my-5">No Location Found</h2>
-            )}
-            {/* <div className='bussinessSub'>
+                    <div className="roundCheck mb-0">
+                      <input
+                        type="checkbox"
+                        checked={data?.is_active}
+                        onClick={() =>
+                          updateBussinessLocation(data?.id, data?.is_active)
+                        }
+                      />
+                      <label className="amountText d-none"></label>
+                    </div>
+                  </div>
+                );
+              })}
+            </>
+          ) : (
+            <h2 className="text-center my-5">No Location Found</h2>
+          )}
+          {/* <div className='bussinessSub'>
                             <div className='locationHead'>
                                 <Image src={Images.outlineLocation} alt="staffLocate image" className="img-fluid" />
                                 <div className='bussinessHeading'>
@@ -127,7 +130,6 @@ const Location = () => {
                                 <label className='amountText '></label>
                             </div>
                         </div> */}
-          </div>
         </div>
       </div>
     </>
