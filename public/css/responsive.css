@@ -830,8 +830,13 @@
         flex-wrap: wrap;
         gap: 8px;
     }
-    .wrapFlex .BlueBtn{
+
+    .wrapFlex .BlueBtn {
         margin: 0;
+    }
+
+    .shipOrderSection .declineButton {
+        width: 100%;
     }
 }
 
@@ -843,6 +848,7 @@
     .FilterMultiSelect {
         left: 0;
     }
+
 }
 
 @media (max-width: 475px) {
@@ -853,12 +859,12 @@
 
     .rightWrapper {
         min-width: calc(100% - 102px);
-        margin-left: 75px;
+        margin-left: 70px;
     }
 
     .main-sidebar {
-        width: 60px;
-        padding: 8px 6px;
+        width: 54px;
+        padding: 8px 2px;
     }
 
     .loginOtpSub {

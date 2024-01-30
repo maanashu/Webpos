@@ -520,7 +520,7 @@ const OrderReview = () => {
                                                         {
                                                             singleOrderData?.status === 0 ?
                                                                 <div className='flexBox wrapFlex'>
-                                                                    <button onClick={() => acceptHandler(8)} className='declineButton w-100' type='button'> Decline</button>
+                                                                    <button onClick={() => acceptHandler(8)} className='declineButton' type='button'> Decline</button>
                                                                     <button onClick={() => acceptHandler(3)} type='button' className='BlueBtn w-100'>
                                                                         {acceptLoading ? <span className="spinner-border spinner-border-sm mx-1"></span> : <></>}
                                                                         Accept Order
