@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import DeliveryRightSidebar, {
   deliveryDrawerStatus,
 } from "../../components/commanComonets/Delivery/deliveryRightSidebar";
@@ -29,7 +29,9 @@ const OrderDeliver = ({ orderDetail }) => {
   const router = useRouter();
   const selectedIndex = router?.query?.["index"];
   const item = router?.query?.["item"];
-  const listType = router?.query?.["listType"] ?JSON.parse(router?.query?.["listType"]):"";
+  const listType = router?.query?.["listType"]
+    ? JSON.parse(router?.query?.["listType"])
+    : "";
 
   const dispatch = useDispatch();
   const authData = useSelector(selectLoginAuth);
@@ -64,9 +66,42 @@ const OrderDeliver = ({ orderDetail }) => {
     //   })
     // );
   };
+  const acceptHandler = (id) => {
+    let params = {
+      sellerID: uniqueId,
+      status: parseInt(orderListType?.status) + 1,
+      orderId: id,
+    };
+    dispatch(
+      acceptOrder({
+        ...params,
+        cb(res) {
+          if (res) {
+            getLatestdata(parseInt(orderListType?.status) + 1);
+          }
+        },
+      })
+    );
+  };
+  const getDrawerCount = () => {
+    let orderCountparams = {
+      seller_id: uniqueId,
+      delivery_option: "1,3",
+    };
 
+    dispatch(
+      getDrawerOrdersCount({
+        ...orderCountparams,
+        cb(res) {
+          if (res) {
+            dispatch();
+          }
+        },
+      })
+    );
+  };
   const checkOtherOrder = () => {
-    const statusData = shipingCount;
+    const statusData = drawerOrderCount?.status_count ?? [];
     var index = 0;
     if (statusData[0].count > 0) {
       if (statusData[0].count == 1) {
@@ -100,56 +135,6 @@ const OrderDeliver = ({ orderDetail }) => {
       }
     }
     getLatestdata(index);
-  };
-  const acceptHandler = (id) => {
-    let params = {
-      sellerID: uniqueId,
-      status: parseInt(orderListType?.status) + 1,
-      orderId: id,
-    };
-    dispatch(
-      acceptOrder({
-        ...params,
-        cb(res) {
-          if (res) {
-            console.log("screeen response", JSON.stringify(res));
-            checkOtherOrder();
-          }
-        },
-      })
-    );
-
-    // if (userDetail?.delivery_option == '3' && openShippingOrders == '2') {
-    //   setPickupModalVisible(true);
-    // } else {
-    //   const data = {
-    //     orderId: id,
-    //     status: parseInt(openShippingOrders) + 1,
-    //     sellerID: sellerID,
-    //   };
-    //   dispatch(
-    //     acceptOrder(data, openShippingOrders, 1, (res) => {
-    //       if (res?.msg) {
-    //         if (
-    //           getDeliveryData?.getReviewDef?.length > 0 &&
-    //           getDeliveryData?.getReviewDef?.length === 1
-    //         ) {
-    //           dispatch(getOrderCount(getUpdatedCount));
-    //         } else {
-    //           dispatch(getReviewDefault(openShippingOrders));
-    //           dispatch(orderStatusCount());
-    //           dispatch(todayOrders());
-    //           dispatch(getOrderstatistics(1));
-    //           dispatch(getGraphOrders(1));
-    //           setGetOrderDetail('ViewAllScreen');
-    //           setUserDetail(ordersList?.[0] ?? []);
-    //           setViewAllOrder(true);
-    //           setOrderDetail(ordersList?.[0]?.order_details ?? []);
-    //         }
-    //       }
-    //     })
-    //   );
-    // }
   };
 
   const changeOrderStatusAfterPickup = (id) => {
@@ -208,16 +193,9 @@ const OrderDeliver = ({ orderDetail }) => {
     //   })
     // );
   };
-  const trackHandler = () => {
-    alert("Track");
-  };
+  const trackHandler = () => {};
 
-
-  const getLatestdata = () => {
-    let orderCountparams = {
-      seller_id: uniqueId,
-      delivery_option: "1,3",
-    };
+  const getLatestdata = (index) => {
     let orderListParam = {
       status: index,
       seller_id: uniqueId,
@@ -225,21 +203,18 @@ const OrderDeliver = ({ orderDetail }) => {
       need_walkin: false,
     };
     setTimeout(() => {
-      setOpenShippingOrders({
+      getDrawerCount();
+      setOrderListType({
         status: index,
         title: deliveryDrawerStatus[index],
       });
-      dispatch(
-        getDrawerOrdersCount({
-          ...orderCountparams,
-        })
-      );
+
       dispatch(
         getOrdersList({
           ...orderListParam,
         })
       );
-    }, 500);
+    }, 50);
   };
   return (
     <>
@@ -566,6 +541,7 @@ const OrderDeliver = ({ orderDetail }) => {
                   />
                 </div>
               </div> */}
+
               <OrderDetail
                 orderDetails={selectedOrderData}
                 selectedOrderIndex={selectedOrderIndex}

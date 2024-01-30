@@ -2,9 +2,13 @@ import React from "react";
 import * as Images from "../../utilities/images";
 import Image from "next/image";
 import { useRouter } from "next/router";
+import { selectReturnData } from "../../redux/slices/productReturn";
+import { useSelector } from "react-redux";
 
 const ConfirmationSuccess = () => {
   const router = useRouter();
+  const invoiceData = useSelector(selectReturnData);
+  const invoiceNumber = invoiceData?.invoiceByInvoiceId;
   return (
     <>
       <div className="ConfirmationSuccess">
@@ -46,7 +50,7 @@ const ConfirmationSuccess = () => {
               />
               <h5 className="returnConfirmedHeading">Return Confirmed</h5>
               <p className="userPosition">
-                Invoice No. # 3467589 return successfully Completed!
+                Invoice No. # {invoiceNumber?.invoice_number} return successfully Completed!
               </p>
             </div>
           </div>

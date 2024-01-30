@@ -39,7 +39,7 @@
     "react-chartjs-2": "^5.2.0",
     "react-color": "^2.19.3",
     "react-color-picker": "^4.0.2",
-    "react-datepicker": "^4.24.0",
+    "react-datepicker": "^4.25.0",
     "react-dom": "^18.2.0",
     "react-ga": "^3.3.1",
     "react-google-recaptcha": "^3.1.0",

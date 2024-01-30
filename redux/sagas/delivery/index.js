@@ -52,7 +52,8 @@ function* getCurrentOrderStatus(action) {
       `${ORDER_API_URL}${API_URL.getCurrentOrderStat}${params}`
     );
     if (resp) {
-      //   yield put(setProfitData(resp.data));
+      // yield put(setProfitData(resp.data));
+
       yield call(action.payload.cb, (action.res = resp));
     } else {
       throw resp;
@@ -93,7 +94,6 @@ function* getOrdersList(action) {
       ApiClient.get,
       `${ORDER_API_URL}${API_URL.getOrderList}${params}`
     );
-    console.log("RESPONSEE+__+_++_-==-", resp);
 
     if (resp) {
       yield put(setOrdersList(resp?.data == "" ? [] : resp?.data?.payload));
@@ -110,6 +110,7 @@ function* getOrdersList(action) {
 function* getDrawerOrdersCount(action) {
   const dataToSend = { ...action.payload };
   const params = new URLSearchParams(dataToSend).toString();
+  console.log("paramsss0--00-", params);
   try {
     const resp = yield call(
       ApiClient.get,
@@ -120,7 +121,7 @@ function* getDrawerOrdersCount(action) {
         setDrawerOrdersCount(resp?.data == "" ? [] : resp?.data?.payload)
       );
 
-      // yield call(action.payload.cb, (action.res = resp));
+      yield call(action.payload.cb, (action.res = resp));
     } else {
       throw resp;
     }
@@ -132,8 +133,7 @@ function* getDrawerOrdersCount(action) {
 
 function* getOrderDetailById(action, callbackFn) {
   const dataToSend = action.payload;
-  // const params = new URLSearchParams(dataToSend).toString();
-  // console.log("IIISSS", JSON.stringify(dataToSend));
+
   try {
     const resp = yield call(
       ApiClient.get,
@@ -161,8 +161,7 @@ function* acceptOrder(action, callbackFn) {
     "Endpoin",
     `${ORDER_API_URL}${API_URL.acceptOrder}${dataToSend?.orderId}`
   );
-  // const params = new URLSearchParams(dataToSend).toString();
-  // console.log("IIISSS", JSON.stringify(dataToSend));
+
   const body = {
     status: dataToSend.status,
   };
@@ -174,11 +173,6 @@ function* acceptOrder(action, callbackFn) {
     );
     console.log("Response--", resp);
     if (resp) {
-      console.log("accept-OrderId  ", JSON.stringify(resp));
-      // yield put(
-      //   setOrderDetailById(resp?.data == "" ? [] : resp?.data?.payload)
-      // );
-      // callbackFn && callbackFn(resp);
       setAcceptOrder();
       yield call(action.payload.cb, (action.res = resp));
     } else {

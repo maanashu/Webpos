@@ -1,14 +1,16 @@
 import Link from "next/link";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import * as Images from "../../utilities/images";
 import Image from "next/image";
 import { useRouter } from "next/router";
 import CustomModal from "../../components/customModal/CustomModal";
 import ReturnInventory from "../../components/commanComonets/Product/ProductModal/returnInventory";
-import { toast } from "react-toastify";
+import { returnToInventory } from "../../redux/slices/productReturn";
+import { useDispatch } from "react-redux";
 
 const productrefunds = () => {
   const toastId = React.useRef(null);
+  const dispatch = useDispatch();
   const [key, setKey] = useState(Math.random());
   const [modalDetail, setModalDetail] = useState({
     show: false,
@@ -25,46 +27,79 @@ const productrefunds = () => {
   };
   const router = useRouter();
   const refundedItems = JSON.parse(router.query.selectedItems || "[]");
-  const [inputValue, setInputValue] = useState("");
   const [refundAmount, setRefundAmount] = useState("");
+  const [inputValues, setInputValues] = useState([]);
 
   const handleGoToinventery = () => {
-    setModalDetail({ show: true, flag: "ReturnInventory" });
-    setKey(Math.random());
+    // setModalDetail({ show: true, flag: "ReturnInventory" });
+    // setKey(Math.random());
     router.push({
       pathname: "/Product/RefundsConfirmation(No_Selection)",
-      query: { selectedItems: refundedItems },
+      query: { selectedItems: JSON.stringify(refundedItems) },
     });
   };
-  const [inputValues, setInputValues] = useState([]);
+  const handlereturnToInventory = () => {
+    let params = {
+      order_id: 223,
+      products: [
+        {
+          id: 493,
+          qty: 1,
+          write_off_qty: 0,
+          add_to_inventory_qty: 1,
+          refund_value: "20",
+        },
+      ],
+      total_taxes: "8",
+      total_refund_amount: "100",
+      delivery_charge: "20",
+      return_reason: "testing reason",
+      drawer_id: 327,
+    };
+    dispatch(
+      returnToInventory({
+        ...params,
+        cb(res) {},
+      })
+    );
+  };
   const handleInputChange = (e, index) => {
     const { value } = e.target;
     const updatedInputValues = [...inputValues];
     updatedInputValues[index] = value;
-
     setInputValues(updatedInputValues);
   };
 
-  //   const handleCheckboxChange = (data) => {
-  //     setCheckedItems((prevCheckedItems) => ({
-  //       ...prevCheckedItems,
-  //       [data.product_id]: !prevCheckedItems[data.product_id],
-  //     }));
-  //   };
-
-  //   const handleCheckAll = () => {
-  //     const allCheckedItems = refundedItems.reduce((acc, item) => {
-  //       acc[item.product_id] = true;
-  //       return acc;
-  //     }, {});
-  //     setCheckedItems(allCheckedItems);
-  //     setIsChecked(true);
-  //   };
-
-  //   const handleUncheckAll = () => {
-  //     setCheckedItems({});
-  //     setIsChecked(false);
-  //   };
+  const inputCheck = (e) => {
+    let updateValue;
+    if (inputValues && inputValues.length > 0) {
+      if (e.target.checked) {
+        updateValue = inputValues?.map(
+          (item) => Number(item) + Number(refundAmount)
+        );
+      } else {
+        setRefundAmount("");
+        updateValue = inputValues?.map(
+          (item) => Number(item) - Number(refundAmount)
+        );
+        // setInputValues(updateValue);
+      }
+      setInputValues(updateValue);
+    } else {
+      const newValues = [...inputValues];
+      for (let i = 0; i < refundedItems.length; i++) {
+        newValues.push(refundAmount);
+      }
+      setInputValues(newValues);
+    }
+  };
+  useEffect(() => {
+    const newData = refundedItems?.map((data) => ({
+      ...data,
+      inputValue: inputValues,
+    }));
+    console.log(newData, "newData");
+  }, [inputValues]);
 
   return (
     <>
@@ -80,12 +115,18 @@ const productrefunds = () => {
                 <p className="priceHeading">Select the items to refund.</p>
               </article>
               <div className="flexBox">
+                <input
+                  onChange={(e) => inputCheck(e)}
+                  type="checkbox"
+                  className="me-2"
+                  onClick={(e) => inputCheck(e)}
+                />
                 <h5 className="priceHeading pe-3">
                   Apply a fixed amount to all items.
                 </h5>
                 <div className="flexBox refundPricebox">
                   <input
-                    type="text"
+                    type="number"
                     placeholder="$00.00"
                     className="tablecustomInput"
                     value={refundAmount}
@@ -158,10 +199,10 @@ const productrefunds = () => {
                         </td>
                         <td className="recent_subhead text-center">
                           <input
-                            type="text"
+                            type="number"
                             placeholder="$00.00"
                             className="tablecustomInput"
-                            value={inputValues[idx] || ''}
+                            value={inputValues[idx]}
                             onChange={(e) => handleInputChange(e, idx)}
                           />
                         </td>
@@ -169,7 +210,14 @@ const productrefunds = () => {
                           × {data?.qty}
                         </td>
                         <td className="recent_subhead text-center">
-                          ${data?.price * data?.qty}
+                          $
+                          {!isNaN(parseFloat(inputValues[idx])) &&
+                          !isNaN(parseFloat(data?.qty))
+                            ? (
+                                parseFloat(inputValues[idx]) *
+                                parseFloat(data?.qty)
+                              ).toFixed(2)
+                            : "0.00"}
                         </td>
                         {/* <td className="recent_subhead">
                           <label className="custom-checkbox">
@@ -217,8 +265,8 @@ const productrefunds = () => {
                         ? "ConfirmReturn active"
                         : "comfirmatiopnBtn"
                     }
+                    disabled={!inputValues}
                     onClick={(e) => handleGoToinventery(e)}
-                    disabled={!inputValue}
                   >
                     Confirm
                     <Image
