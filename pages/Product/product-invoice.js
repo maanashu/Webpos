@@ -14,7 +14,6 @@ import { toast } from "react-toastify";
 import CustomModal from "../../components/customModal/CustomModal";
 import Manualinvoice from "./manual-entry(search)";
 
-
 const ProductInvoice = () => {
   const dispatch = useDispatch();
   const router = useRouter();
@@ -26,8 +25,8 @@ const ProductInvoice = () => {
   const SearchInvoiceRespones = invoiceData?.invoiceByInvoiceId;
   const orderDetails = SearchInvoiceRespones?.order;
   const productDetails = SearchInvoiceRespones?.order?.order_details;
-  const [checkeddata,setCheckedData]=useState("");
-  console.log("checkeddatacheckeddata",checkeddata);
+  const [checkeddata, setCheckedData] = useState("");
+  console.log(checkeddata, "checkeddata");
   const [key, setKey] = useState(Math.random());
   const [modalDetail, setModalDetail] = useState({
     show: false,
@@ -72,7 +71,7 @@ const ProductInvoice = () => {
       const isItemChecked = prevSelectedItems.some(
         (item) => item.product_id === data.product_id
       );
-
+  
       if (isItemChecked) {
         return prevSelectedItems.filter(
           (item) => item.product_id !== data.product_id
@@ -82,7 +81,7 @@ const ProductInvoice = () => {
       }
     });
   };
-
+  
   const handleGoToManualEntry = () => {
     setModalDetail({ show: true, flag: "manualEntry" });
     setKey(Math.random());
@@ -325,9 +324,11 @@ const ProductInvoice = () => {
                         <label className="custom-checkbox">
                           <input
                             type="checkbox"
-                            checked={selectedProductItems.some(
-                              (item) => item.product_id === data.product_id
-                            )}
+                            checked={
+                              selectedProductItems.some(
+                                (item) => item.product_id === data.product_id
+                              ) || (checkeddata && checkeddata.id === data?.product_id)
+                            }
                             onChange={() => handleCheckboxChange(data)}
                           />
                           <span className="checkmark"></span>
@@ -404,9 +405,9 @@ const ProductInvoice = () => {
                           </p>
                         </div>
                         <div className="flexBox">
-                          <p className="orderHeading">Fax</p>
+                          <p className="orderHeading">Tax</p>
                           <p className="orderSubHeading">
-                            ${orderDetails?.fax ? orderDetails?.tax : "0.00"}
+                            ${orderDetails?.tax ? orderDetails?.tax : "0.00"}
                           </p>
                         </div>
                       </div>
@@ -464,9 +465,10 @@ const ProductInvoice = () => {
         }
         child={
           modalDetail.flag === "manualEntry" ? (
-            <Manualinvoice closeManulModal={() => handleOnCloseModal()}
-            productDetails={productDetails}
-            setCheckedData={setCheckedData}
+            <Manualinvoice
+              closeManulModal={() => handleOnCloseModal()}
+              productDetails={productDetails}
+              setCheckedData={setCheckedData}
             />
           ) : (
             ""

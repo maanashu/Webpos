@@ -9,7 +9,6 @@ import moment from "moment-timezone";
 
 const RefundsConfirmation = () => {
   const router = useRouter();
-  console.log(router.query,'router');
   const totalSum=router?.query?.totalSum
   const subtotal=router?.query?.subtotal
   const itemsList = JSON.parse(router.query.selectedItems || "[]");
@@ -229,7 +228,7 @@ const RefundsConfirmation = () => {
                     <p className="mapleProductPrice">Mode</p>
                     <p className="mapleProductHeading">Walk-In</p>
                     <p className="mapleProductPrice">User UD</p>
-                    <p className="mapleProductHeading">****331</p>
+                    <p className="mapleProductHeading">{orderDetails?.user_details?.id}</p>
                   </article>
                 </div>
                 <div className="flexBox maplePriceBox">
