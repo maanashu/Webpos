@@ -876,6 +876,14 @@
         left: 0;
     }
 
+    .analyticsSection .deliverRightBar {
+        padding: 8px 3px;
+        width: 45px;
+    }
+
+    .analyticsSection {
+        margin-right: 78px !important;
+    }
 }
 
 @media (max-width: 475px) {
@@ -993,6 +1001,10 @@
 
     .cancelOrderText {
         font-size: 14px;
+    }
+
+    .analyticOuter {
+        height: calc(100vh - 250px);
     }
 }
 
