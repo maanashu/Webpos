@@ -865,6 +865,29 @@
     .analyticStatus_ {
         justify-content: start;
     }
+
+    .tab-item {
+        padding: 4px 13px !important;
+        font-size: 13px !important;
+    }
+
+    .anlyticHeadLeft .day-tabs {
+        margin: 0;
+    }
+}
+
+@media (max-width: 546px) {
+    .calendarAnalytic {
+        width: 100%;
+    }
+
+    .calendarAnalytic .customer-calendar-cnt {
+        justify-content: space-between;
+    }
+
+    .anlyticSelect {
+        width: 100%;
+    }
 }
 
 @media (max-width: 525px) {
@@ -883,6 +906,10 @@
 
     .analyticsSection {
         margin-right: 78px !important;
+    }
+    .tab-item {
+        padding: 3px 5px !important;
+        font-size: 12px;
     }
 }
 
@@ -1004,7 +1031,16 @@
     }
 
     .analyticOuter {
-        height: calc(100vh - 250px);
+        height: calc(100vh - 180px);
+    }
+
+    .analyticsSection {
+        margin-right: 66px !important;
+        margin-left: 8px !important;
+    }
+
+    .cust-header .header-title {
+        font-size: 21px;
     }
 }
 
@@ -1090,10 +1126,12 @@
         font-size: 16px;
     }
 
-    .tab-item {
-        padding: 3px 5px;
-        font-size: 12px;
+    .anlyticHeadLeft .day-tabs {
+        margin: 0;
+        gap: 0;
+        padding: 6px 5px;
     }
+
 }
 
 @media (max-width: 375px) {

@@ -65,7 +65,7 @@ const AnalyticsHeader = ({ startDate, endDate, onDateChange, channelSelected, se
                 <div className="anlyticHeadRight">
                     <div
                         style={{ gap: "16px" }}
-                        className=""
+                        className="calendarAnalytic"
                     >
                         <div className="customer-calendar-cnt">
                             <i class="fa fa-arrow-left" aria-hidden="true"></i>
@@ -87,7 +87,7 @@ const AnalyticsHeader = ({ startDate, endDate, onDateChange, channelSelected, se
                         value={channelSelected}
                         placeholder="Channels"
                         classNamePrefix="react-select"
-                        className="react-select-container"
+                        className="react-select-container anlyticSelect"
                         styles={{
                             option: reactSelectCustomStyles,
                             placeholder: reactSelectCustomStyles,
