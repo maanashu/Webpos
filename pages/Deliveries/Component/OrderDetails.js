@@ -19,6 +19,8 @@ const OrderDetail = ({
   trackHandler,
   orderListType,
   isLoading,
+  showInvoice,
+  setShowInvoice,
 }) => {
   const { orderList } = useSelector(deliveryData);
   console.log("SCreenneee", JSON.stringify(orderDetails));
@@ -28,6 +30,7 @@ const OrderDetail = ({
       : (orderList?.data && orderList?.data[0]) || null;
   const [isMaximize, setIsMaximize] = useState(true);
   console.log("Order__DATAA", JSON.stringify(orderData));
+
   const detailView = () => {
     if (
       orderData?.status === 0 ||
@@ -295,6 +298,15 @@ const OrderDetail = ({
     } else {
       return (
         <div className=" deliveryOuter assignMapRight ms-0">
+          <div className="flexBox ">
+            <button
+              onClick={() => setShowInvoice(!showInvoice)}
+              type="button"
+              className="expandBtn"
+            >
+              {showInvoice ? "Close" : "Expand"}
+            </button>
+          </div>
           <GoogleMap />
           {/* <Image src={Images.map} alt="map Image" className="mapImg" /> */}
           <div className="orderStatusBox">

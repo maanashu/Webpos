@@ -397,6 +397,22 @@
   justify-content: center;
   margin-left: 10px;
 }
+.expandBtn {
+  padding: 8px 12px;
+  border-radius: 5px;
+  background: #263682;
+  border: 1px solid #263682;
+  color: #f5f6fc;
+  font-size: 14px;
+  font-weight: 400;
+  /* display: flex; */
+  align-items: center;
+  justify-content: center;
+  margin-left: 10px;
+  position: absolute;
+  top: 10%;
+  right: 5%;
+}
 
 .cancelledByUser {
   padding: 8px 12px;
@@ -669,7 +685,7 @@
   border-radius: 4px;
 }
 
-.custom-checkbox input:checked+.checkmark {
+.custom-checkbox input:checked + .checkmark {
   border: 1px solid #263682;
   color: #fff;
 }
@@ -680,7 +696,7 @@
   display: none;
 }
 
-.custom-checkbox input:checked+.checkmark:after {
+.custom-checkbox input:checked + .checkmark:after {
   display: block;
 }
 
