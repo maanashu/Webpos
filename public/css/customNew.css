@@ -5316,6 +5316,33 @@ figure {
   font-weight: 500;
 }
 
+.anlyticHeadLeft {
+  display: flex;
+  align-items: center;
+  justify-content: start;
+}
+
+.anlyticHeadRight {
+  display: flex;
+  align-items: center;
+  justify-content: end;
+  gap: 16px;
+}
+
+.analyticOuter {
+  height: calc(100vh - 110px);
+  overflow-y: scroll;
+}
+
+.analyticOuter::-webkit-scrollbar {
+  display: none;
+}
+
+.analyticStatus_ {
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
 /*gaurav arora sir css start*/
 .headingTextStyle {
   color: #263682;
@@ -5393,7 +5420,7 @@ figure {
 
 .box {
   display: flex;
-  width: 420px;
+  width: 100%;
   padding: 16px 18px 20px 18px;
   flex-direction: column;
   justify-content: center;
@@ -5401,8 +5428,8 @@ figure {
   gap: 6px;
   height: 100px;
   border-radius: 16px;
-  border: 1px solid var(--Neutrals-N-100, #d7deff);
-  margin-top: 40px;
+  border: 1px solid #d7deff;
+  margin-top: 25px;
 }
 
 .backarrow-plan {
