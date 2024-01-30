@@ -502,6 +502,24 @@
     .deliverOrderRight .selectedProductDetails {
         min-width: 514px;
     }
+
+    .anlyticHeadLeft {
+        justify-content: center;
+    }
+
+    .anlyticHeadLeft .day-tabs {
+        justify-content: space-between;
+        width: 100%;
+    }
+
+    .anlyticHeadRight {
+        justify-content: space-between;
+    }
+
+    .analyticOuter {
+        height: calc(100vh - 140px);
+        overflow-y: scroll;
+    }
 }
 
 @media (max-width: 767px) {
@@ -838,6 +856,15 @@
     .shipOrderSection .declineButton {
         width: 100%;
     }
+
+    .anlyticHeadRight {
+        flex-wrap: wrap;
+        gap: 5px;
+    }
+
+    .analyticStatus_ {
+        justify-content: start;
+    }
 }
 
 @media (max-width: 525px) {
@@ -1049,6 +1076,11 @@
 
     .loginMain {
         font-size: 16px;
+    }
+
+    .tab-item {
+        padding: 3px 5px;
+        font-size: 12px;
     }
 }
 
