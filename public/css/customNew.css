@@ -5384,4 +5384,44 @@ figure {
   width: 200px;
 }
 
+.order-progress-value {
+  position: absolute;
+  width: 100%;
+  top: 42%;
+}
+
+.order-progress-value p {
+  color: #263682;
+  text-align: center;
+  font-family: Roobert;
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 500;
+}
+.order-second-progress {
+  position: absolute;
+  height: 123px;
+  width: 123px;
+  top: 11px;
+  left: 11px;
+}
+
+.deliverGraph.order-all-progress {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 30px 0;
+}
+.order-all-progress-inner {
+  position: relative;
+  height: 145px;
+  width: 145px;
+}
+.order-third-progress {
+  position: absolute;
+  height: 100px;
+  width: 100px;
+  top: 23px;
+  left: 23px;
+}
 /*gaurav arora sir css end*/

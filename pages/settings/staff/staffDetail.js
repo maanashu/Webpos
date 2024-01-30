@@ -1,77 +1,85 @@
-import React, { useEffect, useState } from 'react'
-import { ListGroup, ListGroupItem } from 'react-bootstrap';
-import * as Images from "../../../utilities/images"
+import React, { useEffect, useState } from "react";
+import { ListGroup, ListGroupItem } from "react-bootstrap";
+import * as Images from "../../../utilities/images";
 import Image from "next/image";
-import Link from 'next/link';
-import { getStaffDetails, requestPayment, settingInfo } from '../../../redux/slices/setting';
-import { useDispatch, useSelector } from 'react-redux';
-import moment from 'moment-timezone';
-import { useRouter } from 'next/router';
+import Link from "next/link";
+import {
+  getStaffDetails,
+  requestPayment,
+  settingInfo,
+} from "../../../redux/slices/setting";
+import { useDispatch, useSelector } from "react-redux";
+import moment from "moment-timezone";
+import { useRouter } from "next/router";
 
-const StaffDetail = ({ selectedItemId,handleTouch }) => {
-    const router = useRouter();
-    const [getStaffInfo, setGetStaffInfo] = useState("");
-    const targetDate = moment(getStaffInfo?.pos_staff_detail?.created_at);
-    const currentDate = moment();
-    const differenceInDays = targetDate?.diff(currentDate, 'days');
-    const settingData = useSelector(settingInfo)
-    const originalemployementType = getStaffInfo?.pos_staff_detail?.employment_type;
-    const words = originalemployementType?.split('_');
-    const capitalizedWords = words?.map((word) => word?.charAt?.(0).toUpperCase() + word?.slice?.(1));
-    const finalEmploymentType = capitalizedWords?.join(' ');
-    const dispatch = useDispatch();
-    // API for get all POS users...............................
-    const getStaffDetail = () => {
-        let params = {
-            id: 2,
-            // id:selectedItemId
-        };
-        dispatch(getStaffDetails({
-            ...params,
-            cb(res) {
-                if (res.status) {
-                    setGetStaffInfo(res?.data?.payload)
-                }
-            },
-        })
-        );
+const StaffDetail = ({ selectedItemId, handleTouch }) => {
+  const router = useRouter();
+  const [getStaffInfo, setGetStaffInfo] = useState("");
+  const targetDate = moment(getStaffInfo?.pos_staff_detail?.created_at);
+  const currentDate = moment();
+  const differenceInDays = targetDate?.diff(currentDate, "days");
+  const settingData = useSelector(settingInfo);
+  const originalemployementType =
+    getStaffInfo?.pos_staff_detail?.employment_type;
+  const words = originalemployementType?.split("_");
+  const capitalizedWords = words?.map(
+    (word) => word?.charAt?.(0).toUpperCase() + word?.slice?.(1)
+  );
+  const finalEmploymentType = capitalizedWords?.join(" ");
+  const dispatch = useDispatch();
+  // API for get all POS users...............................
+  const getStaffDetail = () => {
+    let params = {
+      id: 2,
+      // id:selectedItemId
     };
+    dispatch(
+      getStaffDetails({
+        ...params,
+        cb(res) {
+          if (res.status) {
+            setGetStaffInfo(res?.data?.payload);
+          }
+        },
+      })
+    );
+  };
 
-    function convertMinutesToHoursAndMinutes(minutes) {
-        if (typeof minutes !== 'number' || minutes < 0) {
-            return 'Invalid input';
-        }
-        const hours = Math.floor(minutes / 60);
-        const remainingMinutes = minutes % 60;
-        return hours + ' h ' + remainingMinutes?.toFixed(0) + ' m';
+  function convertMinutesToHoursAndMinutes(minutes) {
+    if (typeof minutes !== "number" || minutes < 0) {
+      return "Invalid input";
     }
+    const hours = Math.floor(minutes / 60);
+    const remainingMinutes = minutes % 60;
+    return hours + " h " + remainingMinutes?.toFixed(0) + " m";
+  }
 
-    const handleRequest = (status, startDate, endDate, data) => {
-        if (status === 0 || status === 1) {
-            let data = {
-                "start_date": moment(startDate).format('YYYY-MM-DD'),
-                "end_date": moment(endDate).format('YYYY-MM-DD'),
-                "staff_details_id": selectedItemId?.toString()
-                // "staff_details_id": '2'
+  const handleRequest = (status, startDate, endDate, data) => {
+    if (status === 0 || status === 1) {
+      let data = {
+        start_date: moment(startDate).format("YYYY-MM-DD"),
+        end_date: moment(endDate).format("YYYY-MM-DD"),
+        staff_details_id: selectedItemId?.toString(),
+        // "staff_details_id": '2'
+      };
+      dispatch(
+        requestPayment({
+          ...data,
+          cb(res) {
+            if (res) {
+              getStaffDetail();
             }
-            dispatch(requestPayment({
-                ...data,
-                cb(res) {
-                    if (res) {
-                        getStaffDetail()
-                    }
-                },
-            })
-            );
-        }
-        else {
-            handleTouch("staffLocation",data)
-        }
+          },
+        })
+      );
+    } else {
+      handleTouch("staffLocation", data);
     }
+  };
 
-    useEffect(() => {
-        getStaffDetail();
-    }, []);
+  useEffect(() => {
+    getStaffDetail();
+  }, []);
 
     return (
         <>
@@ -146,101 +154,157 @@ const StaffDetail = ({ selectedItemId,handleTouch }) => {
                                     {/* {getStaffInfo?.pos_staff_detail?.hourly_rate?.length > 0 ?
                                         getStaffInfo?.pos_staff_detail?.payment_cycle?.map((data, index) => {
                                             return ( */}
-                                    <div className='staffSubTime'>
-                                        <h4 className='amountText m-0'>Payment Cycle</h4>
-                                        <hr className='staffTimeDivide' />
-                                        <h4 className='appointSub m-0'>{getStaffInfo?.pos_staff_detail?.payment_cycle ?? "--"}</h4>
-                                    </div>
-                                    {/* )
+                  <div className="staffSubTime">
+                    <h4 className="amountText m-0">Payment Cycle</h4>
+                    <hr className="staffTimeDivide" />
+                    <h4 className="appointSub m-0">
+                      {getStaffInfo?.pos_staff_detail?.payment_cycle ?? "--"}
+                    </h4>
+                  </div>
+                  {/* )
                                         })
                                         : ""
                                     } */}
 
-                                    {/* {getStaffInfo?.pos_staff_detail?.hourly_rate?.length > 0 ?
+                  {/* {getStaffInfo?.pos_staff_detail?.hourly_rate?.length > 0 ?
                                         getStaffInfo?.pos_staff_detail?.billing_type?.map((data, index) => {
                                             return ( */}
-                                    <div className='staffSubTime'>
-                                        <h4 className='amountText m-0'>Billing</h4>
-                                        <hr className='staffTimeDivide' />
-                                        <h4 className='appointSub m-0'>{getStaffInfo?.pos_staff_detail?.billing_type ?? '--'}</h4>
-                                    </div>
-                                    {/* )
+                  <div className="staffSubTime">
+                    <h4 className="amountText m-0">Billing</h4>
+                    <hr className="staffTimeDivide" />
+                    <h4 className="appointSub m-0">
+                      {getStaffInfo?.pos_staff_detail?.billing_type ?? "--"}
+                    </h4>
+                  </div>
+                  {/* )
                                         })
                                         : ""
                                     } */}
-                                </div>
-                                <div className='staffTimeSection mt-3'>
-                                    {/* {getStaffInfo?.pos_staff_detail?.current_billing_cycle?.start?.length > 0 ?
+                </div>
+                <div className="staffTimeSection mt-3">
+                  {/* {getStaffInfo?.pos_staff_detail?.current_billing_cycle?.start?.length > 0 ?
                                          getStaffInfo?.pos_staff_detail?.current_billing_cycle?.start?.map((data, index) => {
                                             return ( */}
-                                    <div className='staffSubTime'>
-                                        <h4 className='amountText m-0'>Current  Billing Cycle</h4>
-                                        <hr className='staffTimeDivide' />
-                                        <h4 className='appointSub m-0'>{getStaffInfo?.pos_staff_detail?.current_billing_cycle?.start ?? '__'} - {getStaffInfo?.pos_staff_detail?.current_billing_cycle?.end || '__'}</h4>
-
-                                    </div>
-                                    {/* )
+                  <div className="staffSubTime">
+                    <h4 className="amountText m-0">Current Billing Cycle</h4>
+                    <hr className="staffTimeDivide" />
+                    <h4 className="appointSub m-0">
+                      {getStaffInfo?.pos_staff_detail?.current_billing_cycle
+                        ?.start ?? "__"}{" "}
+                      -{" "}
+                      {getStaffInfo?.pos_staff_detail?.current_billing_cycle
+                        ?.end || "__"}
+                    </h4>
+                  </div>
+                  {/* )
                                         })
                                         : ""
                                     } */}
-                                    <div className='staffSubTime'>
-                                        <h4 className='amountText m-0'>Time Tracked</h4>
-                                        <hr className='staffTimeDivide' />
-                                        <h4 className='appointSub m-0'>JBR {getStaffInfo?.pos_staff_detail?.time_tracked ?? '__'} /h</h4>
-                                    </div>
-                                    <div className='staffSubTime'>
-                                        <h4 className='amountText m-0'>Weekly Tracking Limit</h4>
-                                        <hr className='staffTimeDivide' />
-                                        <h4 className='appointSub m-0'>{getStaffInfo?.pos_staff_detail?.weekly_time_tracking_limit ?? '__'}</h4>
-
-                                    </div>
-                                </div>
-                                <div className='staffDetailtable'>
-                                    <div className='staffTableHeading'>
-                                        <div className='staffBoxData text-start'>
-                                            <h4 className='invoiceHeading '>Date</h4>
-                                        </div>
-                                        <div className='staffBoxData'>
-                                            <h4 className='invoiceHeading p-0'>Duration</h4>
-                                        </div>
-                                        <div className='staffBoxData'>
-                                            <h4 className='invoiceHeading p-0'>Amount</h4>
-                                        </div>
-                                        <div className='staffBoxData'>
-                                            <h4 className='invoiceHeading p-0'>Status</h4>
-                                        </div>
-                                        <div className='staffBoxData'>
-                                            <h4 className='invoiceHeading p-0'>Action</h4>
-                                        </div>
-                                    </div>
-                                    {getStaffInfo?.results?.results.length > 0 ?
-
-                                        getStaffInfo?.results?.results?.map((data, index) => {
-                                            return (
-                                                <div key={index} className='staffTableOuter'>
-                                                    <div className='staffTableData'>
-
-                                                        <div className='staffBoxData text-start'>
-                                                            <h4 className='staffTableText'>{moment(data?.start_date).format("MMM DD, YYYY")} - {moment(data?.end_date).format("MMM DD, YYYY")}</h4>
-                                                        </div>
-                                                        <div className='staffBoxData '>
-                                                            <h4 className='staffTableText'>{convertMinutesToHoursAndMinutes(data?.duration)}</h4>
-                                                        </div>
-                                                        <div className='staffBoxData'>
-                                                            <h4 className='staffTableText'>JBR {Number(data?.amount)?.toFixed(2)}</h4>
-                                                        </div>
-                                                        <div className='staffBoxData '>
-                                                            <button className={data?.status === 2 ? 'paidBtn ' : "unpaidBtn"} type='button'>{data?.status === 2 ? 'Paid' : 'Unpaid'}</button>
-                                                        </div>
-                                                        <div className='staffBoxData'>
-                                                            <button className={data?.status === 2 ? 'viewBtn ' : 'requestBtn'} onClick={() => handleRequest(data?.status, data?.start_date, data?.end_date, data)} type='button'>{data?.status === 0 ? "Request" : data?.status === 1 ? "Requested" : 'view'}</button>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            )
-                                        }) : ""
-                                    }
-                                    {/* <div className='staffTableOuter'>
+                  <div className="staffSubTime">
+                    <h4 className="amountText m-0">Time Tracked</h4>
+                    <hr className="staffTimeDivide" />
+                    <h4 className="appointSub m-0">
+                      JBR {getStaffInfo?.pos_staff_detail?.time_tracked ?? "__"}{" "}
+                      /h
+                    </h4>
+                  </div>
+                  <div className="staffSubTime">
+                    <h4 className="amountText m-0">Weekly Tracking Limit</h4>
+                    <hr className="staffTimeDivide" />
+                    <h4 className="appointSub m-0">
+                      {getStaffInfo?.pos_staff_detail
+                        ?.weekly_time_tracking_limit ?? "__"}
+                    </h4>
+                  </div>
+                </div>
+                <div className="staffDetailtable">
+                  <div className="staffTableHeading">
+                    <div className="staffBoxData text-start">
+                      <h4 className="invoiceHeading ">Date</h4>
+                    </div>
+                    <div className="staffBoxData">
+                      <h4 className="invoiceHeading p-0">Duration</h4>
+                    </div>
+                    <div className="staffBoxData">
+                      <h4 className="invoiceHeading p-0">Amount</h4>
+                    </div>
+                    <div className="staffBoxData">
+                      <h4 className="invoiceHeading p-0">Status</h4>
+                    </div>
+                    <div className="staffBoxData">
+                      <h4 className="invoiceHeading p-0">Action</h4>
+                    </div>
+                  </div>
+                  {getStaffInfo?.results?.results.length > 0
+                    ? getStaffInfo?.results?.results?.map((data, index) => {
+                        return (
+                          <div key={index} className="staffTableOuter">
+                            <div className="staffTableData">
+                              <div className="staffBoxData text-start">
+                                <h4 className="staffTableText">
+                                  {moment(data?.start_date).format(
+                                    "MMM DD, YYYY"
+                                  )}{" "}
+                                  -{" "}
+                                  {moment(data?.end_date).format(
+                                    "MMM DD, YYYY"
+                                  )}
+                                </h4>
+                              </div>
+                              <div className="staffBoxData ">
+                                <h4 className="staffTableText">
+                                  {convertMinutesToHoursAndMinutes(
+                                    data?.duration
+                                  )}
+                                </h4>
+                              </div>
+                              <div className="staffBoxData">
+                                <h4 className="staffTableText">
+                                  JBR {Number(data?.amount)?.toFixed(2)}
+                                </h4>
+                              </div>
+                              <div className="staffBoxData ">
+                                <button
+                                  className={
+                                    data?.status === 2
+                                      ? "paidBtn "
+                                      : "unpaidBtn"
+                                  }
+                                  type="button"
+                                >
+                                  {data?.status === 2 ? "Paid" : "Unpaid"}
+                                </button>
+                              </div>
+                              <div className="staffBoxData">
+                                <button
+                                  className={
+                                    data?.status === 2
+                                      ? "viewBtn "
+                                      : "requestBtn"
+                                  }
+                                  onClick={() =>
+                                    handleRequest(
+                                      data?.status,
+                                      data?.start_date,
+                                      data?.end_date,
+                                      data
+                                    )
+                                  }
+                                  type="button"
+                                >
+                                  {data?.status === 0
+                                    ? "Request"
+                                    : data?.status === 1
+                                    ? "Requested"
+                                    : "view"}
+                                </button>
+                              </div>
+                            </div>
+                          </div>
+                        );
+                      })
+                    : ""}
+                  {/* <div className='staffTableOuter'>
                                         <div className='staffTableData'>
                                             <div className='staffBoxData text-start'>
                                                 <h4 className='staffTableText'>May 29, 2023 - Jun 4, 2023</h4>
@@ -322,4 +386,4 @@ const StaffDetail = ({ selectedItemId,handleTouch }) => {
     )
 }
 
-export default StaffDetail
+export default StaffDetail;

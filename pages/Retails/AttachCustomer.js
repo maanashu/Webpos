@@ -42,7 +42,6 @@ const AttachCustomer = ({ crosshandler }) => {
   const [invitationFirstName, setInvitationFirstName] = useState();
   const [invitationLastName, setInvitationLastName] = useState();
 
-  console.log(retailData?.attachCustomerLoad);
 
   const saveAndAddCustomer = () => {
     if (!firstName) {
@@ -291,7 +290,7 @@ const AttachCustomer = ({ crosshandler }) => {
                       </div>
                       <div className="emailDetail">
                         <label className="loginSub text-start">
-                          E-mail Address
+                          E-mail Addressdddddddd
                         </label>
                         <input
                           className="form-control nameControl"
