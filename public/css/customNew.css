@@ -5273,6 +5273,10 @@ figure {
   min-width: 80px;
 }
 
+#shippedOrders .invoice_subhead:first-child {
+  min-width: 80px;
+}
+
 /*gaurav arora sir css start*/
 .headingTextStyle {
   color: #263682;
