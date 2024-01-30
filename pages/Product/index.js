@@ -20,7 +20,6 @@ const Product = () => {
     let params = {
       seller_id: sellerId,
     };
-    console.log("params", params);
     dispatch(getMainProduct(params));
   }, []);
   return (
