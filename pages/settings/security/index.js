@@ -132,7 +132,7 @@ const Security = () => {
       <CustomModal
         key={key}
         show={modalDetail.show}
-        backdrop="static"
+        backdrop="true"
         showCloseBtn={false}
         isRightSideModal={true}
         mediumWidth={false}
