@@ -4,14 +4,21 @@ import Image from "next/image";
 import HeaderUtils from "./HeaderUtils";
 
 // Transactions, Customers, Rewards header
-const TCRHeader = ({ mainIcon, title, descrip, withTimeTabs = true, onTimeSpanSelect, timeSpan }) => {
+const TCRHeader = ({
+  mainIcon,
+  title,
+  descrip,
+  withTimeTabs = true,
+  onTimeSpanSelect,
+  timeSpan,
+}) => {
 
   const TIME_SPANS = [
     { value: "today", label: "Today" },
     { value: "week", label: "Weekly" },
     { value: "month", label: "Monthly" },
     { value: "year", label: "Yearly" },
-  ]
+  ];
 
   const boldInDescrip = () => (
     <>

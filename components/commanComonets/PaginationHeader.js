@@ -8,12 +8,10 @@ import {
 import Image from "next/image";
 import ReactDatePicker from "react-datepicker";
 import ReactSelect from "react-select";
+import moment from "moment-timezone";
 
 const DatePickerCustomComponent = forwardRef(({ value, onClick }, ref) => (
-  <p
-    onClick={onClick}
-    className="users-selected-date"
-  >
+  <p onClick={onClick} className="users-selected-date">
     {value || "Date"}
   </p>
 ));
@@ -26,13 +24,14 @@ const PaginationHeader = ({
   startDate,
   totalItems,
   onDateChange,
+  date,
 }) => {
+ 
   const options = [
     { value: "Area", label: "Area" },
     { value: "Place 2", label: "Place 2" },
     { value: "Place 3", label: "Place 3" },
   ];
-
   const paginationBts = (icon, imgClass, increment, isDisabled) => (
     <div
       className={`pagination-btn ${isDisabled ? "disable-element" : ""}`}
@@ -66,18 +65,11 @@ const PaginationHeader = ({
   return (
     <div className="users-pagination-header">
       <div className="flex-row-space-between">
-        <div
-          style={{ gap: "16px" }}
-          className="flex-row-space-between"
-        >
+        <div style={{ gap: "16px" }} className="flex-row-space-between">
           <div className="customer-calendar-cnt">
-            <Image
-              width={24}
-              height={24}
-              src={customerCalendar}
-            />
+            <Image width={24} height={24} src={customerCalendar} />
             <ReactDatePicker
-              selected={startDate}
+              selected={date ? moment(`${date}T00:00:00`)?.toDate() : ""}
               onChange={(date) => onDateChange(date)}
               customInput={<DatePickerCustomComponent />}
             />
@@ -94,11 +86,7 @@ const PaginationHeader = ({
             }}
             components={{
               DropdownIndicator: () => (
-                <Image
-                  src={arrowDown}
-                  width={24}
-                  height={24}
-                />
+                <Image src={arrowDown} width={24} height={24} />
               ),
             }}
           />
@@ -135,11 +123,7 @@ const PaginationHeader = ({
               }}
               components={{
                 DropdownIndicator: () => (
-                  <Image
-                    src={arrowDown}
-                    width={24}
-                    height={24}
-                  />
+                  <Image src={arrowDown} width={24} height={24} />
                 ),
               }}
             />

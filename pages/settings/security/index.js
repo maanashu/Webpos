@@ -180,10 +180,10 @@ const Security = () => {
             width: 100%;
         }">
             <div className="common_ common_crossBtn">
-              {modalDetail.flag === "ActivateSecurity" || modalDetail.flag === "GetSecurityScaner" || modalDetail.flag === "SecurityVerification" || modalDetail.flag === "ResetSecurityPin" ? (
+              { modalDetail.flag === "GetSecurityScaner" || modalDetail.flag === "SecurityVerification" || modalDetail.flag === "ResetSecurityPin" ? (
                 <>
                   <button type="button " className="crossBtn" data-bs-dismiss="modal" aria-label="Close" onClick={() => handleOnCloseModal()}>
-                    <Image src={Images.modalCross} alt='crossIcon' className='crossIcon' width="10" height='10' />
+                  <i class="fas fa-times"></i>
                   </button>
                 </>
               ) : ""}

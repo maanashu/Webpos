@@ -9,6 +9,7 @@ import "../public/css/deliveries.css";
 import "../public/css/customers.css";
 import "../public/css/cashDrawer.css";
 import "../public/css/settings.css";
+import "../public/css/settingResponsive.css";
 import "react-toastify/dist/ReactToastify.css";
 import "react-phone-input-2/lib/style.css";
 import "react-datepicker/dist/react-datepicker.css";

@@ -355,6 +355,7 @@ import totalCost from "../public/images/totalCost.svg";
 
 import darkPlus from "../public/images/darkPlus.svg";
 import defaultUser from "../public/images/defaultUser.png";
+import enablesec from "../public/images/enablesec.svg";
 
 export {
   darkPlus,
@@ -708,4 +709,5 @@ export {
   totalOrders,
   totalCost,
   defaultUser,
+  enablesec
 };

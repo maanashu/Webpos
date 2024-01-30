@@ -1,0 +1,58 @@
+@media (max-width: 1600px) {
+  
+}
+
+@media (max-width: 1400px) {
+
+
+}
+
+@media (max-width:1366px) {
+
+}
+
+@media (max-width: 1280px) {
+   
+}
+
+@media (max-width: 1200px) {
+  
+}
+
+@media (max-width: 1199px) {
+
+}
+
+@media (max-width: 992px) {
+    .settingMain .deviceLeft {
+        margin-bottom: 15px;
+    }
+}
+
+@media (max-width: 767px) {
+    
+}
+
+@media (max-width: 575px) {
+    .securityRight {
+        padding: 24px 10px;
+      
+    }
+}
+
+@media (max-width: 480px) {
+    .notifySub {
+        padding: 14px 0;
+    }
+    .securityRight .headingTextStyle {
+        font-size: 22px;
+    }
+    .securityRight {
+        flex-wrap: wrap;
+        height: auto;
+    }
+}
+
+@media (max-width: 375px) {
+
+}

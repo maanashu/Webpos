@@ -87,7 +87,6 @@ const ProductInvoice = () => {
     setKey(Math.random());
   };
 
- 
   return (
     <>
       <div className="productInvoice">
@@ -167,7 +166,7 @@ const ProductInvoice = () => {
                               />
                               <span>
                                 {SearchInvoiceRespones?.order
-                                  ?.delivery_option == "1"
+                                  ?.delivery_option === "1"
                                   ? "Delivery"
                                   : SearchInvoiceRespones?.order
                                       ?.delivery_option === "2"
@@ -406,7 +405,7 @@ const ProductInvoice = () => {
                         <div className="flexBox">
                           <p className="orderHeading">Fax</p>
                           <p className="orderSubHeading">
-                            ${orderDetails?.fax ? orderDetails?.fax : "0.00"}
+                            ${orderDetails?.fax ? orderDetails?.tax : "0.00"}
                           </p>
                         </div>
                       </div>
@@ -464,7 +463,9 @@ const ProductInvoice = () => {
         }
         child={
           modalDetail.flag === "manualEntry" ? (
-            <Manualinvoice closeManulModal={() => handleOnCloseModal()} />
+            <Manualinvoice closeManulModal={() => handleOnCloseModal()}
+            productDetails={productDetails}
+            />
           ) : (
             ""
           )

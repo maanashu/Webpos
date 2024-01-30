@@ -2,10 +2,22 @@ import React from "react";
 import * as Images from "../../utilities/images";
 import Image from "next/image";
 import { useRouter } from "next/router";
+import { selectLoginAuth } from "../../redux/slices/auth";
+import { useSelector } from "react-redux";
+import { selectReturnData } from "../../redux/slices/productReturn";
+import moment from "moment-timezone";
 
 const RefundsConfirmation = () => {
   const router = useRouter();
-  console.log(router.query,'wwwwwwwwwwwwwwww');
+  const itemsList = JSON.parse(router.query.selectedItems || "[]");
+  const authData = useSelector(selectLoginAuth);
+  const posData=authData?.posUserLoginDetails?.payload
+  const merchentDetails = authData?.usersInfo?.payload?.user?.user_profiles;
+  const invoiceData = useSelector(selectReturnData);
+  const invoiceNumber = invoiceData?.invoiceByInvoiceId?.invoice_number;
+  const SearchInvoiceRespones = invoiceData?.invoiceByInvoiceId;
+  const orderDetails = SearchInvoiceRespones?.order;
+  console.log(orderDetails, "orderDetails");
 
   const handleConfirmReturnButton = () => {
     router.push({
@@ -155,68 +167,60 @@ const RefundsConfirmation = () => {
             <div className="commanOuter commonSubOuter me-3 ms-0">
               <div className="MapleBox">
                 <article className="mapleHeader">
-                  <h6 className="mapleHeading">Maple Inc.</h6>
+                  <h6 className="mapleHeading">
+                    {" "}
+                    {merchentDetails?.organization_name}.
+                  </h6>
                   <p className="mapleAddress">
-                    500 Rideau St. Ottawa, ON 5Z2 K1L
+                    {merchentDetails?.current_address?.street_address},
+                    {merchentDetails?.current_address?.city},
+                    {merchentDetails?.current_address?.state},
+                    {merchentDetails?.current_address?.country},
+                    {merchentDetails?.current_address?.zipcode}
                   </p>
-                  <p className="mapleAddress">+1 (438) 459-0226</p>
+                  <p className="mapleAddress">
+                    {" "}
+                    {merchentDetails?.full_phone_number}
+                  </p>
                 </article>
                 <div className="mapleProductDetails">
-                  <div className="flexBox mapleProductDetailsBox">
-                    <div className="flexbase">
-                      <p className="mapleProductcount">× 1</p>
-                      <article className="ms-3">
-                        <p className="mapleProductHeading">
-                          Lightweight Stylish Casual Daypack
-                        </p>
-                        <span className="mapleProductcount">Yellow / M</span>
-                      </article>
-                    </div>
-                    <article>
-                      <p className="mapleProductPrice">$90.00</p>
-                    </article>
-                  </div>
-                  <div className="flexBox mapleProductDetailsBox">
-                    <div className="flexbase">
-                      <p className="mapleProductcount">× 1</p>
-                      <article className="ms-3">
-                        <p className="mapleProductHeading">
-                          Lightweight Stylish Casual Daypack
-                        </p>
-                        <span className="mapleProductcount">Yellow / M</span>
-                      </article>
-                    </div>
-                    <article>
-                      <p className="mapleProductPrice">$90.00</p>
-                    </article>
-                  </div>
-                  <div className="flexBox mapleProductDetailsBox">
-                    <div className="flexbase">
-                      <p className="mapleProductcount">× 1</p>
-                      <article className="ms-3">
-                        <p className="mapleProductHeading">
-                          Lightweight Stylish Casual Daypack
-                        </p>
-                        <span className="mapleProductcount">Yellow / M</span>
-                      </article>
-                    </div>
-                    <article>
-                      <p className="mapleProductPrice">$90.00</p>
-                    </article>
-                  </div>
+                  {itemsList?.map((data, idx) => {
+                    return (
+                      <div key={idx} className="flexBox mapleProductDetailsBox">
+                        <div className="flexbase">
+                          <p className="mapleProductcount">× {data?.qty}</p>
+                          <article className="ms-3">
+                            <p className="mapleProductHeading">
+                              {data?.product_name}
+                            </p>
+                            <span className="mapleProductcount">
+                              Yellow / M
+                            </span>
+                          </article>
+                        </div>
+                        <article>
+                          <p className="mapleProductPrice">${data?.price}</p>
+                        </article>
+                      </div>
+                    );
+                  })}
                 </div>
                 <div className="flexBox mapleInvoiceBox">
                   <article>
                     <p className="mapleProductPrice">Payment Option</p>
-                    <p className="mapleProductHeading">Cash</p>
+                    <p className="mapleProductHeading">
+                      {orderDetails?.mode_of_payment.toUpperCase()}
+                    </p>
                     <p className="mapleProductPrice">Invoice</p>
-                    <p className="mapleProductHeading"># 9836-1238</p>
+                    <p className="mapleProductHeading"># {invoiceNumber}</p>
                   </article>
                   <article>
                     <p className="mapleProductPrice">Date</p>
-                    <p className="mapleProductHeading">Wed 10/10/23</p>
+                    <p className="mapleProductHeading">
+                      {moment.utc(orderDetails?.date).format("ddd, DD/MM/YYYY")}
+                    </p>
                     <p className="mapleProductPrice">POS No.</p>
-                    <p className="mapleProductHeading">#Front-CC03</p>
+                    <p className="mapleProductHeading">#{posData?.pos_number}</p>
                   </article>
                   <article>
                     <p className="mapleProductPrice">Mode</p>
@@ -229,13 +233,13 @@ const RefundsConfirmation = () => {
                   <article>
                     <p className="productName">Subtotal</p>
                     <p className="productName">Discount</p>
-                    <p className="productName">Shipping</p>
+                    {/* <p className="productName">Shipping</p> */}
                     <p className="userName">Total</p>
                   </article>
                   <article>
                     <p className="productName">$933.50</p>
                     <p className="productName">15% ($13.50)</p>
-                    <p className="productName">$29.00</p>
+                    {/* <p className="productName">$29.00</p> */}
                     <p className="userName refundTotalBtn">$304.75</p>
                   </article>
                 </div>

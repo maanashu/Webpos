@@ -1,9 +1,7 @@
 import { toast } from "react-toastify";
 import { ApiClient } from "../../../utilities/api";
 import { ORDER_API_URL } from "../../../utilities/config";
-import {
-  onErrorStopLoad,
-} from "../../slices/customers";
+import { onErrorStopLoad } from "../../slices/customers";
 import { all, call, put, takeLatest } from "redux-saga/effects";
 import { setSidebarCountData } from "../../slices/shipping";
 
@@ -33,15 +31,16 @@ function* getShippingsSidebarCount(action) {
 }
 function* changeStatusOfOrder(action) {
   const dataToSend = { ...action.payload };
-  let id = dataToSend?.orderId
+  let id = dataToSend?.orderId;
   delete dataToSend.cb;
   delete dataToSend.orderId;
-  console.log(dataToSend,'data to send');
+  console.log(dataToSend, "data to send");
   const params = new URLSearchParams(dataToSend).toString();
   try {
     const resp = yield call(
       ApiClient.put,
-      `${ORDER_API_URL_V1}orders/status/${id}`,dataToSend
+      `${ORDER_API_URL_V1}orders/status/${id}`,
+      dataToSend
     );
     if (resp.status) {
       // yield put(setSidebarCountData(resp.data));
@@ -99,13 +98,13 @@ function* getShippingGraphData(action) {
   }
 }
 function* shippingSaga() {
-    yield all([
-      takeLatest("shipping/getShippingsSidebarCount", getShippingsSidebarCount),
-      takeLatest("shipping/changeStatusOfOrder", changeStatusOfOrder),
-      takeLatest("shipping/getShippingsStatus", getShippingsStatus),
-      takeLatest("shipping/getShippingstodayStatus", getShippingsStatus),
-      takeLatest("shipping/getShippingGraphData", getShippingGraphData),
-    ]);
-  }
-  
-  export default shippingSaga;
+  yield all([
+    takeLatest("shipping/getShippingsSidebarCount", getShippingsSidebarCount),
+    takeLatest("shipping/changeStatusOfOrder", changeStatusOfOrder),
+    takeLatest("shipping/getShippingsStatus", getShippingsStatus),
+    takeLatest("shipping/getShippingstodayStatus", getShippingsStatus),
+    takeLatest("shipping/getShippingGraphData", getShippingGraphData),
+  ]);
+}
+
+export default shippingSaga;
