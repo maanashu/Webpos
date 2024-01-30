@@ -8,6 +8,7 @@ import moment from 'moment-timezone';
 import { useDispatch, useSelector } from 'react-redux';
 import { selectLoginAuth } from '../../../redux/slices/auth';
 import AnalyticsRightsidebar from '../../../components/commanComonets/analytics/analyticsRightsidebar';
+import { PaginationFooter } from '../../../components/commanComonets/customers/PaginationFooter';
 
 const index = () => {
   const [timeSpan, setTimeSpan] = useState("week");
@@ -111,7 +112,7 @@ const index = () => {
         startDate={startDate}
         endDate={endDate}
       />
-      <div className='commonbdcontain_ '>
+      <div className='commonbdcontain_  analyticOuter'>
         <AnalyticsSubHeader
           mainIcon={gross_profit_blue}
           title="Top Selling Product"
@@ -151,107 +152,112 @@ const index = () => {
         </div>
 
         {/* table stats */}
-        <table className="customers-stats-table">
-          <thead>
-            <tr>
-              <th
-                className="customers-table-data"
-                style={{ border: "none", color: "#7E8AC1", textAlign: "center" }}
-              >
-                Product Name
-              </th>
-              <th
-                className="customers-table-data"
-                style={{ border: "none", color: "#7E8AC1", textAlign: "center" }}
-              >
-                UPC
-              </th>
-              <th
-                className="customers-table-data"
-                style={{ border: "none", color: "#7E8AC1", textAlign: "center" }}
-              >
-                Price
-              </th>
-              <th
-                className="customers-table-data"
-                style={{ border: "none", color: "#7E8AC1", textAlign: "center" }}
-              >
-                In Stock
-              </th>
-              <th
-                className="customers-table-data"
-                style={{ border: "none", color: "#7E8AC1", textAlign: "center" }}
-              >
-                Last Sold Date
-              </th>
-            </tr>
-          </thead>
-
-          {
-            analyticsData?.loading ? <tbody>
+        <div className='table-responsive analyticTable'>
+          <table className="customers-stats-table">
+            <thead>
               <tr>
-                <td colSpan="6" style={{ textAlign: "center" }}>
-                  Loading...
-                </td>
+                <th
+                  className="customers-table-data"
+                  style={{ border: "none", color: "#7E8AC1", textAlign: "center" }}
+                >
+                  Product Name
+                </th>
+                <th
+                  className="customers-table-data"
+                  style={{ border: "none", color: "#7E8AC1", textAlign: "center" }}
+                >
+                  UPC
+                </th>
+                <th
+                  className="customers-table-data"
+                  style={{ border: "none", color: "#7E8AC1", textAlign: "center" }}
+                >
+                  Price
+                </th>
+                <th
+                  className="customers-table-data"
+                  style={{ border: "none", color: "#7E8AC1", textAlign: "center" }}
+                >
+                  In Stock
+                </th>
+                <th
+                  className="customers-table-data"
+                  style={{ border: "none", color: "#7E8AC1", textAlign: "center" }}
+                >
+                  Last Sold Date
+                </th>
               </tr>
+            </thead>
 
-            </tbody>
-              : <>
-                {
-                  <>
-                    {
-                      totalProductSoldAnalyticsData?.totalProductSoldList?.data?.length > 0 ? <tbody>
-                        {totalProductSoldAnalyticsData?.totalProductSoldList?.data?.map((row, idx) => (
-                          <tr className="customers-table-row" key={idx}>
-                            <td
-                              className="customers-table-data"
-                            >
-                              {row?.product_name ? `${row?.product_name?.length > 25 ? `${row?.product_name?.slice(0, 25)}...` : row?.product_name}` : ""}
-                            </td>
-                            <td
-                              className="customers-table-data"
-                            >
-                              {row?.product_upc}
-                            </td>
-                            <td
-                              className="customers-table-data"
-                            // style={{ display: "flex", gap: "12px" }}
-                            >
-                              {`$${row?.total_price ? addThousandSeparator((row?.total_price)?.toFixed(2)) : "0"}`}
-                            </td>
-                            <td
-                              className="customers-table-data"
-                            >
-                              {row?.in_stock_qty}
-                            </td>
-                            <td
-                              className="customers-table-data"
-                            >
-                              {moment(row?.last_sold_date).format('MM/DD/YYYY')}
-                            </td>
-                            <td
-                              className="customers-table-data"
-                            >
-                              <button className="secondaryOuterbtn_" type="button">Review</button>
-                            </td>
-                          </tr>
-                        ))}
-                      </tbody> :
-                        <tbody>
-                          <tr>
-                            <td colSpan="6" style={{ textAlign: "center" }}>
-                              No Record Found
-                            </td>
-                          </tr>
-                        </tbody>
-                    }
-                  </>
+            {
+              analyticsData?.loading ? <tbody>
+                <tr>
+                  <td colSpan="6" style={{ textAlign: "center" }}>
+                    Loading...
+                  </td>
+                </tr>
 
-                }
-              </>
-          }
+              </tbody>
+                : <>
+                  {
+                    <>
+                      {
+                        totalProductSoldAnalyticsData?.totalProductSoldList?.data?.length > 0 ? <tbody>
+                          {totalProductSoldAnalyticsData?.totalProductSoldList?.data?.map((row, idx) => (
+                            <tr className="customers-table-row" key={idx}>
+                              <td
+                                className="customers-table-data"
+                              >
+                                {row?.product_name ? `${row?.product_name?.length > 25 ? `${row?.product_name?.slice(0, 25)}...` : row?.product_name}` : ""}
+                              </td>
+                              <td
+                                className="customers-table-data"
+                              >
+                                {row?.product_upc}
+                              </td>
+                              <td
+                                className="customers-table-data"
+                              // style={{ display: "flex", gap: "12px" }}
+                              >
+                                {`$${row?.total_price ? addThousandSeparator((row?.total_price)?.toFixed(2)) : "0"}`}
+                              </td>
+                              <td
+                                className="customers-table-data"
+                              >
+                                {row?.in_stock_qty}
+                              </td>
+                              <td
+                                className="customers-table-data"
+                              >
+                                {moment(row?.last_sold_date).format('MM/DD/YYYY')}
+                              </td>
+                              <td
+                                className="customers-table-data"
+                              >
+                                <button className="secondaryOuterbtn_" type="button">Review</button>
+                              </td>
+                            </tr>
+                          ))}
+                        </tbody> :
+                          <tbody>
+                            <tr>
+                              <td colSpan="6" style={{ textAlign: "center" }}>
+                                No Record Found
+                              </td>
+                            </tr>
+                          </tbody>
+                      }
+                    </>
 
-        </table>
+                  }
+                </>
+            }
+
+          </table>
+        </div>
+      </div>
+      <div className="paginatePosition">
+        <PaginationFooter />
       </div>
       <AnalyticsRightsidebar />
     </div>

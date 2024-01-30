@@ -121,7 +121,7 @@ const index = () => {
         startDate={startDate}
         endDate={endDate}
       />
-      <div className='commonbdcontain_ '>
+      <div className='commonbdcontain_  analyticOuter'>
         <AnalyticsSubHeader
           mainIcon={gross_profit_blue}
           title="Total Revenue"
@@ -161,151 +161,141 @@ const index = () => {
         </div>
 
         {/* table stats */}
-        <table className="customers-stats-table">
-          <thead>
-            <tr>
-              <th
-                className="customers-table-data"
-                style={{ border: "none", color: "#7E8AC1", textAlign: "center" }}
-              >
-                Date
-              </th>
-              <th
-                className="customers-table-data"
-                style={{ border: "none", color: "#7E8AC1", textAlign: "center" }}
-              >
-                Total Product
-              </th>
-              <th
-                className="customers-table-data"
-                style={{ border: "none", color: "#7E8AC1", textAlign: "center" }}
-              >
-                Total Price
-              </th>
-              <th
-                className="customers-table-data"
-                style={{ border: "none", color: "#7E8AC1", textAlign: "center" }}
-              >
-                Total Cost
-              </th>
-              <th
-                className="customers-table-data"
-                style={{ border: "none", color: "#7E8AC1", textAlign: "center" }}
-              >
-                Margin
-              </th>
-              <th
-                className="customers-table-data"
-                style={{ border: "none", color: "#7E8AC1", textAlign: "center" }}
-              >
-                Gross Profit
-              </th>
-            </tr>
-          </thead>
-
-          {
-            analyticsData?.loading ? <tbody>
+        <div className='table-responsive analyticTable'>
+          <table className="customers-stats-table">
+            <thead>
               <tr>
-                <td colSpan="6" style={{ textAlign: "center" }}>
-                  Loading...
-                </td>
+                <th
+                  className="customers-table-data"
+                  style={{ border: "none", color: "#7E8AC1", textAlign: "center" }}
+                >
+                  Date
+                </th>
+                <th
+                  className="customers-table-data"
+                  style={{ border: "none", color: "#7E8AC1", textAlign: "center" }}
+                >
+                  Total Product
+                </th>
+                <th
+                  className="customers-table-data"
+                  style={{ border: "none", color: "#7E8AC1", textAlign: "center" }}
+                >
+                  Total Price
+                </th>
+                <th
+                  className="customers-table-data"
+                  style={{ border: "none", color: "#7E8AC1", textAlign: "center" }}
+                >
+                  Total Cost
+                </th>
+                <th
+                  className="customers-table-data"
+                  style={{ border: "none", color: "#7E8AC1", textAlign: "center" }}
+                >
+                  Margin
+                </th>
+                <th
+                  className="customers-table-data"
+                  style={{ border: "none", color: "#7E8AC1", textAlign: "center" }}
+                >
+                  Gross Profit
+                </th>
               </tr>
+            </thead>
 
-            </tbody>
-              : <>
-                {
-                  <>
-                    {
-                      analyticsProfitData?.orderData?.data?.length > 0 ? <tbody>
-                        {analyticsProfitData?.orderData?.data?.map((row, idx) => (
-                          <tr className="customers-table-row">
-                            <td
-                              className="customers-table-data"
-                            >
-                              {moment(row?.order_date).format('MM/DD/YYYY')}
-                            </td>
-                            <td
-                              className="customers-table-data"
-                            // style={{ display: "flex", gap: "12px" }}
-                            >
-                              {row.total_items}
-                            </td>
-                            <td
-                              className="customers-table-data"
-                            >
-                              {`$${addThousandSeparator((row.total_price).toFixed(2))}`}
-                            </td>
-                            <td
-                              className="customers-table-data"
-                            >
-                              {`$${(row?.cost_sum).toFixed(2)}`}
-                            </td>
-                            <td
-                              className="customers-table-data"
-                            >
-                              {`${Math.round(row?.margin)}%`}
-                            </td>
-                            <td
-                              className="customers-table-data"
-                            >
-                              <b>${addThousandSeparator((row?.profit_sum).toFixed(2))}</b>
-                            </td>
-                          </tr>
-                        ))}
-                      </tbody> :
-                        <tbody>
-                          <tr>
-                            <td colSpan="6" style={{ textAlign: "center" }}>
-                              No Record Found
-                            </td>
-                          </tr>
+            {
+              analyticsData?.loading ? <tbody>
+                <tr>
+                  <td colSpan="6" style={{ textAlign: "center" }}>
+                    Loading...
+                  </td>
+                </tr>
 
-                        </tbody>
-                    }
-                  </>
+              </tbody>
+                : <>
+                  {
+                    <>
+                      {
+                        analyticsProfitData?.orderData?.data?.length > 0 ? <tbody>
+                          {analyticsProfitData?.orderData?.data?.map((row, idx) => (
+                            <tr className="customers-table-row">
+                              <td
+                                className="customers-table-data"
+                              >
+                                {moment(row?.order_date).format('MM/DD/YYYY')}
+                              </td>
+                              <td
+                                className="customers-table-data"
+                              // style={{ display: "flex", gap: "12px" }}
+                              >
+                                {row.total_items}
+                              </td>
+                              <td
+                                className="customers-table-data"
+                              >
+                                {`$${addThousandSeparator((row.total_price).toFixed(2))}`}
+                              </td>
+                              <td
+                                className="customers-table-data"
+                              >
+                                {`$${(row?.cost_sum).toFixed(2)}`}
+                              </td>
+                              <td
+                                className="customers-table-data"
+                              >
+                                {`${Math.round(row?.margin)}%`}
+                              </td>
+                              <td
+                                className="customers-table-data"
+                              >
+                                <b>${addThousandSeparator((row?.profit_sum).toFixed(2))}</b>
+                              </td>
+                            </tr>
+                          ))}
+                        </tbody> :
+                          <tbody>
+                            <tr>
+                              <td colSpan="6" style={{ textAlign: "center" }}>
+                                No Record Found
+                              </td>
+                            </tr>
 
-                }
-              </>
-          }
+                          </tbody>
+                      }
+                    </>
 
-        </table>
+                  }
+                </>
+            }
+
+          </table>
+        </div>
         {
           (analyticsProfitData?.orderData?.data?.length > 0 && !analyticsData?.loading) &&
           <div className='paginatePosition'>
-            <div className="pagination-footer flex-row-space-between">
-              <div className="flex-row-space-between" onClick={() => {
+            <div className="paginationMain">
+              <div className="paginateFlex active" onClick={() => {
                 (page > 1) ? setPage(page - 1) : void (0);
               }}>
-                <Image
-                  src={ArrowLeft}
-                  width={16}
-                  height={16}
+                <Image src={ArrowLeft} width={16} height={16} className="paginationArrowImg" alt="ArrowLeft image"
                 />
-                <p
-                  style={{
-                    color: "#B4BEEB",
-                  }}
-                  className="pagination-footer-text"
-                >
+                <h4 className="prevText">
                   Prev
-                </p>
+                </h4>
               </div>
-              <p
-                style={{
-                  color: "#B4BEEB",
-                }}
-                className="pagination-footer-text"
-              >
+              <h4 className="settingSub">
                 Page {page} to {Math.ceil(totalRecords / 10)}
-              </p>
-              <div className="flex-row-space-between" onClick={() => {
+              </h4>
+              <div className="paginateFlex" onClick={() => {
                 (page < (Math.ceil(totalRecords / 10))) ? setPage(page + 1) : void (0);
               }}>
-                <p className="pagination-footer-text">Next</p>
+                <h4 className="prevText">Next</h4>
                 <Image
                   src={ArrowRight}
                   width={16}
                   height={16}
+                  className="paginationArrowImg" alt="ArrowRight image"
                 />
               </div>
             </div>
