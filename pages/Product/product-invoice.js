@@ -87,7 +87,6 @@ const ProductInvoice = () => {
     setKey(Math.random());
   };
 
- 
   return (
     <>
       <div className="productInvoice">
@@ -464,7 +463,9 @@ const ProductInvoice = () => {
         }
         child={
           modalDetail.flag === "manualEntry" ? (
-            <Manualinvoice closeManulModal={() => handleOnCloseModal()} />
+            <Manualinvoice closeManulModal={() => handleOnCloseModal()}
+            productDetails={productDetails}
+            />
           ) : (
             ""
           )
