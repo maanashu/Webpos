@@ -63,16 +63,16 @@ const CashSummary = ({ props, title, modalType }) => {
           <h4 className="trackingHeading">Enter amount </h4>
         </div>
         <form className="trackingForm">
-          {/* <h4 className="amountText">Enter Amount</h4> */}
+          {/* <h4 className="amountText">Enter Amount</h4>
           <div className="inputSelect mt-2">
-            {/* <input className="form-control trackingInput" type="text" placeholder=" $  500.00" /> */}
+            <input className="form-control trackingInput" type="text" placeholder=" $  500.00" />
             <input
               type="number"
               className="form-control trackingInput"
-              // name={generateRandomName}
-              // autoComplete="new-password"
+              name={generateRandomName}
+              autoComplete="new-password"
               placeholder=" $  500.00"
-              // value={amount}
+              value={amount}
               onChange={(e) => setAmount(e.target.value)}
             />
             <select name="cars" id="cars" className="trackingSelect">
@@ -81,15 +81,32 @@ const CashSummary = ({ props, title, modalType }) => {
               <option value="mercedes">Mercedes</option>
               <option value="audi">Audi</option>
             </select>
+          </div> */}
+          <div className="summaryDetail">
+            <h4 className="cashText">Cash Summary</h4>
+            <hr className="dottedDivide" />
+            <div className="flexDiv">
+              <h4 className="cancelOrderText">Amount Expected</h4>
+              <h4 className="cancelOrderText">$6,589.00</h4>
+            </div>
+            <hr className="dottedDivide" />
+            <div className="flexDiv">
+              <h4 className="cancelOrderText">Amount Counted</h4>
+              <h4 className="cancelOrderText">$6,589.00</h4>
+            </div>
+            <hr className="dottedDivide" />
+            <div className="flexDiv">
+              <h4 className="endCashText">Discrepancy</h4>
+              <h4 className="endCashText">- $489.00</h4>
+            </div>
           </div>
-
           <div className="verifyBtn mt-4">
             <button
               className="nextverifyBtn w-100"
               type="button"
-              //   onClick={() => {
-              //     drawerSessionInfo();
-              //   }}
+            //   onClick={() => {
+            //     drawerSessionInfo();
+            //   }}
             >
               Confirm
               <Image

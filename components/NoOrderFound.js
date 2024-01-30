@@ -5,7 +5,7 @@ const NoOrderFound = () => {
     <div className="no_order_found">
       <h2
         className="customerLink text-center"
-        style={{ textAlign: "center", marginTop: 100 }}
+        style={{ textAlign: "center", marginTop: 0 }}
       >
         No order found
       </h2>

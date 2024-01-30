@@ -4367,7 +4367,7 @@ figure {
   background-color: #fff;
   height: 1px;
   width: 100%;
-  border-style: dashed;
+  border-style: dotted;
 }
 
 #barcodeScanModal {
@@ -5288,6 +5288,34 @@ figure {
   min-width: 80px;
 }
 
+#ordersToReview .invoice_subhead:first-child {
+  min-width: 250px;
+}
+
+.shipOrderSection .declineButton {
+  width: 42%;
+}
+
+#returnedOrder .invoice_subhead:nth-child(3) {
+  min-width: 250px;
+}
+
+#printingLabel .invoice_subhead:first-child {
+  min-width: 80px;
+}
+
+.cashText {
+  color: #263682;
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.endCashText {
+  color: #F04438;
+  font-size: 16px;
+  font-weight: 500;
+}
+
 /*gaurav arora sir css start*/
 .headingTextStyle {
   color: #263682;
@@ -5409,6 +5437,7 @@ figure {
   font-style: normal;
   font-weight: 500;
 }
+
 .order-second-progress {
   position: absolute;
   height: 123px;
@@ -5423,11 +5452,13 @@ figure {
   justify-content: center;
   margin: 30px 0;
 }
+
 .order-all-progress-inner {
   position: relative;
   height: 145px;
   width: 145px;
 }
+
 .order-third-progress {
   position: absolute;
   height: 100px;
@@ -5435,4 +5466,5 @@ figure {
   top: 23px;
   left: 23px;
 }
+
 /*gaurav arora sir css end*/
