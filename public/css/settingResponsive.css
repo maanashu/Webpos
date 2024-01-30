@@ -51,6 +51,28 @@
         flex-wrap: wrap;
         height: auto;
     }
+    .getQRCode {
+        margin-right: 4px;
+    }
+    .enableSecurity .descriptionTextStylesmall {
+        font-size: 16px;
+        line-height: 23px;
+    }
+    .leftqrCode_ .descriptionTextStylesmall {
+        font-size: 13px;
+        line-height: 18px;
+        margin-top: 7px;
+    }
+    .leftqrCode_ .headingTextStyle {
+        font-size: 14px;
+    }
+    .leftqrCode_ {
+     
+        padding-right: 20px;
+    }
+    .mainqrbox_{
+        padding: 24px 10px 24px 10px!important;
+    }
 }
 
 @media (max-width: 375px) {

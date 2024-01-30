@@ -95,14 +95,18 @@ const Security = () => {
   return (
     <>
       <div className="securityRight settingOuter">
-      <Image src={Images.passwordLock} alt="darkDevices image" className="img-fluid" />
-        <div className="w-100">
+        <div className="topsettingContent_">
+          <Image src={Images.passwordLock} alt="darkDevices image" className="img-fluid" />
           <div className="headingTextStyle mb-2">2-Step Verification</div>
-          <div className="lightOfferText">
+          <p className="lightOfferText">
             An extra layer to boost your team members account security. A
             verification code will be required in addition to password each time you
             sign in.
-          </div>
+          </p>
+
+        </div>
+        <div className="w-100 bottonContent_">
+
           <div className="shadowBox twofaBox_">
             <div className="twofsContent">
               <h4 className="cancelOrderText mb-3">2-step verification for team members</h4>
@@ -114,17 +118,17 @@ const Security = () => {
                   handleChangeActivateSecurity(e)
                 }} />
             </div> */}
-             <h6 className="settingText">
-              Team members must enable their own verification methods.
-            </h6>
+              <h6 className="settingText">
+                Team members must enable their own verification methods.
+              </h6>
             </div>
-           
+
             <div class="roundCheck mb-0">
-                <input class="checkbox" type="checkbox" id="flexSwitchCheckChecked" checked={getProfileDetails} onChange={(e) => {
-                  handleChangeActivateSecurity(e)
-                }} />
-                <label class="form-check-label d-none" for="flexSwitchCheckChecked"></label>
-              </div>
+              <input class="checkbox" type="checkbox" id="flexSwitchCheckChecked" checked={getProfileDetails} onChange={(e) => {
+                handleChangeActivateSecurity(e)
+              }} />
+              <label class="form-check-label d-none" for="flexSwitchCheckChecked"></label>
+            </div>
           </div>
         </div>
       </div>
@@ -180,10 +184,10 @@ const Security = () => {
             width: 100%;
         }">
             <div className="common_ common_crossBtn">
-              { modalDetail.flag === "GetSecurityScaner" || modalDetail.flag === "SecurityVerification" || modalDetail.flag === "ResetSecurityPin" ? (
+              {modalDetail.flag === "GetSecurityScaner" || modalDetail.flag === "SecurityVerification" || modalDetail.flag === "ResetSecurityPin" ? (
                 <>
                   <button type="button " className="crossBtn" data-bs-dismiss="modal" aria-label="Close" onClick={() => handleOnCloseModal()}>
-                  <i class="fas fa-times"></i>
+                    <i class="fas fa-times"></i>
                   </button>
                 </>
               ) : ""}

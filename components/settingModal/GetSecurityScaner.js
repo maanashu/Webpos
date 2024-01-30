@@ -17,7 +17,7 @@ const GetSecurityScanerCode = (props) => {
     return (
         <>
             <div>
-                <div style={{
+                <div className="mainqrbox_" style={{
                     backgroundColor: "#FFFFFF",
                     padding: "24px 38px 24px 52px",
                     flexDirection: "row",
@@ -35,7 +35,7 @@ const GetSecurityScanerCode = (props) => {
                         </span>
                         :
                         <div>
-                            <Image src={props?.getSecurityScnerCode} alt="img" width="250" height="250" />
+                            <Image className="qrimages_" src={props?.getSecurityScnerCode} alt="img" width="150" height="150" />
                         </div>}
                 </div>
 
