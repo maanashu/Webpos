@@ -26,12 +26,13 @@ const ActivateSecurity = (props) => {
 
     return (
         <>
-            <div className="m-4">
-                <div className={styles.modalTitleStyle}>Enable 2-Steps Security</div>
-                <div className={styles.descriptionTextStyle}>
+            <div className="m-4 enableSecurity">
+                <Image className="sercureImg mb-4" src={Images.enablesec}/>
+                <h3 className="headingTextStyle mb-2">Enable 2-Steps Security</h3>
+                <p className="descriptionTextStylesmall">
                     Step 1. Download Google Authenticator from the Google Play Store or
                     the iOS App Store.
-                </div>
+                </p>
                 <div className={styles.box}>
                     <a
                         href="https://play.google.com/store/apps/details?id=com.google.android.apps.authenticator2"
