@@ -1,5 +1,7 @@
 import moment from "moment-timezone";
 
+var pSBCr = null;
+
 export const createFullAddress = (address) => {
   return `${address?.current_address?.street_address || " "}, ${
     address?.current_address?.city || " "
@@ -142,8 +144,8 @@ export const pSBC = (p, c0, c1, l) => {
     (c1 && !a)
   )
     return null;
-  if (!this.pSBCr)
-    this.pSBCr = (d) => {
+  if (!pSBCr)
+    pSBCr = (d) => {
       let n = d.length,
         x = {};
       if (n > 9) {
@@ -178,11 +180,11 @@ export const pSBC = (p, c0, c1, l) => {
     };
   (h = c0.length > 9),
     (h = a ? (c1.length > 9 ? true : c1 == "c" ? !h : false) : h),
-    (f = this.pSBCr(c0)),
+    (f = pSBCr(c0)),
     (P = p < 0),
     (t =
       c1 && c1 != "c"
-        ? this.pSBCr(c1)
+        ? pSBCr(c1)
         : P
         ? { r: 0, g: 0, b: 0, a: -1 }
         : { r: 255, g: 255, b: 255, a: -1 }),

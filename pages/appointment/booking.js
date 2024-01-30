@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useMemo } from "react";
 import {
   Dimensions,
   ScrollView,
@@ -12,6 +12,7 @@ import * as Images from "../../utilities/images";
 import Image from "next/image";
 import { ListGroup, ListGroupItem } from "react-bootstrap";
 import Link from "next/link";
+import { useDispatch, useSelector } from "react-redux";
 import CommonSideBar from "../../components/commanComonets/appointmentSide/commonSideBar";
 // import { Calendar } from 'react-native-big-calendar'
 import CalendarHeaderWithOptions from "../../components/CalendarHeaderWithOptions";
@@ -24,6 +25,8 @@ import { CALENDAR_MODES, CALENDAR_VIEW_MODES } from "../../constants/enums";
 import moment from "moment-timezone";
 import { Spacer } from "../../components/Spacer";
 import CheckinModal from "../../components/modals/appointmentModal/checkinModal";
+import { getAppointments, bookingsDetails } from "../../redux/slices/bookings";
+import { selectLoginAuth } from "../../redux/slices/auth";
 
 const Booking = () => {
   const [key, setKey] = useState(Math.random());
@@ -33,6 +36,7 @@ const Booking = () => {
     title: "",
     flag: "",
   });
+  const dispatch = useDispatch();
   const [week, setWeek] = useState(true);
   const [month, setMonth] = useState(false);
   const [day, setDay] = useState(false);
@@ -44,6 +48,16 @@ const Booking = () => {
   const [calendarViewMode, setCalendarViewMode] = useState(
     CALENDAR_VIEW_MODES.CALENDAR_VIEW
   );
+  const [pageNumber, setPageNumber] = useState(1);
+  const appointmentsDetails = useSelector(bookingsDetails);
+  const getAppointmentList = appointmentsDetails?.getAppointment;
+  const getAppointmentList2 = getAppointmentList?.filter(
+    (item) => item.status !== 3
+  );
+  // Only show appointments on calendar which are approved/Check-In/Completed/CancelledByCustomer
+  const getApprovedAppointments = getAppointmentList?.filter(
+    (item) => item.status === 1 || item.status === 2 || item.status === 3
+  );
   const weekDays = [
     "Sunday",
     "Monday",
@@ -53,6 +67,7 @@ const Booking = () => {
     "Friday",
     "Saturday",
   ];
+  const [showRequestsView, setshowRequestsView] = useState(false);
   const [selectedStaffData, setSelectedStaffData] = useState(null);
   const [employeeHeaderLayouts, setEmployeeHeaderLayouts] = useState([]);
   const [selectedStaffEmployeeId, setSelectedStaffEmployeeId] = useState(null);
@@ -65,13 +80,65 @@ const Booking = () => {
     setCalendarDate(calendarDate.clone().add(1, calendarMode));
   const prevMonth = () =>
     setCalendarDate(calendarDate.clone().subtract(1, calendarMode));
+  const [extractedAppointment, setExtractedAppointment] = useState([]);
+
+  const authData = useSelector(selectLoginAuth);
+
+  const UniqueId = authData?.usersInfo?.payload?.uniqe_id
+    ? authData?.usersInfo?.payload?.uniqe_id
+    : "";
 
   useEffect(() => {
-    // if (isFocused || showRequestsView) {
-    //   dispatch(getAppointment(pageNumber));
-    // }
+    let params = {
+      seller_id: UniqueId,
+      need_upcoming: true,
+      page: pageNumber,
+      limit: 10,
+    };
+    dispatch(
+      getAppointments({
+        params,
+        cb(res) {
+          if (res.status) {
+          }
+        },
+      })
+    );
+
     getCurrentMonthDays();
-  }, [calendarDate]);
+  }, [pageNumber, showRequestsView, calendarDate]);
+
+  const getAppointmentsForSelectedStaff = () => {
+    const filteredAppointments = getApprovedAppointments?.filter(
+      (appointments) => appointments?.pos_user_id === selectedStaffEmployeeId
+    );
+
+    return filteredAppointments;
+  };
+
+  useEffect(() => {
+    if (getApprovedAppointments) {
+      const approvedAppointmentsFor = selectedStaffEmployeeId
+        ? getAppointmentsForSelectedStaff()
+        : getApprovedAppointments;
+
+      const extractedAppointmentEvents = approvedAppointmentsFor.map(
+        (booking) => {
+          const startDateTime = new Date(booking.start_date_time);
+          const endDateTime = new Date(booking.end_date_time);
+
+          return {
+            title: booking?.product_name || "NULL",
+            start: startDateTime,
+            end: endDateTime,
+            completeData: booking,
+          };
+        }
+      );
+
+      setExtractedAppointment(extractedAppointmentEvents);
+    }
+  }, [getAppointmentList, selectedStaffEmployeeId]);
 
   const weekHandler = () => {
     setCalendarMode(CALENDAR_MODES.WEEK);
@@ -147,6 +214,15 @@ const Booking = () => {
     });
     setKey(Math.random());
   };
+
+  const getAppointmentsByDate = useMemo(() => {
+    const filteredAppointmentsByDate = getAppointmentList?.filter(
+      (appointment) =>
+        moment.utc(appointment?.date).format("L") ===
+        moment.utc(calendarDate).format("L")
+    );
+    return filteredAppointmentsByDate;
+  }, [calendarDate, appointmentsDetails]);
 
   const renderMonthItem = ({ item, index }) => {
     const isSelected = calendarDate.date() == item.day;
@@ -319,789 +395,220 @@ const Booking = () => {
             onPressListViewMode={onPressListViewMode}
           />
 
-          {/* <div className='row'>
-                        <div className='col-lg-12'>
-                            <div className='bookingNavBar'>
-                                <div className='booking'>
-                                    <div className='d-flex align-items-center'>
-                                        <figure className='book'>
-                                            <Image src={Images.bookImg} alt="" className="img-fluid bookiImg me-2 " />
-                                        </figure>
-                                        <h6 className='fontEighteen  me-4'>Bookings</h6>
-                                    </div>
-
-                                    <div className='appointmenMonth bookingCall'>
-                                        <div className='monthCalendar'>
-                                            <Image src={Images.calendarBlue} alt='calendarimage' className='img-fluid' />
-                                            <span className='monthText ms-2'>October 2023</span>
-                                            <Image src={Images.arrowDown} alt='calendarimage' className='img-fluid ms-5' />
-                                        </div>
-                                    </div>
-                                </div>
-                                <div className='bookingRight d-flex align-items-center'>
-                                    <Image src={Images.notification} alt='noti' className='img-fluid  me-3' />
-                                    <div className='seacrhBox me-3'>
-                                        <Image src={Images.SearchIcon} alt='blueSearch' className='img-fluid  blueSearch me-2' />
-                                        <div class="bookingsearchBar">
-                                            <input type="text" class="form-control searchControlbook" placeholder="" />
-                                        </div>
-                                    </div>
-
-                                    <div className='appointmenMonth bgBooking me-3'>
-                                        <div className='monthCalendar bgCalendar'>
-                                            <Image src={Images.calendarDark} alt='calendardark' className='img-fluid' />
-                                            <span className='monthText ms-2'>Calendar View</span>
-                                        </div>
-                                    </div>
-                                    <button className='listBtn'> <Image src={Images.listImg} alt='listIMAGES' className='img-fluid me-2 ' />List View</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div> */}
-
           {/* Second Navbar */}
           <div className="row">
-            {calendarViewMode === CALENDAR_VIEW_MODES.CALENDAR_VIEW ? (
-              <Calendar
-                ampm={true}
-                swipeEnabled={false}
-                date={calendarDate}
-                mode={calendarMode}
-                events={[]}
-                hourRowHeight={windowHeight * 0.1}
-                height={windowHeight * 0.91}
-                {...(showEmployeeHeader
-                  ? {
-                      renderHeader: () => employeeHeader(),
-                      renderHeaderForMonthView: () => employeeHeader(),
-                    }
-                  : {})}
-                isEventOrderingEnabled={false}
-                headerContainerStyle={{
-                  height: calendarMode === CALENDAR_MODES.MONTH ? "auto" : 70,
-                  backgroundColor: "#fff",
-                  paddingTop: 5,
-                }}
-                dayHeaderHighlightColor={"rgb(66, 133, 244)"}
-                hourComponent={CustomHoursCell}
-                renderEvent={(event, touchableOpacityProps, allEvents) =>
-                  CustomEventCell(
-                    event,
-                    touchableOpacityProps,
-                    allEvents,
-                    calendarMode,
-                    employeeHeaderLayouts,
-                    showEmployeeHeader
-                  )
-                }
-              />
-            ) : (
-              <div className="col-lg-12">
-                <Spacer space={16} />
-
-                <View
-                  style={{ backgroundColor: "#fff", paddingHorizontal: 10 }}
-                >
-                  <FlatList
-                    showsHorizontalScrollIndicator={false}
-                    horizontal
-                    data={monthDays}
-                    keyExtractor={(_, index) => index.toString()}
-                    renderItem={renderMonthItem}
-                  />
-                  <Spacer space={8} />
-
-                  <View
-                    style={{
-                      flexDirection: "row",
-                      alignItems: "baseline",
-                      marginVertical: 10,
-                    }}
-                  >
-                    <Text style={{ fontSize: 24, color: "#263682" }}>
-                      {moment(calendarDate).format("dddd")}
-                    </Text>
-                    <Spacer space={5} horizontal />
-                    <Text style={{ fontSize: 14, color: "#8D99D2" }}>
-                      {moment(calendarDate).format("Do") ??
-                        moment().format("Do")}
-                    </Text>
-                  </View>
-                </View>
-
-                {/* <div className="invoiceHeader">
-                  <h5 className="totalrefundAmount">
-                    Monday <span className="fontEighteen">12th </span>
-                  </h5>
-                </div> */}
-                <div className="commanscrollBar InvoiceTableBox">
-                  <div className="table-responsive">
-                    <table id="bookingTable" className="product_table ">
-                      <thead className="invoiceHeadingBox">
-                        <tr>
-                          <th className="invoiceHeading">Client</th>
-                          <th className="invoiceHeading">Staff</th>
-                          <th className="invoiceHeading">Service</th>
-                          <th className="invoiceHeading">Time</th>
-                          <th className="invoiceHeading"></th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        <tr className="product_invoice bookCheck">
-                          <td className="invoice_subhead">
-                            <div className="d-flex">
-                              <figure className="">
-                                <Image
-                                  src={Images.userAvtar}
-                                  alt="avtar"
-                                  className="avtarImg me-2"
-                                />
-                              </figure>
-                              <div className="">
-                                <span className="subHeadText">
-                                  Elena Sergeyevna
-                                </span>
-                                <div>
-                                  <Image
-                                    src={Images.locatePurple}
-                                    alt="locate"
-                                    className="locate me-2"
-                                  />
-                                  <span className="purpleText">
-                                    Kiev, Ukraine
-                                  </span>
-                                </div>
-                              </div>
-                            </div>
-                          </td>
-                          <td className="invoice_subhead">
-                            <span className="subHeadText">Marianne Müller</span>
-                          </td>
-
-                          <td className="invoice_subhead">
-                            <span className="subHeadText">Haircut</span>
-                          </td>
-                          <td className="invoice_subhead">
-                            <Image
-                              src={Images.clockImg}
-                              alt="clock"
-                              className="clockImg me-2"
-                            />
-                            <span className="subHeadText">
-                              10:00 - 11:00 am
-                            </span>
-                          </td>
-
-                          <td className="invoice_subhead">
-                            <div className="checkinBg">
-                              <figure
-                                className="checkinBox me-2 "
-                                onClick={() => {
-                                  handleUserProfile("checkIn");
-                                }}
-                              >
-                                <span className="textSmall me-2">Check-in</span>
-                                <Image
-                                  src={Images.checkImg}
-                                  alt="money"
-                                  className="moneyImg"
-                                />
-                              </figure>
-                              <button className="editBtn">
-                                <Image
-                                  src={Images.editImg}
-                                  alt="editImg"
-                                  className="editImg"
-                                />
-                              </button>
-                            </div>
-                          </td>
-                        </tr>
-                        <tr className="product_invoice active">
-                          <td className="invoice_subhead">
-                            <div className="d-flex">
-                              <figure className="">
-                                <Image
-                                  src={Images.userAvtar}
-                                  alt="avtar"
-                                  className="avtarImg me-2"
-                                />
-                              </figure>
-                              <div className="">
-                                <span className="subHeadText">
-                                  Elena Sergeyevna
-                                </span>
-                                <div>
-                                  <Image
-                                    src={Images.locatePurple}
-                                    alt="locate"
-                                    className="locate me-2"
-                                  />
-                                  <span className="purpleText">
-                                    Kiev, Ukraine
-                                  </span>
-                                </div>
-                              </div>
-                            </div>
-                          </td>
-                          <td className="invoice_subhead">
-                            <span className="subHeadText">Marianne Müller</span>
-                          </td>
-
-                          <td className="invoice_subhead">
-                            <span className="subHeadText">Haircut</span>
-                          </td>
-                          <td className="invoice_subhead">
-                            <Image
-                              src={Images.clockImg}
-                              alt="clock"
-                              className="clockImg me-2"
-                            />
-                            <span className="subHeadText">
-                              10:00 - 11:00 am
-                            </span>
-                          </td>
-
-                          <td className="invoice_subhead">
-                            <div className="checkinBg">
-                              <div className="completed">
-                                <span className="textSmall me-2">
-                                  Completed
-                                </span>
-                                <Image
-                                  src={Images.complete}
-                                  alt="complete"
-                                  className="completeimg"
-                                />
-                              </div>
-                            </div>
-                          </td>
-                        </tr>
-                        <tr className="product_invoice bookCheck">
-                          <td className="invoice_subhead">
-                            <div className="d-flex">
-                              <figure className="">
-                                <Image
-                                  src={Images.userAvtar}
-                                  alt="avtar"
-                                  className="avtarImg me-2"
-                                />
-                              </figure>
-                              <div className="">
-                                <span className="subHeadText">
-                                  Elena Sergeyevna
-                                </span>
-                                <div>
-                                  <Image
-                                    src={Images.locatePurple}
-                                    alt="locate"
-                                    className="locate me-2"
-                                  />
-                                  <span className="purpleText">
-                                    Kiev, Ukraine
-                                  </span>
-                                </div>
-                              </div>
-                            </div>
-                          </td>
-                          <td className="invoice_subhead">
-                            <span className="subHeadText">Marianne Müller</span>
-                          </td>
-
-                          <td className="invoice_subhead">
-                            <span className="subHeadText">Haircut</span>
-                          </td>
-                          <td className="invoice_subhead">
-                            <Image
-                              src={Images.clockImg}
-                              alt="clock"
-                              className="clockImg me-2"
-                            />
-                            <span className="subHeadText">
-                              10:00 - 11:00 am
-                            </span>
-                          </td>
-
-                          <td className="invoice_subhead">
-                            <div className="checkinBg">
-                              <figure className="checkinBox me-2">
-                                <span className="textSmall me-2">Check-in</span>
-                                <Image
-                                  src={Images.checkImg}
-                                  alt="money"
-                                  className="moneyImg"
-                                />
-                              </figure>
-                              <button className="editBtn">
-                                <Image
-                                  src={Images.editImg}
-                                  alt="editImg"
-                                  className="editImg"
-                                />
-                              </button>
-                            </div>
-                          </td>
-                        </tr>
-                        <tr className="product_invoice bookCheck">
-                          <td className="invoice_subhead">
-                            <div className="d-flex">
-                              <figure className="">
-                                <Image
-                                  src={Images.userAvtar}
-                                  alt="avtar"
-                                  className="avtarImg me-2"
-                                />
-                              </figure>
-                              <div className="">
-                                <span className="subHeadText">
-                                  Elena Sergeyevna
-                                </span>
-                                <div>
-                                  <Image
-                                    src={Images.locatePurple}
-                                    alt="locate"
-                                    className="locate me-2"
-                                  />
-                                  <span className="purpleText">
-                                    Kiev, Ukraine
-                                  </span>
-                                </div>
-                              </div>
-                            </div>
-                          </td>
-                          <td className="invoice_subhead">
-                            <span className="subHeadText">Marianne Müller</span>
-                          </td>
-
-                          <td className="invoice_subhead">
-                            <span className="subHeadText">Haircut</span>
-                          </td>
-                          <td className="invoice_subhead">
-                            <Image
-                              src={Images.clockImg}
-                              alt="clock"
-                              className="clockImg me-2"
-                            />
-                            <span className="subHeadText">
-                              10:00 - 11:00 am
-                            </span>
-                          </td>
-
-                          <td className="invoice_subhead">
-                            <div className="checkinBg">
-                              <figure className="checkinBox me-2">
-                                <span className="textSmall me-2">Check-in</span>
-                                <Image
-                                  src={Images.checkImg}
-                                  alt="money"
-                                  className="moneyImg"
-                                />
-                              </figure>
-                              <button className="editBtn">
-                                <Image
-                                  src={Images.editImg}
-                                  alt="editImg"
-                                  className="editImg"
-                                />
-                              </button>
-                            </div>
-                          </td>
-                        </tr>
-                        <tr className="product_invoice bookCheck">
-                          <td className="invoice_subhead">
-                            <div className="d-flex">
-                              <figure className="">
-                                <Image
-                                  src={Images.userAvtar}
-                                  alt="avtar"
-                                  className="avtarImg me-2"
-                                />
-                              </figure>
-                              <div className="">
-                                <span className="subHeadText">
-                                  Elena Sergeyevna
-                                </span>
-                                <div>
-                                  <Image
-                                    src={Images.locatePurple}
-                                    alt="locate"
-                                    className="locate me-2"
-                                  />
-                                  <span className="purpleText">
-                                    Kiev, Ukraine
-                                  </span>
-                                </div>
-                              </div>
-                            </div>
-                          </td>
-                          <td className="invoice_subhead">
-                            <span className="subHeadText">Marianne Müller</span>
-                          </td>
-
-                          <td className="invoice_subhead">
-                            <span className="subHeadText">Haircut</span>
-                          </td>
-                          <td className="invoice_subhead">
-                            <Image
-                              src={Images.clockImg}
-                              alt="clock"
-                              className="clockImg me-2"
-                            />
-                            <span className="subHeadText">
-                              10:00 - 11:00 am
-                            </span>
-                          </td>
-
-                          <td className="invoice_subhead">
-                            <div className="checkinBg">
-                              <figure className="checkinBox me-2">
-                                <span className="textSmall me-2">Check-in</span>
-                                <Image
-                                  src={Images.checkImg}
-                                  alt="money"
-                                  className="moneyImg"
-                                />
-                              </figure>
-                              <button className="editBtn">
-                                <Image
-                                  src={Images.editImg}
-                                  alt="editImg"
-                                  className="editImg"
-                                />
-                              </button>
-                            </div>
-                          </td>
-                        </tr>
-                        <tr className="product_invoice bookCheck">
-                          <td className="invoice_subhead">
-                            <div className="d-flex">
-                              <figure className="">
-                                <Image
-                                  src={Images.userAvtar}
-                                  alt="avtar"
-                                  className="avtarImg me-2"
-                                />
-                              </figure>
-                              <div className="">
-                                <span className="subHeadText">
-                                  Elena Sergeyevna
-                                </span>
-                                <div>
-                                  <Image
-                                    src={Images.locatePurple}
-                                    alt="locate"
-                                    className="locate me-2"
-                                  />
-                                  <span className="purpleText">
-                                    Kiev, Ukraine
-                                  </span>
-                                </div>
-                              </div>
-                            </div>
-                          </td>
-                          <td className="invoice_subhead">
-                            <span className="subHeadText">Marianne Müller</span>
-                          </td>
-
-                          <td className="invoice_subhead">
-                            <span className="subHeadText">Haircut</span>
-                          </td>
-                          <td className="invoice_subhead">
-                            <Image
-                              src={Images.clockImg}
-                              alt="clock"
-                              className="clockImg me-2"
-                            />
-                            <span className="subHeadText">
-                              10:00 - 11:00 am
-                            </span>
-                          </td>
-
-                          <td className="invoice_subhead">
-                            <div className="checkinBg">
-                              <figure className="checkinBox me-2">
-                                <span className="textSmall me-2">Check-in</span>
-                                <Image
-                                  src={Images.checkImg}
-                                  alt="money"
-                                  className="moneyImg"
-                                />
-                              </figure>
-                              <button className="editBtn">
-                                <Image
-                                  src={Images.editImg}
-                                  alt="editImg"
-                                  className="editImg"
-                                />
-                              </button>
-                            </div>
-                          </td>
-                        </tr>
-                        <tr className="product_invoice bookCheck">
-                          <td className="invoice_subhead">
-                            <div className="d-flex">
-                              <figure className="">
-                                <Image
-                                  src={Images.userAvtar}
-                                  alt="avtar"
-                                  className="avtarImg me-2"
-                                />
-                              </figure>
-                              <div className="">
-                                <span className="subHeadText">
-                                  Elena Sergeyevna
-                                </span>
-                                <div>
-                                  <Image
-                                    src={Images.locatePurple}
-                                    alt="locate"
-                                    className="locate me-2"
-                                  />
-                                  <span className="purpleText">
-                                    Kiev, Ukraine
-                                  </span>
-                                </div>
-                              </div>
-                            </div>
-                          </td>
-                          <td className="invoice_subhead">
-                            <span className="subHeadText">Marianne Müller</span>
-                          </td>
-
-                          <td className="invoice_subhead">
-                            <span className="subHeadText">Haircut</span>
-                          </td>
-                          <td className="invoice_subhead">
-                            <Image
-                              src={Images.clockImg}
-                              alt="clock"
-                              className="clockImg me-2"
-                            />
-                            <span className="subHeadText">
-                              10:00 - 11:00 am
-                            </span>
-                          </td>
-
-                          <td className="invoice_subhead">
-                            <div className="checkinBg">
-                              <figure className="checkinBox me-2">
-                                <span className="textSmall me-2">Check-in</span>
-                                <Image
-                                  src={Images.checkImg}
-                                  alt="money"
-                                  className="moneyImg"
-                                />
-                              </figure>
-                              <button className="editBtn">
-                                <Image
-                                  src={Images.editImg}
-                                  alt="editImg"
-                                  className="editImg"
-                                />
-                              </button>
-                            </div>
-                          </td>
-                        </tr>
-                        <tr className="product_invoice bookCheck">
-                          <td className="invoice_subhead">
-                            <div className="d-flex">
-                              <figure className="">
-                                <Image
-                                  src={Images.userAvtar}
-                                  alt="avtar"
-                                  className="avtarImg me-2"
-                                />
-                              </figure>
-                              <div className="">
-                                <span className="subHeadText">
-                                  Elena Sergeyevna
-                                </span>
-                                <div>
-                                  <Image
-                                    src={Images.locatePurple}
-                                    alt="locate"
-                                    className="locate me-2"
-                                  />
-                                  <span className="purpleText">
-                                    Kiev, Ukraine
-                                  </span>
-                                </div>
-                              </div>
-                            </div>
-                          </td>
-                          <td className="invoice_subhead">
-                            <span className="subHeadText">Marianne Müller</span>
-                          </td>
-
-                          <td className="invoice_subhead">
-                            <span className="subHeadText">Haircut</span>
-                          </td>
-                          <td className="invoice_subhead">
-                            <Image
-                              src={Images.clockImg}
-                              alt="clock"
-                              className="clockImg me-2"
-                            />
-                            <span className="subHeadText">
-                              10:00 - 11:00 am
-                            </span>
-                          </td>
-
-                          <td className="invoice_subhead">
-                            <div className="checkinBg">
-                              <figure className="checkinBox me-2">
-                                <span className="textSmall me-2">Check-in</span>
-                                <Image
-                                  src={Images.checkImg}
-                                  alt="money"
-                                  className="moneyImg"
-                                />
-                              </figure>
-                              <button className="editBtn">
-                                <Image
-                                  src={Images.editImg}
-                                  alt="editImg"
-                                  className="editImg"
-                                />
-                              </button>
-                            </div>
-                          </td>
-                        </tr>
-                        <tr className="product_invoice bookCheck">
-                          <td className="invoice_subhead">
-                            <div className="d-flex">
-                              <figure className="">
-                                <Image
-                                  src={Images.userAvtar}
-                                  alt="avtar"
-                                  className="avtarImg me-2"
-                                />
-                              </figure>
-                              <div className="">
-                                <span className="subHeadText">
-                                  Elena Sergeyevna
-                                </span>
-                                <div>
-                                  <Image
-                                    src={Images.locatePurple}
-                                    alt="locate"
-                                    className="locate me-2"
-                                  />
-                                  <span className="purpleText">
-                                    Kiev, Ukraine
-                                  </span>
-                                </div>
-                              </div>
-                            </div>
-                          </td>
-                          <td className="invoice_subhead">
-                            <span className="subHeadText">Marianne Müller</span>
-                          </td>
-
-                          <td className="invoice_subhead">
-                            <span className="subHeadText">Haircut</span>
-                          </td>
-                          <td className="invoice_subhead">
-                            <Image
-                              src={Images.clockImg}
-                              alt="clock"
-                              className="clockImg me-2"
-                            />
-                            <span className="subHeadText">
-                              10:00 - 11:00 am
-                            </span>
-                          </td>
-
-                          <td className="invoice_subhead">
-                            <div className="checkinBg">
-                              <figure className="checkinBox me-2">
-                                <span className="textSmall me-2">Check-in</span>
-                                <Image
-                                  src={Images.checkImg}
-                                  alt="money"
-                                  className="moneyImg"
-                                />
-                              </figure>
-                              <button className="editBtn">
-                                <Image
-                                  src={Images.editImg}
-                                  alt="editImg"
-                                  className="editImg"
-                                />
-                              </button>
-                            </div>
-                          </td>
-                        </tr>
-                        <tr className="product_invoice bookCheck">
-                          <td className="invoice_subhead">
-                            <div className="d-flex">
-                              <figure className="">
-                                <Image
-                                  src={Images.userAvtar}
-                                  alt="avtar"
-                                  className="avtarImg me-2"
-                                />
-                              </figure>
-                              <div className="">
-                                <span className="subHeadText">
-                                  Elena Sergeyevna
-                                </span>
-                                <div>
-                                  <Image
-                                    src={Images.locatePurple}
-                                    alt="locate"
-                                    className="locate me-2"
-                                  />
-                                  <span className="purpleText">
-                                    Kiev, Ukraine
-                                  </span>
-                                </div>
-                              </div>
-                            </div>
-                          </td>
-                          <td className="invoice_subhead">
-                            <span className="subHeadText">Marianne Müller</span>
-                          </td>
-
-                          <td className="invoice_subhead">
-                            <span className="subHeadText">Haircut</span>
-                          </td>
-                          <td className="invoice_subhead">
-                            <Image
-                              src={Images.clockImg}
-                              alt="clock"
-                              className="clockImg me-2"
-                            />
-                            <span className="subHeadText">
-                              10:00 - 11:00 am
-                            </span>
-                          </td>
-
-                          <td className="invoice_subhead">
-                            <div className="checkinBg">
-                              <figure className="checkinBox me-2">
-                                <span className="textSmall me-2">Check-in</span>
-                                <Image
-                                  src={Images.checkImg}
-                                  alt="money"
-                                  className="moneyImg"
-                                />
-                              </figure>
-                              <button className="editBtn">
-                                <Image
-                                  src={Images.editImg}
-                                  alt="editImg"
-                                  className="editImg"
-                                />
-                              </button>
-                            </div>
-                          </td>
-                        </tr>
-                      </tbody>
-                    </table>
+            {appointmentsDetails?.loading ? (
+              <>
+                <tbody>
+                  <div className="loaderOuter">
+                    <div className="spinner-grow loaderSpinner text-center my-5"></div>
                   </div>
-                </div>
-              </div>
+                </tbody>
+              </>
+            ) : (
+              <>
+                {calendarViewMode === CALENDAR_VIEW_MODES.CALENDAR_VIEW ? (
+                  <Calendar
+                    ampm={true}
+                    swipeEnabled={false}
+                    date={calendarDate}
+                    mode={calendarMode}
+                    events={extractedAppointment}
+                    hourRowHeight={windowHeight * 0.1}
+                    height={windowHeight * 0.91}
+                    {...(showEmployeeHeader
+                      ? {
+                          renderHeader: () => employeeHeader(),
+                          renderHeaderForMonthView: () => employeeHeader(),
+                        }
+                      : {})}
+                    isEventOrderingEnabled={false}
+                    headerContainerStyle={{
+                      height:
+                        calendarMode === CALENDAR_MODES.MONTH ? "auto" : 70,
+                      backgroundColor: "#fff",
+                      paddingTop: 5,
+                    }}
+                    dayHeaderHighlightColor={"rgb(66, 133, 244)"}
+                    hourComponent={CustomHoursCell}
+                    renderEvent={(event, touchableOpacityProps, allEvents) =>
+                      CustomEventCell(
+                        event,
+                        touchableOpacityProps,
+                        allEvents,
+                        calendarMode,
+                        employeeHeaderLayouts,
+                        showEmployeeHeader
+                      )
+                    }
+                  />
+                ) : (
+                  <div className="col-lg-12">
+                    <Spacer space={16} />
+
+                    <View
+                      style={{ backgroundColor: "#fff", paddingHorizontal: 10 }}
+                    >
+                      <FlatList
+                        showsHorizontalScrollIndicator={false}
+                        horizontal
+                        data={monthDays}
+                        keyExtractor={(_, index) => index.toString()}
+                        renderItem={renderMonthItem}
+                      />
+                      <Spacer space={8} />
+
+                      <View
+                        style={{
+                          flexDirection: "row",
+                          alignItems: "baseline",
+                          marginVertical: 10,
+                        }}
+                      >
+                        <Text style={{ fontSize: 24, color: "#263682" }}>
+                          {moment(calendarDate).format("dddd")}
+                        </Text>
+                        <Spacer space={5} horizontal />
+                        <Text style={{ fontSize: 14, color: "#8D99D2" }}>
+                          {moment(calendarDate).format("Do") ??
+                            moment().format("Do")}
+                        </Text>
+                      </View>
+                    </View>
+                    <div className="commanscrollBar InvoiceTableBox">
+                      <div className="table-responsive">
+                        <table id="bookingTable" className="product_table ">
+                          <thead className="invoiceHeadingBox">
+                            <tr>
+                              <th className="invoiceHeading">Client</th>
+                              <th className="invoiceHeading">Staff</th>
+                              <th className="invoiceHeading">Service</th>
+                              <th className="invoiceHeading">Time</th>
+                              <th className="invoiceHeading"></th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            {getAppointmentsByDate?.length > 0 ? (
+                              <>
+                                {getAppointmentsByDate?.map((item, index) => {
+                                  const userDetails = item?.user_details;
+                                  const invitedUserDetails =
+                                    item?.invitation_details;
+                                  const userId = item?.user_id;
+                                  const customerDetails =
+                                    userId != null
+                                      ? userDetails
+                                      : invitedUserDetails;
+                                  const userAddress =
+                                    userDetails?.current_address;
+                                  const posUserDetails =
+                                    item?.pos_user_details?.user?.user_profiles;
+                                  const appointmentID = item?.id;
+
+                                  return (
+                                    <tr className="product_invoice bookCheck">
+                                      <td className="invoice_subhead">
+                                        <div className="d-flex">
+                                          <figure className="">
+                                            <Image
+                                              src={
+                                                customerDetails?.profile_photo ??
+                                                Images.userAvtar
+                                              }
+                                              alt="avtar"
+                                              className="avtarImg me-2"
+                                            />
+                                          </figure>
+                                          <div className="">
+                                            <span className="subHeadText">
+                                              {customerDetails?.firstname +
+                                                " " +
+                                                customerDetails?.lastname}
+                                            </span>
+                                            <div>
+                                              <Image
+                                                src={Images.locatePurple}
+                                                alt="locate"
+                                                className="locate me-2"
+                                              />
+                                              <span className="purpleText">
+                                                Kiev, Ukraine
+                                              </span>
+                                            </div>
+                                          </div>
+                                        </div>
+                                      </td>
+                                      <td className="invoice_subhead">
+                                        <span className="subHeadText">
+                                          {posUserDetails?.firstname +
+                                            " " +
+                                            posUserDetails?.lastname}
+                                        </span>
+                                      </td>
+
+                                      <td className="invoice_subhead">
+                                        <span className="subHeadText">
+                                          {item?.product_name}
+                                        </span>
+                                      </td>
+                                      <td className="invoice_subhead">
+                                        <Image
+                                          src={Images.clockImg}
+                                          alt="clock"
+                                          className="clockImg me-2"
+                                        />
+                                        <span className="subHeadText">
+                                          {`${item?.start_time}-${item?.end_time}`}
+                                        </span>
+                                      </td>
+
+                                      <td className="invoice_subhead">
+                                        <div className="checkinBg">
+                                          <figure
+                                            className="checkinBox me-2 "
+                                            onClick={() => {
+                                              handleUserProfile("checkIn");
+                                            }}
+                                          >
+                                            <span className="textSmall me-2">
+                                              {item?.status}
+                                            </span>
+                                            <Image
+                                              src={Images.checkImg}
+                                              alt="money"
+                                              className="moneyImg"
+                                            />
+                                          </figure>
+                                          <button className="editBtn">
+                                            <Image
+                                              src={Images.editImg}
+                                              alt="editImg"
+                                              className="editImg"
+                                            />
+                                          </button>
+                                        </div>
+                                      </td>
+                                    </tr>
+                                  );
+                                })}
+                              </>
+                            ) : (
+                              <tr>
+                                <td
+                                  className="colorBlue text text-center py-3"
+                                  colSpan={8}
+                                >
+                                  No Record Found
+                                </td>
+                              </tr>
+                            )}
+                          </tbody>
+                        </table>
+                      </div>
+                    </div>
+                  </div>
+                )}
+              </>
             )}
           </div>
         </div>
