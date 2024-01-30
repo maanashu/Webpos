@@ -56,7 +56,7 @@ export const deliverySlice = createSlice({
       state.orderDetail = action?.payload;
     },
     acceptOrder: (state) => {
-      state.acceptOrderLoading = true;
+      state.acceptOrderLoading = false;
     },
     setAcceptOrder: (state) => {
       state.acceptOrderLoading = false;

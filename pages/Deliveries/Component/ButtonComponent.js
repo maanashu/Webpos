@@ -17,7 +17,7 @@ const ButtonComponent = ({
     <div className="shippingOrdersViewStyle">
       {selected === "0" && (
         <div className="flexBox ">
-          {isLoading ? (
+          {/* {isLoading ? (
             <button
               onClick={declineHandler}
               className="declineButton w-100"
@@ -25,17 +25,17 @@ const ButtonComponent = ({
             >
               <span className="spinner-border spinner-border-sm"></span>
             </button>
-          ) : (
-            <button
-              onClick={declineHandler}
-              className="declineButton w-100"
-              type="button"
-            >
-              {" "}
-              Decline
-            </button>
-          )}
-          {isLoading ? (
+          ) : ( */}
+          <button
+            onClick={declineHandler}
+            className="declineButton w-100"
+            type="button"
+          >
+            {" "}
+            Decline
+          </button>
+          {/* )} */}
+          {/* {isLoading ? (
             <button
               onClick={acceptHandler}
               type="button"
@@ -43,20 +43,20 @@ const ButtonComponent = ({
             >
               <span className="spinner-border spinner-border-sm"></span>
             </button>
-          ) : (
-            <button
-              onClick={acceptHandler}
-              type="button"
-              className="BlueBtn w-100"
-            >
-              Accept
-              <Image
-                src={Images.ArrowRight}
-                alt="ArrowRight"
-                className="img-fluid ArrowRight"
-              />
-            </button>
-          )}
+          ) : ( */}
+          <button
+            onClick={acceptHandler}
+            type="button"
+            className="BlueBtn w-100"
+          >
+            Accept
+            <Image
+              src={Images.ArrowRight}
+              alt="ArrowRight"
+              className="img-fluid ArrowRight"
+            />
+          </button>
+          {/* )} */}
         </div>
       )}
 
@@ -119,7 +119,7 @@ const ButtonComponent = ({
       )} */}
       {selected == "1" && (
         <div className="flexBox ">
-          {isLoading ? (
+          {/* {isLoading ? (
             <button
               onClick={acceptHandler}
               type="button"
@@ -127,25 +127,25 @@ const ButtonComponent = ({
             >
               <span className="spinner-border spinner-border-sm"></span>
             </button>
-          ) : (
-            <button
-              onClick={acceptHandler}
-              type="button"
-              className="preparedBtn w-100"
-            >
-              Order Prepared
-              <Image
-                src={Images.ArrowRight}
-                alt="ArrowRight"
-                className="img-fluid ArrowRight"
-              />
-            </button>
-          )}
+          ) : ( */}
+          <button
+            onClick={acceptHandler}
+            type="button"
+            className="preparedBtn w-100"
+          >
+            Order Prepared
+            <Image
+              src={Images.ArrowRight}
+              alt="ArrowRight"
+              className="img-fluid ArrowRight"
+            />
+          </button>
+          {/* )} */}
         </div>
       )}
       {selected == "2" && (
         <div className="flexBox ">
-          {!isLoading ? (
+          {/* {!isLoading ? (
             <button
               onClick={acceptHandler}
               type="button"
@@ -153,26 +153,26 @@ const ButtonComponent = ({
             >
               <span className="spinner-border spinner-border-sm"></span>
             </button>
-          ) : (
-            <button
-              onClick={acceptHandler}
-              type="button"
-              className="preparedBtn w-100"
-            >
-              Ready to Pickup
-              <Image
-                src={Images.ArrowRight}
-                alt="ArrowRight"
-                className="img-fluid ArrowRight"
-              />
-            </button>
-          )}
+          ) : ( */}
+          <button
+            onClick={acceptHandler}
+            type="button"
+            className="preparedBtn w-100"
+          >
+            Ready to Pickup
+            <Image
+              src={Images.ArrowRight}
+              alt="ArrowRight"
+              className="img-fluid ArrowRight"
+            />
+          </button>
+          {/* )} */}
         </div>
       )}
 
       {selected >= "3" && orderStatus !== 7 && orderStatus !== 8 && (
         <div className="flexBox ">
-          {isLoading ? (
+          {/* {isLoading ? (
             <button
               onClick={acceptHandler}
               type="button"
@@ -180,16 +180,20 @@ const ButtonComponent = ({
             >
               <span className="spinner-border spinner-border-sm"></span>
             </button>
-          ) : (
-            <button type="button" className="preparedBtn w-100">
-              Ready to Pickup
-              <Image
-                src={Images.ArrowRight}
-                alt="ArrowRight"
-                className="img-fluid ArrowRight"
-              />
-            </button>
-          )}
+          ) : ( */}
+          <button
+            onClick={acceptHandler}
+            type="button"
+            className="preparedBtn w-100"
+          >
+            Ready to Pickup
+            <Image
+              src={Images.ArrowRight}
+              alt="ArrowRight"
+              className="img-fluid ArrowRight"
+            />
+          </button>
+          {/* )} */}
         </div>
       )}
 
