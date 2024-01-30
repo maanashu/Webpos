@@ -30,6 +30,11 @@ const initialState = {
   timeSlots: [],
   addToCartServiceLoad: false,
   clearOneProductLoad: false,
+  merchantWalletCheckLoad: false,
+  getWalletQrLoad: false,
+  walletQrData: {},
+  getWalletQrLoad: false,
+  walletGetByPhoneData: [],
 };
 
 export const retailsSlice = createSlice({
@@ -201,6 +206,30 @@ export const retailsSlice = createSlice({
       state.clearOneProductLoad = false;
       // state.timeSlots = action?.payload?.payload?.slots;
     },
+
+    merchantWalletCheck: (state) => {
+      state.merchantWalletCheckLoad = true;
+    },
+    setMerchantWalletCheck: (state, action) => {
+      state.merchantWalletCheckLoad = false;
+      // state.timeSlots = action?.payload?.payload?.slots;
+    },
+
+    getWalletQr: (state) => {
+      state.getWalletQrLoad = true;
+    },
+    setWalletQr: (state, action) => {
+      state.getWalletQrLoad = false;
+      state.walletQrData = action?.payload?.payload;
+    },
+
+    walletGetByPhone: (state) => {
+      state.walletGetByPhoneLoad = true;
+    },
+    setwalletByPhone: (state, action) => {
+      state.walletGetByPhoneLoad = false;
+      state.walletGetByPhoneData = action?.payload?.payload?.data;
+    },
     onErrorStopLoad: (state) => {
       state.loading = false;
       state.availableOffersLoad = false;
@@ -213,6 +242,9 @@ export const retailsSlice = createSlice({
       state.addToCartServiceLoad = false;
       state.checkSuppliedVariantLoad = false;
       state.clearOneProductLoad = false;
+      state.merchantWalletCheckLoad = false;
+      state.getWalletQrLoad = false;
+      state.walletGetByPhoneLoad = false;
     },
   },
 });
@@ -261,6 +293,12 @@ export const {
   setAddToCartService,
   clearOneProduct,
   setClearOneProduct,
+  merchantWalletCheck,
+  setMerchantWalletCheck,
+  getWalletQr,
+  setWalletQr,
+  walletGetByPhone,
+  setwalletByPhone,
 } = retailsSlice.actions;
 
 export const selectRetailData = (state) => state.retails;

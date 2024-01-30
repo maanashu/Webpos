@@ -1,15 +1,11 @@
 import React, { useEffect, useState } from "react";
 import * as Images from "../../utilities/images";
 import Image from "next/image";
-import CustomModal from "../../components/customModal/CustomModal";
-import PhoneReceiptModal from "../../components/modals/homeModals/service/phoneReceiptModal";
-import EmailReceiptModal from "../../components/modals/homeModals/service/emailReceiptModal";
-import GiftCardModal from "../../components/modals/homeModals/service/giftCardModal";
-import JobrWalletModal from "../../components/modals/homeModals/service/jobrWalletModal";
-import Link from "next/link";
 import { useRouter } from "next/router";
 import {
   getTips,
+  getWalletQr,
+  merchantWalletCheck,
   productCart,
   selectRetailData,
   setProductCart,
@@ -30,6 +26,10 @@ import AttachWithPhone from "./AttachWithPhone";
 import AttachWithEmail from "./AttachWithEmail";
 import AddedCartItemsCard from "../../components/AddedCartItemsCard";
 import moment from "moment-timezone";
+import { toast } from "react-toastify";
+import JbrCoin from "./JbrCoin";
+import CustomModal from "../../components/customModal/CustomModal";
+import JobrWalletModal from "../../components/modals/homeModals/service/jobrWalletModal";
 
 const CartAmountByPay = () => {
   const router = useRouter();
@@ -52,6 +52,7 @@ const CartAmountByPay = () => {
   const [selectedRecipeIndex, setSelectedRecipeIndex] = useState(null);
   const [phoneModal, setPhoneModal] = useState(false);
   const [emailModal, setEmailModal] = useState(false);
+  const [qrModal, setQrModal] = useState(false);
   const [modalDetail, setModalDetail] = useState({
     show: false,
     title: "",
@@ -476,11 +477,53 @@ const CartAmountByPay = () => {
                     </div>
                     <div className="text-center mb-4 mt-4 ">
                       <button
+                        disabled={
+                          retailData?.merchantWalletCheckLoad ? true : false
+                        }
                         className="nextverifyBtn"
                         type="submit"
-                        onClick={() => alert("coming soon")}
+                        onClick={() => {
+                          let params = {
+                            seller_id: sellerId,
+                          };
+                          dispatch(
+                            merchantWalletCheck({
+                              ...params,
+                              cb: (res) => {
+                                if (res?.user_profiles?.wallet_steps <= 4) {
+                                  toast.error(
+                                    "Please complete your wallet steps"
+                                  );
+                                } else {
+                                  let params = {
+                                    tip: selectedTipAmount.toString(),
+                                    cartId: cartData.id,
+                                  };
+                                  dispatch(getWalletQr(params));
+                                  setModalDetail({
+                                    show: true,
+                                    flag: "jobrWallet",
+                                  });
+                                  setKey(Math.random());
+
+                                  dispatch(
+                                    updateCartByTip({
+                                      ...params,
+                                      cb() {
+                                        dispatch(productCart());
+                                      },
+                                    })
+                                  );
+                                }
+                              },
+                            })
+                          );
+                        }}
                       >
                         Confirm
+                        {retailData?.merchantWalletCheckLoad && (
+                          <span className="spinner-border spinner-border-sm mx-1"></span>
+                        )}
                       </button>
                     </div>
                   </div>
@@ -588,6 +631,11 @@ const CartAmountByPay = () => {
         />
       </Modal>
 
+      {/* Qr modal popup */}
+      <Modal show={qrModal} centered keyboard={false} id={"jobrWalletModal"}>
+        <JbrCoin crossHandler={() => setQrModal(false)} />
+      </Modal>
+
       {/* <CustomModal
         key={key}
         show={modalDetail.show}
@@ -622,8 +670,8 @@ const CartAmountByPay = () => {
           </>
         }
         onCloseModal={() => handleOnCloseModal()}
-      /> */}
-      {/* <CustomModal
+      />  */}
+      <CustomModal
         key={key}
         show={modalDetail.show}
         backdrop="static"
@@ -652,7 +700,7 @@ const CartAmountByPay = () => {
           ) : modalDetail.flag === "giftCard" ? (
             <GiftCardModal close={() => handleOnCloseModal()} />
           ) : modalDetail.flag === "jobrWallet" ? (
-            <JobrWalletModal close={() => handleOnCloseModal()} />
+            <JbrCoin crossHandler={() => handleOnCloseModal()} />
           ) : (
             ""
           )
@@ -737,7 +785,7 @@ const CartAmountByPay = () => {
           )
         }
         onCloseModal={() => handleOnCloseModal()}
-      /> */}
+      />
       {retailData?.updateCartByTipLoad && <FullScrennLoader />}
     </>
   );

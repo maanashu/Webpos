@@ -49,7 +49,7 @@ const ProductCart = () => {
   const onlyProductCartArray = cartData?.poscart_products?.filter(
     (item) => item?.product_type == "product"
   );
-  
+
   const cartLength = onlyProductCartArray?.length;
 
   const [modalDetail, setModalDetail] = useState({
@@ -70,7 +70,7 @@ const ProductCart = () => {
   const offers = () => {
     let params = {
       seller_id: sellerId,
-      type : 'product'
+      type: "product",
     };
     dispatch(
       availableOffers({
@@ -313,13 +313,11 @@ const ProductCart = () => {
                           <h4 className="invoice_subhead p-0">
                             {amountFormat(getProductFinalPrice(data))}
                           </h4>
-                          {
-                                retailData?.clearOneProductLoad ||
-                               retailData?.productCartLoad
-                                ?
-                                <span className="spinner-border spinner-border-sm mx-1"></span>
-                                :
-                                <div
+                          {retailData?.clearOneProductLoad ||
+                          retailData?.productCartLoad ? (
+                            <span className="spinner-border spinner-border-sm mx-1"></span>
+                          ) : (
+                            <div
                               onClick={() => {
                                 let params = {
                                   cartId: cartData?.id,
@@ -336,19 +334,14 @@ const ProductCart = () => {
                                 );
                               }}
                             >
-                              
-
                               <Image
                                 src={Images.redCross}
                                 alt="crossImage"
                                 className="img-fluid ms-2"
                               />
                             </div>
+                          )}
 
-
-
-                              }
-                          
                           {/* {retailData?.clearOneProductLoad ||
                           retailData?.productCartLoad ? (
                             productById == data?.id && (
@@ -466,7 +459,15 @@ const ProductCart = () => {
                 </div>
 
                 <div className="offerdata">
-                  {availableOffersArray?.length > 0 ? (
+                  {retailData?.availableOffersLoad ? (
+                    <div className="loaderOuter">
+                      <span className="spinner-border spinner-border-sm mx-1"></span>
+                    </div>
+                  ) : availableOffersArray?.length == 0 ? (
+                    <h6 className="mt-3 mb-3 text-center">
+                      No available offers Found!
+                    </h6>
+                  ) : (
                     availableOffersArray?.map((offers, index) => {
                       return (
                         <div
@@ -528,18 +529,6 @@ const ProductCart = () => {
                         </div>
                       );
                     })
-                  ) : (
-                    <>
-                      {availableOffersArray?.length == null ? (
-                        <h6 className="mt-3 mb-3">
-                          No available offers Found!
-                        </h6>
-                      ) : (
-                        <div className="loaderOuter">
-                          <span className="spinner-border spinner-border-sm mx-1"></span>
-                        </div>
-                      )}
-                    </>
                   )}
                 </div>
               </div>

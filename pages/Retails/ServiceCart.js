@@ -28,8 +28,6 @@ import {
   noCartFun,
 } from "../../utilities/globalMethods";
 import { Modal } from "react-bootstrap";
-import CustomProductAdd from "./CustomProductAdd";
-import { flightRouterStateSchema } from "next/dist/server/app-render/types";
 import AttachCustomer from "./AttachCustomer";
 import moment from "moment-timezone";
 import CustomServiceAdd from "./CustomServiceAdd";
@@ -47,11 +45,11 @@ const ServiceCart = () => {
   const [customProductAdd, setCustomProductAdd] = useState(false);
   const [attachCustomerModal, setAttachCustomerModal] = useState(false);
   const [productById, setProductById] = useState();
-const [customServiceAdd, setCustomServiceAdd] = useState(false)
+  const [customServiceAdd, setCustomServiceAdd] = useState(false);
   const onlyServiceCartArray = cartData?.poscart_products?.filter(
     (item) => item?.product_type == "service"
   );
-  
+
   const cartLength = onlyServiceCartArray?.length;
 
   const [modalDetail, setModalDetail] = useState({
@@ -72,7 +70,7 @@ const [customServiceAdd, setCustomServiceAdd] = useState(false)
   const offers = () => {
     let params = {
       seller_id: sellerId,
-      type : 'service'
+      type: "service",
     };
     dispatch(
       availableOffers({
@@ -228,7 +226,7 @@ const [customServiceAdd, setCustomServiceAdd] = useState(false)
             <div className="commanOuter me-0 commonSubOuter fullCartLeft">
               <div className="fullCartInfo">
                 <div className="appointmentHeading">
-                  <Link href="/Retails?parameter=product">
+                  <Link href="/Retails?parameter=services">
                     <Image
                       src={Images.boldLeftArrow}
                       alt="leftarrow image"
@@ -284,26 +282,29 @@ const [customServiceAdd, setCustomServiceAdd] = useState(false)
                             <div className="flexTable mt-1">
                               {/* <div className="productGreyDot"></div> */}
                               <h6 className="loginPara ms-1">
-                              {moment.utc(data?.date).format('LL')} @
-                                  {data?.start_time + '-' + data?.end_time}
+                                {moment.utc(data?.date).format("LL")} @
+                                {data?.start_time + "-" + data?.end_time}
                               </h6>
-
                             </div>
                             <div className="flexTable mt-1">
-                            <Image
-                            src={data?.pos_user_details?.user?.user_profiles
-                              ?.profile_photo}
-                            alt="cartFoodImg"
-                            className="img-fluid cartFoodImg"
-                            width="100"
-                            height="100"
-                          />
-                            <h6 className="loginPara ms-1">
-                            {data?.pos_user_details?.user?.user_profiles?.firstname +
-                                      ' ' +
-                                      data?.pos_user_details?.user?.user_profiles?.lastname}
+                              <Image
+                                src={
+                                  data?.pos_user_details?.user?.user_profiles
+                                    ?.profile_photo
+                                }
+                                alt="cartFoodImg"
+                                className="img-fluid cartFoodImg"
+                                width="100"
+                                height="100"
+                              />
+                              <h6 className="loginPara ms-1">
+                                {data?.pos_user_details?.user?.user_profiles
+                                  ?.firstname +
+                                  " " +
+                                  data?.pos_user_details?.user?.user_profiles
+                                    ?.lastname}
                               </h6>
-                              </div>
+                            </div>
                           </div>
                         </div>
                       </div>
@@ -316,7 +317,7 @@ const [customServiceAdd, setCustomServiceAdd] = useState(false)
                             data.qty
                           )
                         )}
-                      <p>{data?.qty}</p>
+                        <p>{data?.qty}</p>
                         {/* <div className="incrementBtn ">
                           <i
                             className="fa-solid fa-minus plusMinus"
@@ -333,13 +334,11 @@ const [customServiceAdd, setCustomServiceAdd] = useState(false)
                           <h4 className="invoice_subhead p-0">
                             {amountFormat(getProductFinalPrice(data))}
                           </h4>
-                          {
-                                retailData?.clearOneProductLoad ||
-                               retailData?.productCartLoad
-                                ?
-                                <span className="spinner-border spinner-border-sm mx-1"></span>
-                                :
-                                <div
+                          {retailData?.clearOneProductLoad ||
+                          retailData?.productCartLoad ? (
+                            <span className="spinner-border spinner-border-sm mx-1"></span>
+                          ) : (
+                            <div
                               onClick={() => {
                                 let params = {
                                   cartId: cartData?.id,
@@ -356,19 +355,14 @@ const [customServiceAdd, setCustomServiceAdd] = useState(false)
                                 );
                               }}
                             >
-                              
-
                               <Image
                                 src={Images.redCross}
                                 alt="crossImage"
                                 className="img-fluid ms-2"
                               />
                             </div>
+                          )}
 
-
-
-                              }
-                          
                           {/* {retailData?.clearOneProductLoad ||
                           retailData?.productCartLoad ? (
                             productById == data?.id && (
@@ -484,9 +478,16 @@ const [customServiceAdd, setCustomServiceAdd] = useState(false)
                   </figure>
                   <h4 className="offerHeading">Available Offer</h4>
                 </div>
-
                 <div className="offerdata">
-                  {availableOffersArray?.length > 0 ? (
+                  {retailData?.availableOffersLoad ? (
+                    <div className="loaderOuter">
+                      <span className="spinner-border spinner-border-sm mx-1"></span>
+                    </div>
+                  ) : availableOffersArray?.length == 0 ? (
+                    <h6 className="mt-3 mb-3 text-center">
+                      No available offers Found!
+                    </h6>
+                  ) : (
                     availableOffersArray?.map((offers, index) => {
                       return (
                         <div
@@ -548,18 +549,6 @@ const [customServiceAdd, setCustomServiceAdd] = useState(false)
                         </div>
                       );
                     })
-                  ) : (
-                    <>
-                      {availableOffersArray?.length == null ? (
-                        <h6 className="mt-3 mb-3">
-                          No available offers Found!
-                        </h6>
-                      ) : (
-                        <div className="loaderOuter">
-                          <span className="spinner-border spinner-border-sm mx-1"></span>
-                        </div>
-                      )}
-                    </>
                   )}
                 </div>
               </div>
@@ -636,17 +625,15 @@ const [customServiceAdd, setCustomServiceAdd] = useState(false)
                   className="nextverifyBtn w-100 mt-3"
                   type="submit"
                   onClick={() => {
-                    if(Object.keys(cartData?.user_details)?.length == 0){
-                      setAttachCustomerModal(true)
-                    }else{
+                    if (Object.keys(cartData?.user_details)?.length == 0) {
+                      setAttachCustomerModal(true);
+                    } else {
                       router.push({ pathname: "/Retails/CartAmountByPay" });
                       let params = {
                         seller_id: sellerId,
                       };
                       dispatch(getDrawerSession(params));
                     }
-
-                   
                   }}
                 >
                   Proceed to checkout
@@ -661,8 +648,8 @@ const [customServiceAdd, setCustomServiceAdd] = useState(false)
           </div>
         </div>
       </div>
-         {/* custom service add popup */}
-         <Modal show={customServiceAdd} centered keyboard={false}>
+      {/* custom service add popup */}
+      <Modal show={customServiceAdd} centered keyboard={false}>
         <CustomServiceAdd crosshandler={() => setCustomServiceAdd(false)} />
       </Modal>
 
