@@ -9,6 +9,9 @@ import moment from "moment-timezone";
 
 const RefundsConfirmation = () => {
   const router = useRouter();
+  console.log(router.query,'router');
+  const totalSum=router?.query?.totalSum
+  const subtotal=router?.query?.subtotal
   const itemsList = JSON.parse(router.query.selectedItems || "[]");
   const authData = useSelector(selectLoginAuth);
   const posData=authData?.posUserLoginDetails?.payload
@@ -46,7 +49,7 @@ const RefundsConfirmation = () => {
               </button>
               <div className="refundMethod">
                 <h4 className="totalRefund">Total Return Amount</h4>
-                <h5 className="totalrefundAmount">$304.75</h5>
+                <h5 className="totalrefundAmount">${totalSum}</h5>
                 <p className="userPosition">
                   Select a method of payment to refund.
                 </p>
@@ -63,7 +66,7 @@ const RefundsConfirmation = () => {
                       <p>debit/credit</p>
                     </article>
                     <p className="cardNumber pt-5">●●●● ●●●● ●●●● 7224</p>
-                    <p className="priceRefunded">$304.75</p>
+                    <p className="priceRefunded">${totalSum}</p>
                   </div>
                 </div>
                 <div className="col-lg-4">
@@ -81,7 +84,7 @@ const RefundsConfirmation = () => {
                       />
                       <p>cash</p>
                     </article>
-                    <p className="priceRefunded">$304.75</p>
+                    <p className="priceRefunded">${totalSum}</p>
                   </div>
                 </div>
                 <div className="col-lg-4">
@@ -94,7 +97,7 @@ const RefundsConfirmation = () => {
                       />
                       <p>jobr coin</p>
                     </article>
-                    <p className="priceRefunded">$304.75</p>
+                    <p className="priceRefunded">${totalSum}</p>
                   </div>
                 </div>
               </div>
@@ -232,15 +235,15 @@ const RefundsConfirmation = () => {
                 <div className="flexBox maplePriceBox">
                   <article>
                     <p className="productName">Subtotal</p>
-                    <p className="productName">Discount</p>
+                    {/* <p className="productName">Discount</p> */}
                     {/* <p className="productName">Shipping</p> */}
                     <p className="userName">Total</p>
                   </article>
                   <article>
-                    <p className="productName">$933.50</p>
-                    <p className="productName">15% ($13.50)</p>
+                    <p className="productName">${subtotal}</p>
+                    {/* <p className="productName">15% ($13.50)</p> */}
                     {/* <p className="productName">$29.00</p> */}
-                    <p className="userName refundTotalBtn">$304.75</p>
+                    <p className="userName refundTotalBtn">${totalSum}</p>
                   </article>
                 </div>
                 <div className="text-center">

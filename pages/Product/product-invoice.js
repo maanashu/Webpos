@@ -26,7 +26,8 @@ const ProductInvoice = () => {
   const SearchInvoiceRespones = invoiceData?.invoiceByInvoiceId;
   const orderDetails = SearchInvoiceRespones?.order;
   const productDetails = SearchInvoiceRespones?.order?.order_details;
-
+  const [checkeddata,setCheckedData]=useState("");
+  console.log("checkeddatacheckeddata",checkeddata);
   const [key, setKey] = useState(Math.random());
   const [modalDetail, setModalDetail] = useState({
     show: false,
@@ -465,6 +466,7 @@ const ProductInvoice = () => {
           modalDetail.flag === "manualEntry" ? (
             <Manualinvoice closeManulModal={() => handleOnCloseModal()}
             productDetails={productDetails}
+            setCheckedData={setCheckedData}
             />
           ) : (
             ""
