@@ -1,6 +1,7 @@
 import React from 'react'
 
 const ReturnInventory = (props) => {
+    console.log(props,'props');
     return (
         <>
             <h5 className='inventorySubheading'>
@@ -11,10 +12,10 @@ const ReturnInventory = (props) => {
                 {props?.selectedProductItems?.map((data,index)=>{
                     return(
                         <div key={index} className='productcartBox mb-2'>
-                        <p className='priceHeading'>{index+1}×</p>
+                        <p className='priceHeading'>{data?.qty}×</p>
                         <article>
                             <h6 className='priceHeading'> {data?.product_name}</h6>
-                            <p className='productSize'>Yellow / M</p>
+                            {/* <p className='productSize'>Yellow / M</p> */}
                         </article>
                         <div className='form-group flexBox addCart '>
                             <button className='removeProductBtn'>

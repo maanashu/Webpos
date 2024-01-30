@@ -1,10 +1,11 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
- loading:false,
- invoiceByInvoiceId:null,
- searchBySKU:null,
- returnToInventory:""
+  loading: false,
+  invoiceByInvoiceId: null,
+  searchBySKU: null,
+  returnToInventory: "",
+  invoiceData: "",
 };
 
 export const returnSlice = createSlice({
@@ -32,7 +33,9 @@ export const returnSlice = createSlice({
       state.loading = false;
       state.returnToInventory = action?.payload?.payload;
     },
-
+    setInvoiceData: (state, action) => {
+      state.invoiceData = action.payload;
+    },
     onErrorStopLoad: (state) => {
       state.loading = false;
     },
@@ -47,7 +50,8 @@ export const {
   setSearchBySKU,
   searchInvoiceByInvoiceId,
   setReturnToInventory,
-  returnToInventory
+  returnToInventory,
+  setInvoiceData,
 } = returnSlice.actions;
 
 export const selectReturnData = (state) => state.return;

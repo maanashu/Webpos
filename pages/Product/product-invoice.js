@@ -6,6 +6,7 @@ import { useDispatch, useSelector } from "react-redux";
 import {
   searchInvoiceByInvoiceId,
   selectReturnData,
+  setInvoiceData,
 } from "../../redux/slices/productReturn";
 import { selectLoginAuth } from "../../redux/slices/auth";
 import moment from "moment-timezone";
@@ -26,7 +27,6 @@ const ProductInvoice = () => {
   const orderDetails = SearchInvoiceRespones?.order;
   const productDetails = SearchInvoiceRespones?.order?.order_details;
   const [checkeddata, setCheckedData] = useState("");
-  console.log(checkeddata, "checkeddata");
   const [key, setKey] = useState(Math.random());
   const [modalDetail, setModalDetail] = useState({
     show: false,
@@ -48,10 +48,14 @@ const ProductInvoice = () => {
       invoiceId: e.target.value,
       seller_id: sellerId,
     };
+
     dispatch(
       searchInvoiceByInvoiceId({
         ...params,
-        cb(resp) {},
+        cb(resp) {
+          if (resp) {
+          }
+        },
       })
     );
   };
@@ -59,8 +63,11 @@ const ProductInvoice = () => {
     if (selectedProductItems?.length > 0) {
       router.push({
         pathname: "/Product/productrefunds(Price-format)",
-        query: { selectedItems: JSON.stringify(selectedProductItems) },
       });
+      const shareData = {
+        selectedItems: JSON.stringify(selectedProductItems),
+      };
+      dispatch(setInvoiceData(shareData));
     } else {
       toast.error("Please select products to refund!");
     }
@@ -71,7 +78,7 @@ const ProductInvoice = () => {
       const isItemChecked = prevSelectedItems.some(
         (item) => item.product_id === data.product_id
       );
-  
+
       if (isItemChecked) {
         return prevSelectedItems.filter(
           (item) => item.product_id !== data.product_id
@@ -81,7 +88,7 @@ const ProductInvoice = () => {
       }
     });
   };
-  
+
   const handleGoToManualEntry = () => {
     setModalDetail({ show: true, flag: "manualEntry" });
     setKey(Math.random());
@@ -303,15 +310,15 @@ const ProductInvoice = () => {
                         <div className="ps-1">
                           <p className="aboutProduct">{data?.product_name}</p>
                           <div className="d-flex">
-                            <article className="productColor">
+                            {/* <article className="productColor">
                               <span className="Yellow"></span>
                               <span className="Red"></span>
                               <span className="Pink"></span>
                               <span className="Blue"></span>
                               <span className="Black"></span>
                               <span className="White"></span>
-                            </article>
-                            <span className="productSize">Colors / Size</span>
+                            </article> */}
+                            {/* <span className="productSize">Colors / Size</span> */}
                           </div>
                         </div>
                       </div>
@@ -325,9 +332,11 @@ const ProductInvoice = () => {
                           <input
                             type="checkbox"
                             checked={
-                              selectedProductItems.some(
+                              selectedProductItems?.some(
                                 (item) => item.product_id === data.product_id
-                              ) || (checkeddata && checkeddata.id === data?.product_id)
+                              ) ||
+                              (checkeddata &&
+                                checkeddata.id === data?.product_id)
                             }
                             onChange={() => handleCheckboxChange(data)}
                           />

@@ -5,12 +5,17 @@ import Image from "next/image";
 import { useRouter } from "next/router";
 import CustomModal from "../../components/customModal/CustomModal";
 import ReturnInventory from "../../components/commanComonets/Product/ProductModal/returnInventory";
-import { returnToInventory } from "../../redux/slices/productReturn";
-import { useDispatch } from "react-redux";
+import {
+  returnToInventory,
+  selectReturnData,
+} from "../../redux/slices/productReturn";
+import { useDispatch, useSelector } from "react-redux";
+import { setInvoiceData } from "../../redux/slices/productReturn";
 
 const productrefunds = () => {
   const toastId = React.useRef(null);
   const dispatch = useDispatch();
+  const [enableText, setEnabletext] = useState(false);
   const [key, setKey] = useState(Math.random());
   const [modalDetail, setModalDetail] = useState({
     show: false,
@@ -26,22 +31,26 @@ const productrefunds = () => {
     setKey(Math.random());
   };
   const router = useRouter();
-  const refundedItems = JSON.parse(router.query.selectedItems || "[]");
-  console.log(refundedItems, "refundedItems");
+
   const [refundAmount, setRefundAmount] = useState("");
   const [inputValues, setInputValues] = useState([]);
+  const invoiceData = useSelector(selectReturnData);
+  const selectedData = invoiceData?.invoiceData;
+  const refundedItems = JSON.parse(selectedData?.selectedItems || "[]");
 
   const handleGoToinventery = () => {
     // setModalDetail({ show: true, flag: "ReturnInventory" });
     // setKey(Math.random());
     router.push({
       pathname: "/Product/RefundsConfirmation(No_Selection)",
-      query: {
-        selectedItems: JSON.stringify(refundedItems),
-        totalSum: totalSum.toString(), // Convert totalSum to string if needed
-        subtotal: subtotal.toString(),
-      },
     });
+    const shareData = {
+      selectedItems: JSON.stringify(refundedItems),
+      totalSum: totalSum.toString(),
+      subtotal: subtotal.toString(),
+      totalTax: "20",
+    };
+    dispatch(setInvoiceData(shareData));
   };
   const handlereturnToInventory = () => {
     let params = {
@@ -112,20 +121,23 @@ const productrefunds = () => {
     ?.reduce((acc, data, idx) => {
       const productPrice = parseFloat(data?.price) || 0;
       const taxRate = 0.08; // 8% tax rate
-
       const itemTotal =
         !isNaN(parseFloat(inputValues[idx])) && !isNaN(parseFloat(data?.qty))
           ? (parseFloat(inputValues[idx]) * parseFloat(data?.qty)).toFixed(2)
           : "0.00";
 
-      const itemTotalWithTax = (parseFloat(itemTotal) + productPrice * taxRate) // Ensure the multiplication is inside the parentheses
-        .toFixed(2);
+      const itemTotalWithTax = (
+        parseFloat(itemTotal) +
+        productPrice * taxRate
+      ).toFixed(2);
 
       return acc + parseFloat(itemTotalWithTax);
     }, 0)
-    .toFixed(2); // Apply toFixed(2) here to ensure totalSum itself has only two decimal places
+    .toFixed(2);
 
-  console.log(totalSum, "totalSum");
+  const handleActiveText = () => {
+    setEnabletext(true);
+  };
 
   return (
     <>
@@ -159,12 +171,17 @@ const productrefunds = () => {
                     onChange={(e) => setRefundAmount(e.target.value)}
                   />
                   <article>
-                    <Link href="/" className="priceFilterBtn active">
-                      $
-                    </Link>
-                    <Link href="/" className="priceFilterBtn">
-                      %
-                    </Link>
+                    {/* <div className="priceFilterBtn active" onClick={handleActiveText}>$</div> */}
+                    <div
+                      className={
+                        enableText === true
+                          ? "priceFilterBtn active"
+                          : "priceFilterBtn "
+                      }
+                      onClick={handleActiveText}
+                    >
+                      $ %
+                    </div>
                   </article>
                 </div>
               </div>
@@ -179,19 +196,7 @@ const productrefunds = () => {
                     <th className="recent_head text-center">Refund Amount</th>
                     <th className="recent_head text-center">Quantity</th>
                     <th className="recent_head text-center">Line Total</th>
-                    <th className="recent_head">
-                      {/* <label className="custom-checkbox">
-                        <input
-                          type="checkbox"
-                          checked={isChecked}
-                          onChange={() =>
-                            isChecked ? handleUncheckAll() : handleCheckAll()
-                          }
-                        />
-
-                        <span className="checkmark"></span>
-                      </label> */}
-                    </th>
+                    <th className="recent_head"></th>
                   </tr>
                 </thead>
                 <tbody>
@@ -230,13 +235,14 @@ const productrefunds = () => {
                             className="tablecustomInput"
                             value={inputValues[idx]}
                             onChange={(e) => handleInputChange(e, idx)}
+                            disabled={enableText === false}
                           />
                         </td>
                         <td className="recent_subhead text-center">
                           × {data?.qty}
                         </td>
                         <td className="recent_subhead text-center">
-                          $
+                          ${" "}
                           {!isNaN(parseFloat(inputValues[idx])) &&
                           !isNaN(parseFloat(data?.qty))
                             ? (
@@ -245,16 +251,6 @@ const productrefunds = () => {
                               ).toFixed(2)
                             : "0.00"}
                         </td>
-                        {/* <td className="recent_subhead">
-                          <label className="custom-checkbox">
-                            <input
-                              type="checkbox"
-                              checked={checkedItems[data.product_id] || false}
-                              onChange={() => handleCheckboxChange(data)}
-                            />
-                            <span className="checkmark"></span>
-                          </label>
-                        </td> */}
                       </tr>
                     );
                   })}
@@ -276,7 +272,7 @@ const productrefunds = () => {
                   </div>
                   <div className="flexBox justify-content-between ">
                     <p className="orderHeading">Total Taxes</p>
-                    <p className="orderHeading">+8 %</p>
+                    <p className="orderHeading">+{"20"}%</p>
                   </div>
                 </div>
                 <div className="flexBox justify-content-between itemsRefundedTotal">
