@@ -19,6 +19,8 @@ import Link from "next/link";
 import OrderDetail from "./Component/OrderDetails";
 import OrderListItem from "./Component/OrderListItem";
 import MapleOrder from "./mapleOrder";
+import PickupModal from "../../components/modals/delivery/PickupModal";
+import CustomModal from "../../components/customModal/CustomModal";
 
 const OrderDeliver = ({ orderDetail }) => {
   const orderStatus = orderDetail?.status;
@@ -50,42 +52,83 @@ const OrderDeliver = ({ orderDetail }) => {
   const [selectedOrderIndex, setSelectedOrderIndex] = useState(
     selectedIndex ?? 0
   );
+  const [isLoading, setIsLoading] = useState(null);
 
-  const itemPressHandler = async (item, index) => {
-    setSelectedOrderData(item);
+  const [key, setKey] = useState(Math.random());
 
-    setSelectedOrderIndex(index);
-    // let params = {
-    //   order_id: data?.id,
-    // };
-    // dispatch(
-    //   getOrderDetailById({
-    //     ...params,
-    //     cb(res) {
-    //       if (res.status) {
-    //         setSelectedOrderData(res?.data.payload);
-    //       }
-    //     },
-    //   })
-    // );
+  const [modalDetail, setModalDetail] = useState({
+    show: false,
+    title: "Add Cash",
+    type: "add",
+    flag: "trackingmodal",
+  });
+  useEffect(() => {
+    getDrawerCount();
+  }, []);
+
+  const handleShowModal = (title, type) => {
+    setModalDetail({
+      show: true,
+      title: title,
+      type: type,
+      flag: "trackingmodal",
+    });
+    setKey(Math.random());
   };
-  const acceptHandler = (id) => {
+  const handleOnCloseModal = () => {
+    setModalDetail({
+      show: false,
+      title: "",
+      flag: "",
+    });
+    setKey(Math.random());
+  };
+  const itemPressHandler = async (item, index) => {
+    console.log("Testing", JSON.stringify(item));
+    setSelectedOrderData(item);
+    setSelectedOrderIndex(index);
+  };
+  const acceptHandler = (order) => {
+    if (order?.delivery_option == "3" && order?.status == 2) {
+      setSelectedOrderData(order);
+      handleShowModal();
+    } else {
+      let params = {
+        sellerID: uniqueId,
+        status: parseInt(orderListType?.status) + 1,
+        orderId: order?.id,
+      };
+      dispatch(
+        acceptOrder({
+          ...params,
+          cb(res) {
+            if (res) {
+              getLatestdata(parseInt(orderListType?.status) + 1, "Accept");
+            }
+          },
+        })
+      );
+    }
+  };
+  const changeOrderStatusAfterPickup = () => {
     let params = {
       sellerID: uniqueId,
-      status: parseInt(orderListType?.status) + 1,
-      orderId: id,
+      status: 5,
+      orderId: selectedOrderData?.id,
     };
     dispatch(
       acceptOrder({
         ...params,
         cb(res) {
           if (res) {
-            getLatestdata(parseInt(orderListType?.status) + 1);
+            getLatestdata(5, "Accept");
           }
         },
       })
     );
+    handleOnCloseModal();
   };
+
   const getDrawerCount = () => {
     let orderCountparams = {
       seller_id: uniqueId,
@@ -95,11 +138,6 @@ const OrderDeliver = ({ orderDetail }) => {
     dispatch(
       getDrawerOrdersCount({
         ...orderCountparams,
-        cb(res) {
-          if (res) {
-            dispatch();
-          }
-        },
       })
     );
   };
@@ -140,65 +178,30 @@ const OrderDeliver = ({ orderDetail }) => {
     getLatestdata(index);
   };
 
-  const changeOrderStatusAfterPickup = (id) => {
-    alert("decline");
-
-    // setPickupModalVisible(false);
-    // const data = {
-    //   orderId: id,
-    //   status: 5,
-    //   sellerID: sellerID,
-    // };
-    // dispatch(
-    //   acceptOrder(data, openShippingOrders, 1, (res) => {
-    //     if (res?.msg) {
-    //       if (
-    //         getDeliveryData?.getReviewDef?.length > 0 &&
-    //         getDeliveryData?.getReviewDef?.length === 1
-    //       ) {
-    //         dispatch(getOrderCount(getUpdatedCount));
-    //       } else {
-    //         dispatch(getReviewDefault(openShippingOrders));
-    //         dispatch(orderStatusCount());
-    //         dispatch(todayOrders());
-    //         dispatch(getOrderstatistics('1,3'));
-    //         dispatch(getGraphOrders('1,3'));
-    //         setGetOrderDetail('ViewAllScreen');
-    //         setUserDetail(ordersList?.[0] ?? []);
-    //         setViewAllOrder(true);
-    //         setOrderDetail(ordersList?.[0]?.order_details ?? []);
-    //       }
-    //     }
-    //   })
-    // );
-  };
-  const declineHandler = (id) => {
-    alert("decline");
-
-    // const data = {
-    //   orderId: id,
-    //   status: 8,
-    //   sellerID: sellerID,
-    // };
-    // dispatch(
-    //   acceptOrder(data, openShippingOrders, 1, (res) => {
-    //     if (res?.msg) {
-    //       setViewAllOrder(true);
-    //       dispatch(getReviewDefault(openShippingOrders));
-    //       dispatch(orderStatusCount());
-    //       dispatch(todayOrders());
-    //       dispatch(getOrderstatistics('1,3'));
-    //       dispatch(getGraphOrders(1));
-    //       setGetOrderDetail('ViewAllScreen');
-    //       setUserDetail(ordersList?.[0] ?? []);
-    //       setOrderDetail(ordersList?.[0]?.order_details ?? []);
-    //     }
-    //   })
-    // );
+  const declineHandler = (order) => {
+    let params = {
+      sellerID: uniqueId,
+      status: 8,
+      orderId: order?.id,
+    };
+    dispatch(
+      acceptOrder({
+        ...params,
+        cb(res) {
+          if (res) {
+            // setOrderListType({
+            //   status: 8,
+            //   title: deliveryDrawerStatus[6],
+            // });
+            getLatestdata(parseInt(8), "decline");
+          }
+        },
+      })
+    );
   };
   const trackHandler = () => {};
 
-  const getLatestdata = (index) => {
+  const getLatestdata = (index, type) => {
     let orderListParam = {
       status: index,
       seller_id: uniqueId,
@@ -209,7 +212,10 @@ const OrderDeliver = ({ orderDetail }) => {
       getDrawerCount();
       setOrderListType({
         status: index,
-        title: deliveryDrawerStatus[index],
+        title:
+          type == "Accept"
+            ? deliveryDrawerStatus[index]
+            : deliveryDrawerStatus[6],
       });
 
       dispatch(
@@ -572,7 +578,45 @@ const OrderDeliver = ({ orderDetail }) => {
             </div>
           </div>
         </div>
-
+        <CustomModal
+          key={key}
+          show={modalDetail.show}
+          backdrop="static"
+          showCloseBtn={false}
+          isRightSideModal={true}
+          mediumWidth={false}
+          ids={modalDetail.flag === "trackingmodal" ? "trackingModal" : ""}
+          child={
+            modalDetail.flag === "trackingmodal" ? (
+              <PickupModal
+                orderData={selectedOrderData}
+                cancelHandler={handleOnCloseModal}
+                confirmHandler={changeOrderStatusAfterPickup}
+              />
+            ) : (
+              ""
+            )
+          }
+          header={
+            modalDetail.flag === "trackingmodal" ? (
+              <>
+                <p
+                  onClick={() => handleOnCloseModal()}
+                  className="modal_cancel"
+                >
+                  <Image
+                    src={Images.modalCross}
+                    alt="modalCross"
+                    className="img-fluid"
+                  />
+                </p>
+              </>
+            ) : (
+              ""
+            )
+          }
+          onCloseModal={() => handleOnCloseModal()}
+        />
         <DeliveryRightSidebar setOrderListType={setOrderListType} />
       </div>
 
