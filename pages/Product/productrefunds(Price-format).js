@@ -26,6 +26,7 @@ const productrefunds = () => {
   const orderDetails = invoiceData?.invoiceByInvoiceId;
   const selectedData = invoiceData?.invoiceData;
   const refundedItems = JSON.parse(selectedData?.selectedItems || "[]");
+  console.log(refundedItems,'refundedItems');
   const [key, setKey] = useState(Math.random());
   const [modalDetail, setModalDetail] = useState({
     show: false,
@@ -54,24 +55,27 @@ const productrefunds = () => {
     };
     dispatch(setInvoiceData(shareData));
   };
+
+
+  let products = refundedItems?.map(item => ({
+    id: item.product_id,
+    qty: item.qty,
+    write_off_qty: item.write_off_qty || 0,
+    add_to_inventory_qty: item.add_to_inventory_qty || 0,
+    refund_value: item.refund_value || 0,
+  }));
+
   const handlereturnToInventory = () => {
     let params = {
       order_id: orderDetails?.order?.id,
-      products: [
-        {
-          id: 493,
-          qty: 1,
-          write_off_qty: 0,
-          add_to_inventory_qty: 1,
-          refund_value: totalSum,
-        },
-      ],
+      products: products,
       total_taxes: discount,
       total_refund_amount: subtotal,
       delivery_charge: orderDetails?.order?.delivery_charge,
       return_reason: "testing reason",
       drawer_id: orderDetails?.order?.drawer_id,
     };
+    console.log(params,'params');
     setLoading(true);
     dispatch(
       returnToInventory({

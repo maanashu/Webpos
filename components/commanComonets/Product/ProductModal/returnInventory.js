@@ -2,18 +2,25 @@ import React, { useState } from "react";
 
 const ReturnInventory = (props) => {
     const [selectedProductItems, setSelectedProductItems] = useState(props.selectedProductItems);
-    console.log(selectedProductItems,'selectedProductItems');
 
-    const handleDecreaseQty = (data,index) => {
-        const updatedProductItems = [...selectedProductItems];
-        updatedProductItems[index].qty--;
-        setSelectedProductItems(updatedProductItems);
+    const handleDecreaseQty = (data, index) => {
+        setSelectedProductItems((prevState) => {
+          const updatedProductItems = [...prevState];
+          if (updatedProductItems[index].qty > 0) {
+            updatedProductItems[index].qty--;
+          }
+          return updatedProductItems;
+        });
       };
-
-      const handleIncreaseQty = (data,index) => {
-        const updatedProductItems = [...selectedProductItems];
-        updatedProductItems[index].qty++;
-        setSelectedProductItems(updatedProductItems);
+    
+      const handleIncreaseQty = (data, index) => {
+        setSelectedProductItems((prevState) => {
+          const updatedProductItems = [...prevState];
+          if (updatedProductItems[index].qty < data.qty) {
+            updatedProductItems[index].qty++;
+          }
+          return updatedProductItems;
+        });
       };
 
   return (
