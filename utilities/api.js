@@ -50,7 +50,7 @@ const axiosGet = (url, params = {}) => {
   return axiosInstance
     .get(url, { params: params })
     .then((response) => {
-      return { status: true, data: response.data };
+      return { status: true, data: response.data, statusCode: response.status };
     })
     .catch((err) => {
       return { status: false, error: err };
@@ -61,7 +61,7 @@ const axiosPost = (url, params = {}) => {
   return axiosInstance
     .post(url, params)
     .then((response) => {
-      return { status: true, data: response.data };
+      return { status: true, data: response.data, statusCode: response.status };
     })
     .catch((err) => {
       return { status: false, error: err };
@@ -72,7 +72,11 @@ const axiosPut = (url, params = {}) => {
   return axiosInstance
     .put(url, params)
     .then((response) => {
-      return { status: response.status, data: response.data };
+      return {
+        status: response.status,
+        data: response.data,
+        statusCode: response.status,
+      };
     })
     .catch((err) => {
       return { status: err.status, error: err };
@@ -83,7 +87,11 @@ const axiosPatch = (url, params = {}) => {
   return axiosInstance
     .patch(url, params)
     .then((response) => {
-      return { status: response.status, data: response.data };
+      return {
+        status: response.status,
+        data: response.data,
+        statusCode: response.status,
+      };
     })
     .catch((err) => {
       return { status: err.status, error: err };
@@ -94,7 +102,11 @@ const postDelete = (url, params = {}) => {
   return axiosInstance
     .delete(url, params)
     .then((response) => {
-      return { status: response.status, data: response.data };
+      return {
+        status: response.status,
+        data: response.data,
+        statusCode: response.status,
+      };
     })
     .catch((err) => {
       return { status: err.status, error: err };
@@ -105,7 +117,11 @@ const postDeleteParams = (url, params = {}) => {
   return axiosInstance
     .delete(url, { data: { ...params } })
     .then((response) => {
-      return { status: response.status, data: response.data };
+      return {
+        status: response.status,
+        data: response.data,
+        statusCode: response.status,
+      };
     })
     .catch((err) => {
       return { status: err.status, error: err };
@@ -118,7 +134,7 @@ const axiosPostFormData = (url, params) => {
   return axiosInstance
     .post(url, formData)
     .then((response) => {
-      return { status: true, data: response.data };
+      return { status: true, data: response.data, statusCode: response.status };
     })
     .catch((err) => {
       return { status: false, error: err };
@@ -134,7 +150,7 @@ const axiosPostFormDataMulti = (url, params) => {
   return axiosInstance
     .post(url, formData)
     .then((response) => {
-      return { status: true, data: response.data };
+      return { status: true, data: response.data, statusCode: response.status };
     })
     .catch((err) => {
       return { status: false, error: err };
@@ -145,7 +161,7 @@ const axiosPostFormDataCommon = (url, params) => {
   return axiosInstance
     .post(url, params)
     .then((response) => {
-      return { status: true, data: response.data };
+      return { status: true, data: response.data, statusCode: response.status };
     })
     .catch((err) => {
       return { status: false, error: err };
