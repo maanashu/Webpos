@@ -170,7 +170,7 @@ const Verify = () => {
                           autoComplete="new-password"
                           isInputNum={true}
                           isInputSecure={true}
-                          renderInput={(props) => <input {...props} type="text" maxLength={4} />}
+                          renderInput={(props) => <input {...props} type="password" maxLength={4} />}
                           onChange={onComplete}
                         // onComplete={(code) => onComplete(code)}
                         />
