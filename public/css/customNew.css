@@ -3398,9 +3398,7 @@ figure {
   box-shadow: -2px 4px 25px 0px rgba(50, 80, 127, 0.02),
     -5px 9px 80px 0px rgba(50, 80, 127, 0.04);
   padding: 40px 40px 24px 40px;
-  display: flex;
-  align-items: start;
-  gap: 16px;
+
 }
 
 .staffListData {
@@ -3594,7 +3592,7 @@ figure {
 
 .staffTimeSection {
   display: flex;
-  align-items: center;
+  /* align-items: center; */
   gap: 16px;
 }
 
@@ -3642,6 +3640,9 @@ figure {
   background: #fff;
   padding: 12px 8px !important;
   margin-top: 12px;
+  width: 100%;
+  min-width: 552px;
+  overflow-x: scroll;
 }
 
 .staffSubHead {
@@ -3707,6 +3708,9 @@ figure {
   align-items: center;
   justify-content: space-between;
   padding: 8px;
+  width: 100%;
+  min-width: 552px;
+  overflow-x: scroll;
 }
 
 .staffBoxData {
@@ -4526,6 +4530,24 @@ figure {
 .bottonContent_ {
   padding-left: 40px;
 }
+.taxpayData .nameControl {
+  box-shadow: none;
+}
+.taxpayData  .emailField .verifyControl {
+  box-shadow: none;
+}
+.taxpayData .selectRole .form-select{
+  box-shadow: none;
+}
+.taxpayData::-webkit-scrollbar {
+  display: none;
+}
+.taxDateArea .cancelCalendar {
+  padding: 11px 10px!important;
+}
+.selectRole .searchBox {
+  padding: 0;
+}
 /*setting css end*/
 /* cash Drawer css start*/
 .cashDrawOuter {
@@ -4703,9 +4725,7 @@ figure {
   border-radius: 20px;
   background: #fff;
   padding: 24px 40px;
-  display: flex;
-  align-items: start;
-  gap: 16px;
+
 }
 
 .planApps {
@@ -5488,3 +5508,26 @@ figure {
 }
 
 /*gaurav arora sir css end*/
+
+/**Start css Privacy Policy**/
+
+.refundIntro p {
+  color: #636E9F;
+  font-size: 16px;
+  font-weight: 500;
+  margin: 0 0 10px;
+}
+.refundIntro ul li {
+  color: #636E9F;
+  font-size: 15px;
+  font-weight: 400;
+  line-height: 25px;
+  list-style-type: disc;
+  list-style-position: inside;
+}
+.refundIntro h2 {
+  color: #263682;
+  font-size: 20px;
+  font-weight: 500;
+  margin: 25px 0 9px;
+}

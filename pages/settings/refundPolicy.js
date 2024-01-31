@@ -5,7 +5,6 @@ import Image from "next/image";
 const RefundPolicy = () => {
     return (
         <>
-            <div className='settingMain'>
                 <div className='row'>
                     <div className='col-lg-3'></div>
                     <div className='col-lg-9'>
@@ -41,7 +40,6 @@ const RefundPolicy = () => {
                         </div>
                     </div>
                 </div>
-            </div>
         </>
     )
 }
