@@ -88,229 +88,241 @@ const ShippingPickup = () => {
         ) : (
           <>
             <div className="localPickupBx">
-              <Image
-                src={Images.pickupImg}
-                alt="pickupImg image"
-                className="img-fluid"
-              />
-              <div className="localSubPickup w-100">
-                <h4 className="appointMain">Local Pickup</h4>
-                <p className="lightOfferText mt-1">
-                  You need to provide some additional information to start
-                  receiving payouts from Shopify Payments.
-                </p>
-                {pickupLocation?.map((item, index) => (
-                  <>
-                    <div key={index} className="georgiaBox">
-                      {settingData?.loading && locationType === "allow_local_pickup" ? (
-                        <div className="w-100 text-center">
-                          <div className="spinner-grow loaderSpinner text-center my-1"></div>
-                        </div>
-                      ) : (
-                        <>
-                          <div className="operatingCountry">
-                            <Image
-                              src={Images.locateOuline}
-                              alt="pickupImg image"
-                              className="img-fluid"
-                            />
-                            <div className="georgiaSubBox">
-                              <h4 className="cancelOrderText">{item?.city}</h4>
-                              <p className="orderPara">
-                                {item?.format_address}
-                              </p>
-                            </div>
-                          </div>
-                          <div className="roundCheck mb-0 darkCheck">
-                            <input
-                              onClick={() =>
-                                updatePickupLocation(
-                                  item?.id,
-                                  "allow_local_pickup",
-                                  item?.allow_local_pickup ? "0" : "1",
-                                  index
-                                )
-                              }
-                              checked={item?.allow_local_pickup}
-                              type="checkbox"
-                            />
-                            <label className="amountText d-none "></label>
-                          </div>
-                        </>
-                      )}
-                    </div>
-                  </>
-                ))}
+              <div className="topsettingContent_">
+                <Image
+                  src={Images.pickupImg}
+                  alt="pickupImg image"
+                  className="img-fluid me-3"
+                />
+                <div className="localSubPickup w-100">
+                  <h4 className="appointMain">Local Pickup</h4>
+                  <p className="lightOfferText mt-1">
+                    You need to provide some additional information to start
+                    receiving payouts from Shopify Payments.
+                  </p>
+                </div>
               </div>
+              {pickupLocation?.map((item, index) => (
+                <>
+                  <div key={index} className="georgiaBox">
+                    {settingData?.loading && locationType === "allow_local_pickup" ? (
+                      <div className="w-100 text-center">
+                        <div className="spinner-grow loaderSpinner text-center my-1"></div>
+                      </div>
+                    ) : (
+                      <>
+                        <div className="operatingCountry">
+                          <Image
+                            src={Images.locateOuline}
+                            alt="pickupImg image"
+                            className="img-fluid"
+                          />
+                          <div className="georgiaSubBox">
+                            <h4 className="cancelOrderText">{item?.city}</h4>
+                            <p className="orderPara">
+                              {item?.format_address}
+                            </p>
+                          </div>
+                        </div>
+                        <div className="roundCheck mb-0 darkCheck">
+                          <input
+                            onClick={() =>
+                              updatePickupLocation(
+                                item?.id,
+                                "allow_local_pickup",
+                                item?.allow_local_pickup ? "0" : "1",
+                                index
+                              )
+                            }
+                            checked={item?.allow_local_pickup}
+                            type="checkbox"
+                          />
+                          <label className="amountText d-none "></label>
+                        </div>
+                      </>
+                    )}
+                  </div>
+                </>
+              ))}
             </div>
             <div className="localPickupBx">
-              <Image
-                src={Images.postMotor}
-                alt="pickupImg image"
-                className="img-fluid"
-              />
-              <div className="localSubPickup w-100">
-                <h4 className="appointMain">JOBR Delivery</h4>
-                <p className="lightOfferText mt-1">
-                  You need to provide some additional information to start
-                  receiving payouts from Shopify Payments.
-                </p>
-                {pickupLocation?.map((item, index) => (
-                  <>
-                    <div key={index} className="georgiaBox">
-                      {settingData?.loading && locationType === "allow_jobr_delivery" ? (
-                        <div className="w-100 text-center">
-                          <div className="spinner-grow loaderSpinner text-center my-1"></div>
-                        </div>
-                      ) : (
-                        <>
-                          <div className="operatingCountry">
-                            <Image
-                              src={Images.locateOuline}
-                              alt="pickupImg image"
-                              className="img-fluid"
-                            />
-                            <div className="georgiaSubBox">
-                              <h4 className="cancelOrderText">{item?.city}</h4>
-                              <p className="orderPara">
-                                {item?.format_address}
-                              </p>
-                            </div>
-                          </div>
-                          <div className="roundCheck mb-0 darkCheck">
-                            <input
-                              onClick={() =>
-                                updatePickupLocation(
-                                  item?.id,
-                                  "allow_jobr_delivery",
-                                  item?.allow_jobr_delivery ? "0" : "1",
-                                  index
-                                )
-                              }
-                              checked={item?.allow_jobr_delivery}
-                              type="checkbox"
-                            />
-                            <label className="amountText d-none "></label>
-                          </div>
-                        </>
-                      )}
-                    </div>
-                  </>
-                ))}
+              <div className="topsettingContent_">
+                <Image
+                  src={Images.postMotor}
+                  alt="pickupImg image"
+                  className="img-fluid me-3"
+                />
+                <div className="localSubPickup w-100">
+                  <h4 className="appointMain">JOBR Delivery</h4>
+                  <p className="lightOfferText mt-1">
+                    You need to provide some additional information to start
+                    receiving payouts from Shopify Payments.
+                  </p>
+                </div>
               </div>
+              {pickupLocation?.map((item, index) => (
+                <>
+                  <div key={index} className="georgiaBox">
+                    {settingData?.loading && locationType === "allow_jobr_delivery" ? (
+                      <div className="w-100 text-center">
+                        <div className="spinner-grow loaderSpinner text-center my-1"></div>
+                      </div>
+                    ) : (
+                      <>
+                        <div className="operatingCountry">
+                          <Image
+                            src={Images.locateOuline}
+                            alt="pickupImg image"
+                            className="img-fluid"
+                          />
+                          <div className="georgiaSubBox">
+                            <h4 className="cancelOrderText">{item?.city}</h4>
+                            <p className="orderPara">
+                              {item?.format_address}
+                            </p>
+                          </div>
+                        </div>
+                        <div className="roundCheck mb-0 darkCheck">
+                          <input
+                            onClick={() =>
+                              updatePickupLocation(
+                                item?.id,
+                                "allow_jobr_delivery",
+                                item?.allow_jobr_delivery ? "0" : "1",
+                                index
+                              )
+                            }
+                            checked={item?.allow_jobr_delivery}
+                            type="checkbox"
+                          />
+                          <label className="amountText d-none "></label>
+                        </div>
+                      </>
+                    )}
+                  </div>
+                </>
+              ))}
             </div>
             <div className="localPickupBx">
-              <Image
-                src={Images.deliverHandDark}
-                alt="pickupImg image"
-                className="img-fluid"
-              />
-              <div className="localSubPickup w-100">
-                <h4 className="appointMain">Local Drop-off</h4>
-                <p className="lightOfferText mt-1">
-                  You need to provide some additional information to start
-                  receiving payouts from Shopify Payments.
-                </p>
-                {pickupLocation?.map((item, index) => (
-                  <>
-                    <div key={index} className="georgiaBox">
-                      {settingData?.loading && locationType === "allow_local_drop_off" ? (
-                        <div className="w-100 text-center">
-                          <div className="spinner-grow loaderSpinner text-center my-1"></div>
-                        </div>
-                      ) : (
-                        <>
-                          <div className="operatingCountry">
-                            <Image
-                              src={Images.locateOuline}
-                              alt="pickupImg image"
-                              className="img-fluid"
-                            />
-                            <div className="georgiaSubBox">
-                              <h4 className="cancelOrderText">{item?.city}</h4>
-                              <p className="orderPara">
-                                {item?.format_address}
-                              </p>
-                            </div>
-                          </div>
-                          <div className="roundCheck mb-0 darkCheck">
-                            <input
-                              onClick={() =>
-                                updatePickupLocation(
-                                  item?.id,
-                                  "allow_local_drop_off",
-                                  item?.allow_local_drop_off ? "0" : "1",
-                                  index
-                                )
-                              }
-                              checked={item?.allow_local_drop_off}
-                              type="checkbox"
-                            />
-                            <label className="amountText d-none "></label>
-                          </div>
-                        </>
-                      )}
-                    </div>
-                  </>
-                ))}
+              <div className="topsettingContent_">
+
+                <Image
+                  src={Images.deliverHandDark}
+                  alt="pickupImg image"
+                  className="img-fluid me-3"
+                />
+                <div className="localSubPickup w-100">
+                  <h4 className="appointMain">Local Drop-off</h4>
+                  <p className="lightOfferText mt-1">
+                    You need to provide some additional information to start
+                    receiving payouts from Shopify Payments.
+                  </p>
+                </div>
               </div>
+              {pickupLocation?.map((item, index) => (
+                <>
+                  <div key={index} className="georgiaBox">
+                    {settingData?.loading && locationType === "allow_local_drop_off" ? (
+                      <div className="w-100 text-center">
+                        <div className="spinner-grow loaderSpinner text-center my-1"></div>
+                      </div>
+                    ) : (
+                      <>
+                        <div className="operatingCountry">
+                          <Image
+                            src={Images.locateOuline}
+                            alt="pickupImg image"
+                            className="img-fluid"
+                          />
+                          <div className="georgiaSubBox">
+                            <h4 className="cancelOrderText">{item?.city}</h4>
+                            <p className="orderPara">
+                              {item?.format_address}
+                            </p>
+                          </div>
+                        </div>
+                        <div className="roundCheck mb-0 darkCheck">
+                          <input
+                            onClick={() =>
+                              updatePickupLocation(
+                                item?.id,
+                                "allow_local_drop_off",
+                                item?.allow_local_drop_off ? "0" : "1",
+                                index
+                              )
+                            }
+                            checked={item?.allow_local_drop_off}
+                            type="checkbox"
+                          />
+                          <label className="amountText d-none "></label>
+                        </div>
+                      </>
+                    )}
+                  </div>
+                </>
+              ))}
             </div>
             <div className="localPickupBx">
-              <Image
-                src={Images.PlaneDark}
-                alt="pickupImg image"
-                className="imgSize"
-              />
-              <div className="localSubPickup w-100">
-                <h4 className="appointMain">Shipping</h4>
-                <p className="lightOfferText mt-1">
-                  You need to provide some additional information to start
-                  receiving payouts from Shopify Payments.
-                </p>
-                {pickupLocation?.map((item, index) => (
-                  <>
-                    <div key={index} className="georgiaBox">
-                      {settingData?.loading && locationType === "allow_shipping" ? (
-                        <div className="w-100 text-center">
-                          <div className="spinner-grow loaderSpinner text-center my-1"></div>
-                        </div>
-                      ) : (
-                        <>
-                          <div className="operatingCountry">
-                            <Image
-                              src={Images.locateOuline}
-                              alt="pickupImg image"
-                              className="img-fluid"
-                            />
-                            <div className="georgiaSubBox">
-                              <h4 className="cancelOrderText">{item?.city}</h4>
-                              <p className="orderPara">
-                                {item?.format_address}
-                              </p>
-                            </div>
-                          </div>
-                          <div className="roundCheck mb-0 darkCheck">
-                            <input
-                              onClick={() =>
-                                updatePickupLocation(
-                                  item?.id,
-                                  "allow_shipping",
-                                  item?.allow_shipping ? "0" : "1",
-                                  index
-                                )
-                              }
-                              checked={item?.allow_shipping}
-                              type="checkbox"
-                            />
-                            <label className="amountText d-none "></label>
-                          </div>
-                        </>
-                      )}
-                    </div>
-                  </>
-                ))}
+              <div className="topsettingContent_">
+
+                <Image
+                  src={Images.PlaneDark}
+                  alt="pickupImg image"
+                  className="imgSize me-3"
+                />
+                <div className="localSubPickup w-100">
+                  <h4 className="appointMain">Shipping</h4>
+                  <p className="lightOfferText mt-1">
+                    You need to provide some additional information to start
+                    receiving payouts from Shopify Payments.
+                  </p>
+                </div>
               </div>
+              {pickupLocation?.map((item, index) => (
+                <>
+                  <div key={index} className="georgiaBox">
+                    {settingData?.loading && locationType === "allow_shipping" ? (
+                      <div className="w-100 text-center">
+                        <div className="spinner-grow loaderSpinner text-center my-1"></div>
+                      </div>
+                    ) : (
+                      <>
+                        <div className="operatingCountry">
+                          <Image
+                            src={Images.locateOuline}
+                            alt="pickupImg image"
+                            className="img-fluid"
+                          />
+                          <div className="georgiaSubBox">
+                            <h4 className="cancelOrderText">{item?.city}</h4>
+                            <p className="orderPara">
+                              {item?.format_address}
+                            </p>
+                          </div>
+                        </div>
+                        <div className="roundCheck mb-0 darkCheck">
+                          <input
+                            onClick={() =>
+                              updatePickupLocation(
+                                item?.id,
+                                "allow_shipping",
+                                item?.allow_shipping ? "0" : "1",
+                                index
+                              )
+                            }
+                            checked={item?.allow_shipping}
+                            type="checkbox"
+                          />
+                          <label className="amountText d-none "></label>
+                        </div>
+                      </>
+                    )}
+                  </div>
+                </>
+              ))}
             </div>
+
+
           </>
         )}
       </div>
