@@ -18,8 +18,8 @@ const Manualinvoice = (props) => {
   const [productsSearchBySku, setProductsSearchBySku] = useState("");
   const productDetails = props?.productDetails;
 
-  const isProductIdMatched = productDetails.some(
-    (product) => product.product_id === productsSearchBySku?.id
+  const isProductIdMatched = productDetails?.some(
+    (product) => product?.product_id === productsSearchBySku?.id
   );
 
   const handleSearchSku = (e) => {
@@ -47,6 +47,7 @@ const Manualinvoice = (props) => {
   const handleCheckProduct = () => {
     if (isProductIdMatched === true) {
       toast.success("Product Checked!");
+      props.setCheckedData(productsSearchBySku)
       return;
     } else {
       toast.error("Product Not found in order!");
