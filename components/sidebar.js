@@ -31,7 +31,7 @@ const Sidebar = (props) => {
     localStorage.removeItem("persist:root");
   };
 
-  const isLinkActive = (href) => {
+  const isLinkActive = (href) => {Sidebar
     console.log(href, "hrefhref");
     return router.pathname === href;
   };

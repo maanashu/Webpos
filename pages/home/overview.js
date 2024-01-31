@@ -39,22 +39,24 @@ const Overview = () => {
     flag: "",
   });
 
-  // API for get all oder deliveries...............................
-  const allOrderDeliveriesInfo = () => {
-    let params = {
-      seller_id: UniqueId,
+
+    // API for get all oder deliveries...............................
+    const allOrderDeliveriesInfo = () => {
+        let params = {
+            seller_id: UniqueId,
+        };
+        dispatch(getAllOrderDeliveries({
+            ...params,
+            cb(res) {
+                if (res.status) {
+                    console.log(res?.data,"res?.datares?.data");
+                    setOrderDeliveriesInfo(res?.data?.payload?.data)
+                }
+            },
+        })
+        );
     };
-    dispatch(
-      getAllOrderDeliveries({
-        ...params,
-        cb(res) {
-          if (res.status) {
-            setOrderDeliveriesInfo(res?.data?.payload?.data);
-          }
-        },
-      })
-    );
-  };
+
 
   // API for get today sales...............................
   const todaySaleInfo = () => {
@@ -136,13 +138,13 @@ const Overview = () => {
     }
   }, []);
 
-  useEffect(() => {
-    if (UniqueId) {
-      todaySaleInfo();
-      allOrderDeliveriesInfo();
-      userLoginDetails();
-    }
-  }, []);
+    useEffect(() => {
+        if (UniqueId) {
+            todaySaleInfo()
+            allOrderDeliveriesInfo()
+            userLoginDetails()
+        }
+    }, [UniqueId]);
 
   return (
     <>

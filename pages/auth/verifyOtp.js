@@ -78,7 +78,7 @@ const VerifyOtp = () => {
                 <div className='verifyBox'>
                     {/* <h1 className='verifyHeading'> Let’s verify your phone <br /> number.</h1> */}
                     {/* <h4 className='verifySub'>Enter the code we’ve sent to {getPhoneInfo?.phoneCode} {getPhoneInfo?.phoneNo}</h4> */}
-                    <h4 className='verifySub'>Please enter your pin</h4> 
+                    <h4 className='verifySub'>Please enter your passcode</h4> 
                     <form className='otpForm'>
                         <div className='otpMain'>
                             <div className="verify-part">
