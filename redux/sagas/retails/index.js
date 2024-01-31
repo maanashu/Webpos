@@ -31,6 +31,10 @@ import {
   setMerchantWalletCheck,
   setWalletQr,
   setwalletByPhone,
+  setRequestMoney,
+  setRequestCheck,
+  setQrcodestatus,
+  setPaymentRequestCancel,
 } from "../../slices/retails";
 import { all, call, put, takeLatest } from "redux-saga/effects";
 
@@ -516,15 +520,97 @@ function* walletGetByPhone(action) {
       ApiClient.get,
       `${WALLET_API_URL_V1}wallets/other?search=${phoneNumber}`
     );
+
     if (resp.status) {
-      alert(resp);
       yield put(setwalletByPhone(resp.data));
+      yield call(action.payload.cb, (action.res = resp?.data?.payload));
+    }
+  } catch (e) {
+    yield put(onErrorStopLoad());
+    toast.error(e?.error?.response?.data?.msg);
+  }
+}
+
+function* requestMoney(action) {
+  const body = { ...action?.payload };
+
+  try {
+    const resp = yield call(
+      ApiClient.post,
+      `${WALLET_API_URL_V1}transactions/request-money`,
+      body
+    );
+    if (resp.status) {
+      yield put(setRequestMoney(resp.data));
       yield call(action.payload.cb, (action.res = resp?.data?.payload));
     } else {
       throw resp;
     }
   } catch (e) {
-    alert(e?.status);
+    yield put(onErrorStopLoad());
+    toast.error(e?.error?.response?.data?.msg);
+  }
+}
+
+function* requestCheck(action) {
+  const dataToSend = action?.payload?.requestId;
+
+  try {
+    const resp = yield call(
+      ApiClient.get,
+      `${WALLET_API_URL_V1}transactions/${dataToSend}`
+    );
+    if (resp.status) {
+      yield put(setRequestCheck(resp.data));
+      yield call(action.payload.cb, (action.res = resp?.data));
+    } else {
+      throw resp;
+    }
+  } catch (e) {
+    yield put(onErrorStopLoad());
+    toast.error(e?.error?.response?.data?.msg);
+  }
+}
+
+function* qrcodestatus(action) {
+  const dataToSend = action?.payload?.cartId;
+
+  try {
+    const resp = yield call(
+      ApiClient.get,
+      `${ORDER_API_URL_V1}poscarts/check-payment-status/${dataToSend}`
+    );
+    if (resp.status) {
+      yield put(setQrcodestatus(resp.data));
+      yield call(action.payload.cb, (action.res = resp?.data));
+    } else {
+      throw resp;
+    }
+  } catch (e) {
+    yield put(onErrorStopLoad());
+    toast.error(e?.error?.response?.data?.msg);
+  }
+}
+
+function* paymentRequestCancel(action) {
+  const dataToSend = action?.payload?.requestId;
+
+  try {
+    const resp = yield call(
+      ApiClient.patch,
+      `${WALLET_API_URL_V1}transactions/request/cancel/${dataToSend}`
+    );
+    if (resp.status) {
+      {
+        resp?.data?.msg == "Transaction cancelled" &&
+          toast.success("Payment Request Cancel");
+      }
+      yield put(setPaymentRequestCancel(resp.data));
+      yield call(action.payload.cb, (action.res = resp?.data));
+    } else {
+      throw resp;
+    }
+  } catch (e) {
     yield put(onErrorStopLoad());
     toast.error(e?.error?.response?.data?.msg);
   }
@@ -557,6 +643,10 @@ function* retailsSaga() {
     takeLatest("retails/merchantWalletCheck", merchantWalletCheck),
     takeLatest("retails/getWalletQr", getWalletQr),
     takeLatest("retails/walletGetByPhone", walletGetByPhone),
+    takeLatest("retails/requestMoney", requestMoney),
+    takeLatest("retails/requestCheck", requestCheck),
+    takeLatest("retails/qrcodestatus", qrcodestatus),
+    takeLatest("retails/paymentRequestCancel", paymentRequestCancel),
   ]);
 }
 

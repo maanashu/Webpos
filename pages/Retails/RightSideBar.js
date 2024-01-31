@@ -12,6 +12,7 @@ import {
 import {
   amountFormat,
   formattedReturnPrice,
+  getProductPrice,
 } from "../../utilities/globalMethods";
 import CustomProductAdd from "./CustomProductAdd";
 import { useRouter } from "next/router";
@@ -20,9 +21,10 @@ import CustomServiceAdd from "./CustomServiceAdd";
 // import CustomModal from '../../customModal/CustomModal';
 // import AddProduct from '../../../components/';
 
-const RightSideBar = ({ props, parameter }) => {
+const RightSideBar = ({ props }) => {
   const router = useRouter();
   const dispatch = useDispatch();
+  const { parameter } = router.query;
   const retailData = useSelector(selectRetailData);
   const cartData = retailData?.productCart;
   const cartAmount = cartData?.amount;
@@ -277,7 +279,16 @@ const RightSideBar = ({ props, parameter }) => {
                   </div>
                 </div>
                 <div className="orderCalculate">
-                  <h4 className="cartMoney">$90.00</h4>
+                  <h4 className="cartMoney">
+                    {amountFormat(
+                      getProductPrice(
+                        data.product_details?.supply?.supply_offers,
+                        data.product_details?.supply?.supply_prices
+                          ?.selling_price,
+                        data.qty
+                      )
+                    )}
+                  </h4>
                   <div className="incrementBtn ">
                     <i className="fa-solid fa-minus plusMinus"></i>
                     <input
@@ -327,7 +338,14 @@ const RightSideBar = ({ props, parameter }) => {
                   {amountFormat(cartAmount?.total_amount)}
                 </h4>
               </div>
-              <button className="nextverifyBtn w-100" type="submit">
+              <button
+                className="nextverifyBtn w-100"
+                onClick={() => {
+                  parameter == "product"
+                    ? router.push({ pathname: "/Retails/ProductCart" })
+                    : router.push({ pathname: "/Retails/ServiceCart" });
+                }}
+              >
                 Proceed to checkout
                 <Image
                   src={Images.ArrowRight}

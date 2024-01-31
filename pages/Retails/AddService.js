@@ -436,13 +436,17 @@ const AddService = () => {
                 >
                   {monthDays?.map((item, index) => (
                     <div
-                      className="serviceDate mx-3"
-                      style={{
-                        backgroundColor:
-                          item?.completeDate === selectedDate
-                            ? "#12B76A"
-                            : "transparent",
-                      }}
+                      className={
+                        item?.completeDate === selectedDate
+                          ? "serviceDate mx-3 active"
+                          : "serviceDate mx-3"
+                      }
+                      // style={{
+                      //   backgroundColor:
+                      //     item?.completeDate === selectedDate
+                      //       ? "#12B76A"
+                      //       : "transparent",
+                      // }}
                       onClick={() => {
                         setselectedDate(item?.completeDate);
                         //Clear previous day selected time slot values
@@ -462,40 +466,7 @@ const AddService = () => {
                   ))}
                 </div>
               </div>
-              {/* <div className="daycalendar">
-                <div className="serviceArrow">
-                  <Image
-                    src={Images.serviceLeft}
-                    alt="calendarimage"
-                    className="img-fluid"
-                  />
-                </div>
-                <div className="daysubCalendar">
-                  <div className="serviceDate">
-                    <h4 className="productName">Tomorrow</h4>
-                    <h4 className="dateText">28</h4>
-                  </div>
-                  <div className="serviceDate">
-                    <h4 className="productName">Tomorrow</h4>
-                    <h4 className="dateText">28</h4>
-                  </div>
-                  <div className="serviceDate">
-                    <h4 className="productName">Tomorrow</h4>
-                    <h4 className="dateText">28</h4>
-                  </div>
-                  <div className="serviceDate active">
-                    <h4 className="productName">Tomorrow</h4>
-                    <h4 className="dateText">28</h4>
-                  </div>
-                </div>
-                <div className="serviceArrow">
-                  <Image
-                    src={Images.serviceRight}
-                    alt="calendarimage"
-                    className="img-fluid"
-                  />
-                </div>
-              </div> */}
+
               <div className="serviceDayTime">
                 {retailData?.getTimeSlotsLoad ? (
                   <div className="mx-1 text-center mt-5">
@@ -517,19 +488,25 @@ const AddService = () => {
                               setselectedTimeSlotIndex(index);
                               setSelectedTimeSlotData(item);
                             }}
-                            style={{
-                              backgroundColor:
-                                selectedTimeSlotIndex == index
-                                  ? " #D1FADF"
-                                  : "transparent",
-                              borderColor:
-                                selectedTimeSlotIndex == index
-                                  ? "#027547"
-                                  : "#D7DEFF",
-                              borderWidth: "1px",
-                            }}
+                            // style={{
+                            //   backgroundColor:
+                            //     selectedTimeSlotIndex == index
+                            //       ? " #D1FADF"
+                            //       : "transparent",
+                            //   borderColor:
+                            //     selectedTimeSlotIndex == index
+                            //       ? "#027547"
+                            //       : "#D7DEFF",
+                            //   borderWidth: "1px",
+                            // }}
                           >
-                            <div className="scheduleTime">
+                            <div
+                              className={
+                                selectedTimeSlotIndex == index
+                                  ? "scheduleTime active"
+                                  : "scheduleTime"
+                              }
+                            >
                               <h4 className="addServicePara m-0">
                                 {item?.start_time + " - " + item?.end_time}
                               </h4>

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import * as Images from "../../utilities/images";
 import Image from "next/image";
 import { useRouter } from "next/router";
@@ -43,6 +43,9 @@ const CartAmountByPay = () => {
   const cartData = retailData?.productCart;
   const cartAmount = cartData?.amount;
   const sellerId = authData?.usersInfo?.payload?.uniqe_id;
+
+  const childFuncRef = useRef(null);
+
   const [key, setKey] = useState(Math.random());
   const [selectedTipIndex, setSelectedTipIndex] = useState(null);
   const [selectedTipAmount, setSelectedTipAmount] = useState("0.00");
@@ -230,6 +233,13 @@ const CartAmountByPay = () => {
       result.push(array.slice(i, i + chunkSize));
     }
     return result;
+  };
+  const jobrSavePercent = (value, percent) => {
+    if (percent == "") {
+      return "";
+    }
+    const percentageValue = (percent / 100) * parseFloat(value);
+    return percentageValue.toFixed(2) ?? 0.0;
   };
   const rows = threeGroupArray(invoiceData, 2);
   return (
@@ -473,7 +483,13 @@ const CartAmountByPay = () => {
                 {selectedPaymentIndex !== null && selectedPaymentId == 2 && (
                   <div style={{ alignSelf: "center" }}>
                     <div className=" justify-content-center my-5 ">
-                      <span className="savingBox">You are saving $13.35 !</span>
+                      <span className="savingBox">
+                        You are saving $
+                        {jobrSavePercent(
+                          cartData?.amount?.total_amount ?? "0.00",
+                          15
+                        )}
+                      </span>
                     </div>
                     <div className="text-center mb-4 mt-4 ">
                       <button
@@ -700,7 +716,10 @@ const CartAmountByPay = () => {
           ) : modalDetail.flag === "giftCard" ? (
             <GiftCardModal close={() => handleOnCloseModal()} />
           ) : modalDetail.flag === "jobrWallet" ? (
-            <JbrCoin crossHandler={() => handleOnCloseModal()} />
+            <JbrCoin
+              ref={childFuncRef}
+              crossHandler={() => handleOnCloseModal()}
+            />
           ) : (
             ""
           )
@@ -772,13 +791,19 @@ const CartAmountByPay = () => {
             </>
           ) : modalDetail.flag === "jobrWallet" ? (
             <>
-              <p onClick={handleOnCloseModal} className="modal_cancel">
+              <div
+                onClick={() => {
+                  handleOnCloseModal();
+                  childFuncRef?.current?.handleCancel();
+                }}
+                className="modal_cancel"
+              >
                 <Image
                   src={Images.modalCross}
                   alt="modalCross"
                   className="img-fluid"
                 />
-              </p>
+              </div>
             </>
           ) : (
             ""

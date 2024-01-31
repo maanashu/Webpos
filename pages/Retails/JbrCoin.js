@@ -1,9 +1,17 @@
-import { useEffect, useState } from "react";
+import { forwardRef, useEffect, useImperativeHandle, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
   attachCustomer,
+  clearCart,
+  createOrder,
+  paymentRequestCancel,
   productCart,
+  qrcodestatus,
+  requestCheck,
+  requestMoney,
   selectRetailData,
+  setQrcodestatus,
+  setRequestCheck,
   walletGetByPhone,
 } from "../../redux/slices/retails";
 
@@ -19,11 +27,14 @@ import {
 } from "../../utilities/validators";
 import { useRouter } from "next/router";
 import { amountFormat } from "../../utilities/globalMethods";
+import { selectLoginAuth } from "../../redux/slices/auth";
 
-const JbrCoin = ({ crossHandler }) => {
+const JbrCoin = forwardRef(({ crossHandler }, ref) => {
   const router = useRouter();
   const dispatch = useDispatch();
+  const authData = useSelector(selectLoginAuth);
   const retailData = useSelector(selectRetailData);
+  const sellerId = authData?.usersInfo?.payload?.uniqe_id;
   const qrcode = retailData?.walletQrData;
   const cartData = retailData?.productCart;
   const [phoneCode, SetPhoneCode] = useState("+1");
@@ -32,10 +43,48 @@ const JbrCoin = ({ crossHandler }) => {
   const walletUser = retailData?.walletGetByPhoneData?.[0] || [];
 
   const [sendRequest, setsendRequest] = useState(false);
+  const [requestId, setRequestId] = useState();
+  const [duration, setDuration] = useState(120);
+  const requestStatus = retailData?.requestCheckData;
+  const qrStatus = retailData?.qrcodestatusData;
+  console.log("requestStatus", requestStatus, qrStatus);
+  const drawerData = retailData?.drawerSession;
 
   const generateRandomName = () => {
     return Math.random().toString(36).substr(2, 10);
   };
+
+  useImperativeHandle(ref, () => ({
+    handleCancel() {
+      handleOnCancel();
+    },
+  }));
+
+  // function for change the number and save number is state...............................
+  const onChangePhoneNumber = (value, data) => {
+    let phoneCode = data.dialCode;
+    let phoneNumber = value.slice(data.dialCode.length);
+    setPhoneNo(phoneNumber);
+    SetPhoneCode(phoneCode);
+  };
+
+  function formatTime(seconds) {
+    const mins = Math.floor(seconds / 60);
+    const secs = seconds % 60;
+    return `${mins}:${secs < 10 ? "0" : ""}${secs}`;
+  }
+
+  useEffect(() => {
+    let timer;
+
+    if (sendRequest && duration > 0) {
+      timer = setInterval(() => setDuration(duration - 1), 1000);
+    } else if (duration == 0) {
+      setsendRequest(false);
+      setDuration(120);
+    }
+    return () => clearInterval(timer);
+  }, [sendRequest, duration]);
 
   useEffect(() => {
     setWalletIdInp(phoneNo);
@@ -53,13 +102,114 @@ const JbrCoin = ({ crossHandler }) => {
     }
   }, [phoneNo?.length > 9]);
 
-  // function for change the number and save number is state...............................
-  const onChangePhoneNumber = (value, data) => {
-    let phoneCode = data.dialCode;
-    let phoneNumber = value.slice(data.dialCode.length);
-    setPhoneNo(phoneNumber);
-    SetPhoneCode(phoneCode);
+  const sendRequestFun = () => {
+    let params = {
+      amount: (cartData?.amount?.total_amount * 100)?.toFixed(0),
+      reciever_address: walletUser?.wallet_address,
+      seller_id: sellerId,
+    };
+    dispatch(
+      requestMoney({
+        ...params,
+        cb: (res) => {
+          setsendRequest(true);
+          setRequestId(res?._id);
+          let param = {
+            requestId: res?._id,
+          };
+          dispatch(requestCheck(param));
+        },
+      })
+    );
   };
+
+  const handleOnCancel = () => {
+    let params = {
+      requestId: requestId,
+    };
+    sendRequest && dispatch(paymentRequestCancel(params));
+
+    dispatch(setRequestCheck(""));
+    dispatch(setQrcodestatus(""));
+    setsendRequest(false);
+    setDuration(120);
+    setWalletIdInp("");
+  };
+
+  const funRunOnCreateOrder = () => {
+    dispatch(setRequestCheck(""));
+    dispatch(setQrcodestatus(""));
+    setsendRequest(false);
+    setDuration(120);
+    setWalletIdInp("");
+  };
+
+  const createOrderHandler = () => {
+    let params = {
+      cart_id: cartData.id,
+      tips: (cartData?.amount?.total_amount * 100)?.toFixed(0),
+      mode_of_payment: "jbr",
+      drawer_id: drawerData?.id,
+    };
+    dispatch(
+      createOrder({
+        ...params,
+        cb() {
+          dispatch(
+            clearCart({
+              cb: () => {
+                dispatch(productCart());
+                funRunOnCreateOrder();
+              },
+            })
+          );
+          router.push({
+            pathname: "/Retails/ShowPaidAmountCart",
+            query: {
+              cart: JSON.stringify(cartData),
+              paymentData: JSON.stringify(params),
+            },
+          });
+        },
+      })
+    );
+  };
+
+  useEffect(() => {
+    let interval;
+
+    if (requestStatus !== "success" && sendRequest) {
+      interval = setInterval(() => {
+        setRequestId((requestId) => {
+          let param = {
+            requestId: requestId,
+          };
+          dispatch(requestCheck(param));
+          return requestId;
+        });
+      }, 10000);
+    } else if (requestStatus == "success" && sendRequest) {
+      createOrderHandler();
+      clearInterval(interval);
+    } else if (qrStatus !== "success" && sendRequest == false) {
+      interval = setInterval(() => {
+        let params = {
+          cartId: cartData?.id,
+        };
+        dispatch(qrcodestatus(params));
+      }, 5000);
+    } else if (qrStatus == "success" && sendRequest == false) {
+      createOrderHandler();
+      clearInterval(interval);
+    }
+
+    return () => clearInterval(interval);
+  }, [
+    // isFocused,
+    requestStatus == "success",
+    qrStatus == "success",
+    sendRequest,
+  ]);
 
   return (
     <div className="jobrWalletSection">
@@ -82,6 +232,11 @@ const JbrCoin = ({ crossHandler }) => {
           className="img-fluid scannerImg"
           width="100"
           height="100"
+          style={
+            sendRequest
+              ? { width: "100%", height: "100%", filter: "blur(20px)" }
+              : { width: "100%", height: "100%" }
+          }
         />
       </div>
       <div className="walletRightModal">
@@ -134,19 +289,23 @@ const JbrCoin = ({ crossHandler }) => {
           <div className="addCustomerBtn mt-4 walletModalBtn">
             <button
               className="serviceCancel"
-              type="submit"
-              onClick={() => crossHandler()}
+              type="button"
+              onClick={() => {
+                crossHandler();
+                handleOnCancel();
+              }}
             >
               Cancel
             </button>
             <button
+              onClick={() => sendRequestFun()}
               disabled={
                 walletUser?.step >= 2 && walletIdInp?.length > 9 && !sendRequest
                   ? false
                   : true
               }
               className={sendRequest ? "eReciptBtn" : "nextverifyBtn "}
-              type="submit"
+              type="button"
               style={{
                 opacity:
                   walletUser?.step >= 2 &&
@@ -157,6 +316,17 @@ const JbrCoin = ({ crossHandler }) => {
               }}
             >
               {sendRequest ? "Request Sent" : "Send Request"}
+              {retailData?.requestMoneyLoad && (
+                <span className="spinner-border spinner-border-sm mx-1"></span>
+              )}
+
+              {sendRequest && (
+                <Image
+                  src={Images.btnTick}
+                  alt="btnTick image"
+                  className="img-fluid ms-2"
+                />
+              )}
             </button>
             {/* <button className="eReciptBtn d-none" type="submit" > 
               Request Sent
@@ -167,9 +337,12 @@ const JbrCoin = ({ crossHandler }) => {
               />
             </button> */}
           </div>
+          {sendRequest && (
+            <h6 className="text-center mt-3">{formatTime(duration)}</h6>
+          )}
         </form>
       </div>
     </div>
   );
-};
+});
 export default JbrCoin;
