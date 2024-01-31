@@ -68,7 +68,6 @@ const PlanFit = ({ handleTouch }) => {
   
   return (
     <>
-      <div className="settingMain">
         <div className="row">
           <div>
             <div className="settingOuter planFitRight">
@@ -116,7 +115,7 @@ const PlanFit = ({ handleTouch }) => {
                         {plansData && plansData?.length > 0 ? (
                           <>
                             {plansData?.map((item, index) => (
-                              <div key={index} className="col-lg-4 mt-4">
+                              <div key={index} className="col-xl-4 col-lg-6 mt-4">
                                 <div
                                   className={
                                     item?._id === activePlan?.plan_id?._id
@@ -248,7 +247,6 @@ const PlanFit = ({ handleTouch }) => {
             </div>
           </div>
         </div>
-      </div>
     </>
   );
 };

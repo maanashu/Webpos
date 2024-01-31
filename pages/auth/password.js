@@ -11,10 +11,18 @@ import SecurityVerification from "../../components/settingModal/SecurityVerify";
 import ForgetSecurityPin from "../../components/settingModal/ForgetSecurityPin";
 import GetSecurityScanerCode from "../../components/settingModal/GetSecurityScaner";
 import ProtectedRoute from '../../components/ProtectedRoute';
+import moment from 'moment-timezone';
 
 
 const Verify = () => {
   const authData = useSelector(selectLoginAuth)
+  const data = authData?.usersInfo?.payload?.user?.user_profiles;
+  console.log(authData
+
+    , "authDataauthData");
+
+  const selectedposusernfo = authData?.selectedUserData ? authData?.selectedUserData:""
+  console.log(selectedposusernfo?.user?.user_roles, "selectedposusernfo");
   const toastId = React.useRef(null)
   const router = useRouter();
   const { id } = router.query;
@@ -25,6 +33,7 @@ const Verify = () => {
   const generateRandomName = () => {
     return Math.random().toString(36).substr(2, 10);
   };
+  // const location = 
   const [getSecurityScnerCode, setGetSecurityScnerCode] = useState("")
   const [userLoginInfo, setUserLoginInfo] = useState("")
   const [getUserToken, setGetUserToken] = useState("")
@@ -118,7 +127,35 @@ const Verify = () => {
           <div className='loginOtpSub'>
             <div className='loginheading'>Welcome to <span>JOBR POS</span></div>
             <div className='verifyBox'>
-              <h1 className='verifyHeading'> Password</h1>
+
+              <div className='loginCard'>
+                <figure className='loginIds'>
+                  <Image src={selectedposusernfo?.user?.user_profiles?.profile_photo ? selectedposusernfo?.user?.user_profiles?.profile_photo : Images.LoginFirst} alt="LoginIdImage" width="100" height="100" className="img-fluid loginIdImg" />
+                </figure>
+                <div className='loginMainHead'>
+                  <h2 className='loginMain'>{selectedposusernfo?.user?.user_profiles?.firstname} {selectedposusernfo?.user?.user_profiles?.lastname}</h2>
+
+                  {selectedposusernfo?.user?.user_roles.length > 0 ? (
+                    selectedposusernfo?.user?.user_roles?.map((data, index) => {
+                      return (
+                        <h4 className='loginSub'>{data?.role?.name}</h4>
+                      )
+                    })
+                  )
+                    :
+                    <h4 className='loginSub mt-3'>Admin / Manager</h4>
+                  }
+
+                  {selectedposusernfo?.user?.api_tokens?.length > 0 ? (
+                    <>
+                      <h4 className='loginPara mt-3'>{moment(data?.user?.api_tokens[0]?.created_at).fromNow()}</h4>
+                      <h4 className='loginPara '>{moment(data?.user?.api_tokens[0]?.created_at).format('LT')}</h4>
+                    </>
+                  ) :
+                    ""}
+                </div>
+              </div>
+              <h1 className='verifyHeading'> Passcode</h1>
               <h4 className='verifySub'>Please enter the 4 digit code </h4>
               <form className='otpForm'>
                 <div className='otpMain'>
@@ -133,7 +170,7 @@ const Verify = () => {
                           autoComplete="new-password"
                           isInputNum={true}
                           isInputSecure={true}
-                          renderInput={(props) => <input {...props} type="text" maxLength={4} />}
+                          renderInput={(props) => <input {...props} type="password" maxLength={4} />}
                           onChange={onComplete}
                         // onComplete={(code) => onComplete(code)}
                         />

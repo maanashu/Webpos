@@ -40,13 +40,16 @@ function Plan({ handleTouch }) {
           </div>
         ) : (
           <>
+           <div className="topsettingContent_">
             <Image
               src={Images.checkCircle}
               alt="darkDevices image"
-              className="img-fluid"
+              className="img-fluid me-2"
             />
+             <h4 className="appointMain">Current Plan</h4>
+            </div>
             <div className="planSubSection">
-              <h4 className="appointMain">Current Plan</h4>
+             
               {settingData?.loading ? (
                 <div className="loaderOuter">
                   <div className="spinner-grow loaderSpinner text-center my-5"></div>

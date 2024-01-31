@@ -22,7 +22,7 @@ const TCRHeader = ({
 
   const boldInDescrip = () => (
     <>
-      ALl the following data is gathered{" "}
+      All the following data is gathered{" "}
       <span
         style={{
           fontWeight: "600",

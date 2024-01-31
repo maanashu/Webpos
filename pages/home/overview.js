@@ -13,6 +13,7 @@ import {
   getAllOrderDeliveries,
   getPosLoginDetails,
   getTodaySales,
+  getOnlineOrdersCount
 } from "../../redux/slices/dashboard";
 import Login from "../auth/login";
 import moment from "moment-timezone";
@@ -33,28 +34,35 @@ const Overview = () => {
   const [orderDeliveriesInfo, setOrderDeliveriesInfo] = useState("");
   const [getTodaySale, setGetTodaySale] = useState("");
   const [posLoginDetail, setPosLoginDetail] = useState("");
+  const [onlineOrdersCount, setOnlineOrdersCount] = useState(0);
   const [modalDetail, setModalDetail] = useState({
     show: false,
     title: "",
     flag: "",
   });
 
-  // API for get all oder deliveries...............................
-  const allOrderDeliveriesInfo = () => {
-    let params = {
-      seller_id: UniqueId,
+
+    // API for get all oder deliveries...............................
+    const allOrderDeliveriesInfo = () => {
+        let params = {
+            seller_id: UniqueId,
+            delivery_option: "1,3,4",
+            page: 1,
+            limit: 50,
+            app_name: 'b2c'
+        };
+        dispatch(getAllOrderDeliveries({
+            ...params,
+            cb(res) {
+                if (res.status) {
+                    console.log(res?.data,"res?.datares?.data");
+                    setOrderDeliveriesInfo(res?.data?.payload?.data)
+                }
+            },
+        })
+        );
     };
-    dispatch(
-      getAllOrderDeliveries({
-        ...params,
-        cb(res) {
-          if (res.status) {
-            setOrderDeliveriesInfo(res?.data?.payload?.data);
-          }
-        },
-      })
-    );
-  };
+
 
   // API for get today sales...............................
   const todaySaleInfo = () => {
@@ -68,6 +76,23 @@ const Overview = () => {
         cb(res) {
           if (res.status) {
             setGetTodaySale(res?.data?.payload);
+          }
+        },
+      })
+    );
+  };
+
+  // API for get online orders count...............................
+  const fetchOnlineOrdersCount = () => {
+    let params = {
+      seller_id: UniqueId
+    };
+    dispatch(
+      getOnlineOrdersCount({
+        ...params,
+        cb(res) {
+          if (res.status) {
+            setOnlineOrdersCount(res?.data?.payload?.onlineOrders);
           }
         },
       })
@@ -136,13 +161,14 @@ const Overview = () => {
     }
   }, []);
 
-  useEffect(() => {
-    if (UniqueId) {
-      todaySaleInfo();
-      allOrderDeliveriesInfo();
-      userLoginDetails();
-    }
-  }, []);
+    useEffect(() => {
+        if (UniqueId) {
+            todaySaleInfo()
+            fetchOnlineOrdersCount()
+            allOrderDeliveriesInfo()
+            userLoginDetails()
+        }
+    }, [UniqueId]);
 
   return (
     <>
@@ -204,11 +230,15 @@ const Overview = () => {
                     ) : (
                       getTodaySale &&
                       getTodaySale?.map((data, index) => {
+
+                        if(data?.mode_of_payment == 'all'){
+                          return;
+                        }
+
                         return (
                           <div key={index} className="flexHeading mt-4">
                             <h4 className="saleHeading">
-                              {data?.mode_of_payment === "jbr"
-                                ? data?.mode_of_payment.toUpperCase()
+                              {data?.mode_of_payment === "jbr" ? "JBR Coin"
                                 : data?.mode_of_payment
                                     ?.charAt(0)
                                     ?.toUpperCase() +
@@ -216,7 +246,8 @@ const Overview = () => {
                               sales amount
                             </h4>
                             <h4 className="saleHeading">
-                              ${data?.total_sale_amount?.toFixed(2)}
+                              {data?.mode_of_payment === "jbr" ? `JBR ${data?.total_sale_amount?.toFixed(2)}` : "$"+data?.total_sale_amount?.toFixed(2)}
+                              {/* ${data?.total_sale_amount?.toFixed(2)} */}
                             </h4>
                           </div>
                         );
@@ -227,37 +258,31 @@ const Overview = () => {
                     <h4 className="loginMain">Cash Drawer</h4>
                     <div className="flexHeading mt-4">
                       <h4 className="saleHeading">Opening Balance</h4>
-                      <h4 className="saleHeading">
-                        {trackingSession?.opening_balance}
-                      </h4>
+                      <h4 className="saleHeading">${trackingSession?.opening_balance}</h4>
                     </div>
                     <div className="flexHeading mt-2">
                       <h4 className="saleHeading">Closing Balance</h4>
-                      <h4 className="saleHeading">
-                        {trackingSession?.cash_balance}
-                      </h4>
+                      <h4 className="saleHeading">${trackingSession?.cash_balance}</h4>
                     </div>
                   </div>
                   <div className="timedetail">
                     <div className="flexHeading mt-2">
                       <h4 className="dayTimeText">
-                        {`Today ${moment().format("DD MMMM, YYYY")}`}
+                        {moment().format("dddd, ll")}
                       </h4>
                       <h4 className="dayTimeText">
-                        {moment().format("hh:mm:ss a")}
+                        {moment().format("hh:mm:ss A")}
                       </h4>
                     </div>
                     <div className="flexHeading mt-2">
                       <h4 className="dayTimeText">Log in Time:</h4>
                       <h4 className="dayTimeText">
-                        {moment(posLoginDetail?.updated_at).format(
-                          "hh:mm:ss a"
-                        )}
+                        {moment(posLoginDetail?.updated_at).format("hh:mm:ss A")}
                       </h4>
                     </div>
                     <div className="flexHeading mt-2">
                       <h4 className="dayTimeText">Session:</h4>
-                      <h4 className="dayTimeText">{`${hours} h: ${minutes} minutes`}</h4>
+                      <h4 className="dayTimeText">{`${hours}h:${minutes < 0 ? 0 : minutes}m`}</h4>
                     </div>
                   </div>
                 </div>
@@ -307,7 +332,7 @@ const Overview = () => {
                   </div>
                 </form>
                 <div className="sellingOrder">
-                  <div className="startSelling">
+                  <div className="startSelling" onClick={() => {router.push("/Retails?parameter=product")}} style={{cursor: "pointer"}}>
                     <figure className="profileImage">
                       <Image
                         src={Images.HomeIcon}
@@ -325,7 +350,7 @@ const Overview = () => {
                       <span className="smallText">Scan / Search</span>
                     </figure>
                   </div>
-                  <div className="onlineOrder">
+                  <div className="onlineOrder" onClick={() => {router.push("/Deliveries")}} style={{cursor: "pointer"}}>
                     <figure className="profileImage">
                       <Image
                         src={Images.ShoppingCart}
@@ -334,7 +359,7 @@ const Overview = () => {
                       />
                     </figure>
                     <h4 className="loginMain">Online Orders</h4>
-                    <button className="OrderBtn">12 New Orders</button>
+                    <button className="OrderBtn">{ onlineOrdersCount } New Orders</button>
                     <div className="bellImg">
                       <figure className="bellOuter">
                         <Image
@@ -347,7 +372,7 @@ const Overview = () => {
                   </div>
                 </div>
                 <div className="profileMainTable">
-                  <h4 className="loginMain">Order Deliveries</h4>
+                  <h4 className="loginMain">Orders</h4>
                   <div className="table-responsive deliverTable">
                     <table id="tableProduct" className="product_table">
                       {dashboardData?.loading ? (
@@ -363,8 +388,9 @@ const Overview = () => {
                           {orderDeliveriesInfo?.length > 0 ? (
                             <>
                               {orderDeliveriesInfo?.map((data, index) => {
+                                const redirectURL = data?.delivery_option == '4' ? '/shipping' : '/Deliveries'
                                 return (
-                                  <tr>
+                                  <tr onClick={() => {router.push(redirectURL)}} style={{cursor: 'pointer'}}>
                                     <td className="deliverSubdata" key={index}>
                                       <div className="orderFirstId">
                                         <h4 className="orderId">#{data?.id}</h4>

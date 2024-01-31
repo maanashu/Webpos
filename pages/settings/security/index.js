@@ -96,13 +96,15 @@ const Security = () => {
     <>
       <div className="securityRight settingOuter">
         <div className="topsettingContent_">
-          <Image src={Images.passwordLock} alt="darkDevices image" className="img-fluid" />
-          <div className="headingTextStyle mb-2">2-Step Verification</div>
-          <p className="lightOfferText">
-            An extra layer to boost your team members account security. A
-            verification code will be required in addition to password each time you
-            sign in.
-          </p>
+          <Image src={Images.passwordLock} alt="darkDevices image" className="img-fluid me-3" />
+          <div className="rightboxContent_ w-100">
+            <h3 className="headingTextStyle mb-2">2-Step Verification</h3>
+            <p className="lightOfferText">
+              An extra layer to boost your team members account security. A
+              verification code will be required in addition to password each time you
+              sign in.
+            </p>
+          </div>
 
         </div>
         <div className="w-100 bottonContent_">

@@ -1,11 +1,13 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import * as Images from "../../utilities/images";
 import Image from "next/image";
 import Pagination from "../../components/commanComonets/pagination";
 import { useDispatch, useSelector } from "react-redux";
 import {
+  searchBySKU,
   searchInvoiceByInvoiceId,
   selectReturnData,
+  setInvoiceData,
 } from "../../redux/slices/productReturn";
 import { selectLoginAuth } from "../../redux/slices/auth";
 import moment from "moment-timezone";
@@ -14,26 +16,24 @@ import { toast } from "react-toastify";
 import CustomModal from "../../components/customModal/CustomModal";
 import Manualinvoice from "./manual-entry(search)";
 
-
 const ProductInvoice = () => {
   const dispatch = useDispatch();
   const router = useRouter();
-  const [selectedProductItems, setSelectedProductItems] = useState([]);
   const authData = useSelector(selectLoginAuth);
   const sellerId = authData?.usersInfo?.payload?.uniqe_id;
-  const [searchInvoiceId, setSearchInvoiceId] = useState(null);
+  const [searchInvoiceViaBarcode, setSearchInvoiceViaBarcode] = useState("");
   const invoiceData = useSelector(selectReturnData);
   const SearchInvoiceRespones = invoiceData?.invoiceByInvoiceId;
   const orderDetails = SearchInvoiceRespones?.order;
-  const productDetails = SearchInvoiceRespones?.order?.order_details;
-  const [checkeddata,setCheckedData]=useState("");
-  console.log("checkeddatacheckeddata",checkeddata);
+  const [checkeddata, setCheckedData] = useState("");
+  const [productDetails, setProductDetails] = useState([]);
   const [key, setKey] = useState(Math.random());
   const [modalDetail, setModalDetail] = useState({
     show: false,
     title: "",
     flag: "",
   });
+
   const handleOnCloseModal = () => {
     setModalDetail({
       show: false,
@@ -43,50 +43,96 @@ const ProductInvoice = () => {
     setKey(Math.random());
   };
 
+  useEffect(() => {
+    if (SearchInvoiceRespones?.order?.order_details) {
+      setProductDetails(
+        SearchInvoiceRespones?.order?.order_details?.map((item) => ({
+          ...item,
+          isChecked: false,
+        }))
+      );
+    }
+  }, [SearchInvoiceRespones?.order?.order_details ,checkeddata]);
+
   const handleSearchInvoice = (e) => {
-    setSearchInvoiceId(e.target.value);
     let params = {
       invoiceId: e.target.value,
       seller_id: sellerId,
     };
+
     dispatch(
       searchInvoiceByInvoiceId({
         ...params,
-        cb(resp) {},
+        cb(resp) {
+          if (resp) {
+          }
+        },
       })
     );
   };
+
   const handleGoToNext = () => {
+    const selectedProductItems = productDetails?.filter(
+      (item) => item?.isChecked
+    );
     if (selectedProductItems?.length > 0) {
       router.push({
         pathname: "/Product/productrefunds(Price-format)",
-        query: { selectedItems: JSON.stringify(selectedProductItems) },
       });
+
+      const shareData = {
+        selectedItems: JSON.stringify(selectedProductItems),
+      };
+      dispatch(setInvoiceData(shareData));
     } else {
       toast.error("Please select products to refund!");
     }
   };
 
   const handleCheckboxChange = (data) => {
-    setSelectedProductItems((prevSelectedItems) => {
-      const isItemChecked = prevSelectedItems.some(
-        (item) => item.product_id === data.product_id
-      );
-
-      if (isItemChecked) {
-        return prevSelectedItems.filter(
-          (item) => item.product_id !== data.product_id
-        );
-      } else {
-        return [...prevSelectedItems, data];
-      }
-    });
+    const updatedProductDetails = productDetails?.map((item) =>
+      data?.product_id === item?.product_id
+        ? { ...item, isChecked: item?.isChecked ? false : true }
+        : item
+    );
+    setProductDetails(updatedProductDetails);
   };
 
   const handleGoToManualEntry = () => {
     setModalDetail({ show: true, flag: "manualEntry" });
     setKey(Math.random());
   };
+
+  useEffect(() => {
+    if (searchInvoiceViaBarcode) {
+      let params = {
+        app_name: "pos",
+        seller_id: sellerId,
+        search: searchInvoiceViaBarcode,
+      };
+      dispatch(
+        searchBySKU({
+          ...params,
+          cb(res) {
+            if (res?.status) {
+              setCheckedData(res?.data?.payload?.product_detail);
+            }
+          },
+        })
+      );
+    }
+  }, [searchInvoiceViaBarcode]);
+
+  useEffect(() => {
+    if (checkeddata) {
+      const updatedProductDetails = productDetails?.map((item) =>
+        checkeddata?.id === item?.product_id
+          ? { ...item, isChecked: true }
+          : item
+      );
+      setProductDetails(updatedProductDetails);
+    }
+  }, [checkeddata]);
 
   return (
     <>
@@ -264,6 +310,9 @@ const ProductInvoice = () => {
                         type="text"
                         className="form-control searchControl"
                         placeholder="Scan Barcode of each Item"
+                        onChange={(e) =>
+                          setSearchInvoiceViaBarcode(e.target.value)
+                        }
                       />
                       <Image
                         src={Images.scanImg}
@@ -304,30 +353,28 @@ const ProductInvoice = () => {
                         <div className="ps-1">
                           <p className="aboutProduct">{data?.product_name}</p>
                           <div className="d-flex">
-                            <article className="productColor">
+                            {/* <article className="productColor">
                               <span className="Yellow"></span>
                               <span className="Red"></span>
                               <span className="Pink"></span>
                               <span className="Blue"></span>
                               <span className="Black"></span>
                               <span className="White"></span>
-                            </article>
-                            <span className="productSize">Colors / Size</span>
+                            </article> */}
+                            {/* <span className="productSize">Colors / Size</span> */}
                           </div>
                         </div>
                       </div>
-                      <p className="productPriceinvoice">
-                        ${data?.actual_price}
-                      </p>
+                      <p className="productPriceinvoice">${data?.price}</p>
                       <p className="productPriceinvoice">{data?.qty}</p>
-                      <p className="productPriceinvoice">${data?.cost_price}</p>
+                      <p className="productPriceinvoice">
+                        ${data?.price * data?.qty}
+                      </p>
                       <article>
                         <label className="custom-checkbox">
                           <input
                             type="checkbox"
-                            checked={selectedProductItems.some(
-                              (item) => item.product_id === data.product_id
-                            )}
+                            checked={data?.isChecked}
                             onChange={() => handleCheckboxChange(data)}
                           />
                           <span className="checkmark"></span>
@@ -404,9 +451,9 @@ const ProductInvoice = () => {
                           </p>
                         </div>
                         <div className="flexBox">
-                          <p className="orderHeading">Fax</p>
+                          <p className="orderHeading">Tax</p>
                           <p className="orderSubHeading">
-                            ${orderDetails?.fax ? orderDetails?.tax : "0.00"}
+                            ${orderDetails?.tax ? orderDetails?.tax : "0.00"}
                           </p>
                         </div>
                       </div>
@@ -464,9 +511,10 @@ const ProductInvoice = () => {
         }
         child={
           modalDetail.flag === "manualEntry" ? (
-            <Manualinvoice closeManulModal={() => handleOnCloseModal()}
-            productDetails={productDetails}
-            setCheckedData={setCheckedData}
+            <Manualinvoice
+              closeManulModal={() => handleOnCloseModal()}
+              productDetails={productDetails}
+              setCheckedData={setCheckedData}
             />
           ) : (
             ""

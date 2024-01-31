@@ -13,6 +13,8 @@ import { toast } from "react-toastify";
 
 const Manualinvoice = (props) => {
   const dispatch = useDispatch();
+  const [loading, setLoading] = useState(false);
+  console.log(loading, "loading");
   const authData = useSelector(selectLoginAuth);
   const sellerId = authData?.usersInfo?.payload?.uniqe_id;
   const [productsSearchBySku, setProductsSearchBySku] = useState("");
@@ -21,21 +23,27 @@ const Manualinvoice = (props) => {
   const isProductIdMatched = productDetails?.some(
     (product) => product?.product_id === productsSearchBySku?.id
   );
-
+  
   const handleSearchSku = (e) => {
-    let params = {
-      search: e.target.value,
-      seller_id: sellerId,
-    };
-    dispatch(
-      searchBySKU({
-        ...params,
-        cb(resp) {
-          setProductsSearchBySku(resp?.data?.payload?.product_detail);
-        },
-      })
-    );
+    const inputValue = e.target.value;
+    if (inputValue.length >= 4) {
+      let params = {
+        search: inputValue,
+        seller_id: sellerId,
+      };
+      setLoading(true);
+      dispatch(
+        searchBySKU({
+          ...params,
+          cb(resp) {
+            setLoading(false);
+            setProductsSearchBySku(resp?.data?.payload?.product_detail);
+          },
+        })
+      );
+    } 
   };
+  
   const handleManulEntry = () => {
     if (!productsSearchBySku) {
       toast.error("Please add Product by search SKU!");
@@ -47,7 +55,7 @@ const Manualinvoice = (props) => {
   const handleCheckProduct = () => {
     if (isProductIdMatched === true) {
       toast.success("Product Checked!");
-      props.setCheckedData(productsSearchBySku)
+      props.setCheckedData(productsSearchBySku);
       return;
     } else {
       toast.error("Product Not found in order!");
@@ -77,53 +85,59 @@ const Manualinvoice = (props) => {
               />
             </button>
           </div>
-
-          <div className="manualSelectedProduct">
-            {productsSearchBySku ? (
-              <div
-                className="selectedProductDetails active"
-                onClick={handleCheckProduct}
-              >
-                <div className="d-flex">
-                  <figure>
-                    <Image
-                      src={productsSearchBySku?.image}
-                      alt="tableImg"
-                      className="costumerImg"
-                      height={100}
-                      width={100}
-                    />
-                  </figure>
-                  <div className="ps-1">
-                    <p className="aboutProduct">{productsSearchBySku?.name}</p>
-                    <div className="d-flex">
-                      <article className="productColor">
+          {loading === false ? (
+            <div className="manualSelectedProduct">
+              {productsSearchBySku ? (
+                <div
+                  className= {isProductIdMatched === true ? "afterCheckedProduct" :"selectedProductDetails"}
+                  onClick={handleCheckProduct}
+                >
+                  <div className="d-flex">
+                    <figure>
+                      <Image
+                        src={productsSearchBySku?.image}
+                        alt="tableImg"
+                        className="costumerImg"
+                        height={100}
+                        width={100}
+                      />
+                    </figure>
+                    <div className="ps-1">
+                      <p className="aboutProduct">
+                        {productsSearchBySku?.name}
+                      </p>
+                      <div className="d-flex">
+                        {/* <article className="productColor">
                         <span className="Yellow"></span>
                         <span className="Red"></span>
                         <span className="Pink"></span>
                         <span className="Blue"></span>
                         <span className="Black"></span>
                         <span className="White"></span>
-                      </article>
+                      </article> */}
 
-                      <span className="sku">
-                        {productsSearchBySku?.sku
-                          ? productsSearchBySku?.sku
-                          : ""}
-                      </span>
-                      <span className="productSize">Colors / Size</span>
+                        <span className="sku">
+                          {productsSearchBySku?.sku
+                            ? productsSearchBySku?.sku
+                            : ""}
+                        </span>
+                        {/* <span className="productSize">Colors / Size</span> */}
+                      </div>
                     </div>
                   </div>
+                  <p className="productPriceinvoice">
+                    ${productsSearchBySku?.price}
+                  </p>
                 </div>
-                <p className="productPriceinvoice">
-                  ${productsSearchBySku?.price}
-                </p>
-              </div>
-            ) : (
-              ""
-            )}
-          </div>
-
+              ) : (
+                ""
+              )}
+            </div>
+          ) : (
+            <div className="loaderOuter">
+              <div className="spinner-grow loaderSpinner text-center my-5"></div>
+            </div>
+          )}
           <div className="flexBox buttonBox">
             <button
               type="button"

@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import * as Images from "../../utilities/images";
 import Image from "next/image";
 import { useDispatch, useSelector } from 'react-redux';
-import { getAllPosUser, selectLoginAuth } from '../../redux/slices/auth';
+import { getAllPosUser, selectLoginAuth, selectedPosUser } from '../../redux/slices/auth';
 import moment from "moment";
 import { useRouter } from 'next/router';
 import ProtectedRoute from '../../components/ProtectedRoute';
@@ -16,6 +16,10 @@ const Login = () => {
     // find out UniqueId from redux for send in params
     const UniqueId = authData?.usersInfo?.payload?.uniqe_id
 
+ const selectedUserInfo= (data) =>{
+    dispatch(selectedPosUser(data))
+    router.push({ pathname: '/auth/password', query: { id: data?.user_id }})}
+ 
     // API for get all POS users...............................
     const getAllPOSUser = () => {
         let params = {
@@ -66,7 +70,8 @@ const Login = () => {
                                             {GetPosUserList?.map((data, index) => {
                                                 return (
                                                     <div className='col-lg-3 col-md-6 mt-4' key={index}>
-                                                        <div className='loginCard' onClick={() => router.push({ pathname: '/auth/password', query: { id: data?.user_id } })}>
+                                                        <div className='loginCard' onClick={() => selectedUserInfo(data)}
+                                                            >
                                                             <figure className='loginIds'>
                                                                 <Image src={data?.user?.user_profiles?.profile_photo ? data?.user?.user_profiles?.profile_photo : Images.LoginFirst} alt="LoginIdImage" width="100" height="100" className="img-fluid loginIdImg" />
                                                             </figure>
