@@ -92,7 +92,7 @@ const VerifyOtp = () => {
                         isInputNum={true}
                         isInputSecure={true}
                         renderInput={(props) => (
-                          <input {...props} type="text" maxLength={4} />
+                          <input {...props} type="password" maxLength={4} />
                         )}
                         onChange={onComplete}
                         // onComplete={(code) => onComplete(code)}
