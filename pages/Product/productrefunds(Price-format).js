@@ -10,7 +10,7 @@ import {
   selectReturnData,
 } from "../../redux/slices/productReturn";
 import { useDispatch, useSelector } from "react-redux";
-import { setInvoiceData } from "../../redux/slices/productReturn";
+import { setInvoiceData,onErrorStopLoad } from "../../redux/slices/productReturn";
 import { toast } from "react-toastify";
 import { Spinner } from "react-bootstrap";
 
@@ -91,6 +91,11 @@ const productrefunds = () => {
       })
     );
   };
+
+  useEffect(()=>{
+    dispatch(onErrorStopLoad())
+  },[dispatch]);
+
   const handleInputChange = (e, index) => {
     const { value } = e.target;
     const enteredValue = e.target.value;
@@ -433,7 +438,7 @@ const productrefunds = () => {
                 onClick={(e) => handlereturnToInventory(e)}
               >
                 Return to Inventory
-                {loading && (
+                {invoiceData?.loading && (
                   <Spinner
                     as="span"
                     animation="border"
