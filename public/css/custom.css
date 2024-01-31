@@ -822,12 +822,16 @@ input:checked+.switch-slider:before {
 
 .notifyBtn {
   border-radius: 16px;
-  background: #E4E6F2;
+  background: #f3f4f9;
   padding: 6px 14px;
   border: none;
-  color:  #263682;
+  color: #6371b0;
   font-size: 12px;
   font-weight: 500;
+}
+
+.notifySection::-webkit-scrollbar {
+  display: none;
 }
 
 /*notification css end*/
