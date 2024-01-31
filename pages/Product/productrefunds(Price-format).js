@@ -27,6 +27,7 @@ const productrefunds = () => {
   };
   const router = useRouter();
   const refundedItems = JSON.parse(router.query.selectedItems || "[]");
+  console.log(refundedItems, "refundedItems");
   const [refundAmount, setRefundAmount] = useState("");
   const [inputValues, setInputValues] = useState([]);
 
@@ -35,7 +36,11 @@ const productrefunds = () => {
     // setKey(Math.random());
     router.push({
       pathname: "/Product/RefundsConfirmation(No_Selection)",
-      query: { selectedItems: JSON.stringify(refundedItems) },
+      query: {
+        selectedItems: JSON.stringify(refundedItems),
+        totalSum: totalSum.toString(), // Convert totalSum to string if needed
+        subtotal: subtotal.toString(),
+      },
     });
   };
   const handlereturnToInventory = () => {
@@ -93,13 +98,34 @@ const productrefunds = () => {
       setInputValues(newValues);
     }
   };
-  useEffect(() => {
-    const newData = refundedItems?.map((data) => ({
-      ...data,
-      inputValue: inputValues,
-    }));
-    console.log(newData, "newData");
-  }, [inputValues]);
+
+  const subtotal = refundedItems?.reduce((acc, data, idx) => {
+    const itemTotal =
+      !isNaN(parseFloat(inputValues[idx])) && !isNaN(parseFloat(data?.qty))
+        ? (parseFloat(inputValues[idx]) * parseFloat(data?.qty)).toFixed(2)
+        : "0.00";
+
+    return acc + parseFloat(itemTotal);
+  }, 0);
+
+  const totalSum = refundedItems
+    ?.reduce((acc, data, idx) => {
+      const productPrice = parseFloat(data?.price) || 0;
+      const taxRate = 0.08; // 8% tax rate
+
+      const itemTotal =
+        !isNaN(parseFloat(inputValues[idx])) && !isNaN(parseFloat(data?.qty))
+          ? (parseFloat(inputValues[idx]) * parseFloat(data?.qty)).toFixed(2)
+          : "0.00";
+
+      const itemTotalWithTax = (parseFloat(itemTotal) + productPrice * taxRate) // Ensure the multiplication is inside the parentheses
+        .toFixed(2);
+
+      return acc + parseFloat(itemTotalWithTax);
+    }, 0)
+    .toFixed(2); // Apply toFixed(2) here to ensure totalSum itself has only two decimal places
+
+  console.log(totalSum, "totalSum");
 
   return (
     <>
@@ -246,16 +272,16 @@ const productrefunds = () => {
                 <div className="itemsRefundedsubTotal">
                   <div className="flexBox justify-content-between ">
                     <p className="orderHeading">Sub Total</p>
-                    <p className="orderHeading">$2,396.50</p>
+                    <p className="orderHeading">${subtotal}</p>
                   </div>
                   <div className="flexBox justify-content-between ">
                     <p className="orderHeading">Total Taxes</p>
-                    <p className="orderHeading">-$19.00</p>
+                    <p className="orderHeading">+8 %</p>
                   </div>
                 </div>
                 <div className="flexBox justify-content-between itemsRefundedTotal">
                   <p className="priceHeading">Total</p>
-                  <p className="priceHeading">$254.60</p>
+                  <p className="priceHeading">${totalSum}</p>
                 </div>
                 <div className="text-end">
                   <button
