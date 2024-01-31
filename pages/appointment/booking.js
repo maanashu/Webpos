@@ -532,7 +532,10 @@ const Booking = () => {
                                                 className="locate me-2"
                                               />
                                               <span className="purpleText">
-                                                Kiev, Ukraine
+                                                {userId !== null
+                                                  ? customerDetails?.phone_number
+                                                  : customerDetails?.phone_code +
+                                                    customerDetails?.phone_no}
                                               </span>
                                             </div>
                                           </div>
