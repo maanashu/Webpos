@@ -13,7 +13,7 @@ const axiosInstance = axios.create({
   headers: {
     Accept: "application/json",
     "app-name": "pos",
-    // timezone: getTimeZone,
+    timezone: getTimeZone,
   },
 });
 
