@@ -1,7 +1,9 @@
 import React, { useState } from "react";
 
 const ReturnInventory = (props) => {
-    const [selectedProductItems, setSelectedProductItems] = useState(props.selectedProductItems);
+    const [selectedProductItems, setSelectedProductItems] = useState(props?.selectedProductItems);
+    console.log(selectedProductItems,'selectedProductItems');
+
 
     const handleDecreaseQty = (data, index) => {
         setSelectedProductItems((prevState) => {
@@ -14,6 +16,7 @@ const ReturnInventory = (props) => {
       };
     
       const handleIncreaseQty = (data, index) => {
+        const updatedData = props?.selectedProductItems?.find((item)=>item?.product_id === data?.product_id)
         setSelectedProductItems((prevState) => {
           const updatedProductItems = [...prevState];
           if (updatedProductItems[index].qty < data.qty) {
