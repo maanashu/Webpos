@@ -1,5 +1,5 @@
 import Image from "next/image";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import {
   customerWallet,
   newCustomers,
@@ -16,43 +16,38 @@ import { Chart as ChartJS, registerables } from "chart.js";
 import Link from "next/link";
 import Header from "../../components/commanComonets/cashdrawer/Header";
 import { PaginationFooter } from "../../components/commanComonets/customers/PaginationFooter";
+import { useDispatch, useSelector } from "react-redux";
+import { selectLoginAuth } from "../../redux/slices/auth";
+import {
+  getDrawerSession,
+  selectCashDrawerData,
+} from "../../redux/slices/cashDrawer";
 
 const CashDrawer = () => {
-  const STATS = [
-    {
-      icon: newCustomers,
-      title: "New Customers",
-      count: 2984,
-      bgColor: "#FFEEB3",
-      textColor: "#93370D",
-    },
-    {
-      icon: returningCustomers,
-      title: "Returning Customers",
-      count: 3541,
-      bgColor: "#D7DEFF",
-      textColor: "#172461",
-    },
-    {
-      icon: onlineCustomers,
-      title: "Online Customers",
-      count: "$5560",
-      bgColor: "#D1FADF",
-      textColor: "#003921",
-    },
-    {
-      icon: walkInCustomers,
-      title: "Walk-in Customers",
-      count: 4045,
-      bgColor: "#BFEEFF",
-      textColor: "#1F6A84",
-    },
-  ];
-
   ChartJS.register(...registerables);
 
-  const statBoxTitleStyle = { color: "#636E9F" };
-  const drawerIDTitleStyle = { color: "#914BEB", marginTop: "3px" };
+  const dispatch = useDispatch();
+  const authData = useSelector(selectLoginAuth);
+  const sessionData = useSelector(selectCashDrawerData);
+  const drawerSessionDetail = sessionData?.drawerSession?.payload;
+
+  const UniqueId = authData?.usersInfo?.payload?.uniqe_id
+    ? authData?.usersInfo?.payload?.uniqe_id
+    : "";
+  // API for get Drawer Session Info...............................
+  const drawerSessionInfo = () => {
+    const sellerId = {
+      seller_id: UniqueId,
+    };
+    dispatch(
+      getDrawerSession({
+        ...sellerId,
+      })
+    );
+  };
+  useEffect(() => {
+    drawerSessionInfo();
+  }, []);
 
   return (
     <>
@@ -72,7 +67,9 @@ const CashDrawer = () => {
                   className="img-fluid"
                   alt="mainIcon Image"
                 />
-                <h4 className="locateDistance">Drawer ID 1</h4>
+                <h4 className="locateDistance">
+                  Drawer ID {drawerSessionDetail?.id}
+                </h4>
               </div>
             </div>
             <Link href="cashDrawer/viewSession">

@@ -9,7 +9,7 @@ import { useDispatch, useSelector } from "react-redux";
 
 const ShipRightSidebar = (props) => {
     const [activeSidebar, setActiveSidebar] = useState(true);
-    console.log(props?.data, "dtaassas");
+    console.log(props, "dtaassas");
 
     const onPressHandler = (status, count) => {
         if (!activeSidebar && count > 0) {
@@ -67,9 +67,9 @@ const ShipRightSidebar = (props) => {
                         props?.data?.length > 0 ?
                             <>
                                 {
-                                    props?.data?.map((val, index) => {
+                                    props?.data?.filter(item => item?.title != "acceptedOrders" && item?.title != "prepairingOrders")?.map((val, index) => {
                                         return (
-                                            <ListGroupItem onClick={() => onPressHandler(val?.title, val?.count)} key={index} className='deliverRightItem'>
+                                            <ListGroupItem onClick={props?.from === 'orderReview' ? void(0) : () => onPressHandler(val?.title, val?.count)} key={index} className='deliverRightItem'>
                                                 <Link href="#" className='rightLinkBar'>
                                                     <Image src={
                                                         val?.title == "ordersToReview" ?
@@ -92,7 +92,7 @@ const ShipRightSidebar = (props) => {
                                                     }
 
                                                         alt="ordersReview image" className="img-fluid" />
-                                                    <div className={`orderReview ${(index <= 4) ? "" : (index == 5) ? "purpleOrder" : (index == 6) ? "cancelOrder" : "returnOrder"}`}>
+                                                    <div className={`orderReview ${val?.title == "deliverdOrders" ? "purpleOrder" : val?.title == "returnedOrders" ? "returnOrder" : val?.title == "canceledAndRejectedOrders" ? "cancelOrder" : ""}`}>
                                                         <h4 className='loginSub text-start'>
                                                             {
                                                                 val?.title == "ordersToReview" ?

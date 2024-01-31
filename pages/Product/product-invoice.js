@@ -28,14 +28,16 @@ const ProductInvoice = () => {
   const SearchInvoiceRespones = invoiceData?.invoiceByInvoiceId;
   const orderDetails = SearchInvoiceRespones?.order;
   console.log(orderDetails, "orderDetails");
-  const productDetails = SearchInvoiceRespones?.order?.order_details;
   const [checkeddata, setCheckedData] = useState("");
+  const [productDetails, setProductDetails] = useState([]);
   const [key, setKey] = useState(Math.random());
   const [modalDetail, setModalDetail] = useState({
     show: false,
     title: "",
     flag: "",
   });
+
+  console.log("checkeddatacheckeddatacheckeddata", checkeddata);
   const handleOnCloseModal = () => {
     setModalDetail({
       show: false,
@@ -44,6 +46,17 @@ const ProductInvoice = () => {
     });
     setKey(Math.random());
   };
+
+  useEffect(() => {
+    if (SearchInvoiceRespones?.order?.order_details) {
+      setProductDetails(
+        SearchInvoiceRespones?.order?.order_details?.map((item) => ({
+          ...item,
+          isChecked: false,
+        }))
+      );
+    }
+  }, [SearchInvoiceRespones?.order?.order_details]);
 
   const handleSearchInvoice = (e) => {
     setSearchInvoiceId(e.target.value);
@@ -62,6 +75,7 @@ const ProductInvoice = () => {
       })
     );
   };
+
   const handleGoToNext = () => {
     if (selectedProductItems?.length > 0) {
       router.push({
@@ -77,19 +91,12 @@ const ProductInvoice = () => {
   };
 
   const handleCheckboxChange = (data) => {
-    setSelectedProductItems((prevSelectedItems) => {
-      const isItemChecked = prevSelectedItems?.some(
-        (item) => item?.product_id === data?.product_id
-      );
-
-      if (isItemChecked) {
-        return prevSelectedItems?.filter(
-          (item) => item?.product_id !== data?.product_id
-        );
-      } else {
-        return [...prevSelectedItems, data];
-      }
-    });
+    const updatedProductDetails = productDetails?.map((item) =>
+      data?.product_id === item?.product_id
+        ? { ...item, isChecked: item?.isChecked ? false : true }
+        : item
+    );
+    setProductDetails(updatedProductDetails);
   };
 
   const handleGoToManualEntry = () => {
@@ -108,13 +115,25 @@ const ProductInvoice = () => {
         searchBySKU({
           ...params,
           cb(res) {
-            console.log("ressssawwr", res);
-            setCheckedData(res?.data?.payload)
+            if (res?.status) {
+              setCheckedData(res?.data?.payload?.product_detail);
+            }
           },
         })
       );
     }
   }, [searchInvoiceViaBarcode]);
+  
+  useEffect(() => {
+    if (checkeddata) {
+      const updatedProductDetails = productDetails?.map((item) =>
+        checkeddata?.id === item?.product_id
+          ? { ...item, isChecked: true }
+          : item
+      );
+      setProductDetails(updatedProductDetails);
+    }
+  }, [checkeddata]);
 
   return (
     <>
@@ -356,13 +375,7 @@ const ProductInvoice = () => {
                         <label className="custom-checkbox">
                           <input
                             type="checkbox"
-                            checked={
-                              selectedProductItems?.some(
-                                (item) => item.product_id === data?.product_id
-                              ) ||
-                              (checkeddata &&
-                                checkeddata.id === data?.product_id)
-                            }
+                            checked={data?.isChecked}
                             onChange={() => handleCheckboxChange(data)}
                           />
                           <span className="checkmark"></span>

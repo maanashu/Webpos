@@ -3,8 +3,8 @@ import ReactDatePicker from "react-datepicker";
 import ReactSelect from "react-select";
 import {
     arrowDown
-  } from "../../utilities/images";
-  import Image from "next/image";
+} from "../../utilities/images";
+import Image from "next/image";
 import getCurrentMonthDetails from "../../utilities/dateUtils";
 // Transactions, Customers, Rewards header
 const { startOfMonth, endOfMonth, monthName, year } = getCurrentMonthDetails();
@@ -39,67 +39,73 @@ const AnalyticsHeader = ({ startDate, endDate, onDateChange, channelSelected, se
         fontStyle: "normal",
         fontWeight: "400",
         lineHeight: "normal",
-      });
+    });
 
     return (
-        <div className="cust-header flex-row-space-between">
-            <div className="">
-                {withTimeTabs && (
-                    <div className="day-tabs flex-row-space-between">
-                        {TIME_SPANS.map((el, idx) => (
-                            <p
-                                key={idx + "day-tabs"}
-                                onClick={() => {onTimeSpanSelect(el.value); setStartDate(null); setEndDate(null);}}
-                                className={`tab-item${timeSpan == el.value ? " selected-tab" : ""
-                                    }`}
-                            >
-                                {el.label}
-                            </p>
-                        ))}
-                    </div>
-                )}
-            </div>
-            <div
-                style={{ gap: "16px" }}
-                className="flex-row-space-between"
-            >
-                <div className="customer-calendar-cnt">
-                    <i class="fa fa-arrow-left" aria-hidden="true"></i>
-                    <ReactDatePicker
-                        selected={startDate}
-                        onChange={onDateChange}
-                        startDate={startDate}
-                        endDate={endDate}
-                        selectsRange
-                        customInput={<DatePickerCustomComponent />}
-                    />
-                    <i class="fa fa-arrow-right" aria-hidden="true"></i>
+        <div className="row mb-2">
+            <div className="col-lg-6">
+                <div className="anlyticHeadLeft">
+                    {withTimeTabs && (
+                        <div className="day-tabs flex-row-space-between">
+                            {TIME_SPANS.map((el, idx) => (
+                                <p
+                                    key={idx + "day-tabs"}
+                                    onClick={() => { onTimeSpanSelect(el.value); setStartDate(null); setEndDate(null); }}
+                                    className={`tab-item${timeSpan == el.value ? " selected-tab" : ""
+                                        }`}
+                                >
+                                    {el.label}
+                                </p>
+                            ))}
+                        </div>
+                    )}
                 </div>
             </div>
+            <div className="col-lg-6">
+                <div className="anlyticHeadRight">
+                    <div
+                        style={{ gap: "16px" }}
+                        className="calendarAnalytic"
+                    >
+                        <div className="customer-calendar-cnt">
+                            <i class="fa fa-arrow-left" aria-hidden="true"></i>
+                            <ReactDatePicker
+                                selected={startDate}
+                                onChange={onDateChange}
+                                startDate={startDate}
+                                endDate={endDate}
+                                selectsRange
+                                customInput={<DatePickerCustomComponent />}
+                            />
+                            <i class="fa fa-arrow-right" aria-hidden="true"></i>
+                        </div>
+                    </div>
 
-            <ReactSelect
-                options={options}
-                defaultValue={channelSelected}
-                value={channelSelected}
-                placeholder="Channels"
-                classNamePrefix="react-select"
-                className="react-select-container"
-                styles={{
-                    option: reactSelectCustomStyles,
-                    placeholder: reactSelectCustomStyles,
-                }}
-                onChange={onChannelChange}
-                components={{
-                    DropdownIndicator: () => (
-                        <Image
-                            src={arrowDown}
-                            width={24}
-                            height={24}
-                            alt="drop_icon"
-                        />
-                    ),
-                }}
-            />
+                    <ReactSelect
+                        options={options}
+                        defaultValue={channelSelected}
+                        value={channelSelected}
+                        placeholder="Channels"
+                        classNamePrefix="react-select"
+                        className="react-select-container anlyticSelect"
+                        styles={{
+                            option: reactSelectCustomStyles,
+                            placeholder: reactSelectCustomStyles,
+                        }}
+                        onChange={onChannelChange}
+                        components={{
+                            DropdownIndicator: () => (
+                                <Image
+                                    src={arrowDown}
+                                    width={24}
+                                    height={24}
+                                    alt="drop_icon"
+                                />
+                            ),
+                        }}
+                    />
+                </div>
+            </div>
         </div>
     );
 };

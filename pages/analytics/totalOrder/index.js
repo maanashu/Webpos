@@ -7,6 +7,8 @@ import { analyticsDetails, getProfitsData, orderAnalyticsData, totalOrderAnalyti
 import moment from 'moment-timezone';
 import { useDispatch, useSelector } from 'react-redux';
 import { selectLoginAuth } from '../../../redux/slices/auth';
+import AnalyticsRightsidebar from '../../../components/commanComonets/analytics/analyticsRightsidebar';
+import { PaginationFooter } from '../../../components/commanComonets/customers/PaginationFooter';
 
 const index = () => {
   const [timeSpan, setTimeSpan] = useState("week");
@@ -93,12 +95,12 @@ const index = () => {
   };
 
   useEffect(() => {
-    if(sellerId){
+    if (sellerId) {
       orderAnalyticsHandle();
     }
   }, [timeSpan, channelSelected, endDate, sellerId]);
   return (
-    <div className="main-container-customers">
+    <div className="main-container-customers analyticsSection bgtransparent_">
       <AnalyticsHeader
         timeSpan={timeSpan}
         onTimeSpanSelect={setTimeSpan}
@@ -110,148 +112,154 @@ const index = () => {
         startDate={startDate}
         endDate={endDate}
       />
+      <div className='commonbdcontain_ analyticOuter'>
+        <AnalyticsSubHeader
+          mainIcon={gross_profit_blue}
+          title="Total Orders"
+        />
 
-      <AnalyticsSubHeader
-        mainIcon={gross_profit_blue}
-        title="Total Orders"
-      />
-
-      {/* stats */}
-      <div className="stats flex-row-space-between">
-        {STATS.map(({ bgColor, icon, title, count, textColor }, idx) => (
-          <div
-            key={idx + "stats"}
-            className="stat-box"
-            style={{ backgroundColor: bgColor }}
-          >
-            <Image
-              objectFit="center"
-              width={30}
-              height={30}
-              src={icon}
-              style={{ marginBottom: "35px" }}
-            />
-            <div>
-              <h4
-                className="stat-box-title"
-                style={{ color: textColor }}
-              >
-                {title}
-              </h4>
-              <p
-                className="stat-box-count"
-                style={{ color: textColor }}
-              >
-                {count}
-              </p>
+        {/* stats */}
+        <div className="stats flex-row-space-between">
+          {STATS.map(({ bgColor, icon, title, count, textColor }, idx) => (
+            <div
+              key={idx + "stats"}
+              className="stat-box"
+              style={{ backgroundColor: bgColor }}
+            >
+              <Image
+                objectFit="center"
+                width={30}
+                height={30}
+                src={icon}
+                style={{ marginBottom: "35px" }}
+              />
+              <div>
+                <h4
+                  className="stat-box-title"
+                  style={{ color: textColor }}
+                >
+                  {title}
+                </h4>
+                <p
+                  className="stat-box-count"
+                  style={{ color: textColor }}
+                >
+                  {count}
+                </p>
+              </div>
             </div>
-          </div>
-        ))}
-      </div>
+          ))}
+        </div>
 
-      {/* table stats */}
-      <table className="customers-stats-table">
-        <thead>
-          <tr>
-            <th
-              className="customers-table-data"
-              style={{ border: "none", color: "#7E8AC1", textAlign: "left" }}
-            >
-              Date
-            </th>
-            <th
-              className="customers-table-data"
-              style={{ border: "none", color: "#7E8AC1", textAlign: "left" }}
-            >
-              Total Pos Order
-            </th>
-            <th
-              className="customers-table-data"
-              style={{ border: "none", color: "#7E8AC1", textAlign: "left" }}
-            >
-              Customer-New
-            </th>
-            <th
-              className="customers-table-data"
-              style={{ border: "none", color: "#7E8AC1", textAlign: "left" }}
-            >
-              Customer-Returning
-            </th>
-            <th
-              className="customers-table-data"
-              style={{ border: "none", color: "#7E8AC1", textAlign: "left" }}
-            >
-              Total Sales
-            </th>
-          </tr>
-        </thead>
+        {/* table stats */}
+        <div className='table-responsive analyticTable'>
+          <table className="customers-stats-table">
+            <thead>
+              <tr>
+                <th
+                  className="customers-table-data"
+                  style={{ border: "none", color: "#7E8AC1", textAlign: "center" }}
+                >
+                  Date
+                </th>
+                <th
+                  className="customers-table-data"
+                  style={{ border: "none", color: "#7E8AC1", textAlign: "center" }}
+                >
+                  Total Pos Order
+                </th>
+                <th
+                  className="customers-table-data"
+                  style={{ border: "none", color: "#7E8AC1", textAlign: "center" }}
+                >
+                  Customer-New
+                </th>
+                <th
+                  className="customers-table-data"
+                  style={{ border: "none", color: "#7E8AC1", textAlign: "center" }}
+                >
+                  Customer-Returning
+                </th>
+                <th
+                  className="customers-table-data"
+                  style={{ border: "none", color: "#7E8AC1", textAlign: "center" }}
+                >
+                  Total Sales
+                </th>
+              </tr>
+            </thead>
 
-        {
-          analyticsData?.loading ? <tbody>
-            <tr>
-              <td colSpan="6" style={{ textAlign: "center" }}>
-                Loading...
-              </td>
-            </tr>
+            {
+              analyticsData?.loading ? <tbody>
+                <tr>
+                  <td colSpan="6" style={{ textAlign: "center" }}>
+                    Loading...
+                  </td>
+                </tr>
 
-          </tbody>
-            : <>
-              {
-                <>
+              </tbody>
+                : <>
                   {
-                    totalOrderAnalyticsData?.order_listing?.length > 0 ? <tbody>
-                      {totalOrderAnalyticsData?.order_listing?.map((row, idx) => (
-                        <tr className="customers-table-row" key={idx}>
-                          <td
-                            className="customers-table-data"
-                          >
-                            {moment(row?.order_date).format('MM/DD/YYYY')}
-                          </td>
-                          <td
-                            className="customers-table-data"
-                          >
-                            {row.total_orders}
-                          </td>
-                          <td
-                            className="customers-table-data"
-                          // style={{ display: "flex", gap: "12px" }}
-                          >
-                            {row.new_consumer}
-                          </td>
-                          <td
-                            className="customers-table-data"
-                          >
-                            {`${row.consumer_returning} / hour`}
-                          </td>
-                          <td
-                            className="customers-table-data"
-                          >
-                            {`$${row.amount ? addThousandSeparator((row.amount)?.toFixed(2)) : "0"}`}
-                          </td>
-                          <td
-                            className="customers-table-data"
-                          >
-                            <button className="secondaryOuterbtn_" type="button">Review</button>
-                          </td>
-                        </tr>
-                      ))}
-                    </tbody> :
-                      <tbody>
-                        <tr>
-                          <td colSpan="6" style={{ textAlign: "center" }}>
-                            No Record Found
-                          </td>
-                        </tr>
-                      </tbody>
+                    <>
+                      {
+                        totalOrderAnalyticsData?.order_listing?.length > 0 ? <tbody>
+                          {totalOrderAnalyticsData?.order_listing?.map((row, idx) => (
+                            <tr className="customers-table-row" key={idx}>
+                              <td
+                                className="customers-table-data"
+                              >
+                                {moment(row?.order_date).format('MM/DD/YYYY')}
+                              </td>
+                              <td
+                                className="customers-table-data"
+                              >
+                                {row.total_orders}
+                              </td>
+                              <td
+                                className="customers-table-data"
+                              // style={{ display: "flex", gap: "12px" }}
+                              >
+                                {row.new_consumer}
+                              </td>
+                              <td
+                                className="customers-table-data"
+                              >
+                                {`${row.consumer_returning} / hour`}
+                              </td>
+                              <td
+                                className="customers-table-data"
+                              >
+                                {`$${row.amount ? addThousandSeparator((row.amount)?.toFixed(2)) : "0"}`}
+                              </td>
+                              <td
+                                className="customers-table-data"
+                              >
+                                <button className="secondaryOuterbtn_" type="button">Review</button>
+                              </td>
+                            </tr>
+                          ))}
+                        </tbody> :
+                          <tbody>
+                            <tr>
+                              <td colSpan="6" style={{ textAlign: "center" }}>
+                                No Record Found
+                              </td>
+                            </tr>
+                          </tbody>
+                      }
+                    </>
+
                   }
                 </>
+            }
 
-              }
-            </>
-        }
-
-      </table>
-
+          </table>
+        </div>
+      </div>
+      <div className="paginatePosition">
+        <PaginationFooter />
+      </div>
+      <AnalyticsRightsidebar />
     </div>
   )
 }

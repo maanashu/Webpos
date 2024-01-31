@@ -53,7 +53,6 @@ const Policy = ({handleTouch}) => {
 
     return (
         <>
-            <div className='settingMain'>
                     {/* <div className='col-lg-3'></div> */}
                     <div className='col-lg-12'>
                         <div className='agreementRight settingOuter'>
@@ -79,7 +78,7 @@ const Policy = ({handleTouch}) => {
                                                 {getUserPolicyInfo?.map((data, index) => {
                                                     console.log(data, "nareshdata");
                                                     return (
-                                                        <div className='col-lg-4 mt-4' key={index}>
+                                                        <div className='col-xl-4 col-lg-6 mt-4' key={index}>
                                                             <div className='publishSection' onClick={() => handleTouch("PolicyInfo",data)} style={{cursor:'pointer'}}>
                                                                 <div className='flexContent'>
                                                                     <h4 className='addServicePara m-0'>Published</h4>
@@ -115,7 +114,6 @@ const Policy = ({handleTouch}) => {
                             </div>
                         </div>
                     </div>
-                </div>
         </>
     )
 }

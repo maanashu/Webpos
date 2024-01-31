@@ -4,7 +4,7 @@ import Image from "next/image";
 import { useDispatch, useSelector } from "react-redux";
 import { getDrawerSessionInfo } from "../../../redux/slices/dashboard";
 import { toast } from "react-toastify";
-import { selectLoginAuth } from "../../../redux/slices/auth";
+import { getAllPosUser, selectLoginAuth } from "../../../redux/slices/auth";
 import CustomModal from "../../customModal/CustomModal";
 import CashSummary from "./cashSummary";
 

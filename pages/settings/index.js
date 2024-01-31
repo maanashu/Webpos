@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import styles from "./styles.module.css";
 import Security from "./security";
 import {
@@ -38,17 +38,27 @@ import Notification from "./notification";
 import Language from "./language";
 import Plan from "./plans";
 import ShippingPickup from "./shipPickup";
+import PlanFit from "./plans/planFit";
+import { getAllPosUser, selectLoginAuth } from "../../redux/slices/auth";
+import { useDispatch, useSelector } from "react-redux";
+import { getProfile } from "../../redux/slices/dashboard";
 
 export default function Settings() {
+  const dispatch = useDispatch()
+  const authData = useSelector(selectLoginAuth)
+  const UniqueId = authData?.usersInfo?.payload?.uniqe_id
+  const userId = authData?.usersInfo?.payload?.user?.user_profiles?.user_id ? authData?.usersInfo?.payload?.user?.user_profiles?.user_id : ""
   const [selectedItem, setSelectedItem] = useState("Security");
+  const [getAllStaffList, setGetAllStaffList] = useState([]);
+  const [profileDetails, setProfileDetails] = useState("");
+  const [securityStatus, setSecurityStatus] = useState("");
+  console.log(profileDetails, 'profileDetails');
   const [selectedItemId, setSelectedItemId] = useState("");
   const [policyInfo, setPolicyInfo] = useState("");
-  console.log(selectedItemId, "selectedItemId");
-
-  const [activeTab, setActiveTab] = useState("")
+  const [activeTab, setActiveTab] = useState("");
 
   const settingsOptions = [
-    { id: 1, name: "Security", info: "Not Updated", image: securityTick },
+    { id: 1, name: "Security", info: securityStatus, image: securityTick },
     { id: 2, name: "Devices", info: "Not Connected", image: settingsDevices },
     { id: 3, name: "Notifications", info: "Not Updated", image: ringing },
     { id: 4, name: "Locations", info: "1 Locations", image: locationOutline },
@@ -60,24 +70,29 @@ export default function Settings() {
     },
     { id: 6, name: "Receipts", info: "Default", image: settingsReceipt },
     { id: 7, name: "Taxes", info: "Not Updated", image: settingsTax },
-    { id: 8, name: "Wallet", info: "Not Connected", image: walletOutline },
+    { id: 8, name: "Wallet", info: profileDetails, image: walletOutline },
     {
       id: 9,
       name: "Shipping & Pick Up",
       info: "Default",
       image: settingsBoxes,
     },
-    { id: 10, name: "Staff", info: 3, image: usersOutline },
+    { id: 10, name: "Staff", info: getAllStaffList?.length, image: usersOutline },
     { id: 11, name: "Language", info: "English", image: settingsLanguage },
     { id: 12, name: "Legal", info: "English", image: settingsLaw },
     { id: 13, name: "Policies", info: "Default", image: settingsPolicies },
     { id: 14, name: "Shop", info: "Locations", image: settingHome },
   ];
   const SettingsBar = ({ item }) => {
-    console.log(selectedItem,  "responseeeeeeeeeeee");
     return (
-      <Link className={selectedItem == item.name ? "settingList active" :"settingList"} href="#" onClick={() => handleTouch(item)}>
-        <Image src={item?.image} className="SecurityImg" alt="img"/>
+      <Link
+        className={
+          selectedItem == item.name ? "settingList active" : "settingList"
+        }
+        href=""
+        onClick={() => handleTouch(item)}
+      >
+        <Image src={item?.image} className="SecurityImg" alt="img" />
         <div className="securityHeading">
           <h1 className="settingText">{item?.name}</h1>
           <h1 className="settingSub mt-1">{item?.info}</h1>{" "}
@@ -87,21 +102,60 @@ export default function Settings() {
   };
 
   const handleTouch = (item, id, name) => {
-    console.log(item, "item");
-    if(item){
+    if (item) {
       setPolicyInfo(id);
       setSelectedItemId(id ? id : "");
       setSelectedItem(item?.name ? item?.name : item);
     }
-    if(name){
-      setActiveTab(name)
+    if (name) {
+      setActiveTab(name);
     }
   };
 
+  const getUserList = () => {
+    let params = {
+      seller_id: UniqueId,
+    };
+    dispatch(getAllPosUser({
+      ...params,
+      cb(res) {
+        if (res.status) {
+          setGetAllStaffList(res?.data?.payload?.pos_staff)
+        }
+      },
+    })
+    );
+  };
+  const getProfileInfo = (userId) => {
+    let params = {
+      id: userId
+    }
+    dispatch(getProfile({
+      ...params, cb(res) {
+        if (res.status) {
+          setProfileDetails(res?.data?.payload?.is_wallet === true ? "Connected" : "Not Connected")
+          setSecurityStatus(res?.data?.payload?.user_profiles?.is_two_fa_enabled === true ? "2-Step Enabled" : "2-Step Disabled")
+        }
+      },
+    })
+    );
+  };
+
+  useEffect(() => {
+    if (UniqueId) {
+      getUserList();
+    }
+  }, [UniqueId]);
+
+  useEffect(() => {
+    if (userId) {
+      getProfileInfo(userId)
+    }
+  }, [userId])
   const renderComponent = () => {
     switch (selectedItem) {
       case "Security":
-        return <Security handleTouch={handleTouch}/>;
+        return <Security handleTouch={handleTouch} />;
       case "Staff":
         return <StaffList handleTouch={handleTouch} />;
       case "Devices":
@@ -119,9 +173,11 @@ export default function Settings() {
       case "Policies":
         return <Policy handleTouch={handleTouch} />;
       case "staffDetail":
-        return <StaffDetail selectedItemId={selectedItemId} />;
+        return <StaffDetail handleTouch={handleTouch} selectedItemId={selectedItemId} />;
       case "legalPolicy":
-        return <LegalPolicy policyInfo={policyInfo} handleTouch={handleTouch} />;
+        return (
+          <LegalPolicy policyInfo={policyInfo} handleTouch={handleTouch} />
+        );
       case "PolicyInfo":
         return <PolicyInfo policyInfo={policyInfo} handleTouch={handleTouch} />;
       case "Wallet":
@@ -129,7 +185,9 @@ export default function Settings() {
       case "Notifications":
         return <Notification />;
       case "Plans":
-        return <Plan />;
+        return <Plan handleTouch={handleTouch} />;
+      case "allPlans":
+        return <PlanFit handleTouch={handleTouch} />;
       case "Shipping & Pick Up":
         return <ShippingPickup />;
       default:

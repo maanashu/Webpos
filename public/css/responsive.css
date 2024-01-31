@@ -1,4 +1,8 @@
 @media (max-width: 1600px) {
+    .sideMini {
+        display: none;
+    }
+
     .cartOfferSection {
         margin-top: 20px;
     }
@@ -50,6 +54,11 @@
         width: 100%;
         min-width: 150px;
     }
+
+    .productSearchBx {
+        width: 100%;
+        max-width: 400px;
+    }
 }
 
 @media (max-width: 1400px) {
@@ -64,6 +73,11 @@
 
     .staffInfoBox::before {
         left: 30px;
+    }
+
+    .productSearchBx {
+        width: 100%;
+        max-width: 385px;
     }
 
 }
@@ -90,9 +104,18 @@
     .staffInfoBox::before {
         left: 45px;
     }
+
+    .productSearchBx {
+        width: 100%;
+        max-width: 340px;
+    }
 }
 
 @media (max-width: 1280px) {
+    .navBtn {
+        padding: 10px;
+    }
+
     .cartInfo {
         height: 200px;
         overflow-y: scroll;
@@ -134,8 +157,67 @@
 
     .loginLogo {
         padding: 12px 16px;
-        top: 30px;
+        top: 24px;
         left: 15px;
+    }
+
+    .homeLeft {
+        padding: 24px 12px;
+    }
+
+    .homeRight {
+        padding: 24px 12px;
+    }
+
+    .homeProfileImg {
+        width: 130px;
+        height: 130px;
+    }
+
+    .loginheading {
+        font-size: 26px;
+    }
+
+    .cashierHeading {
+        font-size: 14px;
+    }
+
+    .homeRight .searchControl {
+        padding: 15px 52px !important;
+    }
+
+    .scanSearch {
+        width: 40px !important;
+        height: 40px !important;
+    }
+
+    .bellOuter {
+        padding: 6px;
+    }
+
+    .sellingOrder .loginMain {
+        font-size: 18px;
+    }
+
+    .OrderBtn {
+        padding: 7px;
+    }
+
+    .homeOverview .dayTimeText {
+        font-size: 12px;
+    }
+
+    .productSearchBx {
+        width: 100%;
+        max-width: 300px;
+    }
+
+    .BlueBtn {
+        padding: 7px 12px;
+    }
+
+    .GreyBtn {
+        padding: 10px 12px;
     }
 }
 
@@ -202,9 +284,57 @@
         margin-top: 10px;
         padding: 12px 50px;
     }
+
+    .productSearchBx {
+        width: 100%;
+        max-width: 230px;
+    }
+
+    .BtnIcon {
+        margin-left: 7px;
+    }
+
+    .shippingSection {
+        min-width: calc(100% - 120px);
+        margin-left: 16px;
+        margin-right: 80px;
+    }
+
+    .deliveryOuter {
+        margin: 0;
+    }
+
+    .shipRightBar {
+        width: 44px;
+        padding: 15px 0px;
+    }
+
+    .deliverOrderRight {
+        margin-top: 16px;
+    }
+
+    .deliverOrderRight .detailScroll {
+        height: calc(100% - 368px);
+        overflow-y: scroll;
+    }
+}
+
+@media (max-width: 1080px) {
+    .BtnIcon {
+        margin-left: 2px;
+    }
+
+    .productSearchBx {
+        width: 100%;
+        max-width: 200px;
+    }
 }
 
 @media (max-width: 1020px) {
+    .navBtn {
+        margin-left: 45px;
+        padding: 10px;
+    }
 
     .customInput {
         max-width: 400px;
@@ -229,6 +359,7 @@
     .navbar-nav .nav-item {
         padding: 0 10px;
     }
+
 }
 
 @media (min-width:991) {
@@ -246,9 +377,16 @@
     .navbar-expand-lg .navbar-nav {
         margin-top: 0;
     }
+
 }
 
 @media (max-width: 992px) {
+    .loginLogo {
+        padding: 10px 12px;
+        top: 24px;
+        left: 15px;
+    }
+
     .customInput {
         max-width: 100%;
     }
@@ -305,13 +443,233 @@
     .navbar-nav .nav-item {
         padding: 9px 10px;
     }
+
+    .leftHeader {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+    }
+
+    .timeHeading {
+        font-size: 13px;
+        margin: 0;
+    }
+
+    .timeNav::before {
+        right: -7px;
+    }
+
+    .authHeader {
+        padding: 0 80px;
+    }
+
+    .navBtn {
+        margin-left: 30px;
+        padding: 8px;
+    }
+
+    .homeOverview {
+        height: 100%;
+    }
+
+    .productInnerNavBar {
+        justify-content: space-between;
+    }
+
+    .productInnerNavLeft {
+        justify-content: space-between;
+        margin-top: 8px;
+    }
+
+    .productSearchBx {
+        width: 100%;
+        max-width: 310px;
+    }
+
+    .commanOuter {
+        margin: 0 8px;
+        padding: 16px;
+    }
+
+    .productScrollBar {
+        height: calc(100vh - 255px);
+    }
+
+    .deliverCheck {
+        justify-content: space-between;
+    }
+
+    .deliverOrderRight .selectedProductDetails {
+        min-width: 514px;
+    }
+
+    .anlyticHeadLeft {
+        justify-content: center;
+    }
+
+    .anlyticHeadLeft .day-tabs {
+        justify-content: space-between;
+        width: 100%;
+    }
+
+    .anlyticHeadRight {
+        justify-content: space-between;
+    }
+
+    .analyticOuter {
+        height: calc(100vh - 140px);
+        overflow-y: scroll;
+    }
 }
 
-@media (max-width: 768px) {
+@media (max-width: 767px) {
+    .leftHeader {
+        display: flex;
+        align-items: center;
+        width: 100%;
+        justify-content: space-between;
+    }
+
+    .timeNav::before {
+        display: none;
+    }
+
     .driverNavigationCon {
         flex-wrap: wrap;
     }
 
+    .authHeader {
+        padding: 0 50px 0 70px;
+    }
+
+    .loginLogo {
+        padding: 8px 12px;
+        top: 24px;
+        left: 15px;
+    }
+
+    .leftMainHeader {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .rightMainHeader {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .navBtn {
+        margin-left: 0;
+        padding: 8px;
+        font-size: 14px;
+    }
+
+    .rightheader {
+        display: flex;
+        align-items: center;
+        width: 100%;
+        justify-content: space-between;
+    }
+
+    .main-sidebar {
+        width: 70px;
+        padding: 8px 10px;
+    }
+
+    .rightWrapper {
+        min-width: calc(100% - 102px);
+        margin-left: 90px;
+    }
+
+    .profileImg {
+        width: 35px;
+        height: 35px;
+    }
+
+    .sellingOrder .loginMain {
+        font-size: 16px;
+        margin-top: 10px;
+    }
+
+    .bellImage_ {
+        width: 20px;
+        height: 20px;
+    }
+
+    .bellOuter {
+        padding: 4px;
+    }
+
+    .OrderBtn {
+        padding: 6px 8px;
+        font-size: 11px;
+    }
+
+    .sideMini {
+        display: inline-block;
+    }
+
+    .innerMargin {
+        margin: 0 0 12px 0;
+    }
+
+    .productSearchBx {
+        width: 100%;
+        max-width: 370px;
+    }
+
+    .AddtoCart {
+        max-width: 475px;
+        z-index: 999;
+        right: 90px;
+    }
+
+    .productInnerNavBar {
+        flex-wrap: wrap;
+        justify-content: space-between;
+    }
+
+    .productScrollBar {
+        height: calc(100vh - 275px);
+    }
+
+    .ProductAddCart .subFooter {
+        max-width: 425px;
+    }
+
+    .ProductAddCart .orderTime {
+        width: 100%;
+        justify-content: space-between;
+    }
+
+    .ProductAddCart .orderCalculate {
+        justify-content: space-between;
+        width: 100%;
+    }
+
+    .ProductAddCart .cartSubInfo {
+        flex-wrap: wrap;
+        gap: 10px;
+    }
+
+    .deliverOrderRight .selectedProductDetails {
+        min-width: 356px;
+    }
+
+    .deliverOrderRight .aboutProduct {
+        max-width: 16ch;
+    }
+
+    .shipRightBar {
+        right: 12px;
+    }
+
+    .shippingSection {
+        margin-left: 12px;
+        margin-right: 65px;
+    }
 }
 
 @media (max-width: 576px) {
@@ -367,6 +725,8 @@
     .verificationSection .verifyBox {
         margin: 0 25px;
         padding: 40px 50px;
+        width: 100%;
+        max-width: 410px;
     }
 
     .verifyHeading {
@@ -383,12 +743,201 @@
         height: 55px !important;
     }
 
+    .otpMain .pin-box input {
+        font-size: 25px !important;
+        font-weight: 400 !important;
+    }
+
+    .loginheading {
+        font-size: 24px;
+        margin-bottom: 0;
+    }
+
+    .loginPasswordOtp .verifyBox {
+        margin-top: 40px;
+        padding: 35px 10px;
+    }
+
+    .loginOtpSub {
+        width: 100%;
+        max-width: 370px;
+        margin-top: 0;
+    }
+
+    .main-sidebar {
+        width: 65px;
+        padding: 8px 8px;
+    }
+
+    .rightWrapper {
+        min-width: calc(100% - 102px);
+        margin-left: 80px;
+    }
+
+    .sellingOrder {
+        flex-wrap: wrap;
+    }
+
+    .bellImage_ {
+        width: 24px;
+        height: 24px;
+    }
+
+    .homeRight {
+        padding: 8px 12px;
+    }
+
+    .commonWidth {
+        display: flex !important;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .commanOuter {
+        padding: 16px 4px;
+    }
+
+    .ProductsearchBar .searchImg {
+        width: 20px;
+    }
+
+    .sidebarBg {
+        padding: 9px;
+    }
+
+    .sidebarRight {
+        padding: 24px 5px;
+    }
+
+    .cartNum {
+        font-size: 10px;
+        height: 15px;
+        width: 15px;
+    }
+
+    .productInnerNavLeft {
+        flex-wrap: wrap;
+    }
+
+    .productScrollBar {
+        height: calc(100vh - 342px);
+    }
+
+    .AddtoCart {
+        max-width: 382px;
+        right: 81px;
+    }
+
+    .cartTotalsection {
+        padding: 15px;
+    }
+
+    .loginMain {
+        font-size: 18px;
+    }
+
+    .deliverOrderRight .aboutProduct {
+        max-width: 12ch;
+    }
+
+    .appointmenMonth {
+        padding: 7px;
+    }
+
+    .wrapFlex {
+        flex-wrap: wrap;
+        gap: 8px;
+    }
+
+    .wrapFlex .BlueBtn {
+        margin: 0;
+    }
+
+    .shipOrderSection .declineButton {
+        width: 100%;
+    }
+
+    .anlyticHeadRight {
+        flex-wrap: wrap;
+        gap: 5px;
+    }
+
+    .analyticStatus_ {
+        justify-content: start;
+    }
+
+    .tab-item {
+        padding: 4px 13px !important;
+        font-size: 13px !important;
+    }
+
+    .anlyticHeadLeft .day-tabs {
+        margin: 0;
+    }
+}
+
+@media (max-width: 546px) {
+    .calendarAnalytic {
+        width: 100%;
+    }
+
+    .calendarAnalytic .customer-calendar-cnt {
+        justify-content: space-between;
+    }
+
+    .anlyticSelect {
+        width: 100%;
+    }
+}
+
+@media (max-width: 525px) {
+    .ProductAddCart .subFooter {
+        max-width: 335px;
+    }
+
+    .FilterMultiSelect {
+        left: 0;
+    }
+
+    .analyticsSection .deliverRightBar {
+        padding: 8px 3px;
+        width: 45px;
+    }
+
+    .analyticsSection {
+        margin-right: 78px !important;
+    }
+    .tab-item {
+        padding: 3px 5px !important;
+        font-size: 12px;
+    }
 }
 
 @media (max-width: 475px) {
+    .main-sidebar {
+        width: 60px;
+        padding: 8px 6px;
+    }
+
+    .rightWrapper {
+        min-width: calc(100% - 102px);
+        margin-left: 70px;
+    }
+
+    .main-sidebar {
+        width: 54px;
+        padding: 8px 2px;
+    }
+
+    .loginOtpSub {
+        width: 100%;
+        max-width: 360px;
+    }
 
     .verificationSection .verifyBox {
         padding: 30px 40px;
+        width: 100%;
+        max-width: 370px;
     }
 
     .verificationSection {
@@ -402,16 +951,196 @@
     .verifyBtn {
         gap: 26px;
     }
+
+    .nextverifyBtn {
+        padding: 12px 20px;
+    }
+
+    .backverifyBtn {
+        padding: 12px 20px;
+    }
+
+    .verifySub {
+        font-size: 14px;
+    }
+
+    .verifyHeading {
+        font-size: 25px;
+    }
+
+    .productSearchBx {
+        max-width: 300px;
+    }
+
+    .searchControl::placeholder {
+        color: #636e9f;
+        font-size: 14px !important;
+        font-weight: 400;
+    }
+
+    .searchControl {
+        font-size: 14px;
+    }
+
+    .ProductsearchBar .searchImg {
+        top: 10px;
+    }
+
+    .GreyBtn {
+        padding: 10px 8px;
+    }
+
+    .BlueBtn {
+        margin: 0;
+    }
+
+    .productInnerNavLeft {
+        flex-wrap: wrap;
+    }
+
+    .productScrollBar {
+        height: calc(100vh - 386px);
+    }
+
+    .AddtoCart {
+        max-width: 330px;
+    }
+
+    .ProductAddCart .orderCalculate {
+        flex-wrap: wrap;
+    }
+
+    .ProductAddCart .subFooter {
+        max-width: 280px;
+    }
+
+    .cartTotalsection {
+        padding: 15px 0px;
+    }
+
+    .nextverifyBtn {
+        font-size: 16px;
+    }
+
+    .FilterMultiSelect {
+        max-width: 235px;
+    }
+
+    .cancelOrderText {
+        font-size: 14px;
+    }
+
+    .analyticOuter {
+        height: calc(100vh - 180px);
+    }
+
+    .analyticsSection {
+        margin-right: 66px !important;
+        margin-left: 8px !important;
+    }
+
+    .cust-header .header-title {
+        font-size: 21px;
+    }
 }
 
 @media (max-width: 425px) {
     .verificationSection .verifyBox {
-        padding: 25px 20px;
+        padding: 35px 20px;
+        width: 100%;
+        max-width: 330px;
     }
+
+    .verifyNumber {
+        margin: 35px 0;
+        position: relative;
+    }
+
+    .otpMain {
+        margin: 35px 0;
+    }
+
+    .mainAuthHead {
+        padding: 0 12px 0 60px;
+    }
+
+    .loginOtpSub {
+        width: 100%;
+        max-width: 325px;
+    }
+
+    .otherHead .timeHeading {
+        font-size: 11px;
+    }
+
+    .otherHead .navBtn {
+        padding: 6px 8px;
+        font-size: 12px;
+    }
+
+    .homeOverview .dayTimeText {
+        font-size: 10px;
+    }
+
+    #trackingModal .modal-body {
+        padding: 0 16px 16px 16px !important;
+    }
+
+    #trackingModal .modal-content {
+        margin: 0 12px;
+    }
+
+    .ProductAddCart .subFooter {
+        max-width: 233px;
+    }
+
+    .AddtoCart {
+        max-width: 283px;
+    }
+
+    .cartTotalsection .nextverifyBtn {
+        padding: 14px 8px;
+    }
+
+    .FilterMultiSelect {
+        max-width: 180px;
+    }
+
+    .deliverPercent::before {
+        width: 6px;
+        height: 6px;
+        top: 7px;
+        left: 4px;
+    }
+
+    .deliverPercent {
+        padding: 3px 6px 3px 12px;
+        font-size: 10px;
+    }
+
+    .orderDeliverText {
+        font-size: 12px;
+    }
+
+    .loginMain {
+        font-size: 16px;
+    }
+
+    .anlyticHeadLeft .day-tabs {
+        margin: 0;
+        gap: 0;
+        padding: 6px 5px;
+    }
+
 }
 
 @media (max-width: 375px) {
     .verificationSection .verifyBox {
-        padding: 25px 15px;
+        padding: 35px 15px;
+    }
+
+    .timeNav::before {
+        right: -7px;
+        display: block;
     }
 }

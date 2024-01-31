@@ -7,6 +7,7 @@ const ButtonComponent = ({
   declineHandler,
   acceptHandler,
   trackHandler,
+  isLoading,
 }) => {
   const orderStatus = orderData?.status;
   console.log("selecetd Order type", selected);
@@ -16,6 +17,15 @@ const ButtonComponent = ({
     <div className="shippingOrdersViewStyle">
       {selected === "0" && (
         <div className="flexBox ">
+          {/* {isLoading ? (
+            <button
+              onClick={declineHandler}
+              className="declineButton w-100"
+              type="button"
+            >
+              <span className="spinner-border spinner-border-sm"></span>
+            </button>
+          ) : ( */}
           <button
             onClick={declineHandler}
             className="declineButton w-100"
@@ -24,6 +34,16 @@ const ButtonComponent = ({
             {" "}
             Decline
           </button>
+          {/* )} */}
+          {/* {isLoading ? (
+            <button
+              onClick={acceptHandler}
+              type="button"
+              className="BlueBtn w-100"
+            >
+              <span className="spinner-border spinner-border-sm"></span>
+            </button>
+          ) : ( */}
           <button
             onClick={acceptHandler}
             type="button"
@@ -36,6 +56,7 @@ const ButtonComponent = ({
               className="img-fluid ArrowRight"
             />
           </button>
+          {/* )} */}
         </div>
       )}
 
@@ -96,10 +117,48 @@ const ButtonComponent = ({
           )}
         </button>
       )} */}
-
-      {selected >= "3" && orderStatus !== 7 && orderStatus !== 8 && (
+      {selected == "1" && (
         <div className="flexBox ">
-          <button type="button" className="preparedBtn w-100">
+          {/* {isLoading ? (
+            <button
+              onClick={acceptHandler}
+              type="button"
+              className="preparedBtn w-100"
+            >
+              <span className="spinner-border spinner-border-sm"></span>
+            </button>
+          ) : ( */}
+          <button
+            onClick={acceptHandler}
+            type="button"
+            className="preparedBtn w-100"
+          >
+            Order Prepared
+            <Image
+              src={Images.ArrowRight}
+              alt="ArrowRight"
+              className="img-fluid ArrowRight"
+            />
+          </button>
+          {/* )} */}
+        </div>
+      )}
+      {selected == "2" && (
+        <div className="flexBox ">
+          {/* {!isLoading ? (
+            <button
+              onClick={acceptHandler}
+              type="button"
+              className="preparedBtn w-100"
+            >
+              <span className="spinner-border spinner-border-sm"></span>
+            </button>
+          ) : ( */}
+          <button
+            onClick={acceptHandler}
+            type="button"
+            className="preparedBtn w-100"
+          >
             Ready to Pickup
             <Image
               src={Images.ArrowRight}
@@ -107,6 +166,34 @@ const ButtonComponent = ({
               className="img-fluid ArrowRight"
             />
           </button>
+          {/* )} */}
+        </div>
+      )}
+
+      {selected >= "3" && orderStatus !== 7 && orderStatus !== 8 && (
+        <div className="flexBox ">
+          {/* {isLoading ? (
+            <button
+              onClick={acceptHandler}
+              type="button"
+              className="preparedBtn w-100"
+            >
+              <span className="spinner-border spinner-border-sm"></span>
+            </button>
+          ) : ( */}
+          <button
+            onClick={acceptHandler}
+            type="button"
+            className="preparedBtn w-100"
+          >
+            Ready to Pickup
+            <Image
+              src={Images.ArrowRight}
+              alt="ArrowRight"
+              className="img-fluid ArrowRight"
+            />
+          </button>
+          {/* )} */}
         </div>
       )}
 

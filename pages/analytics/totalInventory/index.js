@@ -8,6 +8,8 @@ import moment from 'moment-timezone';
 import { useDispatch, useSelector } from 'react-redux';
 import { selectLoginAuth } from '../../../redux/slices/auth';
 import { amountFormat } from '../../../utilities/globalMethods';
+import AnalyticsRightsidebar from '../../../components/commanComonets/analytics/analyticsRightsidebar';
+import { PaginationFooter } from '../../../components/commanComonets/customers/PaginationFooter';
 
 const index = () => {
   const [timeSpan, setTimeSpan] = useState("week");
@@ -99,7 +101,7 @@ const index = () => {
   }, [timeSpan, channelSelected, endDate]);
 
   return (
-    <div className="main-container-customers">
+    <div className="main-container-customers  analyticsSection bgtransparent_">
       <AnalyticsHeader
         timeSpan={timeSpan}
         onTimeSpanSelect={setTimeSpan}
@@ -111,162 +113,170 @@ const index = () => {
         startDate={startDate}
         endDate={endDate}
       />
-      <AnalyticsSubHeader
-        mainIcon={gross_profit_blue}
-        title="Total Inventory"
-      />
-      {/* stats */}
-      <div className="stats flex-row-space-between">
-        {STATS.map(({ bgColor, icon, title, count, textColor }, idx) => (
-          <div
-            key={idx + "stats"}
-            className="stat-box"
-            style={{ backgroundColor: bgColor }}
-          >
-            <Image
-              objectFit="center"
-              width={30}
-              height={30}
-              src={icon}
-              style={{ marginBottom: "35px" }}
-            />
-            <div>
-              <h4
-                className="stat-box-title"
-                style={{ color: textColor }}
-              >
-                {title}
-              </h4>
-              <p
-                className="stat-box-count"
-                style={{ color: textColor }}
-              >
-                {count}
-              </p>
+      <div className='commonbdcontain_  analyticOuter'>
+        <AnalyticsSubHeader
+          mainIcon={gross_profit_blue}
+          title="Total Inventory"
+        />
+        {/* stats */}
+        <div className="stats flex-row-space-between">
+          {STATS.map(({ bgColor, icon, title, count, textColor }, idx) => (
+            <div
+              key={idx + "stats"}
+              className="stat-box"
+              style={{ backgroundColor: bgColor }}
+            >
+              <Image
+                objectFit="center"
+                width={30}
+                height={30}
+                src={icon}
+                style={{ marginBottom: "35px" }}
+              />
+              <div>
+                <h4
+                  className="stat-box-title"
+                  style={{ color: textColor }}
+                >
+                  {title}
+                </h4>
+                <p
+                  className="stat-box-count"
+                  style={{ color: textColor }}
+                >
+                  {count}
+                </p>
+              </div>
             </div>
-          </div>
-        ))}
-      </div>
+          ))}
+        </div>
 
-      {/* table stats */}
-      <table className="customers-stats-table">
-        <thead>
-          <tr>
-            <th
-              className="customers-table-data"
-              style={{ border: "none", color: "#7E8AC1", textAlign: "left" }}
-            >
-              Product Name
-            </th>
-            <th
-              className="customers-table-data"
-              style={{ border: "none", color: "#7E8AC1", textAlign: "left" }}
-            >
-              Category
-            </th>
-            <th
-              className="customers-table-data"
-              style={{ border: "none", color: "#7E8AC1", textAlign: "left" }}
-            >
-              UPC
-            </th>
-            <th
-              className="customers-table-data"
-              style={{ border: "none", color: "#7E8AC1", textAlign: "left" }}
-            >
-              Total Price
-            </th>
-            <th
-              className="customers-table-data"
-              style={{ border: "none", color: "#7E8AC1", textAlign: "left" }}
-            >
-              In Stock
-            </th>
-            <th
-              className="customers-table-data"
-              style={{ border: "none", color: "#7E8AC1", textAlign: "left" }}
-            >
-              Last Sold Date
-            </th>
-          </tr>
-        </thead>
+        {/* table stats */}
+        <div className='table-responsive analyticTable'>
+          <table className="customers-stats-table">
+            <thead>
+              <tr>
+                <th
+                  className="customers-table-data"
+                  style={{ border: "none", color: "#7E8AC1", textAlign: "center" }}
+                >
+                  Product Name
+                </th>
+                <th
+                  className="customers-table-data"
+                  style={{ border: "none", color: "#7E8AC1", textAlign: "center" }}
+                >
+                  Category
+                </th>
+                <th
+                  className="customers-table-data"
+                  style={{ border: "none", color: "#7E8AC1", textAlign: "center" }}
+                >
+                  UPC
+                </th>
+                <th
+                  className="customers-table-data"
+                  style={{ border: "none", color: "#7E8AC1", textAlign: "center" }}
+                >
+                  Total Price
+                </th>
+                <th
+                  className="customers-table-data"
+                  style={{ border: "none", color: "#7E8AC1", textAlign: "center" }}
+                >
+                  In Stock
+                </th>
+                <th
+                  className="customers-table-data"
+                  style={{ border: "none", color: "#7E8AC1", textAlign: "center" }}
+                >
+                  Last Sold Date
+                </th>
+              </tr>
+            </thead>
 
-        {
-          analyticsData?.loading ? <tbody>
-            <tr>
-              <td colSpan="6" style={{ textAlign: "center" }}>
-                Loading...
-              </td>
-            </tr>
-          </tbody>
-            : <>
-              {
-                <>
+            {
+              analyticsData?.loading ? <tbody>
+                <tr>
+                  <td colSpan="6" style={{ textAlign: "center" }}>
+                    Loading...
+                  </td>
+                </tr>
+              </tbody>
+                : <>
                   {
-                    totalInventoryData?.inventory_list?.data?.length > 0 ? <tbody>
-                      {totalInventoryData?.inventory_list?.data?.map((row, idx) => (
-                        <tr className="customers-table-row" key={idx}>
-                          <td
-                            className="customers-table-data"
-                          >
-                            {row?.name ? `${row?.name?.length > 25 ? `${row?.name?.slice(0, 25)}...` : row?.name}` : ""}
-                          </td>
-                          <td
-                            className="customers-table-data"
-                          >
-                            {row?.category?.name ? `${row?.category?.name?.length > 25 ? `${row?.category?.name?.slice(0, 25)}...` : row?.category?.name}` : ""}
-                          </td>
-                          <td
-                            className="customers-table-data"
-                          >
-                            {row?.upc}
-                          </td>
-                          <td
-                            className="customers-table-data"
-                          // style={{ display: "flex", gap: "12px" }}
-                          >
-                            {row?.supplies[0]?.cost_price
-                              ? row?.supplies[0]?.cost_price < 0
-                                ? '-$' +
-                                amountFormat(
-                                  Math.abs(row?.supplies[0]?.cost_price * row?.supplies[0]?.rest_quantity),
-                                  'notSign'
-                                )
-                                : amountFormat(row?.supplies[0]?.cost_price * row?.supplies[0]?.rest_quantity)
-                              : '$0'}
-                          </td>
-                          <td
-                            className="customers-table-data"
-                          >
-                            {row?.supplies[0]?.total_quantity}
-                          </td>
-                          <td
-                            className="customers-table-data"
-                          >
-                            {moment(row?.last_sold_date).format('MM/DD/YYYY')}
-                          </td>
-                          <td
-                            className="customers-table-data"
-                          >
-                            <button className="secondaryOuterbtn_" type="button">Review</button>
-                          </td>
-                        </tr>
-                      ))}
-                    </tbody> :
-                      <tbody>
-                        <tr>
-                          <td colSpan="6" style={{ textAlign: "center" }}>
-                            No Record Found
-                          </td>
-                        </tr>
-                      </tbody>
+                    <>
+                      {
+                        totalInventoryData?.inventory_list?.data?.length > 0 ? <tbody>
+                          {totalInventoryData?.inventory_list?.data?.map((row, idx) => (
+                            <tr className="customers-table-row" key={idx}>
+                              <td
+                                className="customers-table-data"
+                              >
+                                {row?.name ? `${row?.name?.length > 25 ? `${row?.name?.slice(0, 25)}...` : row?.name}` : ""}
+                              </td>
+                              <td
+                                className="customers-table-data"
+                              >
+                                {row?.category?.name ? `${row?.category?.name?.length > 25 ? `${row?.category?.name?.slice(0, 25)}...` : row?.category?.name}` : ""}
+                              </td>
+                              <td
+                                className="customers-table-data"
+                              >
+                                {row?.upc}
+                              </td>
+                              <td
+                                className="customers-table-data"
+                              // style={{ display: "flex", gap: "12px" }}
+                              >
+                                {row?.supplies[0]?.cost_price
+                                  ? row?.supplies[0]?.cost_price < 0
+                                    ? '-$' +
+                                    amountFormat(
+                                      Math.abs(row?.supplies[0]?.cost_price * row?.supplies[0]?.rest_quantity),
+                                      'notSign'
+                                    )
+                                    : amountFormat(row?.supplies[0]?.cost_price * row?.supplies[0]?.rest_quantity)
+                                  : '$0'}
+                              </td>
+                              <td
+                                className="customers-table-data"
+                              >
+                                {row?.supplies[0]?.total_quantity}
+                              </td>
+                              <td
+                                className="customers-table-data"
+                              >
+                                {moment(row?.last_sold_date).format('MM/DD/YYYY')}
+                              </td>
+                              <td
+                                className="customers-table-data"
+                              >
+                                <button className="secondaryOuterbtn_" type="button">Review</button>
+                              </td>
+                            </tr>
+                          ))}
+                        </tbody> :
+                          <tbody>
+                            <tr>
+                              <td colSpan="6" style={{ textAlign: "center" }}>
+                                No Record Found
+                              </td>
+                            </tr>
+                          </tbody>
+                      }
+                    </>
+
                   }
                 </>
-
-              }
-            </>
-        }
-      </table>
+            }
+          </table>
+        </div>
+      </div>
+      <div className="paginatePosition">
+        <PaginationFooter />
+      </div>
+      <AnalyticsRightsidebar />
     </div>
   )
 }

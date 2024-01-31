@@ -1,3 +1,6 @@
+import moment from "moment-timezone";
+import { toast } from "react-toastify";
+
 export const createFullAddress = (address) => {
   return `${address?.current_address?.street_address || " "}, ${
     address?.current_address?.city || " "
@@ -6,6 +9,17 @@ export const createFullAddress = (address) => {
     address?.current_address?.state ||
     " "
   }), ${address?.current_address?.zipcode || " "}`;
+};
+
+export const getCurrentTimeZone = () => {
+  let timeZone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+
+  // Replace "Asia/Calcutta" with "Asia/Kolkata"
+  if (timeZone === "Asia/Calcutta") {
+    timeZone = "Asia/Kolkata";
+  }
+
+  return timeZone;
 };
 
 export const formattedReturnPrice = (price) => {
@@ -114,4 +128,35 @@ export const formattedReturnPriceWithoutSign = (price) => {
   const sign = numericPrice == 0 ? "" : "-";
 
   return `${sign}${amountTwoDecimal}`;
+};
+
+export const noCartFun = () => {
+  toast.error("NO Cart Found");
+};
+
+export const getDaysAndDates = (
+  year = new Date().getFullYear(),
+  month = new Date().getMonth() + 1
+) => {
+  const timezone = getCurrentTimeZone();
+  const currentDate = moment().tz(timezone);
+  const daysInMonth = currentDate.daysInMonth();
+
+  const daysAndDates = [];
+
+  for (let day = 1; day <= daysInMonth; day++) {
+    const date = moment({ year, month: month - 1, day }).tz(timezone);
+
+    if (date.isSameOrAfter(currentDate, "day")) {
+      const dayOfWeek = date.format("ddd").toUpperCase();
+      const completeDate = date.format("YYYY-MM-DD");
+      daysAndDates.push({
+        day: dayOfWeek,
+        date: date.date(),
+        completeDate: completeDate,
+      });
+    }
+  }
+
+  return daysAndDates;
 };

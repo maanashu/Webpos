@@ -7,6 +7,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { selectLoginAuth } from '../../redux/slices/auth';
 import { getProfitsData, orderAnalyticsData, totalAnalyticsProductSoldData, totalInventoryDataApi, totalOrderAnalyticsDataApi } from '../../redux/slices/analytics';
 import moment from 'moment-timezone';
+import AnalyticsRightsidebar from '../../components/commanComonets/analytics/analyticsRightsidebar';
 // import {getProfitsData} from "../../redux/slices/analytics"
 
 const Analytics = () => {
@@ -97,16 +98,16 @@ const Analytics = () => {
     const TotalInventoryAnalytics = {
         labels: [],
         datasets: [
-          {
-            fill: true,
-            label: "Inventory",
-            data: [],
-            borderColor: "#275AFF",
-            backgroundColor: "#FFFFFF00",
-            cubicInterpolationMode: "monotone",
-          },
+            {
+                fill: true,
+                label: "Inventory",
+                data: [],
+                borderColor: "#275AFF",
+                backgroundColor: "#FFFFFF00",
+                cubicInterpolationMode: "monotone",
+            },
         ],
-      };
+    };
 
     const DeliveryOrderAnalytics = {
         labels: analyticsOrderData?.delivery_graph?.graph_data?.labels,
@@ -401,7 +402,7 @@ const Analytics = () => {
 
 
     useEffect(() => {
-        if(sellerId){
+        if (sellerId) {
             newUserDataHandle();
             orderAnalyticsHandle();
             totalOrderAnalyticsHandle();
@@ -410,7 +411,7 @@ const Analytics = () => {
         }
     }, [timeSpan, channelSelected, endDate, sellerId]);
     return (
-        <div className="main-container-customers">
+        <div className="main-container-customers analyticsSection analytics_box">
             <AnalyticsHeader
                 timeSpan={timeSpan}
                 onTimeSpanSelect={setTimeSpan}
@@ -422,208 +423,247 @@ const Analytics = () => {
                 startDate={startDate}
                 endDate={endDate}
             />
-
-            <div className="row">
-                <div className="col-lg-4 col-md-6 col-12 mt-4">
-                    <div
-                        className="chartsOuter"
-                        onClick={() => router.push("/analytics/grossProfit")}
-                    >
-                        <h4 className="expectedHeading ">Gross Profits</h4>
-                        <h4 className="successMain">
-                            {" "}
-                            $
-                            {addThousandSeparator(
-                                100
-                            )}
-                        </h4>
-                        <ChartCommon
-                            className="col-md-12"
-                            header=""
-                            options={options}
-                            data={GrossProfitAnalytics}
-                            chartType="Line"
-                        />
+            <div className='analyticOuter'>
+                <div className="row">
+                    <div className="col-lg-4 col-md-6 col-12 mt-4">
+                        <div
+                            className="chartsOuter"
+                            onClick={() => router.push("/analytics/grossProfit")}
+                        >
+                            <div className='topheadanalytics_'>
+                                <h4 className="expectedHeading ">Gross Profits</h4>
+                                <h4 className="expectedHeading">
+                                    {" "}
+                                    $
+                                    {addThousandSeparator(
+                                        100
+                                    )}
+                                </h4>
+                            </div>
+                            <ChartCommon
+                                className="col-md-12"
+                                header=""
+                                options={options}
+                                data={GrossProfitAnalytics}
+                                chartType="Line"
+                            />
+                        </div>
                     </div>
-                </div>
 
-                <div className="col-lg-4 col-md-6 col-12 mt-4">
-                    <div
-                        className="chartsOuter"
-                        onClick={() => router.push("/analytics/totalRevenue")}
-                    >
-                        <h4 className="expectedHeading ">Total Revenue</h4>
-                        <h4 className="successMain">
-                            {" "}
-                            $
-                            {addThousandSeparator(
-                                analyticsProfitData?.revenue?.total_count
-                            )}
-                        </h4>
-                        <ChartCommon
-                            className="col-md-12"
-                            header=""
-                            options={options}
-                            data={RevenueProfitAnalytics}
-                            chartType="Line"
-                        />
+                    <div className="col-lg-4 col-md-6 col-12 mt-4">
+                        <div
+                            className="chartsOuter"
+                            onClick={() => router.push("/analytics/totalRevenue")}
+                        >
+                            <div className='topheadanalytics_'>
+                                <h4 className="expectedHeading ">Total Revenue</h4>
+                                <h4 className="expectedHeading">
+                                    {" "}
+                                    $
+                                    {addThousandSeparator(
+                                        analyticsProfitData?.revenue?.total_count
+                                    )}
+                                </h4>
+                            </div>
+                            <ChartCommon
+                                className="col-md-12"
+                                header=""
+                                options={options}
+                                data={RevenueProfitAnalytics}
+                                chartType="Line"
+                            />
+                        </div>
                     </div>
-                </div>
 
-                <div className="col-lg-4 col-md-6 col-12 mt-4">
-                    <div
-                        className="chartsOuter"
-                        onClick={() => router.push("/analytics/totalCosts")}
-                    >
-                        <h4 className="expectedHeading ">Total Costs</h4>
-                        <h4 className="">
-                            {" "}
-                            $
-                            {addThousandSeparator(
-                                analyticsProfitData?.cost?.total_count
-                            )}
-                        </h4>
-                        <ChartCommon
-                            className="col-md-12"
-                            header=""
-                            options={options}
-                            data={CostProfitAnalytics}
-                            chartType="Line"
-                        />
+                    <div className="col-lg-4 col-md-6 col-12 mt-4">
+                        <div
+                            className="chartsOuter"
+                            onClick={() => router.push("/analytics/totalCosts")}
+                        >
+                            <div className='topheadanalytics_'>
+                                <h4 className="expectedHeading ">Total Costs</h4>
+                                <h4 className="expectedHeading">
+                                    {" "}
+                                    $
+                                    {addThousandSeparator(
+                                        analyticsProfitData?.cost?.total_count
+                                    )}
+                                </h4>
+                            </div>
+                            <ChartCommon
+                                className="col-md-12"
+                                header=""
+                                options={options}
+                                data={CostProfitAnalytics}
+                                chartType="Line"
+                            />
+                        </div>
                     </div>
-                </div>
 
-                <div className="col-lg-4 col-md-6 col-12 mt-4">
-                    <div className="chartsOuter"
-                      onClick={() => router.push("/analytics/totalPosOrder")}
-                    >
-                        <h4 className="expectedHeading ">Total POS Orders</h4>
-                        <h4 className="successMain">
-                            {" "}
-                            {addThousandSeparator(
-                                analyticsOrderData?.pos_graph?.total_count
-                            )}
-                        </h4>
-                        <ChartCommon
-                            style={{ cursor: "pointer" }}
-                            className="col-md-12"
-                            header=""
-                            options={options}
-                            data={PosOrderAnalytics}
-                            chartType="Line"
-                        />
+                    <div className="col-lg-4 col-md-6 col-12 mt-4">
+                        <div className="chartsOuter"
+                            onClick={() => router.push("/analytics/totalPosOrder")}
+                        >
+                            <div className='topheadanalytics_'>
+                                <h4 className="expectedHeading ">Total POS Orders</h4>
+                                <h4 className="expectedHeading">
+                                    {" "}
+                                    {addThousandSeparator(
+                                        analyticsOrderData?.pos_graph?.total_count
+                                    )}
+                                </h4>
+                            </div>
+                            <div className='analyticStatus_'>
+                                <h3 className='deliveredStatus me-2'><span className='statusDot_'></span>Delivered</h3>
+                                <h3 className='deliveredStatus returnstatus me-2'><span className='statusDot_'></span>Returned</h3>
+                                <h3 className='deliveredStatus cancelstatus '><span className='statusDot_'></span>Cancelled</h3>
+                            </div>
+                            <ChartCommon
+                                style={{ cursor: "pointer" }}
+                                className="col-md-12"
+                                header=""
+                                options={options}
+                                data={PosOrderAnalytics}
+                                chartType="Line"
+                            />
+                        </div>
                     </div>
-                </div>
 
-                <div className="col-lg-4 col-md-6 col-12 mt-4">
-                    <div className="chartsOuter"
-                                          onClick={() => router.push("/analytics/totalDeliveryOrder")}>
-                        <h4 className="expectedHeading ">Total Delivery Orders</h4>
-                        <h4 className="successMain">
-                            {" "}
-                            {addThousandSeparator(
-                                analyticsOrderData?.delivery_graph?.total_count
-                            )}
-                        </h4>
-                        <ChartCommon
-                            style={{ cursor: "pointer" }}
-                            className="col-md-12"
-                            header=""
-                            options={options}
-                            data={DeliveryOrderAnalytics}
-                            chartType="Line"
-                        />
+                    <div className="col-lg-4 col-md-6 col-12 mt-4">
+                        <div className="chartsOuter"
+                            onClick={() => router.push("/analytics/totalDeliveryOrder")}>
+                            <div className='topheadanalytics_'>
+                                <h4 className="expectedHeading ">Total Delivery Orders</h4>
+                                <h4 className="expectedHeading">
+                                    {" "}
+                                    {addThousandSeparator(
+                                        analyticsOrderData?.delivery_graph?.total_count
+                                    )}
+                                </h4>
+                            </div>
+                            <div className='analyticStatus_'>
+                                <h3 className='deliveredStatus me-2'><span className='statusDot_'></span>Delivered</h3>
+                                <h3 className='deliveredStatus returnstatus me-2'><span className='statusDot_'></span>Returned</h3>
+                                <h3 className='deliveredStatus cancelstatus '><span className='statusDot_'></span>Cancelled</h3>
+                            </div>
+                            <ChartCommon
+                                style={{ cursor: "pointer" }}
+                                className="col-md-12"
+                                header=""
+                                options={options}
+                                data={DeliveryOrderAnalytics}
+                                chartType="Line"
+                            />
+                        </div>
                     </div>
-                </div>
 
-                <div className="col-lg-4 col-md-6 col-12 mt-4">
-                    <div className="chartsOuter"
-                                          onClick={() => router.push("/analytics/totalShippingOrder")}>
-                        <h4 className="expectedHeading ">Total Shipping Orders</h4>
-                        <h4 className="successMain">
-                            {" "}
-                            {addThousandSeparator(
-                                analyticsOrderData?.shipping_graph?.total_count
-                            )}
-                        </h4>
-                        <ChartCommon
-                            style={{ cursor: "pointer" }}
-                            className="col-md-12"
-                            header=""
-                            options={options}
-                            data={ShippingOrderAnalytics}
-                            chartType="Line"
-                        />
+                    <div className="col-lg-4 col-md-6 col-12 mt-4">
+                        <div className="chartsOuter"
+                            onClick={() => router.push("/analytics/totalShippingOrder")}>
+                            <div className='topheadanalytics_'>
+                                <h4 className="expectedHeading ">Total Shipping Orders</h4>
+                                <h4 className="expectedHeading">
+                                    {" "}
+                                    {addThousandSeparator(
+                                        analyticsOrderData?.shipping_graph?.total_count
+                                    )}
+                                </h4>
+                            </div>
+                            <div className='analyticStatus_'>
+                                <h3 className='deliveredStatus me-2'><span className='statusDot_'></span>Delivered</h3>
+                                <h3 className='deliveredStatus returnstatus me-2'><span className='statusDot_'></span>Returned</h3>
+                                <h3 className='deliveredStatus cancelstatus '><span className='statusDot_'></span>Cancelled</h3>
+                            </div>
+                            <ChartCommon
+                                style={{ cursor: "pointer" }}
+                                className="col-md-12"
+                                header=""
+                                options={options}
+                                data={ShippingOrderAnalytics}
+                                chartType="Line"
+                            />
+                        </div>
                     </div>
-                </div>
 
-                <div className="col-lg-4 col-md-6 col-12 mt-4">
-                    <div className="chartsOuter"
-                    onClick={() => router.push("/analytics/totalOrder")}>
-                        <h4 className="expectedHeading ">Total Orders</h4>
-                        <h4 className="successMain">
-                            {" "}
-                            {addThousandSeparator(
-                                totalOrderAnalyticsData?.total_orders
-                            )}
-                        </h4>
-                        <ChartCommon
-                            style={{ cursor: "pointer" }}
-                            className="col-md-12"
-                            header=""
-                            options={options}
-                            data={TotalOrderAnalytics}
-                            chartType="Bar"
-                        />
+                    <div className="col-lg-4 col-md-6 col-12 mt-4">
+                        <div className="chartsOuter"
+                            onClick={() => router.push("/analytics/totalOrder")}>
+                            <div className='topheadanalytics_'>
+                                <h4 className="expectedHeading ">Total Orders</h4>
+                                <h4 className="expectedHeading">
+                                    {" "}
+                                    {addThousandSeparator(
+                                        totalOrderAnalyticsData?.total_orders
+                                    )}
+                                </h4>
+                            </div>
+                            <div className='analyticStatus_'>
+                                <h3 className='deliveredStatus posorder_ me-2'><span className='statusDot_'></span>POS Order</h3>
+                                <h3 className='deliveredStatus onlineorder me-2'><span className='statusDot_'></span>Online Order</h3>
+                                <h3 className='deliveredStatus shiporder '><span className='statusDot_'></span>Shipping</h3>
+                            </div>
+                            <ChartCommon
+                                style={{ cursor: "pointer" }}
+                                className="col-md-12"
+                                header=""
+                                options={options}
+                                data={TotalOrderAnalytics}
+                                chartType="Bar"
+                            />
+                        </div>
                     </div>
-                </div>
 
 
-                <div className="col-lg-4 col-md-6 col-12 mt-4">
-                    <div className="chartsOuter"
-                    onClick={() => router.push("/analytics/totalInventory")}>
-                        <h4 className="expectedHeading ">Total Inventory</h4>
-                        <h4 className="successMain">
-                            {" "}
-                            {addThousandSeparator(
-                                totalInventory?.total_count
-                            )}
-                        </h4>
-                        <ChartCommon
+                    <div className="col-lg-4 col-md-6 col-12 mt-4">
+                        <div className="chartsOuter"
+                            onClick={() => router.push("/analytics/totalInventory")}>
+                            <div className='topheadanalytics_'>
+                                <h4 className="expectedHeading ">Total Inventory</h4>
+                                <h4 className="expectedHeading">
+                                    {" "}
+                                    {addThousandSeparator(
+                                        totalInventory?.total_count
+                                    )}
+                                </h4>
+                            </div>
+                            {/* <ChartCommon
                             style={{ cursor: "pointer" }}
                             className="col-md-12"
                             header=""
                             options={options}
                             data={TotalInventoryAnalytics}
                             chartType="Bar"
-                        />
+                        /> */}
+                        </div>
                     </div>
-                </div>
 
-                <div className="col-lg-4 col-md-6 col-12 mt-4">
-                    <div
-                        className="chartsOuter"
-                        onClick={() => router.push("/analytics/totalProductSold")}
-                    >
-                        <h4 className="expectedHeading ">Total Product Sold</h4>
-                        <h4 className="successMain">
-                            {" "}
-                            {addThousandSeparator(
-                                totalProductSoldAnalyticsData?.totalProductSoldList?.total
-                            )}
-                        </h4>
-                        <ChartCommon
-                            className="col-md-12"
-                            header=""
-                            options={options}
-                            data={TotalProductSoldAnalytics}
-                            chartType="Line"
-                        />
+                    <div className="col-lg-4 col-md-6 col-12 mt-4">
+                        <div
+                            className="chartsOuter"
+                            onClick={() => router.push("/analytics/totalProductSold")}
+                        >
+                            <div className='topheadanalytics_'>
+                                <h4 className="expectedHeading ">Total Product Sold</h4>
+                                <h4 className="expectedHeading">
+                                    {" "}
+                                    {addThousandSeparator(
+                                        totalProductSoldAnalyticsData?.totalProductSoldList?.total
+                                    )}
+                                </h4>
+                            </div>
+                            <ChartCommon
+                                className="col-md-12"
+                                header=""
+                                options={options}
+                                data={TotalProductSoldAnalytics}
+                                chartType="Line"
+                            />
+                        </div>
                     </div>
-                </div>
 
+                </div>
             </div>
-
+            <AnalyticsRightsidebar />
         </div>
     )
 }

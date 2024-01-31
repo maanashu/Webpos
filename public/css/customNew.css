@@ -173,7 +173,7 @@ figure {
 
 .searchControl::placeholder {
   color: #636e9f;
-  font-size: 16px;
+  font-size: 16px !important;
   font-weight: 400;
 }
 
@@ -2362,14 +2362,14 @@ figure {
   padding: 24px;
 }
 
-/* .form-group input {
-    padding: 0;
-    height: initial;
-    width: initial;
-    margin-bottom: 0;
-    display: none;
-    cursor: pointer;
-} */
+.form-group input[type="checkbox"] {
+  padding: 0;
+  height: initial;
+  width: initial;
+  margin-bottom: 0;
+  display: none;
+  cursor: pointer;
+}
 
 .checkBlue label {
   position: relative;
@@ -2392,7 +2392,7 @@ figure {
   border-radius: 4px;
 }
 
-.checkBlue input:checked + label:after {
+.checkBlue input:checked+label:after {
   content: "";
   display: block;
   position: absolute;
@@ -2409,6 +2409,7 @@ figure {
   display: flex;
   justify-content: end;
   gap: 20px;
+  flex-wrap: wrap;
 }
 
 .checkPurple label:before {
@@ -2416,7 +2417,7 @@ figure {
   background-color: #f5edff;
 }
 
-.checkPurple input:checked + label:after {
+.checkPurple input:checked+label:after {
   border: solid #914beb;
   border-width: 0 2px 2px 0;
 }
@@ -2430,7 +2431,7 @@ figure {
   background-color: #fff7d7;
 }
 
-.checkYellow input:checked + label:after {
+.checkYellow input:checked+label:after {
   border: solid #fdb022;
   border-width: 0 2px 2px 0;
 }
@@ -2444,7 +2445,7 @@ figure {
   background-color: #fee4e2;
 }
 
-.checkRed input:checked + label:after {
+.checkRed input:checked+label:after {
   border: solid #f04438;
   border-width: 0 2px 2px 0;
 }
@@ -2705,6 +2706,7 @@ figure {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  flex-wrap: wrap;
 }
 
 .orderLeftInfo .linkHeading {
@@ -2906,6 +2908,17 @@ figure {
   max-width: 195px;
   border-radius: 12px !important;
   margin: 16px 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.shippingDrop {
+  width: 100%;
+  max-width: 150px;
+  border-width: 0;
+  /* border-radius: 12px !important; */
+  /* margin: 10px 0; */
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -3208,8 +3221,7 @@ figure {
 }
 
 .shipImgReturn {
-  filter: invert(50%) sepia(45%) saturate(980%) hue-rotate(102deg)
-    brightness(110%) contrast(66%);
+  filter: invert(50%) sepia(45%) saturate(980%) hue-rotate(102deg) brightness(110%) contrast(66%);
 }
 
 .shipDeliverLeft {
@@ -3255,6 +3267,11 @@ figure {
 
 .returnShipSection .detailScroll {
   height: calc(100% - 380px);
+  overflow-y: scroll;
+}
+
+.deliverOrderRight .detailScroll {
+  height: calc(100% - 368px);
   overflow-y: scroll;
 }
 
@@ -3334,8 +3351,7 @@ figure {
 
 .settingList.active .SecurityImg,
 .settingList:hover .SecurityImg {
-  filter: invert(19%) sepia(61%) saturate(1030%) hue-rotate(196deg)
-    brightness(55%) contrast(99%);
+  filter: invert(19%) sepia(61%) saturate(1030%) hue-rotate(196deg) brightness(55%) contrast(99%);
 }
 
 .deviceLeft .settingListMain {
@@ -3345,12 +3361,8 @@ figure {
 .deviceRight {
   border-radius: 20px;
   background: #fff;
-  box-shadow: -2px 4px 25px 0px rgba(50, 80, 127, 0.02),
-    -5px 10px 80px 0px rgba(50, 80, 127, 0.04);
+  box-shadow: -2px 4px 25px 0px rgb(50 80 127 / 2%), -5px 10px 80px 0px rgb(50 80 127 / 4%);
   padding: 40px 30px 24px 30px;
-  display: flex;
-  align-items: start;
-  gap: 12px;
 }
 
 .addDeviceSection {
@@ -3887,12 +3899,8 @@ figure {
 .securityRight {
   border-radius: 20px;
   background: #fff;
-  box-shadow: -2px 4px 25px 0px rgba(50, 80, 127, 0.02),
-    -5px 10px 80px 0px rgba(50, 80, 127, 0.04);
+  box-shadow: -2px 4px 25px 0px rgb(50 80 127 / 2%), -5px 10px 80px 0px rgb(50 80 127 / 4%);
   padding: 24px 30px;
-  display: flex;
-  align-items: start;
-  gap: 12px;
 }
 
 .agreementRight {
@@ -4014,12 +4022,8 @@ figure {
 .bussinessRight {
   border-radius: 20px;
   background: #fff;
-  box-shadow: -2px 4px 25px 0px rgba(50, 80, 127, 0.02),
-    -5px 10px 80px 0px rgba(50, 80, 127, 0.04);
+  box-shadow: -2px 4px 25px 0px rgb(50 80 127 / 2%), -5px 10px 80px 0px rgb(50 80 127 / 4%);
   padding: 40px 40px 24px 40px;
-  display: flex;
-  align-items: start;
-  gap: 16px;
 }
 
 .bussinessMain {
@@ -4350,6 +4354,7 @@ figure {
   background-color: #fff;
   height: 1px;
   width: 100%;
+  border-style: dotted;
 }
 
 #barcodeScanModal {
@@ -4514,7 +4519,13 @@ figure {
   height: 18px;
   border-radius: 6px;
 }
-
+.topsettingContent_ {
+  display: flex;
+  align-items: flex-start;
+}
+.bottonContent_ {
+  padding-left: 40px;
+}
 /*setting css end*/
 /* cash Drawer css start*/
 .cashDrawOuter {
@@ -4672,8 +4683,7 @@ figure {
 
 .paginateFlex.active .paginationArrowImg,
 .paginateFlex:hover .paginationArrowImg {
-  filter: invert(65%) sepia(92%) saturate(373%) hue-rotate(163deg)
-    brightness(93%) contrast(95%);
+  filter: invert(65%) sepia(92%) saturate(373%) hue-rotate(163deg) brightness(93%) contrast(95%);
 }
 
 .cashDrawMain {
@@ -4682,9 +4692,11 @@ figure {
 
 .paginatePosition {
   position: absolute;
-  bottom: 16px;
+  bottom: 0;
   left: 0;
   right: 0;
+  background-color: #fff;
+  border-radius: 15px;
 }
 
 .planRight {
@@ -4750,6 +4762,7 @@ figure {
   font-size: 14px;
   font-weight: 500;
 }
+
 .subscribeBox {
   display: flex;
   align-items: center;
@@ -4931,12 +4944,8 @@ figure {
   border-radius: 20px;
   border: 1px solid #e4e6f2;
   padding: 16px 24px;
-  display: flex;
-  align-items: start;
-  gap: 12px;
   margin-top: 10px;
 }
-
 .georgiaBox {
   border-radius: 16px;
   border: 1px solid #d7deff;
@@ -4945,8 +4954,8 @@ figure {
   display: flex;
   align-items: start;
   justify-content: space-between;
+  margin-left: 40px;
 }
-
 .darkCheck input[type="checkbox"]:checked {
   background: #263682;
   border: 2px solid #263682;
@@ -5004,8 +5013,7 @@ figure {
 }
 
 .SoftwareUpdateBx.active .imgSize {
-  filter: invert(40%) sepia(93%) saturate(322%) hue-rotate(150deg)
-    brightness(100%) contrast(95%);
+  filter: invert(40%) sepia(93%) saturate(322%) hue-rotate(150deg) brightness(100%) contrast(95%);
 }
 
 .deviceInfo {
@@ -5097,29 +5105,236 @@ figure {
 }
 
 .verifySuccess {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
 }
 
 .loginLogo {
-    border-radius: 60px;
-    background: #FFF;
-    box-shadow: -2px 4px 25px 0px rgba(50, 80, 127, 0.02), -5px 10px 80px 0px rgba(50, 80, 127, 0.04);
-    padding: 16px 20px;
-    position: absolute;
-    top: 30px;
-    left: 24px;
+  border-radius: 60px;
+  background: #fff;
+  box-shadow: -2px 4px 25px 0px rgba(50, 80, 127, 0.02),
+    -5px 10px 80px 0px rgba(50, 80, 127, 0.04);
+  padding: 16px 20px;
+  position: absolute;
+  top: 24px;
+  left: 24px;
 }
-.rightheader{
-    display: flex;
-    align-items: center;
+
+.rightheader {
+  display: flex;
+  align-items: center;
 }
-.rightMainHeader{
-    display: flex;
-    align-items: center;
-    justify-content: end;
+
+.rightMainHeader {
+  display: flex;
+  align-items: center;
+  justify-content: end;
+}
+
+.authHeader {
+  padding: 0 100px;
+}
+
+.leftMainHeader {
+  display: flex;
+  align-items: center;
+}
+
+.sideMini {
+  background-color: #fff;
+  border-radius: 15px;
+  padding: 8px;
+  border: none;
+  display: none;
+  /* position: absolute;
+  top: 54px;
+  right: 102px; */
+}
+
+.productInnerNavBar {
+  display: flex;
+  align-items: center;
+  justify-content: start;
+  gap: 12px;
+}
+
+.productInnerNavLeft {
+  display: flex;
+  align-items: center;
+  justify-content: end;
+  gap: 12px;
+}
+
+.productSearchBx {
+  width: 100%;
+  max-width: 500px;
+}
+
+.innerMargin {
+  margin: 0 12px 12px 12px;
+}
+
+.sideMini {
+  display: none;
+}
+
+.shippingMainTable .invoice_subhead:nth-child(2) {
+  min-width: 170px;
+}
+
+.shippingMainTable .invoice_subhead:nth-child(3) {
+  min-width: 115px;
+}
+
+.shippingMainTable .invoice_subhead:nth-child(4) {
+  min-width: 240px;
+}
+
+.shippingMainTable .invoice_subhead:first-child {
+  min-width: 80px;
+}
+
+.shippingMainTable .invoice_subhead:last-child {
+  min-width: 50px;
+}
+
+.deliverOrderData .flexDiv {
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.shipDate input {
+  border: 0;
+  width: 100%;
+  max-width: 125px;
+  font-size: 16px !important;
+  font-weight: 400 !important;
+  color: #263682 !important;
+}
+
+.shipDate input:focus {
+  outline: none;
+}
+
+.shipDate input::placeholder {
+  font-size: 16px !important;
+  font-weight: 400 !important;
+  color: #263682 !important;
+}
+
+.shipTrackTable .invoice_subhead:first-child {
+  min-width: 200px;
+}
+
+.shipTrackTable .invoice_subhead:nth-child(2) {
+  min-width: 230px;
+}
+
+.shipTrackTable .invoice_subhead:last-child {
+  min-width: 50px;
+}
+
+.shipTrackTable .invoice_subhead:nth-child(3) {
+  min-width: 250px;
+}
+
+.deliverOrderRight .selectedProductDetails {
+  display: inline-flex;
+  width: 100%;
+  min-width: 552px;
+  overflow-x: scroll;
+}
+
+.deliverOrderRight .aboutProduct {
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+  max-width: 24ch;
+}
+
+.afterViewOuter {
+  height: calc(100vh - 129px);
+  overflow-y: scroll;
+}
+
+.afterViewOuter::-webkit-scrollbar {
+  display: none;
+}
+
+#returnedOrder .invoice_subhead:first-child {
+  min-width: 80px;
+}
+
+#rejectOrder .invoice_subhead:nth-child(3) {
+  min-width: 180px;
+}
+
+#shippedOrders .invoice_subhead:first-child {
+  min-width: 80px;
+}
+
+#ordersToReview .invoice_subhead:first-child {
+  min-width: 250px;
+}
+
+.shipOrderSection .declineButton {
+  width: 42%;
+}
+
+#returnedOrder .invoice_subhead:nth-child(3) {
+  min-width: 250px;
+}
+
+#printingLabel .invoice_subhead:first-child {
+  min-width: 80px;
+}
+
+.cashText {
+  color: #263682;
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.endCashText {
+  color: #F04438;
+  font-size: 16px;
+  font-weight: 500;
+}
+
+.anlyticHeadLeft {
+  display: flex;
+  align-items: center;
+  justify-content: start;
+}
+
+.anlyticHeadRight {
+  display: flex;
+  align-items: center;
+  justify-content: end;
+  gap: 16px;
+}
+
+.analyticOuter {
+  height: calc(100vh - 110px);
+  overflow-y: scroll;
+}
+
+.analyticOuter::-webkit-scrollbar {
+  display: none;
+}
+
+.analyticStatus_ {
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.analyticsSection .stats {
+  flex-wrap: wrap;
+}
+.analyticsSection .stat-box{
+  min-width: 185px;
 }
 /*gaurav arora sir css start*/
 .headingTextStyle {
@@ -5198,7 +5413,7 @@ figure {
 
 .box {
   display: flex;
-  width: 420px;
+  width: 100%;
   padding: 16px 18px 20px 18px;
   flex-direction: column;
   justify-content: center;
@@ -5206,8 +5421,70 @@ figure {
   gap: 6px;
   height: 100px;
   border-radius: 16px;
-  border: 1px solid var(--Neutrals-N-100, #d7deff);
-  margin-top: 40px;
+  border: 1px solid #d7deff;
+  margin-top: 25px;
+}
+
+.backarrow-plan {
+  cursor: pointer;
+}
+
+.no-plan-found-section {
+  width: 100%;
+  height: 95vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 17px;
+}
+
+.no-plan-found-section button {
+  width: 200px;
+}
+
+.order-progress-value {
+  position: absolute;
+  width: 100%;
+  top: 42%;
+}
+
+.order-progress-value p {
+  color: #263682;
+  text-align: center;
+  font-family: Roobert;
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 500;
+}
+
+.order-second-progress {
+  position: absolute;
+  height: 123px;
+  width: 123px;
+  top: 11px;
+  left: 11px;
+}
+
+.deliverGraph.order-all-progress {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 30px 0;
+}
+
+.order-all-progress-inner {
+  position: relative;
+  height: 145px;
+  width: 145px;
+}
+
+.order-third-progress {
+  position: absolute;
+  height: 100px;
+  width: 100px;
+  top: 23px;
+  left: 23px;
 }
 
 /*gaurav arora sir css end*/

@@ -16,10 +16,7 @@ import {
 } from "../../redux/slices/dashboard";
 import Login from "../auth/login";
 import moment from "moment-timezone";
-import { getSecuritySettingInfo } from "../../redux/slices/setting";
-import Invoices from "../invoices/invoices";
 import { toast } from "react-toastify";
-import { amountFormat } from "../../utilities/globalMethods";
 
 const Overview = () => {
   const moment = require("moment");
@@ -27,7 +24,6 @@ const Overview = () => {
   console.log(authData, "authData");
   const dashboardData = useSelector(dashboardDetails);
   const trackingSession = dashboardData?.drawerSession?.payload;
-  console.log(trackingSession, "trackingSession");
   const UniqueId = authData?.usersInfo?.payload?.uniqe_id
     ? authData?.usersInfo?.payload?.uniqe_id
     : "";
@@ -100,15 +96,6 @@ const Overview = () => {
     });
     setKey(Math.random());
   };
-
-  // const handleUserProfile = (flag) => {
-  //   setModalDetail({
-  //     show: true,
-  //     flag: flag,
-  //     type: flag,
-  //   });
-  //   setKey(Math.random());
-  // };
 
   const closeModal = async () => {
     await dispatch(logout());
@@ -188,7 +175,9 @@ const Overview = () => {
                         authData?.posUserLoginDetails?.payload?.user_roles?.map(
                           (data, index) => {
                             return (
-                              <h4 className="loginSub">{data?.role?.name}</h4>
+                              <h4 key={index} className="loginSub">
+                                {data?.role?.name}
+                              </h4>
                             );
                           }
                         )
@@ -216,9 +205,15 @@ const Overview = () => {
                       getTodaySale &&
                       getTodaySale?.map((data, index) => {
                         return (
-                          <div className="flexHeading mt-4">
+                          <div key={index} className="flexHeading mt-4">
                             <h4 className="saleHeading">
-                              {data?.mode_of_payment} Sales amount
+                              {data?.mode_of_payment === "jbr"
+                                ? data?.mode_of_payment.toUpperCase()
+                                : data?.mode_of_payment
+                                    ?.charAt(0)
+                                    ?.toUpperCase() +
+                                  data?.mode_of_payment?.slice(1)}{" "}
+                              sales amount
                             </h4>
                             <h4 className="saleHeading">
                               ${data?.total_sale_amount?.toFixed(2)}
@@ -227,31 +222,19 @@ const Overview = () => {
                         );
                       })
                     )}
-                    {/* // <div className='flexHeading mt-2'>
-                                        //     <h4 className='saleHeading'>Card Sales amount</h4>
-                                        //     <h4 className='saleHeading'>$400.50</h4>
-                                        // </div> */}
-                    {/* <div className='flexHeading mt-2'>
-                                            <h4 className='saleHeading'>Cash Sales amount</h4>
-                                            <h4 className='saleHeading'>$400.50</h4>
-                                        </div> */}
-                    {/* // <div className='flexHeading mt-2'>
-                                        //     <h4 className='saleHeading'>JOBR Coin Sales amount</h4>
-                                        //     <h4 className='saleHeading'>JOBR 400.50</h4>
-                                        // </div> */}
                   </div>
                   <div className="todaySale cashDraw">
                     <h4 className="loginMain">Cash Drawer</h4>
                     <div className="flexHeading mt-4">
                       <h4 className="saleHeading">Opening Balance</h4>
                       <h4 className="saleHeading">
-                        {amountFormat(trackingSession?.opening_balance)}
+                        {trackingSession?.opening_balance}
                       </h4>
                     </div>
                     <div className="flexHeading mt-2">
                       <h4 className="saleHeading">Closing Balance</h4>
                       <h4 className="saleHeading">
-                        {amountFormat(trackingSession?.cash_balance)}
+                        {trackingSession?.cash_balance}
                       </h4>
                     </div>
                   </div>
@@ -747,6 +730,7 @@ const Overview = () => {
                                   //             <span className='orderId'>00:03:06</span>
                                   //         </div>
                                   //     </td>
+                                  // </tr>
                                 );
                               })}
                             </>
@@ -783,20 +767,11 @@ const Overview = () => {
             ? "commonWidth customContent"
             : ""
         }
-        ids={
-          modalDetail.flag === "trackingmodal"
-            ? "trackingModal"
-            : "invoiceModal"
-            ? "invoiceModal"
-            : ""
-        }
+        ids={modalDetail.flag === "trackingmodal" ? "trackingModal" : ""}
         child={
           modalDetail.flag === "trackingmodal" ? (
             <SessionModal close={(e) => handleOnCloseModal(e)} />
           ) : (
-            // : modalDetail.flag === "invoiceModal" ? (
-            //   <Invoices close={() => handleOnCloseModal()} />
-            // )
             ""
           )
         }

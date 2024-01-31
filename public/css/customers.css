@@ -19,7 +19,7 @@
     margin: 16px;
     border-radius: 20px;
     background-color: #fff;
-    min-height: 100vh;
+    /* min-height: 100vh; */
     padding-bottom: 15px;
 }
 
@@ -50,13 +50,14 @@
 
 .day-tabs {
     gap: 8px;
-    height: 40px;
+    /* height: 40px; */
     padding: 6px 8px;
     align-items: center;
     border-radius: 30px;
     background: #F5F6FC;
     justify-content: center;
     margin-right: 16px;
+    flex-wrap: wrap;
 }
 
 .tab-item {
@@ -65,9 +66,8 @@
     vertical-align: bottom;
     color: #263682;
     font-size: 14px;
-    font-style: normal;
     font-weight: 400;
-    line-height: normal;
+    cursor: pointer;
 }
 
 .selected-tab {
@@ -220,10 +220,11 @@
     padding: 6px 12px;
     align-self: stretch;
     align-items: center;
+    box-shadow: -1.908px 3.783px 25.481px 0px rgb(50 80 127 / 2%), -4.954px 9.821px 80px 0px rgb(50 80 127 / 4%);
     border-radius: 12px;
     border: 1px solid #D7DEFF;
     background: #FFF;
-    box-shadow: -1.908px 3.783px 25.481px 0px rgba(50, 80, 127, 0.02), -4.954px 9.821px 80px 0px rgba(50, 80, 127, 0.04);
+    cursor: pointer;
 }
 
 .users-selected-date {
@@ -233,7 +234,6 @@
     font-weight: 400;
     line-height: normal;
 }
-
 .react-select-container .react-select__control {
     gap: 6px;
     display: flex;
@@ -243,9 +243,9 @@
     border-radius: 12px;
     border: 1px solid #D7DEFF;
     background: #FFF;
-    box-shadow: -1.908px 3.783px 25.481px 0px rgba(50, 80, 127, 0.02), -4.954px 9.821px 80px 0px rgba(50, 80, 127, 0.04);
+    box-shadow: -1.908px 3.783px 25.481px 0px rgb(50 80 127 / 2%), -4.954px 9.821px 80px 0px rgb(50 80 127 / 4%);
+    cursor: pointer;
 }
-
 .react-select-container .react-select__control:focus {
     border: 1px solid #D7DEFF;
 }
@@ -557,11 +557,11 @@
 
 .customers-table-data {
     text-align: center;
-    padding: 6px 20px;
+    padding: 12px 20px;
     border-top: 1px solid #F5F6FC;
     border-bottom: 1px solid #F5F6FC;
     color: #2F3552;
-    font-size: 12px;
+    font-size: 13px;
     font-weight: 500;
     cursor: pointer;
 }

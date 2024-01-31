@@ -68,7 +68,7 @@ const UserProfile = () => {
   };
 
   return (
-    <div className="main-container-customers">
+    <div className="main-container-customers fullheightBox_">
       <div
         style={{ padding: "24px 24px 0px 24px" }}
         className="flex-row-space-between"

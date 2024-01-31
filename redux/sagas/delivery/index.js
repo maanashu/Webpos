@@ -4,6 +4,7 @@ import { ORDER_API_URL } from "../../../utilities/config";
 
 import { all, call, put, takeLatest } from "redux-saga/effects";
 import {
+  setAcceptOrder,
   setDrawerOrdersCount,
   setOrderDetailById,
   setOrdersList,
@@ -16,7 +17,7 @@ const API_URL = {
   getOrderList: "/api/v1/orders?",
   getDrawerCount: "/api/v1/orders/pos/statistics?",
   getOrderDetailById: "/api/v1/orders/pos/",
-  acceptOrder: "orders/status",
+  acceptOrder: "/api/v1/orders/status/",
 };
 
 function* getTodayOrderCount(action) {
@@ -51,7 +52,8 @@ function* getCurrentOrderStatus(action) {
       `${ORDER_API_URL}${API_URL.getCurrentOrderStat}${params}`
     );
     if (resp) {
-      //   yield put(setProfitData(resp.data));
+      // yield put(setProfitData(resp.data));
+
       yield call(action.payload.cb, (action.res = resp));
     } else {
       throw resp;
@@ -92,7 +94,6 @@ function* getOrdersList(action) {
       ApiClient.get,
       `${ORDER_API_URL}${API_URL.getOrderList}${params}`
     );
-    console.log("RESPONSEE+__+_++_-==-", resp);
 
     if (resp) {
       yield put(setOrdersList(resp?.data == "" ? [] : resp?.data?.payload));
@@ -109,6 +110,7 @@ function* getOrdersList(action) {
 function* getDrawerOrdersCount(action) {
   const dataToSend = { ...action.payload };
   const params = new URLSearchParams(dataToSend).toString();
+  console.log("paramsss0--00-", params);
   try {
     const resp = yield call(
       ApiClient.get,
@@ -119,7 +121,7 @@ function* getDrawerOrdersCount(action) {
         setDrawerOrdersCount(resp?.data == "" ? [] : resp?.data?.payload)
       );
 
-      // yield call(action.payload.cb, (action.res = resp));
+      yield call(action.payload.cb, (action.res = resp));
     } else {
       throw resp;
     }
@@ -131,9 +133,7 @@ function* getDrawerOrdersCount(action) {
 
 function* getOrderDetailById(action, callbackFn) {
   const dataToSend = action.payload;
-  console.log("callbacccckkck", action.payload);
-  // const params = new URLSearchParams(dataToSend).toString();
-  // console.log("IIISSS", JSON.stringify(dataToSend));
+
   try {
     const resp = yield call(
       ApiClient.get,
@@ -157,9 +157,11 @@ function* getOrderDetailById(action, callbackFn) {
 }
 function* acceptOrder(action, callbackFn) {
   const dataToSend = action.payload;
-  console.log("accept order", action.payload);
-  // const params = new URLSearchParams(dataToSend).toString();
-  // console.log("IIISSS", JSON.stringify(dataToSend));
+  console.log(
+    "Endpoin",
+    `${ORDER_API_URL}${API_URL.acceptOrder}${dataToSend?.orderId}`
+  );
+
   const body = {
     status: dataToSend.status,
   };
@@ -169,18 +171,15 @@ function* acceptOrder(action, callbackFn) {
       `${ORDER_API_URL}${API_URL.acceptOrder}${dataToSend?.orderId}`,
       body
     );
+    console.log("Response--", resp);
     if (resp) {
-      console.log("accept OrderId  ", JSON.stringify(resp));
-      // yield put(
-      //   setOrderDetailById(resp?.data == "" ? [] : resp?.data?.payload)
-      // );
-      // callbackFn && callbackFn(resp);
-
+      setAcceptOrder();
       yield call(action.payload.cb, (action.res = resp));
     } else {
       throw resp;
     }
   } catch (e) {
+    console.log("Errorr0", e);
     // yield put(onErrorStopLoad());
     toast.error(e?.error?.response?.data?.msg);
   }

@@ -1,0 +1,143 @@
+@media (max-width: 1600px) {
+  
+}
+
+@media (max-width: 1400px) {
+
+
+}
+
+@media (max-width:1366px) {
+
+}
+
+@media (max-width: 1280px) {
+   
+}
+
+@media (max-width: 1200px) {
+  
+}
+
+@media (max-width: 1199px) {
+    .SubReader .cancelOrderText {
+        font-size: 12px;
+    }
+}
+
+@media (max-width: 992px) {
+    .settingMain .deviceLeft {
+        margin-bottom: 15px;
+    }
+   
+}
+
+@media (max-width: 767px) {
+    
+}
+
+@media (max-width: 575px) {
+    .securityRight {
+        padding: 24px 10px;
+      
+    }
+    .bottonContent_ {
+        padding-left: 0;
+    }
+    .addDeviceSub {
+        flex-wrap: wrap;
+    }
+    .locationHead {
+        flex-wrap: wrap;
+    }
+    .taxRight {
+        padding: 23px 10px 24px 10px;
+    }
+    .languageRight {
+        padding: 20px 10px;
+    }
+    .appointMain {
+        font-size: 18px;
+    }
+    .taxCountryMain {
+        padding: 16px 12px;
+    }
+    .agreePrimary {
+        padding: 24px 10px 0 10px;
+    }
+    .publishMain {
+        margin: 0 10px;
+    }
+}
+
+@media (max-width: 480px) {
+    .notifySub {
+        padding: 14px 0;
+    }
+    .securityRight .headingTextStyle {
+        font-size: 22px;
+    }
+    .securityRight {
+        flex-wrap: wrap;
+        height: auto;
+    }
+    .getQRCode {
+        margin-right: 4px;
+    }
+    .enableSecurity .descriptionTextStylesmall {
+        font-size: 16px;
+        line-height: 23px;
+    }
+    .leftqrCode_ .descriptionTextStylesmall {
+        font-size: 13px;
+        line-height: 18px;
+        margin-top: 7px;
+    }
+    .leftqrCode_ .headingTextStyle {
+        font-size: 14px;    
+    }
+    .leftqrCode_ {
+     
+        padding-right: 20px;
+    }
+    .mainqrbox_{
+        padding: 24px 10px 24px 10px!important;
+    }
+    .deviceRight {
+        padding: 26px 10px 24px 10px;
+    }
+    .configureBox {
+        padding: 17px 10px;
+    }
+    .deviceBarcodeSub {
+        padding: 16px 4px;
+   
+    }
+    #barcodeScanModal .modal-content  {
+        padding: 40px 16px !important;
+     
+    }
+    .bussinessRight {
+        padding: 24px 10px 24px 10px;
+    }
+    .bussinessSub {
+        padding: 16px 10px;
+    }
+    .appointMain {
+        font-size: 21px;
+    }
+    .georgiaBox {
+        margin-left: 0;
+    }
+    .shippingRight {
+        padding: 10px 10px 10px 10px;
+    }
+    .localPickupBx {
+        padding: 16px 13px;
+    }
+   
+}
+
+@media (max-width: 375px) {
+
+}

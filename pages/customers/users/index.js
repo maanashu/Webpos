@@ -87,7 +87,7 @@ const Users = () => {
         flexDirection: "column",
         paddingBottom: "15px",
       }}
-      className="main-container-customers"
+      className="main-container-customers fullheightBox_"
     >
       <TCRHeader
         title="Users"
@@ -183,7 +183,7 @@ const Users = () => {
             <tr className="customers-table-row">
               <td
                 onClick={() => handleNavigateToTrackStatus(item)}
-                className="customers-table-data"
+                className="customers-table-data" style={{textAlign: "left" }}
               >
                 {(idx + Number(page > 1 ? limit : 0) > 8 ? "" : "0") +
                   (idx + 1 + Number(page > 1 ? limit : 0))}
@@ -191,7 +191,7 @@ const Users = () => {
               <td
                 onClick={() => handleNavigateToTrackStatus(item)}
                 className="customers-table-data"
-                style={{ display: "flex", gap: "12px" }}
+                style={{ display: "flex", gap: "12px", textAlign: "left" }}
               >
                 <Image
                   width={36}
@@ -234,19 +234,19 @@ const Users = () => {
               </td>
               <td
                 onClick={() => handleNavigateToTrackStatus(item)}
-                className="customers-table-data"
+                className="customers-table-data" style={{textAlign: "left" }}
               >
                 {item?.total_orders}
               </td>
               <td
                 onClick={() => handleNavigateToTrackStatus(item)}
-                className="customers-table-data"
+                className="customers-table-data" style={{textAlign: "left" }}
               >
                 {item?.total_products}
               </td>
               <td
                 onClick={() => handleNavigateToTrackStatus(item)}
-                className="customers-table-data"
+                className="customers-table-data"style={{textAlign: "left" }}
               >
                 ${Number(item?.life_time_spent).toFixed(2)}
               </td>
@@ -255,7 +255,7 @@ const Users = () => {
         </tbody>
       </table>
 
-      <div className="pagination-footer flex-row-space-between">
+      <div className="pagination-footer flex-row-space-between paginatePosition">
         <div className="flex-row-space-between">
           <Image
             src={ArrowLeft}
