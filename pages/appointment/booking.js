@@ -19,8 +19,8 @@ import CalendarHeaderWithOptions from "../../components/CalendarHeaderWithOption
 import { Calendar } from "../../components/CustomCalendar";
 // import CustomModal from '../../../customModal/CustomModal';
 import CustomModal from "../../components/customModal/CustomModal";
-import CustomHoursCell from "../../Components/CustomHoursCell";
-import CustomEventCell from "../../Components/CustomEventCell";
+import CustomHoursCell from "../../components/CustomHoursCell";
+import CustomEventCell from "../../components/CustomEventCell";
 import { CALENDAR_MODES, CALENDAR_VIEW_MODES } from "../../constants/enums";
 import moment from "moment-timezone";
 import { Spacer } from "../../components/Spacer";
