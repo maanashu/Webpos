@@ -7,10 +7,12 @@ import { useRouter } from "next/router";
 import {
   availableOffers,
   clearCart,
+  clearOneProduct,
   getDrawerSession,
   getOneProductById,
   productCart,
   selectRetailData,
+  setProductCart,
 } from "../../redux/slices/retails";
 import { useDispatch, useSelector } from "react-redux";
 import { selectLoginAuth } from "../../redux/slices/auth";
@@ -23,21 +25,33 @@ import {
   formattedReturnPrice,
   getProductFinalPrice,
   getProductPrice,
+  noCartFun,
 } from "../../utilities/globalMethods";
 import { Modal } from "react-bootstrap";
 import CustomProductAdd from "./CustomProductAdd";
+import { flightRouterStateSchema } from "next/dist/server/app-render/types";
+import AttachCustomer from "./AttachCustomer";
 
 const ProductCart = () => {
   const router = useRouter();
   const dispatch = useDispatch();
   const authData = useSelector(selectLoginAuth);
   const retailData = useSelector(selectRetailData);
-  const cartData = retailData?.productCart;
+  const cartData = retailData?.productCart || {};
   const cartAmount = cartData?.amount;
   const sellerId = authData?.usersInfo?.payload?.uniqe_id;
   const availableOffersArray = retailData?.availableOffers?.data || [];
   const [key, setKey] = useState(Math.random());
   const [customProductAdd, setCustomProductAdd] = useState(false);
+  const [attachCustomerModal, setAttachCustomerModal] = useState(false);
+  const [productById, setProductById] = useState();
+
+  const onlyProductCartArray = cartData?.poscart_products?.filter(
+    (item) => item?.product_type == "product"
+  );
+
+  const cartLength = onlyProductCartArray?.length;
+
   const [modalDetail, setModalDetail] = useState({
     show: false,
     title: "",
@@ -56,6 +70,7 @@ const ProductCart = () => {
   const offers = () => {
     let params = {
       seller_id: sellerId,
+      type: "product",
     };
     dispatch(
       availableOffers({
@@ -98,6 +113,171 @@ const ProductCart = () => {
       })
     );
   };
+  function calculatePercentageValue(value, percentage) {
+    if (percentage == "") {
+      return "";
+    }
+    const percentageValue = (percentage / 100) * parseFloat(value);
+    return percentageValue.toFixed(2) ?? 0.0;
+  }
+  const calculateOrderAmount = (cart) => {
+    if (cart?.poscart_products) {
+      var subTotalAmount = cartData?.poscart_products?.reduce((acc, curr) => {
+        const productPrice = getProductFinalPrice(curr);
+
+        return acc + productPrice;
+
+        // return acc + productPrice * curr.qty;
+      }, 0);
+      // var subTotalAmount = cartData?.amout?.total_amount;
+
+      var discountAmount = 0;
+      var deliveryFee = 0;
+      var taxesAndOtherCharges = 0;
+
+      // if coupon applied
+      // if (objCoupon) {
+      //   const couponDetail = objCoupon;
+      //   if (couponDetail.discount_percentage) {
+      //     discountAmount =
+      //       (subTotalAmount * couponDetail.discount_percentage) / 100;
+      //     discountAmount = Number(discountAmount).toFixed(2);
+      //   }
+
+      //   if (
+      //     couponDetail.max_discount &&
+      //     discountAmount > couponDetail.max_discount
+      //   ) {
+      //     discountAmount = couponDetail.max_discount;
+      //   }
+      // }
+
+      // var productsDiscountAmount = cartData?.cart_products?.reduce(
+      //   (acc, curr) =>
+      //     acc +
+      //     (curr.product_details?.supply?.supply_prices?.offer_price
+      //       ? curr.product_details?.supply?.supply_prices?.actual_price -
+      //         curr.product_details?.supply?.supply_prices?.offer_price
+      //       : 0) *
+      //       curr.qty,
+      //   0
+      // );
+
+      // if (productsDiscountAmount > 0) {
+      //   discountAmount = discountAmount + productsDiscountAmount;
+      // }
+
+      // if (cartData?.amout?.tax_percentage) {
+      //   taxesAndOtherCharges =
+      //     ((subTotalAmount - discountAmount) *
+      //       cartData?.amout?.tax_percentage) /
+      //     100;
+      // }
+
+      taxesAndOtherCharges = parseFloat(
+        calculatePercentageValue(
+          subTotalAmount,
+          parseInt(cart.amount.tax_percentage)
+        )
+      );
+
+      var totalOrderAmount =
+        subTotalAmount - discountAmount + deliveryFee + taxesAndOtherCharges;
+      let amountObj = { ...cart.amount };
+      amountObj.tax = parseFloat(taxesAndOtherCharges); // Update tax value
+      amountObj.total_amount = totalOrderAmount;
+      amountObj.products_price = subTotalAmount;
+      cart.amount = amountObj;
+      // console.log("CART----", JSON.stringify(cart));
+
+      // return;
+      var DATA = {
+        payload: cart,
+      };
+      dispatch(setProductCart(DATA));
+    }
+  };
+  const updateQuantity = (operation, index) => {
+    const updatedCart = { ...retailData?.productCart };
+    const updatedProducts = [...updatedCart?.poscart_products];
+
+    const product = { ...updatedProducts[index] };
+    const restProductQty = product?.product_details?.supply?.rest_quantity;
+    if (operation === "+") {
+      if (restProductQty > product?.qty) {
+        product.qty += 1;
+        updatedProducts[index] = product;
+        updatedCart.poscart_products = updatedProducts;
+        console.log("DATATA", JSON.stringify(updatedCart));
+        calculateOrderAmount(updatedCart);
+      } else {
+        alert("There are no more quantity left to add");
+      }
+    } else if (operation === "-") {
+      if (product.qty > 0) {
+        if (product.qty === 1) {
+          updatedProducts.splice(index, 1);
+        } else {
+          product.qty -= 1;
+          updatedProducts[index] = product;
+        }
+        updatedCart.poscart_products = updatedProducts;
+        calculateOrderAmount(updatedCart);
+      }
+    }
+  };
+  const removeOneCartHandler = (data, index) => {
+    const offeyKey = data?.product_details?.supply?.supply_offers;
+    const updatedCart = { ...retailData?.productCart };
+
+    if (updatedCart?.poscart_products?.length === 1 && index === 0) {
+      clearCartHandler();
+    } else {
+      const newCart = { ...updatedCart };
+
+      if (offeyKey?.length > 0) {
+        const product = newCart?.poscart_products[index];
+        const productPrice = getProductFinalPrice(data);
+
+        if (product.qty > 0) {
+          newCart.amount = { ...newCart.amount };
+          newCart.amount.total_amount -= productPrice;
+          newCart.amount.products_price -= productPrice;
+          newCart.poscart_products = [
+            ...newCart.poscart_products.slice(0, index),
+            ...newCart.poscart_products.slice(index + 1),
+          ];
+        }
+      } else {
+        const product = newCart?.poscart_products[index];
+        const productPrice =
+          product.product_details?.supply?.supply_prices?.selling_price;
+
+        if (product.qty > 0) {
+          newCart.amount = { ...newCart.amount };
+          newCart.amount.total_amount -= productPrice * product.qty;
+          newCart.amount.products_price -= productPrice * product.qty;
+          newCart.poscart_products = [
+            ...newCart.poscart_products.slice(0, index),
+            ...newCart.poscart_products.slice(index + 1),
+          ];
+        }
+      }
+
+      const totalAmount = newCart.amount.products_price;
+      const TAX = calculatePercentageValue(
+        totalAmount,
+        parseInt(newCart.amount.tax_percentage)
+      );
+      newCart.amount.tax = parseFloat(TAX);
+      newCart.amount.total_amount = totalAmount + parseFloat(TAX);
+      var DATA = {
+        payload: newCart,
+      };
+      dispatch(setProductCart(DATA));
+    }
+  };
+
   return (
     <>
       <div className="fullCartSection">
@@ -131,9 +311,18 @@ const ProductCart = () => {
                   <h4 className="providerSubText ">Line Total</h4>
                 </div>
               </div>
-
-              {cartData?.poscart_products?.length > 0 ? (
-                cartData?.poscart_products?.map((data, index) => {
+              {/* 
+              {retailData?.productCartLoad ? (
+                <div className="loaderOuter">
+                  <span className="spinner-border spinner-border-sm mx-1"></span>
+                </div>
+              ) :  */}
+              {Object.keys(cartData)?.length == 0 ? (
+                <div className="mt-5">
+                  <h6 className="mt-2 mb-2 text-center">No Carts Found!</h6>
+                </div>
+              ) : (
+                onlyProductCartArray?.map((data, index) => {
                   return (
                     <div className="cartSubInfo active " key={index}>
                       <div className="cartItemDetail w-50">
@@ -160,11 +349,6 @@ const ProductCart = () => {
                         </div>
                       </div>
                       <div className="fullCartInfo w-50">
-                        {/* <input
-    className="form-control unitPriceControl"
-    type="number"
-    placeholder="$20.00"
-  /> */}
                         {amountFormat(
                           getProductPrice(
                             data.product_details?.supply?.supply_offers,
@@ -174,41 +358,86 @@ const ProductCart = () => {
                           )
                         )}
                         <div className="incrementBtn ">
-                          <i className="fa-solid fa-minus plusMinus"></i>
-                          {/* <input
-    className="form-control addBtnControl"
-    type="number"
-    placeholder=""
-    disabled
-  /> */}
+                          <i
+                            className="fa-solid fa-minus plusMinus"
+                            onClick={() => updateQuantity("-", index)}
+                          ></i>
+
                           {data?.qty}
-                          <i className="fa-solid fa-plus plusMinus"></i>
+                          <i
+                            className="fa-solid fa-plus plusMinus"
+                            onClick={() => updateQuantity("+", index)}
+                          ></i>
                         </div>
                         <div className="fullCartInfo">
                           <h4 className="invoice_subhead p-0">
                             {amountFormat(getProductFinalPrice(data))}
                           </h4>
-                          <Image
-                            src={Images.redCross}
-                            alt="crossImage"
-                            className="img-fluid ms-2"
-                           
-                          />
+                          {retailData?.clearOneProductLoad ||
+                          retailData?.productCartLoad ? (
+                            <span className="spinner-border spinner-border-sm mx-1"></span>
+                          ) : (
+                            <div
+                              onClick={() => {
+                                // let params = {
+                                //   cartId: cartData?.id,
+                                //   productId: data?.id,
+                                // };
+                                // setProductById(index);
+                                // dispatch(
+                                //   clearOneProduct({
+                                //     ...params,
+                                //     cb() {
+                                //       dispatch(productCart());
+                                //     },
+                                //   })
+                                // );
+                                removeOneCartHandler(data, index);
+                              }}
+                            >
+                              <Image
+                                src={Images.redCross}
+                                alt="crossImage"
+                                className="img-fluid ms-2"
+                              />
+                            </div>
+                          )}
+
+                          {/* {retailData?.clearOneProductLoad ||
+                          retailData?.productCartLoad ? (
+                            productById == data?.id && (
+                              <span className="spinner-border spinner-border-sm mx-1"></span>
+                            )
+                          ) : (
+                            <div
+                              onClick={() => {
+                                let params = {
+                                  cartId: cartData?.id,
+                                  productId: data?.id,
+                                };
+                                setProductById(index);
+                                dispatch(
+                                  clearOneProduct({
+                                    ...params,
+                                    cb() {
+                                      dispatch(productCart());
+                                    },
+                                  })
+                                );
+                              }}
+                            >
+                              <Image
+                                src={Images.redCross}
+                                alt="crossImage"
+                                className="img-fluid ms-2"
+                              />
+                            </div>
+                          )} */}
                         </div>
                       </div>
                     </div>
                   );
                 })
-              ) : (
-                <>
-                  {cartData?.poscart_products?.length == null ? (
-                    <h6 className="mt-2 mb-2 text-center">No Carts Found!</h6>
-                  ) : (
-                    <div className="loaderOuter">
-                      <div className="spinner-grow loaderSpinner text-center my-5"></div>
-                    </div>
-                  )}
-                </>
               )}
             </div>
           </div>
@@ -229,7 +458,9 @@ const ProductCart = () => {
                 </div>
                 <div
                   className="deleteProductCart "
-                  onClick={(e) => handleDeleteCart(e)}
+                  onClick={(e) =>
+                    cartLength > 0 ? handleDeleteCart(e) : noCartFun()
+                  }
                 >
                   <Image
                     src={Images.deleteProduct}
@@ -246,7 +477,12 @@ const ProductCart = () => {
                   />
                   {/* <h4 className="monthText">Pause Product</h4> */}
                 </div>
-                <div className="addproductCart">
+                <div
+                  className="addproductCart"
+                  onClick={() =>
+                    cartLength > 0 ? setAttachCustomerModal(true) : noCartFun()
+                  }
+                >
                   <Image
                     src={Images.addUser}
                     alt="adduser Image"
@@ -364,7 +600,9 @@ const ProductCart = () => {
               <div className="discountOfferMain">
                 <button
                   className="discountBtn"
-                  onClick={(e) => handleAddDiscount(e)}
+                  onClick={(e) =>
+                    cartLength > 0 ? handleAddDiscount(e) : noCartFun()
+                  }
                 >
                   <Image
                     src={Images.ticketImg}
@@ -373,7 +611,12 @@ const ProductCart = () => {
                   />
                   Add Discount
                 </button>
-                <button className="notesBtn" onClick={(e) => handleAddNotes(e)}>
+                <button
+                  className="notesBtn"
+                  onClick={(e) =>
+                    cartLength > 0 ? handleAddNotes(e) : noCartFun()
+                  }
+                >
                   <Image
                     src={Images.noteImg}
                     alt="ticket Image"
@@ -449,6 +692,11 @@ const ProductCart = () => {
       {/* custom product add */}
       <Modal show={customProductAdd} centered keyboard={false}>
         <CustomProductAdd crosshandler={() => setCustomProductAdd(false)} />
+      </Modal>
+
+      {/* custom product add */}
+      <Modal show={attachCustomerModal} centered keyboard={false}>
+        <AttachCustomer crosshandler={() => setAttachCustomerModal(false)} />
       </Modal>
 
       <CustomModal

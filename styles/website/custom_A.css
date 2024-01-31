@@ -25,6 +25,15 @@
   margin: 0 10px;
 }
 
+.productScrollBar {
+  height: calc(100vh - 220px);
+  overflow: auto;
+  padding: 0 10px;
+  margin-bottom: 20px;
+}
+.productScrollBar::-webkit-scrollbar-track {
+  margin: 0 10px;
+}
 /* Start Sidebar Css*/
 .main-sidebar {
   bottom: 0;
@@ -206,7 +215,7 @@
 }
 
 .sidebarInnerIcon {
-  max-height: 620px;
+  max-height: 627px;
   overflow-y: scroll;
 }
 
@@ -348,6 +357,10 @@
   background: #f5f6fc !important;
 }
 
+.ProductsearchBar .searchControl::placeholder {
+  font-size: 16px;
+}
+
 .ProductsearchBar .searchImg {
   top: 8px;
 }
@@ -383,6 +396,22 @@
   align-items: center;
   justify-content: center;
   margin-left: 10px;
+}
+.expandBtn {
+  padding: 8px 12px;
+  border-radius: 5px;
+  background: #263682;
+  border: 1px solid #263682;
+  color: #f5f6fc;
+  font-size: 14px;
+  font-weight: 400;
+  /* display: flex; */
+  align-items: center;
+  justify-content: center;
+  margin-left: 10px;
+  position: absolute;
+  top: 10%;
+  right: 5%;
 }
 
 .cancelledByUser {
@@ -452,11 +481,11 @@
 .ProductIcon {
   width: 100%;
   height: 150px;
-  border-radius: var(--main-system-12-px, 12px);
-  mix-blend-mode: multiply;
+  border-radius: 12px;
+  /* mix-blend-mode: multiply; */
   /* max-width: 250px; */
   max-height: 150px;
-  object-fit: cover;
+  object-fit: fill;
 }
 
 .productDetails {
@@ -656,7 +685,7 @@
   border-radius: 4px;
 }
 
-.custom-checkbox input:checked+.checkmark {
+.custom-checkbox input:checked + .checkmark {
   border: 1px solid #263682;
   color: #fff;
 }
@@ -667,7 +696,7 @@
   display: none;
 }
 
-.custom-checkbox input:checked+.checkmark:after {
+.custom-checkbox input:checked + .checkmark:after {
   display: block;
 }
 
@@ -1018,7 +1047,14 @@
   display: flex;
   justify-content: space-between;
 }
-
+.afterCheckedProduct{
+  border-radius: 8px;
+  border:1px solid #263682;
+  padding: 8px;
+  margin-bottom: 8px;
+  display: flex;
+  justify-content: space-between;
+}
 .productColor {
   display: flex;
   align-items: center;
@@ -1487,7 +1523,15 @@
   color: #263682;
   padding: 8px 16px;
 }
+.enableInput{
+    border-radius: 6px;
+    text-align: center;
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 400;
 
+    padding: 8px 16px;
+}
 .tablecustomInput::placeholder {
   text-align: left;
   justify-content: left;
@@ -1841,4 +1885,16 @@ button.comfirmatiopnBtn {
   background-color: white;
   border-radius: 10px;
   margin-block: 10px;
+}
+/*product css*/
+.mapleFlex{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.mapleSubFlex{
+  display: flex;
+  align-items: start;
+  flex-direction: column;
+  gap: 8px;
 }

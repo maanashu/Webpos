@@ -2,10 +2,31 @@ import React from "react";
 import * as Images from "../../utilities/images";
 import Image from "next/image";
 import { useRouter } from "next/router";
+import { selectLoginAuth } from "../../redux/slices/auth";
+import { useSelector } from "react-redux";
+import { selectReturnData } from "../../redux/slices/productReturn";
+import moment from "moment-timezone";
 
 const RefundsConfirmation = () => {
   const router = useRouter();
-  console.log(router.query,'wwwwwwwwwwwwwwww');
+  const invoiceData = useSelector(selectReturnData);
+  const selectedData = invoiceData?.invoiceData;
+  const itemsList = JSON.parse(selectedData?.selectedItems || "[]");
+  const refundamounts = JSON.parse(selectedData?.inputValues || "[]");
+  const authData = useSelector(selectLoginAuth);
+  const posData = authData?.posUserLoginDetails?.payload;
+  const merchentDetails = authData?.usersInfo?.payload?.user?.user_profiles;
+  const invoiceNumber = invoiceData?.invoiceByInvoiceId?.invoice_number;
+  const SearchInvoiceRespones = invoiceData?.invoiceByInvoiceId;
+  const orderDetails = SearchInvoiceRespones?.order;
+
+  const lineTotals = [];
+  for (let i = 0; i < itemsList.length; i++) {
+    const qty = itemsList[i].qty;
+    const refundAmount = refundamounts[i];
+    lineTotals.push(qty * refundAmount);
+  }
+  console.log("Individual sums for each row:", lineTotals);
 
   const handleConfirmReturnButton = () => {
     router.push({
@@ -34,14 +55,22 @@ const RefundsConfirmation = () => {
               </button>
               <div className="refundMethod">
                 <h4 className="totalRefund">Total Return Amount</h4>
-                <h5 className="totalrefundAmount">$304.75</h5>
+                <h5 className="totalrefundAmount">
+                  -${selectedData?.totalSum}
+                </h5>
                 <p className="userPosition">
                   Select a method of payment to refund.
                 </p>
               </div>
               <div className="row">
                 <div className="col-lg-4">
-                  <div className="debitCreditBox">
+                  <div
+                    className={
+                      orderDetails?.mode_of_payment === "card"
+                        ? "debitCreditBox active"
+                        : "debitCreditBox"
+                    }
+                  >
                     <article className="flexBox justify-content-between">
                       <Image
                         src={Images.Mastercard}
@@ -51,11 +80,18 @@ const RefundsConfirmation = () => {
                       <p>debit/credit</p>
                     </article>
                     <p className="cardNumber pt-5">●●●● ●●●● ●●●● 7224</p>
-                    <p className="priceRefunded">$304.75</p>
+                    <p className="priceRefunded">${selectedData?.totalSum}</p>
                   </div>
                 </div>
+
                 <div className="col-lg-4">
-                  <div className="refundCashBox active">
+                  <div
+                    className={
+                      orderDetails?.mode_of_payment === "cash"
+                        ? "refundCashBox active"
+                        : "refundCashBox"
+                    }
+                  >
                     <article className="flexBox justify-content-between">
                       <Image
                         src={Images.MoneyOutline}
@@ -69,11 +105,18 @@ const RefundsConfirmation = () => {
                       />
                       <p>cash</p>
                     </article>
-                    <p className="priceRefunded">$304.75</p>
+                    <p className="priceRefunded">${selectedData?.totalSum}</p>
                   </div>
                 </div>
+
                 <div className="col-lg-4">
-                  <div className="jobrCoinBox">
+                  <div
+                    className={
+                      orderDetails?.mode_of_payment === "jbr"
+                        ? "jobrCoinBox active"
+                        : "jobrCoinBox"
+                    }
+                  >
                     <article className="flexBox justify-content-between">
                       <Image
                         src={Images.JOBRCoinOutline}
@@ -82,7 +125,7 @@ const RefundsConfirmation = () => {
                       />
                       <p>jobr coin</p>
                     </article>
-                    <p className="priceRefunded">$304.75</p>
+                    <p className="priceRefunded">${selectedData?.totalSum}</p>
                   </div>
                 </div>
               </div>
@@ -155,88 +198,95 @@ const RefundsConfirmation = () => {
             <div className="commanOuter commonSubOuter me-3 ms-0">
               <div className="MapleBox">
                 <article className="mapleHeader">
-                  <h6 className="mapleHeading">Maple Inc.</h6>
+                  <h6 className="mapleHeading">
+                    {" "}
+                    {merchentDetails?.organization_name}.
+                  </h6>
                   <p className="mapleAddress">
-                    500 Rideau St. Ottawa, ON 5Z2 K1L
+                    {merchentDetails?.current_address?.street_address},
+                    {merchentDetails?.current_address?.city},
+                    {merchentDetails?.current_address?.state},
+                    {merchentDetails?.current_address?.country},
+                    {merchentDetails?.current_address?.zipcode}
                   </p>
-                  <p className="mapleAddress">+1 (438) 459-0226</p>
+                  <p className="mapleAddress">
+                    {" "}
+                    {merchentDetails?.full_phone_number}
+                  </p>
                 </article>
-                <div className="mapleProductDetails">
-                  <div className="flexBox mapleProductDetailsBox">
-                    <div className="flexbase">
-                      <p className="mapleProductcount">× 1</p>
-                      <article className="ms-3">
-                        <p className="mapleProductHeading">
-                          Lightweight Stylish Casual Daypack
-                        </p>
-                        <span className="mapleProductcount">Yellow / M</span>
-                      </article>
-                    </div>
-                    <article>
-                      <p className="mapleProductPrice">$90.00</p>
-                    </article>
+                <div className="mapleProductDetails mapleFlex">
+                  <div className="mapleSubFlex">
+                    {itemsList?.map((data, idx) => {
+                      return (
+                        <div
+                          key={idx}
+                          className="flexBox"
+                        >
+                          <div className="flexbase">
+                            <p className="mapleProductcount">× {data?.qty}</p>
+                            <article className="ms-3">
+                              <p className="cancelOrderText">
+                                {data?.product_name}
+                              </p>
+                              {/* <span className="mapleProductcount">
+                              Yellow / M
+                            </span> */}
+                            </article>
+                          </div>
+                        </div>
+                      );
+                    })}
                   </div>
-                  <div className="flexBox mapleProductDetailsBox">
-                    <div className="flexbase">
-                      <p className="mapleProductcount">× 1</p>
-                      <article className="ms-3">
-                        <p className="mapleProductHeading">
-                          Lightweight Stylish Casual Daypack
-                        </p>
-                        <span className="mapleProductcount">Yellow / M</span>
-                      </article>
-                    </div>
-                    <article>
-                      <p className="mapleProductPrice">$90.00</p>
-                    </article>
-                  </div>
-                  <div className="flexBox mapleProductDetailsBox">
-                    <div className="flexbase">
-                      <p className="mapleProductcount">× 1</p>
-                      <article className="ms-3">
-                        <p className="mapleProductHeading">
-                          Lightweight Stylish Casual Daypack
-                        </p>
-                        <span className="mapleProductcount">Yellow / M</span>
-                      </article>
-                    </div>
-                    <article>
-                      <p className="mapleProductPrice">$90.00</p>
+                  <div>
+                    <article className="mapleSubFlex">
+                      {lineTotals?.map((total) => {
+                        return <p className="mapleProductPrice">-${total}</p>;
+                      })}
                     </article>
                   </div>
                 </div>
                 <div className="flexBox mapleInvoiceBox">
                   <article>
                     <p className="mapleProductPrice">Payment Option</p>
-                    <p className="mapleProductHeading">Cash</p>
+                    <p className="mapleProductHeading">
+                      {orderDetails?.mode_of_payment.toUpperCase()}
+                    </p>
                     <p className="mapleProductPrice">Invoice</p>
-                    <p className="mapleProductHeading"># 9836-1238</p>
+                    <p className="mapleProductHeading"># {invoiceNumber}</p>
                   </article>
                   <article>
                     <p className="mapleProductPrice">Date</p>
-                    <p className="mapleProductHeading">Wed 10/10/23</p>
+                    <p className="mapleProductHeading">
+                      {moment.utc(orderDetails?.date).format("ddd, DD/MM/YYYY")}
+                    </p>
                     <p className="mapleProductPrice">POS No.</p>
-                    <p className="mapleProductHeading">#Front-CC03</p>
+                    <p className="mapleProductHeading">
+                      #{posData?.pos_number}
+                    </p>
                   </article>
                   <article>
                     <p className="mapleProductPrice">Mode</p>
                     <p className="mapleProductHeading">Walk-In</p>
                     <p className="mapleProductPrice">User UD</p>
-                    <p className="mapleProductHeading">****331</p>
+                    <p className="mapleProductHeading">
+                      {orderDetails?.user_details?.id}
+                    </p>
                   </article>
                 </div>
                 <div className="flexBox maplePriceBox">
                   <article>
                     <p className="productName">Subtotal</p>
                     <p className="productName">Discount</p>
-                    <p className="productName">Shipping</p>
+                    <p className="productName">Taxes</p>
                     <p className="userName">Total</p>
                   </article>
                   <article>
-                    <p className="productName">$933.50</p>
-                    <p className="productName">15% ($13.50)</p>
-                    <p className="productName">$29.00</p>
-                    <p className="userName refundTotalBtn">$304.75</p>
+                    <p className="productName">-${selectedData?.subtotal}</p>
+                    <p className="productName">$00.00</p>
+                    <p className="productName">-${selectedData?.totalTax}</p>
+                    <p className="userName refundTotalBtn">
+                      -${selectedData?.totalSum}
+                    </p>
                   </article>
                 </div>
                 <div className="text-center">

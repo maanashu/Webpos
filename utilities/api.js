@@ -4,12 +4,16 @@ import { toast } from "react-toastify";
 import Router from "next/router";
 import { selectLoginAuth } from "../redux/slices/auth";
 import { useSelector } from "react-redux";
+import { getCurrentTimeZone } from "./globalMethods";
+
+const getTimeZone = getCurrentTimeZone();
 
 const axiosInstance = axios.create({
   baseURL: "",
   headers: {
     Accept: "application/json",
     "app-name": "pos",
+    timezone: getTimeZone,
   },
 });
 
@@ -36,7 +40,8 @@ axiosInstance.interceptors.response.use(
       // handle 401 errors here
       localStorage.clear();
       Router.push("/");
-      // toast.warning("Session expired");
+      toast.dismiss()
+      toast.warning("Session expired");
     }
     return Promise.reject(error);
   }

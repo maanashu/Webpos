@@ -53,122 +53,124 @@ const Receipts = () => {
         <div style={{ marginTop: 30 }} />
 
         {/* Sms container */}
-        <div className="bussinessMain">
-          <div className="bussinessSub">
-            <div class="locationHead">
-              <Image
-                src={Images.settingsPhoneMessage}
-                className="settings-sidebar-icons"
-                style={{ marginRight: "5px" }}
-              />
+        <div className="bottonContent_">
+          <div className="bussinessMain ">
+            <div className="bussinessSub">
+              <div class="locationHead">
+                <Image
+                  src={Images.settingsPhoneMessage}
+                  className="settings-sidebar-icons"
+                  style={{ marginRight: "5px" }}
+                />
 
-              <div className="bussinessHeading">
-                <h4 className="cancelOrderText">
-                  SMS to phone number
-                </h4>
-                <p className="settingText">
-                  It might apply a charge.
-                </p>
+                <div className="bussinessHeading">
+                  <h4 className="cancelOrderText">
+                    SMS to phone number
+                  </h4>
+                  <p className="settingText">
+                    It might apply a charge.
+                  </p>
+                </div>
+              </div>
+
+              <div class="roundCheck">
+                <input
+                  class="checkbox"
+                  type="checkbox"
+                  id="flexSwitchCheckChecked"
+                  checked={smsStatus}
+                  onChange={() => {
+                    handleSettings(1);
+                  }}
+                />
+                <label
+                  class="amountText d-none"
+                  for="flexSwitchCheckChecked"
+                ></label>
               </div>
             </div>
+          </div>
+          {/*  */}
 
-            <div class="roundCheck">
-              <input
-                class="checkbox"
-                type="checkbox"
-                id="flexSwitchCheckChecked"
-                checked={smsStatus}
-                onChange={() => {
-                  handleSettings(1);
-                }}
-              />
-              <label
-                class="amountText d-none"
-                for="flexSwitchCheckChecked"
-              ></label>
+          {/* email container */}
+          <div className="bussinessMain">
+            <div className="bussinessSub">
+              <div class="locationHead">
+                <Image
+                  src={Images.settingsEmail}
+                  className="settings-sidebar-icons"
+                  style={{ marginRight: "5px" }}
+                />
+
+                <div className="bussinessHeading">
+                  <h4 className="cancelOrderText">
+                    Email
+                  </h4>
+                  <p className="settingText">
+                    An e-mail will be sent to the purchaser's e-mail address
+                  </p>
+                </div>
+              </div>
+
+              <div class="roundCheck">
+                <input
+                  class="checkbox"
+                  type="checkbox"
+                  id="flexSwitchCheckChecked"
+                  checked={emailStatus}
+                  onChange={() => {
+                    handleSettings(2);
+                  }}
+                />
+                <label
+                  class="amountText d-none"
+                  for="flexSwitchCheckChecked"
+                ></label>
+              </div>
+            </div>
+          </div>
+          {/*  */}
+
+          {/* print invoice container */}
+          <div className="bussinessMain">
+            <div className="bussinessSub">
+              <div class="locationHead">
+                <Image
+                  src={Images.settingsPrinter}
+                  className="settings-sidebar-icons"
+                  style={{ marginRight: "5px" }}
+                />
+
+                <div className="bussinessHeading">
+                  <h4 className="cancelOrderText">
+                    Print Invoice
+                  </h4>
+                  <p className="settingText">
+                    Needs to connect printer for print invoice
+                  </p>
+                </div>
+              </div>
+
+              <div class="roundCheck">
+                <input
+                  class="checkbox"
+                  type="checkbox"
+                  id="flexSwitchCheckChecked"
+                  checked={invoiceStatus}
+                  onChange={() => {
+                    handleSettings(3);
+                  }}
+                />
+                <label
+                  class="amountText d-none"
+                  for="flexSwitchCheckChecked"
+                ></label>
+              </div>
             </div>
           </div>
         </div>
-        {/*  */}
-
-        {/* email container */}
-        <div className="bussinessMain">
-          <div className="bussinessSub">
-            <div class="locationHead">
-              <Image
-                src={Images.settingsEmail}
-                className="settings-sidebar-icons"
-                style={{ marginRight: "5px" }}
-              />
-
-              <div className="bussinessHeading">
-                <h4 className="cancelOrderText">
-                  Email
-                </h4>
-                <p className="settingText">
-                  An e-mail will be sent to the purchaser's e-mail address
-                </p>
-              </div>
-            </div>
-
-            <div class="roundCheck">
-              <input
-                class="checkbox"
-                type="checkbox"
-                id="flexSwitchCheckChecked"
-                checked={emailStatus}
-                onChange={() => {
-                  handleSettings(2);
-                }}
-              />
-              <label
-                class="amountText d-none"
-                for="flexSwitchCheckChecked"
-              ></label>
-            </div>
-          </div>
-        </div>
-        {/*  */}
-
-        {/* print invoice container */}
-        <div className="bussinessMain">
-          <div className="bussinessSub">
-            <div class="locationHead">
-              <Image
-                src={Images.settingsPrinter}
-                className="settings-sidebar-icons"
-                style={{ marginRight: "5px" }}
-              />
-
-              <div className="bussinessHeading">
-                <h4 className="cancelOrderText">
-                Print Invoice
-                </h4>
-                <p className="settingText">
-                Needs to connect printer for print invoice
-                </p>
-              </div>
-            </div>
-
-            <div class="roundCheck">
-              <input
-                class="checkbox"
-                type="checkbox"
-                id="flexSwitchCheckChecked"
-                checked={invoiceStatus}
-                onChange={() => {
-                  handleSettings(3);
-                }}
-              />
-              <label
-                class="amountText d-none"
-                for="flexSwitchCheckChecked"
-              ></label>
-            </div>
-          </div>
-        </div>
-        {/*  */}
       </div>
+      {/*  */}
     </>
   );
 };

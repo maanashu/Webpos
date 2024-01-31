@@ -9,6 +9,7 @@ import { useSelector } from "react-redux";
 import ButtonComponent from "./ButtonComponent";
 import MapleOrder from "../mapleOrder";
 import OrderDeliver from "../orderDeliver";
+import GoogleMap from "../../../components/commanComonets/GoogleMap/GoogleMap";
 
 const OrderDetail = ({
   orderDetails,
@@ -18,15 +19,17 @@ const OrderDetail = ({
   trackHandler,
   orderListType,
   isLoading,
+  showInvoice,
+  setShowInvoice,
 }) => {
   const { orderList } = useSelector(deliveryData);
-  console.log("SCreenneee", JSON.stringify(orderDetails));
+
   const orderData =
     selectedOrderIndex !== null && selectedOrderIndex !== undefined
       ? (orderList?.data && orderList?.data[selectedOrderIndex]) || null
       : (orderList?.data && orderList?.data[0]) || null;
   const [isMaximize, setIsMaximize] = useState(true);
-  console.log("Order__DATAA", JSON.stringify(orderData));
+  console.log("OrderDatata", JSON.stringify(orderData));
   const detailView = () => {
     if (
       orderData?.status === 0 ||
@@ -81,16 +84,18 @@ const OrderDetail = ({
                 alt="deliverFast image"
                 className="img-fluid"
               />
-              <h4 className="expressText ms-1">Express Delivery</h4>
+              <h4 className="expressText ms-1">
+                {orderData?.delivery_details?.title ?? "Customer Pickup"}
+              </h4>
             </div>
-            <div className="immediateBox">
+            {/* <div className="immediateBox">
               <Image
                 src={Images.Fast}
                 alt="deliverFast image"
                 className="img-fluid"
               />
               <h4 className="immediateText">Immediately</h4>
-            </div>
+            </div> */}
           </div>
           <hr className="divideBorder my-3" />
           <div className="detailScroll  mt-3">
@@ -280,8 +285,8 @@ const OrderDetail = ({
                   <ButtonComponent
                     selected={orderListType?.status}
                     orderData={orderData}
-                    acceptHandler={() => acceptHandler(orderData?.id)}
-                    declineHandler={() => declineHandler(orderData?.id)}
+                    acceptHandler={() => acceptHandler(orderData)}
+                    declineHandler={() => declineHandler(orderData)}
                     trackHandler={trackHandler}
                     isLoading={isLoading}
                   />
@@ -294,7 +299,17 @@ const OrderDetail = ({
     } else {
       return (
         <div className=" deliveryOuter assignMapRight ms-0">
-          <Image src={Images.map} alt="map Image" className="mapImg" />
+          <div className="flexBox ">
+            <button
+              onClick={() => setShowInvoice(!showInvoice)}
+              type="button"
+              className="expandBtn"
+            >
+              {showInvoice ? "Close" : "Expand"}
+            </button>
+          </div>
+          <GoogleMap />
+          {/* <Image src={Images.map} alt="map Image" className="mapImg" /> */}
           <div className="orderStatusBox">
             <div className="orderFlex">
               <Image
@@ -385,34 +400,38 @@ const OrderDetail = ({
                     />
                     <h4 className="locateDistance ">
                       {" "}
-                      {orderData?.order_delivery?.seller_otp ?? "1234"}
+                      {orderData?.delivery_option === "3"
+                        ? orderData?.customer_pickup_otp || "1234"
+                        : orderData?.order_delivery?.seller_otp || "1234"}
                     </h4>
                   </div>
                 </div>
-                <div className="subOrderTime">
-                  <div className="positionImg">
-                    <Image
-                      src={Images.readyStep}
-                      alt="readyStep Image"
-                      className="img-fluid dotStepImg"
-                    />
-                    <Image
-                      src={Images.lineStep}
-                      alt="lineStep Image"
-                      className="img-fluid lineStepImg"
-                    />
+                {orderData?.delivery_option !== "3" && (
+                  <div className="subOrderTime">
+                    <div className="positionImg">
+                      <Image
+                        src={Images.readyStep}
+                        alt="readyStep Image"
+                        className="img-fluid dotStepImg"
+                      />
+                      <Image
+                        src={Images.lineStep}
+                        alt="lineStep Image"
+                        className="img-fluid lineStepImg"
+                      />
+                    </div>
+                    <div className="positionText">
+                      <h4 className="appointSub mt-0">Assign Driver</h4>
+                      <h4 className="orderPara">
+                        {orderData?.status_desc?.status_3_updated_at
+                          ? moment
+                              .utc(orderData?.status_desc?.status_3_updated_at)
+                              .format("DD MMM YYYY | HH:mm A")
+                          : ""}
+                      </h4>
+                    </div>
                   </div>
-                  <div className="positionText">
-                    <h4 className="appointSub mt-0">Assign Driver</h4>
-                    <h4 className="orderPara">
-                      {orderData?.status_desc?.status_3_updated_at
-                        ? moment
-                            .utc(orderData?.status_desc?.status_3_updated_at)
-                            .format("DD MMM YYYY | HH:mm A")
-                        : ""}
-                    </h4>
-                  </div>
-                </div>
+                )}
                 <div className="subOrderTime">
                   <div className="positionImg">
                     <Image

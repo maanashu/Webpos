@@ -24,6 +24,9 @@ import {
   setDrawerSession,
   setAttachCustomer,
   setCustomProuductAdd,
+  setUserDetail,
+  setTimeSlots,
+  setClearOneProduct,
 } from "../../slices/retails";
 import { all, call, put, takeLatest } from "redux-saga/effects";
 
@@ -116,7 +119,7 @@ function* availableOffers(action) {
   try {
     const resp = yield call(
       ApiClient.get,
-      `${PRODUCT_API_URL_V1}offer/products?app_name=pos&delivery_options=1,3,4&service_type=product&${params}`
+      `${PRODUCT_API_URL_V1}offer/products?app_name=pos&delivery_options=${dataToSend?.type == 'product' ? '1,3,4'  : '2'}&service_type=${dataToSend?.type}&${params}`
     );
     if (resp.status) {
       yield put(setAvailableOffers(resp.data));
@@ -375,6 +378,90 @@ function* customProuductAdd(action) {
     toast.error(e?.error?.response?.data?.msg);
   }
 }
+
+
+function* getUserDetail(action) {
+  const body = { ...action.payload };
+  try {
+    const resp = yield call(
+      ApiClient.post,
+      `${USER_API_URL_V1}user_profiles/by-phone-number`,
+      body
+    );
+    if (resp.status) {
+      yield put(setUserDetail(resp.data));
+      yield call(action.payload.cb, (action.res = resp));
+    } else {
+      throw resp;
+    }
+  } catch (e) {
+    yield put(onErrorStopLoad());
+    toast.error(e?.error?.response?.data?.msg);
+  }
+}
+
+function* getTimeSlots(action) {
+  const dataToSend = { ...action.payload };
+  const params = new URLSearchParams(dataToSend).toString();
+  try {
+    const resp = yield call(
+      ApiClient.get,
+      `${ORDER_API_URL_V1}slots/pos/service-appointment-slots?${params}`
+    );
+    if (resp.status) {
+      yield put(setTimeSlots(resp.data));
+      yield call(action.payload.cb, (action.res = resp));
+    } else {
+      throw resp;
+    }
+  } catch (e) {
+    yield put(onErrorStopLoad());
+    toast.error(e?.error?.response?.data?.msg);
+  }
+}
+
+function* addToCartService(action) {
+  const body = { ...action.payload };
+  try {
+    const resp = yield call(
+      ApiClient.post,
+      `${ORDER_API_URL}/api/v1/poscarts`,
+      body
+    );
+    if (resp.status) {
+      yield put(setAddTocart(resp.data));
+      yield call(action.payload.cb, (action.res = resp));
+      // toast.success(resp?.data?.msg);
+    } else {
+      throw resp;
+    }
+  } catch (e) {
+    yield put(onErrorStopLoad());
+    toast.error(e?.error?.response?.data?.msg);
+  }
+}
+
+function* clearOneProduct(action) {
+  const body = { ...action.payload };
+  try {
+    const resp = yield call(
+      ApiClient.delete,
+      `${ORDER_API_URL_V1}/poscarts/${body?.cartId}/${body?.productId}`,
+      body
+    );
+    if (resp.status) {
+      yield put(setClearOneProduct(resp.data));
+      yield call(action.payload.cb, (action.res = resp));
+      // toast.success(resp?.data?.msg);
+    } else {
+      throw resp;
+    }
+  } catch (e) {
+    yield put(onErrorStopLoad());
+    toast.error(e?.error?.response?.data?.msg);
+  }
+}
+
 function* retailsSaga() {
   yield all([
     takeLatest("retails/getMainProduct", getMainProduct),
@@ -395,6 +482,10 @@ function* retailsSaga() {
     takeLatest("retails/getDrawerSession", getDrawerSession),
     takeLatest("retails/attachCustomer", attachCustomer),
     takeLatest("retails/customProuductAdd", customProuductAdd),
+    takeLatest("retails/getUserDetail", getUserDetail),
+    takeLatest("retails/getTimeSlots", getTimeSlots),
+    takeLatest("retails/addToCartService", addToCartService),
+    takeLatest("retails/clearOneProduct", clearOneProduct),
   ]);
 }
 

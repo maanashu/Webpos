@@ -6,6 +6,7 @@ const initialState = {
   drawerOrderCountLoading: false,
   orderDetailLoading: false,
   acceptOrderLoading: false,
+  verifyPickupOtpLoader: false,
   orderList: [],
   drawerOrderCount: [],
   orderDetail: [],
@@ -56,10 +57,13 @@ export const deliverySlice = createSlice({
       state.orderDetail = action?.payload;
     },
     acceptOrder: (state) => {
-      state.acceptOrderLoading = true;
+      state.acceptOrderLoading = false;
     },
     setAcceptOrder: (state) => {
       state.acceptOrderLoading = false;
+    },
+    verifyPickupOtp: (state) => {
+      state.verifyPickupOtpLoader = false;
     },
   },
 });
@@ -80,6 +84,7 @@ export const {
   setOrderDetailById,
   acceptOrder,
   setAcceptOrder,
+  verifyPickupOtp,
 } = deliverySlice.actions;
 
 export const deliveryData = (state) => state.delivery;

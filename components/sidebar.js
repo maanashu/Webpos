@@ -15,7 +15,7 @@ const Sidebar = (props) => {
   const authData = useSelector(selectLoginAuth);
 
   const router = useRouter();
-  console.log(router?.pathname, "router");
+  console.log(router?.pathname?.split("/")[1], "router");
   props?.sidebarToggle(activeSidebar);
 
   const userLogout = async (e) => {
@@ -31,10 +31,13 @@ const Sidebar = (props) => {
     localStorage.removeItem("persist:root");
   };
 
-  const isLinkActive = (href) => {
+  const isLinkActive = (href) => {Sidebar
     console.log(href, "hrefhref");
     return router.pathname === href;
   };
+
+
+  console.log(router?.pathname?.split("/")[1]?.split("/")[1], "pathname called");
   return (
     <div
       className={`main-sidebar ${activeSidebar ? "hide" : "full"}`}
@@ -49,7 +52,7 @@ const Sidebar = (props) => {
           onClick={() => router.push("/home/overview")}
         />
         <Image src={Images.Logo} alt="image" className="img-fluid Logo" />
-        <div
+        {/* <div
           onClick={() => setActiveSidebar((prev) => !prev)}
           className="ToggleIcon"
         >
@@ -58,7 +61,7 @@ const Sidebar = (props) => {
             alt="image"
             className="img-fluid sideToggle"
           />
-        </div>
+        </div> */}
       </div>
       <div className="sidebarInnerIcon">
         <div className="userDetails mb-2">
@@ -103,7 +106,7 @@ const Sidebar = (props) => {
               <Link
                 //  href="/Retails"
                 href="/Retails?parameter=product"
-                className={`sidebarLinks ${router?.pathname == "/Retails" ? "active" : ""
+                className={`sidebarLinks ${router?.pathname?.split("/")[1] == "Retails" ? "active" : ""
                   }`}
               >
                 <Image
@@ -122,7 +125,7 @@ const Sidebar = (props) => {
             <ListGroupItem className="sidebarItems">
               <Link
                 href="/Deliveries"
-                className={`sidebarLinks ${router?.pathname == "/Deliveries" ? "active" : ""
+                className={`sidebarLinks ${router?.pathname?.split("/")[1] == "Deliveries" ? "active" : ""
                   }`}
               >
                 <Image
@@ -161,7 +164,7 @@ const Sidebar = (props) => {
             <ListGroupItem className="sidebarItems">
               <Link
                 href="/shipping"
-                className={`sidebarLinks ${router?.pathname == "/shipping" ? "active" : ""
+                className={`sidebarLinks ${router?.pathname?.split("/")[1] == "shipping" ? "active" : ""
                   }`}
               >
                 <Image
@@ -180,7 +183,7 @@ const Sidebar = (props) => {
             <ListGroupItem className="sidebarItems">
               <Link
                 href="/appointment/booking"
-                className={`sidebarLinks ${router?.pathname == "/appointment/booking" ? "active" : ""
+                className={`sidebarLinks ${router?.pathname?.split("/")[1] == "appointment/booking" ? "active" : ""
                   }`}
               >
                 <Image
@@ -199,7 +202,7 @@ const Sidebar = (props) => {
             <ListGroupItem className="sidebarItems">
               <Link
                 href="/analytics"
-                className={`sidebarLinks ${router?.pathname == "/analytics" ? "active" : ""
+                className={`sidebarLinks ${router?.pathname?.split("/")[1] == "analytics" ? "active" : ""
                   }`}
               >
                 <Image
@@ -220,7 +223,7 @@ const Sidebar = (props) => {
 
               <Link
                 href="/transactions"
-                className={`sidebarLinks ${router?.pathname == "/transactions" ? "active" : ""
+                className={`sidebarLinks ${router?.pathname?.split("/")[1] == "transactions" ? "active" : ""
                   }`}
               >
                 <Image
@@ -257,7 +260,7 @@ const Sidebar = (props) => {
             <ListGroupItem className="sidebarItems">
               <Link
                 href="/customers"
-                className={`sidebarLinks ${router?.pathname == "/customers" ? "active" : ""
+                className={`sidebarLinks ${router?.pathname?.split("/")[1] == "customers" ? "active" : ""
                   }`}
               >
                 <Image
@@ -273,7 +276,7 @@ const Sidebar = (props) => {
                 <span className="sidebarTxt">Customer</span>
               </Link>
             </ListGroupItem>
-            <ListGroupItem className="sidebarItems">
+            {/* <ListGroupItem className="sidebarItems">
               <Link
                 href="#"
                 className={`sidebarLinks ${isLinkActive("") ? "active" : ""}`}
@@ -290,11 +293,11 @@ const Sidebar = (props) => {
                 />
                 <span className="sidebarTxt">Rewards</span>
               </Link>
-            </ListGroupItem>
+            </ListGroupItem> */}
             <ListGroupItem className="sidebarItems">
               <Link
                 href="/settings"
-                className={`sidebarLinks ${router?.pathname == "/settings" ? "active" : ""
+                className={`sidebarLinks ${router?.pathname?.split("/")[1] == "settings" ? "active" : ""
                   }`}
               >
                 <Image

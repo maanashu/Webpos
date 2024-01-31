@@ -76,7 +76,7 @@ const Customers = () => {
   ChartJS.register(...registerables);
 
   return (
-    <div className="main-container-customers">
+    <div className="main-container-customers fullheightBox_">
       {/* headers */}
       <TCRHeader
         timeSpan={timeSpan}

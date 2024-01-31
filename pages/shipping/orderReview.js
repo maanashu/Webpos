@@ -23,6 +23,8 @@ const OrderReview = () => {
     const { id, status, title } = router?.query
     console.log(id, status, title, 'query data');
     const authData = useSelector(selectLoginAuth);
+    const [acceptLoading, setAcceptLoading] = useState(false);
+    const [declineLoading, setDeclineLoading] = useState(false);
     const [loading, setLoading] = useState(false);
     const [loading1, setLoading1] = useState(false);
     const sellerUid = authData?.usersInfo?.payload?.uniqe_id;
@@ -39,8 +41,12 @@ const OrderReview = () => {
         title: "",
         flag: "",
     });
+    const [orderListType, setOrderListType] = useState({
+        status: status,
+        title: title
+    });
     const [selectedDate, setSelectedDate] = useState(null);
-    console.log(selectedDate, 'selected dateeeee');
+    console.log(orderListType, 'orderListType');
 
     const handleDateChange = (date) => {
         setSelectedDate(date);
@@ -101,7 +107,7 @@ const OrderReview = () => {
     const getAllShippingOrdeshandle = () => {
         let orderListParam = {
             seller_id: sellerUid,
-            status: status,
+            status: orderListType?.status,
             delivery_option: "4"
         };
         if (selectedDate) {
@@ -128,11 +134,14 @@ const OrderReview = () => {
             status: status,
             orderId: selectedItemId
         };
+        status === 8 ? setDeclineLoading(true) : setAcceptLoading(true)
         dispatch(
             changeStatusOfOrder({
                 ...params,
                 cb(res) {
                     if (res) {
+                        setAcceptLoading(false)
+                        setDeclineLoading(false)
                         getOrderDetailsByIdHandle()
                         getAllShippingOrdeshandle()
                         getAllShippingOrdesCountHandle()
@@ -148,7 +157,7 @@ const OrderReview = () => {
             getAllShippingOrdeshandle()
             getAllShippingOrdesCountHandle()
         }
-    }, [sellerUid,selectedDate]);
+    }, [sellerUid, selectedDate, orderListType]);
 
     useEffect(() => {
         if (selectedItemId) {
@@ -158,27 +167,29 @@ const OrderReview = () => {
 
     return (
         <>
-            <div className='shippingSection shipOrderSection'>
+            <div className='shippingSection shipOrderSection afterViewOuter'>
                 <div className='deliverMain w-100'>
                     <div className='row '>
-                        <div className='col-lg-6'>
+                        <div className='col-xl-6 col-lg-12'>
                             <div className='deliverOrderLeft deliveryOuter me-0'>
                                 <div className='flexTable'>
                                     <Image src={Images.boldLeftArrow} style={{ cursor: "pointer" }} onClick={() => router.push('/shipping')} alt="boldLeftArrow " className="img-fluid me-2" />
-                                    <h4 className='loginMain text-start m-0'>Shipping {router?.query?.title === 'Returned' ? "Order Returns" : router?.query?.title === 'Shipped' ? "Tracking Orders" : router?.query?.title}</h4>
+                                    <h4 className='loginMain text-start m-0'>Shipping {orderListType?.title === 'Returned' ? "Order Returns" : orderListType?.title === 'Shipped' ? "Tracking Orders" : orderListType?.title}</h4>
                                 </div>
                                 {
-                                    (status != 0) && (status != 7) && (status != 8) &&
+                                    (orderListType?.status != 0) && (orderListType?.status != 7) && (orderListType?.status != 8) &&
                                     <div className='appointmenMonth cancelCalendar'>
                                         <div className='flexTable'>
                                             <Image src={Images.calendarLight} alt='calendarimage' className='img-fluid' />
                                             {/* <span className='monthText ms-2'>Today</span> */}
-                                            <ReactDatePicker
+                                            <div className='shipDate ms-1' >
+                                                <ReactDatePicker
                                                     selected={selectedDate}
                                                     onChange={handleDateChange}
                                                     dateFormat="MM/dd/yyyy"
                                                     placeholderText="Select date"
                                                 />
+                                            </div>
                                         </div>
                                         <Image src={Images.arrowDown} alt='arrowDown image' className='img-fluid text-end' />
                                     </div>
@@ -192,9 +203,16 @@ const OrderReview = () => {
                                         </>
                                     ) :
                                         <div className='table-responsive mt-3'>
-                                            <table id="" className="orderDeliverTable">
+                                            <table id={orderListType?.title === "Order to Review" ? "ordersToReview" :
+                                                orderListType?.title === "Order Accepted" ? "acceptedOrders" :
+                                                    orderListType?.title === "Order Prepared" ? "acceptedPrepared" :
+                                                        orderListType?.title === "Printing Label" ? "printingLabel" :
+                                                            orderListType?.title === "Shipped" ? "shippedOrders" :
+                                                                orderListType?.title === "Rejected/Cancelled" ? "rejectOrder" :
+                                                                    orderListType?.title === "Returned" ? "returnedOrder"
+                                                                        : ""} className="orderDeliverTable shipTrackTable">
                                                 {
-                                                    (status != 0) && (status != 7) && (status != 8) &&
+                                                    (orderListType?.status != 0) && (orderListType?.status != 7) && (orderListType?.status != 8) &&
                                                     <thead className='invoiceHeadingBox'>
                                                         <tr>
                                                             <th className='invoiceHeading'>#</th>
@@ -206,7 +224,7 @@ const OrderReview = () => {
                                                 }
                                                 <tbody>
                                                     {
-                                                        (status != 0) && (status != 7) && (status != 8) &&
+                                                        (orderListType?.status != 0) && (orderListType?.status != 7) && (orderListType?.status != 8) &&
                                                         <tr>
                                                             <td colSpan={4} className='innerHead'>
                                                                 <h4 className='processText'>In Process</h4>
@@ -217,12 +235,21 @@ const OrderReview = () => {
                                                             orderData?.map((item, i) => {
                                                                 return (
                                                                     <tr key={i} className={`product_invoice ${selectedItemId == item?.id ? 'active' : ""}`} onClick={() => setSelectedItemId(item?.id)}>
-                                                                        {
-                                                                            (item?.status != 0) && (item?.status != 7) && (item?.status != 8) &&
-                                                                            <td className='invoice_subhead verticalBase'>
-                                                                                <h4 className='assignId'>#{item?.id}</h4>
-                                                                            </td>
-                                                                        }
+                                                                        <td className='invoice_subhead verticalBase'>
+                                                                            <h4 className='assignId'>#{item?.id}</h4>
+                                                                            {(item?.status == 8 || item?.status == 7) &&
+                                                                                <div className='cancellingTime mt-5'>
+                                                                                    <h4 className='assignId'>Cancelled at:</h4>
+                                                                                    <div className='canceltimeBx'>
+                                                                                        <Image src={Images.cancelPackage} alt="cancelUser image" className="img-fluid" />
+                                                                                        <div className='timeAlert'>
+                                                                                            <h4 className='cancelBold'>{item?.status_desc?.status_7_updated_at ? moment(item?.status_desc?.status_7_updated_at).format("DD MMM YY") : moment(item?.status_desc?.status_8_updated_at).format("DD MMM YY")}</h4>
+                                                                                            <h4 className='cancelLight'> {item?.status_desc?.status_7_updated_at ? moment(item?.status_desc?.status_7_updated_at).format("hh : mm a") : moment(item?.status_desc?.status_8_updated_at).format("hh : mm a")}</h4>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                            }
+                                                                        </td>
                                                                         <td className="invoice_subhead verticalBase">
                                                                             <div className="nameLocation">
                                                                                 <h4 className="assignId">{item?.user_details?.firstname + " " + item?.user_details?.lastname}</h4>
@@ -287,7 +314,7 @@ const OrderReview = () => {
                                                                                             alt="deliverTime image "
                                                                                             className="img-fluid mb-1"
                                                                                         />
-                                                                                        <span className="immediateText ">Today 29 Oct, 2023 | 10:41 am</span>
+                                                                                        <span className="immediateText ">{moment(item?.status_desc?.status_4_updated_at).format("dddd DD MMM, YYYY | hh : mm a")}</span>
                                                                                     </div>
                                                                                 </div> :
                                                                                 (item?.status == 7) || (item?.status == 8) ?
@@ -313,20 +340,11 @@ const OrderReview = () => {
                                                                                         : <></>
                                                                             }
                                                                         </td>
-                                                                        {(item?.status == 7 || item?.status == 8) ?
+                                                                        {/* {(item?.status == 7 || item?.status == 8) ?
                                                                             <td className="invoice_subhead verticalBase">
-                                                                                <div className='cancellingTime'>
-                                                                                    <h4 className='assignId'>Cancelled at:</h4>
-                                                                                    <div className='canceltimeBx'>
-                                                                                        <Image src={Images.cancelPackage} alt="cancelUser image" className="img-fluid" />
-                                                                                        <div className='timeAlert'>
-                                                                                            <h4 className='cancelBold'>{item?.status_desc?.status_7_updated_at ? moment(item?.status_desc?.status_7_updated_at).format("DD MMM YY") : moment(item?.status_desc?.status_8_updated_at).format("DD MMM YY")}</h4>
-                                                                                            <h4 className='cancelLight'> {item?.status_desc?.status_7_updated_at ? moment(item?.status_desc?.status_7_updated_at).format("hh : mm a") : moment(item?.status_desc?.status_8_updated_at).format("hh : mm a")}</h4>
-                                                                                        </div>
-                                                                                    </div>
-                                                                                </div>
+                                                                                
                                                                             </td> : <></>
-                                                                        }
+                                                                        } */}
                                                                         <td className='invoice_subhead verticalBase'>
                                                                             <div className='deliverArrow text-end'>
                                                                                 <Image src={Images.RightArrow} alt="RightArrow image" className="img-fluid ms-1" />
@@ -342,7 +360,7 @@ const OrderReview = () => {
                                         </div>}
                             </div>
                         </div>
-                        <div className='col-lg-6'>
+                        <div className='col-xl-6 col-lg-12'>
                             {
                                 loading ? (
                                     <>
@@ -505,15 +523,17 @@ const OrderReview = () => {
                                                         </div>
                                                         {
                                                             singleOrderData?.status === 0 ?
-                                                                <div className='flexBox '>
-                                                                    <button onClick={() => acceptHandler(8)} className='declineButton w-100' type='button'> Decline</button>
+                                                                <div className='flexBox wrapFlex'>
+                                                                    <button onClick={() => acceptHandler(8)} className='declineButton' type='button'> Decline</button>
                                                                     <button onClick={() => acceptHandler(3)} type='button' className='BlueBtn w-100'>
+                                                                        {acceptLoading ? <span className="spinner-border spinner-border-sm mx-1"></span> : <></>}
                                                                         Accept Order
                                                                         <Image src={Images.ArrowRight} alt="ArrowRight" className="img-fluid ArrowRight" />
                                                                     </button>
                                                                 </div> :
                                                                 singleOrderData?.status === 3 ?
                                                                     <button onClick={() => { setPrintingUrl(singleOrderData?.label_url); setModalDetail({ show: true, flag: "printLabel" }); setKey(Math.random()); acceptHandler(4) }} type='button ' className='pickupBtn w-100 mt-2'>
+                                                                        {acceptLoading ? <span className="spinner-border spinner-border-sm mx-1"></span> : <></>}
                                                                         Print Label
                                                                         <Image src={Images.btnSticker} alt="deliverHand image" className="img-fluid" />
                                                                     </button> :
@@ -544,7 +564,7 @@ const OrderReview = () => {
                         </div>
                     </div>
                 </div>
-                <ShipRightSidebar from='orderReview' data={orderCount} />
+                <ShipRightSidebar data={orderCount} setOrderListType={setOrderListType} />
             </div>
             <CustomModal
                 key={key}

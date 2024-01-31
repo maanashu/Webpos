@@ -23,6 +23,13 @@ const initialState = {
   attachCustomerData: {},
   availableOffersLoad: false,
   customProuductAddLoad: false,
+  getUserDetailLoad: false,
+  userDetailData: {},
+  productCart: {},
+  getTimeSlotsLoad: false,
+  timeSlots: [],
+  addToCartServiceLoad: false,
+  clearOneProductLoad: false,
 };
 
 export const retailsSlice = createSlice({
@@ -163,12 +170,49 @@ export const retailsSlice = createSlice({
       state.customProuductAddLoad = false;
       // state.attachCustomerData = action?.payload?.payload;
     },
+    getUserDetail: (state) => {
+      state.getUserDetailLoad = true;
+    },
+    setUserDetail: (state, action) => {
+      state.getUserDetailLoad = false;
+      state.userDetailData = action?.payload?.payload;
+    },
+
+    getTimeSlots: (state) => {
+      state.getTimeSlotsLoad = true;
+    },
+    setTimeSlots: (state, action) => {
+      state.getTimeSlotsLoad = false;
+      state.timeSlots = action?.payload?.payload?.slots;
+    },
+
+    addToCartService: (state) => {
+      state.addToCartServiceLoad = true;
+    },
+    setAddToCartService: (state, action) => {
+      state.addToCartServiceLoad = false;
+      // state.timeSlots = action?.payload?.payload?.slots;
+    },
+
+    clearOneProduct: (state) => {
+      state.clearOneProductLoad = true;
+    },
+    setClearOneProduct: (state, action) => {
+      state.clearOneProductLoad = false;
+      // state.timeSlots = action?.payload?.payload?.slots;
+    },
     onErrorStopLoad: (state) => {
       state.loading = false;
       state.availableOffersLoad = false;
       state.productCartLoad = false;
       state.createOrderLoad = false;
       state.customProuductAddLoad = false;
+      state.getUserDetailLoad = false;
+      state.attachCustomerLoad = false;
+      state.getTimeSlotsLoad = false;
+      state.addToCartServiceLoad = false;
+      state.checkSuppliedVariantLoad = false;
+      state.clearOneProductLoad = false;
     },
   },
 });
@@ -209,6 +253,14 @@ export const {
   setAttachCustomer,
   customProuductAdd,
   setCustomProuductAdd,
+  getUserDetail,
+  setUserDetail,
+  getTimeSlots,
+  setTimeSlots,
+  addToCartService,
+  setAddToCartService,
+  clearOneProduct,
+  setClearOneProduct,
 } = retailsSlice.actions;
 
 export const selectRetailData = (state) => state.retails;

@@ -3,7 +3,12 @@ import Image from "next/image";
 import PaginationHeader from "../../../../components/commanComonets/PaginationHeader";
 import UserProfileBanner from "../../../../components/commanComonets/customers/UserProfileBanner";
 
-import { RightArrow, editProfile } from "../../../../utilities/images";
+import {
+  RightArrow,
+  defaultUser,
+  editProfile,
+  userImages,
+} from "../../../../utilities/images";
 import { PaginationFooter } from "../../../../components/commanComonets/customers/PaginationFooter";
 import Link from "next/link";
 import { useRouter } from "next/router";
@@ -68,15 +73,12 @@ const UserProfile = () => {
   };
 
   return (
-    <div className="main-container-customers">
+    <div className="main-container-customers fullheightBox_">
       <div
         style={{ padding: "24px 24px 0px 24px" }}
         className="flex-row-space-between"
       >
-        <div
-          style={{ gap: "12px" }}
-          className="flex-row-space-between"
-        >
+        <div style={{ gap: "12px" }} className="flex-row-space-between">
           <Image
             style={{
               transform: "rotate(270deg)",
@@ -102,18 +104,13 @@ const UserProfile = () => {
           >
             Edit Profile
           </p>
-          <Image
-            width={16}
-            height={16}
-            src={editProfile}
-          />
+          <Image width={16} height={16} src={editProfile} />
         </div>
       </div>
 
       <UserProfileBanner
         profilePic={
-          userDetails?.profile_photo ||
-          "https://randomuser.me/api/portraits/women/76.jpg"
+          userDetails?.profile_photo ? userDetails?.profile_photo : defaultUser
         }
         name={`${userDetails?.firstname} ${userDetails?.lastname}`}
         address={createFullAddress(userDetails)}
@@ -217,7 +214,7 @@ const UserProfile = () => {
                 <td
                   onClick={() => handleNavigateToTrackStatus(item)}
                   className="customers-table-data"
-                  style={{ display: "flex", gap: "12px" }}
+                  style={{ display: "flex", gap: "12px", alignItems: "center" }}
                 >
                   <Image
                     width={36}
@@ -226,13 +223,17 @@ const UserProfile = () => {
                       borderRadius: 50,
                     }}
                     src={
-                      item?.delivery_option == 4
+                      item?.delivery_option == 4 &&
+                      item?.shipping_details?.image
                         ? item?.shipping_details?.image
-                        : item?.delivery_option == 3 ||
-                          item?.delivery_option == 2
+                        : (item?.delivery_option == 3 ||
+                            item?.delivery_option == 2) &&
+                          item?.pos_user_details?.profile_photo
                         ? item?.pos_user_details?.profile_photo
-                        : item?.driver_details?.profile_photo ||
-                          "https://images.unsplash.com/photo-1633332755192-727a05c4013d?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8dXNlcnxlbnwwfHwwfHx8MA%3D%3D"
+                        : item?.delivery_option == 1 &&
+                          item?.driver_details?.profile_photo
+                        ? item?.driver_details?.profile_photo
+                        : defaultUser
                     }
                   />
                   <div
@@ -240,7 +241,7 @@ const UserProfile = () => {
                       gap: "4px",
                       display: "flex",
                       flexDirection: "column",
-                      alignItems: "flex-start",
+                      // alignItems: "flex-start",
                     }}
                   >
                     <p className="user-stats-row-name-text">
@@ -251,7 +252,7 @@ const UserProfile = () => {
                         ? item?.pos_user_details?.firstname
                         : item?.driver_details?.firstname}
                     </p>
-                    <p className="user-stats-row-responsible-tag">Shipping</p>
+                    {/* <p className="user-stats-row-responsible-tag">Shipping</p> */}
                   </div>
                 </td>
                 <td
@@ -264,7 +265,7 @@ const UserProfile = () => {
                   onClick={() => handleNavigateToTrackStatus(item)}
                   className="customers-table-data"
                 >
-                  ${item.payable_amount}
+                  ${item?.payable_amount}
                 </td>
                 <td
                   onClick={() => handleNavigateToTrackStatus(item)}

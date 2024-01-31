@@ -86,11 +86,14 @@ const Language = () => {
     return (
         <>
             <div className='settingOuter languageRight'>
-                <Image src={Images.darkDevices} alt="darkDevices image" className="img-fluid" />
+            <div className="topsettingContent_">
+                <Image src={Images.darkDevices} alt="darkDevices image" className="img-fluid me-3" />
                 <div className='bussinessData'>
                     <h4 className='appointMain'>Published Languages</h4>
                     <p className='lightOfferText mt-2'>Active in the markets they've been added to and visible to customers.</p>
-                    <div className='languageMain mt-4'>
+                    </div>
+                    </div>
+                    <div className='languageMain mt-4 bottonContent_'>
                         {settingData?.loading ? (
                             <>
                                 <div className="loaderOuter">
@@ -122,7 +125,6 @@ const Language = () => {
                         </div>
                     </div>
                 </div>
-            </div>
             <CustomModal
                 key={key}
                 show={modalDetail.show}
@@ -147,7 +149,7 @@ const Language = () => {
                 {modalDetail.flag === "addlanguageModal" ?
                     <>
                         <Image src={Images.languageIcon} className="languageImg mb-2" alt="languageImage" />
-                        <h4 className='appointMain'>Add a language</h4>
+                        <h4 className='modalHeading_'>Add a language</h4>
                         <p className="activateText mt-2">Select one or more languages to add</p>
 
                     </>

@@ -354,6 +354,10 @@ import totalOrders from "../public/images/totalOrders.svg";
 import totalCost from "../public/images/totalCost.svg";
 
 import darkPlus from "../public/images/darkPlus.svg";
+import defaultUser from "../public/images/defaultUser.png";
+import enablesec from "../public/images/enablesec.svg";
+import downloadimagee from "../public/images/downloadimagee.svg";
+import qrcodeimg from "../public/images/qrcodeimg.svg";
 
 export {
   darkPlus,
@@ -706,4 +710,8 @@ export {
   saleLocation,
   totalOrders,
   totalCost,
+  defaultUser,
+  enablesec,
+  downloadimagee,
+  qrcodeimg
 };
