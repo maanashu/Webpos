@@ -52,7 +52,6 @@ export default function Settings() {
   const [getAllStaffList, setGetAllStaffList] = useState([]);
   const [profileDetails, setProfileDetails] = useState("");
   const [securityStatus, setSecurityStatus] = useState("");
-  console.log(profileDetails, 'profileDetails');
   const [selectedItemId, setSelectedItemId] = useState("");
   const [policyInfo, setPolicyInfo] = useState("");
   const [activeTab, setActiveTab] = useState("");

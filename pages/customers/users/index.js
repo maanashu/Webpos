@@ -218,7 +218,7 @@ const Users = () => {
                       width={12}
                       height={12}
                       src={OrderLocation}
-                    />{" "}
+                    />
                     <span className="user-stats-row-name-address">
                       {item?.user_details?.current_address?.custom_address}
                       {", "}
