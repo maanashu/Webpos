@@ -1,9 +1,10 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import * as Images from "../../utilities/images";
 import Image from "next/image";
 import Pagination from "../../components/commanComonets/pagination";
 import { useDispatch, useSelector } from "react-redux";
 import {
+  searchBySKU,
   searchInvoiceByInvoiceId,
   selectReturnData,
   setInvoiceData,
@@ -22,9 +23,11 @@ const ProductInvoice = () => {
   const authData = useSelector(selectLoginAuth);
   const sellerId = authData?.usersInfo?.payload?.uniqe_id;
   const [searchInvoiceId, setSearchInvoiceId] = useState(null);
+  const [searchInvoiceViaBarcode, setSearchInvoiceViaBarcode] = useState("");
   const invoiceData = useSelector(selectReturnData);
   const SearchInvoiceRespones = invoiceData?.invoiceByInvoiceId;
   const orderDetails = SearchInvoiceRespones?.order;
+  console.log(orderDetails, "orderDetails");
   const productDetails = SearchInvoiceRespones?.order?.order_details;
   const [checkeddata, setCheckedData] = useState("");
   const [key, setKey] = useState(Math.random());
@@ -75,13 +78,13 @@ const ProductInvoice = () => {
 
   const handleCheckboxChange = (data) => {
     setSelectedProductItems((prevSelectedItems) => {
-      const isItemChecked = prevSelectedItems.some(
-        (item) => item.product_id === data.product_id
+      const isItemChecked = prevSelectedItems?.some(
+        (item) => item?.product_id === data?.product_id
       );
 
       if (isItemChecked) {
-        return prevSelectedItems.filter(
-          (item) => item.product_id !== data.product_id
+        return prevSelectedItems?.filter(
+          (item) => item?.product_id !== data?.product_id
         );
       } else {
         return [...prevSelectedItems, data];
@@ -93,6 +96,25 @@ const ProductInvoice = () => {
     setModalDetail({ show: true, flag: "manualEntry" });
     setKey(Math.random());
   };
+
+  useEffect(() => {
+    if (searchInvoiceViaBarcode) {
+      let params = {
+        app_name: "pos",
+        seller_id: sellerId,
+        search: searchInvoiceViaBarcode,
+      };
+      dispatch(
+        searchBySKU({
+          ...params,
+          cb(res) {
+            console.log("ressssawwr", res);
+            setCheckedData(res?.data?.payload)
+          },
+        })
+      );
+    }
+  }, [searchInvoiceViaBarcode]);
 
   return (
     <>
@@ -270,6 +292,9 @@ const ProductInvoice = () => {
                         type="text"
                         className="form-control searchControl"
                         placeholder="Scan Barcode of each Item"
+                        onChange={(e) =>
+                          setSearchInvoiceViaBarcode(e.target.value)
+                        }
                       />
                       <Image
                         src={Images.scanImg}
@@ -322,18 +347,18 @@ const ProductInvoice = () => {
                           </div>
                         </div>
                       </div>
-                      <p className="productPriceinvoice">
-                        ${data?.actual_price}
-                      </p>
+                      <p className="productPriceinvoice">${data?.price}</p>
                       <p className="productPriceinvoice">{data?.qty}</p>
-                      <p className="productPriceinvoice">${data?.cost_price}</p>
+                      <p className="productPriceinvoice">
+                        ${data?.price * data?.qty}
+                      </p>
                       <article>
                         <label className="custom-checkbox">
                           <input
                             type="checkbox"
                             checked={
                               selectedProductItems?.some(
-                                (item) => item.product_id === data.product_id
+                                (item) => item.product_id === data?.product_id
                               ) ||
                               (checkeddata &&
                                 checkeddata.id === data?.product_id)

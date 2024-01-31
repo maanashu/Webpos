@@ -10,14 +10,23 @@ import moment from "moment-timezone";
 const RefundsConfirmation = () => {
   const router = useRouter();
   const invoiceData = useSelector(selectReturnData);
-  const selectedData=invoiceData?.invoiceData;
+  const selectedData = invoiceData?.invoiceData;
   const itemsList = JSON.parse(selectedData?.selectedItems || "[]");
+  const refundamounts = JSON.parse(selectedData?.inputValues || "[]");
   const authData = useSelector(selectLoginAuth);
   const posData = authData?.posUserLoginDetails?.payload;
   const merchentDetails = authData?.usersInfo?.payload?.user?.user_profiles;
   const invoiceNumber = invoiceData?.invoiceByInvoiceId?.invoice_number;
   const SearchInvoiceRespones = invoiceData?.invoiceByInvoiceId;
   const orderDetails = SearchInvoiceRespones?.order;
+
+  const lineTotals = [];
+  for (let i = 0; i < itemsList.length; i++) {
+    const qty = itemsList[i].qty;
+    const refundAmount = refundamounts[i];
+    lineTotals.push(qty * refundAmount);
+  }
+  console.log("Individual sums for each row:", lineTotals);
 
   const handleConfirmReturnButton = () => {
     router.push({
@@ -46,14 +55,22 @@ const RefundsConfirmation = () => {
               </button>
               <div className="refundMethod">
                 <h4 className="totalRefund">Total Return Amount</h4>
-                <h5 className="totalrefundAmount">${selectedData?.totalSum}</h5>
+                <h5 className="totalrefundAmount">
+                  -${selectedData?.totalSum}
+                </h5>
                 <p className="userPosition">
                   Select a method of payment to refund.
                 </p>
               </div>
               <div className="row">
                 <div className="col-lg-4">
-                  <div className= {orderDetails?.mode_of_payment ==='card'? "debitCreditBox active": "debitCreditBox"}>
+                  <div
+                    className={
+                      orderDetails?.mode_of_payment === "card"
+                        ? "debitCreditBox active"
+                        : "debitCreditBox"
+                    }
+                  >
                     <article className="flexBox justify-content-between">
                       <Image
                         src={Images.Mastercard}
@@ -93,7 +110,13 @@ const RefundsConfirmation = () => {
                 </div>
 
                 <div className="col-lg-4">
-                  <div className= {orderDetails?.mode_of_payment ==='jbr'? "jobrCoinBox active": "jobrCoinBox"}>
+                  <div
+                    className={
+                      orderDetails?.mode_of_payment === "jbr"
+                        ? "jobrCoinBox active"
+                        : "jobrCoinBox"
+                    }
+                  >
                     <article className="flexBox justify-content-between">
                       <Image
                         src={Images.JOBRCoinOutline}
@@ -191,27 +214,36 @@ const RefundsConfirmation = () => {
                     {merchentDetails?.full_phone_number}
                   </p>
                 </article>
-                <div className="mapleProductDetails">
-                  {itemsList?.map((data, idx) => {
-                    return (
-                      <div key={idx} className="flexBox mapleProductDetailsBox">
-                        <div className="flexbase">
-                          <p className="mapleProductcount">× {data?.qty}</p>
-                          <article className="ms-3">
-                            <p className="mapleProductHeading">
-                              {data?.product_name}
-                            </p>
-                            {/* <span className="mapleProductcount">
+                <div className="mapleProductDetails mapleFlex">
+                  <div className="mapleSubFlex">
+                    {itemsList?.map((data, idx) => {
+                      return (
+                        <div
+                          key={idx}
+                          className="flexBox"
+                        >
+                          <div className="flexbase">
+                            <p className="mapleProductcount">× {data?.qty}</p>
+                            <article className="ms-3">
+                              <p className="cancelOrderText">
+                                {data?.product_name}
+                              </p>
+                              {/* <span className="mapleProductcount">
                               Yellow / M
                             </span> */}
-                          </article>
+                            </article>
+                          </div>
                         </div>
-                        <article>
-                          <p className="mapleProductPrice">-${data?.price}</p>
-                        </article>
-                      </div>
-                    );
-                  })}
+                      );
+                    })}
+                  </div>
+                  <div>
+                    <article className="mapleSubFlex">
+                      {lineTotals?.map((total) => {
+                        return <p className="mapleProductPrice">-${total}</p>;
+                      })}
+                    </article>
+                  </div>
                 </div>
                 <div className="flexBox mapleInvoiceBox">
                   <article>
@@ -252,7 +284,9 @@ const RefundsConfirmation = () => {
                     <p className="productName">-${selectedData?.subtotal}</p>
                     <p className="productName">$00.00</p>
                     <p className="productName">-${selectedData?.totalTax}</p>
-                    <p className="userName refundTotalBtn">-${selectedData?.totalSum}</p>
+                    <p className="userName refundTotalBtn">
+                      -${selectedData?.totalSum}
+                    </p>
                   </article>
                 </div>
                 <div className="text-center">

@@ -11,11 +11,21 @@ import {
 } from "../../redux/slices/productReturn";
 import { useDispatch, useSelector } from "react-redux";
 import { setInvoiceData } from "../../redux/slices/productReturn";
+import { toast } from "react-toastify";
+import { Spinner } from "react-bootstrap";
 
 const productrefunds = () => {
   const toastId = React.useRef(null);
   const dispatch = useDispatch();
   const [enableText, setEnabletext] = useState(false);
+  const router = useRouter();
+  const [loading, setLoading] = useState(false);
+  const [refundAmount, setRefundAmount] = useState("");
+  const [inputValues, setInputValues] = useState([]);
+  const invoiceData = useSelector(selectReturnData);
+  const orderDetails = invoiceData?.invoiceByInvoiceId;
+  const selectedData = invoiceData?.invoiceData;
+  const refundedItems = JSON.parse(selectedData?.selectedItems || "[]");
   const [key, setKey] = useState(Math.random());
   const [modalDetail, setModalDetail] = useState({
     show: false,
@@ -30,58 +40,82 @@ const productrefunds = () => {
     });
     setKey(Math.random());
   };
-  const router = useRouter();
-
-  const [refundAmount, setRefundAmount] = useState("");
-  const [inputValues, setInputValues] = useState([]);
-  const invoiceData = useSelector(selectReturnData);
-  const selectedData = invoiceData?.invoiceData;
-  const refundedItems = JSON.parse(selectedData?.selectedItems || "[]");
 
   const handleGoToinventery = () => {
-    // setModalDetail({ show: true, flag: "ReturnInventory" });
-    // setKey(Math.random());
-    router.push({
-      pathname: "/Product/RefundsConfirmation(No_Selection)",
-    });
+    setModalDetail({ show: true, flag: "ReturnInventory" });
+    setKey(Math.random());
+
     const shareData = {
       selectedItems: JSON.stringify(refundedItems),
-      totalSum: totalSum.toString(),
-      subtotal: subtotal.toString(),
-      totalTax: "20",
+      inputValues: JSON.stringify(inputValues),
+      totalSum: totalSum?.toString(),
+      subtotal: subtotal?.toString(),
+      totalTax: discount?.toString(),
     };
     dispatch(setInvoiceData(shareData));
   };
   const handlereturnToInventory = () => {
     let params = {
-      order_id: 223,
+      order_id: orderDetails?.order?.id,
       products: [
         {
           id: 493,
           qty: 1,
           write_off_qty: 0,
           add_to_inventory_qty: 1,
-          refund_value: "20",
+          refund_value: totalSum,
         },
       ],
-      total_taxes: "8",
-      total_refund_amount: "100",
-      delivery_charge: "20",
+      total_taxes: discount,
+      total_refund_amount: subtotal,
+      delivery_charge: orderDetails?.order?.delivery_charge,
       return_reason: "testing reason",
-      drawer_id: 327,
+      drawer_id: orderDetails?.order?.drawer_id,
     };
+    setLoading(true);
     dispatch(
       returnToInventory({
         ...params,
-        cb(res) {},
+        cb(res) {
+          if (res) {
+            setLoading(false);
+            router.push({
+              pathname: "/Product/RefundsConfirmation(No_Selection)",
+            });
+          }
+        },
       })
     );
   };
   const handleInputChange = (e, index) => {
     const { value } = e.target;
+    const enteredValue = e.target.value;
+    const isValidInput = /^[+]?\d*\.?\d*$/.test(enteredValue);
+    if (!isValidInput) {
+      if (!toast.isActive(toastId.current)) {
+        toastId.current = toast.error(
+          "Refund amount should be numeric and  non-negative number"
+        );
+      }
+      return;
+    } else {
+      setRefundAmount(enteredValue);
+    }
     const updatedInputValues = [...inputValues];
     updatedInputValues[index] = value;
     setInputValues(updatedInputValues);
+    const inputValue = parseFloat(e.target.value);
+    const productPrice = parseFloat(refundedItems[index]?.price);
+    if (!isNaN(inputValue) && inputValue <= productPrice) {
+      const newInputValues = [...inputValues];
+      newInputValues[index] = inputValue;
+      setInputValues(newInputValues);
+    } else {
+      toastId.current = toast.error(
+        "Refund Amount should not grater then Unit price"
+      );
+      return;
+    }
   };
 
   const inputCheck = (e) => {
@@ -117,6 +151,9 @@ const productrefunds = () => {
     return acc + parseFloat(itemTotal);
   }, 0);
 
+  const discount = (subtotal * 0.08).toFixed(2);
+  console.log(discount, "discountt");
+
   const totalSum = refundedItems
     ?.reduce((acc, data, idx) => {
       const productPrice = parseFloat(data?.price) || 0;
@@ -137,6 +174,30 @@ const productrefunds = () => {
 
   const handleActiveText = () => {
     setEnabletext(true);
+  };
+
+  const handleRefund = (e) => {
+    const enteredValue = e.target.value;
+    const isValidInput = /^[+]?\d*\.?\d*$/.test(enteredValue);
+    if (!isValidInput) {
+      if (!toast.isActive(toastId.current)) {
+        toastId.current = toast.error(
+          "Refund amount should be numeric and non-negative"
+        );
+      }
+      return;
+    }
+    const maxPrice = Math.max(
+      ...refundedItems?.map((item) => parseFloat(item?.price))
+    );
+    if (!isNaN(enteredValue) && enteredValue <= maxPrice) {
+      setRefundAmount(enteredValue);
+    } else {
+      toastId.current = toast.error(
+        "Refund amount should not be greater than any item's price"
+      );
+      returnToInventory;
+    }
   };
 
   return (
@@ -164,11 +225,11 @@ const productrefunds = () => {
                 </h5>
                 <div className="flexBox refundPricebox">
                   <input
-                    type="number"
+                    type="text"
                     placeholder="$00.00"
                     className="tablecustomInput"
                     value={refundAmount}
-                    onChange={(e) => setRefundAmount(e.target.value)}
+                    onChange={(e) => handleRefund(e)}
                   />
                   <article>
                     {/* <div className="priceFilterBtn active" onClick={handleActiveText}>$</div> */}
@@ -230,9 +291,13 @@ const productrefunds = () => {
                         </td>
                         <td className="recent_subhead text-center">
                           <input
-                            type="number"
+                            type="text"
                             placeholder="$00.00"
-                            className="tablecustomInput"
+                            className={
+                              enableText === true
+                                ? "enableInput"
+                                : "tablecustomInput"
+                            }
                             value={inputValues[idx]}
                             onChange={(e) => handleInputChange(e, idx)}
                             disabled={enableText === false}
@@ -272,12 +337,16 @@ const productrefunds = () => {
                   </div>
                   <div className="flexBox justify-content-between ">
                     <p className="orderHeading">Total Taxes</p>
-                    <p className="orderHeading">+{"20"}%</p>
+                    <p className="orderHeading">
+                      +${subtotal ? discount : "0.00"}
+                    </p>
                   </div>
                 </div>
                 <div className="flexBox justify-content-between itemsRefundedTotal">
                   <p className="priceHeading">Total</p>
-                  <p className="priceHeading">${totalSum}</p>
+                  <p className="priceHeading">
+                    ${subtotal ? totalSum : "0.00"}
+                  </p>
                 </div>
                 <div className="text-end">
                   <button
@@ -333,6 +402,7 @@ const productrefunds = () => {
                   onClick={() => handleOnCloseModal()}
                 />
               </figure>
+
               <p className="addProductHeading">Return to Inventory</p>
             </h2>
             <button className="closeButton">
@@ -353,11 +423,21 @@ const productrefunds = () => {
               >
                 Cancel
               </button>
+
               <button
                 className="ModalBlue"
                 onClick={(e) => handlereturnToInventory(e)}
               >
                 Return to Inventory
+                {loading && (
+                  <Spinner
+                    as="span"
+                    animation="border"
+                    size="sm"
+                    role="status"
+                    aria-hidden="true"
+                  />
+                )}{" "}
                 <Image
                   src={Images.ShoppingReturn}
                   alt="image"

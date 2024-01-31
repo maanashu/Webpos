@@ -23,22 +23,27 @@ const Manualinvoice = (props) => {
   const isProductIdMatched = productDetails?.some(
     (product) => product?.product_id === productsSearchBySku?.id
   );
+  
   const handleSearchSku = (e) => {
-    let params = {
-      search: e.target.value,
-      seller_id: sellerId,
-    };
-    setLoading(true);
-    dispatch(
-      searchBySKU({
-        ...params,
-        cb(resp) {
-          setLoading(false);
-          setProductsSearchBySku(resp?.data?.payload?.product_detail);
-        },
-      })
-    );
+    const inputValue = e.target.value;
+    if (inputValue.length >= 4) {
+      let params = {
+        search: inputValue,
+        seller_id: sellerId,
+      };
+      setLoading(true);
+      dispatch(
+        searchBySKU({
+          ...params,
+          cb(resp) {
+            setLoading(false);
+            setProductsSearchBySku(resp?.data?.payload?.product_detail);
+          },
+        })
+      );
+    } 
   };
+  
   const handleManulEntry = () => {
     if (!productsSearchBySku) {
       toast.error("Please add Product by search SKU!");
