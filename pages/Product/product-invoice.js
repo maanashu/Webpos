@@ -19,15 +19,12 @@ import Manualinvoice from "./manual-entry(search)";
 const ProductInvoice = () => {
   const dispatch = useDispatch();
   const router = useRouter();
-  const [selectedProductItems, setSelectedProductItems] = useState([]);
   const authData = useSelector(selectLoginAuth);
   const sellerId = authData?.usersInfo?.payload?.uniqe_id;
-  const [searchInvoiceId, setSearchInvoiceId] = useState(null);
   const [searchInvoiceViaBarcode, setSearchInvoiceViaBarcode] = useState("");
   const invoiceData = useSelector(selectReturnData);
   const SearchInvoiceRespones = invoiceData?.invoiceByInvoiceId;
   const orderDetails = SearchInvoiceRespones?.order;
-  console.log(orderDetails, "orderDetails");
   const [checkeddata, setCheckedData] = useState("");
   const [productDetails, setProductDetails] = useState([]);
   const [key, setKey] = useState(Math.random());
@@ -37,7 +34,6 @@ const ProductInvoice = () => {
     flag: "",
   });
 
-  console.log("checkeddatacheckeddatacheckeddata", checkeddata);
   const handleOnCloseModal = () => {
     setModalDetail({
       show: false,
@@ -56,10 +52,9 @@ const ProductInvoice = () => {
         }))
       );
     }
-  }, [SearchInvoiceRespones?.order?.order_details]);
+  }, [SearchInvoiceRespones?.order?.order_details ,checkeddata]);
 
   const handleSearchInvoice = (e) => {
-    setSearchInvoiceId(e.target.value);
     let params = {
       invoiceId: e.target.value,
       seller_id: sellerId,
@@ -77,10 +72,14 @@ const ProductInvoice = () => {
   };
 
   const handleGoToNext = () => {
+    const selectedProductItems = productDetails?.filter(
+      (item) => item?.isChecked
+    );
     if (selectedProductItems?.length > 0) {
       router.push({
         pathname: "/Product/productrefunds(Price-format)",
       });
+
       const shareData = {
         selectedItems: JSON.stringify(selectedProductItems),
       };
@@ -123,7 +122,7 @@ const ProductInvoice = () => {
       );
     }
   }, [searchInvoiceViaBarcode]);
-  
+
   useEffect(() => {
     if (checkeddata) {
       const updatedProductDetails = productDetails?.map((item) =>
