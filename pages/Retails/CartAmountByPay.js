@@ -462,10 +462,20 @@ const CartAmountByPay = () => {
                             onClick={() => {
                               if (selectedRecipeIndex == "0") {
                                 // handleUserProfile("PhoneReceipt");
-                                setPhoneModal(true);
+                                // setPhoneModal(true);
+                                setModalDetail({
+                                  show: true,
+                                  flag: "PhoneReceipt",
+                                });
+                                setKey(Math.random());
                               } else if (selectedRecipeIndex == "1") {
                                 // handleUserProfile("emailReceipt");
-                                setEmailModal(true);
+                                // setEmailModal(true);
+                                setModalDetail({
+                                  show: true,
+                                  flag: "emailReceipt",
+                                });
+                                setKey(Math.random());
                               } else if (selectedRecipeIndex == "2") {
                                 noThanksHandler();
                                 // router.push({
@@ -710,9 +720,11 @@ const CartAmountByPay = () => {
         }
         child={
           modalDetail.flag === "PhoneReceipt" ? (
-            <PhoneReceiptModal close={() => handleOnCloseModal()} />
+            // <PhoneReceiptModal close={() => handleOnCloseModal()} />
+            <AttachWithPhone close={() => handleOnCloseModal()} />
           ) : modalDetail.flag === "emailReceipt" ? (
-            <EmailReceiptModal close={() => handleOnCloseModal()} />
+            // <EmailReceiptModal close={() => handleOnCloseModal()} />
+            <AttachWithEmail close={() => handleOnCloseModal()} />
           ) : modalDetail.flag === "giftCard" ? (
             <GiftCardModal close={() => handleOnCloseModal()} />
           ) : modalDetail.flag === "jobrWallet" ? (

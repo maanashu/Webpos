@@ -10,6 +10,7 @@ import {
   clearOneProduct,
   getDrawerSession,
   getOneProductById,
+  getOneServiceById,
   productCart,
   selectRetailData,
   setProductCart,
@@ -109,6 +110,23 @@ const ServiceCart = () => {
         productId,
         cb: (resp) => {
           router.push({ pathname: "/Retails/AddProduct" });
+        },
+      })
+    );
+  };
+
+  const getOneService = (serviceId) => {
+    let params = {
+      seller_id: sellerId,
+      app_name: "pos",
+      need_pos_users: true,
+    };
+    dispatch(
+      getOneServiceById({
+        params,
+        serviceId,
+        cb: (resp) => {
+          router.push({ pathname: "/Retails/AddService" });
         },
       })
     );
@@ -496,7 +514,7 @@ const ServiceCart = () => {
                           // onClick={() => {
                           //   router.push({ pathname: "/Retails/AddProduct" });
                           // }}
-                          onClick={() => productFun(offers.id, index, offers)}
+                          onClick={() => getOneService(offers?.id, index)}
                           className="availableoffer"
                         >
                           <div className="cartOfferInfo">

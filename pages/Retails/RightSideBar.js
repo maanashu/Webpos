@@ -205,15 +205,15 @@ const RightSideBar = ({ props }) => {
             </ListGroupItem>
             <ListGroupItem
               className="rightSidebarItems"
-              // onClick={() =>
-              //   dispatch(
-              //     clearCart({
-              //       cb: () => {
-              //         dispatch(productCart());
-              //       },
-              //     })
-              //   )
-              // }
+              onClick={() =>
+                dispatch(
+                  clearCart({
+                    cb: () => {
+                      dispatch(productCart());
+                    },
+                  })
+                )
+              }
             >
               <div className="sidebarBg">
                 <Image
@@ -253,7 +253,7 @@ const RightSideBar = ({ props }) => {
       {filterShow ? (
         <div className="AddtoCart ProductAddCart">
           {cartData?.poscart_products?.map((data, index) => (
-            <div className="cartInfo">
+            <div className="cartInfo" key={index}>
               <div className="cartSubInfo active">
                 <div className="orderTime">
                   <Image

@@ -10,7 +10,6 @@ import {
   selectRetailData,
 } from "../../redux/slices/retails";
 import { selectLoginAuth } from "../../redux/slices/auth";
-import Link from "next/link";
 import { amountFormat, getDaysAndDates } from "../../utilities/globalMethods";
 import MonthYearPicker, { DATE_TYPE } from "../../components/MonthYearPicker";
 import moment from "moment-timezone";
@@ -31,8 +30,6 @@ const AddService = () => {
   const [providerDetail, setProviderDetail] = useState(
     posStaffArray?.[0]?.user
   );
-
-  console.log("retailData", retailData?.timeSlots);
 
   // function modifiedPosArray(arr, size) {
   //   const posStaffedArray = [];
@@ -169,7 +166,8 @@ const AddService = () => {
         ...params,
         cb(res) {
           dispatch(productCart());
-          router.push("/Retails?parameter=services");
+          // router.push("/Retails?parameter=services");
+          router.back();
         },
       })
     );
@@ -488,17 +486,6 @@ const AddService = () => {
                               setselectedTimeSlotIndex(index);
                               setSelectedTimeSlotData(item);
                             }}
-                            // style={{
-                            //   backgroundColor:
-                            //     selectedTimeSlotIndex == index
-                            //       ? " #D1FADF"
-                            //       : "transparent",
-                            //   borderColor:
-                            //     selectedTimeSlotIndex == index
-                            //       ? "#027547"
-                            //       : "#D7DEFF",
-                            //   borderWidth: "1px",
-                            // }}
                           >
                             <div
                               className={
