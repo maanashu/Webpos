@@ -581,7 +581,7 @@ input:checked+.switch-slider:before {
 
 .analyticsSection .deliverRightBar {
   right: 15px;
-  top: 90px;
+  top: 64px;
 }
 
 .mainanalyticsside_ .deliverPercent {
@@ -735,3 +735,99 @@ input:checked+.switch-slider:before {
 }
 
 /*analytic css end*/
+/*customer css start*/
+.customerHeader {
+  margin: 24px;
+}
+
+.custmrInnrLeft {
+  display: flex;
+  gap: 6px;
+  align-items: start;
+}
+
+.customerHeadRight {
+  display: flex;
+  align-items: center;
+  justify-content: end;
+}
+
+.customerSection .stats {
+  flex-wrap: wrap;
+}
+
+.customerSection .stat-box {
+  min-width: 185px;
+}
+
+.customerGraphLeft {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.checkGreen label:before {
+  border: 1px solid #039855 !important;
+  background-color: #D1FADF !important;
+}
+
+.checkGreen input:checked+label:after {
+  border: solid #027547 !important;
+  border-width: 0 2px 2px 0 !important;
+}
+
+.checkGreen .appointSub {
+  color: #039855;
+}
+
+.checkSky label:before {
+  border: 1px solid #47B0D6 !important;
+  background-color: #EFFBFF !important;
+}
+
+.checkSky input:checked+label:after {
+  border: solid #47B0D6 !important;
+  border-width: 0 2px 2px 0 !important;
+}
+
+.checkSky .appointSub {
+  color: #47B0D6;
+}
+
+/*customer css end*/
+
+/*notification css start*/
+.notifySection {
+  border-radius: 20px;
+  background: #FFF;
+  box-shadow: -2px 4px 25px 0px rgba(50, 80, 127, 0.02), -5px 10px 80px 0px rgba(50, 80, 127, 0.04);
+  margin: 16px;
+  height: calc(100vh - 50px);
+  overflow-y: scroll;
+  padding: 24px;
+}
+
+.notificationArea {
+  margin-top: 24px;
+}
+
+.NotificationSubArea {
+  padding-left: 16px;
+}
+
+.NotificationSubArea .taxCountryMain {
+  margin-top: 12px;
+  padding: 12px 16px;
+}
+
+.notifyBtn {
+  border-radius: 16px;
+  background: #E4E6F2;
+  padding: 6px 14px;
+  border: none;
+  color:  #263682;
+  font-size: 12px;
+  font-weight: 500;
+}
+
+/*notification css end*/
