@@ -10,8 +10,10 @@ import { selectLoginAuth } from '../../../redux/slices/auth';
 import { amountFormat } from '../../../utilities/globalMethods';
 import AnalyticsRightsidebar from '../../../components/commanComonets/analytics/analyticsRightsidebar';
 import { PaginationFooter } from '../../../components/commanComonets/customers/PaginationFooter';
+import { useRouter } from 'next/router';
 
 const index = () => {
+  const router = useRouter()
   const [timeSpan, setTimeSpan] = useState("week");
   const [channelSelected, setChannelSelected] = useState({ value: 'all', label: 'All Channels' })
   const [startDate, setStartDate] = useState(null);
@@ -94,7 +96,16 @@ const index = () => {
     );
   };
 
-  console.log(totalInventoryData, "total inventory data");
+  const handleGoReviewPage = (orderDate) => {
+
+    router.push({
+      pathname: "/transactions/transactionList",
+      query: {
+        transaction_type: "all",
+        date: orderDate?.split("T")[0],
+      },
+    });
+  };
 
   useEffect(() => {
     totalInventoryHandle();
@@ -252,7 +263,9 @@ const index = () => {
                               <td
                                 className="customers-table-data"
                               >
-                                <button className="secondaryOuterbtn_" type="button">Review</button>
+                                <button className="secondaryOuterbtn_" type="button" onClick={() =>
+                                  handleGoReviewPage(row?.last_sold_date)
+                                }>Review</button>
                               </td>
                             </tr>
                           ))}

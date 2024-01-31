@@ -16,34 +16,30 @@ const ShipRightSidebar = (props) => {
             props?.setOrderListType({
                 title: status == "ordersToReview" ?
                     "Order to Review" :
-                    status == "acceptedOrders" ?
-                        "Order Accepted" :
-                        status == "prepairingOrders" ?
-                            "Order Prepared" :
-                            status == "readyForPickupOrders" ?
-                                "Printing Label" :
-                                status == "shippedOrders" ?
-                                    "Shipped" :
-                                    status == "canceledAndRejectedOrders" ?
-                                        "Rejected/Cancelled" :
-                                        status == "returnedOrders" ?
-                                            "Returned" :
-                                            "",
+                    status == "readyForPickupOrders" ?
+                        "Printing Label" :
+                        status == "shippedOrders" ?
+                            "Shipped" :
+                            status == "deliverdOrders" ?
+                                "Delivered" :
+                                status == "canceledAndRejectedOrders" ?
+                                    "Rejected/Cancelled" :
+                                    status == "returnedOrders" ?
+                                        "Returned" :
+                                        "",
                 status: status == "ordersToReview" ?
                     "0" :
-                    status == "acceptedOrders" ?
-                        "1" :
-                        status == "prepairingOrders" ?
-                            "2" :
-                            status == "readyForPickupOrders" ?
-                                "3" :
-                                status == "shippedOrders" ?
-                                    "5" :
-                                    status == "canceledAndRejectedOrders" ?
-                                        "7,8" :
-                                        status == "returnedOrders" ?
-                                            "9" :
-                                            ""
+                    status == "readyForPickupOrders" ?
+                        "3" :
+                        status == "shippedOrders" ?
+                            "4" :
+                            status == "deliverdOrders" ?
+                                "5" :
+                                status == "canceledAndRejectedOrders" ?
+                                    "7,8" :
+                                    status == "returnedOrders" ?
+                                        "9" :
+                                        ""
             });
             setActiveSidebar("hideDeliver");
         }
@@ -69,26 +65,26 @@ const ShipRightSidebar = (props) => {
                                 {
                                     props?.data?.filter(item => item?.title != "acceptedOrders" && item?.title != "prepairingOrders")?.map((val, index) => {
                                         return (
-                                            <ListGroupItem onClick={props?.from === 'orderReview' ? void(0) : () => onPressHandler(val?.title, val?.count)} key={index} className='deliverRightItem'>
+                                            <ListGroupItem onClick={() => onPressHandler(val?.title, val?.count)} key={index} className='deliverRightItem'>
                                                 <Link href="#" className='rightLinkBar'>
                                                     <Image src={
                                                         val?.title == "ordersToReview" ?
                                                             Images.ordersReview :
-                                                            val?.title == "acceptedOrders" ?
-                                                                Images.deliveryCheck :
-                                                                val?.title == "prepairingOrders" ?
-                                                                    Images.deliverClock :
-                                                                    val?.title == "readyForPickupOrders" ?
-                                                                        Images.sticker :
-                                                                        val?.title == "shippedOrders" ?
-                                                                            Images.trackDeliver :
-                                                                            val?.title == "deliverdOrders" ?
-                                                                                Images.deliverSend :
-                                                                                val?.title == "canceledAndRejectedOrders" ?
-                                                                                    Images.deliveryClose :
-                                                                                    val?.title == "returnedOrders" ?
-                                                                                        Images.deliverBack :
-                                                                                        ""
+                                                            // val?.title == "acceptedOrders" ?
+                                                            //     Images.deliveryCheck :
+                                                            //     val?.title == "prepairingOrders" ?
+                                                            //         Images.deliverClock :
+                                                            val?.title == "readyForPickupOrders" ?
+                                                                Images.sticker :
+                                                                val?.title == "shippedOrders" ?
+                                                                    Images.trackDeliver :
+                                                                    val?.title == "deliverdOrders" ?
+                                                                        Images.deliverSend :
+                                                                        val?.title == "canceledAndRejectedOrders" ?
+                                                                            Images.deliveryClose :
+                                                                            val?.title == "returnedOrders" ?
+                                                                                Images.deliverBack :
+                                                                                ""
                                                     }
 
                                                         alt="ordersReview image" className="img-fluid" />
@@ -97,21 +93,21 @@ const ShipRightSidebar = (props) => {
                                                             {
                                                                 val?.title == "ordersToReview" ?
                                                                     "Order to Review" :
-                                                                    val?.title == "acceptedOrders" ?
-                                                                        "Order Accepted" :
-                                                                        val?.title == "prepairingOrders" ?
-                                                                            "Order Prepared" :
-                                                                            val?.title == "readyForPickupOrders" ?
-                                                                                "Printing Label" :
-                                                                                val?.title == "shippedOrders" ?
-                                                                                    "Track Delivery" :
-                                                                                    val?.title == "deliverdOrders" ?
-                                                                                        "Shipped" :
-                                                                                        val?.title == "canceledAndRejectedOrders" ?
-                                                                                            "Rejected/Cancelled" :
-                                                                                            val?.title == "returnedOrders" ?
-                                                                                                "Returned" :
-                                                                                                ""
+                                                                    // val?.title == "acceptedOrders" ?
+                                                                    //     "Order Accepted" :
+                                                                    //     val?.title == "prepairingOrders" ?
+                                                                    //         "Order Prepared" :
+                                                                    val?.title == "readyForPickupOrders" ?
+                                                                        "Printing Label" :
+                                                                        val?.title == "shippedOrders" ?
+                                                                            "Shipped" :
+                                                                            val?.title == "deliverdOrders" ?
+                                                                                "Delivered" :
+                                                                                val?.title == "canceledAndRejectedOrders" ?
+                                                                                    "Rejected/Cancelled" :
+                                                                                    val?.title == "returnedOrders" ?
+                                                                                        "Returned" :
+                                                                                        ""
                                                             }
                                                         </h4>
                                                         <div className='deliverPercent '>{val?.count}</div>

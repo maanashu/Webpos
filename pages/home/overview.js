@@ -13,6 +13,7 @@ import {
   getAllOrderDeliveries,
   getPosLoginDetails,
   getTodaySales,
+  getOnlineOrdersCount
 } from "../../redux/slices/dashboard";
 import Login from "../auth/login";
 import moment from "moment-timezone";
@@ -33,28 +34,35 @@ const Overview = () => {
   const [orderDeliveriesInfo, setOrderDeliveriesInfo] = useState("");
   const [getTodaySale, setGetTodaySale] = useState("");
   const [posLoginDetail, setPosLoginDetail] = useState("");
+  const [onlineOrdersCount, setOnlineOrdersCount] = useState(0);
   const [modalDetail, setModalDetail] = useState({
     show: false,
     title: "",
     flag: "",
   });
 
-  // API for get all oder deliveries...............................
-  const allOrderDeliveriesInfo = () => {
-    let params = {
-      seller_id: UniqueId,
+
+    // API for get all oder deliveries...............................
+    const allOrderDeliveriesInfo = () => {
+        let params = {
+            seller_id: UniqueId,
+            delivery_option: "1,3,4",
+            page: 1,
+            limit: 50,
+            app_name: 'b2c'
+        };
+        dispatch(getAllOrderDeliveries({
+            ...params,
+            cb(res) {
+                if (res.status) {
+                    console.log(res?.data,"res?.datares?.data");
+                    setOrderDeliveriesInfo(res?.data?.payload?.data)
+                }
+            },
+        })
+        );
     };
-    dispatch(
-      getAllOrderDeliveries({
-        ...params,
-        cb(res) {
-          if (res.status) {
-            setOrderDeliveriesInfo(res?.data?.payload?.data);
-          }
-        },
-      })
-    );
-  };
+
 
   // API for get today sales...............................
   const todaySaleInfo = () => {
@@ -68,6 +76,23 @@ const Overview = () => {
         cb(res) {
           if (res.status) {
             setGetTodaySale(res?.data?.payload);
+          }
+        },
+      })
+    );
+  };
+
+  // API for get online orders count...............................
+  const fetchOnlineOrdersCount = () => {
+    let params = {
+      seller_id: UniqueId
+    };
+    dispatch(
+      getOnlineOrdersCount({
+        ...params,
+        cb(res) {
+          if (res.status) {
+            setOnlineOrdersCount(res?.data?.payload?.onlineOrders);
           }
         },
       })
@@ -136,13 +161,14 @@ const Overview = () => {
     }
   }, []);
 
-  useEffect(() => {
-    if (UniqueId) {
-      todaySaleInfo();
-      allOrderDeliveriesInfo();
-      userLoginDetails();
-    }
-  }, []);
+    useEffect(() => {
+        if (UniqueId) {
+            todaySaleInfo()
+            fetchOnlineOrdersCount()
+            allOrderDeliveriesInfo()
+            userLoginDetails()
+        }
+    }, [UniqueId]);
 
   return (
     <>
@@ -334,7 +360,7 @@ const Overview = () => {
                       />
                     </figure>
                     <h4 className="loginMain">Online Orders</h4>
-                    <button className="OrderBtn">12 New Orders</button>
+                    <button className="OrderBtn">{ onlineOrdersCount } New Orders</button>
                     <div className="bellImg">
                       <figure className="bellOuter">
                         <Image
@@ -347,7 +373,7 @@ const Overview = () => {
                   </div>
                 </div>
                 <div className="profileMainTable">
-                  <h4 className="loginMain">Order Deliveries</h4>
+                  <h4 className="loginMain">Orders</h4>
                   <div className="table-responsive deliverTable">
                     <table id="tableProduct" className="product_table">
                       {dashboardData?.loading ? (

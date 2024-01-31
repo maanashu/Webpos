@@ -397,6 +397,22 @@
   justify-content: center;
   margin-left: 10px;
 }
+.expandBtn {
+  padding: 8px 12px;
+  border-radius: 5px;
+  background: #263682;
+  border: 1px solid #263682;
+  color: #f5f6fc;
+  font-size: 14px;
+  font-weight: 400;
+  /* display: flex; */
+  align-items: center;
+  justify-content: center;
+  margin-left: 10px;
+  position: absolute;
+  top: 10%;
+  right: 5%;
+}
 
 .cancelledByUser {
   padding: 8px 12px;
@@ -669,7 +685,7 @@
   border-radius: 4px;
 }
 
-.custom-checkbox input:checked+.checkmark {
+.custom-checkbox input:checked + .checkmark {
   border: 1px solid #263682;
   color: #fff;
 }
@@ -680,7 +696,7 @@
   display: none;
 }
 
-.custom-checkbox input:checked+.checkmark:after {
+.custom-checkbox input:checked + .checkmark:after {
   display: block;
 }
 
@@ -1031,7 +1047,14 @@
   display: flex;
   justify-content: space-between;
 }
-
+.afterCheckedProduct{
+  border-radius: 8px;
+  border:1px solid #263682;
+  padding: 8px;
+  margin-bottom: 8px;
+  display: flex;
+  justify-content: space-between;
+}
 .productColor {
   display: flex;
   align-items: center;
@@ -1500,7 +1523,15 @@
   color: #263682;
   padding: 8px 16px;
 }
+.enableInput{
+    border-radius: 6px;
+    text-align: center;
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 400;
 
+    padding: 8px 16px;
+}
 .tablecustomInput::placeholder {
   text-align: left;
   justify-content: left;
@@ -1854,4 +1885,16 @@ button.comfirmatiopnBtn {
   background-color: white;
   border-radius: 10px;
   margin-block: 10px;
+}
+/*product css*/
+.mapleFlex{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.mapleSubFlex{
+  display: flex;
+  align-items: start;
+  flex-direction: column;
+  gap: 8px;
 }
