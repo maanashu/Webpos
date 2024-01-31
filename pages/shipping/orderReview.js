@@ -314,7 +314,7 @@ const OrderReview = () => {
                                                                                             alt="deliverTime image "
                                                                                             className="img-fluid mb-1"
                                                                                         />
-                                                                                        <span className="immediateText ">Today 29 Oct, 2023 | 10:41 am</span>
+                                                                                        <span className="immediateText ">{moment(item?.status_desc?.status_4_updated_at).format("dddd DD MMM, YYYY | hh : mm a")}</span>
                                                                                     </div>
                                                                                 </div> :
                                                                                 (item?.status == 7) || (item?.status == 8) ?
