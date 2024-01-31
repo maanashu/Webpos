@@ -1,20 +1,6 @@
 import { StyleSheet, Text, View } from "react-native";
 import React from "react";
 
-const CustomHoursCell = (formattedHours) => {
-  const [hours, ampm] = formattedHours.split(" ");
-  return (
-    <View style={styles.hourContainer}>
-      <Text style={styles.timeText}>
-        {hours + `${hours !== "" ? (ampm ? ".00" : "") : ""}`}
-      </Text>
-      <Text style={styles.ampmText}>{ampm}</Text>
-    </View>
-  );
-};
-
-export default CustomHoursCell;
-
 const styles = StyleSheet.create({
   hourContainer: {
     alignItems: "center",
@@ -35,3 +21,17 @@ const styles = StyleSheet.create({
     color: "#263682",
   },
 });
+
+const CustomHoursCell = (formattedHours) => {
+  const [hours, ampm] = formattedHours.split(" ");
+  return (
+    <View style={styles.hourContainer}>
+      <Text style={styles.timeText}>
+        {hours + `${hours !== "" ? (ampm ? ".00" : "") : ""}`}
+      </Text>
+      <Text style={styles.ampmText}>{ampm}</Text>
+    </View>
+  );
+};
+
+export default CustomHoursCell;
