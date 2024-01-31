@@ -261,7 +261,12 @@ const Overview = () => {
                     </div>
                   </div>
                 </div>
-                <div className="productReturn">
+                <div
+                  className="productReturn"
+                  onClick={() => {
+                    router.push("/invoices/invoices");
+                  }}
+                >
                   <h4 className="linkHeading">Product Returns</h4>
                   <Image
                     src={Images.ProductBox}
