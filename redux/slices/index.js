@@ -10,7 +10,8 @@ import { deliverySlice } from "./delivery";
 import { retailsSlice } from "./retails";
 import { shippingSlice } from "./shipping";
 import { cashDrawerSlice } from "./cashDrawer";
-import { returnSlice } from "./productReturn"
+import { returnSlice } from "./productReturn";
+import { bookingsSlice } from "./bookings";
 
 const mainReducer = combineReducers({
   auth: authSlice.reducer,
@@ -23,7 +24,8 @@ const mainReducer = combineReducers({
   retails: retailsSlice.reducer,
   shipping: shippingSlice.reducer,
   cashDrawer: cashDrawerSlice.reducer,
-  return:returnSlice.reducer,
+  return: returnSlice.reducer,
+  bookings: bookingsSlice.reducer,
 });
 
 const rootReducer = (state, action) => {

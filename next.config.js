@@ -1,9 +1,8 @@
-module.exports = (phase, { defaultConfig }) => {
-  /**
-   * @type {import('next').NextConfig}
-   */
-  const nextConfig = {
-    reactStrictMode: false,
+module.exports = {
+  reactStrictMode: false,
+  env: {
+      BASE_URL: process.env.BASE_URL,
+    },
     images: {
       domains: [
         "apichat.jobr.com",
@@ -23,9 +22,19 @@ module.exports = (phase, { defaultConfig }) => {
         "cloudfront-us-east-2.images.arcpublishing.com"
       ],
     },
-    env: {
-      BASE_URL: process.env.BASE_URL,
-    },
-  };
-  return nextConfig;
+  webpack: (config) => {
+    config.resolve.alias = {
+      ...(config.resolve.alias || {}),
+      // Transform all direct `react-native` imports to `react-native-web`
+      "react-native$": "react-native-web",
+    };
+    config.resolve.extensions = [
+      ".web.js",
+      ".web.jsx",
+      ".web.ts",
+      ".web.tsx",
+      ...config.resolve.extensions,
+    ];
+    return config;
+  },
 };
