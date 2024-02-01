@@ -19,6 +19,7 @@ import {
   settingHome,
   settingsDetails,
 } from "../../utilities/images";
+import * as Images from "../../utilities/images";
 import Image from "next/image";
 import StaffList from "./staff";
 import Devices from "./device";
@@ -55,6 +56,7 @@ export default function Settings() {
   const [selectedItemId, setSelectedItemId] = useState("");
   const [policyInfo, setPolicyInfo] = useState("");
   const [activeTab, setActiveTab] = useState("");
+  const [showSidebar, setShowSideBar] = useState(false)
 
   const settingsOptions = [
     { id: 1, name: "Security", info: securityStatus, image: securityTick },
@@ -206,7 +208,20 @@ export default function Settings() {
           </div>
         </div>
         <div className="col-lg-9">
-          <div className="outerpage">{renderComponent()}</div>
+
+          {/* <div>
+          <Image src={Images.ShippingOrders} className="SecurityImg" alt="img" onClick={() => setShowSideBar(prev => !prev)}/>
+
+          {showSidebar &&<div className="deviceLeft settingOuter">
+            <div>
+              {settingsOptions.map((item) => (
+                <SettingsBar key={item.id} item={item} />
+              ))}
+            </div>
+          </div>}
+            </div> */}
+
+          <div className="outerpage" onClick={() => setShowSideBar(false)}>{renderComponent()}</div>
         </div>
       </div>
     </div>
