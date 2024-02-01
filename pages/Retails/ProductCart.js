@@ -520,7 +520,15 @@ const ProductCart = () => {
                 </div>
 
                 <div className="offerdata">
-                  {availableOffersArray?.length > 0 ? (
+                  {retailData?.availableOffersLoad ? (
+                    <div className="loaderOuter">
+                      <span className="spinner-border spinner-border-sm mx-1"></span>
+                    </div>
+                  ) : availableOffersArray?.length == 0 ? (
+                    <h6 className="mt-3 mb-3 text-center">
+                      No available offers Found!
+                    </h6>
+                  ) : (
                     availableOffersArray?.map((offers, index) => {
                       return (
                         <div
@@ -546,30 +554,37 @@ const ProductCart = () => {
                                 Today at 10hrs / Dr. Africa ...
                               </h4>
 
-                              {offers?.supplies?.map((sup) => {
-                                return (
-                                  <div key={index}>
-                                    {sup?.supply_prices?.map((price) => {
-                                      return (
-                                        <h4 className="availablePrice">
-                                          <del>
-                                            $
-                                            {price?.actual_price
-                                              ? price?.actual_price
-                                              : selling_price}
-                                          </del>
-                                          <span className="actualPrice">
-                                            $
-                                            {price?.offer_price
-                                              ? price?.offer_price
-                                              : selling_price}
-                                          </span>
-                                        </h4>
-                                      );
-                                    })}
-                                  </div>
-                                );
-                              })}
+                              {/* <div className="availablePrice"> */}
+                              {offers?.supplies?.[0]?.supply_prices?.[0]
+                                ?.actual_price &&
+                              offers?.supplies?.[0]?.supply_prices?.[0]
+                                ?.offer_price ? (
+                                <div className="availablePrice">
+                                  <del>
+                                    $
+                                    {
+                                      offers?.supplies?.[0]?.supply_prices?.[0]
+                                        ?.actual_price
+                                    }
+                                  </del>
+                                  <span className="mx-2">
+                                    $
+                                    {
+                                      offers?.supplies?.[0]?.supply_prices?.[0]
+                                        ?.offer_price
+                                    }
+                                  </span>
+                                </div>
+                              ) : (
+                                <span className="mx-2">
+                                  $
+                                  {
+                                    offers?.supplies?.[0]?.supply_prices?.[0]
+                                      ?.selling_price
+                                  }
+                                </span>
+                              )}
+                              {/* </div> */}
                             </div>
                           </div>
                           <figure className="offerCartImg">
@@ -582,18 +597,6 @@ const ProductCart = () => {
                         </div>
                       );
                     })
-                  ) : (
-                    <>
-                      {availableOffersArray?.length == null ? (
-                        <h6 className="mt-3 mb-3">
-                          No available offers Found!
-                        </h6>
-                      ) : (
-                        <div className="loaderOuter">
-                          <span className="spinner-border spinner-border-sm mx-1"></span>
-                        </div>
-                      )}
-                    </>
                   )}
                 </div>
               </div>
