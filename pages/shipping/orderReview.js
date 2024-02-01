@@ -277,7 +277,7 @@ const OrderReview = () => {
                                                                                 </div>
                                                                             }
                                                                         </td>
-                                                                        {(item?.status == 0) && 
+                                                                        {(item?.status == 0) &&
                                                                             <td className="invoice_subhead">
                                                                                 <div className="itemMoney">
                                                                                     <h4 className="assignId">{item?.total_items} items</h4>
@@ -401,7 +401,7 @@ const OrderReview = () => {
                                                     singleOrderData?.order_details?.map((v, i) => {
                                                         return (
                                                             <div key={i} className='selectedProductDetails'>
-                                                                <div className='d-flex'>
+                                                                <div className='d-flex productDataInfo'>
                                                                     <Image height={50} width={50} src={v?.product_image} alt="cartFoodImg" className="img-fluid cartFoodImg" />
                                                                     <div className='ps-1'>
                                                                         <p className='aboutProduct'>{v?.product_name}</p>
@@ -418,9 +418,9 @@ const OrderReview = () => {
                                                                         </div> */}
                                                                     </div>
                                                                 </div>
-                                                                <p className='productPriceinvoice'>${v?.price}</p>
-                                                                <p className='productPriceinvoice'>{v?.qty}</p>
-                                                                <p className='productPriceinvoice'>${(v?.qty) * (v?.price)}</p>
+                                                                <p className='productPriceinvoice dataSpace'>${v?.price}</p>
+                                                                <p className='productPriceinvoice dataSpace'>{v?.qty}</p>
+                                                                <p className='productPriceinvoice dataSpace'>${(v?.qty) * (v?.price)}</p>
                                                                 {/* <article>
                                                         <label className="custom-checkbox">
                                                             <input type="checkbox" />
@@ -433,7 +433,7 @@ const OrderReview = () => {
                                                     singleOrderData?.return_detail?.return_details?.map((v, i) => {
                                                         return (
                                                             <div key={i} className='selectedProductDetails'>
-                                                                <div className='d-flex'>
+                                                                <div className='d-flex productDataInfo'>
                                                                     <Image height={50} width={50} src={v?.order_details?.product_image} alt="cartFoodImg" className="img-fluid cartFoodImg" />
                                                                     <div className='ps-1'>
                                                                         <p className='aboutProduct'>{v?.order_details?.product_name}</p>
@@ -450,9 +450,9 @@ const OrderReview = () => {
                                                                         </div>
                                                                     </div>
                                                                 </div>
-                                                                <p className='productPriceinvoice'>${v?.order_details?.price}</p>
-                                                                <p className='productPriceinvoice'>{v?.order_details?.qty}</p>
-                                                                <p className='productPriceinvoice'>${(v?.order_details?.qty) * (v?.order_details?.price)}</p>
+                                                                <p className='productPriceinvoice dataSpace'>${v?.order_details?.price}</p>
+                                                                <p className='productPriceinvoice dataSpace'>{v?.order_details?.qty}</p>
+                                                                <p className='productPriceinvoice dataSpace'>${(v?.order_details?.qty) * (v?.order_details?.price)}</p>
                                                                 {/* <article>
                                                         <label className="custom-checkbox">
                                                             <input type="checkbox" />
@@ -547,11 +547,11 @@ const OrderReview = () => {
                                                                                 {singleOrderData?.is_returned_order ? "Refunded" : "Cancelled"}
                                                                             </button> :
                                                                             singleOrderData?.status === 8 ?
-                                                                                <button type='button ' disabled className='pickupBtn w-100 mt-2'>
+                                                                                <button type='button ' disabled className='pickupBtn w-100 mt-2  justify-content-center'>
                                                                                     Rejected
                                                                                 </button> :
                                                                                 singleOrderData?.status === 9 ?
-                                                                                    <button type='button ' disabled className='pickupBtn w-100 mt-2'>
+                                                                                    <button type='button ' disabled className='pickupBtn w-100 mt-2 justify-content-center'>
                                                                                         Returned
                                                                                     </button>
                                                                                     : <></>
