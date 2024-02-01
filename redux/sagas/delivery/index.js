@@ -87,6 +87,7 @@ function* getOrderStat(action) {
 }
 
 function* getOrdersList(action) {
+  yield put(getOrdersList());
   const dataToSend = { ...action.payload };
   delete dataToSend.cb;
   const params = new URLSearchParams(dataToSend).toString();
