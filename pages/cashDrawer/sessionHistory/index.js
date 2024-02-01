@@ -210,9 +210,9 @@ const SessionHistory = () => {
           ))}
         </tbody>
       </table>
-      <div className="paginatePosition">
+      {/* <div className="paginatePosition">
         <PaginationFooter />
-      </div>
+      </div> */}
     </div>
   );
 };
