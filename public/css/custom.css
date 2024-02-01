@@ -793,7 +793,10 @@ input:checked+.switch-slider:before {
 .checkSky .appointSub {
   color: #47B0D6;
 }
-
+.paginateTop{
+  flex-wrap: wrap;
+  gap: 10px;
+}
 /*customer css end*/
 
 /*notification css start*/
@@ -835,3 +838,15 @@ input:checked+.switch-slider:before {
 }
 
 /*notification css end*/
+/*auth css start*/
+.loginScroll {
+  height: calc(100vh - 192px);
+  overflow-y: scroll;
+  padding-bottom: 24px;
+}
+
+.loginScroll::-webkit-scrollbar {
+  display: none;
+}
+
+/*auth css end*/

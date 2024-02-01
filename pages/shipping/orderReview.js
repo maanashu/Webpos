@@ -547,11 +547,11 @@ const OrderReview = () => {
                                                                                 {singleOrderData?.is_returned_order ? "Refunded" : "Cancelled"}
                                                                             </button> :
                                                                             singleOrderData?.status === 8 ?
-                                                                                <button type='button ' disabled className='pickupBtn w-100 mt-2'>
+                                                                                <button type='button ' disabled className='pickupBtn w-100 mt-2  justify-content-center'>
                                                                                     Rejected
                                                                                 </button> :
                                                                                 singleOrderData?.status === 9 ?
-                                                                                    <button type='button ' disabled className='pickupBtn w-100 mt-2'>
+                                                                                    <button type='button ' disabled className='pickupBtn w-100 mt-2 justify-content-center'>
                                                                                         Returned
                                                                                     </button>
                                                                                     : <></>
