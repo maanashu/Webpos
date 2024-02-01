@@ -14,7 +14,6 @@ const PolicyInfo = ({ policyInfo,handleTouch }) => {
     // };
     return (
         <>
-            <div className='settingMain'>
                     {/* <div className='col-lg-3'></div> */}
                     <div className='col-lg-12'>
                         <div className='refundRight settingOuter'>
@@ -28,7 +27,6 @@ const PolicyInfo = ({ policyInfo,handleTouch }) => {
                             </div>
                         </div>
                     </div>
-                </div>
         </>
     )
 }

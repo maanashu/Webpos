@@ -43,7 +43,8 @@ export default function Layout({ children, isLoggedIn, userType }) {
     '/transactions',
     '/transactions/transactionList',
     '/transactions/transactionList/invoice',
-    '/settings/plans/planFit'
+    '/settings/plans/planFit',
+    "/transactions/notification"
 
   ];
 

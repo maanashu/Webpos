@@ -1,12 +1,38 @@
 import React, { useEffect, useState } from 'react'
 import * as Images from "../utilities/images";
 import Image from "next/image";
-import { useSelector } from 'react-redux';
-import { selectLoginAuth } from '../redux/slices/auth';
+import moment from 'moment-timezone';
+import { useRouter } from "next/router";
+import { toast } from "react-toastify";
 
 const Navbar = () => {
-  const authData = useSelector(selectLoginAuth)
+  const router = useRouter();
   const [token, setToken] = useState('')
+  const [currentTime, setCurrentTime] = useState(moment());
+
+
+
+  const isDaytime = () => {
+    const currentHour = currentTime.hour();
+    return currentHour >= 6 && currentHour < 18;
+  };
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentTime(moment());
+    }, 1000);
+
+    return () => clearInterval(interval);
+  }, []);
+
+
+
+  const merchantLogout = async (e) => {
+    e.preventDefault();
+    toast.success("Logout successfully");
+    router.push("/auth/verification");
+    localStorage.clear()
+  };
+
   // const token = authData?.posUserLoginDetails?.payload?.token
   useEffect(() => {
     if (typeof window !== 'undefined') {
@@ -23,20 +49,26 @@ const Navbar = () => {
             <div className='col-lg-6 col-md-6 leftMainHeader'>
               <div className='leftHeader'>
                 <div className='timeNav'>
-                  <Image src={Images.SunImg} alt="image" className="img-fluid" />
-                  <h4 className='timeHeading'>12:24 pm</h4>
+                  {isDaytime() ? (
+                    <Image src={Images.SunImg} alt="image" className="img-fluid" />
+                  ) : (
+                    <i class="fa-solid fa-moon"></i>
+                  )}
+
+                  <h4 className='timeHeading'>{moment().format('hh:mm a')}</h4>
                 </div>
-                <h4 className='timeHeading '>Thursday, 12th October 2023</h4>
+                <h4 className='timeHeading '>{moment().format('dddd') + ', ' + moment().format('LL')}</h4>
               </div>
             </div>
             <div className='col-lg-6 col-md-6 '>
               <div className='rightMainHeader'>
                 <div className='rightheader'>
-                  <h4 className='timeHeading'>POS Ni. <span>#Front-CC01</span></h4>
+                  {/* <h4 className='timeHeading'>POS Ni. <span>#Front-CC01</span></h4> */}
                   <button className='navBtn'>Walk-in</button>
-                  {/* <button className='sideMini' type="button" onClick={() => {localStorage.setItem("sidebarShow", !showSidebar); setShowSidebar(prev => !prev)}}>
-                  <Image src={Images.darkPlus} alt="image" className="img-fluid" />
-                  </button> */}
+                  {router?.pathname == "/auth/login" ?
+                    <button type="button" className='navBtn' onClick={(e) => merchantLogout(e)}>Logout</button>
+                    : ""
+                  }
                 </div>
               </div>
             </div>

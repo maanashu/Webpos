@@ -9,8 +9,10 @@ import { useDispatch, useSelector } from 'react-redux';
 import { selectLoginAuth } from '../../../redux/slices/auth';
 import AnalyticsRightsidebar from '../../../components/commanComonets/analytics/analyticsRightsidebar';
 import { PaginationFooter } from '../../../components/commanComonets/customers/PaginationFooter';
+import { useRouter } from 'next/router';
 
 const index = () => {
+  const router = useRouter()
   const [timeSpan, setTimeSpan] = useState("week");
   const [channelSelected, setChannelSelected] = useState({ value: 'all', label: 'All Channels' })
   const [startDate, setStartDate] = useState(null);
@@ -92,6 +94,17 @@ const index = () => {
       },
     })
     );
+  };
+
+  const handleGoReviewPage = (orderDate) => {
+    // return
+    router.push({
+      pathname: "/transactions/transactionList",
+      query: {
+        transaction_type: "all",
+        date: orderDate,
+      },
+    });
   };
 
   useEffect(() => {
@@ -234,7 +247,9 @@ const index = () => {
                               <td
                                 className="customers-table-data"
                               >
-                                <button className="secondaryOuterbtn_" type="button">Review</button>
+                                <button className="secondaryOuterbtn_" type="button" onClick={() =>
+                                  handleGoReviewPage(row?.order_date)
+                                }>Review</button>
                               </td>
                             </tr>
                           ))}
@@ -256,9 +271,9 @@ const index = () => {
           </table>
         </div>
       </div>
-      <div className="paginatePosition">
+      {/* <div className="paginatePosition">
         <PaginationFooter />
-      </div>
+      </div> */}
       <AnalyticsRightsidebar />
     </div>
   )

@@ -64,92 +64,95 @@ const StaffList = ({ handleTouch }) => {
   return (
     <>
       <div className="staffRight settingOuter">
-        <Image
-          src={Images.customerUsers}
-          alt="customerUsers image"
-          className="img-fluid"
-        />
-        <div className="staffData">
-          <h4 className="appointMain">Staff List</h4>
-          <p className="lightOfferText mt-2">
-            Active in the markets they've been added to and visible to
-            customers.
-          </p>
-          <div className="staffListData">
-            {authData?.loading ? (
-              <>
-                <div className="loaderOuter">
-                  <div className="spinner-grow loaderSpinner text-center my-5"></div>
-                </div>
-              </>
-            ) : getAllStaffList?.length > 0 ? (
-              <>
-                {getAllStaffList?.map((data, index) => {
-                  return (
-                    <div className="staffListSub" key={index}>
-                      <div className="staffUser">
-                        <Image
-                          src={
-                            data?.user?.user_profiles?.profile_photo
-                              ? data?.user?.user_profiles?.profile_photo
-                              : Images.LoginFirst
-                          }
-                          alt="staffUser image"
-                          className="staffUserImg"
-                          height={100}
-                          width={100}
-                        />
-                        <div className="staffUserSub">
-                          <h4 className="cancelOrderText">
-                            {data?.user?.user_profiles?.firstname}{" "}
-                            {data?.user?.user_profiles?.lastname}
-                          </h4>
-                          {data?.user?.user_roles.length > 0 ? (
-                            data?.user?.user_roles?.map((data, index) => {
-                              return (
-                                <h4
-                                  className="loginSub text-start mt-1"
-                                  key={index}
-                                >
-                                  {data?.role?.name}
-                                </h4>
-                              );
-                            })
-                          ) : (
-                            <h4 className="loginSub mt-3">Admin / Manager</h4>
-                          )}
-                        </div>
-                      </div>
+        <div className="topsettingContent_">
+          <Image
+            src={Images.customerUsers}
+            alt="customerUsers image"
+            className="img-fluid me-3"
+          />
+          <div className="staffData">
+            <h4 className="appointMain">Staff List</h4>
+            <p className="lightOfferText mt-2">
+              Active in the markets they've been added to and visible to
+              customers.
+            </p>
+          </div>
+        </div>
+
+        <div className="staffListData bottonContent_">
+          {authData?.loading ? (
+            <>
+              <div className="loaderOuter">
+                <div className="spinner-grow loaderSpinner text-center my-5"></div>
+              </div>
+            </>
+          ) : getAllStaffList?.length > 0 ? (
+            <>
+              {getAllStaffList?.map((data, index) => {
+                return (
+                  <div className="staffListSub" key={index}>
+                    <div className="staffUser">
                       <Image
-                        src={Images.RightArrow}
-                        alt="RightArrow image"
-                        className="staffArrow pointHand"
-                        hight={100}
+                        src={
+                          data?.user?.user_profiles?.profile_photo
+                            ? data?.user?.user_profiles?.profile_photo
+                            : Images.LoginFirst
+                        }
+                        alt="staffUser image"
+                        className="staffUserImg"
+                        height={100}
                         width={100}
-                        onClick={() => handleTouch("staffDetail", data?.id)}
                       />
+                      <div className="staffUserSub">
+                        <h4 className="cancelOrderText">
+                          {data?.user?.user_profiles?.firstname}{" "}
+                          {data?.user?.user_profiles?.lastname}
+                        </h4>
+                        {data?.user?.user_roles.length > 0 ? (
+                          data?.user?.user_roles?.map((data, index) => {
+                            return (
+                              <h4
+                                className="loginSub text-start mt-1"
+                                key={index}
+                              >
+                                {data?.role?.name}
+                              </h4>
+                            );
+                          })
+                        ) : (
+                          <h4 className="loginSub mt-3">Admin / Manager</h4>
+                        )}
+                      </div>
                     </div>
-                  );
-                })}
-              </>
-            ) : (
-              <h2 className="text-center my-5">No Staff Found</h2>
-            )}
-            <div
-              className="addStaff"
-              onClick={() => {
-                handleOpneModal("addStaff");
-              }}
-            >
-              <Image
-                src={Images.addDark}
-                alt="addDark image"
-                className="staffUserImg"
-                hight={100}
-                width={100}
-              />
-              <h4 className="cancelOrderText">Add Staff</h4>
-            </div>
+                    <Image
+                      src={Images.RightArrow}
+                      alt="RightArrow image"
+                      className="staffArrow pointHand"
+                      hight={100}
+                      width={100}
+                      onClick={() => handleTouch("staffDetail", data?.id)}
+                    />
+                  </div>
+                );
+              })}
+            </>
+          ) : (
+            <h2 className="text-center my-5">No Staff Found</h2>
+          )}
+          <div
+            className="addStaff"
+            onClick={() => {
+              handleOpneModal("addStaff");
+            }}
+          >
+            <Image
+              src={Images.addDark}
+              alt="addDark image"
+              className="staffUserImg"
+              hight={100}
+              width={100}
+            />
+            <h4 className="cancelOrderText">Add Staff</h4>
           </div>
         </div>
       </div>

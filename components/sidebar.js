@@ -31,7 +31,7 @@ const Sidebar = (props) => {
     localStorage.removeItem("persist:root");
   };
 
-  const isLinkActive = (href) => {
+  const isLinkActive = (href) => {Sidebar
     console.log(href, "hrefhref");
     return router.pathname === href;
   };
@@ -52,7 +52,7 @@ const Sidebar = (props) => {
           onClick={() => router.push("/home/overview")}
         />
         <Image src={Images.Logo} alt="image" className="img-fluid Logo" />
-        <div
+        {/* <div
           onClick={() => setActiveSidebar((prev) => !prev)}
           className="ToggleIcon"
         >
@@ -61,7 +61,7 @@ const Sidebar = (props) => {
             alt="image"
             className="img-fluid sideToggle"
           />
-        </div>
+        </div> */}
       </div>
       <div className="sidebarInnerIcon">
         <div className="userDetails mb-2">
@@ -276,7 +276,7 @@ const Sidebar = (props) => {
                 <span className="sidebarTxt">Customer</span>
               </Link>
             </ListGroupItem>
-            <ListGroupItem className="sidebarItems">
+            {/* <ListGroupItem className="sidebarItems">
               <Link
                 href="#"
                 className={`sidebarLinks ${isLinkActive("") ? "active" : ""}`}
@@ -293,7 +293,7 @@ const Sidebar = (props) => {
                 />
                 <span className="sidebarTxt">Rewards</span>
               </Link>
-            </ListGroupItem>
+            </ListGroupItem> */}
             <ListGroupItem className="sidebarItems">
               <Link
                 href="/settings"

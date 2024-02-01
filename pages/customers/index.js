@@ -76,7 +76,7 @@ const Customers = () => {
   ChartJS.register(...registerables);
 
   return (
-    <div className="main-container-customers fullheightBox_">
+    <div className="main-container-customers fullheightBox_ customerSection">
       {/* headers */}
       <TCRHeader
         timeSpan={timeSpan}
@@ -114,27 +114,27 @@ const Customers = () => {
 
       {/* stats on chart */}
       <div>
-        <div style={{ margin: "12px 16px" }} className="flex-row-space-between">
-          <div
-            style={{ gap: "10px", alignItems: "center" }}
-            className="flex-row-space-between"
-          >
-            <p className="chart-header-title">Total Customers</p>
-            <p className="chart-header-count">
-              {totalCustomers?.totalCustomer}
-            </p>
-            <div className="chart-header-btn">
-              <Link
-                href={{
-                  pathname: "customers/users",
-                  query: { "time-span": timeSpan },
-                }}
-              >
-                <p className="chart-header-btn-text">View All</p>
-              </Link>
+        <div style={{ margin: "12px 16px" }} className="row">
+          <div className="col-lg-6">
+            <div className="customerGraphLeft" >
+              <p className="chart-header-title">Total Customers</p>
+              <p className="chart-header-count">
+                {totalCustomers?.totalCustomer}
+              </p>
+              <div className="chart-header-btn">
+                <Link
+                  href={{
+                    pathname: "customers/users",
+                    query: { "time-span": timeSpan },
+                  }}
+                >
+                  <p className="chart-header-btn-text">View All</p>
+                </Link>
+              </div>
             </div>
           </div>
-          <div style={{ gap: "24px" }} className="flex-row-space-between">
+          <div className="col-lg-6">
+            {/* <div style={{ gap: "24px" }} className="flex-row-space-between">
             {[
               {
                 textColor: "#F0C01A",
@@ -187,6 +187,30 @@ const Customers = () => {
                 </label>
               </div>
             ))}
+          </div> */}
+            <form className='deliverCheck'>
+              <div className="form-group checkBlue">
+                <input
+                  type="checkbox"
+                  id="Incoming Orders"
+                />
+                <label for="Incoming Orders" className='appointSub  m-0'>Incoming Orders</label>
+              </div>
+              <div className="form-group checkBlue checkGreen">
+                <input
+                  type="checkbox"
+                  id="Delivery Orders"
+                />
+                <label for="Delivery Orders" className='appointSub  m-0'>Delivery Orders</label>
+              </div>
+              <div className="form-group checkBlue checkSky">
+                <input
+                  type="checkbox"
+                  id="Returned Orders"
+                />
+                <label for="Returned Orders" className='appointSub  m-0'>Returned Orders</label>
+              </div>
+            </form>
           </div>
         </div>
 

@@ -11,6 +11,39 @@ import { getStartEndFormattedDate, pSBC } from "../utilities/globalMethods";
 import { CALENDAR_MODES, CALENDAR_VIEW_MODES } from "../constants/enums";
 import { Spacer } from "./Spacer";
 
+
+const styles = StyleSheet.create({
+  profilePicContainer: {
+    height: 12,
+    width: 12,
+    borderRadius: 6,
+    borderWidth: 1,
+    borderColor: `#A179F2`,
+    alignItems: "center",
+    justifyContent: "center",
+    overflow: "hidden",
+  },
+  eventProfilePic: { height: 12, width: 12, resizeMode: "cover" },
+  startEndDate: {
+    color: "#14171A",
+    // fontFamily: Fonts.SemiBold,
+    fontSize: 10,
+  },
+  eventTitle: {
+    color: "#3C444D",
+    // fontFamily: Fonts.Regular,
+    fontSize: 6,
+  },
+  eventContainer: {
+    backgroundColor: "white",
+    elevation: 0,
+    borderWidth: 0.5,
+    borderStyle: "solid",
+    borderRadius: 4,
+    padding: 2,
+  },
+});
+
 const CustomEventCell = (
   event,
   touchableOpacityProps,
@@ -138,35 +171,3 @@ const CustomEventCell = (
   );
 };
 export default CustomEventCell;
-
-const styles = StyleSheet.create({
-  profilePicContainer: {
-    height: 12,
-    width: 12,
-    borderRadius: 6,
-    borderWidth: 1,
-    borderColor: `#A179F2`,
-    alignItems: "center",
-    justifyContent: "center",
-    overflow: "hidden",
-  },
-  eventProfilePic: { height: 12, width: 12, resizeMode: "cover" },
-  startEndDate: {
-    color: "#14171A",
-    // fontFamily: Fonts.SemiBold,
-    fontSize: 10,
-  },
-  eventTitle: {
-    color: "#3C444D",
-    // fontFamily: Fonts.Regular,
-    fontSize: 6,
-  },
-  eventContainer: {
-    backgroundColor: "white",
-    elevation: 0,
-    borderWidth: 0.5,
-    borderStyle: "solid",
-    borderRadius: 4,
-    padding: 2,
-  },
-});
