@@ -238,6 +238,7 @@ const DeliverDashboard = () => {
 
   return (
     <>
+      <Suspense fallback={<p>Loading feed...</p>}></Suspense>
       <div className="deliverySection ">
         <div className="deliverMain w-100">
           <div className="row ">
@@ -331,7 +332,7 @@ const DeliverDashboard = () => {
                         <h4 className="amountText ms-0">Customer Pickups</h4>
                         <h4 className="providerSubText text-start mt-2">
                           {currentOrderCount?.length > 0
-                            ? currentOrderCount?.[2]?.count
+                            ? currentOrderCount?.[3]?.count
                             : 0}
                         </h4>
                       </div>

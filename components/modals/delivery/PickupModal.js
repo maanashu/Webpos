@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import * as Images from "../../../utilities/images";
 import Image from "next/image";
 import OTPInput from "react-otp-input";
@@ -15,6 +15,7 @@ const PickupModal = ({ orderData, cancelHandler, confirmHandler }) => {
   const router = useRouter();
   const dispatch = useDispatch();
   const [securityPin, setSecurityPin] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
 
   const generateRandomName = () => {
     return Math.random().toString(36).substr(2, 10);
@@ -50,6 +51,7 @@ const PickupModal = ({ orderData, cancelHandler, confirmHandler }) => {
       }
       return;
     }
+    setIsLoading(true);
     let params = {
       order_id: orderData?.id,
       otp: securityPin,
@@ -58,7 +60,7 @@ const PickupModal = ({ orderData, cancelHandler, confirmHandler }) => {
       verifyPickupOtp({
         ...params,
         cb(res) {
-          console.log("res", JSON.stringify(res));
+          setIsLoading(false);
           if (res?.status) {
             setSecurityPin("");
             confirmHandler();
@@ -67,6 +69,13 @@ const PickupModal = ({ orderData, cancelHandler, confirmHandler }) => {
       })
     );
   };
+  useEffect(() => {
+    const timeoutId = setTimeout(() => {
+      setIsLoading(false);
+    }, 500);
+
+    return () => clearTimeout(timeoutId);
+  }, []);
 
   return (
     <>
@@ -114,7 +123,7 @@ const PickupModal = ({ orderData, cancelHandler, confirmHandler }) => {
             {/* <Link href="#" className='verifyTime w-100'>29s to resend code</Link> */}
             {/* <Link href="#" className='verifyTime w-100'>Resend</Link> */}
 
-            {authData.loading ? (
+            {isLoading ? (
               <button className="nextverifyBtn w-100" type="button" disabled>
                 <span className="spinner-border spinner-border-sm"></span>
               </button>
