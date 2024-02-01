@@ -793,10 +793,12 @@ input:checked+.switch-slider:before {
 .checkSky .appointSub {
   color: #47B0D6;
 }
-.paginateTop{
+
+.paginateTop {
   flex-wrap: wrap;
   gap: 10px;
 }
+
 /*customer css end*/
 
 /*notification css start*/
@@ -850,3 +852,21 @@ input:checked+.switch-slider:before {
 }
 
 /*auth css end*/
+/*ship module css start */
+#ordersToReview .invoice_subhead:nth-child(2) {
+  min-width: 165px;
+}
+
+#ordersToReview .invoice_subhead:nth-child(3) {
+  min-width: 135px;
+}
+
+#ordersToReview .invoice_subhead:nth-child(4) {
+  min-width: 225px;
+}
+
+.productDataInfo {
+  min-width: 230px;
+}
+
+/*ship module css end*/

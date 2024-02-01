@@ -106,7 +106,7 @@ const Users = () => {
       />
 
       {/*  TABS*/}
-      <div className="users-tabs flex-row-space-between">
+      <div className="users-tabs flex-row-space-between paginateTop">
         {TABS.map(({ text, count, type }, idx) => (
           <div
             key={idx + "tabs"}
