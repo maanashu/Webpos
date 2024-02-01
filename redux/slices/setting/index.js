@@ -4,6 +4,8 @@ const initialState = {
   loading: false,
   getSettings: {},
   plansData: [],
+  walletInfo: [],
+  success: false,
 };
 
 export const settingSlice = createSlice({
@@ -74,9 +76,11 @@ export const settingSlice = createSlice({
     // start staff slices..........................................
     addNewStaff: (state) => {
       state.loading = true;
+      state.success = false;
     },
     setaddNewStaff: (state, action) => {
       state.loading = false;
+      state.success = true;
     },
     getStaffDetails: (state) => {
       state.loading = true;
@@ -96,6 +100,7 @@ export const settingSlice = createSlice({
     setUpdateSettings: (state, action) => {
       state.loading = false;
       state.getSettings = action?.payload;
+      state.walletInfo = action?.payload;
     },
     // end staff slices////////////////////////////////////////////
 
