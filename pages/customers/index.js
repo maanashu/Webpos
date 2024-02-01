@@ -18,8 +18,14 @@ import {
   getAllCustomers,
   selectCustomersData,
 } from "../../redux/slices/customers";
+import CustomModal from "../../components/customModal/CustomModal";
+import CashSummary from "../../components/modals/cashDrawerModals/cashSummary";
+import * as Images from "../../utilities/images";
+import CustomerSearchModal from "../../components/modals/searchModal/customerSearchModal";
 
 const Customers = () => {
+  ChartJS.register(...registerables);
+
   const [timeSpan, setTimeSpan] = useState("week");
   const [selectedLines, setSelectedLines] = useState([1, 2, 3]);
 
@@ -63,6 +69,34 @@ const Customers = () => {
     },
   ];
 
+  const [key, setKey] = useState(Math.random());
+
+  const [modalDetail, setModalDetail] = useState({
+    show: false,
+    title: "Add Cash",
+    type: "add",
+    flag: "customerSearchModal",
+  });
+
+  const handleShowModal = (title, type) => {
+    setModalDetail({
+      show: true,
+      title: title,
+      type: type,
+      flag: "customerSearchModal",
+    });
+    setKey(Math.random());
+  };
+
+  const handleOnCloseModal = () => {
+    setModalDetail({
+      show: false,
+      title: "",
+      flag: "",
+    });
+    setKey(Math.random());
+  };
+
   useEffect(() => {
     if (uniqueId) {
       let params = {
@@ -73,68 +107,68 @@ const Customers = () => {
     }
   }, [uniqueId, timeSpan]);
 
-  ChartJS.register(...registerables);
-
   return (
-    <div className="main-container-customers fullheightBox_ customerSection">
-      {/* headers */}
-      <TCRHeader
-        timeSpan={timeSpan}
-        onTimeSpanSelect={setTimeSpan}
-        mainIcon={customerWallet}
-        title="Total Customers"
-      />
+    <>
+      <div className="main-container-customers fullheightBox_ customerSection">
+        {/* headers */}
+        <TCRHeader
+          timeSpan={timeSpan}
+          onTimeSpanSelect={setTimeSpan}
+          mainIcon={customerWallet}
+          title="Total Customers"
+          searchHandler={() => handleShowModal("End Cash", "remove")}
+        />
 
-      {/* stats */}
-      <div className="stats flex-row-space-between">
-        {STATS.map(({ bgColor, icon, title, count, textColor }, idx) => (
-          <div
-            key={idx + "stats"}
-            className="stat-box"
-            style={{ backgroundColor: bgColor }}
-          >
-            <Image
-              objectFit="center"
-              width={30}
-              height={30}
-              src={icon}
-              style={{ marginBottom: "35px" }}
-            />
-            <div>
-              <h4 className="stat-box-title" style={{ color: textColor }}>
-                {title}
-              </h4>
-              <p className="stat-box-count" style={{ color: textColor }}>
-                {count}
-              </p>
-            </div>
-          </div>
-        ))}
-      </div>
-
-      {/* stats on chart */}
-      <div>
-        <div style={{ margin: "12px 16px" }} className="row">
-          <div className="col-lg-6">
-            <div className="customerGraphLeft" >
-              <p className="chart-header-title">Total Customers</p>
-              <p className="chart-header-count">
-                {totalCustomers?.totalCustomer}
-              </p>
-              <div className="chart-header-btn">
-                <Link
-                  href={{
-                    pathname: "customers/users",
-                    query: { "time-span": timeSpan },
-                  }}
-                >
-                  <p className="chart-header-btn-text">View All</p>
-                </Link>
+        {/* stats */}
+        <div className="stats flex-row-space-between">
+          {STATS.map(({ bgColor, icon, title, count, textColor }, idx) => (
+            <div
+              key={idx + "stats"}
+              className="stat-box"
+              style={{ backgroundColor: bgColor }}
+            >
+              <Image
+                objectFit="center"
+                width={30}
+                height={30}
+                src={icon}
+                style={{ marginBottom: "35px" }}
+              />
+              <div>
+                <h4 className="stat-box-title" style={{ color: textColor }}>
+                  {title}
+                </h4>
+                <p className="stat-box-count" style={{ color: textColor }}>
+                  {count}
+                </p>
               </div>
             </div>
-          </div>
-          <div className="col-lg-6">
-            {/* <div style={{ gap: "24px" }} className="flex-row-space-between">
+          ))}
+        </div>
+
+        {/* stats on chart */}
+        <div>
+          <div style={{ margin: "12px 16px" }} className="row">
+            <div className="col-lg-6">
+              <div className="customerGraphLeft">
+                <p className="chart-header-title">Total Customers</p>
+                <p className="chart-header-count">
+                  {totalCustomers?.totalCustomer}
+                </p>
+                <div className="chart-header-btn">
+                  <Link
+                    href={{
+                      pathname: "customers/users",
+                      query: { "time-span": timeSpan },
+                    }}
+                  >
+                    <p className="chart-header-btn-text">View All</p>
+                  </Link>
+                </div>
+              </div>
+            </div>
+            <div className="col-lg-6">
+              {/* <div style={{ gap: "24px" }} className="flex-row-space-between">
             {[
               {
                 textColor: "#F0C01A",
@@ -188,104 +222,144 @@ const Customers = () => {
               </div>
             ))}
           </div> */}
-            <form className='deliverCheck'>
-              <div className="form-group checkBlue">
-                <input
-                  type="checkbox"
-                  id="Incoming Orders"
-                />
-                <label for="Incoming Orders" className='appointSub  m-0'>Incoming Orders</label>
-              </div>
-              <div className="form-group checkBlue checkGreen">
-                <input
-                  type="checkbox"
-                  id="Delivery Orders"
-                />
-                <label for="Delivery Orders" className='appointSub  m-0'>Delivery Orders</label>
-              </div>
-              <div className="form-group checkBlue checkSky">
-                <input
-                  type="checkbox"
-                  id="Returned Orders"
-                />
-                <label for="Returned Orders" className='appointSub  m-0'>Returned Orders</label>
-              </div>
-            </form>
+              <form className="deliverCheck">
+                <div className="form-group checkBlue">
+                  <input type="checkbox" id="Incoming Orders" />
+                  <label for="Incoming Orders" className="appointSub  m-0">
+                    Incoming Orders
+                  </label>
+                </div>
+                <div className="form-group checkBlue checkGreen">
+                  <input type="checkbox" id="Delivery Orders" />
+                  <label for="Delivery Orders" className="appointSub  m-0">
+                    Delivery Orders
+                  </label>
+                </div>
+                <div className="form-group checkBlue checkSky">
+                  <input type="checkbox" id="Returned Orders" />
+                  <label for="Returned Orders" className="appointSub  m-0">
+                    Returned Orders
+                  </label>
+                </div>
+              </form>
+            </div>
+          </div>
+
+          <div style={{ margin: "0px 16px", padding: "12px 0" }}>
+            {graphData?.datasets && (
+              <Line
+                datasetIdKey="id"
+                options={{
+                  scales: {
+                    y: {
+                      title: {
+                        display: true,
+                        text: "Customer Numbers",
+                        color: "#7E8AC1",
+                      },
+                      border: {
+                        dash: [2, 2],
+                        display: false,
+                        color: "rgba(180, 190, 235, 1)",
+                      }, // for the grid lines
+                      beginAtZero: true,
+                      ticks: {
+                        color: "#7E8AC1",
+                        callback: (value) => `${(value * 10).toFixed()}%`,
+                      },
+                    },
+                    x: {
+                      grid: {
+                        display: false,
+                      },
+                      border: {
+                        display: false,
+                      },
+                      ticks: {
+                        color: "#7E8AC1",
+                      },
+                    },
+                  },
+                  plugins: {
+                    legend: {
+                      display: false,
+                    },
+                  },
+                }}
+                data={{
+                  labels: [...graphData?.labels] || [],
+                  datasets: [
+                    {
+                      color: "#F0C01A",
+                      data: [...graphData?.datasets?.[0]?.data],
+                    },
+                    {
+                      color: "#12B76A",
+                      data: [...graphData?.datasets?.[1]?.data],
+                    },
+                    {
+                      color: "#47B0D6",
+                      data: [...graphData?.datasets?.[2]?.data],
+                    },
+                  ]
+                    .map((el) => ({
+                      id: 1,
+                      data: el.data,
+                      borderColor: el.color,
+                      borderWidth: 2,
+                      pointRadius: 0,
+                      lineTension: 0.3,
+                    }))
+                    .filter((el, idx) => selectedLines.includes(idx + 1)),
+                }}
+              />
+            )}
           </div>
         </div>
-
-        <div style={{ margin: "0px 16px", padding: "12px 0" }}>
-          {graphData?.datasets && (
-            <Line
-              datasetIdKey="id"
-              options={{
-                scales: {
-                  y: {
-                    title: {
-                      display: true,
-                      text: "Customer Numbers",
-                      color: "#7E8AC1",
-                    },
-                    border: {
-                      dash: [2, 2],
-                      display: false,
-                      color: "rgba(180, 190, 235, 1)",
-                    }, // for the grid lines
-                    beginAtZero: true,
-                    ticks: {
-                      color: "#7E8AC1",
-                      callback: (value) => `${(value * 10).toFixed()}%`,
-                    },
-                  },
-                  x: {
-                    grid: {
-                      display: false,
-                    },
-                    border: {
-                      display: false,
-                    },
-                    ticks: {
-                      color: "#7E8AC1",
-                    },
-                  },
-                },
-                plugins: {
-                  legend: {
-                    display: false,
-                  },
-                },
-              }}
-              data={{
-                labels: [...graphData?.labels] || [],
-                datasets: [
-                  {
-                    color: "#F0C01A",
-                    data: [...graphData?.datasets?.[0]?.data],
-                  },
-                  {
-                    color: "#12B76A",
-                    data: [...graphData?.datasets?.[1]?.data],
-                  },
-                  {
-                    color: "#47B0D6",
-                    data: [...graphData?.datasets?.[2]?.data],
-                  },
-                ]
-                  .map((el) => ({
-                    id: 1,
-                    data: el.data,
-                    borderColor: el.color,
-                    borderWidth: 2,
-                    pointRadius: 0,
-                    lineTension: 0.3,
-                  }))
-                  .filter((el, idx) => selectedLines.includes(idx + 1)),
-              }}
-            />
-          )}
-        </div>
       </div>
-    </div>
+
+      <CustomModal
+        key={key}
+        show={modalDetail.show}
+        backdrop="static"
+        showCloseBtn={false}
+        isRightSideModal={true}
+        mediumWidth={false}
+        ids={
+          modalDetail.flag === "customerSearchModal"
+            ? "customerSearchModal"
+            : ""
+        }
+        child={
+          modalDetail.flag === "customerSearchModal" ? (
+            <CustomerSearchModal
+              title={modalDetail.title}
+              modalType={modalDetail.type}
+              close={() => handleOnCloseModal()}
+              time={timeSpan}
+            />
+          ) : (
+            ""
+          )
+        }
+        header={
+          modalDetail.flag === "customerSearchModal" ? (
+            <>
+              <p onClick={handleOnCloseModal} className="modal_cancel">
+                <Image
+                  src={Images.modalCross}
+                  alt="modalCross"
+                  className="img-fluid"
+                />
+              </p>
+            </>
+          ) : (
+            ""
+          )
+        }
+        onCloseModal={() => handleOnCloseModal()}
+      />
+    </>
   );
 };
 

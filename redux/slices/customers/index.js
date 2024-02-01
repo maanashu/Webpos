@@ -3,6 +3,7 @@ import { createSlice } from "@reduxjs/toolkit";
 const initialState = {
   allCustomersData: {},
   allCustomersList: {},
+  searchCustomerList: {},
   sellerAreaList: {},
   userDetailsAndOrder: {},
   userMarketingStatus: { userId: null, status: false },
@@ -26,6 +27,10 @@ export const customersSlice = createSlice({
     setAllCustomersList: (state, action) => {
       state.loading = false;
       state.allCustomersList = action?.payload;
+    },
+    setSearchedCustomerList: (state, action) => {
+      state.loading = false;
+      state.searchCustomerList = action?.payload;
     },
     getSellerAreaList: (state) => {
       state.loading = true;
@@ -67,6 +72,7 @@ export const {
   setUserDetailsAndOrders,
   getUserMarketingStatus,
   setUserMarketingStatus,
+  setSearchedCustomerList,
 } = customersSlice.actions;
 
 export const selectCustomersData = (state) => state.customers;
