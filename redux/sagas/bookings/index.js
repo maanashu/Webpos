@@ -37,6 +37,7 @@ function* getAppointments(action) {
       `${ORDER_API_URL}/api/v1/appointments?${params}`
     );
 
+    // console.log("BOOKINGS----" + JSON.stringify(resp));
     if (resp.status) {
       yield put(setGetAppointments(resp.data));
       yield call(action.payload.cb, (action.res = resp));

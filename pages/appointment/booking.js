@@ -35,7 +35,10 @@ import {
   getStaffUsers,
 } from "../../redux/slices/bookings";
 import { selectLoginAuth } from "../../redux/slices/auth";
-import { calculateTimeDuration } from "../../utilities/globalMethods";
+import {
+  calculateTimeDuration,
+  getCalendarActionButtonTitle,
+} from "../../utilities/globalMethods";
 
 const Booking = () => {
   const [key, setKey] = useState(Math.random());
@@ -46,6 +49,8 @@ const Booking = () => {
     flag: "",
   });
   const dispatch = useDispatch();
+  const [searchedAppointments, setSearchedAppointments] = useState([]);
+  const [searchedText, setSearchedText] = useState("");
   const [week, setWeek] = useState(true);
   const [month, setMonth] = useState(false);
   const [day, setDay] = useState(false);
@@ -126,7 +131,7 @@ const Booking = () => {
   useEffect(() => {
     getAllBookings();
     getCurrentMonthDays();
-  }, [pageNumber, showRequestsView, calendarDate]);
+  }, [pageNumber, calendarDate]);
 
   const getAllBookings = () => {
     let params = {
@@ -162,6 +167,21 @@ const Booking = () => {
         },
       })
     );
+  };
+
+  const onSearchAppoinment = (searchText) => {
+    if (searchText != "") {
+      setSearchedAppointments([]);
+    }
+    const callback = (searchData) => {
+      if (searchData === null) {
+        setSearchedAppointments([]);
+      } else {
+        setSearchedAppointments(searchData?.data);
+      }
+      setIsLoadingSearchAppoinment(false);
+    };
+    // dispatch(searchAppointments(pageNumber, searchText, callback));
   };
 
   const getAppointmentsForSelectedStaff = () => {
@@ -427,7 +447,7 @@ const Booking = () => {
                 appointmentID,
                 APPOINTMENT_STATUS.REJECTED_BY_SELLER
               );
-              // onSearchAppoinment(searchedText);
+              onSearchAppoinment(searchedText);
             }}
           >
             Decline
@@ -441,7 +461,7 @@ const Booking = () => {
                 appointmentID,
                 APPOINTMENT_STATUS.ACCEPTED_BY_SELLER
               );
-              // onSearchAppoinment(searchedText);
+              onSearchAppoinment(searchedText);
             }}
           >
             Accept
@@ -478,26 +498,33 @@ const Booking = () => {
       ),
       [APPOINTMENT_STATUS.CHECKED_IN]: (
         <button
-          className="nextverifyBtn w-100 mt-3"
+          className="greyBtn w-100"
           type="submit"
-          // onClick={() => onPressMarkComplete(item)}
+          onClick={() => {
+            updateBookingStatus(appointmentID, APPOINTMENT_STATUS.COMPLETED);
+          }}
         >
-          {/* {getCalendarActionButtonTitle(item?.status)} */}
+          {getCalendarActionButtonTitle(item?.status)}
         </button>
       ),
       [APPOINTMENT_STATUS.COMPLETED]: (
-        <button className="nextverifyBtn w-100 mt-3" type="submit">
+        <button className="greenBtn" type="submit">
           Completed
+          <Image
+            src={Images.complete}
+            alt="complete"
+            className="completeimg ml-6"
+          />
         </button>
       ),
       [APPOINTMENT_STATUS.CANCELLED_BY_CUSTOMER]: (
-        <button className="nextverifyBtn w-100 mt-3" type="submit">
-          {/* {getCalendarActionButtonTitle(item?.status)} */}
+        <button className="greyBtn w-100" type="submit">
+          {getCalendarActionButtonTitle(item?.status)}
         </button>
       ),
       [APPOINTMENT_STATUS.REJECTED_BY_SELLER]: (
-        <button className="nextverifyBtn w-100 mt-3" type="submit">
-          {/* {getCalendarActionButtonTitle(item?.status)} */}
+        <button className="greyBtn w-100" type="submit">
+          {getCalendarActionButtonTitle(item?.status)}
         </button>
       ),
     };
@@ -892,7 +919,7 @@ const Booking = () => {
 
           {/* Second Navbar */}
           <div className="row">
-            {appointmentsDetails?.loading && !getAppointmentList ? (
+            {appointmentsDetails?.loading ? (
               <>
                 <tbody>
                   <div className="loaderOuter">
@@ -1131,6 +1158,14 @@ const Booking = () => {
               bookingDetails={selectedBooking}
               close={() => handleOnCloseModal()}
               formattedTime={formattedTime}
+              onConfirmPress={() => {
+                handleOnCloseModal();
+                updateBookingStatus(
+                  selectedBooking?.id,
+                  APPOINTMENT_STATUS.CHECKED_IN
+                );
+                onSearchAppoinment(searchedText);
+              }}
             />
           ) : (
             ""

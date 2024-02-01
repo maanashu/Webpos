@@ -5,7 +5,12 @@ import CustomModal from "../../customModal/CustomModal";
 import CheckedInModal from "../../../components/modals/appointmentModal/checkedInModal";
 import moment from "moment-timezone";
 
-const CheckinModal = ({ bookingDetails, formattedTime }) => {
+const CheckinModal = ({
+  bookingDetails,
+  formattedTime,
+  close,
+  onConfirmPress,
+}) => {
   const [key, setKey] = useState(Math.random());
   const [modalDetail, setModalDetail] = useState({
     show: false,
@@ -47,8 +52,8 @@ const CheckinModal = ({ bookingDetails, formattedTime }) => {
               <figure className="">
                 <Image
                   src={
-                    bookingDetails?.pos_user_details?.user?.user_profiles
-                      ?.profile_photo ?? Images.userImages
+                    bookingDetails?.user_details?.profile_photo ??
+                    Images.userImages
                   }
                   width={70}
                   height={70}
@@ -58,7 +63,7 @@ const CheckinModal = ({ bookingDetails, formattedTime }) => {
               </figure>
               <div className="">
                 <span className="innerHeading">
-                  {`${bookingDetails?.pos_user_details?.user?.user_profiles?.firstname} ${bookingDetails?.pos_user_details?.user?.user_profiles?.lastname}`}
+                  {`${bookingDetails?.user_details?.firstname} ${bookingDetails?.user_details?.lastname}`}{" "}
                 </span>
                 <div className="">
                   <Image
@@ -67,11 +72,7 @@ const CheckinModal = ({ bookingDetails, formattedTime }) => {
                     className="locate me-2"
                   />
                   <span className="purpleText">
-                    {bookingDetails?.pos_user_details?.user?.user_profiles
-                      ?.current_address?.city +
-                      ", " +
-                      bookingDetails?.pos_user_details?.user?.user_profiles
-                        ?.current_address?.state}
+                    {`${bookingDetails?.user_details?.current_address?.city}, ${bookingDetails?.user_details?.current_address?.state}`}
                   </span>
                 </div>
               </div>
@@ -118,14 +119,15 @@ const CheckinModal = ({ bookingDetails, formattedTime }) => {
           </div>
         </div>
         <div className="CustomerBtn mt-4">
-          <button className="declineBtn" type="submit">
+          <button className="declineBtn" type="submit" onClick={() => close()}>
             Decline
           </button>
           <button
             className="confirmbtn"
             type="submit"
             onClick={() => {
-              handleUserProfile("checkedIn");
+              onConfirmPress();
+              //   handleUserProfile("checkedIn");
             }}
           >
             Confirm

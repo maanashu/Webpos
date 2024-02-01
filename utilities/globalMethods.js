@@ -280,3 +280,21 @@ export const pSBC = (p, c0, c1, l) => {
         .slice(1, f ? undefined : -2)
     );
 };
+
+export const getCalendarActionButtonTitle = (status) => {
+  switch (status) {
+    case 1:
+      return "Check-in";
+    case 2:
+      return "Mark Completed";
+    case 3:
+      return "Completed";
+    case 4:
+      return "Declined";
+    case 5:
+      return "Cancelled";
+
+    default:
+      return "Status unknown";
+  }
+};
