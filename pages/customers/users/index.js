@@ -106,7 +106,7 @@ const Users = () => {
       />
 
       {/*  TABS*/}
-      <div className="users-tabs flex-row-space-between">
+      <div className="users-tabs flex-row-space-between paginateTop">
         {TABS.map(({ text, count, type }, idx) => (
           <div
             key={idx + "tabs"}
@@ -218,7 +218,7 @@ const Users = () => {
                       width={12}
                       height={12}
                       src={OrderLocation}
-                    />{" "}
+                    />
                     <span className="user-stats-row-name-address">
                       {item?.user_details?.current_address?.custom_address}
                       {", "}

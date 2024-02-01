@@ -316,7 +316,7 @@ const index = () => {
           </table>
         </div>
         <div className="paginatePosition">
-          <PaginationFooter />
+          {/* <PaginationFooter /> */}
         </div>
       </div>
       <AnalyticsRightsidebar />

@@ -49,7 +49,7 @@ const ProductCart = () => {
   const onlyProductCartArray = cartData?.poscart_products?.filter(
     (item) => item?.product_type == "product"
   );
-  
+
   const cartLength = onlyProductCartArray?.length;
 
   const [modalDetail, setModalDetail] = useState({
@@ -70,7 +70,7 @@ const ProductCart = () => {
   const offers = () => {
     let params = {
       seller_id: sellerId,
-      type : 'product'
+      type: "product",
     };
     dispatch(
       availableOffers({
@@ -183,39 +183,99 @@ const ProductCart = () => {
 
       var totalOrderAmount =
         subTotalAmount - discountAmount + deliveryFee + taxesAndOtherCharges;
+      let amountObj = { ...cart.amount };
+      amountObj.tax = parseFloat(taxesAndOtherCharges); // Update tax value
+      amountObj.total_amount = totalOrderAmount;
+      amountObj.products_price = subTotalAmount;
+      cart.amount = amountObj;
+      // console.log("CART----", JSON.stringify(cart));
 
-      cart.amount.tax = parseFloat(taxesAndOtherCharges); // Update tax value
-      cart.amount.total_amount = totalOrderAmount;
-      cart.amount.products_price = subTotalAmount;
-
+      // return;
       var DATA = {
         payload: cart,
       };
       dispatch(setProductCart(DATA));
     }
   };
-
   const updateQuantity = (operation, index) => {
-    // var arr = retailData?.productCart;
-    // const product = arr?.poscart_products[index];
-    // const restProductQty = product?.product_details?.supply?.rest_quantity;
-    // if (operation == "+") {
-    //   if (restProductQty > product?.qty) {
-    //     product.qty += 1;
-    //     calculateOrderAmount(arr);
-    //   } else {
-    //     alert("There are no more quantity left to add");
-    //   }
-    // } else if (operation == "-") {
-    //   if (product.qty > 0) {
-    //     if (product.qty === 1) {
-    //       arr?.poscart_products.splice(index, 1);
-    //       // dispatch(updateCartLength(CART_LENGTH - 1));
-    //     }
-    //     product.qty -= 1;
-    //     calculateOrderAmount(arr);
-    //   }
-    // }
+    const updatedCart = { ...retailData?.productCart };
+    const updatedProducts = [...updatedCart?.poscart_products];
+
+    const product = { ...updatedProducts[index] };
+    const restProductQty = product?.product_details?.supply?.rest_quantity;
+    if (operation === "+") {
+      if (restProductQty > product?.qty) {
+        product.qty += 1;
+        updatedProducts[index] = product;
+        updatedCart.poscart_products = updatedProducts;
+        console.log("DATATA", JSON.stringify(updatedCart));
+        calculateOrderAmount(updatedCart);
+      } else {
+        alert("There are no more quantity left to add");
+      }
+    } else if (operation === "-") {
+      if (product.qty > 0) {
+        if (product.qty === 1) {
+          updatedProducts.splice(index, 1);
+        } else {
+          product.qty -= 1;
+          updatedProducts[index] = product;
+        }
+        updatedCart.poscart_products = updatedProducts;
+        calculateOrderAmount(updatedCart);
+      }
+    }
+  };
+  const removeOneCartHandler = (data, index) => {
+    const offeyKey = data?.product_details?.supply?.supply_offers;
+    const updatedCart = { ...retailData?.productCart };
+
+    if (updatedCart?.poscart_products?.length === 1 && index === 0) {
+      clearCartHandler();
+    } else {
+      const newCart = { ...updatedCart };
+
+      if (offeyKey?.length > 0) {
+        const product = newCart?.poscart_products[index];
+        const productPrice = getProductFinalPrice(data);
+
+        if (product.qty > 0) {
+          newCart.amount = { ...newCart.amount };
+          newCart.amount.total_amount -= productPrice;
+          newCart.amount.products_price -= productPrice;
+          newCart.poscart_products = [
+            ...newCart.poscart_products.slice(0, index),
+            ...newCart.poscart_products.slice(index + 1),
+          ];
+        }
+      } else {
+        const product = newCart?.poscart_products[index];
+        const productPrice =
+          product.product_details?.supply?.supply_prices?.selling_price;
+
+        if (product.qty > 0) {
+          newCart.amount = { ...newCart.amount };
+          newCart.amount.total_amount -= productPrice * product.qty;
+          newCart.amount.products_price -= productPrice * product.qty;
+          newCart.poscart_products = [
+            ...newCart.poscart_products.slice(0, index),
+            ...newCart.poscart_products.slice(index + 1),
+          ];
+        }
+      }
+
+      const totalAmount = newCart.amount.products_price;
+      const TAX = calculatePercentageValue(
+        totalAmount,
+        parseInt(newCart.amount.tax_percentage)
+      );
+      newCart.amount.tax = parseFloat(TAX);
+      newCart.amount.total_amount = totalAmount + parseFloat(TAX);
+      var DATA = {
+        payload: newCart,
+      };
+      dispatch(setProductCart(DATA));
+    }
   };
 
   return (
@@ -313,42 +373,36 @@ const ProductCart = () => {
                           <h4 className="invoice_subhead p-0">
                             {amountFormat(getProductFinalPrice(data))}
                           </h4>
-                          {
-                                retailData?.clearOneProductLoad ||
-                               retailData?.productCartLoad
-                                ?
-                                <span className="spinner-border spinner-border-sm mx-1"></span>
-                                :
-                                <div
+                          {retailData?.clearOneProductLoad ||
+                          retailData?.productCartLoad ? (
+                            <span className="spinner-border spinner-border-sm mx-1"></span>
+                          ) : (
+                            <div
                               onClick={() => {
-                                let params = {
-                                  cartId: cartData?.id,
-                                  productId: data?.id,
-                                };
-                                setProductById(index);
-                                dispatch(
-                                  clearOneProduct({
-                                    ...params,
-                                    cb() {
-                                      dispatch(productCart());
-                                    },
-                                  })
-                                );
+                                // let params = {
+                                //   cartId: cartData?.id,
+                                //   productId: data?.id,
+                                // };
+                                // setProductById(index);
+                                // dispatch(
+                                //   clearOneProduct({
+                                //     ...params,
+                                //     cb() {
+                                //       dispatch(productCart());
+                                //     },
+                                //   })
+                                // );
+                                removeOneCartHandler(data, index);
                               }}
                             >
-                              
-
                               <Image
                                 src={Images.redCross}
                                 alt="crossImage"
                                 className="img-fluid ms-2"
                               />
                             </div>
+                          )}
 
-
-
-                              }
-                          
                           {/* {retailData?.clearOneProductLoad ||
                           retailData?.productCartLoad ? (
                             productById == data?.id && (
@@ -466,7 +520,15 @@ const ProductCart = () => {
                 </div>
 
                 <div className="offerdata">
-                  {availableOffersArray?.length > 0 ? (
+                  {retailData?.availableOffersLoad ? (
+                    <div className="loaderOuter">
+                      <span className="spinner-border spinner-border-sm mx-1"></span>
+                    </div>
+                  ) : availableOffersArray?.length == 0 ? (
+                    <h6 className="mt-3 mb-3 text-center">
+                      No available offers Found!
+                    </h6>
+                  ) : (
                     availableOffersArray?.map((offers, index) => {
                       return (
                         <div
@@ -492,30 +554,37 @@ const ProductCart = () => {
                                 Today at 10hrs / Dr. Africa ...
                               </h4>
 
-                              {offers?.supplies?.map((sup) => {
-                                return (
-                                  <div key={index}>
-                                    {sup?.supply_prices?.map((price) => {
-                                      return (
-                                        <h4 className="availablePrice">
-                                          <del>
-                                            $
-                                            {price?.actual_price
-                                              ? price?.actual_price
-                                              : selling_price}
-                                          </del>
-                                          <span className="actualPrice">
-                                            $
-                                            {price?.offer_price
-                                              ? price?.offer_price
-                                              : selling_price}
-                                          </span>
-                                        </h4>
-                                      );
-                                    })}
-                                  </div>
-                                );
-                              })}
+                              {/* <div className="availablePrice"> */}
+                              {offers?.supplies?.[0]?.supply_prices?.[0]
+                                ?.actual_price &&
+                              offers?.supplies?.[0]?.supply_prices?.[0]
+                                ?.offer_price ? (
+                                <div className="availablePrice">
+                                  <del>
+                                    $
+                                    {
+                                      offers?.supplies?.[0]?.supply_prices?.[0]
+                                        ?.actual_price
+                                    }
+                                  </del>
+                                  <span className="mx-2">
+                                    $
+                                    {
+                                      offers?.supplies?.[0]?.supply_prices?.[0]
+                                        ?.offer_price
+                                    }
+                                  </span>
+                                </div>
+                              ) : (
+                                <span className="mx-2">
+                                  $
+                                  {
+                                    offers?.supplies?.[0]?.supply_prices?.[0]
+                                      ?.selling_price
+                                  }
+                                </span>
+                              )}
+                              {/* </div> */}
                             </div>
                           </div>
                           <figure className="offerCartImg">
@@ -528,18 +597,6 @@ const ProductCart = () => {
                         </div>
                       );
                     })
-                  ) : (
-                    <>
-                      {availableOffersArray?.length == null ? (
-                        <h6 className="mt-3 mb-3">
-                          No available offers Found!
-                        </h6>
-                      ) : (
-                        <div className="loaderOuter">
-                          <span className="spinner-border spinner-border-sm mx-1"></span>
-                        </div>
-                      )}
-                    </>
                   )}
                 </div>
               </div>

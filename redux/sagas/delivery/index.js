@@ -18,6 +18,7 @@ const API_URL = {
   getDrawerCount: "/api/v1/orders/pos/statistics?",
   getOrderDetailById: "/api/v1/orders/pos/",
   acceptOrder: "/api/v1/orders/status/",
+  verifyPickupOtp: "/api/v1/orders/verify-pickup-otp",
 };
 
 function* getTodayOrderCount(action) {
@@ -86,6 +87,7 @@ function* getOrderStat(action) {
 }
 
 function* getOrdersList(action) {
+  yield put(getOrdersList());
   const dataToSend = { ...action.payload };
   delete dataToSend.cb;
   const params = new URLSearchParams(dataToSend).toString();
@@ -110,7 +112,7 @@ function* getOrdersList(action) {
 function* getDrawerOrdersCount(action) {
   const dataToSend = { ...action.payload };
   const params = new URLSearchParams(dataToSend).toString();
-  console.log("paramsss0--00-", params);
+  console.log("paramsss", params);
   try {
     const resp = yield call(
       ApiClient.get,
@@ -184,6 +186,29 @@ function* acceptOrder(action, callbackFn) {
     toast.error(e?.error?.response?.data?.msg);
   }
 }
+function* verifyPickupOtp(action, callbackFn) {
+  const dataToSend = action.payload;
+
+  try {
+    const resp = yield call(
+      ApiClient.post,
+      `${ORDER_API_URL}${API_URL.verifyPickupOtp}`,
+      dataToSend
+    );
+    if (!resp?.status) {
+      toast.error("Invalid Otp");
+    }
+
+    if (resp) {
+      yield call(action.payload.cb, (action.res = resp));
+    } else {
+      throw resp;
+    }
+  } catch (e) {
+    // yield put(onErrorStopLoad());
+    toast.error(e?.error?.response?.data?.msg);
+  }
+}
 
 function* deliverySaga() {
   yield all([takeLatest("delivery/getTodayOrderCount", getTodayOrderCount)]);
@@ -197,6 +222,7 @@ function* deliverySaga() {
   ]);
   yield all([takeLatest("delivery/getOrderDetailById", getOrderDetailById)]);
   yield all([takeLatest("delivery/acceptOrder", acceptOrder)]);
+  yield all([takeLatest("delivery/verifyPickupOtp", verifyPickupOtp)]);
 }
 
 export default deliverySaga;

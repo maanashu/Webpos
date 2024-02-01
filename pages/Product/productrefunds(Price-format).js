@@ -376,7 +376,7 @@ const productrefunds = () => {
           modalDetail.flag === "ReturnInventory" ? (
             <ReturnInventory
               closeManulModal={() => handleOnCloseModal()}
-              selectedProductItems={refundedItems}
+              selectedProducts={refundedItems}
             />
           ) : (
             ""
