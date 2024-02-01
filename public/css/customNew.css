@@ -5286,7 +5286,6 @@ figure {
 #returnedOrder .invoice_subhead:first-child {
   min-width: 80px;
 }
-
 #rejectOrder .invoice_subhead:nth-child(3) {
   min-width: 180px;
 }
