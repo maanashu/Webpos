@@ -238,7 +238,6 @@ const DeliverDashboard = () => {
 
   return (
     <>
-      <Suspense fallback={<p>Loading feed...</p>}></Suspense>
       <div className="deliverySection ">
         <div className="deliverMain w-100">
           <div className="row ">
