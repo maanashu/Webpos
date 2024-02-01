@@ -1,15 +1,11 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import * as Images from "../../utilities/images";
 import Image from "next/image";
-import CustomModal from "../../components/customModal/CustomModal";
-import PhoneReceiptModal from "../../components/modals/homeModals/service/phoneReceiptModal";
-import EmailReceiptModal from "../../components/modals/homeModals/service/emailReceiptModal";
-import GiftCardModal from "../../components/modals/homeModals/service/giftCardModal";
-import JobrWalletModal from "../../components/modals/homeModals/service/jobrWalletModal";
-import Link from "next/link";
 import { useRouter } from "next/router";
 import {
   getTips,
+  getWalletQr,
+  merchantWalletCheck,
   productCart,
   selectRetailData,
   setProductCart,
@@ -30,6 +26,10 @@ import AttachWithPhone from "./AttachWithPhone";
 import AttachWithEmail from "./AttachWithEmail";
 import AddedCartItemsCard from "../../components/AddedCartItemsCard";
 import moment from "moment-timezone";
+import { toast } from "react-toastify";
+import JbrCoin from "./JbrCoin";
+import CustomModal from "../../components/customModal/CustomModal";
+import JobrWalletModal from "../../components/modals/homeModals/service/jobrWalletModal";
 
 const CartAmountByPay = () => {
   const router = useRouter();
@@ -43,6 +43,9 @@ const CartAmountByPay = () => {
   const cartData = retailData?.productCart;
   const cartAmount = cartData?.amount;
   const sellerId = authData?.usersInfo?.payload?.uniqe_id;
+
+  const childFuncRef = useRef(null);
+
   const [key, setKey] = useState(Math.random());
   const [selectedTipIndex, setSelectedTipIndex] = useState(null);
   const [selectedTipAmount, setSelectedTipAmount] = useState("0.00");
@@ -52,6 +55,7 @@ const CartAmountByPay = () => {
   const [selectedRecipeIndex, setSelectedRecipeIndex] = useState(null);
   const [phoneModal, setPhoneModal] = useState(false);
   const [emailModal, setEmailModal] = useState(false);
+  const [qrModal, setQrModal] = useState(false);
   const [modalDetail, setModalDetail] = useState({
     show: false,
     title: "",
@@ -229,6 +233,13 @@ const CartAmountByPay = () => {
       result.push(array.slice(i, i + chunkSize));
     }
     return result;
+  };
+  const jobrSavePercent = (value, percent) => {
+    if (percent == "") {
+      return "";
+    }
+    const percentageValue = (percent / 100) * parseFloat(value);
+    return percentageValue.toFixed(2) ?? 0.0;
   };
   const rows = threeGroupArray(invoiceData, 2);
   return (
@@ -451,10 +462,20 @@ const CartAmountByPay = () => {
                             onClick={() => {
                               if (selectedRecipeIndex == "0") {
                                 // handleUserProfile("PhoneReceipt");
-                                setPhoneModal(true);
+                                // setPhoneModal(true);
+                                setModalDetail({
+                                  show: true,
+                                  flag: "PhoneReceipt",
+                                });
+                                setKey(Math.random());
                               } else if (selectedRecipeIndex == "1") {
                                 // handleUserProfile("emailReceipt");
-                                setEmailModal(true);
+                                // setEmailModal(true);
+                                setModalDetail({
+                                  show: true,
+                                  flag: "emailReceipt",
+                                });
+                                setKey(Math.random());
                               } else if (selectedRecipeIndex == "2") {
                                 noThanksHandler();
                                 // router.push({
@@ -472,15 +493,63 @@ const CartAmountByPay = () => {
                 {selectedPaymentIndex !== null && selectedPaymentId == 2 && (
                   <div style={{ alignSelf: "center" }}>
                     <div className=" justify-content-center my-5 ">
-                      <span className="savingBox">You are saving $13.35 !</span>
+                      <span className="savingBox">
+                        You are saving $
+                        {jobrSavePercent(
+                          cartData?.amount?.total_amount ?? "0.00",
+                          15
+                        )}
+                      </span>
                     </div>
                     <div className="text-center mb-4 mt-4 ">
                       <button
+                        disabled={
+                          retailData?.merchantWalletCheckLoad ? true : false
+                        }
                         className="nextverifyBtn"
                         type="submit"
-                        onClick={() => alert("coming soon")}
+                        onClick={() => {
+                          let params = {
+                            seller_id: sellerId,
+                          };
+                          dispatch(
+                            merchantWalletCheck({
+                              ...params,
+                              cb: (res) => {
+                                if (res?.user_profiles?.wallet_steps <= 4) {
+                                  toast.error(
+                                    "Please complete your wallet steps"
+                                  );
+                                } else {
+                                  let params = {
+                                    tip: selectedTipAmount.toString(),
+                                    cartId: cartData.id,
+                                  };
+                                  dispatch(getWalletQr(params));
+                                  setModalDetail({
+                                    show: true,
+                                    flag: "jobrWallet",
+                                  });
+                                  setKey(Math.random());
+
+                                  dispatch(
+                                    updateCartByTip({
+                                      ...params,
+                                      cb() {
+                                        dispatch(productCart());
+                                      },
+                                    })
+                                  );
+                                }
+                              },
+                            })
+                          );
+                        }}
                       >
                         Confirm
+                        {retailData?.merchantWalletCheckLoad && (
+                          <span className="spinner-border spinner-border-sm mx-1"></span>
+                        )}
                       </button>
                     </div>
                   </div>
@@ -588,6 +657,11 @@ const CartAmountByPay = () => {
         />
       </Modal>
 
+      {/* Qr modal popup */}
+      <Modal show={qrModal} centered keyboard={false} id={"jobrWalletModal"}>
+        <JbrCoin crossHandler={() => setQrModal(false)} />
+      </Modal>
+
       {/* <CustomModal
         key={key}
         show={modalDetail.show}
@@ -622,8 +696,8 @@ const CartAmountByPay = () => {
           </>
         }
         onCloseModal={() => handleOnCloseModal()}
-      /> */}
-      {/* <CustomModal
+      />  */}
+      <CustomModal
         key={key}
         show={modalDetail.show}
         backdrop="static"
@@ -646,13 +720,18 @@ const CartAmountByPay = () => {
         }
         child={
           modalDetail.flag === "PhoneReceipt" ? (
-            <PhoneReceiptModal close={() => handleOnCloseModal()} />
+            // <PhoneReceiptModal close={() => handleOnCloseModal()} />
+            <AttachWithPhone close={() => handleOnCloseModal()} />
           ) : modalDetail.flag === "emailReceipt" ? (
-            <EmailReceiptModal close={() => handleOnCloseModal()} />
+            // <EmailReceiptModal close={() => handleOnCloseModal()} />
+            <AttachWithEmail close={() => handleOnCloseModal()} />
           ) : modalDetail.flag === "giftCard" ? (
             <GiftCardModal close={() => handleOnCloseModal()} />
           ) : modalDetail.flag === "jobrWallet" ? (
-            <JobrWalletModal close={() => handleOnCloseModal()} />
+            <JbrCoin
+              ref={childFuncRef}
+              crossHandler={() => handleOnCloseModal()}
+            />
           ) : (
             ""
           )
@@ -724,20 +803,26 @@ const CartAmountByPay = () => {
             </>
           ) : modalDetail.flag === "jobrWallet" ? (
             <>
-              <p onClick={handleOnCloseModal} className="modal_cancel">
+              <div
+                onClick={() => {
+                  handleOnCloseModal();
+                  childFuncRef?.current?.handleCancel();
+                }}
+                className="modal_cancel"
+              >
                 <Image
                   src={Images.modalCross}
                   alt="modalCross"
                   className="img-fluid"
                 />
-              </p>
+              </div>
             </>
           ) : (
             ""
           )
         }
         onCloseModal={() => handleOnCloseModal()}
-      /> */}
+      />
       {retailData?.updateCartByTipLoad && <FullScrennLoader />}
     </>
   );

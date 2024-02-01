@@ -30,6 +30,17 @@ const initialState = {
   timeSlots: [],
   addToCartServiceLoad: false,
   clearOneProductLoad: false,
+  merchantWalletCheckLoad: false,
+  getWalletQrLoad: false,
+  walletQrData: {},
+  getWalletQrLoad: false,
+  walletGetByPhoneLoad: false,
+  walletGetByPhoneData: [],
+  requestCheckLoad: false,
+  requestCheckData: "",
+  qrcodestatusData: "",
+  qrcodestatusLoad: false,
+  paymentRequestCancelLoad: false,
 };
 
 export const retailsSlice = createSlice({
@@ -201,6 +212,61 @@ export const retailsSlice = createSlice({
       state.clearOneProductLoad = false;
       // state.timeSlots = action?.payload?.payload?.slots;
     },
+
+    merchantWalletCheck: (state) => {
+      state.merchantWalletCheckLoad = true;
+    },
+    setMerchantWalletCheck: (state, action) => {
+      state.merchantWalletCheckLoad = false;
+      // state.timeSlots = action?.payload?.payload?.slots;
+    },
+
+    getWalletQr: (state) => {
+      state.getWalletQrLoad = true;
+    },
+    setWalletQr: (state, action) => {
+      state.getWalletQrLoad = false;
+      state.walletQrData = action?.payload?.payload;
+    },
+
+    walletGetByPhone: (state) => {
+      state.walletGetByPhoneLoad = true;
+    },
+    setwalletByPhone: (state, action) => {
+      state.walletGetByPhoneLoad = false;
+      state.walletGetByPhoneData = action?.payload?.payload?.data;
+    },
+
+    requestMoney: (state) => {
+      state.requestMoneyLoad = true;
+    },
+    setRequestMoney: (state, action) => {
+      state.requestMoneyLoad = false;
+    },
+
+    requestCheck: (state) => {
+      state.requestCheckLoad = true;
+    },
+    setRequestCheck: (state, action) => {
+      state.requestCheckLoad = false;
+      state.requestCheckData = action?.payload?.payload?.status;
+    },
+
+    qrcodestatus: (state) => {
+      state.qrcodestatusLoad = true;
+    },
+    setQrcodestatus: (state, action) => {
+      state.qrcodestatusLoad = false;
+      state.qrcodestatusData = action?.payload?.payload?.status;
+    },
+
+    paymentRequestCancel: (state) => {
+      state.paymentRequestCancelLoad = true;
+    },
+    setPaymentRequestCancel: (state, action) => {
+      state.paymentRequestCancelLoad = false;
+      // state.qrcodestatusData = action?.payload?.payload?.status;
+    },
     onErrorStopLoad: (state) => {
       state.loading = false;
       state.availableOffersLoad = false;
@@ -213,6 +279,14 @@ export const retailsSlice = createSlice({
       state.addToCartServiceLoad = false;
       state.checkSuppliedVariantLoad = false;
       state.clearOneProductLoad = false;
+      state.merchantWalletCheckLoad = false;
+      state.getWalletQrLoad = false;
+      state.walletGetByPhoneLoad = false;
+      state.requestMoneyLoad = false;
+      state.requestCheckLoad = false;
+      state.qrcodestatusLoad = false;
+      state.paymentRequestCancelLoad = false;
+      state.updateCartByTipLoad = false;
     },
   },
 });
@@ -261,6 +335,20 @@ export const {
   setAddToCartService,
   clearOneProduct,
   setClearOneProduct,
+  merchantWalletCheck,
+  setMerchantWalletCheck,
+  getWalletQr,
+  setWalletQr,
+  walletGetByPhone,
+  setwalletByPhone,
+  requestMoney,
+  setRequestMoney,
+  requestCheck,
+  setRequestCheck,
+  qrcodestatus,
+  setQrcodestatus,
+  paymentRequestCancel,
+  setPaymentRequestCancel,
 } = retailsSlice.actions;
 
 export const selectRetailData = (state) => state.retails;
