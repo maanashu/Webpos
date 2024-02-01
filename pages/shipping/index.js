@@ -10,6 +10,7 @@ import NoOrderFound from '../../components/NoOrderFound';
 import OrderListItem from '../Deliveries/Component/OrderListItem';
 import { useRouter } from 'next/router';
 import ChartCommon from '../../components/commanComonets/ChartCommon';
+import { Circle } from "rc-progress";
 
 const Shipping = () => {
     const dispatch = useDispatch()
@@ -24,6 +25,12 @@ const Shipping = () => {
         Returned: true,
         Cancelled: true
     })
+    const [orderPercentageData, setOrderPercentageData] = useState({
+        deliveredOrder: "",
+        returnedOrder: "",
+        cancelledOrder: "",
+        total: "",
+    });
     const [todayOrdersCount, setTodayOrdersCount] = useState([]);
     const [currentOrderCount, setcurrentOrderCount] = useState([]);
     console.log(todayOrdersCount, 'todayOrdersCount');
@@ -41,15 +48,17 @@ const Shipping = () => {
     let [dataSets, setDataSets] = useState([])
     console.log(dataSets, 'data setssss');
     const itemPressHandler = (id) => {
-        let newId = id ? id : orderData[0]?.id
-        router.push({
-            pathname: "/shipping/orderReview",
-            query: {
-                id: newId,
-                status: orderListType?.status,
-                title: orderListType?.title
-            },
-        });
+        if (orderData?.length > 0) {
+            let newId = id ? id : orderData[0]?.id
+            router.push({
+                pathname: "/shipping/orderReview",
+                query: {
+                    id: newId,
+                    status: orderListType?.status,
+                    title: orderListType?.title
+                },
+            });
+        }
     };
     const handelDataSetChange = (e, value, num, color) => {
         console.log(value, e.target.checked);
@@ -228,8 +237,27 @@ const Shipping = () => {
                 ...orderStatParam,
                 cb(res) {
                     if (res) {
-                        setOrderLoading(false)
+                        setOrderLoading(false);
                         setOrderStatData(res?.data?.payload?.data);
+                        const deliverdOrder = res?.data?.payload?.data?.find(
+                            (item) => item?.title === "Completed"
+                        );
+                        const returnedOrder = res?.data?.payload?.data?.find(
+                            (item) => item?.title === "Returned Order"
+                        );
+                        const cancelledOrder = res?.data?.payload?.data?.find(
+                            (item) => item?.title === "Cancelled Order"
+                        );
+                        const totalCount =
+                            cancelledOrder?.count +
+                            deliverdOrder?.count +
+                            returnedOrder?.count;
+                        setOrderPercentageData({
+                            deliveredOrder: deliverdOrder,
+                            returnedOrder: returnedOrder,
+                            cancelledOrder: cancelledOrder,
+                            total: totalCount,
+                        });
                     }
                 },
             })
@@ -361,15 +389,43 @@ const Shipping = () => {
                                 </div>
                                 <div className='deliverOrder'>
                                     <h4 className='customerLink text-start'>Orders</h4>
-                                    <div className="deliverGraph" >
+                                    {/* <div className="deliverGraph" >
                                         <Image src={Images.garphCircle} alt="pickupImg image" className="img-fluid graphCircleImg" />
-                                        {/* <ChartCommon
-                                    className="col-md-12"
-                                    header=""
-                                    options={options1}
-                                    data={chartData1}
-                                    chartType="Doughnut"
-                                /> */}
+                                    </div> */}
+                                    <div className="deliverGraph order-all-progress">
+                                        <div className="order-all-progress-inner">
+                                            <div className="order-first-progress">
+                                                <Circle
+                                                    trailWidth={5}
+                                                    percent={
+                                                        orderPercentageData?.deliveredOrder?.percentage
+                                                    }
+                                                    strokeWidth={5}
+                                                    strokeColor="#914BEB"
+                                                />
+                                            </div>
+                                            <div className="order-second-progress">
+                                                <Circle
+                                                    trailWidth={5}
+                                                    percent={orderPercentageData?.returnedOrder?.percentage}
+                                                    strokeWidth={5}
+                                                    strokeColor="#F0C01A"
+                                                />
+                                            </div>
+                                            <div className="order-third-progress">
+                                                <Circle
+                                                    trailWidth={5}
+                                                    percent={
+                                                        orderPercentageData?.cancelledOrder?.percentage
+                                                    }
+                                                    strokeWidth={5}
+                                                    strokeColor="#F97066"
+                                                />
+                                            </div>
+                                            <div className="order-progress-value">
+                                                <p>{orderPercentageData?.total}</p>
+                                            </div>
+                                        </div>
                                     </div>
                                     {
                                         orderStatData?.length > 0 ?

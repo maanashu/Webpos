@@ -40,7 +40,8 @@ axiosInstance.interceptors.response.use(
       // handle 401 errors here
       localStorage.clear();
       Router.push("/");
-      // toast.warning("Session expired");
+      toast.dismiss()
+      toast.warning("Session expired");
     }
     return Promise.reject(error);
   }

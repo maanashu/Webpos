@@ -328,6 +328,14 @@
         width: 100%;
         max-width: 200px;
     }
+
+    .customerHeader .tab-item {
+        padding: 6px 6px;
+    }
+
+    .customerHeader .header-descrip {
+        font-size: 13px;
+    }
 }
 
 @media (max-width: 1020px) {
@@ -502,6 +510,33 @@
     .deliverOrderRight .selectedProductDetails {
         min-width: 514px;
     }
+
+    .anlyticHeadLeft {
+        justify-content: center;
+    }
+
+    .anlyticHeadLeft .day-tabs {
+        justify-content: space-between;
+        width: 100%;
+    }
+
+    .anlyticHeadRight {
+        justify-content: space-between;
+    }
+
+    .analyticOuter {
+        height: calc(100vh - 140px);
+        overflow-y: scroll;
+    }
+
+    .analyticsSection .deliverRightBar {
+        top: 104px;
+    }
+
+    .customerHeadRight {
+        display: block;
+        margin-top: 10px;
+    }
 }
 
 @media (max-width: 767px) {
@@ -651,6 +686,16 @@
     .shippingSection {
         margin-left: 12px;
         margin-right: 65px;
+    }
+
+    .customerHeader .tab-item {
+        padding: 4px 6px !important;
+        font-size: 12px !important;
+    }
+
+    .customerHeader .day-tabs {
+        gap: 5px;
+        margin-right: 6px;
     }
 }
 
@@ -838,6 +883,57 @@
     .shipOrderSection .declineButton {
         width: 100%;
     }
+
+    .anlyticHeadRight {
+        flex-wrap: wrap;
+        gap: 5px;
+    }
+
+    .analyticStatus_ {
+        justify-content: start;
+    }
+
+    .tab-item {
+        padding: 4px 13px !important;
+        font-size: 13px !important;
+    }
+
+    .anlyticHeadLeft .day-tabs {
+        margin: 0;
+    }
+
+    .analyticsSection .deliverRightBar {
+        top: 140px;
+    }
+
+    .customerHeadRight .flexDiv {
+        flex-wrap: wrap;
+        gap: 8px;
+    }
+
+    .customerHeader .day-tabs {
+        gap: 0px;
+        width: 100%;
+        justify-content: space-between;
+    }
+
+    .extras {
+        width: 100%;
+    }
+}
+
+@media (max-width: 546px) {
+    .calendarAnalytic {
+        width: 100%;
+    }
+
+    .calendarAnalytic .customer-calendar-cnt {
+        justify-content: space-between;
+    }
+
+    .anlyticSelect {
+        width: 100%;
+    }
 }
 
 @media (max-width: 525px) {
@@ -849,6 +945,19 @@
         left: 0;
     }
 
+    .analyticsSection .deliverRightBar {
+        padding: 8px 3px;
+        width: 45px;
+    }
+
+    .analyticsSection {
+        margin-right: 78px !important;
+    }
+
+    .tab-item {
+        padding: 3px 5px !important;
+        font-size: 12px;
+    }
 }
 
 @media (max-width: 475px) {
@@ -967,6 +1076,19 @@
     .cancelOrderText {
         font-size: 14px;
     }
+
+    .analyticOuter {
+        height: calc(100vh - 180px);
+    }
+
+    .analyticsSection {
+        margin-right: 66px !important;
+        margin-left: 8px !important;
+    }
+
+    .cust-header .header-title {
+        font-size: 21px;
+    }
 }
 
 @media (max-width: 425px) {
@@ -1049,6 +1171,21 @@
 
     .loginMain {
         font-size: 16px;
+    }
+
+    .anlyticHeadLeft .day-tabs {
+        margin: 0;
+        gap: 0;
+        padding: 6px 5px;
+    }
+
+    .customerHeader .appointMain {
+        font-size: 22px;
+    }
+
+    .customerHeader .day-tabs {
+        padding: 6px;
+        margin-right: 0px;
     }
 }
 

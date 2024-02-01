@@ -359,7 +359,7 @@ const Retails = () => {
           </div>
         </div>
 
-        <RightSideBar showSidebar={showSidebar} parameter = {parameter}/>
+        <RightSideBar showSidebar={showSidebar} parameter={parameter}/>
       </div>
       <Modal show={cartAlert} centered keyboard={false}>
       <CartAlert 

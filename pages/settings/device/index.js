@@ -32,15 +32,20 @@ const Devices = () => {
             flag: flag,
             type: flag,
         });
-        setKey(Math.random()); 
+        setKey(Math.random());
     };
     return (
         <>
             <div className='deviceRight settingOuter'>
-                <Image src={Images.darkDevices} alt="darkDevices image" className="img-fluid" />
-                <div className='deviceData w-100'>
-                    <h4 className='appointMain'>Devices</h4>
-                    <p className='lightOfferText mt-2'>Add a new device as any of the following or configure the settings of a registered one.</p>
+                <div className="topsettingContent_">
+                    <Image src={Images.darkDevices} alt="darkDevices image" className="img-fluid me-3" />
+                    <div className='rightboxContent_  w-100'>
+                        <h4 className='appointMain'>Devices</h4>
+                        <p className='lightOfferText mt-2'>Add a new device as any of the following or configure the settings of a registered one.</p>
+                    </div>
+                </div>
+                <div className="w-100 bottonContent_">
+
                     <div className='addDeviceSection'>
                         <h4 className='amountText m-0'>Add a New Device</h4>
                         <div className='addDeviceSub'>
@@ -84,7 +89,7 @@ const Devices = () => {
             <CustomModal
                 key={key}
                 show={modalDetail.show}
-                backdrop="static"
+                backdrop="trye"
                 showCloseBtn={false}
                 isRightSideModal={true}
                 mediumWidth={false}

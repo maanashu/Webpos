@@ -23,6 +23,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { selectLoginAuth } from "../../../redux/slices/auth";
 import AnalyticsRightsidebar from "../../../components/commanComonets/analytics/analyticsRightsidebar";
 import { useRouter } from "next/router";
+import { PaginationFooter } from "../../../components/commanComonets/customers/PaginationFooter";
 
 const index = () => {
   const router = useRouter();
@@ -61,11 +62,10 @@ const index = () => {
     {
       icon: orderFrequency,
       title: "Order Frequency",
-      count: `${
-        analyticsOrderData?.delivery_graph?.ordersOverView?.order_frequency
-          ? analyticsOrderData?.delivery_graph?.ordersOverView?.order_frequency
-          : 0
-      }/Hour`,
+      count: `${analyticsOrderData?.delivery_graph?.ordersOverView?.order_frequency
+        ? analyticsOrderData?.delivery_graph?.ordersOverView?.order_frequency
+        : 0
+        }/Hour`,
       bgColor: "#D1FADF",
       textColor: "#003921",
     },
@@ -74,10 +74,10 @@ const index = () => {
       title: "Average Order Value",
       count:
         analyticsOrderData?.delivery_graph?.ordersOverView?.averageValue ||
-        analyticsOrderData?.delivery_graph?.ordersOverView?.averageValue == 0
+          analyticsOrderData?.delivery_graph?.ordersOverView?.averageValue == 0
           ? `$${(analyticsOrderData?.delivery_graph?.ordersOverView?.averageValue).toFixed(
-              2
-            )}`
+            2
+          )}`
           : "",
       bgColor: "#D1FADF",
       textColor: "#003921",
@@ -154,7 +154,7 @@ const index = () => {
         startDate={startDate}
         endDate={endDate}
       />
-      <div className="commonbdcontain_ ">
+      <div className="commonbdcontain_ analyticOuter">
         <AnalyticsSubHeader
           mainIcon={gross_profit_blue}
           title="Total Delivery Orders"
@@ -188,131 +188,136 @@ const index = () => {
         </div>
 
         {/* table stats */}
-        <table className="customers-stats-table">
-          <thead>
-            <tr>
-              <th
-                className="customers-table-data"
-                style={{
-                  border: "none",
-                  color: "#7E8AC1",
-                  textAlign: "center",
-                }}
-              >
-                Date
-              </th>
-              <th
-                className="customers-table-data"
-                style={{
-                  border: "none",
-                  color: "#7E8AC1",
-                  textAlign: "center",
-                }}
-              >
-                Total Delivery Order
-              </th>
-              <th
-                className="customers-table-data"
-                style={{
-                  border: "none",
-                  color: "#7E8AC1",
-                  textAlign: "center",
-                }}
-              >
-                Average Order Value
-              </th>
-              <th
-                className="customers-table-data"
-                style={{
-                  border: "none",
-                  color: "#7E8AC1",
-                  textAlign: "center",
-                }}
-              >
-                Order Frequency
-              </th>
-              <th
-                className="customers-table-data"
-                style={{
-                  border: "none",
-                  color: "#7E8AC1",
-                  textAlign: "center",
-                }}
-              >
-                Total Sales
-              </th>
-            </tr>
-          </thead>
-
-          {analyticsData?.loading ? (
-            <tbody>
+        <div className='table-responsive analyticTable'>
+          <table className="customers-stats-table">
+            <thead>
               <tr>
-                <td colSpan="6" style={{ textAlign: "center" }}>
-                  Loading...
-                </td>
+                <th
+                  className="customers-table-data"
+                  style={{
+                    border: "none",
+                    color: "#7E8AC1",
+                    textAlign: "center",
+                  }}
+                >
+                  Date
+                </th>
+                <th
+                  className="customers-table-data"
+                  style={{
+                    border: "none",
+                    color: "#7E8AC1",
+                    textAlign: "center",
+                  }}
+                >
+                  Total Delivery Order
+                </th>
+                <th
+                  className="customers-table-data"
+                  style={{
+                    border: "none",
+                    color: "#7E8AC1",
+                    textAlign: "center",
+                  }}
+                >
+                  Average Order Value
+                </th>
+                <th
+                  className="customers-table-data"
+                  style={{
+                    border: "none",
+                    color: "#7E8AC1",
+                    textAlign: "center",
+                  }}
+                >
+                  Order Frequency
+                </th>
+                <th
+                  className="customers-table-data"
+                  style={{
+                    border: "none",
+                    color: "#7E8AC1",
+                    textAlign: "center",
+                  }}
+                >
+                  Total Sales
+                </th>
               </tr>
-            </tbody>
-          ) : (
-            <>
-              {
-                <>
-                  {analyticsOrderData?.delivery_graph?.ordersListData?.length >
-                  0 ? (
-                    <tbody>
-                      {analyticsOrderData?.delivery_graph?.ordersListData?.map(
-                        (row, idx) => (
-                          <tr className="customers-table-row" key={idx}>
-                            <td className="customers-table-data">
-                              {moment(row?.order_date).format("MM/DD/YYYY")}
-                            </td>
-                            <td className="customers-table-data">
-                              {row?.count}
-                            </td>
-                            <td
-                              className="customers-table-data"
+            </thead>
+
+            {analyticsData?.loading ? (
+              <tbody>
+                <tr>
+                  <td colSpan="6" style={{ textAlign: "center" }}>
+                    Loading...
+                  </td>
+                </tr>
+              </tbody>
+            ) : (
+              <>
+                {
+                  <>
+                    {analyticsOrderData?.delivery_graph?.ordersListData?.length >
+                      0 ? (
+                      <tbody>
+                        {analyticsOrderData?.delivery_graph?.ordersListData?.map(
+                          (row, idx) => (
+                            <tr className="customers-table-row" key={idx}>
+                              <td className="customers-table-data">
+                                {moment(row?.order_date).format("MM/DD/YYYY")}
+                              </td>
+                              <td className="customers-table-data">
+                                {row?.count}
+                              </td>
+                              <td
+                                className="customers-table-data"
                               // style={{ display: "flex", gap: "12px" }}
-                            >
-                              {`$${addThousandSeparator(
-                                row?.averageValue?.toFixed(2)
-                              )}`}
-                            </td>
-                            <td className="customers-table-data">
-                              {`${row?.order_frequency} / Hour`}
-                            </td>
-                            <td className="customers-table-data">
-                              <b>
-                                ${addThousandSeparator(row?.amount?.toFixed(2))}
-                              </b>
-                            </td>
-                            <td className="customers-table-data">
-                              <button
-                                onClick={() =>
-                                  handleGoReviewPage(row?.order_date)
-                                }
-                                className="secondaryOuterbtn_"
-                                type="button"
                               >
-                                Review
-                              </button>
-                            </td>
-                          </tr>
-                        )
-                      )}
-                    </tbody>
-                  ) : (
-                    <tbody>
-                      <tr>
-                        <td colSpan="6" style={{ textAlign: "center" }}>
-                          No Record Found
-                        </td>
-                      </tr>
-                    </tbody>
-                  )}
-                </>
-              }
-            </>
-          )}
-        </table>
+                                {`$${addThousandSeparator(
+                                  row?.averageValue?.toFixed(2)
+                                )}`}
+                              </td>
+                              <td className="customers-table-data">
+                                {`${row?.order_frequency} / Hour`}
+                              </td>
+                              <td className="customers-table-data">
+                                <b>
+                                  ${addThousandSeparator(row?.amount?.toFixed(2))}
+                                </b>
+                              </td>
+                              <td className="customers-table-data">
+                                <button
+                                  onClick={() =>
+                                    handleGoReviewPage(row?.order_date)
+                                  }
+                                  className="secondaryOuterbtn_"
+                                  type="button"
+                                >
+                                  Review
+                                </button>
+                              </td>
+                            </tr>
+                          )
+                        )}
+                      </tbody>
+                    ) : (
+                      <tbody>
+                        <tr>
+                          <td colSpan="6" style={{ textAlign: "center" }}>
+                            No Record Found
+                          </td>
+                        </tr>
+                      </tbody>
+                    )}
+                  </>
+                }
+              </>
+            )}
+          </table>
+        </div>
+        <div className="paginatePosition">
+          <PaginationFooter />
+        </div>
       </div>
       <AnalyticsRightsidebar />
     </div>

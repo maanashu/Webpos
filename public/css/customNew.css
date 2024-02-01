@@ -2392,7 +2392,7 @@ figure {
   border-radius: 4px;
 }
 
-.checkBlue input:checked + label:after {
+.checkBlue input:checked+label:after {
   content: "";
   display: block;
   position: absolute;
@@ -2417,7 +2417,7 @@ figure {
   background-color: #f5edff;
 }
 
-.checkPurple input:checked + label:after {
+.checkPurple input:checked+label:after {
   border: solid #914beb;
   border-width: 0 2px 2px 0;
 }
@@ -2431,7 +2431,7 @@ figure {
   background-color: #fff7d7;
 }
 
-.checkYellow input:checked + label:after {
+.checkYellow input:checked+label:after {
   border: solid #fdb022;
   border-width: 0 2px 2px 0;
 }
@@ -2445,7 +2445,7 @@ figure {
   background-color: #fee4e2;
 }
 
-.checkRed input:checked + label:after {
+.checkRed input:checked+label:after {
   border: solid #f04438;
   border-width: 0 2px 2px 0;
 }
@@ -2912,6 +2912,7 @@ figure {
   align-items: center;
   justify-content: space-between;
 }
+
 .shippingDrop {
   width: 100%;
   max-width: 150px;
@@ -3220,8 +3221,7 @@ figure {
 }
 
 .shipImgReturn {
-  filter: invert(50%) sepia(45%) saturate(980%) hue-rotate(102deg)
-    brightness(110%) contrast(66%);
+  filter: invert(50%) sepia(45%) saturate(980%) hue-rotate(102deg) brightness(110%) contrast(66%);
 }
 
 .shipDeliverLeft {
@@ -3351,8 +3351,7 @@ figure {
 
 .settingList.active .SecurityImg,
 .settingList:hover .SecurityImg {
-  filter: invert(19%) sepia(61%) saturate(1030%) hue-rotate(196deg)
-    brightness(55%) contrast(99%);
+  filter: invert(19%) sepia(61%) saturate(1030%) hue-rotate(196deg) brightness(55%) contrast(99%);
 }
 
 .deviceLeft .settingListMain {
@@ -3362,12 +3361,8 @@ figure {
 .deviceRight {
   border-radius: 20px;
   background: #fff;
-  box-shadow: -2px 4px 25px 0px rgba(50, 80, 127, 0.02),
-    -5px 10px 80px 0px rgba(50, 80, 127, 0.04);
+  box-shadow: -2px 4px 25px 0px rgb(50 80 127 / 2%), -5px 10px 80px 0px rgb(50 80 127 / 4%);
   padding: 40px 30px 24px 30px;
-  display: flex;
-  align-items: start;
-  gap: 12px;
 }
 
 .addDeviceSection {
@@ -3403,9 +3398,7 @@ figure {
   box-shadow: -2px 4px 25px 0px rgba(50, 80, 127, 0.02),
     -5px 9px 80px 0px rgba(50, 80, 127, 0.04);
   padding: 40px 40px 24px 40px;
-  display: flex;
-  align-items: start;
-  gap: 16px;
+
 }
 
 .staffListData {
@@ -3599,7 +3592,7 @@ figure {
 
 .staffTimeSection {
   display: flex;
-  align-items: center;
+  /* align-items: center; */
   gap: 16px;
 }
 
@@ -3647,6 +3640,9 @@ figure {
   background: #fff;
   padding: 12px 8px !important;
   margin-top: 12px;
+  width: 100%;
+  min-width: 552px;
+  overflow-x: scroll;
 }
 
 .staffSubHead {
@@ -3712,6 +3708,9 @@ figure {
   align-items: center;
   justify-content: space-between;
   padding: 8px;
+  width: 100%;
+  min-width: 552px;
+  overflow-x: scroll;
 }
 
 .staffBoxData {
@@ -3904,12 +3903,8 @@ figure {
 .securityRight {
   border-radius: 20px;
   background: #fff;
-  box-shadow: -2px 4px 25px 0px rgba(50, 80, 127, 0.02),
-    -5px 10px 80px 0px rgba(50, 80, 127, 0.04);
+  box-shadow: -2px 4px 25px 0px rgb(50 80 127 / 2%), -5px 10px 80px 0px rgb(50 80 127 / 4%);
   padding: 24px 30px;
-  display: flex;
-  align-items: start;
-  gap: 12px;
 }
 
 .agreementRight {
@@ -4031,12 +4026,8 @@ figure {
 .bussinessRight {
   border-radius: 20px;
   background: #fff;
-  box-shadow: -2px 4px 25px 0px rgba(50, 80, 127, 0.02),
-    -5px 10px 80px 0px rgba(50, 80, 127, 0.04);
+  box-shadow: -2px 4px 25px 0px rgb(50 80 127 / 2%), -5px 10px 80px 0px rgb(50 80 127 / 4%);
   padding: 40px 40px 24px 40px;
-  display: flex;
-  align-items: start;
-  gap: 16px;
 }
 
 .bussinessMain {
@@ -4532,7 +4523,31 @@ figure {
   height: 18px;
   border-radius: 6px;
 }
-
+.topsettingContent_ {
+  display: flex;
+  align-items: flex-start;
+}
+.bottonContent_ {
+  padding-left: 40px;
+}
+.taxpayData .nameControl {
+  box-shadow: none;
+}
+.taxpayData  .emailField .verifyControl {
+  box-shadow: none;
+}
+.taxpayData .selectRole .form-select{
+  box-shadow: none;
+}
+.taxpayData::-webkit-scrollbar {
+  display: none;
+}
+.taxDateArea .cancelCalendar {
+  padding: 11px 10px!important;
+}
+.selectRole .searchBox {
+  padding: 0;
+}
 /*setting css end*/
 /* cash Drawer css start*/
 .cashDrawOuter {
@@ -4690,8 +4705,7 @@ figure {
 
 .paginateFlex.active .paginationArrowImg,
 .paginateFlex:hover .paginationArrowImg {
-  filter: invert(65%) sepia(92%) saturate(373%) hue-rotate(163deg)
-    brightness(93%) contrast(95%);
+  filter: invert(65%) sepia(92%) saturate(373%) hue-rotate(163deg) brightness(93%) contrast(95%);
 }
 
 .cashDrawMain {
@@ -4711,9 +4725,7 @@ figure {
   border-radius: 20px;
   background: #fff;
   padding: 24px 40px;
-  display: flex;
-  align-items: start;
-  gap: 16px;
+
 }
 
 .planApps {
@@ -4952,12 +4964,8 @@ figure {
   border-radius: 20px;
   border: 1px solid #e4e6f2;
   padding: 16px 24px;
-  display: flex;
-  align-items: start;
-  gap: 12px;
   margin-top: 10px;
 }
-
 .georgiaBox {
   border-radius: 16px;
   border: 1px solid #d7deff;
@@ -4966,8 +4974,8 @@ figure {
   display: flex;
   align-items: start;
   justify-content: space-between;
+  margin-left: 40px;
 }
-
 .darkCheck input[type="checkbox"]:checked {
   background: #263682;
   border: 2px solid #263682;
@@ -5025,8 +5033,7 @@ figure {
 }
 
 .SoftwareUpdateBx.active .imgSize {
-  filter: invert(40%) sepia(93%) saturate(322%) hue-rotate(150deg)
-    brightness(100%) contrast(95%);
+  filter: invert(40%) sepia(93%) saturate(322%) hue-rotate(150deg) brightness(100%) contrast(95%);
 }
 
 .deviceInfo {
@@ -5311,11 +5318,44 @@ figure {
 }
 
 .endCashText {
-  color: #F04438;
+  color: #f04438;
   font-size: 16px;
   font-weight: 500;
 }
 
+.anlyticHeadLeft {
+  display: flex;
+  align-items: center;
+  justify-content: start;
+}
+
+.anlyticHeadRight {
+  display: flex;
+  align-items: center;
+  justify-content: end;
+  gap: 16px;
+}
+
+.analyticOuter {
+  height: calc(100vh - 110px);
+  overflow-y: scroll;
+}
+
+.analyticOuter::-webkit-scrollbar {
+  display: none;
+}
+
+.analyticStatus_ {
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.analyticsSection .stats {
+  flex-wrap: wrap;
+}
+.analyticsSection .stat-box{
+  min-width: 185px;
+}
 /*gaurav arora sir css start*/
 .headingTextStyle {
   color: #263682;
@@ -5393,7 +5433,7 @@ figure {
 
 .box {
   display: flex;
-  width: 420px;
+  width: 100%;
   padding: 16px 18px 20px 18px;
   flex-direction: column;
   justify-content: center;
@@ -5401,8 +5441,8 @@ figure {
   gap: 6px;
   height: 100px;
   border-radius: 16px;
-  border: 1px solid var(--Neutrals-N-100, #d7deff);
-  margin-top: 40px;
+  border: 1px solid #d7deff;
+  margin-top: 25px;
 }
 
 .backarrow-plan {
@@ -5468,3 +5508,26 @@ figure {
 }
 
 /*gaurav arora sir css end*/
+
+/**Start css Privacy Policy**/
+
+.refundIntro p {
+  color: #636E9F;
+  font-size: 16px;
+  font-weight: 500;
+  margin: 0 0 10px;
+}
+.refundIntro ul li {
+  color: #636E9F;
+  font-size: 15px;
+  font-weight: 400;
+  line-height: 25px;
+  list-style-type: disc;
+  list-style-position: inside;
+}
+.refundIntro h2 {
+  color: #263682;
+  font-size: 20px;
+  font-weight: 500;
+  margin: 25px 0 9px;
+}

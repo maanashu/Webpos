@@ -12,6 +12,7 @@ import {
 import { selectLoginAuth } from "../../redux/slices/auth";
 import { Router, useRouter } from "next/router";
 import { toast } from "react-toastify";
+import { amountFormat } from "../../utilities/globalMethods";
 
 const AddProduct = () => {
   const dispatch = useDispatch();
@@ -114,7 +115,7 @@ const AddProduct = () => {
           cb(res) {
             dispatch(productCart());
             // router.push("/Retails?parameter=product");
-            router.back()
+            router.back();
           },
         })
       );
@@ -165,7 +166,8 @@ const AddProduct = () => {
                   ...params,
                   cb(res) {
                     dispatch(productCart());
-                    router.push("/Retails?parameter=product");
+                    // router.push("/Retails?parameter=product");
+                    router.back();
                   },
                 })
               );
@@ -232,6 +234,23 @@ const AddProduct = () => {
                       ?.selling_price
                   }
                 </p>
+                {productDetail?.supplies?.[0]?.supply_prices?.[0]
+                  ?.offer_applicable_qty && (
+                  <p className="linkHeading">
+                    {" "}
+                    Offer qty :{" "}
+                    {
+                      productDetail?.supplies?.[0]?.supply_prices?.[0]
+                        ?.offer_applicable_qty
+                    }
+                    (
+                    {amountFormat(
+                      productDetail?.supplies?.[0]?.supply_prices?.[0]
+                        ?.offer_price
+                    )}
+                    )
+                  </p>
+                )}
               </div>
               {colorArray?.length > 0 && (
                 <div className="colorChart">
