@@ -18,15 +18,16 @@ export const deliveryDrawerStatus = [
   "Rejected/Cancelled",
   "Returned",
 ];
-const DeliveryRightSidebar = ({ setOrderListType }) => {
+const DeliveryRightSidebar = ({ setOrderListType, setShowCustomLoader }) => {
   const dispatch = useDispatch();
   const [activeSidebar, setActiveSidebar] = useState(true);
   const authData = useSelector(selectLoginAuth);
   const uniqueId = authData?.usersInfo?.payload?.uniqe_id;
-  const { drawerOrderCount } = useSelector(deliveryData);
+  const { drawerOrderCount, orderListLoading } = useSelector(deliveryData);
   const statusDrawer = drawerOrderCount?.status_count ?? [];
 
   const getOrderList = (status) => {
+    setShowCustomLoader && setShowCustomLoader(true);
     let orderListParam = {
       status: status,
       seller_id: uniqueId,
@@ -38,6 +39,9 @@ const DeliveryRightSidebar = ({ setOrderListType }) => {
         ...orderListParam,
       })
     );
+    setTimeout(() => {
+      setShowCustomLoader && setShowCustomLoader(false);
+    }, 500);
   };
   const onPressHandler = (titleIndex, status, count) => {
     if (!activeSidebar && count > 0) {

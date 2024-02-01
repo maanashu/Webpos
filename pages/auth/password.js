@@ -124,7 +124,7 @@ const Verify = () => {
     <>
       <ProtectedRoute>
         <div className='verifyOtpSection loginPasswordOtp'>
-          <div className='loginOtpSub'>
+          <div className='loginOtpSub loginScroll'>
             <div className='loginheading'>Welcome to <span>JOBR POS</span></div>
             <div className='verifyBox'>
 
