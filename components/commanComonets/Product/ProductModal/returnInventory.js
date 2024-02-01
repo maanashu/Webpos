@@ -1,10 +1,7 @@
 import React, { useState } from "react";
 
-const ReturnInventory = ({ selectedProducts }) => {
-  const [selectedProductItems, setSelectedProductItems] =
-    useState(selectedProducts);
-
-
+const ReturnInventory = ({ selectedProducts,setNewQty }) => {
+  const [selectedProductItems, setSelectedProductItems]=useState(selectedProducts);
   const handleQuantity = (data, flag) => {
     let updateProductQuantity;
     if (flag === "increase") {
@@ -19,6 +16,7 @@ const ReturnInventory = ({ selectedProducts }) => {
           return { ...item, qty: item?.qty + 1 };
         }
         return item;
+  
       });
     } else {
       const getSingleProduct = selectedProducts?.find(
@@ -35,6 +33,7 @@ const ReturnInventory = ({ selectedProducts }) => {
       });
     }
     setSelectedProductItems(updateProductQuantity);
+    setNewQty(updateProductQuantity)
   };
 
   return (

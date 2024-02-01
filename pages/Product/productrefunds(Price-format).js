@@ -10,7 +10,10 @@ import {
   selectReturnData,
 } from "../../redux/slices/productReturn";
 import { useDispatch, useSelector } from "react-redux";
-import { setInvoiceData,onErrorStopLoad } from "../../redux/slices/productReturn";
+import {
+  setInvoiceData,
+  onErrorStopLoad,
+} from "../../redux/slices/productReturn";
 import { toast } from "react-toastify";
 import { Spinner } from "react-bootstrap";
 
@@ -25,8 +28,20 @@ const productrefunds = () => {
   const invoiceData = useSelector(selectReturnData);
   const orderDetails = invoiceData?.invoiceByInvoiceId;
   const selectedData = invoiceData?.invoiceData;
-  const refundedItems = JSON.parse(selectedData?.selectedItems || "[]");
+  let refundedItems = JSON.parse(selectedData?.selectedItems || "[]");
   const [key, setKey] = useState(Math.random());
+  const [newQty, setNewQty] = useState([]);
+  const quantities = newQty?.map((item) => item.qty);
+
+  quantities.forEach((item, index) => {
+    refundedItems[index].qty = item;
+  });
+
+  refundedItems = refundedItems.map((item, index) => ({
+    ...item,
+    newQty: quantities[index],
+  }));
+
   const [modalDetail, setModalDetail] = useState({
     show: false,
     title: "",
@@ -55,13 +70,13 @@ const productrefunds = () => {
     dispatch(setInvoiceData(shareData));
   };
 
-
-  let products = refundedItems?.map(item => ({
-    id: item.product_id,
-    qty: item.qty,
-    write_off_qty: item.write_off_qty || 0,
-    add_to_inventory_qty: item.add_to_inventory_qty || 0,
-    refund_value: item.refund_value || 0,
+  console.log(refundedItems,'iiiiiiiiiiiiiiiiii');
+  let products = refundedItems?.map((item, index) => ({
+    id: item?.product_id,
+    qty: item?.qty,
+    write_off_qty: item?.newQty || 0,
+    add_to_inventory_qty: item?.qty - item?.newQty || 0,
+    refund_value: item?.inputValue || 0,
   }));
 
   const handlereturnToInventory = () => {
@@ -74,7 +89,7 @@ const productrefunds = () => {
       return_reason: "testing reason",
       drawer_id: orderDetails?.order?.drawer_id,
     };
-    console.log(params,'params');
+    console.log(params, "params");
     setLoading(true);
     dispatch(
       returnToInventory({
@@ -91,9 +106,9 @@ const productrefunds = () => {
     );
   };
 
-  useEffect(()=>{
-    dispatch(onErrorStopLoad())
-  },[dispatch]);
+  useEffect(() => {
+    dispatch(onErrorStopLoad());
+  }, [dispatch]);
 
   const handleInputChange = (e, index) => {
     const { value } = e.target;
@@ -107,11 +122,25 @@ const productrefunds = () => {
       }
       return;
     } else {
-      setRefundAmount(enteredValue);
+      setInputValues(enteredValue);
     }
     const updatedInputValues = [...inputValues];
     updatedInputValues[index] = value;
     setInputValues(updatedInputValues);
+
+    refundedItems = refundedItems.map((item) => ({
+      ...item,
+      inputValues:
+        inputValues?.length > 0
+          ? [...inputValues, e.target.value]
+          : [e.target.value],
+    }));
+    refundedItems[index] = {
+      ...refundedItems[index],
+      inputValue: Number(e.target.value),
+    };
+    console.log(refundedItems,'refundedItems');
+  
     const inputValue = parseFloat(e.target.value);
     const productPrice = parseFloat(refundedItems[index]?.price);
     if (!isNaN(inputValue) && inputValue <= productPrice) {
@@ -162,7 +191,6 @@ const productrefunds = () => {
   const discount = (subtotal * 0.08).toFixed(2);
   const totalSum = (subtotal - parseFloat(discount)).toFixed(2);
 
-
   const handleActiveText = () => {
     setEnabletext(true);
   };
@@ -181,7 +209,7 @@ const productrefunds = () => {
     const maxPrice = Math.max(
       ...refundedItems?.map((item) => parseFloat(item?.price))
     );
- 
+
     if (!isNaN(enteredValue) && enteredValue <= maxPrice) {
       setRefundAmount(enteredValue);
     } else {
@@ -377,6 +405,7 @@ const productrefunds = () => {
             <ReturnInventory
               closeManulModal={() => handleOnCloseModal()}
               selectedProducts={refundedItems}
+              setNewQty={setNewQty}
             />
           ) : (
             ""

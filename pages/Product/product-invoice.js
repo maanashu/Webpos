@@ -21,16 +21,13 @@ const ProductInvoice = () => {
   const router = useRouter();
   const authData = useSelector(selectLoginAuth);
   const posData = authData?.posUserLoginDetails?.payload;
-  console.log(posData, "posData");
   const merchentDetails = authData?.usersInfo?.payload?.user?.user_profiles;
   const sellerId = authData?.usersInfo?.payload?.uniqe_id;
   const [searchInvoiceViaBarcode, setSearchInvoiceViaBarcode] = useState("");
   const invoiceData = useSelector(selectReturnData);
   const SearchInvoiceRespones = invoiceData?.invoiceByInvoiceId;
   const returnData = SearchInvoiceRespones?.return;
-  console.log(returnData, "returnData");
   const returnProductArray = returnData?.return_details;
-  console.log(returnProductArray, "returnProductArray");
   const orderDetails = SearchInvoiceRespones?.order;
   const [checkeddata, setCheckedData] = useState("");
   const [productDetails, setProductDetails] = useState([]);
@@ -63,7 +60,7 @@ const ProductInvoice = () => {
 
   const handleSearchInvoice = (e) => {
     let params = {
-      invoiceId: e.target.value,
+      invoiceId: e?.target?.value ? e.target.value : e,
       seller_id: sellerId,
     };
 
@@ -140,6 +137,10 @@ const ProductInvoice = () => {
       setProductDetails(updatedProductDetails);
     }
   }, [checkeddata]);
+
+  useEffect(() => {
+    handleSearchInvoice(SearchInvoiceRespones?.id);
+  }, []);
 
   return (
     <>
@@ -313,7 +314,7 @@ const ProductInvoice = () => {
                           </div>
                           <article>
                             <p className="mapleProductPrice">
-                              ${data?.order_details?.price}
+                              ${data?.refunded_amount}
                             </p>
                           </article>
                         </div>
@@ -357,7 +358,9 @@ const ProductInvoice = () => {
                       <p className="productName fw-bold">Total</p>
                     </article>
                     <article>
-                      <p className="productName">$933.50</p>
+                      <p className="productName">
+                        ${returnData?.products_refunded_amount}
+                      </p>
                       <p className="productName">{returnData?.tax}%</p>
 
                       <p className="totalBtn">${returnData?.refunded_amount}</p>
