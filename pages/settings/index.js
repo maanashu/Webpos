@@ -209,7 +209,7 @@ export default function Settings() {
         </div>
         <div className="col-lg-9">
 
-          <div>
+          {/* <div>
             <Image src={Images.ShippingOrders} className="SecurityImg" alt="img" onClick={() => setShowSideBar(prev => !prev)} />
 
             {showSidebar && <div className="deviceLeft settingOuter">
@@ -219,7 +219,7 @@ export default function Settings() {
                 ))}
               </div>
             </div>}
-          </div>
+          </div> */}
 
           <div className="outerpage" onClick={() => setShowSideBar(false)}>{renderComponent()}</div>
         </div>
