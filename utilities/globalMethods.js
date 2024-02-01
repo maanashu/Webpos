@@ -132,7 +132,6 @@ export const formattedReturnPriceWithoutSign = (price) => {
   return `${sign}${amountTwoDecimal}`;
 };
 
-
 export const noCartFun = () => {
   toast.error("NO Cart Found");
 };
@@ -162,9 +161,24 @@ export const getDaysAndDates = (
   }
 
   return daysAndDates;
-}
+};
 export const getStartEndFormattedDate = (date) => {
   return `${moment(date).format("hh:mm A")}`;
+};
+
+export const calculateTimeDuration = (item) => {
+  const startMoment = moment(item?.start_date_time);
+  const endMoment = moment(item?.end_date_time);
+  const duration = moment.duration(endMoment.diff(startMoment));
+
+  const startFormattedTime = startMoment.format("h:mm A");
+  const endFormattedTime = moment(item?.end_date_time).format("h:mm A");
+
+  const hours = Math.floor(duration.asHours());
+  const minutes = Math.floor(duration.asMinutes()) % 60;
+
+  const newFormattedTime = `${startFormattedTime} - ${endFormattedTime} (${hours} hrs ${minutes} mins)`;
+  return newFormattedTime;
 };
 
 export const pSBC = (p, c0, c1, l) => {
@@ -265,4 +279,22 @@ export const pSBC = (p, c0, c1, l) => {
         .toString(16)
         .slice(1, f ? undefined : -2)
     );
+};
+
+export const getCalendarActionButtonTitle = (status) => {
+  switch (status) {
+    case 1:
+      return "Check-in";
+    case 2:
+      return "Mark Completed";
+    case 3:
+      return "Completed";
+    case 4:
+      return "Declined";
+    case 5:
+      return "Cancelled";
+
+    default:
+      return "Status unknown";
+  }
 };
