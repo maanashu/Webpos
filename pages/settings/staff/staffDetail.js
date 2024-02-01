@@ -100,7 +100,7 @@ const StaffDetail = ({ selectedItemId, handleTouch }) => {
                                 </div>
                                 <div className='staffInfoBox'>
                                     <div className='staffProfileInfo'>
-                                        <Image src={getStaffInfo?.pos_staff_detail?.user?.user_profiles?.profile_photo ? getStaffInfo?.pos_staff_detail?.user?.user_profiles?.profile_photo : Images.staffProfile} alt="staffProfile image " className="staffProfileImg" width={100} height={100} />
+                                        <Image src={getStaffInfo?.pos_staff_detail?.user?.user_profiles?.profile_photo ? getStaffInfo?.pos_staff_detail?.user?.user_profiles?.profile_photo : Images.HomeProfileImg} alt="staffProfile image " className="staffProfileImg" width={100} height={100} />
                                         <div className='staffProfileSub'>
                                             <h4 className='appointMain'>{getStaffInfo?.pos_staff_detail?.user?.user_profiles?.firstname
                                                 ? getStaffInfo?.pos_staff_detail?.user?.user_profiles?.lastname
