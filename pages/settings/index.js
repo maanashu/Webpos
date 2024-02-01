@@ -209,17 +209,17 @@ export default function Settings() {
         </div>
         <div className="col-lg-9">
 
-          {/* <div>
-          <Image src={Images.ShippingOrders} className="SecurityImg" alt="img" onClick={() => setShowSideBar(prev => !prev)}/>
+          <div>
+            <Image src={Images.ShippingOrders} className="SecurityImg" alt="img" onClick={() => setShowSideBar(prev => !prev)} />
 
-          {showSidebar &&<div className="deviceLeft settingOuter">
-            <div>
-              {settingsOptions.map((item) => (
-                <SettingsBar key={item.id} item={item} />
-              ))}
-            </div>
-          </div>}
-            </div> */}
+            {showSidebar && <div className="deviceLeft settingOuter">
+              <div>
+                {settingsOptions.map((item) => (
+                  <SettingsBar key={item.id} item={item} />
+                ))}
+              </div>
+            </div>}
+          </div>
 
           <div className="outerpage" onClick={() => setShowSideBar(false)}>{renderComponent()}</div>
         </div>
