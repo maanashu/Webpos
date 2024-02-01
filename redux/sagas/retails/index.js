@@ -28,6 +28,9 @@ import {
   setUserDetail,
   setTimeSlots,
   setClearOneProduct,
+  setProductCategory,
+  setProductSubCategory,
+  setProductBrands,
   setMerchantWalletCheck,
   setWalletQr,
   setwalletByPhone,
@@ -35,8 +38,10 @@ import {
   setRequestCheck,
   setQrcodestatus,
   setPaymentRequestCancel,
+  setClearCart,
 } from "../../slices/retails";
 import { all, call, put, takeLatest } from "redux-saga/effects";
+import { store } from "../..";
 
 const ORDER_API_URL_V1 = ORDER_API_URL + "/api/v1/";
 const PRODUCT_API_URL_V1 = PRODUCT_API_URL + "/api/v1/";
@@ -184,6 +189,7 @@ function* clearCart(action) {
       `${ORDER_API_URL}/api/v1/poscarts`
     );
     if (resp.status) {
+      yield put(setClearCart(resp.data));
       yield call(action.payload.cb, (action.res = resp));
     } else {
       throw resp;
@@ -456,13 +462,109 @@ function* clearOneProduct(action) {
   try {
     const resp = yield call(
       ApiClient.delete,
-      `${ORDER_API_URL_V1}/poscarts/${body?.cartId}/${body?.productId}`,
+      `${ORDER_API_URL_V1}poscarts/${body?.cartId}/${body?.productId}`,
       body
     );
     if (resp.status) {
       yield put(setClearOneProduct(resp.data));
       yield call(action.payload.cb, (action.res = resp));
       // toast.success(resp?.data?.msg);
+    } else {
+      throw resp;
+    }
+  } catch (e) {
+    yield put(onErrorStopLoad());
+    toast.error(e?.error?.response?.data?.msg);
+  }
+}
+
+function* getProductFilterCategory(action) {
+  const dataToSend = { ...action.payload };
+  const authData = store.getState().auth;
+  const sellerId = authData?.usersInfo?.payload?.uniqe_id;
+
+  const params = {
+    seller_id: sellerId,
+    main_category: true,
+    service_type: "product",
+  };
+
+  // If needs searched category
+  if (dataToSend?.search) {
+    params.search = dataToSend.search;
+  }
+
+  const queryParams = new URLSearchParams(params).toString();
+  try {
+    const resp = yield call(
+      ApiClient.get,
+      `${PRODUCT_API_URL_V1}categories?${queryParams}`
+    );
+    if (resp.status) {
+      yield put(setProductCategory(resp?.data?.payload?.data));
+    } else {
+      throw resp;
+    }
+  } catch (e) {
+    yield put(onErrorStopLoad());
+    toast.error(e?.error?.response?.data?.msg);
+  }
+}
+
+function* getProductFilterSubCategory(action) {
+  const dataToSend = { ...action.payload };
+  const authData = store.getState().auth;
+  const sellerId = authData?.usersInfo?.payload?.uniqe_id;
+
+  const params = {
+    seller_id: sellerId,
+    need_subcategory: true,
+    service_type: "product",
+  };
+
+  // If needs searched subcategory
+  if (dataToSend?.search) {
+    params.search = dataToSend.search;
+  }
+
+  const queryParams = new URLSearchParams(params).toString();
+  try {
+    const resp = yield call(
+      ApiClient.get,
+      `${PRODUCT_API_URL_V1}categories?${queryParams}`
+    );
+    if (resp.status) {
+      yield put(setProductSubCategory(resp?.data?.payload?.data));
+    } else {
+      throw resp;
+    }
+  } catch (e) {
+    yield put(onErrorStopLoad());
+    toast.error(e?.error?.response?.data?.msg);
+  }
+}
+function* getProductFilterBrands(action) {
+  const dataToSend = { ...action.payload };
+  const authData = store.getState().auth;
+  const sellerId = authData?.usersInfo?.payload?.uniqe_id;
+
+  const params = {
+    seller_id: sellerId,
+  };
+
+  // If needs searched subcategory
+  if (dataToSend?.search) {
+    params.search = dataToSend.search;
+  }
+
+  const queryParams = new URLSearchParams(params).toString();
+  try {
+    const resp = yield call(
+      ApiClient.get,
+      `${PRODUCT_API_URL_V1}brands?${queryParams}`
+    );
+    if (resp.status) {
+      yield put(setProductBrands(resp?.data?.payload?.data));
     } else {
       throw resp;
     }
@@ -522,13 +624,18 @@ function* walletGetByPhone(action) {
     );
 
     if (resp.status) {
+      {
+        resp?.statusCode == 200
+          ? toast.success("Wallet Found Succesfully")
+          : toast.error("Wallet Not Found");
+      }
       yield put(setwalletByPhone(resp.data));
       yield call(action.payload.cb, (action.res = resp?.data?.payload));
     }
   } catch (e) {
-    toast.error("Wallet Not Found");
+    // toast.error("Wallet Not Found");
     yield put(onErrorStopLoad());
-    toast.error(e?.error?.response?.data?.msg);
+    // toast.error(e?.error?.response?.data?.msg);
   }
 }
 
@@ -641,6 +748,12 @@ function* retailsSaga() {
     takeLatest("retails/getTimeSlots", getTimeSlots),
     takeLatest("retails/addToCartService", addToCartService),
     takeLatest("retails/clearOneProduct", clearOneProduct),
+    takeLatest("retails/getProductFilterCategory", getProductFilterCategory),
+    takeLatest(
+      "retails/getProductFilterSubCategory",
+      getProductFilterSubCategory
+    ),
+    takeLatest("retails/getProductFilterBrands", getProductFilterBrands),
     takeLatest("retails/merchantWalletCheck", merchantWalletCheck),
     takeLatest("retails/getWalletQr", getWalletQr),
     takeLatest("retails/walletGetByPhone", walletGetByPhone),

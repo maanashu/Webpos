@@ -24,6 +24,9 @@ const ProductInnerNav = ({ productCount, ServicesCount }) => {
   const router = useRouter();
   const pathName = router.asPath;
   const { parameter } = router.query;
+  const productBrands = retailData?.productBrands;
+  const productCategory = retailData?.productCategories;
+  const productSubCategory = retailData?.productSubCategories;
 
   const handleTabs = (tabValue) => {
     setActiveTab(tabValue);
@@ -97,7 +100,7 @@ const ProductInnerNav = ({ productCount, ServicesCount }) => {
         <div className="col-lg-6 col-md-12">
           <div className="productInnerNavBar">
             <div className="productAll">
-              {activeTab === "product" ? (
+              {parameter == "product" ? (
                 <p className="ProductAbout">
                   All Products{" "}
                   <span className="productCount">({productCount})</span>
@@ -502,6 +505,15 @@ const ProductInnerNav = ({ productCount, ServicesCount }) => {
                             <span className="checkmark"></span>
                             <span className="filteredheading">Love</span>
                           </label>
+                          {productCategory.map((item) => (
+                            <label className="custom-checkbox">
+                              <input type="checkbox" />
+                              <span className="checkmark"></span>
+                              <span className="filteredheading">
+                                {item?.name}
+                              </span>
+                            </label>
+                          ))}
                         </div>
                       </div>
                     </div>
@@ -515,7 +527,7 @@ const ProductInnerNav = ({ productCount, ServicesCount }) => {
                           aria-expanded="false"
                           aria-controls="AvailabilityBox"
                         >
-                          Availability
+                          SubCategory
                         </button>
                       </h2>
                       <div
@@ -550,6 +562,15 @@ const ProductInnerNav = ({ productCount, ServicesCount }) => {
                             <span className="checkmark"></span>
                             <span className="filteredheading">Anytime</span>
                           </label>
+                          {productSubCategory?.map((item) => (
+                            <label className="custom-checkbox">
+                              <input type="checkbox" />
+                              <span className="checkmark"></span>
+                              <span className="filteredheading">
+                                {item?.name}
+                              </span>
+                            </label>
+                          ))}
                         </div>
                       </div>
                     </div>
@@ -563,7 +584,7 @@ const ProductInnerNav = ({ productCount, ServicesCount }) => {
                           aria-expanded="false"
                           aria-controls="DurationBox"
                         >
-                          Duration
+                          Brands
                         </button>
                       </h2>
                       <div
@@ -598,10 +619,19 @@ const ProductInnerNav = ({ productCount, ServicesCount }) => {
                             <span className="checkmark"></span>
                             <span className="filteredheading">Anytime</span>
                           </label>
+                          {productBrands?.map((item) => (
+                            <label className="custom-checkbox">
+                              <input type="checkbox" />
+                              <span className="checkmark"></span>
+                              <span className="filteredheading">
+                                {item?.name}
+                              </span>
+                            </label>
+                          ))}
                         </div>
                       </div>
                     </div>
-                    <div className="accordion-item">
+                    {/* <div className="accordion-item">
                       <h2 className="accordion-header" id="Location">
                         <button
                           className="accordion-button collapsed"
@@ -696,7 +726,7 @@ const ProductInnerNav = ({ productCount, ServicesCount }) => {
                           </label>
                         </div>
                       </div>
-                    </div>
+                    </div> */}
                   </div>
                 </div>
               ) : (

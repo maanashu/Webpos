@@ -36,6 +36,11 @@ const OrderDetailsItem = ({ item, onPressHandler }) => {
         <tr className="product_invoice">
           <td className="invoice_subhead">
             <div className="nameLocation">
+              <h4 className="assignId">{"#" + item?.id}</h4>
+            </div>
+          </td>
+          <td className="invoice_subhead">
+            <div className="nameLocation">
               <h4 className="assignId">
                 {item?.user_details?.firstname || "user"}
               </h4>

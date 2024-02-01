@@ -98,9 +98,9 @@ const CashDrawer = () => {
             </Link>
           </div>
         </div>
-        <div className="paginatePosition">
+        {/* <div className="paginatePosition">
           <PaginationFooter />
-        </div>
+        </div> */}
       </div>
     </>
   );

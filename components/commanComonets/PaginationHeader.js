@@ -64,7 +64,7 @@ const PaginationHeader = ({
 
   return (
     <div className="users-pagination-header">
-      <div className="flex-row-space-between">
+      <div className="flex-row-space-between paginateTop">
         <div style={{ gap: "16px" }} className="flex-row-space-between">
           <div className="customer-calendar-cnt">
             <Image width={24} height={24} src={customerCalendar} />
@@ -95,7 +95,7 @@ const PaginationHeader = ({
           style={{
             gap: "16px",
           }}
-          className="flex-row-space-between"
+          className="flex-row-space-between paginateTop"
         >
           <div
             style={{

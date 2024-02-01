@@ -8,7 +8,10 @@ import {
   getMainServices,
   getOneProductById,
   getOneServiceById,
+  getProductFilterCategory,
   selectRetailData,
+  getProductFilterSubCategory,
+  getProductFilterBrands,
 } from "../../redux/slices/retails";
 import { useDispatch, useSelector } from "react-redux";
 import { selectLoginAuth } from "../../redux/slices/auth";
@@ -25,6 +28,7 @@ const Retails = () => {
   const sellerId = authData?.usersInfo?.payload?.uniqe_id;
   const router = useRouter();
   const { parameter } = router.query;
+  console.log("parameter", parameter);
   const cartData = retailData?.productCart;
   const cartLength = cartData?.poscart_products?.length;
   const cartPosCart = cartData?.poscart_products || [];
@@ -108,6 +112,14 @@ const Retails = () => {
     // }
     productData();
     servicesData();
+
+    /**
+     * Product Filter APIS
+     * Add {search:''} param if needed for searched results
+     */
+    dispatch(getProductFilterCategory());
+    dispatch(getProductFilterSubCategory());
+    dispatch(getProductFilterBrands());
   }, [sellerId]);
 
   return (

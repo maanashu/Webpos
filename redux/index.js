@@ -39,5 +39,5 @@ const makeStore = () => {
   sagaMiddleware.run(rootSaga);
   return store;
 };
-
 export const wrapper = createWrapper(makeStore, { debug: true });
+export const store = makeStore();

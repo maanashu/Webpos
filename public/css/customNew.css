@@ -5296,7 +5296,7 @@ figure {
 }
 
 #ordersToReview .invoice_subhead:first-child {
-  min-width: 250px;
+  min-width: 80px;
 }
 
 .shipOrderSection .declineButton {

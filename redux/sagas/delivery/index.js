@@ -87,6 +87,7 @@ function* getOrderStat(action) {
 }
 
 function* getOrdersList(action) {
+  yield put(getOrdersList());
   const dataToSend = { ...action.payload };
   delete dataToSend.cb;
   const params = new URLSearchParams(dataToSend).toString();
@@ -194,16 +195,16 @@ function* verifyPickupOtp(action, callbackFn) {
       `${ORDER_API_URL}${API_URL.verifyPickupOtp}`,
       dataToSend
     );
-    console.log("ressopoppo", resp);
+    if (!resp?.status) {
+      toast.error("Invalid Otp");
+    }
 
     if (resp) {
       yield call(action.payload.cb, (action.res = resp));
     } else {
-      console.log("Errorr0eee", resp);
       throw resp;
     }
   } catch (e) {
-    console.log("Errorr0", e);
     // yield put(onErrorStopLoad());
     toast.error(e?.error?.response?.data?.msg);
   }

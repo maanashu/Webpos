@@ -10,7 +10,7 @@ import {
   selectRetailData,
 } from "../../redux/slices/retails";
 import { selectLoginAuth } from "../../redux/slices/auth";
-import { Router, useRouter } from "next/router";
+import { useRouter } from "next/router";
 import { toast } from "react-toastify";
 import { amountFormat } from "../../utilities/globalMethods";
 
@@ -112,10 +112,11 @@ const AddProduct = () => {
       dispatch(
         addTocart({
           ...params,
-          cb(res) {
+          cb: (res) => {
+            router.back();
+
             dispatch(productCart());
             // router.push("/Retails?parameter=product");
-            router.back();
           },
         })
       );
@@ -164,10 +165,11 @@ const AddProduct = () => {
               dispatch(
                 addTocart({
                   ...params,
-                  cb(res) {
+                  cb: (res) => {
+                    router.back();
+
                     dispatch(productCart());
                     // router.push("/Retails?parameter=product");
-                    router.back();
                   },
                 })
               );
@@ -336,34 +338,32 @@ const AddProduct = () => {
               {/* {retailData?.checkSuppliedVariantLoad ||
               retailData?.addTocartLoad ? ( */}
 
-              {
-                // retailData?.addTocartLoad ||
-                // retailData?.productCartLoad ||
-                retailData?.checkSuppliedVariantLoad ? (
-                  <button
-                    className="nextverifyBtn w-100 mt-3"
-                    type="submit"
-                    onClick={() => addToCartHandler()}
-                    disabled={true}
-                  >
-                    Add Item
-                    <span className="spinner-border spinner-border-sm mx-1"></span>
-                  </button>
-                ) : (
-                  <button
-                    className="nextverifyBtn w-100 mt-3"
-                    type="submit"
-                    onClick={() => addToCartHandler()}
-                  >
-                    Add Item
-                    <Image
-                      src={Images.serviceCart}
-                      alt="rightArrow"
-                      className="img-fluid rightImg ms-2"
-                    />
-                  </button>
-                )
-              }
+              {retailData?.addTocartLoad ||
+              retailData?.productCartLoad ||
+              retailData?.checkSuppliedVariantLoad ? (
+                <button
+                  className="nextverifyBtn w-100 mt-3"
+                  type="submit"
+                  onClick={() => addToCartHandler()}
+                  disabled={true}
+                >
+                  Add Item
+                  <span className="spinner-border spinner-border-sm mx-1"></span>
+                </button>
+              ) : (
+                <button
+                  className="nextverifyBtn w-100 mt-3"
+                  type="submit"
+                  onClick={() => addToCartHandler()}
+                >
+                  Add Item
+                  <Image
+                    src={Images.serviceCart}
+                    alt="rightArrow"
+                    className="img-fluid rightImg ms-2"
+                  />
+                </button>
+              )}
             </div>
           </div>
           <div className="col-lg-7 col-md-7">

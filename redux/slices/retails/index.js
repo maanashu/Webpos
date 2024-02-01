@@ -9,7 +9,6 @@ const initialState = {
   cartDetails: {},
   checkSuppliedVariantLoad: false,
   addTocartLoad: false,
-  clearCartLoading: false,
   getTipsLoad: false,
   getTipsData: {},
   updateCartByTipLoad: false,
@@ -30,6 +29,10 @@ const initialState = {
   timeSlots: [],
   addToCartServiceLoad: false,
   clearOneProductLoad: false,
+  loading: false,
+  productCategories: [],
+  productSubCategories: [],
+  productBrands: [],
   merchantWalletCheckLoad: false,
   getWalletQrLoad: false,
   walletQrData: {},
@@ -116,11 +119,9 @@ export const retailsSlice = createSlice({
       state.addTocartLoad = false;
     },
     clearCart: (state) => {
-      state.loading = true;
       state.clearCartLoad = true;
     },
     setClearCart: (state) => {
-      state.loading = false;
       state.clearCartLoad = false;
     },
     checkSuppliedVariant: (state) => {
@@ -210,6 +211,31 @@ export const retailsSlice = createSlice({
       // state.timeSlots = action?.payload?.payload?.slots;
     },
 
+    getProductFilterCategory: (state) => {
+      state.loading = true;
+    },
+    getProductFilterSubCategory: (state) => {
+      state.loading = true;
+    },
+    getProductFilterBrands: (state) => {
+      state.loading = true;
+    },
+
+    setProductCategory: (state, action) => {
+      state.loading = false;
+      state.productCategories = action?.payload;
+    },
+
+    setProductSubCategory: (state, action) => {
+      state.loading = false;
+      state.productSubCategories = action?.payload;
+    },
+
+    setProductBrands: (state, action) => {
+      state.loading = false;
+      state.productBrands = action?.payload;
+    },
+
     merchantWalletCheck: (state) => {
       state.merchantWalletCheckLoad = true;
     },
@@ -287,6 +313,7 @@ export const retailsSlice = createSlice({
       state.getMainProductLoad = false;
       state.getMainServicesLoad = false;
       state.addTocartLoad = false;
+      state.clearCartLoad = false;
     },
   },
 });
@@ -321,6 +348,7 @@ export const {
   createOrder,
   setCreateOrder,
   clearCart,
+  setClearCart,
   getDrawerSession,
   setDrawerSession,
   attachCustomer,
@@ -335,6 +363,12 @@ export const {
   setAddToCartService,
   clearOneProduct,
   setClearOneProduct,
+  getProductFilterCategory,
+  getProductFilterSubCategory,
+  getProductFilterBrands,
+  setProductCategory,
+  setProductSubCategory,
+  setProductBrands,
   merchantWalletCheck,
   setMerchantWalletCheck,
   getWalletQr,
