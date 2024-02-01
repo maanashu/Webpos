@@ -26,7 +26,6 @@ const productrefunds = () => {
   const orderDetails = invoiceData?.invoiceByInvoiceId;
   const selectedData = invoiceData?.invoiceData;
   const refundedItems = JSON.parse(selectedData?.selectedItems || "[]");
-  console.log(refundedItems,'refundedItems');
   const [key, setKey] = useState(Math.random());
   const [modalDetail, setModalDetail] = useState({
     show: false,
@@ -161,25 +160,8 @@ const productrefunds = () => {
   }, 0);
 
   const discount = (subtotal * 0.08).toFixed(2);
-  console.log(discount, "discountt");
+  const totalSum = (subtotal - parseFloat(discount)).toFixed(2);
 
-  const totalSum = refundedItems
-    ?.reduce((acc, data, idx) => {
-      const productPrice = parseFloat(data?.price) || 0;
-      const taxRate = 0.08; // 8% tax rate
-      const itemTotal =
-        !isNaN(parseFloat(inputValues[idx])) && !isNaN(parseFloat(data?.qty))
-          ? (parseFloat(inputValues[idx]) * parseFloat(data?.qty)).toFixed(2)
-          : "0.00";
-
-      const itemTotalWithTax = (
-        parseFloat(itemTotal) +
-        productPrice * taxRate
-      ).toFixed(2);
-
-      return acc + parseFloat(itemTotalWithTax);
-    }, 0)
-    .toFixed(2);
 
   const handleActiveText = () => {
     setEnabletext(true);
@@ -199,6 +181,7 @@ const productrefunds = () => {
     const maxPrice = Math.max(
       ...refundedItems?.map((item) => parseFloat(item?.price))
     );
+ 
     if (!isNaN(enteredValue) && enteredValue <= maxPrice) {
       setRefundAmount(enteredValue);
     } else {
@@ -347,7 +330,7 @@ const productrefunds = () => {
                   <div className="flexBox justify-content-between ">
                     <p className="orderHeading">Total Taxes</p>
                     <p className="orderHeading">
-                      +${subtotal ? discount : "0.00"}
+                      +${subtotal ? discount : "0.00"}%
                     </p>
                   </div>
                 </div>
