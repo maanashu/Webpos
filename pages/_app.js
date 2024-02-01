@@ -1,4 +1,5 @@
 import "../public/css/auth.css";
+import "../public/css/booking.css";
 import "../public/css/custom.css";
 import "../public/css/customNew.css";
 import "../styles/website/custom_A.css";
@@ -23,20 +24,18 @@ import { useDispatch, useSelector } from "react-redux";
 import auth, { selectLoginAuth } from "../redux/slices/auth";
 import { getSecuritySettingInfo, settingInfo } from "../redux/slices/setting";
 
-
 function App({ Component, pageProps }) {
   const dispatch = useDispatch();
-  const settingData = useSelector(settingInfo)
-  const authData = useSelector(selectLoginAuth)
-  const UniqueId = authData?.usersInfo?.payload?.uniqe_id
+  const settingData = useSelector(settingInfo);
+  const authData = useSelector(selectLoginAuth);
+  const UniqueId = authData?.usersInfo?.payload?.uniqe_id;
   const [loading, setLoading] = useState(true);
   const [activeSidebar, setActiveSidebar] = useState(true);
-  const [getSelectedLanguages, setGetSelectedLanguages] = useState('')
-  const [languageCode, setLanguageCode] = useState("")
+  const [getSelectedLanguages, setGetSelectedLanguages] = useState("");
+  const [languageCode, setLanguageCode] = useState("");
   // const Token = authData?.posUserLoginDetails?.payload?.token
   //   ? authData?.posUserLoginDetails?.payload?.token
   //   : "";
-
 
   // const getSecuritySetting = async () => {
   //   let params = {
