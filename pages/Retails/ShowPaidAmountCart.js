@@ -90,13 +90,17 @@ const ShowPaidAmountCart = () => {
                   {payableData?.mode_of_payment == "card" ||
                   payableData?.mode_of_payment === "cash"
                     ? "$"
-                    : "JBR"}
+                    : "JBR"}{" "}
                   {amountFormat(payableData?.tips, "notSign")}
                 </p>
               </div>
-              <div>
-                <p className="amount">Change Due: {amountFormat(changeDue)}</p>
-              </div>
+              {payableData?.mode_of_payment === "cash" && (
+                <div>
+                  <p className="amount">
+                    Change Due: {amountFormat(changeDue)}
+                  </p>
+                </div>
+              )}
             </div>
           </div>
           <div className="col-lg-5 col-md-5">
