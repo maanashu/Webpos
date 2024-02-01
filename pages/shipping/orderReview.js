@@ -259,7 +259,7 @@ const OrderReview = () => {
                                                                                         alt="location Image"
                                                                                         className="img-fluid m-0"
                                                                                     />
-                                                                                    <span className="locateDistance">{item?.user_details?.current_address?.city + "," + item?.user_details?.current_address?.country}</span>
+                                                                                    <span className="locateDistance">{item?.distance ? `${item.distance} miles` : "0"}</span>
                                                                                 </div>
                                                                             </div>
                                                                             {(item?.status >= 3) &&
@@ -277,7 +277,7 @@ const OrderReview = () => {
                                                                                 </div>
                                                                             }
                                                                         </td>
-                                                                        {(item?.status == 0) && (item?.status == 1) && (item?.status == 2) &&
+                                                                        {(item?.status == 0) && 
                                                                             <td className="invoice_subhead">
                                                                                 <div className="itemMoney">
                                                                                     <h4 className="assignId">{item?.total_items} items</h4>
@@ -473,7 +473,7 @@ const OrderReview = () => {
                                                     </div>
                                                     <div className="OrderCheckoutBox">
                                                         <p className='orderHeading'>Order Date</p>
-                                                        <p className='orderSubHeading'>{moment.utc(singleOrderData?.invoices?.delivery_date).format("MM/DD/YYYY")}</p>
+                                                        <p className='orderSubHeading'>{moment.utc(singleOrderData?.created_at).format("MM/DD/YYYY")}</p>
                                                     </div>
                                                     <div className="OrderCheckoutBox">
                                                         <p className='orderHeading'>Order ID#</p>
