@@ -259,19 +259,19 @@ const RightSideBar = ({ props }) => {
 
       {filterShow ? (
         <div className="AddtoCart ProductAddCart">
-          {cartData?.poscart_products?.map((data, index) => {
-            const productSize =
-              data?.product_details?.supply?.attributes?.filter(
-                (item) => item?.name === "Size"
-              );
-            const productColor =
-              data?.product_details?.supply?.attributes?.filter(
-                (item) => item?.name === "Color"
-              );
+          <div className="cartInfo">
+            {cartData?.poscart_products?.map((data, index) => {
+              const productSize =
+                data?.product_details?.supply?.attributes?.filter(
+                  (item) => item?.name === "Size"
+                );
+              const productColor =
+                data?.product_details?.supply?.attributes?.filter(
+                  (item) => item?.name === "Color"
+                );
 
-            return (
-              <div className="cartInfo" key={index}>
-                <div className="cartSubInfo active">
+              return (
+                <div className="cartSubInfo active" key={index}>
                   <div className="orderTime">
                     <Image
                       src={data?.product_details?.image}
@@ -344,56 +344,56 @@ const RightSideBar = ({ props }) => {
                     </label>
                   </div>
                 </div>
-              </div>
-            );
-          })}
+              );
+            })}
 
-          <div className="subFooter">
-            <div className="dividesection">
-              <hr className="divideBorder" />
-            </div>
-            <div className="cartTotalsection">
-              <div className="cartTotal">
-                <h4 className="userPosition">Sub Total</h4>
-                <h4 className="amountText m-0">
-                  {amountFormat(cartAmount?.products_price)}
-                </h4>
+            <div className="subFooter">
+              <div className="dividesection">
+                <hr className="divideBorder" />
               </div>
-              <div className="cartTotal">
-                <h4 className="userPosition">{`Discount ${
-                  cartData?.discount_flag === "percentage" ? "(%)" : ""
-                } `}</h4>
-                <h4 className="amountText m-0">
-                  {formattedReturnPrice(cartAmount?.discount || "0.00")}
-                </h4>
+              <div className="cartTotalsection">
+                <div className="cartTotal">
+                  <h4 className="userPosition">Sub Total</h4>
+                  <h4 className="amountText m-0">
+                    {amountFormat(cartAmount?.products_price)}
+                  </h4>
+                </div>
+                <div className="cartTotal">
+                  <h4 className="userPosition">{`Discount ${
+                    cartData?.discount_flag === "percentage" ? "(%)" : ""
+                  } `}</h4>
+                  <h4 className="amountText m-0">
+                    {formattedReturnPrice(cartAmount?.discount || "0.00")}
+                  </h4>
+                </div>
+                <div className="cartTotal">
+                  <h4 className="userPosition">Total Taxes</h4>
+                  <h4 className="amountText m-0">
+                    {amountFormat(cartAmount?.tax)}
+                  </h4>
+                </div>
+                <div className="cartTotal">
+                  <h4 className="userPosition">Total</h4>
+                  <h4 className="amountText m-0">
+                    {amountFormat(cartAmount?.total_amount)}
+                  </h4>
+                </div>
+                <button
+                  className="nextverifyBtn w-100"
+                  onClick={() => {
+                    parameter == "product"
+                      ? router.push({ pathname: "/Retails/ProductCart" })
+                      : router.push({ pathname: "/Retails/ServiceCart" });
+                  }}
+                >
+                  Proceed to checkout
+                  <Image
+                    src={Images.ArrowRight}
+                    alt="rightArrow"
+                    className="img-fluid rightImg"
+                  />
+                </button>
               </div>
-              <div className="cartTotal">
-                <h4 className="userPosition">Total Taxes</h4>
-                <h4 className="amountText m-0">
-                  {amountFormat(cartAmount?.tax)}
-                </h4>
-              </div>
-              <div className="cartTotal">
-                <h4 className="userPosition">Total</h4>
-                <h4 className="amountText m-0">
-                  {amountFormat(cartAmount?.total_amount)}
-                </h4>
-              </div>
-              <button
-                className="nextverifyBtn w-100"
-                onClick={() => {
-                  parameter == "product"
-                    ? router.push({ pathname: "/Retails/ProductCart" })
-                    : router.push({ pathname: "/Retails/ServiceCart" });
-                }}
-              >
-                Proceed to checkout
-                <Image
-                  src={Images.ArrowRight}
-                  alt="rightArrow"
-                  className="img-fluid rightImg"
-                />
-              </button>
             </div>
           </div>
         </div>
