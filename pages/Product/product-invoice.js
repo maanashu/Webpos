@@ -24,6 +24,8 @@ const ProductInvoice = () => {
   const [searchInvoiceViaBarcode, setSearchInvoiceViaBarcode] = useState("");
   const invoiceData = useSelector(selectReturnData);
   const SearchInvoiceRespones = invoiceData?.invoiceByInvoiceId;
+  const returnData = SearchInvoiceRespones?.return;
+  console.log(returnData, "returnData");
   const orderDetails = SearchInvoiceRespones?.order;
   const [checkeddata, setCheckedData] = useState("");
   const [productDetails, setProductDetails] = useState([]);
@@ -52,7 +54,7 @@ const ProductInvoice = () => {
         }))
       );
     }
-  }, [SearchInvoiceRespones?.order?.order_details ,checkeddata]);
+  }, [SearchInvoiceRespones?.order?.order_details, checkeddata]);
 
   const handleSearchInvoice = (e) => {
     let params = {
@@ -231,8 +233,7 @@ const ProductInvoice = () => {
                           <td className="invoice_subhead">
                             {SearchInvoiceRespones?.order?.total_items}
                           </td>
-                          {/* {SearchInvoiceRespones?.order?.order_details?.map(
-                          (data) => { */}
+
                           <td className="invoice_subhead">
                             <figure className="priceBtn">
                               <Image
@@ -246,8 +247,6 @@ const ProductInvoice = () => {
                             </figure>
                           </td>
 
-                          {/* }
-                        )} */}
                           <td className="invoice_subhead">
                             <Image
                               src={Images.arrowIcon}
@@ -267,7 +266,9 @@ const ProductInvoice = () => {
             </div>
           </div>
 
-          {SearchInvoiceRespones ? (
+          {returnData ? (
+            <>Product Retuned!</>
+          ) : SearchInvoiceRespones ? (
             <div className="col-lg-6">
               <div className="commanOuter">
                 <div className="d-flex justify-content-between mb-3">
