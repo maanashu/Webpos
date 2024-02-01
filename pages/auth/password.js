@@ -127,7 +127,6 @@ const Verify = () => {
           <div className='loginOtpSub loginScroll'>
             <div className='loginheading'>Welcome to <span>JOBR POS</span></div>
             <div className='verifyBox'>
-
               <div className='loginCard'>
                 <figure className='loginIds'>
                   <Image src={selectedposusernfo?.user?.user_profiles?.profile_photo ? selectedposusernfo?.user?.user_profiles?.profile_photo : Images.LoginFirst} alt="LoginIdImage" width="100" height="100" className="img-fluid loginIdImg" />

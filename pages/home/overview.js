@@ -245,7 +245,7 @@ const Overview = () => {
                                   data?.mode_of_payment?.slice(1)}{" "}
                               sales amount
                             </h4>
-                            <h4 className="saleHeading">
+                            <h4 className="saleHeading text-end">
                               {data?.mode_of_payment === "jbr" ? `JBR ${data?.total_sale_amount?.toFixed(2)}` : "$"+data?.total_sale_amount?.toFixed(2)}
                               {/* ${data?.total_sale_amount?.toFixed(2)} */}
                             </h4>
