@@ -794,6 +794,11 @@ input:checked+.switch-slider:before {
   color: #47B0D6;
 }
 
+.paginateTop {
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
 /*customer css end*/
 
 /*notification css start*/
@@ -822,12 +827,46 @@ input:checked+.switch-slider:before {
 
 .notifyBtn {
   border-radius: 16px;
-  background: #E4E6F2;
+  background: #f3f4f9;
   padding: 6px 14px;
   border: none;
-  color:  #263682;
+  color: #6371b0;
   font-size: 12px;
   font-weight: 500;
 }
 
+.notifySection::-webkit-scrollbar {
+  display: none;
+}
+
 /*notification css end*/
+/*auth css start*/
+.loginScroll {
+  height: calc(100vh - 192px);
+  overflow-y: scroll;
+  padding-bottom: 24px;
+}
+
+.loginScroll::-webkit-scrollbar {
+  display: none;
+}
+
+/*auth css end*/
+/*ship module css start */
+#ordersToReview .invoice_subhead:nth-child(2) {
+  min-width: 165px;
+}
+
+#ordersToReview .invoice_subhead:nth-child(3) {
+  min-width: 135px;
+}
+
+#ordersToReview .invoice_subhead:nth-child(4) {
+  min-width: 225px;
+}
+
+.productDataInfo {
+  min-width: 230px;
+}
+
+/*ship module css end*/

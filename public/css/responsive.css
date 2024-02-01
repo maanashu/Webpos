@@ -920,6 +920,12 @@
     .extras {
         width: 100%;
     }
+
+    .customerGraphLeft {
+        justify-content: space-between;
+        gap: 8px;
+        flex-wrap: wrap;
+    }
 }
 
 @media (max-width: 546px) {
@@ -1088,6 +1094,10 @@
 
     .cust-header .header-title {
         font-size: 21px;
+    }
+
+    .customerSection {
+        margin: 10px !important;
     }
 }
 
