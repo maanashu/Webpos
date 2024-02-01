@@ -1,14 +1,29 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import ProductSearch from "./productSearch";
 import * as Images from "../../../utilities/images";
 import Image from "next/image";
 import { useRouter } from "next/router";
+import { debounce } from "lodash";
+import { useDispatch, useSelector } from "react-redux";
+import { selectLoginAuth } from "../../../redux/slices/auth";
+import {
+  getMainProduct,
+  getMainServices,
+  selectRetailData,
+} from "../../../redux/slices/retails";
 
 const ProductInnerNav = ({ productCount, ServicesCount }) => {
+  const dispatch = useDispatch();
+  const authData = useSelector(selectLoginAuth);
+  const retailData = useSelector(selectRetailData);
+  const sellerId = authData?.usersInfo?.payload?.uniqe_id;
   const [filterShow, setFilterShow] = useState(false);
   const [activeTab, setActiveTab] = useState("");
+  const [productSearch, setProductSearch] = useState("");
+  const [serviceSearch, setServiceSearch] = useState("");
   const router = useRouter();
   const pathName = router.asPath;
+  const { parameter } = router.query;
 
   const handleTabs = (tabValue) => {
     setActiveTab(tabValue);
@@ -24,6 +39,57 @@ const ProductInnerNav = ({ productCount, ServicesCount }) => {
       setActiveTab("services");
     }
   }, [pathName]);
+
+  // product search fun
+  const onSearchProduct = (searchText) => {
+    let params = {
+      ...(searchText?.length != 0 && { search: searchText }),
+      seller_id: sellerId,
+    };
+    if (searchText?.length > 2) {
+      dispatch(
+        getMainProduct({
+          ...params,
+          cb(res) {},
+        })
+      );
+    } else if (searchText?.length == 0) {
+      dispatch(
+        getMainProduct({
+          ...params,
+          cb(res) {},
+        })
+      );
+    }
+  };
+
+  // service search fun
+  const onSearchService = (searchText) => {
+    let params = {
+      ...(searchText?.length != 0 && { search: searchText }),
+      seller_id: sellerId,
+    };
+    if (searchText?.length > 2) {
+      dispatch(
+        getMainServices({
+          ...params,
+          cb(res) {},
+        })
+      );
+    } else if (searchText?.length == 0) {
+      dispatch(
+        getMainServices({
+          ...params,
+          cb(res) {},
+        })
+      );
+    }
+  };
+
+  const debounceSearch = useCallback(
+    debounce(parameter == "product" ? onSearchProduct : onSearchService, 1000),
+    [sellerId]
+  );
 
   return (
     <>
@@ -44,7 +110,23 @@ const ProductInnerNav = ({ productCount, ServicesCount }) => {
               )}
             </div>
             <div className="ProductSearch productSearchBx">
-              <ProductSearch />
+              {parameter == "product" ? (
+                <ProductSearch
+                  value={productSearch}
+                  onChange={(event) => {
+                    setProductSearch(event.target.value);
+                    debounceSearch(event.target.value);
+                  }}
+                />
+              ) : (
+                <ProductSearch
+                  value={serviceSearch}
+                  onChange={(event) => {
+                    setServiceSearch(event.target.value);
+                    debounceSearch(event.target.value);
+                  }}
+                />
+              )}
             </div>
           </div>
         </div>
@@ -378,9 +460,7 @@ const ProductInnerNav = ({ productCount, ServicesCount }) => {
                           <label className="custom-checkbox">
                             <input type="checkbox" />
                             <span className="checkmark"></span>
-                            <span className="filteredheading">
-                              Health
-                            </span>
+                            <span className="filteredheading">Health</span>
                           </label>
                           <label className="custom-checkbox">
                             <input type="checkbox" />
@@ -400,9 +480,7 @@ const ProductInnerNav = ({ productCount, ServicesCount }) => {
                           <label className="custom-checkbox">
                             <input type="checkbox" />
                             <span className="checkmark"></span>
-                            <span className="filteredheading">
-                              Nutrition
-                            </span>
+                            <span className="filteredheading">Nutrition</span>
                           </label>
                           <label className="custom-checkbox">
                             <input type="checkbox" />
@@ -412,9 +490,7 @@ const ProductInnerNav = ({ productCount, ServicesCount }) => {
                           <label className="custom-checkbox">
                             <input type="checkbox" />
                             <span className="checkmark"></span>
-                            <span className="filteredheading">
-                              Building
-                            </span>
+                            <span className="filteredheading">Building</span>
                           </label>
                           <label className="custom-checkbox">
                             <input type="checkbox" />
@@ -457,30 +533,22 @@ const ProductInnerNav = ({ productCount, ServicesCount }) => {
                           <label className="custom-checkbox">
                             <input type="checkbox" />
                             <span className="checkmark"></span>
-                            <span className="filteredheading">
-                              Tomorrow
-                            </span>
+                            <span className="filteredheading">Tomorrow</span>
                           </label>
                           <label className="custom-checkbox">
                             <input type="checkbox" />
                             <span className="checkmark"></span>
-                            <span className="filteredheading">
-                              This Week
-                            </span>
+                            <span className="filteredheading">This Week</span>
                           </label>
                           <label className="custom-checkbox">
                             <input type="checkbox" />
                             <span className="checkmark"></span>
-                            <span className="filteredheading">
-                              This Month
-                            </span>
+                            <span className="filteredheading">This Month</span>
                           </label>
                           <label className="custom-checkbox">
                             <input type="checkbox" />
                             <span className="checkmark"></span>
-                            <span className="filteredheading">
-                              Anytime
-                            </span>
+                            <span className="filteredheading">Anytime</span>
                           </label>
                         </div>
                       </div>
@@ -513,30 +581,22 @@ const ProductInnerNav = ({ productCount, ServicesCount }) => {
                           <label className="custom-checkbox">
                             <input type="checkbox" />
                             <span className="checkmark"></span>
-                            <span className="filteredheading">
-                              Tomorrow
-                            </span>
+                            <span className="filteredheading">Tomorrow</span>
                           </label>
                           <label className="custom-checkbox">
                             <input type="checkbox" />
                             <span className="checkmark"></span>
-                            <span className="filteredheading">
-                              This Week
-                            </span>
+                            <span className="filteredheading">This Week</span>
                           </label>
                           <label className="custom-checkbox">
                             <input type="checkbox" />
                             <span className="checkmark"></span>
-                            <span className="filteredheading">
-                              This Month
-                            </span>
+                            <span className="filteredheading">This Month</span>
                           </label>
                           <label className="custom-checkbox">
                             <input type="checkbox" />
                             <span className="checkmark"></span>
-                            <span className="filteredheading">
-                              Anytime
-                            </span>
+                            <span className="filteredheading">Anytime</span>
                           </label>
                         </div>
                       </div>
@@ -569,30 +629,22 @@ const ProductInnerNav = ({ productCount, ServicesCount }) => {
                           <label className="custom-checkbox">
                             <input type="checkbox" />
                             <span className="checkmark"></span>
-                            <span className="filteredheading">
-                              Tomorrow
-                            </span>
+                            <span className="filteredheading">Tomorrow</span>
                           </label>
                           <label className="custom-checkbox">
                             <input type="checkbox" />
                             <span className="checkmark"></span>
-                            <span className="filteredheading">
-                              This Week
-                            </span>
+                            <span className="filteredheading">This Week</span>
                           </label>
                           <label className="custom-checkbox">
                             <input type="checkbox" />
                             <span className="checkmark"></span>
-                            <span className="filteredheading">
-                              This Month
-                            </span>
+                            <span className="filteredheading">This Month</span>
                           </label>
                           <label className="custom-checkbox">
                             <input type="checkbox" />
                             <span className="checkmark"></span>
-                            <span className="filteredheading">
-                              Anytime
-                            </span>
+                            <span className="filteredheading">Anytime</span>
                           </label>
                         </div>
                       </div>
@@ -625,30 +677,22 @@ const ProductInnerNav = ({ productCount, ServicesCount }) => {
                           <label className="custom-checkbox">
                             <input type="checkbox" />
                             <span className="checkmark"></span>
-                            <span className="filteredheading">
-                              Tomorrow
-                            </span>
+                            <span className="filteredheading">Tomorrow</span>
                           </label>
                           <label className="custom-checkbox">
                             <input type="checkbox" />
                             <span className="checkmark"></span>
-                            <span className="filteredheading">
-                              This Week
-                            </span>
+                            <span className="filteredheading">This Week</span>
                           </label>
                           <label className="custom-checkbox">
                             <input type="checkbox" />
                             <span className="checkmark"></span>
-                            <span className="filteredheading">
-                              This Month
-                            </span>
+                            <span className="filteredheading">This Month</span>
                           </label>
                           <label className="custom-checkbox">
                             <input type="checkbox" />
                             <span className="checkmark"></span>
-                            <span className="filteredheading">
-                              Anytime
-                            </span>
+                            <span className="filteredheading">Anytime</span>
                           </label>
                         </div>
                       </div>

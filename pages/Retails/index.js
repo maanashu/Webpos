@@ -21,7 +21,7 @@ const Retails = () => {
   const dispatch = useDispatch();
   const authData = useSelector(selectLoginAuth);
   const retailData = useSelector(selectRetailData);
-  const [showSidebar, setShowSidebar] = useState(false)
+  const [showSidebar, setShowSidebar] = useState(false);
   const sellerId = authData?.usersInfo?.payload?.uniqe_id;
   const router = useRouter();
   const { parameter } = router.query;
@@ -30,9 +30,8 @@ const Retails = () => {
   const cartPosCart = cartData?.poscart_products || [];
   const mainProductArray = retailData?.mainProductData?.data || [];
   const mainServicesArray = retailData?.mainServicesData?.data || [];
-  const[cartAlert, setCartAlert] = useState(false)
+  const [cartAlert, setCartAlert] = useState(false);
 
-  
   const productPagination = {
     total: retailData?.mainProductData?.total || "0",
   };
@@ -85,22 +84,18 @@ const Retails = () => {
     dispatch(
       getMainProduct({
         ...params,
-        cb(res) { },
+        cb(res) {},
       })
     );
   };
   const servicesData = () => {
     let params = {
-      page: 1,
-      limit: 25,
-      app_name: "pos",
-      need_pos_users: true,
       seller_id: sellerId,
     };
     dispatch(
       getMainServices({
         ...params,
-        cb(res) { },
+        cb(res) {},
       })
     );
   };
@@ -126,12 +121,14 @@ const Retails = () => {
           <div className="commanscrollBar productScrollBar">
             {parameter == "product" ? (
               <div className="row">
-                {retailData?.loading ? (
-                  <>
-                    <div className="loaderOuter">
-                      <div className="spinner-grow loaderSpinner text-center my-5"></div>
-                    </div>
-                  </>
+                {retailData?.getMainProductLoad ? (
+                  <div className="loaderOuter">
+                    <span className="spinner-border spinner-border-sm mx-1"></span>
+                  </div>
+                ) : mainProductArray?.length == 0 ? (
+                  <div className="text-center mt-5">
+                    <h3>No Product Found!</h3>
+                  </div>
                 ) : (
                   mainProductArray?.map((item, index) => {
                     const cartMatchProduct = cartPosCart?.find(
@@ -144,10 +141,16 @@ const Retails = () => {
                       >
                         {/* <Link href='/Retails/AddProduct'> */}
                         <div
-                          className= {cartMatchProduct?.qty > 0 ? "productsCard active"  : "productsCard" }
-                          onClick={() =>{
-                            onlyServiceCartArray?.length > 0 ? setCartAlert(true)  :  productFun(item.id, index, item) 
-                          }   }
+                          className={
+                            cartMatchProduct?.qty > 0
+                              ? "productsCard active"
+                              : "productsCard"
+                          }
+                          onClick={() => {
+                            onlyServiceCartArray?.length > 0
+                              ? setCartAlert(true)
+                              : productFun(item.id, index, item);
+                          }}
                         >
                           <figure className="productImageBox">
                             <Image
@@ -158,12 +161,12 @@ const Retails = () => {
                               height="100"
                             />
                             <div className="overlay ">
-                                <Image
-                                  src={Images.Add}
-                                  alt="image"
-                                  className="img-fluid addIcon"
-                                />
-                              </div>
+                              <Image
+                                src={Images.Add}
+                                alt="image"
+                                className="img-fluid addIcon"
+                              />
+                            </div>
                           </figure>
                           <article className="productDetails">
                             <p className="productName">{item.name}</p>
@@ -172,8 +175,8 @@ const Retails = () => {
                             </p>
                             {item?.supplies?.[0]?.supply_prices?.[0]
                               ?.offer_price &&
-                              item?.supplies?.[0]?.supply_prices?.[0]
-                                ?.actual_price ? (
+                            item?.supplies?.[0]?.supply_prices?.[0]
+                              ?.actual_price ? (
                               <p className="productPrice">
                                 $
                                 {
@@ -202,7 +205,15 @@ const Retails = () => {
             ) : (
               <>
                 <div className="row">
-                  {mainServicesArray?.length > 0 ? (
+                  {retailData?.getMainServicesLoad ? (
+                    <div className="loaderOuter">
+                      <span className="spinner-border spinner-border-sm mx-1"></span>
+                    </div>
+                  ) : mainServicesArray?.length == 0 ? (
+                    <div className="text-center mt-5">
+                      <h3>No Service Found!</h3>
+                    </div>
+                  ) : (
                     mainServicesArray?.map((services, index) => {
                       const cartMatchService = cartPosCart?.find(
                         (data) => data?.product_id == services?.id
@@ -220,8 +231,10 @@ const Retails = () => {
                                 : "productsCard"
                             }
                             onClick={() => {
-                              onlyProductCartArray?.length >  0 ? setCartAlert(true)  : getOneService(services?.id, index) 
-                            } }
+                              onlyProductCartArray?.length > 0
+                                ? setCartAlert(true)
+                                : getOneService(services?.id, index);
+                            }}
                           >
                             <figure className="productImageBox">
                               <Image
@@ -244,7 +257,10 @@ const Retails = () => {
                               <p className="productserviceName">
                                 <div
                                   dangerouslySetInnerHTML={{
-                                    __html: services?.description?.slice(0, 200),
+                                    __html: services?.description?.slice(
+                                      0,
+                                      200
+                                    ),
                                   }}
                                 />
                               </p>
@@ -275,7 +291,7 @@ const Retails = () => {
                                   className="img-fluid appointmentCalender"
                                 />
                                 <span className="Ontime">
-                                  01/11/23 at 10:00hrs
+                                  Tomorrow at 10:00hrs
                                 </span>
                               </figure>
                               <figure className="Timezone">
@@ -326,32 +342,22 @@ const Retails = () => {
                                 }
 
                                 {/* {services?.product_images?.map((productImg) => {
-                                  return (
-                                    <Image
-                                      src={productImg?.url}
-                                      alt="image"
-                                      className="img-fluid CardIcons"
-                                      width="100"
-                                      height="100"
-                                    />
-                                  );
-                                })} */}
+                                      return (
+                                        <Image
+                                          src={productImg?.url}
+                                          alt="image"
+                                          className="img-fluid CardIcons"
+                                          width="100"
+                                          height="100"
+                                        />
+                                      );
+                                    })} */}
                               </figure>
                             </article>
                           </div>
                         </div>
                       );
                     })
-                  ) : (
-                    <>
-                      {mainServicesArray?.length == 0 ? (
-                        <h3 className="mt-3 mb-3">No services Found!</h3>
-                      ) : (
-                        <div className="loaderOuter">
-                          <div className="spinner-grow loaderSpinner text-center my-5"></div>
-                        </div>
-                      )}
-                    </>
                   )}
                 </div>
               </>
@@ -359,12 +365,10 @@ const Retails = () => {
           </div>
         </div>
 
-        <RightSideBar showSidebar={showSidebar} parameter={parameter}/>
+        <RightSideBar showSidebar={showSidebar} parameter={parameter} />
       </div>
       <Modal show={cartAlert} centered keyboard={false}>
-      <CartAlert 
-        crossHandler={() => setCartAlert(false)}
-      />
+        <CartAlert crossHandler={() => setCartAlert(false)} />
       </Modal>
     </>
   );

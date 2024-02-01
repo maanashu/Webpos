@@ -223,10 +223,13 @@ const AddProduct = () => {
                   </figure>
                 </figure>
                 <h4 className="loginMain mt-4">{productDetail?.name}</h4>
-                <button type="button" className="productId">
-                  <span className="productDot"></span>
-                  {productDetail?.sku}
-                </button>
+                {productDetail?.sku && (
+                  <div className="productId">
+                    <span className="productDot"></span>
+                    {productDetail?.sku}
+                  </div>
+                )}
+
                 <p className="linkHeading">
                   $
                   {
@@ -333,32 +336,34 @@ const AddProduct = () => {
               {/* {retailData?.checkSuppliedVariantLoad ||
               retailData?.addTocartLoad ? ( */}
 
-              {retailData?.addTocartLoad ||
-              retailData?.productCartLoad ||
-              retailData?.checkSuppliedVariantLoad ? (
-                <button
-                  className="nextverifyBtn w-100 mt-3"
-                  type="submit"
-                  onClick={() => addToCartHandler()}
-                  disabled={true}
-                >
-                  Add Item
-                  <span className="spinner-border spinner-border-sm mx-1"></span>
-                </button>
-              ) : (
-                <button
-                  className="nextverifyBtn w-100 mt-3"
-                  type="submit"
-                  onClick={() => addToCartHandler()}
-                >
-                  Add Item
-                  <Image
-                    src={Images.serviceCart}
-                    alt="rightArrow"
-                    className="img-fluid rightImg ms-2"
-                  />
-                </button>
-              )}
+              {
+                // retailData?.addTocartLoad ||
+                // retailData?.productCartLoad ||
+                retailData?.checkSuppliedVariantLoad ? (
+                  <button
+                    className="nextverifyBtn w-100 mt-3"
+                    type="submit"
+                    onClick={() => addToCartHandler()}
+                    disabled={true}
+                  >
+                    Add Item
+                    <span className="spinner-border spinner-border-sm mx-1"></span>
+                  </button>
+                ) : (
+                  <button
+                    className="nextverifyBtn w-100 mt-3"
+                    type="submit"
+                    onClick={() => addToCartHandler()}
+                  >
+                    Add Item
+                    <Image
+                      src={Images.serviceCart}
+                      alt="rightArrow"
+                      className="img-fluid rightImg ms-2"
+                    />
+                  </button>
+                )
+              }
             </div>
           </div>
           <div className="col-lg-7 col-md-7">

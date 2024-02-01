@@ -47,7 +47,6 @@ const JbrCoin = forwardRef(({ crossHandler }, ref) => {
   const [duration, setDuration] = useState(120);
   const requestStatus = retailData?.requestCheckData;
   const qrStatus = retailData?.qrcodestatusData;
-  console.log("requestStatus", requestStatus, qrStatus);
   const drawerData = retailData?.drawerSession;
 
   const generateRandomName = () => {

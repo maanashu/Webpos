@@ -90,7 +90,7 @@ function* getMainServices(action) {
   try {
     const resp = yield call(
       ApiClient.get,
-      `${PRODUCT_API_URL_V1}products?delivery_options=2&service_type=service&need_&check_stock_out=true&${params}`
+      `${PRODUCT_API_URL_V1}products?app_name=pos&delivery_options=2&service_type=service&need_pos_users=true&check_stock_out=true&page=1&limit=25&${params}`
     );
     if (resp.status) {
       yield put(setMainServices(resp.data));
@@ -526,6 +526,7 @@ function* walletGetByPhone(action) {
       yield call(action.payload.cb, (action.res = resp?.data?.payload));
     }
   } catch (e) {
+    toast.error("Wallet Not Found");
     yield put(onErrorStopLoad());
     toast.error(e?.error?.response?.data?.msg);
   }

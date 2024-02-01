@@ -41,6 +41,8 @@ const initialState = {
   qrcodestatusData: "",
   qrcodestatusLoad: false,
   paymentRequestCancelLoad: false,
+  getMainProductLoad: false,
+  getMainServicesLoad: false,
 };
 
 export const retailsSlice = createSlice({
@@ -48,10 +50,10 @@ export const retailsSlice = createSlice({
   initialState,
   reducers: {
     getMainProduct: (state) => {
-      state.loading = true;
+      state.getMainProductLoad = true;
     },
     setMainProduct: (state, action) => {
-      state.loading = false;
+      state.getMainProductLoad = false;
       state.mainProductData = action?.payload?.payload;
     },
     getOneProductById: (state) => {
@@ -69,10 +71,10 @@ export const retailsSlice = createSlice({
       state.oneServiceData = action?.payload?.payload;
     },
     getMainServices: (state) => {
-      state.loading = true;
+      state.getMainServicesLoad = true;
     },
     setMainServices: (state, action) => {
-      state.loading = false;
+      state.getMainServicesLoad = false;
       state.getMainServices = action?.payload?.payload;
       state.mainServicesData = action?.payload?.payload;
     },
@@ -86,11 +88,9 @@ export const retailsSlice = createSlice({
       state.availableOffers = action?.payload?.payload;
     },
     productCart: (state) => {
-      state.loading = true;
       state.productCartLoad = true;
     },
     setProductCart: (state, action) => {
-      state.loading = false;
       state.productCartLoad = false;
       state.productCart = action?.payload?.payload;
       state.cartDetails = action?.payload?.payload;
@@ -124,13 +124,10 @@ export const retailsSlice = createSlice({
       state.clearCartLoad = false;
     },
     checkSuppliedVariant: (state) => {
-      state.loading = true;
       state.checkSuppliedVariantLoad = true;
     },
     setCheckSuppliedVariant: (state, action) => {
-      state.loading = false;
       state.checkSuppliedVariantLoad = false;
-      // state.addNotes = action?.payload?.payload;
     },
     getTips: (state) => {
       state.loading = true;
@@ -287,6 +284,9 @@ export const retailsSlice = createSlice({
       state.qrcodestatusLoad = false;
       state.paymentRequestCancelLoad = false;
       state.updateCartByTipLoad = false;
+      state.getMainProductLoad = false;
+      state.getMainServicesLoad = false;
+      state.addTocartLoad = false;
     },
   },
 });
