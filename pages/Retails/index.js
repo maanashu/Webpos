@@ -8,7 +8,10 @@ import {
   getMainServices,
   getOneProductById,
   getOneServiceById,
+  getProductFilterCategory,
   selectRetailData,
+  getProductFilterSubCategory,
+  getProductFilterBrands,
 } from "../../redux/slices/retails";
 import { useDispatch, useSelector } from "react-redux";
 import { selectLoginAuth } from "../../redux/slices/auth";
@@ -21,7 +24,7 @@ const Retails = () => {
   const dispatch = useDispatch();
   const authData = useSelector(selectLoginAuth);
   const retailData = useSelector(selectRetailData);
-  const [showSidebar, setShowSidebar] = useState(false)
+  const [showSidebar, setShowSidebar] = useState(false);
   const sellerId = authData?.usersInfo?.payload?.uniqe_id;
   const router = useRouter();
   const { parameter } = router.query;
@@ -30,9 +33,8 @@ const Retails = () => {
   const cartPosCart = cartData?.poscart_products || [];
   const mainProductArray = retailData?.mainProductData?.data || [];
   const mainServicesArray = retailData?.mainServicesData?.data || [];
-  const[cartAlert, setCartAlert] = useState(false)
+  const [cartAlert, setCartAlert] = useState(false);
 
-  
   const productPagination = {
     total: retailData?.mainProductData?.total || "0",
   };
@@ -85,7 +87,7 @@ const Retails = () => {
     dispatch(
       getMainProduct({
         ...params,
-        cb(res) { },
+        cb(res) {},
       })
     );
   };
@@ -100,7 +102,7 @@ const Retails = () => {
     dispatch(
       getMainServices({
         ...params,
-        cb(res) { },
+        cb(res) {},
       })
     );
   };
@@ -113,6 +115,14 @@ const Retails = () => {
     // }
     productData();
     servicesData();
+
+    /**
+     * Product Filter APIS
+     * Add {search:''} param if needed for searched results
+     */
+    dispatch(getProductFilterCategory());
+    dispatch(getProductFilterSubCategory());
+    dispatch(getProductFilterBrands());
   }, [sellerId]);
 
   return (
@@ -144,10 +154,16 @@ const Retails = () => {
                       >
                         {/* <Link href='/Retails/AddProduct'> */}
                         <div
-                          className= {cartMatchProduct?.qty > 0 ? "productsCard active"  : "productsCard" }
-                          onClick={() =>{
-                            onlyServiceCartArray?.length > 0 ? setCartAlert(true)  :  productFun(item.id, index, item) 
-                          }   }
+                          className={
+                            cartMatchProduct?.qty > 0
+                              ? "productsCard active"
+                              : "productsCard"
+                          }
+                          onClick={() => {
+                            onlyServiceCartArray?.length > 0
+                              ? setCartAlert(true)
+                              : productFun(item.id, index, item);
+                          }}
                         >
                           <figure className="productImageBox">
                             <Image
@@ -158,12 +174,12 @@ const Retails = () => {
                               height="100"
                             />
                             <div className="overlay ">
-                                <Image
-                                  src={Images.Add}
-                                  alt="image"
-                                  className="img-fluid addIcon"
-                                />
-                              </div>
+                              <Image
+                                src={Images.Add}
+                                alt="image"
+                                className="img-fluid addIcon"
+                              />
+                            </div>
                           </figure>
                           <article className="productDetails">
                             <p className="productName">{item.name}</p>
@@ -172,8 +188,8 @@ const Retails = () => {
                             </p>
                             {item?.supplies?.[0]?.supply_prices?.[0]
                               ?.offer_price &&
-                              item?.supplies?.[0]?.supply_prices?.[0]
-                                ?.actual_price ? (
+                            item?.supplies?.[0]?.supply_prices?.[0]
+                              ?.actual_price ? (
                               <p className="productPrice">
                                 $
                                 {
@@ -220,8 +236,10 @@ const Retails = () => {
                                 : "productsCard"
                             }
                             onClick={() => {
-                              onlyProductCartArray?.length >  0 ? setCartAlert(true)  : getOneService(services?.id, index) 
-                            } }
+                              onlyProductCartArray?.length > 0
+                                ? setCartAlert(true)
+                                : getOneService(services?.id, index);
+                            }}
                           >
                             <figure className="productImageBox">
                               <Image
@@ -244,7 +262,10 @@ const Retails = () => {
                               <p className="productserviceName">
                                 <div
                                   dangerouslySetInnerHTML={{
-                                    __html: services?.description?.slice(0, 200),
+                                    __html: services?.description?.slice(
+                                      0,
+                                      200
+                                    ),
                                   }}
                                 />
                               </p>
@@ -359,12 +380,10 @@ const Retails = () => {
           </div>
         </div>
 
-        <RightSideBar showSidebar={showSidebar} parameter={parameter}/>
+        <RightSideBar showSidebar={showSidebar} parameter={parameter} />
       </div>
       <Modal show={cartAlert} centered keyboard={false}>
-      <CartAlert 
-        crossHandler={() => setCartAlert(false)}
-      />
+        <CartAlert crossHandler={() => setCartAlert(false)} />
       </Modal>
     </>
   );

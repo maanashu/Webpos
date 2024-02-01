@@ -27,8 +27,12 @@ import {
   setUserDetail,
   setTimeSlots,
   setClearOneProduct,
+  setProductCategory,
+  setProductSubCategory,
+  setProductBrands,
 } from "../../slices/retails";
 import { all, call, put, takeLatest } from "redux-saga/effects";
+import { store } from "../..";
 
 const ORDER_API_URL_V1 = ORDER_API_URL + "/api/v1/";
 const PRODUCT_API_URL_V1 = PRODUCT_API_URL + "/api/v1/";
@@ -119,7 +123,9 @@ function* availableOffers(action) {
   try {
     const resp = yield call(
       ApiClient.get,
-      `${PRODUCT_API_URL_V1}offer/products?app_name=pos&delivery_options=${dataToSend?.type == 'product' ? '1,3,4'  : '2'}&service_type=${dataToSend?.type}&${params}`
+      `${PRODUCT_API_URL_V1}offer/products?app_name=pos&delivery_options=${
+        dataToSend?.type == "product" ? "1,3,4" : "2"
+      }&service_type=${dataToSend?.type}&${params}`
     );
     if (resp.status) {
       yield put(setAvailableOffers(resp.data));
@@ -379,7 +385,6 @@ function* customProuductAdd(action) {
   }
 }
 
-
 function* getUserDetail(action) {
   const body = { ...action.payload };
   try {
@@ -462,6 +467,100 @@ function* clearOneProduct(action) {
   }
 }
 
+function* getProductFilterCategory(action) {
+  const dataToSend = { ...action.payload };
+  const authData = store.getState().auth;
+  const sellerId = authData?.usersInfo?.payload?.uniqe_id;
+
+  const params = {
+    seller_id: sellerId,
+    main_category: true,
+    service_type: "product",
+  };
+
+  // If needs searched category
+  if (dataToSend?.search) {
+    params.search = dataToSend.search;
+
+  const queryParams = new URLSearchParams(params).toString();
+  try {
+    const resp = yield call(
+      ApiClient.get,
+      `${PRODUCT_API_URL_V1}categories?${queryParams}`
+    );
+    if (resp.status) {
+      yield put(setProductCategory(resp?.data?.payload?.data));
+    } else {
+      throw resp;
+    }
+  } catch (e) {
+    yield put(onErrorStopLoad());
+    toast.error(e?.error?.response?.data?.msg);
+  }
+}
+function* getProductFilterSubCategory(action) {
+  const dataToSend = { ...action.payload };
+  const authData = store.getState().auth;
+  const sellerId = authData?.usersInfo?.payload?.uniqe_id;
+
+  const params = {
+    seller_id: sellerId,
+    need_subcategory: true,
+    service_type: "product",
+  };
+
+  // If needs searched subcategory
+  if (dataToSend?.search) {
+    params.search = dataToSend.search;
+  }
+
+  const queryParams = new URLSearchParams(params).toString();
+  try {
+    const resp = yield call(
+      ApiClient.get,
+      `${PRODUCT_API_URL_V1}categories?${queryParams}`
+    );
+    if (resp.status) {
+      yield put(setProductSubCategory(resp?.data?.payload?.data));
+    } else {
+      throw resp;
+    }
+  } catch (e) {
+    yield put(onErrorStopLoad());
+    toast.error(e?.error?.response?.data?.msg);
+  }
+}
+function* getProductFilterBrands(action) {
+  const dataToSend = { ...action.payload };
+  const authData = store.getState().auth;
+  const sellerId = authData?.usersInfo?.payload?.uniqe_id;
+
+  const params = {
+    seller_id: sellerId,
+  };
+
+  // If needs searched subcategory
+  if (dataToSend?.search) {
+    params.search = dataToSend.search;
+  }
+
+  const queryParams = new URLSearchParams(params).toString();
+  try {
+    const resp = yield call(
+      ApiClient.get,
+      `${PRODUCT_API_URL_V1}brands?${queryParams}`
+    );
+    if (resp.status) {
+      yield put(setProductBrands(resp?.data?.payload?.data));
+    } else {
+      throw resp;
+    }
+  } catch (e) {
+    yield put(onErrorStopLoad());
+    toast.error(e?.error?.response?.data?.msg);
+  }
+}
+
 function* retailsSaga() {
   yield all([
     takeLatest("retails/getMainProduct", getMainProduct),
@@ -486,6 +585,12 @@ function* retailsSaga() {
     takeLatest("retails/getTimeSlots", getTimeSlots),
     takeLatest("retails/addToCartService", addToCartService),
     takeLatest("retails/clearOneProduct", clearOneProduct),
+    takeLatest("retails/getProductFilterCategory", getProductFilterCategory),
+    takeLatest(
+      "retails/getProductFilterSubCategory",
+      getProductFilterSubCategory
+    ),
+    takeLatest("retails/getProductFilterBrands", getProductFilterBrands),
   ]);
 }
 

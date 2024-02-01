@@ -30,6 +30,10 @@ const initialState = {
   timeSlots: [],
   addToCartServiceLoad: false,
   clearOneProductLoad: false,
+  loading: false,
+  productCategories: [],
+  productSubCategories: [],
+  productBrands: [],
 };
 
 export const retailsSlice = createSlice({
@@ -201,6 +205,32 @@ export const retailsSlice = createSlice({
       state.clearOneProductLoad = false;
       // state.timeSlots = action?.payload?.payload?.slots;
     },
+
+    getProductFilterCategory: (state) => {
+      state.loading = true;
+    },
+    getProductFilterSubCategory: (state) => {
+      state.loading = true;
+    },
+    getProductFilterBrands: (state) => {
+      state.loading = true;
+    },
+
+    setProductCategory: (state, action) => {
+      state.loading = false;
+      state.productCategories = action?.payload;
+    },
+
+    setProductSubCategory: (state, action) => {
+      state.loading = false;
+      state.productSubCategories = action?.payload;
+    },
+
+    setProductBrands: (state, action) => {
+      state.loading = false;
+      state.productBrands = action?.payload;
+    },
+
     onErrorStopLoad: (state) => {
       state.loading = false;
       state.availableOffersLoad = false;
@@ -261,6 +291,12 @@ export const {
   setAddToCartService,
   clearOneProduct,
   setClearOneProduct,
+  getProductFilterCategory,
+  getProductFilterSubCategory,
+  getProductFilterBrands,
+  setProductCategory,
+  setProductSubCategory,
+  setProductBrands,
 } = retailsSlice.actions;
 
 export const selectRetailData = (state) => state.retails;

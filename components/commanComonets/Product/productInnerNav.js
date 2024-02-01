@@ -3,12 +3,18 @@ import ProductSearch from "./productSearch";
 import * as Images from "../../../utilities/images";
 import Image from "next/image";
 import { useRouter } from "next/router";
+import { useSelector } from "react-redux";
+import { selectRetailData } from "../../../redux/slices/retails";
 
 const ProductInnerNav = ({ productCount, ServicesCount }) => {
   const [filterShow, setFilterShow] = useState(false);
   const [activeTab, setActiveTab] = useState("");
   const router = useRouter();
   const pathName = router.asPath;
+  const retailData = useSelector(selectRetailData);
+  const productBrands = retailData?.productBrands;
+  const productCategory = retailData?.productCategories;
+  const productSubCategory = retailData?.productSubCategories;
 
   const handleTabs = (tabValue) => {
     setActiveTab(tabValue);
@@ -375,57 +381,15 @@ const ProductInnerNav = ({ productCount, ServicesCount }) => {
                         data-bs-parent="#accordionExample"
                       >
                         <div className="accordion-body">
-                          <label className="custom-checkbox">
-                            <input type="checkbox" />
-                            <span className="checkmark"></span>
-                            <span className="filteredheading">
-                              Health
-                            </span>
-                          </label>
-                          <label className="custom-checkbox">
-                            <input type="checkbox" />
-                            <span className="checkmark"></span>
-                            <span className="filteredheading">Music</span>
-                          </label>
-                          <label className="custom-checkbox">
-                            <input type="checkbox" />
-                            <span className="checkmark"></span>
-                            <span className="filteredheading">Food</span>
-                          </label>
-                          <label className="custom-checkbox">
-                            <input type="checkbox" />
-                            <span className="checkmark"></span>
-                            <span className="filteredheading">Pets</span>
-                          </label>
-                          <label className="custom-checkbox">
-                            <input type="checkbox" />
-                            <span className="checkmark"></span>
-                            <span className="filteredheading">
-                              Nutrition
-                            </span>
-                          </label>
-                          <label className="custom-checkbox">
-                            <input type="checkbox" />
-                            <span className="checkmark"></span>
-                            <span className="filteredheading">Cars</span>
-                          </label>
-                          <label className="custom-checkbox">
-                            <input type="checkbox" />
-                            <span className="checkmark"></span>
-                            <span className="filteredheading">
-                              Building
-                            </span>
-                          </label>
-                          <label className="custom-checkbox">
-                            <input type="checkbox" />
-                            <span className="checkmark"></span>
-                            <span className="filteredheading">Laws</span>
-                          </label>
-                          <label className="custom-checkbox">
-                            <input type="checkbox" />
-                            <span className="checkmark"></span>
-                            <span className="filteredheading">Love</span>
-                          </label>
+                          {productCategory.map((item) => (
+                            <label className="custom-checkbox">
+                              <input type="checkbox" />
+                              <span className="checkmark"></span>
+                              <span className="filteredheading">
+                                {item?.name}
+                              </span>
+                            </label>
+                          ))}
                         </div>
                       </div>
                     </div>
@@ -439,7 +403,7 @@ const ProductInnerNav = ({ productCount, ServicesCount }) => {
                           aria-expanded="false"
                           aria-controls="AvailabilityBox"
                         >
-                          Availability
+                          SubCategory
                         </button>
                       </h2>
                       <div
@@ -449,39 +413,15 @@ const ProductInnerNav = ({ productCount, ServicesCount }) => {
                         data-bs-parent="#accordionExample"
                       >
                         <div className="accordion-body">
-                          <label className="custom-checkbox">
-                            <input type="checkbox" />
-                            <span className="checkmark"></span>
-                            <span className="filteredheading">Today</span>
-                          </label>
-                          <label className="custom-checkbox">
-                            <input type="checkbox" />
-                            <span className="checkmark"></span>
-                            <span className="filteredheading">
-                              Tomorrow
-                            </span>
-                          </label>
-                          <label className="custom-checkbox">
-                            <input type="checkbox" />
-                            <span className="checkmark"></span>
-                            <span className="filteredheading">
-                              This Week
-                            </span>
-                          </label>
-                          <label className="custom-checkbox">
-                            <input type="checkbox" />
-                            <span className="checkmark"></span>
-                            <span className="filteredheading">
-                              This Month
-                            </span>
-                          </label>
-                          <label className="custom-checkbox">
-                            <input type="checkbox" />
-                            <span className="checkmark"></span>
-                            <span className="filteredheading">
-                              Anytime
-                            </span>
-                          </label>
+                          {productSubCategory?.map((item) => (
+                            <label className="custom-checkbox">
+                              <input type="checkbox" />
+                              <span className="checkmark"></span>
+                              <span className="filteredheading">
+                                {item?.name}
+                              </span>
+                            </label>
+                          ))}
                         </div>
                       </div>
                     </div>
@@ -495,7 +435,7 @@ const ProductInnerNav = ({ productCount, ServicesCount }) => {
                           aria-expanded="false"
                           aria-controls="DurationBox"
                         >
-                          Duration
+                          Brands
                         </button>
                       </h2>
                       <div
@@ -505,43 +445,19 @@ const ProductInnerNav = ({ productCount, ServicesCount }) => {
                         data-bs-parent="#accordionExample"
                       >
                         <div className="accordion-body">
-                          <label className="custom-checkbox">
-                            <input type="checkbox" />
-                            <span className="checkmark"></span>
-                            <span className="filteredheading">Today</span>
-                          </label>
-                          <label className="custom-checkbox">
-                            <input type="checkbox" />
-                            <span className="checkmark"></span>
-                            <span className="filteredheading">
-                              Tomorrow
-                            </span>
-                          </label>
-                          <label className="custom-checkbox">
-                            <input type="checkbox" />
-                            <span className="checkmark"></span>
-                            <span className="filteredheading">
-                              This Week
-                            </span>
-                          </label>
-                          <label className="custom-checkbox">
-                            <input type="checkbox" />
-                            <span className="checkmark"></span>
-                            <span className="filteredheading">
-                              This Month
-                            </span>
-                          </label>
-                          <label className="custom-checkbox">
-                            <input type="checkbox" />
-                            <span className="checkmark"></span>
-                            <span className="filteredheading">
-                              Anytime
-                            </span>
-                          </label>
+                          {productBrands?.map((item) => (
+                            <label className="custom-checkbox">
+                              <input type="checkbox" />
+                              <span className="checkmark"></span>
+                              <span className="filteredheading">
+                                {item?.name}
+                              </span>
+                            </label>
+                          ))}
                         </div>
                       </div>
                     </div>
-                    <div className="accordion-item">
+                    {/* <div className="accordion-item">
                       <h2 className="accordion-header" id="Location">
                         <button
                           className="accordion-button collapsed"
@@ -569,30 +485,22 @@ const ProductInnerNav = ({ productCount, ServicesCount }) => {
                           <label className="custom-checkbox">
                             <input type="checkbox" />
                             <span className="checkmark"></span>
-                            <span className="filteredheading">
-                              Tomorrow
-                            </span>
+                            <span className="filteredheading">Tomorrow</span>
                           </label>
                           <label className="custom-checkbox">
                             <input type="checkbox" />
                             <span className="checkmark"></span>
-                            <span className="filteredheading">
-                              This Week
-                            </span>
+                            <span className="filteredheading">This Week</span>
                           </label>
                           <label className="custom-checkbox">
                             <input type="checkbox" />
                             <span className="checkmark"></span>
-                            <span className="filteredheading">
-                              This Month
-                            </span>
+                            <span className="filteredheading">This Month</span>
                           </label>
                           <label className="custom-checkbox">
                             <input type="checkbox" />
                             <span className="checkmark"></span>
-                            <span className="filteredheading">
-                              Anytime
-                            </span>
+                            <span className="filteredheading">Anytime</span>
                           </label>
                         </div>
                       </div>
@@ -625,34 +533,26 @@ const ProductInnerNav = ({ productCount, ServicesCount }) => {
                           <label className="custom-checkbox">
                             <input type="checkbox" />
                             <span className="checkmark"></span>
-                            <span className="filteredheading">
-                              Tomorrow
-                            </span>
+                            <span className="filteredheading">Tomorrow</span>
                           </label>
                           <label className="custom-checkbox">
                             <input type="checkbox" />
                             <span className="checkmark"></span>
-                            <span className="filteredheading">
-                              This Week
-                            </span>
+                            <span className="filteredheading">This Week</span>
                           </label>
                           <label className="custom-checkbox">
                             <input type="checkbox" />
                             <span className="checkmark"></span>
-                            <span className="filteredheading">
-                              This Month
-                            </span>
+                            <span className="filteredheading">This Month</span>
                           </label>
                           <label className="custom-checkbox">
                             <input type="checkbox" />
                             <span className="checkmark"></span>
-                            <span className="filteredheading">
-                              Anytime
-                            </span>
+                            <span className="filteredheading">Anytime</span>
                           </label>
                         </div>
                       </div>
-                    </div>
+                    </div> */}
                   </div>
                 </div>
               ) : (
