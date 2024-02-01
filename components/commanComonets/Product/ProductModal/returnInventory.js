@@ -1,7 +1,9 @@
 import React, { useState } from "react";
 
-const ReturnInventory = ({ selectedProducts,setNewQty }) => {
-  const [selectedProductItems, setSelectedProductItems]=useState(selectedProducts);
+const ReturnInventory = ({ selectedProducts, setNewQty }) => {
+  const [selectedProductItems, setSelectedProductItems] =
+    useState(selectedProducts);
+
   const handleQuantity = (data, flag) => {
     let updateProductQuantity;
     if (flag === "increase") {
@@ -16,7 +18,6 @@ const ReturnInventory = ({ selectedProducts,setNewQty }) => {
           return { ...item, qty: item?.qty + 1 };
         }
         return item;
-  
       });
     } else {
       const getSingleProduct = selectedProducts?.find(
@@ -33,7 +34,7 @@ const ReturnInventory = ({ selectedProducts,setNewQty }) => {
       });
     }
     setSelectedProductItems(updateProductQuantity);
-    setNewQty(updateProductQuantity)
+    setNewQty(updateProductQuantity);
   };
 
   return (

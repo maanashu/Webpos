@@ -25,7 +25,8 @@ const Manualinvoice = (props) => {
   );
   
   const handleSearchSku = (e) => {
-    const inputValue = e.target.value;
+    let inputValue = e.target.value;
+    inputValue = inputValue.slice(0, 15);
     if (inputValue.length >= 4) {
       let params = {
         search: inputValue,

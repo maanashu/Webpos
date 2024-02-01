@@ -24,6 +24,7 @@ const ProductInvoice = () => {
   const merchentDetails = authData?.usersInfo?.payload?.user?.user_profiles;
   const sellerId = authData?.usersInfo?.payload?.uniqe_id;
   const [searchInvoiceViaBarcode, setSearchInvoiceViaBarcode] = useState("");
+  console.log(searchInvoiceViaBarcode,'searchInvoiceViaBarcode');
   const invoiceData = useSelector(selectReturnData);
   const SearchInvoiceRespones = invoiceData?.invoiceByInvoiceId;
   const returnData = SearchInvoiceRespones?.return;
@@ -126,6 +127,13 @@ const ProductInvoice = () => {
       );
     }
   }, [searchInvoiceViaBarcode]);
+
+  const handleSacnBarcode=(e)=>{
+    const enteredValue = e.target.value;
+    if (enteredValue.length <= 15) {
+        setSearchInvoiceViaBarcode(enteredValue);
+    }
+  }
 
   useEffect(() => {
     if (checkeddata) {
@@ -424,9 +432,9 @@ const ProductInvoice = () => {
                         type="text"
                         className="form-control searchControl"
                         placeholder="Scan Barcode of each Item"
-                        onChange={(e) =>
-                          setSearchInvoiceViaBarcode(e.target.value)
-                        }
+                        value={searchInvoiceViaBarcode}
+                        onChange={(e) =>handleSacnBarcode(e)}
+           
                       />
                       <Image
                         src={Images.scanImg}

@@ -31,16 +31,17 @@ const productrefunds = () => {
   let refundedItems = JSON.parse(selectedData?.selectedItems || "[]");
   const [key, setKey] = useState(Math.random());
   const [newQty, setNewQty] = useState([]);
-  const quantities = newQty?.map((item) => item.qty);
+  console.log(newQty,'newQty');
+  // const quantities = newQty?.map((item) => item.qty);
 
-  quantities.forEach((item, index) => {
-    refundedItems[index].qty = item;
-  });
+  // quantities.forEach((item, index) => {
+  //   refundedItems[index].qty = item;
+  // });
 
-  refundedItems = refundedItems.map((item, index) => ({
-    ...item,
-    newQty: quantities[index],
-  }));
+  // refundedItems = refundedItems.map((item, index) => ({
+  //   ...item,
+  //   newQty: quantities[index],
+  // }));
 
   const [modalDetail, setModalDetail] = useState({
     show: false,
@@ -70,8 +71,8 @@ const productrefunds = () => {
     dispatch(setInvoiceData(shareData));
   };
 
-  console.log(refundedItems,'iiiiiiiiiiiiiiiiii');
-  let products = refundedItems?.map((item, index) => ({
+
+  let products = refundedItems?.map((item) => ({
     id: item?.product_id,
     qty: item?.qty,
     write_off_qty: item?.newQty || 0,
