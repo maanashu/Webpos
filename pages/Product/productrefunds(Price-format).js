@@ -62,7 +62,7 @@ const productrefunds = () => {
     id: item?.product_id,
     qty: item?.qty,
     add_to_inventory_qty: newQty?.find((val) => val?.id == item?.id)?.qty || 0,
-     write_off_qty: item?.qty - newQty?.find((val) => val?.id == item?.id)?.qty || 0,
+    write_off_qty: item?.qty - newQty?.find((val) => val?.id == item?.id)?.qty || 0,
     refund_value:
       Number(inputValues?.find((val) => val?.index == index)?.value) ||
       refundAmount ||
@@ -137,7 +137,7 @@ const productrefunds = () => {
       );
       return;
     }
-    
+
   };
 
   const inputCheck = (e) => {
@@ -227,7 +227,7 @@ const productrefunds = () => {
                   onChange={(e) => inputCheck(e)}
                   type="checkbox"
                   className="me-2"
-                  // onClick={(e) => inputCheck(e)}
+                // onClick={(e) => inputCheck(e)}
                 />
                 <h5 className="priceHeading pe-3">
                   Apply a fixed amount to all items.
@@ -318,11 +318,11 @@ const productrefunds = () => {
                         <td className="recent_subhead text-center">
                           ${" "}
                           {!isNaN(parseFloat(inputValues[idx]?.value)) &&
-                          !isNaN(parseFloat(data?.qty))
+                            !isNaN(parseFloat(data?.qty))
                             ? (
-                                parseFloat(inputValues[idx]?.value) *
-                                parseFloat(data?.qty)
-                              ).toFixed(2)
+                              parseFloat(inputValues[idx]?.value) *
+                              parseFloat(data?.qty)
+                            ).toFixed(2)
                             : "0.00"}
                         </td>
                       </tr>
@@ -414,6 +414,9 @@ const productrefunds = () => {
               </figure>
 
               <p className="addProductHeading">Return to Inventory</p>
+              <h5 className="inventorySubheading">
+                All returned items will be adjusted with inventory
+              </h5>
             </h2>
             <button className="closeButton">
               <Image
@@ -426,35 +429,35 @@ const productrefunds = () => {
         }
         footer={
           <>
-            <div className="modal-footer">
-              <button
-                className="cancelBtn"
-                onClick={() => handleOnCloseModal()}
-              >
-                Cancel
-              </button>
 
-              <button
-                className="ModalBlue"
-                onClick={(e) => handlereturnToInventory(e)}
-              >
-                Return to Inventory
-                {invoiceData?.loading && (
-                  <Spinner
-                    as="span"
-                    animation="border"
-                    size="sm"
-                    role="status"
-                    aria-hidden="true"
-                  />
-                )}{" "}
-                <Image
-                  src={Images.ShoppingReturn}
-                  alt="image"
-                  className="img-fluid BtnIcon"
+            <button
+              className="cancelBtn"
+              onClick={() => handleOnCloseModal()}
+            >
+              Cancel
+            </button>
+
+            <button
+              className="ModalBlue"
+              onClick={(e) => handlereturnToInventory(e)}
+            >
+              Return to Inventory
+              {invoiceData?.loading && (
+                <Spinner
+                  as="span"
+                  animation="border"
+                  size="sm"
+                  role="status"
+                  aria-hidden="true"
                 />
-              </button>
-            </div>
+              )}{" "}
+              <Image
+                src={Images.ShoppingReturn}
+                alt="image"
+                className="img-fluid BtnIcon"
+              />
+            </button>
+
           </>
         }
       />
