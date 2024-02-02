@@ -97,8 +97,9 @@ const CustomerSearchModal = ({ time }) => {
               </th>
             </tr>
           </thead>
+
           <tbody>
-            {searchedCustomer?.length == 0 && searchedText == "" ? (
+            {searchedCustomer?.length === 0 || searchedText == "" ? (
               <div>
                 <h4>{"Data Not Found"}</h4>
               </div>

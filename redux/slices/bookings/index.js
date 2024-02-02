@@ -15,8 +15,10 @@ export const bookingsSlice = createSlice({
   name: "bookings",
   initialState,
   reducers: {
-    getAppointments: (state) => {
-      state.loading = true;
+    getAppointments: (state, action) => {
+      if (!action?.payload?.params?.search) {
+        state.loading = true;
+      }
     },
     getStaffUsers: (state) => {
       state.staffUsersLoading = true;
@@ -85,8 +87,6 @@ export const bookingsSlice = createSlice({
     setGetServiceTimeSlots: (state, action) => {
       state.serviceTimeSlotsLoading = false;
       const responseData = action?.payload;
-      console.log("SERVICE_TIME_SLOTS---" + JSON.stringify(responseData));
-
       state.timeSlots = responseData?.payload?.slots;
       state.timeSlotInterval = responseData?.payload?.interval;
     },

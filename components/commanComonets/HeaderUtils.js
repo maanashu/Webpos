@@ -27,7 +27,8 @@ const HeaderUtils = ({
   calendarHandler,
   notificationHandler,
   searchHandler,
-  date,
+  startDate,
+  endDate,
   onDateChange,
 }) => {
   return (
@@ -40,8 +41,11 @@ const HeaderUtils = ({
         onClick={calendarHandler}
       >
         <ReactDatePicker
-          selected={date ? moment(`${date}T00:00:00`)?.toDate() : ""}
-          onChange={(date) => onDateChange(date)}
+          selected={startDate}
+          onChange={onDateChange}
+          startDate={startDate}
+          endDate={endDate}
+          selectsRange
           customInput={<DatePickerCustomComponent />}
         />
       </div>

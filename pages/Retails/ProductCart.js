@@ -13,6 +13,7 @@ import {
   productCart,
   selectRetailData,
   setProductCart,
+  updateCart,
 } from "../../redux/slices/retails";
 import { useDispatch, useSelector } from "react-redux";
 import { selectLoginAuth } from "../../redux/slices/auth";
@@ -80,6 +81,21 @@ const ProductCart = () => {
     );
   };
 
+  const cartUpdate = () => {
+    var arr = retailData?.productCart;
+    if (arr?.poscart_products?.length > 0) {
+      const products = arr?.poscart_products.map((item) => ({
+        product_id: item?.product_id,
+        qty: item?.qty,
+      }));
+      let params = {
+        updated_products: products,
+        cartId: arr?.id,
+      };
+      dispatch(updateCart(params));
+    }
+  };
+
   useEffect(() => {
     offers();
   }, [sellerId]);
@@ -120,6 +136,16 @@ const ProductCart = () => {
     const percentageValue = (percentage / 100) * parseFloat(value);
     return percentageValue.toFixed(2) ?? 0.0;
   }
+
+  const clearCartHandler = () => {
+    dispatch(
+      clearCart({
+        cb: () => {
+          dispatch(productCart());
+        },
+      })
+    );
+  };
   const calculateOrderAmount = (cart) => {
     if (cart?.poscart_products) {
       var subTotalAmount = cartData?.poscart_products?.reduce((acc, curr) => {
@@ -208,7 +234,6 @@ const ProductCart = () => {
         product.qty += 1;
         updatedProducts[index] = product;
         updatedCart.poscart_products = updatedProducts;
-        console.log("DATATA", JSON.stringify(updatedCart));
         calculateOrderAmount(updatedCart);
       } else {
         alert("There are no more quantity left to add");

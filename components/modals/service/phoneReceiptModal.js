@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import PhoneInput from 'react-phone-input-2';
-import * as Images from "../../../../utilities/images";
+import * as Images from "../../../utilities/images"
 import Image from "next/image";
 
 const PhoneReceiptModal = () => {

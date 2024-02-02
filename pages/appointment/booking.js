@@ -1,4 +1,10 @@
-import React, { useState, useEffect, useMemo } from "react";
+import React, {
+  useRef,
+  useState,
+  useEffect,
+  useMemo,
+  useCallback,
+} from "react";
 import {
   Dimensions,
   ScrollView,
@@ -7,8 +13,11 @@ import {
   View,
   Image as ReactNativeImage,
   FlatList,
+  TextInput,
+  ActivityIndicator,
 } from "react-native";
 import * as Images from "../../utilities/images";
+import { debounce } from "lodash";
 import Image from "next/image";
 import { ListGroup, ListGroupItem } from "react-bootstrap";
 import Link from "next/link";
@@ -21,6 +30,7 @@ import CustomModal from "../../components/customModal/CustomModal";
 import CustomHoursCell from "../../components/CustomHoursCell";
 import CustomEventCell from "../../components/CustomEventCell";
 import ReScheduleDetailModal from "../../components/ReScheduleDetailModal";
+import CalendarSettingModal from "../../components/modals/CalendarSettingModal";
 
 import {
   CALENDAR_MODES,
@@ -36,6 +46,11 @@ import {
   updateAppointmentStatus,
   getStaffUsers,
 } from "../../redux/slices/bookings";
+import {
+  getSecuritySettingInfo,
+  settingInfo,
+  updateSettings,
+} from "../../redux/slices/setting";
 import { selectLoginAuth } from "../../redux/slices/auth";
 import {
   calculateTimeDuration,
@@ -45,6 +60,7 @@ import {
 const Booking = () => {
   const [key, setKey] = useState(Math.random());
   const [key1, setKey1] = useState(Math.random());
+  const [key2, setKey2] = useState(Math.random());
   const [bookingsView, setBookingsView] = useState("listview");
   const [modalDetail, setModalDetail] = useState({
     show: false,
@@ -52,6 +68,8 @@ const Booking = () => {
     flag: "",
   });
   const dispatch = useDispatch();
+  const settingData = useSelector(settingInfo);
+  const defaultSettingsForCalendar = settingData?.getSettings;
   const [searchedAppointments, setSearchedAppointments] = useState([]);
   const [searchedText, setSearchedText] = useState("");
   const [week, setWeek] = useState(true);
@@ -60,11 +78,19 @@ const Booking = () => {
   const [monthDays, setMonthDays] = useState([]);
   const windowHeight = Dimensions.get("window").height;
   const windowWidth = Dimensions.get("window").width;
-  const [isAMPM, setisAMPM] = useState(true);
+  const [isAMPM, setisAMPM] = useState(
+    defaultSettingsForCalendar?.time_format === "12" ?? true
+  );
   const [showMiniCalendar, setshowMiniCalendar] = useState(false);
   const [calendarViewMode, setCalendarViewMode] = useState(
-    CALENDAR_VIEW_MODES.LIST_VIEW
+    CALENDAR_VIEW_MODES.CALENDAR_VIEW
   );
+  const [isLoadingSearchAppoinment, setIsLoadingSearchAppoinment] =
+    useState(false);
+  const [showSearchModal, setShowSearchModal] = useState(false);
+  const searchAppoinmentInputRef = useRef(null);
+  const [isCalendarSettingModalVisible, setisCalendarSettingModalVisible] =
+    useState(false);
   const [pageNumber, setPageNumber] = useState(1);
   const appointmentsDetails = useSelector(bookingsDetails);
   const getAppointmentByStaffIdList = appointmentsDetails?.geAppointmentById;
@@ -100,7 +126,9 @@ const Booking = () => {
   const [shouldShowCalendarModeOptions, setshouldShowCalendarModeOptions] =
     useState(true);
   const [calendarDate, setCalendarDate] = useState(moment());
-  const [calendarMode, setCalendarMode] = useState(CALENDAR_MODES.WEEK);
+  const [calendarMode, setCalendarMode] = useState(
+    defaultSettingsForCalendar?.calender_view ?? CALENDAR_MODES.WEEK
+  );
   const nextMonth = () =>
     setCalendarDate(calendarDate.clone().add(1, calendarMode));
   const prevMonth = () =>
@@ -131,7 +159,56 @@ const Booking = () => {
         },
       })
     );
+
+    getUserSettings();
+    onPressListViewMode();
   }, []);
+
+  useEffect(() => {
+    if (calendarMode === CALENDAR_VIEW_MODES.CALENDAR_VIEW) {
+      if (defaultSettingsForCalendar?.calender_view === CALENDAR_MODES.DAY) {
+        dayHandler();
+      } else if (
+        defaultSettingsForCalendar?.calender_view === CALENDAR_MODES.WEEK
+      ) {
+        weekHandler();
+      } else if (
+        defaultSettingsForCalendar?.calender_view === CALENDAR_MODES.MONTH
+      ) {
+        monthHandler();
+      }
+    }
+  }, [defaultSettingsForCalendar]);
+
+  const getUserSettings = () => {
+    let params = {
+      app_name: "pos",
+      seller_id: UniqueId,
+    };
+    dispatch(
+      getSecuritySettingInfo({
+        ...params,
+        cb(res) {
+          if (res.status) {
+            // setGetSelectedLanguages(res?.data?.payload?.languages)
+          }
+        },
+      })
+    );
+  };
+
+  const updateUserSettings = (data) => {
+    dispatch(
+      updateSettings({
+        ...data,
+        cb(res) {
+          if (res.status) {
+            getUserSettings();
+          }
+        },
+      })
+    );
+  };
 
   useEffect(() => {
     getAllBookings();
@@ -178,16 +255,40 @@ const Booking = () => {
     if (searchText != "") {
       setSearchedAppointments([]);
     }
-    const callback = (searchData) => {
-      if (searchData === null) {
-        setSearchedAppointments([]);
-      } else {
-        setSearchedAppointments(searchData?.data);
-      }
-      setIsLoadingSearchAppoinment(false);
+
+    let params = {
+      seller_id: UniqueId,
+      need_upcoming: true,
+      page: pageNumber,
+      limit: 10,
     };
-    // dispatch(searchAppointments(pageNumber, searchText, callback));
+
+    if (searchText) {
+      params.search = searchText;
+    }
+    dispatch(
+      getAppointments({
+        params,
+        cb(res) {
+          if (res.status) {
+            const searchData = res?.data?.payload;
+            if (searchData === null) {
+              setSearchedAppointments([]);
+            } else {
+              setSearchedAppointments(searchData?.data);
+            }
+          }
+
+          setIsLoadingSearchAppoinment(false);
+        },
+      })
+    );
   };
+
+  const debouncedSearchAppointment = useCallback(
+    debounce(onSearchAppoinment, 300),
+    []
+  );
 
   const getAppointmentsForSelectedStaff = () => {
     const filteredAppointments = getApprovedAppointments?.filter(
@@ -290,6 +391,13 @@ const Booking = () => {
   const closeRescheduleModal = () => {
     setshowRescheduleTimeModal(false);
     setKey1(Math.random());
+  };
+
+  const closeSearchModal = () => {
+    setShowSearchModal(false);
+    setSearchedText("");
+    setIsLoadingSearchAppoinment(false);
+    setKey2(Math.random());
   };
 
   const handleUserProfile = (flag) => {
@@ -438,6 +546,30 @@ const Booking = () => {
         </ScrollView>
       </View>
     );
+  };
+
+  const onPressSaveCalendarSettings = (calendarPreferences) => {
+    if (calendarPreferences?.defaultCalendarMode === CALENDAR_MODES.DAY) {
+      dayHandler();
+    } else if (
+      calendarPreferences?.defaultCalendarMode === CALENDAR_MODES.WEEK
+    ) {
+      weekHandler();
+    } else if (
+      calendarPreferences?.defaultCalendarMode === CALENDAR_MODES.MONTH
+    ) {
+      monthHandler();
+    }
+    setisAMPM(calendarPreferences?.defaultTimeFormat);
+
+    const data = {
+      calender_view: calendarPreferences?.defaultCalendarMode,
+      time_format: calendarPreferences?.defaultTimeFormat ? "12" : "24",
+      accept_appointment_request:
+        calendarPreferences?.defaultAppointmentRequestMode,
+      employee_color_set: calendarPreferences?.defaultEmployeesColorSet,
+    };
+    updateUserSettings(data);
   };
 
   const handleBookingsView = (bookingsView) => {
@@ -705,6 +837,7 @@ const Booking = () => {
                 </Link>
               </div>
               <Image
+                onClick={() => setisCalendarSettingModalVisible(true)}
                 src={Images.settingBlue}
                 alt="image"
                 className="img-fluid  sidebarIcons  settingImgs"
@@ -908,6 +1041,141 @@ const Booking = () => {
     );
   };
 
+  const DisplayBookings = ({ appointments }) => {
+    return (
+      <div className="commanscrollBar InvoiceTableBox">
+        <div className="table-responsive">
+          <table id="bookingTable" className="product_table ">
+            <thead className="invoiceHeadingBox">
+              <tr>
+                <th className="invoiceHeading">Client</th>
+                <th className="invoiceHeading">Staff</th>
+                <th className="invoiceHeading">Service</th>
+                <th className="invoiceHeading">Time</th>
+                <th className="invoiceHeading"></th>
+              </tr>
+            </thead>
+            <tbody>
+              {appointments?.length > 0 ? (
+                <>
+                  {appointments?.map((item, index) => {
+                    const userDetails = item?.user_details;
+                    const invitedUserDetails = item?.invitation_details;
+                    const userId = item?.user_id;
+                    const customerDetails =
+                      userId != null ? userDetails : invitedUserDetails;
+                    const userAddress = userDetails?.current_address;
+                    const posUserDetails =
+                      item?.pos_user_details?.user?.user_profiles;
+                    const appointmentID = item?.id;
+
+                    return (
+                      <tr className="product_invoice bookCheck">
+                        <td className="invoice_subhead">
+                          <div className="d-flex">
+                            <figure className="">
+                              <Image
+                                src={
+                                  customerDetails?.profile_photo ??
+                                  Images.userAvtar
+                                }
+                                alt="avtar"
+                                className="avtarImg me-2"
+                                width={44}
+                                height={44}
+                              />
+                            </figure>
+                            <div className="">
+                              <span className="subHeadText">
+                                {customerDetails?.firstname +
+                                  " " +
+                                  customerDetails?.lastname}
+                              </span>
+                              <div>
+                                <Image
+                                  src={Images.locatePurple}
+                                  alt="locate"
+                                  className="locate me-2"
+                                />
+                                <span className="purpleText">
+                                  {userId !== null
+                                    ? customerDetails?.phone_number
+                                    : customerDetails?.phone_code +
+                                      customerDetails?.phone_no}
+                                </span>
+                              </div>
+                            </div>
+                          </div>
+                        </td>
+                        <td className="invoice_subhead">
+                          <span className="subHeadText">
+                            {posUserDetails?.firstname +
+                              " " +
+                              posUserDetails?.lastname}
+                          </span>
+                        </td>
+
+                        <td className="invoice_subhead">
+                          <span className="subHeadText">
+                            {item?.product_name}
+                          </span>
+                        </td>
+                        <td className="invoice_subhead">
+                          <Image
+                            src={Images.clockImg}
+                            alt="clock"
+                            className="clockImg me-2"
+                          />
+                          <span className="subHeadText">
+                            {`${item?.start_time}-${item?.end_time}`}
+                          </span>
+                        </td>
+
+                        <td className="invoice_subhead">
+                          <div className="checkinBg">
+                            {renderButtons(item)[item?.status]}
+                            {/* <figure
+                          className="checkinBox me-2 "
+                          onClick={() => {
+                            handleUserProfile("checkIn");
+                          }}
+                        >
+                          <span className="textSmall me-2">
+                            {item?.status}
+                          </span>
+                          <Image
+                            src={Images.checkImg}
+                            alt="money"
+                            className="moneyImg"
+                          />
+                        </figure>
+                        <button className="editBtn">
+                          <Image
+                            src={Images.editImg}
+                            alt="editImg"
+                            className="editImg"
+                          />
+                        </button> */}
+                          </div>
+                        </td>
+                      </tr>
+                    );
+                  })}
+                </>
+              ) : (
+                <tr>
+                  <td className="colorBlue text text-center py-3" colSpan={8}>
+                    No Record Found
+                  </td>
+                </tr>
+              )}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    );
+  };
+
   return (
     <>
       <div className="commonFlex">
@@ -935,9 +1203,10 @@ const Booking = () => {
               // });
             }}
             onPressSearch={() => {
-              // setShowSearchModal(true);
-              // setSearchedAppointments([]);
-              // setSearchedText('');
+              setKey2(Math.random());
+              setShowSearchModal(true);
+              setSearchedAppointments([]);
+              setSearchedText("");
               // setTimeout(() => {
               //   searchAppoinmentInputRef.current.focus();
               // }, 300);
@@ -1026,141 +1295,7 @@ const Booking = () => {
                         </Text>
                       </View>
                     </View>
-                    <div className="commanscrollBar InvoiceTableBox">
-                      <div className="table-responsive">
-                        <table id="bookingTable" className="product_table ">
-                          <thead className="invoiceHeadingBox">
-                            <tr>
-                              <th className="invoiceHeading">Client</th>
-                              <th className="invoiceHeading">Staff</th>
-                              <th className="invoiceHeading">Service</th>
-                              <th className="invoiceHeading">Time</th>
-                              <th className="invoiceHeading"></th>
-                            </tr>
-                          </thead>
-                          <tbody>
-                            {getAppointmentsByDate?.length > 0 ? (
-                              <>
-                                {getAppointmentsByDate?.map((item, index) => {
-                                  const userDetails = item?.user_details;
-                                  const invitedUserDetails =
-                                    item?.invitation_details;
-                                  const userId = item?.user_id;
-                                  const customerDetails =
-                                    userId != null
-                                      ? userDetails
-                                      : invitedUserDetails;
-                                  const userAddress =
-                                    userDetails?.current_address;
-                                  const posUserDetails =
-                                    item?.pos_user_details?.user?.user_profiles;
-                                  const appointmentID = item?.id;
-
-                                  return (
-                                    <tr className="product_invoice bookCheck">
-                                      <td className="invoice_subhead">
-                                        <div className="d-flex">
-                                          <figure className="">
-                                            <Image
-                                              src={
-                                                customerDetails?.profile_photo ??
-                                                Images.userAvtar
-                                              }
-                                              alt="avtar"
-                                              className="avtarImg me-2"
-                                            />
-                                          </figure>
-                                          <div className="">
-                                            <span className="subHeadText">
-                                              {customerDetails?.firstname +
-                                                " " +
-                                                customerDetails?.lastname}
-                                            </span>
-                                            <div>
-                                              <Image
-                                                src={Images.locatePurple}
-                                                alt="locate"
-                                                className="locate me-2"
-                                              />
-                                              <span className="purpleText">
-                                                {userId !== null
-                                                  ? customerDetails?.phone_number
-                                                  : customerDetails?.phone_code +
-                                                    customerDetails?.phone_no}
-                                              </span>
-                                            </div>
-                                          </div>
-                                        </div>
-                                      </td>
-                                      <td className="invoice_subhead">
-                                        <span className="subHeadText">
-                                          {posUserDetails?.firstname +
-                                            " " +
-                                            posUserDetails?.lastname}
-                                        </span>
-                                      </td>
-
-                                      <td className="invoice_subhead">
-                                        <span className="subHeadText">
-                                          {item?.product_name}
-                                        </span>
-                                      </td>
-                                      <td className="invoice_subhead">
-                                        <Image
-                                          src={Images.clockImg}
-                                          alt="clock"
-                                          className="clockImg me-2"
-                                        />
-                                        <span className="subHeadText">
-                                          {`${item?.start_time}-${item?.end_time}`}
-                                        </span>
-                                      </td>
-
-                                      <td className="invoice_subhead">
-                                        <div className="checkinBg">
-                                          {renderButtons(item)[item?.status]}
-                                          {/* <figure
-                                            className="checkinBox me-2 "
-                                            onClick={() => {
-                                              handleUserProfile("checkIn");
-                                            }}
-                                          >
-                                            <span className="textSmall me-2">
-                                              {item?.status}
-                                            </span>
-                                            <Image
-                                              src={Images.checkImg}
-                                              alt="money"
-                                              className="moneyImg"
-                                            />
-                                          </figure>
-                                          <button className="editBtn">
-                                            <Image
-                                              src={Images.editImg}
-                                              alt="editImg"
-                                              className="editImg"
-                                            />
-                                          </button> */}
-                                        </div>
-                                      </td>
-                                    </tr>
-                                  );
-                                })}
-                              </>
-                            ) : (
-                              <tr>
-                                <td
-                                  className="colorBlue text text-center py-3"
-                                  colSpan={8}
-                                >
-                                  No Record Found
-                                </td>
-                              </tr>
-                            )}
-                          </tbody>
-                        </table>
-                      </div>
-                    </div>
+                    <DisplayBookings appointments={getAppointmentsByDate} />
                   </div>
                 )}
               </>
@@ -1190,6 +1325,104 @@ const Booking = () => {
           />
         }
         onCloseModal={closeRescheduleModal}
+      />
+
+      <CustomModal
+        key={key2}
+        show={showSearchModal}
+        backdrop="static"
+        showCloseBtn={false}
+        isRightSideModal={true}
+        mediumWidth={false}
+        className={"checkIn"}
+        ids={"showSearchModal"}
+        child={
+          <View
+            style={{
+              backgroundColor: "white",
+              borderRadius: 10,
+              padding: 16,
+              width: windowWidth * 0.45,
+              // paddingBottom: ms(15),
+              paddingTop: 5,
+              alignSelf: "flex-end",
+              height: windowHeight * 0.8,
+              shadowColor: "#000",
+              shadowOffset: {
+                width: 0,
+                height: 2,
+              },
+              shadowOpacity: 0.25,
+              shadowRadius: 4,
+              elevation: 5,
+            }}
+          >
+            <Spacer space={16} />
+            <TouchableOpacity onPress={() => closeSearchModal()}>
+              <ReactNativeImage
+                source={"../images/modalCross.svg"}
+                style={{
+                  height: 24,
+                  width: 24,
+                  alignSelf: "flex-end",
+                }}
+              />
+            </TouchableOpacity>
+
+            <Spacer space={24} />
+
+            <View
+              style={[
+                {
+                  marginVertical: 10,
+                  borderWidth: 1,
+                  height: 40,
+                  borderRadius: 30,
+                  borderColor: "#CACACA",
+                  flexDirection: "row",
+                  alignItems: "center",
+                  paddingLeft: 10,
+                },
+              ]}
+            >
+              <ReactNativeImage
+                source={"../images/SearchLight.svg"}
+                style={{ width: 20, height: 20, resizeMode: "contain" }}
+              />
+              <TextInput
+                ref={searchAppoinmentInputRef}
+                placeholder={
+                  "Search appointments with service name, customer name or phone number"
+                }
+                style={{
+                  height: 40,
+                  width: "100%",
+                  fontStyle: "italic",
+                  fontSize: 12,
+                  paddingLeft: 5,
+                  margin: 0,
+                  padding: 0,
+                  outlineStyle: "none",
+                }}
+                placeholderTextColor={"#626262"}
+                value={searchedText}
+                onChangeText={(searchText) => {
+                  setIsLoadingSearchAppoinment(true);
+                  setSearchedText(searchText);
+                  debouncedSearchAppointment(searchText);
+                }}
+              />
+            </View>
+            <Spacer space={8} />
+
+            {isLoadingSearchAppoinment ? (
+              <ActivityIndicator size="large" color={"#0000ff"} />
+            ) : (
+              <DisplayBookings appointments={searchedAppointments} />
+            )}
+          </View>
+        }
+        onCloseModal={closeSearchModal}
       />
 
       <CustomModal
@@ -1252,6 +1485,21 @@ const Booking = () => {
         }
         onCloseModal={() => handleOnCloseModal()}
       />
+
+      {isCalendarSettingModalVisible && (
+        <div className="addBucket AddtoCart">
+          <CalendarSettingModal
+            isVisible={isCalendarSettingModalVisible}
+            setIsVisible={setisCalendarSettingModalVisible}
+            currentCalendarMode={calendarMode}
+            currentTimeFormat={isAMPM}
+            defaultSettingsForCalendar={defaultSettingsForCalendar}
+            onPressSave={(calendarPreferences) => {
+              onPressSaveCalendarSettings(calendarPreferences);
+            }}
+          />
+        </div>
+      )}
     </>
   );
 };

@@ -263,11 +263,11 @@ const RightSideBar = ({ props }) => {
             {cartData?.poscart_products?.map((data, index) => {
               const productSize =
                 data?.product_details?.supply?.attributes?.filter(
-                  (item) => item?.name === "Size"
+                  (item) => item?.name?.toLowerCase() == "size"
                 );
               const productColor =
                 data?.product_details?.supply?.attributes?.filter(
-                  (item) => item?.name === "Color"
+                  (item) => item?.name?.toLowerCase() == "color"
                 );
 
               return (

@@ -22,7 +22,7 @@ const Verify = () => {
     , "authDataauthData");
 
   const selectedposusernfo = authData?.selectedUserData ? authData?.selectedUserData:""
-  console.log(selectedposusernfo?.user?.user_roles, "selectedposusernfo");
+  console.log(selectedposusernfo, "selectedposusernfo");
   const toastId = React.useRef(null)
   const router = useRouter();
   const { id } = router.query;
@@ -44,6 +44,8 @@ const Verify = () => {
     title: "",
     flag: "",
   });
+
+
   //closeModal
   const handleOnCloseModal = () => {
     setModalDetail({
@@ -147,8 +149,8 @@ const Verify = () => {
 
                   {selectedposusernfo?.user?.api_tokens?.length > 0 ? (
                     <>
-                      <h4 className='loginPara mt-3'>{moment(data?.user?.api_tokens[0]?.created_at).fromNow()}</h4>
-                      <h4 className='loginPara '>{moment(data?.user?.api_tokens[0]?.created_at).format('LT')}</h4>
+                      <h4 className='loginPara mt-3'>{moment(selectedposusernfo?.user?.api_tokens[0]?.created_at).fromNow()}</h4>
+                      <h4 className='loginPara '>{moment(selectedposusernfo?.user?.api_tokens[0]?.created_at).format('LT')}</h4>
                     </>
                   ) :
                     ""}

@@ -10,7 +10,10 @@ import {
   selectReturnData,
 } from "../../redux/slices/productReturn";
 import { useDispatch, useSelector } from "react-redux";
-import { setInvoiceData,onErrorStopLoad } from "../../redux/slices/productReturn";
+import {
+  setInvoiceData,
+  onErrorStopLoad,
+} from "../../redux/slices/productReturn";
 import { toast } from "react-toastify";
 import { Spinner } from "react-bootstrap";
 
@@ -19,14 +22,15 @@ const productrefunds = () => {
   const dispatch = useDispatch();
   const [enableText, setEnabletext] = useState(false);
   const router = useRouter();
-  const [loading, setLoading] = useState(false);
   const [refundAmount, setRefundAmount] = useState("");
+  console.log(refundAmount,'refundAmount');
   const [inputValues, setInputValues] = useState([]);
   const invoiceData = useSelector(selectReturnData);
   const orderDetails = invoiceData?.invoiceByInvoiceId;
   const selectedData = invoiceData?.invoiceData;
-  const refundedItems = JSON.parse(selectedData?.selectedItems || "[]");
+  let refundedItems = JSON.parse(selectedData?.selectedItems || "[]");
   const [key, setKey] = useState(Math.random());
+  const [newQty, setNewQty] = useState([]);
   const [modalDetail, setModalDetail] = useState({
     show: false,
     title: "",
@@ -42,28 +46,38 @@ const productrefunds = () => {
   };
 
   const handleGoToinventery = () => {
-    setModalDetail({ show: true, flag: "ReturnInventory" });
-    setKey(Math.random());
 
-    const shareData = {
-      selectedItems: JSON.stringify(refundedItems),
-      inputValues: JSON.stringify(inputValues),
-      totalSum: totalSum?.toString(),
-      subtotal: subtotal?.toString(),
-      totalTax: discount?.toString(),
-    };
-    dispatch(setInvoiceData(shareData));
+    const isGreater = refundedItems.some(item => Number(refundAmount) > Number(item.price));
+    if(isGreater == false){
+      setModalDetail({ show: true, flag: "ReturnInventory" });
+      setKey(Math.random());
+  
+      const shareData = {
+        selectedItems: JSON.stringify(refundedItems),
+        inputValues: JSON.stringify(inputValues),
+        totalSum: totalSum?.toString(),
+        subtotal: subtotal?.toString(),
+        totalTax: discount?.toString(),
+      };
+      dispatch(setInvoiceData(shareData));
+    }
+    else{
+      toast.error("Please enter a valid refund amount");
+      return
+    }
   };
 
-
-  let products = refundedItems?.map(item => ({
-    id: item.product_id,
-    qty: item.qty,
-    write_off_qty: item.write_off_qty || 0,
-    add_to_inventory_qty: item.add_to_inventory_qty || 0,
-    refund_value: item.refund_value || 0,
+  let products = refundedItems?.map((item, index) => ({
+    id: item?.product_id,
+    qty: item?.qty,
+    add_to_inventory_qty: newQty?.find((val) => val?.id == item?.id)?.qty || 0,
+    write_off_qty:
+      item?.qty - newQty?.find((val) => val?.id == item?.id)?.qty || 0,
+    refund_value:
+      Number(inputValues?.find((val) => val?.index == index)?.value) ||
+      refundAmount ||
+      0,
   }));
-
   const handlereturnToInventory = () => {
     let params = {
       order_id: orderDetails?.order?.id,
@@ -74,14 +88,11 @@ const productrefunds = () => {
       return_reason: "testing reason",
       drawer_id: orderDetails?.order?.drawer_id,
     };
-    console.log(params,'params');
-    setLoading(true);
     dispatch(
       returnToInventory({
         ...params,
         cb(res) {
           if (res) {
-            setLoading(false);
             router.push({
               pathname: "/Product/RefundsConfirmation(No_Selection)",
             });
@@ -91,38 +102,49 @@ const productrefunds = () => {
     );
   };
 
-  useEffect(()=>{
-    dispatch(onErrorStopLoad())
-  },[dispatch]);
+  useEffect(() => {
+    dispatch(onErrorStopLoad());
+  }, [dispatch]);
 
   const handleInputChange = (e, index) => {
-    const { value } = e.target;
     const enteredValue = e.target.value;
     const isValidInput = /^[+]?\d*\.?\d*$/.test(enteredValue);
+
     if (!isValidInput) {
       if (!toast.isActive(toastId.current)) {
         toastId.current = toast.error(
-          "Refund amount should be numeric and  non-negative number"
+          "Refund amount should be a numeric non-negative number"
         );
       }
       return;
-    } else {
-      setRefundAmount(enteredValue);
     }
-    const updatedInputValues = [...inputValues];
-    updatedInputValues[index] = value;
-    setInputValues(updatedInputValues);
-    const inputValue = parseFloat(e.target.value);
+
+    const inputValue = parseFloat(enteredValue);
     const productPrice = parseFloat(refundedItems[index]?.price);
+
     if (!isNaN(inputValue) && inputValue <= productPrice) {
-      const newInputValues = [...inputValues];
-      newInputValues[index] = inputValue;
-      setInputValues(newInputValues);
+      const updatedInputValues = [...inputValues];
+      updatedInputValues[index] = {
+        ...updatedInputValues[index],
+        value: enteredValue,
+        index: index,
+      };
+      setInputValues(updatedInputValues);
     } else {
-      toastId.current = toast.error(
-        "Refund Amount should not grater then Unit price"
-      );
-      return;
+      if (!toast.isActive(toastId.current)) {
+        toastId.current = toast.error(
+          "Refund amount should not be greater than the unit price"
+        );
+      };
+    }
+    if (enteredValue === "") {
+      const updatedInputValues = [...inputValues];
+      updatedInputValues[index] = {
+        ...updatedInputValues[index],
+        value: "", 
+        index: index,
+      };
+      setInputValues(updatedInputValues);
     }
   };
 
@@ -143,8 +165,12 @@ const productrefunds = () => {
       setInputValues(updateValue);
     } else {
       const newValues = [...inputValues];
-      for (let i = 0; i < refundedItems.length; i++) {
-        newValues.push(refundAmount);
+      for (let i = 0; i < refundedItems?.length; i++) {
+        let result = {
+          value: refundAmount,
+          index: i,
+        };
+        newValues.push(result);
       }
       setInputValues(newValues);
     }
@@ -152,33 +178,18 @@ const productrefunds = () => {
 
   const subtotal = refundedItems?.reduce((acc, data, idx) => {
     const itemTotal =
-      !isNaN(parseFloat(inputValues[idx])) && !isNaN(parseFloat(data?.qty))
-        ? (parseFloat(inputValues[idx]) * parseFloat(data?.qty)).toFixed(2)
+      !isNaN(parseFloat(inputValues[idx]?.value)) &&
+      !isNaN(parseFloat(data?.qty))
+        ? (parseFloat(inputValues[idx]?.value) * parseFloat(data?.qty)).toFixed(
+            2
+          )
         : "0.00";
 
     return acc + parseFloat(itemTotal);
   }, 0);
 
   const discount = (subtotal * 0.08).toFixed(2);
-  console.log(discount, "discountt");
-
-  const totalSum = refundedItems
-    ?.reduce((acc, data, idx) => {
-      const productPrice = parseFloat(data?.price) || 0;
-      const taxRate = 0.08; // 8% tax rate
-      const itemTotal =
-        !isNaN(parseFloat(inputValues[idx])) && !isNaN(parseFloat(data?.qty))
-          ? (parseFloat(inputValues[idx]) * parseFloat(data?.qty)).toFixed(2)
-          : "0.00";
-
-      const itemTotalWithTax = (
-        parseFloat(itemTotal) +
-        productPrice * taxRate
-      ).toFixed(2);
-
-      return acc + parseFloat(itemTotalWithTax);
-    }, 0)
-    .toFixed(2);
+  const totalSum = (subtotal - parseFloat(discount)).toFixed(2);
 
   const handleActiveText = () => {
     setEnabletext(true);
@@ -195,6 +206,7 @@ const productrefunds = () => {
       }
       return;
     }
+
     const maxPrice = Math.max(
       ...refundedItems?.map((item) => parseFloat(item?.price))
     );
@@ -204,8 +216,19 @@ const productrefunds = () => {
       toastId.current = toast.error(
         "Refund amount should not be greater than any item's price"
       );
-      returnToInventory;
     }
+
+    // const maxPrices = [];
+    // for (let i = 0; i < refundedItems.length; i++) {
+    //   const price = parseFloat(refundedItems[i]?.price);
+    //   if (!isNaN(price)) {
+    //     const maxPrice = maxPrices[i] || 0;
+    //     const currentMax = Math.max(maxPrice, price);
+    //     maxPrices[i] = currentMax;
+    //   }
+    // }
+
+    // console.log("Maximum prices for each index:", maxPrices);
   };
 
   return (
@@ -226,7 +249,7 @@ const productrefunds = () => {
                   onChange={(e) => inputCheck(e)}
                   type="checkbox"
                   className="me-2"
-                  onClick={(e) => inputCheck(e)}
+                   onClick={(e) => inputCheck(e)}
                 />
                 <h5 className="priceHeading pe-3">
                   Apply a fixed amount to all items.
@@ -240,7 +263,6 @@ const productrefunds = () => {
                     onChange={(e) => handleRefund(e)}
                   />
                   <article>
-                    {/* <div className="priceFilterBtn active" onClick={handleActiveText}>$</div> */}
                     <div
                       className={
                         enableText === true
@@ -306,20 +328,25 @@ const productrefunds = () => {
                                 ? "enableInput"
                                 : "tablecustomInput"
                             }
-                            value={inputValues[idx]}
+                            value={inputValues[idx]?.value}
                             onChange={(e) => handleInputChange(e, idx)}
                             disabled={enableText === false}
                           />
+                          {refundAmount > Number(data?.price) && (
+                            <span style={{ color: "red" }}>
+                              Refund amount should not grater then Unit Price.
+                            </span>
+                          )}
                         </td>
                         <td className="recent_subhead text-center">
                           × {data?.qty}
                         </td>
                         <td className="recent_subhead text-center">
                           ${" "}
-                          {!isNaN(parseFloat(inputValues[idx])) &&
+                          {!isNaN(parseFloat(inputValues[idx]?.value)) &&
                           !isNaN(parseFloat(data?.qty))
                             ? (
-                                parseFloat(inputValues[idx]) *
+                                parseFloat(inputValues[idx]?.value) *
                                 parseFloat(data?.qty)
                               ).toFixed(2)
                             : "0.00"}
@@ -346,7 +373,7 @@ const productrefunds = () => {
                   <div className="flexBox justify-content-between ">
                     <p className="orderHeading">Total Taxes</p>
                     <p className="orderHeading">
-                      +${subtotal ? discount : "0.00"}
+                      -${subtotal ? discount : "0.00"}%
                     </p>
                   </div>
                 </div>
@@ -393,6 +420,7 @@ const productrefunds = () => {
             <ReturnInventory
               closeManulModal={() => handleOnCloseModal()}
               selectedProducts={refundedItems}
+              setNewQty={setNewQty}
             />
           ) : (
             ""

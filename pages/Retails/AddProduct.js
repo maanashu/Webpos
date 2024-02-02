@@ -289,13 +289,13 @@ const AddProduct = () => {
               {sizeArray?.length > 0 && (
                 <div className="sizeChart">
                   <p className="priceHeading">Size</p>
-                  <article className="productSizeBtnBox">
+                  <div style={{ display: "flex", flexDirection: "row" }}>
                     {sizeArray?.[0]?.values?.map((item, index) => (
                       <div
                         key={index}
                         onClick={() => setSizeId(item?.id)}
                         style={{
-                          width: "45px",
+                          width: "85px",
                           height: "45px",
                           border: "1px solid black",
                           borderRadius: "15%",
@@ -304,6 +304,7 @@ const AddProduct = () => {
                           alignItems: "center",
                           background:
                             sizeId == item?.id ? "#263682" : "transparent",
+                          marginRight: "10px",
                         }}
                       >
                         <p
@@ -315,7 +316,10 @@ const AddProduct = () => {
                         </p>
                       </div>
                     ))}
-                  </article>
+                  </div>
+                  {/* <article className="productSizeBtnBox"> */}
+
+                  {/* </article> */}
                 </div>
               )}
               <div className="incrementBtn productIncrement">
