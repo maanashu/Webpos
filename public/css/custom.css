@@ -890,6 +890,34 @@ input:checked+.switch-slider:before {
   min-width: 230px;
 }
 
+.invoiceDataText {
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+  width: 100%;
+  max-width: 20ch;
+}
+
+#invoiceProduct .invoice_subhead:first-child {
+  min-width: 100px;
+}
+
+#invoiceProduct .invoice_subhead:nth-child(2) {
+  min-width: 140px;
+}
+
+#invoiceProduct .invoice_subhead:nth-child(3) {
+  min-width: 140px;
+}
+#invoiceProduct .invoice_subhead:nth-child(4) {
+  min-width: 50px;
+}
+#invoiceProduct .invoice_subhead:nth-child(5) {
+  min-width: 130px;
+}
+#invoiceProduct .invoice_subhead:last-child{
+  min-width: 60px;
+}
 /*ship module css end*/
 /*delivery module css start*/
 #deliveryDashBoardList .invoice_subhead:first-child {
@@ -912,7 +940,7 @@ input:checked+.switch-slider:before {
   min-width: 50px;
 }
 
-.deliverOrderRight .detailScrollDelivery {
+.detailScrollDelivery {
   height: calc(100% - 392px);
   overflow-y: scroll;
 }
@@ -943,11 +971,57 @@ input:checked+.switch-slider:before {
   font-size: 15px;
   padding: 8px 18px;
 }
+
 .filterBtn .nextverifyBtn {
   font-size: 15px;
   padding: 8px 18px;
 }
-.filterBtn{
+
+.filterBtn {
   gap: 6px;
 }
+
+#ReturnInventory .modal-content {
+  border-radius: 20px !important;
+  background: #fff !important;
+  box-shadow: -2px 6px 6px 0px rgba(52, 79, 117, 0.03),
+    -11px 28px 25px 0px rgba(52, 79, 117, 0.04),
+    -31px 74px 80px 0px rgba(52, 79, 117, 0.07) !important;
+  padding: 24px !important;
+  border: none;
+}
+
+#ReturnInventory {
+  width: 100%;
+  max-width: 570px;
+}
+
+#ReturnInventory .modal-header {
+  border: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center !important;
+}
+
+#ReturnInventory .modal-footer {
+  justify-content: space-between !important;
+  flex-wrap: nowrap !important;
+}
+
+#ReturnInventory .modal-footer .cancelBtn {
+  width: 30%;
+}
+
+#ReturnInventory .modal-body {
+  padding: 0 !important;
+}
+
+.returnProduct .priceHeading {
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+  width: 100%;
+  max-width: 32ch;
+}
+
 /*product css end*/

@@ -127,10 +127,10 @@ const ProductInvoice = () => {
     }
   }, [searchInvoiceViaBarcode]);
 
-  const handleSacnBarcode=(e)=>{
+  const handleSacnBarcode = (e) => {
     const enteredValue = e.target.value;
     if (enteredValue.length <= 15) {
-        setSearchInvoiceViaBarcode(enteredValue);
+      setSearchInvoiceViaBarcode(enteredValue);
     }
   }
 
@@ -214,7 +214,7 @@ const ProductInvoice = () => {
                                 {SearchInvoiceRespones?.order?.user_details
                                   ?.user_profiles?.firstname
                                   ? SearchInvoiceRespones?.order?.user_details
-                                      ?.user_profiles?.firstname
+                                    ?.user_profiles?.firstname
                                   : "NA"}
                               </span>
                             </figure>
@@ -231,15 +231,15 @@ const ProductInvoice = () => {
                                   ?.delivery_option === "1"
                                   ? "Delivery"
                                   : SearchInvoiceRespones?.order
-                                      ?.delivery_option === "2"
-                                  ? "Reservation"
-                                  : SearchInvoiceRespones?.order
+                                    ?.delivery_option === "2"
+                                    ? "Reservation"
+                                    : SearchInvoiceRespones?.order
                                       ?.delivery_option === "3"
-                                  ? "Instore"
-                                  : SearchInvoiceRespones?.order
-                                      ?.delivery_option === "4"
-                                  ? "Shipping"
-                                  : "Instore"}
+                                      ? "Instore"
+                                      : SearchInvoiceRespones?.order
+                                        ?.delivery_option === "4"
+                                        ? "Shipping"
+                                        : "Instore"}
                               </span>
                             </figure>
                           </td>
@@ -270,7 +270,13 @@ const ProductInvoice = () => {
                         </tr>
                       </tbody>
                     ) : (
-                      <span className="noInvoiceText">No Invoices Found</span>
+                      <tbody>
+                        <tr>
+                          <td colSpan={6}>
+                            <p className="noInvoiceText my-3">No Invoices Found</p>
+                          </td>
+                        </tr>
+                      </tbody>
                     )}
                   </table>
                 </div>
@@ -411,12 +417,12 @@ const ProductInvoice = () => {
                       {SearchInvoiceRespones?.order?.delivery_option == "1"
                         ? "Delivery"
                         : SearchInvoiceRespones?.order?.delivery_option === "2"
-                        ? "Reservation"
-                        : SearchInvoiceRespones?.order?.delivery_option === "3"
-                        ? "In-store"
-                        : SearchInvoiceRespones?.order?.delivery_option === "4"
-                        ? "Shipping"
-                        : "In-store"}
+                          ? "Reservation"
+                          : SearchInvoiceRespones?.order?.delivery_option === "3"
+                            ? "In-store"
+                            : SearchInvoiceRespones?.order?.delivery_option === "4"
+                              ? "Shipping"
+                              : "In-store"}
                     </span>
                     <button className="inStoreBtn">
                       {" "}
@@ -432,8 +438,8 @@ const ProductInvoice = () => {
                         className="form-control searchControl"
                         placeholder="Scan Barcode of each Item"
                         value={searchInvoiceViaBarcode}
-                        onChange={(e) =>handleSacnBarcode(e)}
-           
+                        onChange={(e) => handleSacnBarcode(e)}
+
                       />
                       <Image
                         src={Images.scanImg}
@@ -457,24 +463,24 @@ const ProductInvoice = () => {
                     </button>
                   </div>
                 </div>
-
-                {productDetails?.length > 0 ? (
-                  productDetails?.map((data, idx) => (
-                    <div className="selectedProductDetails" key={idx}>
-                      <div className="d-flex">
-                        <figure>
-                          <Image
-                            src={data?.product_image}
-                            alt="tableImg"
-                            className="costumerImg"
-                            height={100}
-                            width={100}
-                          />
-                        </figure>
-                        <div className="ps-1">
-                          <p className="aboutProduct">{data?.product_name}</p>
-                          <div className="d-flex">
-                            {/* <article className="productColor">
+                <div className="detailScrollDelivery  mt-3">
+                  {productDetails?.length > 0 ? (
+                    productDetails?.map((data, idx) => (
+                      <div className="selectedProductDetails" key={idx}>
+                        <div className="d-flex productDataInfo">
+                          <figure>
+                            <Image
+                              src={data?.product_image}
+                              alt="tableImg"
+                              className="costumerImg"
+                              height={100}
+                              width={100}
+                            />
+                          </figure>
+                          <div className="ps-1">
+                            <p className="aboutProduct invoiceDataText">{data?.product_name}</p>
+                            <div className="d-flex">
+                              {/* <article className="productColor">
                               <span className="Yellow"></span>
                               <span className="Red"></span>
                               <span className="Pink"></span>
@@ -482,39 +488,39 @@ const ProductInvoice = () => {
                               <span className="Black"></span>
                               <span className="White"></span>
                             </article> */}
-                            {/* <span className="productSize">Colors / Size</span> */}
+                              {/* <span className="productSize">Colors / Size</span> */}
+                            </div>
                           </div>
                         </div>
+                        <p className="productPriceinvoice">${data?.price}</p>
+                        <p className="productPriceinvoice">{data?.qty}</p>
+                        <p className="productPriceinvoice">
+                          ${data?.price * data?.qty}
+                        </p>
+                        <article>
+                          <label className="custom-checkbox">
+                            <input
+                              type="checkbox"
+                              checked={data?.isChecked}
+                              onChange={() => handleCheckboxChange(data)}
+                            />
+                            <span className="checkmark"></span>
+                          </label>
+                        </article>
                       </div>
-                      <p className="productPriceinvoice">${data?.price}</p>
-                      <p className="productPriceinvoice">{data?.qty}</p>
-                      <p className="productPriceinvoice">
-                        ${data?.price * data?.qty}
-                      </p>
-                      <article>
-                        <label className="custom-checkbox">
-                          <input
-                            type="checkbox"
-                            checked={data?.isChecked}
-                            onChange={() => handleCheckboxChange(data)}
-                          />
-                          <span className="checkmark"></span>
-                        </label>
-                      </article>
-                    </div>
-                  ))
-                ) : (
-                  <>
-                    {productDetails?.length === 0 ? (
-                      <h3 className="mt-3 mb-3">No Data Found!</h3>
-                    ) : (
-                      <div className="loaderOuter">
-                        <div className="spinner-grow loaderSpinner text-center my-5"></div>
-                      </div>
-                    )}
-                  </>
-                )}
-
+                    ))
+                  ) : (
+                    <>
+                      {productDetails?.length === 0 ? (
+                        <h3 className="mt-3 mb-3">No Data Found!</h3>
+                      ) : (
+                        <div className="loaderOuter">
+                          <div className="spinner-grow loaderSpinner text-center my-5"></div>
+                        </div>
+                      )}
+                    </>
+                  )}
+                </div>
                 <div className="row">
                   <div className="col-lg-4">
                     <div className="OrderBox">
@@ -540,7 +546,7 @@ const ProductInvoice = () => {
                           <Image
                             src={Images.moneyImg}
                             alt="money"
-                            className="moneyImg"
+                            className="moneyImg me-2"
                           />
                           <span>{orderDetails?.mode_of_payment}</span>
                         </figure>
@@ -606,15 +612,16 @@ const ProductInvoice = () => {
               </div>
             </div>
           ) : (
-            <div className="col-md-6">
-              <div className="commonBoxInvoice mt-2 mb-2">
-                <Image src={Images.Receiptbill} />
-                <h2
-                  className="noInvoiceText"
-                  style={{ textAlign: "center", marginTop: 100 }}
-                >
-                  No Invoices selected
-                </h2>
+            <div className="col-lg-6">
+              <div className="commanOuter d-flex align-items-center justify-content-center">
+                <div className="w-100 text-center">
+                  <Image src={Images.Receiptbill} />
+                  <h2
+                    className="noInvoiceText"
+                  >
+                    No Invoices selected
+                  </h2>
+                </div>
               </div>
             </div>
           )}
