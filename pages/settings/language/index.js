@@ -46,6 +46,15 @@ const Language = () => {
 
   // API for set selected Language Enable Disable...................................
   const setLanguageEnableDisable = (data) => {
+    if (
+      data?.language === "English" &&
+      data?.country === "United States" &&
+      data?.lang_code === "en" &&
+      data?.status === 1
+    ) {
+      return;
+    }
+    alert("checkk");
     setIsLoading(data?.id);
     let params = {
       languages: [

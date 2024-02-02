@@ -14,7 +14,14 @@ const AddlanguageModal = (props) => {
   const [isLoading, setIsLoading] = useState(false);
   const [getLanguagesList, setGetLanguagesList] = useState([]);
 
-  const onSelectLanguage = (id) => {
+  const onSelectLanguage = (id, data) => {
+    if (
+      data?.name === "English" &&
+      data?.country === "United States" &&
+      data?.lang_code === "en"
+    ) {
+      return;
+    }
     setSelectedLanguages((prev) => {
       if (prev.includes(id)) {
         return prev.filter((item) => item !== id);
@@ -33,12 +40,9 @@ const AddlanguageModal = (props) => {
         return { id: value?.id, status: 1 };
       })
       ?.filter((val) => val?.id);
-    // console.log("getLatestgetLatest", getLatest);
     let params = {
-      removed_lang_ids: [11, 12, 1, 4, 5],
       languages: getLatest,
     };
-
     dispatch(
       updateSettings({
         ...params,
@@ -93,14 +97,14 @@ const AddlanguageModal = (props) => {
             </div>
           ) : (
             <>
-              {getLanguagesList.map((data, index) => {
+              {getLanguagesList?.map((data, index) => {
                 return (
                   <div
                     key={index}
                     className={`countryLanguage_ ${
                       selectedLanguages?.includes(data?.id) ? "activelang" : ""
                     }`}
-                    onClick={() => onSelectLanguage(data?.id)}
+                    onClick={() => onSelectLanguage(data?.id, data)}
                   >
                     <Image
                       src={data?.flag}
