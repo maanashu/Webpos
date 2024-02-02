@@ -37,6 +37,7 @@ const Login = () => {
     };
 
     useEffect(() => {
+        console.log(UniqueId, "=========UniqueId");
         if (UniqueId) {
             // Client-side code here
             getAllPOSUser();

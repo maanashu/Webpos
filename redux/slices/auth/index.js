@@ -46,6 +46,12 @@ export const authSlice = createSlice({
       state.loading = false;
     },
 
+    posUserLogout: (state) => {
+      state.isLoggedIn = false;
+      state.posUserLoginDetails = "";
+      state.loading = false;
+    },
+
     onErrorStopLoad: (state) => {
       state.loading = false;
     },
@@ -62,6 +68,7 @@ export const {
   setPosUserLogin,
   selectedPosUser,
   logout,
+  posUserLogout,
   onErrorStopLoad
 } = authSlice.actions;
 
