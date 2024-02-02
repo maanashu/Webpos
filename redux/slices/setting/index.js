@@ -23,9 +23,11 @@ export const settingSlice = createSlice({
 
     subScribePlan: (state) => {
       state.loading = true;
+      state.success = false;
     },
     setSubScribePlan: (state) => {
       state.loading = false;
+      state.success = true;
     },
     getAllPlans: (state) => {
       state.loading = true;
