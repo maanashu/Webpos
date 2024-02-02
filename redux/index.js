@@ -26,7 +26,7 @@ const persistConfig = {
 const persistedReducer = persistReducer(persistConfig, rootReducer);
 
 const makeStore = () => {
-  const store = configureStore({
+  const createdStore = configureStore({
     reducer: persistedReducer,
     middleware: (getDefaultMiddleware) =>
       getDefaultMiddleware({
@@ -35,9 +35,12 @@ const makeStore = () => {
     devTools: process.env.NODE_ENV !== "production",
   });
   // Enable persistence
-  store.__persistor = persistStore(store);
+  createdStore.__persistor = persistStore(createdStore);
   sagaMiddleware.run(rootSaga);
-  return store;
+  return createdStore;
 };
-export const wrapper = createWrapper(makeStore, { debug: true });
-export const store = makeStore();
+
+const store = makeStore();
+
+export const wrapper = createWrapper(() => store, { debug: true });
+export { store };

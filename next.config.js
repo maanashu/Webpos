@@ -1,5 +1,10 @@
 module.exports = {
   reactStrictMode: false,
+  serverRuntimeConfig: {
+    // Will only be available on the server side
+    // mySecret: 'secret',
+    PORT: process.env.PORT || 4000,
+  },
   env: {
       BASE_URL: process.env.BASE_URL,
     },

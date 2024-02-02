@@ -41,7 +41,8 @@ import {
   setClearCart,
 } from "../../slices/retails";
 import { all, call, put, takeLatest } from "redux-saga/effects";
-import { store } from "../..";
+import { store, wrapper } from "../..";
+import auth from "../../slices/auth";
 
 const ORDER_API_URL_V1 = ORDER_API_URL + "/api/v1/";
 const PRODUCT_API_URL_V1 = PRODUCT_API_URL + "/api/v1/";
@@ -480,7 +481,12 @@ function* clearOneProduct(action) {
 
 function* getProductFilterCategory(action) {
   const dataToSend = { ...action.payload };
-  const authData = store.getState().auth;
+  // const authData = store.getState().auth;
+  const authData = store?.getState()?.auth;
+  console.log(
+    "ddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd",
+    authData
+  );
   const sellerId = authData?.usersInfo?.payload?.uniqe_id;
 
   const params = {

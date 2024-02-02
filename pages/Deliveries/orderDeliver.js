@@ -22,6 +22,7 @@ import MapleOrder from "./mapleOrder";
 import PickupModal from "../../components/modals/delivery/PickupModal";
 import CustomModal from "../../components/customModal/CustomModal";
 import CustomLoader from "../../components/commanComonets/Delivery/CustomLoader";
+import { toast } from "react-toastify";
 
 const OrderDeliver = ({ orderDetail }) => {
   const orderStatus = orderDetail?.status;
@@ -106,6 +107,8 @@ const OrderDeliver = ({ orderDetail }) => {
           ...params,
           cb(res) {
             if (res) {
+              console.log("popsopdsapodasdasd", JSON.stringify(res));
+              toast.success(res?.data?.msg);
               setIsLoading(false);
 
               getLatestdata(parseInt(orderListType?.status) + 1, "Accept");
@@ -128,8 +131,8 @@ const OrderDeliver = ({ orderDetail }) => {
         ...params,
         cb(res) {
           if (res) {
+            toast.success(res?.data?.msg);
             setIsLoading(false);
-
             getLatestdata(5, "Accept");
           }
         },
@@ -200,8 +203,8 @@ const OrderDeliver = ({ orderDetail }) => {
         ...params,
         cb(res) {
           if (res) {
+            toast.success(res?.data?.msg);
             setDeclineLoading(false);
-
             // setOrderListType({
             //   status: 8,
             //   title: deliveryDrawerStatus[6],
@@ -369,6 +372,7 @@ const OrderDeliver = ({ orderDetail }) => {
               </div> */}
 
                   <OrderListItem
+                    id={orderListType?.title?.replace(/\s/g, "")}
                     screen={"SeeAll"}
                     orderList={orderList?.data}
                     itemPressHandler={itemPressHandler}
