@@ -5,12 +5,13 @@ import Image from "next/image";
 import moment from "moment-timezone";
 import Link from "next/link";
 
-const OrderListItem = ({ screen, orderList, itemPressHandler }) => {
+const OrderListItem = ({ id, screen, orderList, itemPressHandler }) => {
   return (
     <>
       {orderList?.map((item, index) => (
         <li key={index} style={{ listStyle: "none" }}>
           <OrderDetailsItem
+            id={id}
             item={item}
             onPressHandler={() => itemPressHandler(item, index)}
           />
@@ -20,7 +21,7 @@ const OrderListItem = ({ screen, orderList, itemPressHandler }) => {
   );
 };
 
-const OrderDetailsItem = ({ item, onPressHandler }) => {
+const OrderDetailsItem = ({ id, item, onPressHandler }) => {
   // const isSelected = viewAllOrder && item?.id === userDetail?.id;
   const orderDetails = item?.order_details || [];
   const deliveryDate =
@@ -31,7 +32,7 @@ const OrderDetailsItem = ({ item, onPressHandler }) => {
   const endTime = item?.preffered_delivery_end_time || "00.00";
   const formattedTime = `${startTime} - ${endTime}`;
   return (
-    <table id="DeliverDashboard" className="deliverDashboardTable">
+    <table id={id} className="deliverDashboardTable">
       <tbody onClick={() => onPressHandler(item)}>
         <tr className="product_invoice">
           <td className="invoice_subhead">
