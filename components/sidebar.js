@@ -204,7 +204,7 @@ const Sidebar = (props) => {
                   className="img-fluid hideImg"
                 />
                 <span className="sidebarTxt">Shipping Orders</span>
-                <span className="cartNum">{orderData?.length}</span>
+                <span className="cartNum">{orderData ? orderData?.length : 0}</span>
               </Link>
             </ListGroupItem>
             <ListGroupItem className="sidebarItems">
