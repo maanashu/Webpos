@@ -15,6 +15,7 @@ import {
   getTodaySales,
   getOnlineOrdersCount
 } from "../../redux/slices/dashboard";
+import PaginationFooter from "../../components/commanComonets/customers/PaginationFooter";
 import Login from "../auth/login";
 import moment from "moment-timezone";
 import { toast } from "react-toastify";
@@ -32,6 +33,10 @@ const Overview = () => {
   const dispatch = useDispatch();
   const [key, setKey] = useState(Math.random());
   const [orderDeliveriesInfo, setOrderDeliveriesInfo] = useState("");
+  const [pageNumber, setPageNumber] = useState(1);
+  const [recordsPerPage, setRecordsPerPage] = useState(10);
+  const [totalItems, setTotalItems] = useState(0);
+  const [loadingOrders, setLoadingOrders] = useState(true);
   const [getTodaySale, setGetTodaySale] = useState("");
   const [posLoginDetail, setPosLoginDetail] = useState("");
   const [onlineOrdersCount, setOnlineOrdersCount] = useState(0);
@@ -47,19 +52,26 @@ const Overview = () => {
         let params = {
             seller_id: UniqueId,
             delivery_option: "1,3,4",
-            page: 1,
-            limit: 50,
+            page: pageNumber,
+            limit: recordsPerPage,
             app_name: 'b2c'
         };
+        setLoadingOrders(true);
         dispatch(getAllOrderDeliveries({
             ...params,
             cb(res) {
-                if (res.status) {
-                    console.log(res?.data,"res?.datares?.data");
-                    setOrderDeliveriesInfo(res?.data?.payload?.data)
-                }
+              if (res.status && res?.data?.payload?.data?.length) {
+                setOrderDeliveriesInfo(res?.data?.payload?.data);
+                setTotalItems(res?.data?.payload?.total);
+                setLoadingOrders(false);
+              }
+              else {
+                setOrderDeliveriesInfo([]);
+                setTotalItems(0);
+                setLoadingOrders(false);
+              }
             },
-        })
+          })
         );
     };
 
@@ -161,14 +173,19 @@ const Overview = () => {
     }
   }, []);
 
-    useEffect(() => {
-        if (UniqueId) {
-            todaySaleInfo()
-            fetchOnlineOrdersCount()
-            allOrderDeliveriesInfo()
-            userLoginDetails()
-        }
-    }, [UniqueId]);
+  useEffect(() => {
+      if (UniqueId) {
+          todaySaleInfo();
+          fetchOnlineOrdersCount();
+          userLoginDetails();
+      }
+  }, [UniqueId]);
+
+  useEffect(() => {
+    if (UniqueId) {
+        allOrderDeliveriesInfo();
+    }
+  }, [UniqueId, pageNumber]);
 
   return (
     <>
@@ -375,14 +392,12 @@ const Overview = () => {
                   <h4 className="loginMain">Orders</h4>
                   <div className="table-responsive deliverTable">
                     <table id="tableProduct" className="product_table">
-                      {dashboardData?.loading ? (
-                        <>
-                          <tbody>
-                            <div className="loaderOuter">
-                              <div className="spinner-grow loaderSpinner text-center my-5"></div>
-                            </div>
-                          </tbody>
-                        </>
+                      {loadingOrders ? (
+                        <tbody>
+                          <div className="text-center">
+                            <div className="spinner-grow loaderSpinner text-center my-5"></div>
+                          </div>
+                        </tbody>
                       ) : (
                         <tbody>
                           {orderDeliveriesInfo?.length > 0 ? (
@@ -774,6 +789,14 @@ const Overview = () => {
                       )}
                       {/* // </tbody> */}
                     </table>
+                    {totalItems > recordsPerPage &&
+                      <PaginationFooter
+                        page={pageNumber}
+                        limit={recordsPerPage}
+                        setPage={(newPageNumber) => setPageNumber(newPageNumber)}
+                        totalItems={totalItems}
+                      />
+                    }
                   </div>
                 </div>
               </div>

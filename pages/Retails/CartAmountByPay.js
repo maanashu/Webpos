@@ -39,6 +39,7 @@ const CartAmountByPay = () => {
   const merchentDetails = authData?.usersInfo?.payload?.user?.user_profiles;
   const retailData = useSelector(selectRetailData);
   const getSettingData = useSelector(settingInfo);
+  console.log("getSettingData", JSON.stringify(getSettingData));
   const getTip = retailData?.getTipsData;
   const cartData = retailData?.productCart;
   const cartAmount = cartData?.amount;
@@ -126,12 +127,12 @@ const CartAmountByPay = () => {
   }
 
   const paymentMethodData = [];
-  if (Object.keys(getSettingData?.getSettings)?.length == 0) {
+  if (Object.keys(getSettingData?.getSettings)?.length > 0) {
     paymentMethodData.push(
       {
         title: "cash",
         icon: Images.MoneyOutline,
-        status: getSettingData?.getSettings.accept_cash_payment || true,
+        status: getSettingData?.getSettings.accept_cash_payment,
         id: 1,
       },
       {
@@ -143,7 +144,7 @@ const CartAmountByPay = () => {
       {
         title: "debit/credit",
         icon: Images.Mastercard,
-        status: getSettingData?.getSettings.accept_card_payment || true,
+        status: getSettingData?.getSettings.accept_card_payment,
         id: 3,
       }
     );
@@ -159,10 +160,10 @@ const CartAmountByPay = () => {
     (item) => item.status
   );
 
-  const totalAmountByPaymentMethod = (index) => {
-    if (index === 0) {
+  const totalAmountByPaymentMethod = (item) => {
+    if (item?.id == 1) {
       return `${amountFormat(paymentShow())}`;
-    } else if (index === 1) {
+    } else if (item?.id == 2) {
       // return `J${(paymentShow() * 100).toFixed(0)}`;
       return `J ${amountFormat(paymentShow() * 100, "notSign")}`;
     } else {
@@ -390,16 +391,16 @@ const CartAmountByPay = () => {
                               />
                               <p className="debitText">{item.title}</p>
                             </article>
-                            {index == "2" && (
+                            {item?.id == 3 && (
                               <p className="cardNumber pt-5">
                                 ●●●● ●●●● ●●●● 7224
                               </p>
                             )}
 
                             <p className="priceRefunded">
-                              {totalAmountByPaymentMethod(index)}
+                              {totalAmountByPaymentMethod(item)}
                             </p>
-                            {index == 1 && (
+                            {item?.id == 2 && (
                               <div className="savingText">Save 15%</div>
                             )}
                           </div>

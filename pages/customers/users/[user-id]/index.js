@@ -299,7 +299,7 @@ const UserProfile = () => {
         </table>
       </div>
 
-      <PaginationFooter />
+      {/* <PaginationFooter /> */}
     </div>
   );
 };

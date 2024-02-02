@@ -16,6 +16,28 @@ export const bookingsSlice = createSlice({
     getAppointments: (state) => {
       state.loading = true;
     },
+    getStaffUsers: (state) => {
+      state.staffUsersLoading = true;
+    },
+    setGetStaffUsers: (state, action) => {
+      // state.loading = false;
+      state.staffUsersLoading = false;
+      const responseData = action?.payload?.payload;
+
+      const currentPages = responseData?.current_page;
+      const totalPages = responseData?.total_pages;
+      const staffPages = { currentPages: currentPages, totalPages: totalPages };
+      const staffUsersList = responseData?.pos_staff;
+
+      state.staffUsers = staffUsersList;
+      state.staffPages = staffPages;
+    },
+    updateAppointmentStatus: (state) => {
+      state.loading = true;
+    },
+    setUpdateAppointmentStatus: (state, action) => {
+      state.loading = false;
+    },
     setGetAppointments: (state, action) => {
       const { getAppointment } = state;
 
@@ -62,8 +84,15 @@ export const bookingsSlice = createSlice({
 });
 
 // Action creators are generated for each case reducer function
-export const { getAppointments, setGetAppointments, onErrorStopLoad } =
-  bookingsSlice.actions;
+export const {
+  getAppointments,
+  setGetAppointments,
+  onErrorStopLoad,
+  updateAppointmentStatus,
+  setUpdateAppointmentStatus,
+  setGetStaffUsers,
+  getStaffUsers,
+} = bookingsSlice.actions;
 
 export const bookingsDetails = (state) => state.bookings;
 

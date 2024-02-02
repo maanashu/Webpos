@@ -8,7 +8,6 @@ const Wallet = () => {
   const dispatch = useDispatch();
   const receiptSettings = useSelector(settingInfo);
   const userSettings = receiptSettings?.getSettings;
-
   const isCoin = userSettings?.accept_jbr_coin_payment;
   const isCash = userSettings?.accept_cash_payment;
   const isCard = userSettings?.accept_card_payment;
@@ -56,11 +55,15 @@ const Wallet = () => {
                 />
 
                 <div className="bussinessHeading">
-                  <h4 className="customerLink text-start">Pay with JOBR Coin</h4>
+                  <h4 className="customerLink text-start">
+                    Pay with JOBR Coin
+                  </h4>
                   <h5 className="monthText mt-2">Online Shop / POS</h5>
                   <h5 className="walletPara mt-2">Default Payment</h5>
-                  <p className="settingText mt-3">You need to provide some additional information about your business to start receiving
-                    payouts from Shopify Payments.</p>
+                  <p className="settingText mt-3">
+                    You need to provide some additional information about your
+                    business to start receiving payouts from Shopify Payments.
+                  </p>
                 </div>
               </div>
 
@@ -71,7 +74,7 @@ const Wallet = () => {
                   id="flexSwitchCheckChecked"
                   checked={isCoin}
                   onChange={() => {
-                    handleSettings(1);
+                    !isCoin && handleSettings(1);
                   }}
                 />
                 <label
@@ -95,10 +98,11 @@ const Wallet = () => {
                 <div className="bussinessHeading">
                   <h4 className="customerLink text-start">Pay with Cash</h4>
                   <h5 className="monthText mt-2">POS</h5>
-                  <p className="settingText mt-3">You need to provide some additional information about your
-                    business to start receiving payouts from Shopify Payments.</p>
+                  <p className="settingText mt-3">
+                    You need to provide some additional information about your
+                    business to start receiving payouts from Shopify Payments.
+                  </p>
                 </div>
-
               </div>
 
               <div className="roundCheck  mb-0">
@@ -130,12 +134,16 @@ const Wallet = () => {
                   style={{ marginRight: "5px" }}
                 />
                 <div className="bussinessHeading">
-                  <h4 className="customerLink text-start"> Pay by Card Contactless</h4>
+                  <h4 className="customerLink text-start">
+                    {" "}
+                    Pay by Card Contactless
+                  </h4>
                   <h5 className="monthText mt-2">POS</h5>
-                  <p className="settingText mt-3">You need to provide some additional information about your
-                    business to start receiving payouts from Shopify Payments.</p>
+                  <p className="settingText mt-3">
+                    You need to provide some additional information about your
+                    business to start receiving payouts from Shopify Payments.
+                  </p>
                 </div>
-
               </div>
 
               <div className="roundCheck  mb-0">
@@ -157,7 +165,7 @@ const Wallet = () => {
           </div>
           {/*  */}
         </div>
-      </div >
+      </div>
     </>
   );
 };

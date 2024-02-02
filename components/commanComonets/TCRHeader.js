@@ -11,8 +11,10 @@ const TCRHeader = ({
   withTimeTabs = true,
   onTimeSpanSelect,
   timeSpan,
+  calendarHandler,
+  notificationHandler,
+  searchHandler,
 }) => {
-
   const TIME_SPANS = [
     { value: "today", label: "Today" },
     { value: "week", label: "Weekly" },
@@ -63,15 +65,20 @@ const TCRHeader = ({
                     <p
                       key={idx + "day-tabs"}
                       onClick={() => onTimeSpanSelect(el.value)}
-                      className={`tab-item${timeSpan == el.value ? " selected-tab" : ""
-                        }`}
+                      className={`tab-item${
+                        timeSpan == el.value ? " selected-tab" : ""
+                      }`}
                     >
                       {el.label}
                     </p>
                   ))}
                 </div>
               )}
-              <HeaderUtils />
+              <HeaderUtils
+                calendarHandler={calendarHandler}
+                searchHandler={searchHandler}
+                notificationHandler={notificationHandler}
+              />
             </div>
           </div>
         </div>
