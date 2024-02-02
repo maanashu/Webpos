@@ -12,6 +12,18 @@ import {
   selectRetailData,
 } from "../../../redux/slices/retails";
 
+// const ids = {
+//   category_ids: selectedCategoryArray.join(','),
+//   sub_category_ids: selectedSubCategoryArray.join(','),
+//   pos_staff_ids: selectedBrandArray.join(','),
+// };
+
+// const ids = {
+//   category_ids: selectedCategoryArray.join(','),
+//   sub_category_ids: selectedSubCategoryArray.join(','),
+//   brand_id: selectedBrandArray.join(','),
+// };
+
 const ProductInnerNav = ({ productCount, ServicesCount }) => {
   const dispatch = useDispatch();
   const authData = useSelector(selectLoginAuth);
@@ -30,6 +42,19 @@ const ProductInnerNav = ({ productCount, ServicesCount }) => {
   const serviceCategory = retailData?.serviceCategories;
   const serviceSubCategory = retailData?.serviceSubCategories;
   const posUsers = authData?.allPosUser;
+
+  const [selectedProductCategories, setSelectedProductCategories] = useState(
+    []
+  );
+  const [selectedProductSubCategories, setSelectedProductSubCategories] =
+    useState([]);
+  const [selectedProductBrands, setSelectedProductBrands] = useState([]);
+  const [selectedServiceCategories, setSelectedServiceCategories] = useState(
+    []
+  );
+  const [selectedServiceSubCategories, setSelectedServiceSubCategories] =
+    useState([]);
+  const [selectedPosStaff, setSelectedPosStaff] = useState([]);
 
   const handleTabs = (tabValue) => {
     setActiveTab(tabValue);
@@ -206,8 +231,25 @@ const ProductInnerNav = ({ productCount, ServicesCount }) => {
                             >
                               {productCategory?.map((item) => (
                                 <label className="custom-checkbox">
-                                  <input type="checkbox" />
-                                  <span className="checkmark"></span>
+                                  <input
+                                    type="checkbox"
+                                    checked={selectedProductCategories.includes(
+                                      item.id
+                                    )}
+                                    onChange={() => {
+                                      setSelectedProductCategories((prev) =>
+                                        prev.includes(item.id)
+                                          ? prev.filter(
+                                              (element) => element !== item.id
+                                            )
+                                          : [...prev, item.id]
+                                      );
+                                    }}
+                                  />
+                                  <span
+                                    className="checkmark"
+                                    // onClick={() => setSelectedProductCategories}
+                                  ></span>
                                   <span className="filteredheading">
                                     {item?.name}
                                   </span>
@@ -244,7 +286,21 @@ const ProductInnerNav = ({ productCount, ServicesCount }) => {
                             >
                               {productSubCategory?.map((item) => (
                                 <label className="custom-checkbox">
-                                  <input type="checkbox" />
+                                  <input
+                                    type="checkbox"
+                                    checked={selectedProductSubCategories.includes(
+                                      item.id
+                                    )}
+                                    onChange={() => {
+                                      setSelectedProductSubCategories((prev) =>
+                                        prev.includes(item.id)
+                                          ? prev.filter(
+                                              (element) => element !== item.id
+                                            )
+                                          : [...prev, item.id]
+                                      );
+                                    }}
+                                  />
                                   <span className="checkmark"></span>
                                   <span className="filteredheading">
                                     {item?.name}
@@ -282,8 +338,27 @@ const ProductInnerNav = ({ productCount, ServicesCount }) => {
                             >
                               {productBrands?.map((item) => (
                                 <label className="custom-checkbox">
-                                  <input type="checkbox" />
-                                  <span className="checkmark"></span>
+                                  <input
+                                    type="checkbox"
+                                    checked={selectedProductBrands.includes(
+                                      item.id
+                                    )}
+                                    onChange={() => {
+                                      setSelectedProductBrands((prev) =>
+                                        prev.includes(item.id)
+                                          ? prev.filter(
+                                              (element) => element !== item.id
+                                            )
+                                          : [...prev, item.id]
+                                      );
+                                    }}
+                                  />
+                                  <span
+                                    onClick={() =>
+                                      console.log("item " + item.id)
+                                    }
+                                    className="checkmark"
+                                  ></span>
                                   <span className="filteredheading">
                                     {item?.name}
                                   </span>
@@ -325,7 +400,21 @@ const ProductInnerNav = ({ productCount, ServicesCount }) => {
                             >
                               {serviceCategory?.map((item) => (
                                 <label className="custom-checkbox">
-                                  <input type="checkbox" />
+                                  <input
+                                    type="checkbox"
+                                    checked={selectedServiceCategories.includes(
+                                      item.id
+                                    )}
+                                    onChange={() => {
+                                      setSelectedServiceCategories((prev) =>
+                                        prev.includes(item.id)
+                                          ? prev.filter(
+                                              (element) => element !== item.id
+                                            )
+                                          : [...prev, item.id]
+                                      );
+                                    }}
+                                  />
                                   <span className="checkmark"></span>
                                   <span className="filteredheading">
                                     {item?.name}
@@ -363,7 +452,21 @@ const ProductInnerNav = ({ productCount, ServicesCount }) => {
                             >
                               {serviceSubCategory?.map((item) => (
                                 <label className="custom-checkbox">
-                                  <input type="checkbox" />
+                                  <input
+                                    type="checkbox"
+                                    checked={selectedServiceSubCategories.includes(
+                                      item.id
+                                    )}
+                                    onChange={() => {
+                                      setSelectedServiceSubCategories((prev) =>
+                                        prev.includes(item.id)
+                                          ? prev.filter(
+                                              (element) => element !== item.id
+                                            )
+                                          : [...prev, item.id]
+                                      );
+                                    }}
+                                  />
                                   <span className="checkmark"></span>
                                   <span className="filteredheading">
                                     {item?.name}
@@ -401,7 +504,19 @@ const ProductInnerNav = ({ productCount, ServicesCount }) => {
                             >
                               {posUsers?.map((item) => (
                                 <label className="custom-checkbox">
-                                  <input type="checkbox" />
+                                  <input
+                                    type="checkbox"
+                                    checked={selectedPosStaff.includes(item.id)}
+                                    onChange={() => {
+                                      setSelectedPosStaff((prev) =>
+                                        prev.includes(item.id)
+                                          ? prev.filter(
+                                              (element) => element !== item.id
+                                            )
+                                          : [...prev, item.id]
+                                      );
+                                    }}
+                                  />
                                   <span className="checkmark"></span>
                                   <span className="filteredheading">
                                     {item?.user?.user_profiles?.firstname +
