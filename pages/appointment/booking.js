@@ -21,8 +21,7 @@ import CustomModal from "../../components/customModal/CustomModal";
 import CustomHoursCell from "../../components/CustomHoursCell";
 import CustomEventCell from "../../components/CustomEventCell";
 import ReScheduleDetailModal from "../../components/ReScheduleDetailModal";
-import CalendarSettingModal from "../../Components/modals/CalendarSettingModal";
-import ReScheduleDetailModal from "../../Components/ReScheduleDetailModal";
+import CalendarSettingModal from "../../components/modals/CalendarSettingModal";
 
 import {
   CALENDAR_MODES,
