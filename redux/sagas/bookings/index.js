@@ -41,7 +41,9 @@ function* getAppointments(action) {
 
     // console.log("BOOKINGS----" + JSON.stringify(resp));
     if (resp.status) {
-      yield put(setGetAppointments(resp.data));
+      if (!dataToSend?.search) {
+        yield put(setGetAppointments(resp.data));
+      }
       yield call(action.payload.cb, (action.res = resp));
       // toast.success(resp?.data?.msg);
     } else {
