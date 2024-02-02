@@ -24,7 +24,6 @@ const ProductInvoice = () => {
   const merchentDetails = authData?.usersInfo?.payload?.user?.user_profiles;
   const sellerId = authData?.usersInfo?.payload?.uniqe_id;
   const [searchInvoiceViaBarcode, setSearchInvoiceViaBarcode] = useState("");
-  console.log(searchInvoiceViaBarcode,'searchInvoiceViaBarcode');
   const invoiceData = useSelector(selectReturnData);
   const SearchInvoiceRespones = invoiceData?.invoiceByInvoiceId;
   const returnData = SearchInvoiceRespones?.return;

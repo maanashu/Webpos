@@ -3,7 +3,6 @@ import React, { useState } from "react";
 const ReturnInventory = ({ selectedProducts, setNewQty }) => {
   const [selectedProductItems, setSelectedProductItems] =
     useState(selectedProducts);
-
   const handleQuantity = (data, flag) => {
     let updateProductQuantity;
     if (flag === "increase") {
@@ -61,7 +60,7 @@ const ReturnInventory = ({ selectedProducts, setNewQty }) => {
                   className="form-control customTextarea"
                   type="text"
                   placeholder=""
-                  value={data.qty}
+                  value={data?.qty}
                   readOnly
                 />
                 <button

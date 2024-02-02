@@ -14,7 +14,6 @@ import { toast } from "react-toastify";
 const Manualinvoice = (props) => {
   const dispatch = useDispatch();
   const [loading, setLoading] = useState(false);
-  console.log(loading, "loading");
   const authData = useSelector(selectLoginAuth);
   const sellerId = authData?.usersInfo?.payload?.uniqe_id;
   const [productsSearchBySku, setProductsSearchBySku] = useState("");
@@ -26,7 +25,6 @@ const Manualinvoice = (props) => {
   
   const handleSearchSku = (e) => {
     let inputValue = e.target.value;
-    inputValue = inputValue.slice(0, 15);
     if (inputValue.length >= 4) {
       let params = {
         search: inputValue,

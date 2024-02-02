@@ -22,7 +22,6 @@ const productrefunds = () => {
   const dispatch = useDispatch();
   const [enableText, setEnabletext] = useState(false);
   const router = useRouter();
-  const [loading, setLoading] = useState(false);
   const [refundAmount, setRefundAmount] = useState("");
   const [inputValues, setInputValues] = useState([]);
   const invoiceData = useSelector(selectReturnData);
@@ -31,18 +30,6 @@ const productrefunds = () => {
   let refundedItems = JSON.parse(selectedData?.selectedItems || "[]");
   const [key, setKey] = useState(Math.random());
   const [newQty, setNewQty] = useState([]);
-  console.log(newQty,'newQty');
-  // const quantities = newQty?.map((item) => item.qty);
-
-  // quantities.forEach((item, index) => {
-  //   refundedItems[index].qty = item;
-  // });
-
-  // refundedItems = refundedItems.map((item, index) => ({
-  //   ...item,
-  //   newQty: quantities[index],
-  // }));
-
   const [modalDetail, setModalDetail] = useState({
     show: false,
     title: "",
@@ -71,15 +58,16 @@ const productrefunds = () => {
     dispatch(setInvoiceData(shareData));
   };
 
-
-  let products = refundedItems?.map((item) => ({
+  let products = refundedItems?.map((item, index) => ({
     id: item?.product_id,
     qty: item?.qty,
-    write_off_qty: item?.newQty || 0,
-    add_to_inventory_qty: item?.qty - item?.newQty || 0,
-    refund_value: item?.inputValue || 0,
+    add_to_inventory_qty: newQty?.find((val) => val?.id == item?.id)?.qty || 0,
+     write_off_qty: item?.qty - newQty?.find((val) => val?.id == item?.id)?.qty || 0,
+    refund_value:
+      Number(inputValues?.find((val) => val?.index == index)?.value) ||
+      refundAmount ||
+      0,
   }));
-
   const handlereturnToInventory = () => {
     let params = {
       order_id: orderDetails?.order?.id,
@@ -90,14 +78,11 @@ const productrefunds = () => {
       return_reason: "testing reason",
       drawer_id: orderDetails?.order?.drawer_id,
     };
-    console.log(params, "params");
-    setLoading(true);
     dispatch(
       returnToInventory({
         ...params,
         cb(res) {
           if (res) {
-            setLoading(false);
             router.push({
               pathname: "/Product/RefundsConfirmation(No_Selection)",
             });
@@ -115,6 +100,10 @@ const productrefunds = () => {
     const { value } = e.target;
     const enteredValue = e.target.value;
     const isValidInput = /^[+]?\d*\.?\d*$/.test(enteredValue);
+    let result = {
+      value: enteredValue,
+      index: index,
+    };
     if (!isValidInput) {
       if (!toast.isActive(toastId.current)) {
         toastId.current = toast.error(
@@ -123,37 +112,32 @@ const productrefunds = () => {
       }
       return;
     } else {
-      setInputValues(enteredValue);
+      setInputValues(result);
     }
     const updatedInputValues = [...inputValues];
-    updatedInputValues[index] = value;
-    setInputValues(updatedInputValues);
-
-    refundedItems = refundedItems.map((item) => ({
-      ...item,
-      inputValues:
-        inputValues?.length > 0
-          ? [...inputValues, e.target.value]
-          : [e.target.value],
-    }));
-    refundedItems[index] = {
-      ...refundedItems[index],
-      inputValue: Number(e.target.value),
+    updatedInputValues[index] = {
+      ...updatedInputValues[index],
+      value: enteredValue,
+      index: index,
     };
-    console.log(refundedItems,'refundedItems');
-  
+    setInputValues(updatedInputValues);
     const inputValue = parseFloat(e.target.value);
     const productPrice = parseFloat(refundedItems[index]?.price);
     if (!isNaN(inputValue) && inputValue <= productPrice) {
       const newInputValues = [...inputValues];
-      newInputValues[index] = inputValue;
+      newInputValues[index] = {
+        ...newInputValues[index],
+        value: inputValue,
+        index: index,
+      };
       setInputValues(newInputValues);
     } else {
       toastId.current = toast.error(
-        "Refund Amount should not grater then Unit price"
+        "Refund Amount should not be greater than Unit price"
       );
       return;
     }
+    
   };
 
   const inputCheck = (e) => {
@@ -174,7 +158,11 @@ const productrefunds = () => {
     } else {
       const newValues = [...inputValues];
       for (let i = 0; i < refundedItems.length; i++) {
-        newValues.push(refundAmount);
+        let result = {
+          value: refundAmount,
+          index: i
+        }
+        newValues.push(result);
       }
       setInputValues(newValues);
     }
@@ -182,8 +170,8 @@ const productrefunds = () => {
 
   const subtotal = refundedItems?.reduce((acc, data, idx) => {
     const itemTotal =
-      !isNaN(parseFloat(inputValues[idx])) && !isNaN(parseFloat(data?.qty))
-        ? (parseFloat(inputValues[idx]) * parseFloat(data?.qty)).toFixed(2)
+      !isNaN(parseFloat(inputValues[idx]?.value)) && !isNaN(parseFloat(data?.qty))
+        ? (parseFloat(inputValues[idx]?.value) * parseFloat(data?.qty)).toFixed(2)
         : "0.00";
 
     return acc + parseFloat(itemTotal);
@@ -207,19 +195,19 @@ const productrefunds = () => {
       }
       return;
     }
+
     const maxPrice = Math.max(
       ...refundedItems?.map((item) => parseFloat(item?.price))
     );
-
     if (!isNaN(enteredValue) && enteredValue <= maxPrice) {
       setRefundAmount(enteredValue);
     } else {
       toastId.current = toast.error(
         "Refund amount should not be greater than any item's price"
       );
-      returnToInventory;
     }
   };
+
 
   return (
     <>
@@ -239,7 +227,7 @@ const productrefunds = () => {
                   onChange={(e) => inputCheck(e)}
                   type="checkbox"
                   className="me-2"
-                  onClick={(e) => inputCheck(e)}
+                  // onClick={(e) => inputCheck(e)}
                 />
                 <h5 className="priceHeading pe-3">
                   Apply a fixed amount to all items.
@@ -319,7 +307,7 @@ const productrefunds = () => {
                                 ? "enableInput"
                                 : "tablecustomInput"
                             }
-                            value={inputValues[idx]}
+                            value={inputValues[idx]?.value}
                             onChange={(e) => handleInputChange(e, idx)}
                             disabled={enableText === false}
                           />
@@ -329,10 +317,10 @@ const productrefunds = () => {
                         </td>
                         <td className="recent_subhead text-center">
                           ${" "}
-                          {!isNaN(parseFloat(inputValues[idx])) &&
+                          {!isNaN(parseFloat(inputValues[idx]?.value)) &&
                           !isNaN(parseFloat(data?.qty))
                             ? (
-                                parseFloat(inputValues[idx]) *
+                                parseFloat(inputValues[idx]?.value) *
                                 parseFloat(data?.qty)
                               ).toFixed(2)
                             : "0.00"}
@@ -359,7 +347,7 @@ const productrefunds = () => {
                   <div className="flexBox justify-content-between ">
                     <p className="orderHeading">Total Taxes</p>
                     <p className="orderHeading">
-                      +${subtotal ? discount : "0.00"}%
+                      -${subtotal ? discount : "0.00"}%
                     </p>
                   </div>
                 </div>
