@@ -20,7 +20,7 @@ import { Calendar } from "../../components/CustomCalendar";
 import CustomModal from "../../components/customModal/CustomModal";
 import CustomHoursCell from "../../components/CustomHoursCell";
 import CustomEventCell from "../../components/CustomEventCell";
-import ReScheduleDetailModal from "../../Components/ReScheduleDetailModal";
+import ReScheduleDetailModal from "../../components/ReScheduleDetailModal";
 
 import {
   CALENDAR_MODES,
