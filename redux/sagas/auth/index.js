@@ -46,7 +46,7 @@ function* getAllPosUser(action) {
       `${AUTH_API_URL}/api/v1/users/merchant/pos-user?seller_id=${action.payload.seller_id}`
     );
     if (resp.status) {
-      yield put(setGetAllPosUser(resp.data));
+      yield put(setGetAllPosUser(resp.data?.payload?.pos_staff));
       yield call(action.payload.cb, (action.res = resp));
       // toast.success(resp?.data?.msg);
     } else {
