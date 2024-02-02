@@ -14,6 +14,7 @@ import {
   productCart,
   selectRetailData,
   setProductCart,
+  updateCart,
 } from "../../redux/slices/retails";
 import { useDispatch, useSelector } from "react-redux";
 import { selectLoginAuth } from "../../redux/slices/auth";
@@ -81,19 +82,32 @@ const ServiceCart = () => {
     );
   };
 
+  const clearCartHandler = () => {
+    dispatch(
+      clearCart({
+        cb: () => {
+          dispatch(productCart());
+        },
+      })
+    );
+  };
+
   useEffect(() => {
     offers();
   }, [sellerId]);
 
   const handleAddDiscount = () => {
+    cartUpdate();
     setModalDetail({ show: true, flag: "AddDiscount" });
     setKey(Math.random());
   };
   const handleAddNotes = () => {
+    cartUpdate();
     setModalDetail({ show: true, flag: "AddNotes" });
     setKey(Math.random());
   };
   const handleDeleteCart = () => {
+    cartUpdate();
     setModalDetail({ show: true, flag: "DeleteCarts" });
     setKey(Math.random());
   };
@@ -116,6 +130,7 @@ const ServiceCart = () => {
   };
 
   const getOneService = (serviceId) => {
+    cartUpdate();
     let params = {
       seller_id: sellerId,
       app_name: "pos",
@@ -138,102 +153,72 @@ const ServiceCart = () => {
     const percentageValue = (percentage / 100) * parseFloat(value);
     return percentageValue.toFixed(2) ?? 0.0;
   }
-  const calculateOrderAmount = (cart) => {
-    if (cart?.poscart_products) {
-      var subTotalAmount = cartData?.poscart_products?.reduce((acc, curr) => {
-        const productPrice = getProductFinalPrice(curr);
 
-        return acc + productPrice;
+  const removeOneCartHandler = (data, index) => {
+    const offeyKey = data?.product_details?.supply?.supply_offers;
+    const updatedCart = { ...retailData?.productCart };
 
-        // return acc + productPrice * curr.qty;
-      }, 0);
-      // var subTotalAmount = cartData?.amout?.total_amount;
+    if (updatedCart?.poscart_products?.length === 1 && index === 0) {
+      clearCartHandler();
+    } else {
+      const newCart = { ...updatedCart };
 
-      var discountAmount = 0;
-      var deliveryFee = 0;
-      var taxesAndOtherCharges = 0;
+      if (offeyKey?.length > 0) {
+        const product = newCart?.poscart_products[index];
+        const productPrice = getProductFinalPrice(data);
 
-      // if coupon applied
-      // if (objCoupon) {
-      //   const couponDetail = objCoupon;
-      //   if (couponDetail.discount_percentage) {
-      //     discountAmount =
-      //       (subTotalAmount * couponDetail.discount_percentage) / 100;
-      //     discountAmount = Number(discountAmount).toFixed(2);
-      //   }
+        if (product.qty > 0) {
+          newCart.amount = { ...newCart.amount };
+          newCart.amount.total_amount -= productPrice;
+          newCart.amount.products_price -= productPrice;
+          newCart.poscart_products = [
+            ...newCart.poscart_products.slice(0, index),
+            ...newCart.poscart_products.slice(index + 1),
+          ];
+        }
+      } else {
+        const product = newCart?.poscart_products[index];
+        const productPrice =
+          product.product_details?.supply?.supply_prices?.selling_price;
 
-      //   if (
-      //     couponDetail.max_discount &&
-      //     discountAmount > couponDetail.max_discount
-      //   ) {
-      //     discountAmount = couponDetail.max_discount;
-      //   }
-      // }
+        if (product.qty > 0) {
+          newCart.amount = { ...newCart.amount };
+          newCart.amount.total_amount -= productPrice * product.qty;
+          newCart.amount.products_price -= productPrice * product.qty;
+          newCart.poscart_products = [
+            ...newCart.poscart_products.slice(0, index),
+            ...newCart.poscart_products.slice(index + 1),
+          ];
+        }
+      }
 
-      // var productsDiscountAmount = cartData?.cart_products?.reduce(
-      //   (acc, curr) =>
-      //     acc +
-      //     (curr.product_details?.supply?.supply_prices?.offer_price
-      //       ? curr.product_details?.supply?.supply_prices?.actual_price -
-      //         curr.product_details?.supply?.supply_prices?.offer_price
-      //       : 0) *
-      //       curr.qty,
-      //   0
-      // );
-
-      // if (productsDiscountAmount > 0) {
-      //   discountAmount = discountAmount + productsDiscountAmount;
-      // }
-
-      // if (cartData?.amout?.tax_percentage) {
-      //   taxesAndOtherCharges =
-      //     ((subTotalAmount - discountAmount) *
-      //       cartData?.amout?.tax_percentage) /
-      //     100;
-      // }
-
-      taxesAndOtherCharges = parseFloat(
-        calculatePercentageValue(
-          subTotalAmount,
-          parseInt(cart.amount.tax_percentage)
-        )
+      const totalAmount = newCart.amount.products_price;
+      const TAX = calculatePercentageValue(
+        totalAmount,
+        parseInt(newCart.amount.tax_percentage)
       );
-
-      var totalOrderAmount =
-        subTotalAmount - discountAmount + deliveryFee + taxesAndOtherCharges;
-
-      cart.amount.tax = parseFloat(taxesAndOtherCharges); // Update tax value
-      cart.amount.total_amount = totalOrderAmount;
-      cart.amount.products_price = subTotalAmount;
-
+      newCart.amount.tax = parseFloat(TAX);
+      newCart.amount.total_amount = totalAmount + parseFloat(TAX);
       var DATA = {
-        payload: cart,
+        payload: newCart,
       };
       dispatch(setProductCart(DATA));
     }
   };
 
-  const updateQuantity = (operation, index) => {
-    // var arr = retailData?.productCart;
-    // const product = arr?.poscart_products[index];
-    // const restProductQty = product?.product_details?.supply?.rest_quantity;
-    // if (operation == "+") {
-    //   if (restProductQty > product?.qty) {
-    //     product.qty += 1;
-    //     calculateOrderAmount(arr);
-    //   } else {
-    //     alert("There are no more quantity left to add");
-    //   }
-    // } else if (operation == "-") {
-    //   if (product.qty > 0) {
-    //     if (product.qty === 1) {
-    //       arr?.poscart_products.splice(index, 1);
-    //       // dispatch(updateCartLength(CART_LENGTH - 1));
-    //     }
-    //     product.qty -= 1;
-    //     calculateOrderAmount(arr);
-    //   }
-    // }
+  const cartUpdate = () => {
+    var arr = retailData?.productCart;
+    if (arr?.poscart_products?.length > 0) {
+      const products = arr?.poscart_products.map((item) => ({
+        product_id: item?.product_id,
+        qty: item?.qty,
+      }));
+      let params = {
+        updated_products: products,
+        cartId: arr?.id,
+      };
+      dispatch(updateCart(params));
+    }
   };
 
   return (
@@ -244,14 +229,19 @@ const ServiceCart = () => {
             <div className="commanOuter me-0 commonSubOuter fullCartLeft">
               <div className="fullCartInfo">
                 <div className="appointmentHeading">
-                  <Link href="/Retails?parameter=services">
+                  <div
+                    onClick={() => {
+                      cartUpdate();
+                      router.push("/Retails?parameter=services");
+                    }}
+                  >
                     <Image
                       src={Images.boldLeftArrow}
                       alt="leftarrow image"
                       className="img-fluid"
                     />
                     <h4 className="appointMain ms-2">Full Cart</h4>
-                  </Link>
+                  </div>
                 </div>
                 <div className="ProductSearch w-50">
                   <ProductSearch />
@@ -359,21 +349,22 @@ const ServiceCart = () => {
                             )
                           ) : ( */}
                           <div
-                            onClick={() => {
-                              let params = {
-                                cartId: cartData?.id,
-                                productId: data?.id,
-                              };
-                              setProductById(index);
-                              dispatch(
-                                clearOneProduct({
-                                  ...params,
-                                  cb() {
-                                    dispatch(productCart());
-                                  },
-                                })
-                              );
-                            }}
+                            // onClick={() => {
+                            //   let params = {
+                            //     cartId: cartData?.id,
+                            //     productId: data?.id,
+                            //   };
+                            //   setProductById(index);
+                            //   dispatch(
+                            //     clearOneProduct({
+                            //       ...params,
+                            //       cb() {
+                            //         dispatch(productCart());
+                            //       },
+                            //     })
+                            //   );
+                            // }}
+                            onClick={() => removeOneCartHandler(data, index)}
                           >
                             <Image
                               src={Images.redCross}
@@ -432,7 +423,10 @@ const ServiceCart = () => {
               <div className="insertProductSection">
                 <div
                   className="addproductCart"
-                  onClick={() => setCustomServiceAdd(true)}
+                  onClick={() => {
+                    cartUpdate();
+                    setCustomServiceAdd(true);
+                  }}
                 >
                   <Image
                     src={Images.addProductImg}
@@ -465,7 +459,9 @@ const ServiceCart = () => {
                 <div
                   className="addproductCart"
                   onClick={() =>
-                    cartLength > 0 ? setAttachCustomerModal(true) : noCartFun()
+                    cartLength > 0
+                      ? (cartUpdate(), setAttachCustomerModal(true))
+                      : noCartFun()
                   }
                 >
                   <Image
@@ -650,6 +646,7 @@ const ServiceCart = () => {
                   className="nextverifyBtn w-100 mt-3"
                   type="submit"
                   onClick={() => {
+                    cartUpdate();
                     if (Object.keys(cartData?.user_details)?.length == 0) {
                       setAttachCustomerModal(true);
                     } else {

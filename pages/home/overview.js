@@ -89,8 +89,29 @@ const Overview = () => {
       getTodaySales({
         ...params,
         cb(res) {
-          if (res.status) {
-            setGetTodaySale(res?.data?.payload);
+          if (res.status && res?.data?.payload?.length) {
+            const dataArr = res.data.payload;
+            const sortedArr = [];
+            sortedArr.push(dataArr.find((item) => item.mode_of_payment == 'cash'));
+            sortedArr.push(dataArr.find((item) => item.mode_of_payment == 'card'));
+            sortedArr.push(dataArr.find((item) => item.mode_of_payment == 'jbr'));
+
+            // const sortingArr = ["cash", "card", "jbr", "all"];
+            // dataArr.sort((a, b) => {
+            //     const indexA = sortingArr.indexOf(a.mode_of_payment);
+            //     const indexB = sortingArr.indexOf(b.mode_of_payment);
+                
+            //     if (indexA === -1 && indexB === -1) {
+            //         return 0;
+            //     } else if (indexA === -1) {
+            //         return 1;
+            //     } else if (indexB === -1) {
+            //         return -1;
+            //     } else {
+            //         return indexA - indexB;
+            //     }
+            // });
+            setGetTodaySale(sortedArr);
           }
         },
       })
@@ -275,7 +296,7 @@ const Overview = () => {
                       getTodaySale &&
                       getTodaySale?.map((data, index) => {
 
-                        if(data?.mode_of_payment == 'all'){
+                        if(!data || data?.mode_of_payment == 'all'){
                           return;
                         }
 

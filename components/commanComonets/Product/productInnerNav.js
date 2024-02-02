@@ -159,13 +159,10 @@ const ProductInnerNav = ({ productCount, ServicesCount }) => {
     }
   };
 
-  const debounceSearchProduct = useCallback(debounce(onSearchProduct, 800), [
-    sellerId,
-  ]);
-
-  const debounceSearchService = useCallback(debounce(onSearchService, 800), [
-    sellerId,
-  ]);
+  const debounceSearch = useCallback(
+    debounce(parameter == "product" ? onSearchProduct : onSearchService, 1000),
+    [sellerId]
+  );
 
   return (
     <>
@@ -191,7 +188,7 @@ const ProductInnerNav = ({ productCount, ServicesCount }) => {
                   value={productSearch}
                   onChange={(event) => {
                     setProductSearch(event.target.value);
-                    debounceSearchProduct(event.target.value);
+                    debounceSearch(event.target.value);
                   }}
                 />
               ) : (
@@ -199,7 +196,7 @@ const ProductInnerNav = ({ productCount, ServicesCount }) => {
                   value={serviceSearch}
                   onChange={(event) => {
                     setServiceSearch(event.target.value);
-                    debounceSearchService(event.target.value);
+                    debounceSearch(event.target.value);
                   }}
                 />
               )}
@@ -242,7 +239,6 @@ const ProductInnerNav = ({ productCount, ServicesCount }) => {
                   className="img-fluid BtnIcon"
                 />
               </button>
-
               {filterShow ? (
                 <>
                   {activeTab == "product" ? (
@@ -291,10 +287,7 @@ const ProductInnerNav = ({ productCount, ServicesCount }) => {
                                       );
                                     }}
                                   />
-                                  <span
-                                    className="checkmark"
-                                    // onClick={() => setSelectedProductCategories}
-                                  ></span>
+                                  <span className="checkmark"></span>
                                   <span className="filteredheading">
                                     {item?.name}
                                   </span>
