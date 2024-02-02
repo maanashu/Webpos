@@ -44,10 +44,6 @@ const productrefunds = () => {
     setKey(Math.random());
   };
 
-  // const sumProductPrices = refundedItems.reduce((sum, item) => {
-  //   const price = parseFloat(item.price) || 0;
-  //   return sum + price;
-  // }, 0);
 
   const { sumProductPrices, sumTax } = refundedItems.reduce(
     (acc, item) => {
@@ -80,7 +76,10 @@ const productrefunds = () => {
         inputValues: JSON.stringify(inputValues),
         totalSum: totalSum?.toString(),
         subtotal: subtotal?.toString(),
-        totalTax: discount?.toString(),
+        totalTax:  discount?.toString(),
+        existingTax:sumTax,
+        existingSubtotal:sumProductPrices,
+        existingTotal:totalAmount
       };
       dispatch(setInvoiceData(shareData));
     } else {
@@ -108,7 +107,7 @@ const productrefunds = () => {
       total_refund_amount: subtotal,
       delivery_charge: orderDetails?.order?.delivery_charge,
       return_reason: "testing reason",
-      drawer_id: orderDetails?.order?.drawer_id,
+      drawer_id: orderDetails?.order?.drawer_id || 0,
     };
     dispatch(
       returnToInventory({
@@ -370,7 +369,7 @@ const productrefunds = () => {
                               parseFloat(inputValues[idx]?.value) *
                               parseFloat(data?.qty)
                             ).toFixed(2)
-                            : "0.00"}
+                            : data?.qty * data?.price}
                         </td>
                       </tr>
                     );
@@ -396,14 +395,14 @@ const productrefunds = () => {
                   <div className="flexBox justify-content-between ">
                     <p className="orderHeading">Total Taxes</p>
                     <p className="orderHeading">
-                      -${subtotal ? discount : sumTax}%
+                      -${subtotal ? discount : sumTax.toFixed(2)}%
                     </p>
                   </div>
                 </div>
                 <div className="flexBox justify-content-between itemsRefundedTotal">
                   <p className="priceHeading">Total</p>
                   <p className="priceHeading">
-                    ${subtotal ? totalSum : totalAmount}
+                    ${subtotal ? totalSum : totalAmount.toFixed(2)}
                   </p>
                 </div>
                 <div className="text-end">
