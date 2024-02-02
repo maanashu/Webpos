@@ -197,8 +197,14 @@ const ProductInnerNav = ({ productCount, ServicesCount }) => {
                             aria-labelledby="Category"
                             data-bs-parent="#accordionExample"
                           >
-                            <div className="accordion-body">
-                              {productCategory.map((item) => (
+                            <div
+                              className={`accordion-body ${
+                                productCategory?.length > 10
+                                  ? "overflow-scroll-common-filter"
+                                  : ""
+                              }`}
+                            >
+                              {productCategory?.map((item) => (
                                 <label className="custom-checkbox">
                                   <input type="checkbox" />
                                   <span className="checkmark"></span>
@@ -229,7 +235,13 @@ const ProductInnerNav = ({ productCount, ServicesCount }) => {
                             aria-labelledby="Availability"
                             data-bs-parent="#accordionExample"
                           >
-                            <div className="accordion-body">
+                            <div
+                              className={`accordion-body ${
+                                productSubCategory?.length > 10
+                                  ? "overflow-scroll-common-filter"
+                                  : ""
+                              }`}
+                            >
                               {productSubCategory?.map((item) => (
                                 <label className="custom-checkbox">
                                   <input type="checkbox" />
@@ -261,7 +273,13 @@ const ProductInnerNav = ({ productCount, ServicesCount }) => {
                             aria-labelledby="Duration"
                             data-bs-parent="#accordionExample"
                           >
-                            <div className="accordion-body">
+                            <div
+                              className={`accordion-body ${
+                                productBrands?.length > 10
+                                  ? "overflow-scroll-common-filter"
+                                  : ""
+                              }`}
+                            >
                               {productBrands?.map((item) => (
                                 <label className="custom-checkbox">
                                   <input type="checkbox" />
@@ -298,7 +316,13 @@ const ProductInnerNav = ({ productCount, ServicesCount }) => {
                             aria-labelledby="Category"
                             data-bs-parent="#accordionExample"
                           >
-                            <div className="accordion-body">
+                            <div
+                              className={`accordion-body ${
+                                serviceCategory?.length > 10
+                                  ? "overflow-scroll-common-filter"
+                                  : ""
+                              }`}
+                            >
                               {serviceCategory?.map((item) => (
                                 <label className="custom-checkbox">
                                   <input type="checkbox" />
@@ -330,7 +354,13 @@ const ProductInnerNav = ({ productCount, ServicesCount }) => {
                             aria-labelledby="Availability"
                             data-bs-parent="#accordionExample"
                           >
-                            <div className="accordion-body">
+                            <div
+                              className={`accordion-body ${
+                                serviceSubCategory?.length > 10
+                                  ? "overflow-scroll-common-filter"
+                                  : ""
+                              }`}
+                            >
                               {serviceSubCategory?.map((item) => (
                                 <label className="custom-checkbox">
                                   <input type="checkbox" />
@@ -362,7 +392,13 @@ const ProductInnerNav = ({ productCount, ServicesCount }) => {
                             aria-labelledby="Duration"
                             data-bs-parent="#accordionExample"
                           >
-                            <div className="accordion-body">
+                            <div
+                              className={`accordion-body ${
+                                posUsers?.length > 10
+                                  ? "overflow-scroll-common-filter"
+                                  : ""
+                              }`}
+                            >
                               {posUsers?.map((item) => (
                                 <label className="custom-checkbox">
                                   <input type="checkbox" />

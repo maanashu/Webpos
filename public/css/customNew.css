@@ -5531,3 +5531,8 @@ figure {
   font-weight: 500;
   margin: 25px 0 9px;
 }
+
+.overflow-scroll-common-filter {
+  overflow-y: scroll;
+  height: 90vh;
+}
