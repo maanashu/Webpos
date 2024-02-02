@@ -650,7 +650,7 @@ const Analytics = () => {
                                 <h4 className="expectedHeading">
                                     {" "}
                                     {addThousandSeparator(
-                                        totalProductSoldAnalyticsData?.totalProductSoldList?.total
+                                        totalProductSoldAnalyticsData?.productOverview?.totalProducts
                                     )}
                                 </h4>
                             </div>
