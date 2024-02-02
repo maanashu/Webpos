@@ -485,10 +485,6 @@ function* getProductFilterCategory(action) {
   const dataToSend = { ...action.payload };
   // const authData = store.getState().auth;
   const authData = store?.getState()?.auth;
-  console.log(
-    "ddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd",
-    authData
-  );
   const sellerId = authData?.usersInfo?.payload?.uniqe_id;
 
   const params = {
@@ -528,6 +524,7 @@ function* getProductFilterSubCategory(action) {
     seller_id: sellerId,
     need_subcategory: true,
     service_type: "product",
+    check_product_existance: false,
   };
 
   // If needs searched subcategory
@@ -625,6 +622,7 @@ function* getServiceFilterSubCategory(action) {
     seller_id: sellerId,
     need_subcategory: true,
     service_type: "service",
+    check_product_existance: false,
   };
 
   // If needs searched subcategory
