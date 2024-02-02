@@ -33,6 +33,8 @@ const initialState = {
   productCategories: [],
   productSubCategories: [],
   productBrands: [],
+  serviceCategories: [],
+  serviceSubCategories: [],
   merchantWalletCheckLoad: false,
   getWalletQrLoad: false,
   walletQrData: {},
@@ -236,6 +238,22 @@ export const retailsSlice = createSlice({
       state.productBrands = action?.payload;
     },
 
+    setServiceCategory: (state, action) => {
+      state.loading = false;
+      state.serviceCategories = action?.payload;
+    },
+
+    setServiceSubCategory: (state, action) => {
+      state.loading = false;
+      state.serviceSubCategories = action?.payload;
+    },
+
+    getServiceFilterCategory: (state) => {
+      state.loading = true;
+    },
+    getServiceFilterSubCategory: (state) => {
+      state.loading = true;
+    },
     merchantWalletCheck: (state) => {
       state.merchantWalletCheckLoad = true;
     },
@@ -369,6 +387,10 @@ export const {
   setProductCategory,
   setProductSubCategory,
   setProductBrands,
+  getServiceFilterCategory,
+  getServiceFilterSubCategory,
+  setServiceCategory,
+  setServiceSubCategory,
   merchantWalletCheck,
   setMerchantWalletCheck,
   getWalletQr,
