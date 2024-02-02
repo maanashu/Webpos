@@ -372,6 +372,7 @@ const OrderDeliver = ({ orderDetail }) => {
               </div> */}
 
                   <OrderListItem
+                    id={orderListType?.title?.replace(/\s/g, "")}
                     screen={"SeeAll"}
                     orderList={orderList?.data}
                     itemPressHandler={itemPressHandler}
