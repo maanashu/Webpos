@@ -183,6 +183,7 @@ import clockImg from "../public/images/clockImg.svg";
 import editImg from "../public/images/editImg.svg";
 import checkImg from "../public/images/checkImg.svg";
 import locatePurple from "../public/images/locatePurple.svg";
+import complete from "../public/images/complete.svg";
 import walletCoin from "../public/images/walletCoin.svg";
 import scanner from "../public/images/scanner.png";
 import gross_profit_blue from "../public/images/gross_profit_blue.png";
@@ -450,6 +451,7 @@ export {
   coins,
   scanner,
   walletCoin,
+  complete,
   locatePurple,
   checkImg,
   editImg,
@@ -693,5 +695,5 @@ export {
   defaultUser,
   enablesec,
   downloadimagee,
-  qrcodeimg
+  qrcodeimg,
 };

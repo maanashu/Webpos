@@ -55,10 +55,10 @@ const CheckinModal = ({
                     bookingDetails?.user_details?.profile_photo ??
                     Images.userImages
                   }
-                  width={70}
-                  height={70}
+                  width={50}
+                  height={50}
+                  className="img-fluid userImg40"
                   alt="customerImg"
-                  className="img-fluid me-2"
                 />
               </figure>
               <div className="">

@@ -741,11 +741,11 @@ const Booking = () => {
                   className="SidebarRightItems mt-2"
                 >
                   <Image
-                    src={imageUrl ?? Images.userImages}
+                    src={imageUrl ?? Images.defaultUser}
                     alt="image"
-                    height={50}
                     width={50}
-                    className="img-fluid  staffUserImage"
+                    height={50}
+                    className="img-fluid userImg40"
                   />
                   <span className="bottomdot">{item?.appointment_counts}</span>
                 </ListGroupItem>
@@ -869,157 +869,162 @@ const Booking = () => {
                 className="img-fluid  text-end"
               />
             </div>
+            <Spacer space={16} />
+            <ScrollView style={{ height: "90%" }}>
+              {selectedStaffEmployeeId
+                ? getAppointmentByStaffIdList
+                : appointmentListArr?.map((item, index) => {
+                    const userDetails = item?.user_details;
+                    const userAddress = userDetails?.current_address;
+                    const posUserDetails =
+                      item?.pos_user_details?.user?.user_profiles;
+                    const appointmentID = item?.id;
+                    return (
+                      <div
+                        className={
+                          item?.mode_of_payment == "cash"
+                            ? "bg-skygrey border-lightpurple"
+                            : "bg-green-50 border-green" + " bookingRequest"
+                        }
+                      >
+                        <div className="checkUser">
+                          <div className="userCheckin unpaidDetails">
+                            <h6 className="userText">Customer:</h6>
 
-            {selectedStaffEmployeeId
-              ? getAppointmentByStaffIdList
-              : appointmentListArr?.map((item, index) => {
-                  const userDetails = item?.user_details;
-                  const userAddress = userDetails?.current_address;
-                  const posUserDetails =
-                    item?.pos_user_details?.user?.user_profiles;
-                  const appointmentID = item?.id;
-                  return (
-                    <div
-                      className={
-                        item?.mode_of_payment == "cash"
-                          ? "bg-skygrey border-lightpurple"
-                          : "bg-green-50 border-green" + " bookingRequest"
-                      }
-                    >
-                      <div className="checkUser">
-                        <div className="userCheckin unpaidDetails">
-                          <h6 className="userText">Customer:</h6>
+                            <div className="checkinBg">
+                              <div className="paymentMode">
+                                <span
+                                  className={
+                                    "textPaymentMode " +
+                                      item?.mode_of_payment ==
+                                    "cash"
+                                      ? "textNeavyBlue"
+                                      : "textWhite" + " mr-6"
+                                  }
+                                >
+                                  {item?.mode_of_payment == "cash"
+                                    ? "Unpaid"
+                                    : "Paid"}
+                                </span>
+                                <Image
+                                  src={Images.complete}
+                                  alt="complete"
+                                  className="completeimg"
+                                />
+                              </div>
+                            </div>
+                          </div>
 
-                          <div className="checkinBg">
-                            <div className="paymentMode">
-                              <span
-                                className={
-                                  "textPaymentMode " + item?.mode_of_payment ==
-                                  "cash"
-                                    ? "textNeavyBlue"
-                                    : "textWhite" + " mr-6"
+                          <div className="customerCheck d-flex mt-2">
+                            <figure className="profileImage">
+                              <Image
+                                src={
+                                  userDetails?.profile_photo ??
+                                  Images.defaultUser
                                 }
-                              >
-                                {item?.mode_of_payment == "cash"
-                                  ? "Unpaid"
-                                  : "Paid"}
-                              </span>
-                              <Image
-                                src={Images.complete}
-                                alt="complete"
-                                className="completeimg"
+                                alt="customerImg"
+                                width={50}
+                                height={50}
+                                className="img-fluid userImg40"
                               />
-                            </div>
-                          </div>
-                        </div>
-
-                        <div className="customerCheck d-flex mt-2">
-                          <figure className="">
-                            <Image
-                              src={
-                                userDetails?.profile_photo ?? Images.userImages
-                              }
-                              alt="customerImg"
-                              className="img-fluid me-2"
-                            />
-                          </figure>
-                          <div className="">
-                            <span className="innerHeading">
-                              {userDetails?.firstname +
-                                " " +
-                                userDetails?.lastname}
-                            </span>
+                            </figure>
                             <div className="">
-                              <Image
-                                src={Images.locatePurple}
-                                alt="locate"
-                                className="locate me-2"
-                              />
-                              <span className="purpleText">
-                                {userAddress?.street_address}
+                              <span className="innerHeading">
+                                {userDetails?.firstname +
+                                  " " +
+                                  userDetails?.lastname}
                               </span>
+                              <div className="">
+                                <Image
+                                  src={Images.locatePurple}
+                                  alt="locate"
+                                  className="locate me-2"
+                                />
+                                <span className="purpleText">
+                                  {userAddress?.street_address}
+                                </span>
+                              </div>
                             </div>
                           </div>
-                        </div>
-                        <div className="userCheckin  mt-4">
-                          <h6 className="textSmall fw-600">
-                            Services requested:
-                          </h6>
-                          <div className="userService">
-                            <span className="subHeadText me-2">
-                              {item?.product_name}
-                            </span>
-                            {/* <span className="subHeadText">Pet Bathing</span> */}
-                          </div>
-                        </div>
-                        <div className="ServiceText mt-4 mb-4">
-                          <h6 className="textSmall">Service Time</h6>
-                          <div className="d-flex mt-3">
-                            <div className="serviceDate">
-                              <Image
-                                src={Images.calendarDark}
-                                alt="calendarImg"
-                                className="calendaerImg me-2"
-                              />
-                              <span className="purpleText fw-600">
-                                {moment
-                                  .utc(item?.start_date_time)
-                                  .format("dddd, DD/MM/YYYY")}
+                          <div className="userCheckin  mt-4">
+                            <h6 className="textSmall fw-600">
+                              Services requested:
+                            </h6>
+                            <div className="userService">
+                              <span className="subHeadText me-2">
+                                {item?.product_name}
                               </span>
-                            </div>
-                            <div className="serviceDate">
-                              <Image
-                                src={Images.timeImg}
-                                alt="timeIcon"
-                                className="timeImage me-2"
-                              />
-                              <span className="purpleText fw-600">
-                                {calculateTimeDuration(item)}
-                              </span>
+                              {/* <span className="subHeadText">Pet Bathing</span> */}
                             </div>
                           </div>
-                        </div>
-                        <div className="borderDashed"></div>
-                        <div className="bookingsAmountView mt-4 mb-2">
-                          <h6 className="textBookingAmount fw-700 mr-6">
-                            Total
-                          </h6>
-                          <h6 className="textBookingAmount fw-700">
-                            {item?.mode_of_payment?.toUpperCase() === "JBR"
-                              ? item?.mode_of_payment?.toUpperCase() + " "
-                              : "$"}
+                          <div className="ServiceText mt-4 mb-4">
+                            <h6 className="textSmall">Service Time</h6>
+                            <div className="d-flex mt-3">
+                              <div className="serviceDate">
+                                <Image
+                                  src={Images.calendarDark}
+                                  alt="calendarImg"
+                                  className="calendaerImg me-2"
+                                />
+                                <span className="purpleText fw-600">
+                                  {moment
+                                    .utc(item?.start_date_time)
+                                    .format("dddd, DD/MM/YYYY")}
+                                </span>
+                              </div>
+                              <div className="serviceDate">
+                                <Image
+                                  src={Images.timeImg}
+                                  alt="timeIcon"
+                                  className="timeImage me-2"
+                                />
+                                <span className="purpleText fw-600">
+                                  {calculateTimeDuration(item)}
+                                </span>
+                              </div>
+                            </div>
+                          </div>
+                          <div className="borderDashed"></div>
+                          <div className="bookingsAmountView mt-4 mb-2">
+                            <h6 className="textBookingAmount fw-700 mr-6">
+                              Total
+                            </h6>
+                            <h6 className="textBookingAmount fw-700">
+                              {item?.mode_of_payment?.toUpperCase() === "JBR"
+                                ? item?.mode_of_payment?.toUpperCase() + " "
+                                : "$"}
 
-                            {`${parseFloat(item?.price).toFixed(2)}`}
-                          </h6>
+                              {`${parseFloat(item?.price).toFixed(2)}`}
+                            </h6>
 
-                          <div className="checkinBg ml-16">
-                            <button
-                              className="rejectBtn mr-6"
-                              type="submit"
-                              onClick={async () => {
-                                setshowRequestsView((prev) => !prev);
-                                updateBookingStatus(
-                                  appointmentID,
-                                  APPOINTMENT_STATUS.REJECTED_BY_SELLER
-                                );
-                              }}
-                            >
-                              Decline
-                            </button>
-                            <button
-                              className="acceptBtn"
-                              type="submit"
-                              onClick={async () => {
-                                setshowRequestsView((prev) => !prev);
-                                updateBookingStatus(
-                                  appointmentID,
-                                  APPOINTMENT_STATUS.ACCEPTED_BY_SELLER
-                                );
-                              }}
-                            >
-                              Confirm
-                            </button>
-                            {/* <div className="confirmbtn">
+                            <div className="checkinBg ml-16">
+                              <button
+                                className="rejectBtn mr-6"
+                                type="submit"
+                                onClick={async () => {
+                                  setshowRequestsView((prev) => !prev);
+                                  updateBookingStatus(
+                                    appointmentID,
+                                    APPOINTMENT_STATUS.REJECTED_BY_SELLER
+                                  );
+                                }}
+                              >
+                                Decline
+                              </button>
+                              <button
+                                className="acceptBtn"
+                                type="submit"
+                                onClick={async () => {
+                                  setshowRequestsView((prev) => !prev);
+                                  updateBookingStatus(
+                                    appointmentID,
+                                    APPOINTMENT_STATUS.ACCEPTED_BY_SELLER
+                                  );
+                                }}
+                              >
+                                Confirm
+                              </button>
+                              {/* <div className="confirmbtn">
                               Confirm
                               <Image
                                 src={Images.ArrowRight}
@@ -1027,12 +1032,13 @@ const Booking = () => {
                                 className="img-fluid "
                               />
                             </div> */}
+                            </div>
                           </div>
                         </div>
                       </div>
-                    </div>
-                  );
-                })}
+                    );
+                  })}
+            </ScrollView>
           </div>
         ) : (
           <></>
@@ -1077,12 +1083,12 @@ const Booking = () => {
                               <Image
                                 src={
                                   customerDetails?.profile_photo ??
-                                  Images.userAvtar
+                                  Images.defaultUser
                                 }
                                 alt="avtar"
-                                className="avtarImg me-2"
-                                width={44}
-                                height={44}
+                                width={50}
+                                height={50}
+                                className="img-fluid userImg40"
                               />
                             </figure>
                             <div className="">
@@ -1092,11 +1098,11 @@ const Booking = () => {
                                   customerDetails?.lastname}
                               </span>
                               <div>
-                                <Image
+                                {/* <Image
                                   src={Images.locatePurple}
                                   alt="locate"
                                   className="locate me-2"
-                                />
+                                /> */}
                                 <span className="purpleText">
                                   {userId !== null
                                     ? customerDetails?.phone_number
