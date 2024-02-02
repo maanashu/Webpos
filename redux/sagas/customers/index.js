@@ -34,12 +34,9 @@ function* getAllCustomers(action) {
   }
 }
 
-function* getAllCustomersList(action, callbackFn) {
-  console.log("actiondgjsgd", action);
-  console.log("callback", callbackFn);
-
+function* getAllCustomersList(action) {
   const dataToSend = { ...action.payload };
-
+  delete dataToSend.cb;
   const type = dataToSend?.customerType?.toLowerCase().replace(/\s+/g, "_");
   const defaultParams = {
     seller_id: dataToSend?.sellerID,
@@ -93,11 +90,8 @@ function* getAllCustomersList(action, callbackFn) {
       `${ORDER_API_URL_V1}orders/customers/analysis?${params}`
     );
     if (resp.status) {
-      if (dataToSend?.search) {
-        yield put(setSearchedCustomerList(resp.data));
-      }
       yield put(setAllCustomersList(resp.data));
-
+      yield call(action.payload.cb, (action.res = resp));
       // yield call(action.payload.cb, (action.res = resp));
     } else {
       throw resp;
