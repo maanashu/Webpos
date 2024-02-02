@@ -12,9 +12,11 @@ import {
   selectRetailData,
   getProductFilterSubCategory,
   getProductFilterBrands,
+  getServiceFilterCategory,
+  getServiceFilterSubCategory,
 } from "../../redux/slices/retails";
 import { useDispatch, useSelector } from "react-redux";
-import { selectLoginAuth } from "../../redux/slices/auth";
+import { getAllPosUser, selectLoginAuth } from "../../redux/slices/auth";
 import RightSideBar from "./RightSideBar";
 import { amountFormat } from "../../utilities/globalMethods";
 import { Modal } from "react-bootstrap";
@@ -120,6 +122,14 @@ const Retails = () => {
     dispatch(getProductFilterCategory());
     dispatch(getProductFilterSubCategory());
     dispatch(getProductFilterBrands());
+
+    /**
+     * Service Filter APIS
+     * Add {search:''} param if needed for searched results
+     */
+    dispatch(getServiceFilterCategory());
+    dispatch(getServiceFilterSubCategory());
+    dispatch(getAllPosUser({ seller_id: sellerId }));
   }, [sellerId]);
 
   return (
