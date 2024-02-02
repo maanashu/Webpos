@@ -891,3 +891,63 @@ input:checked+.switch-slider:before {
 }
 
 /*ship module css end*/
+/*delivery module css start*/
+#deliveryDashBoardList .invoice_subhead:first-child {
+  min-width: 100px;
+}
+
+#deliveryDashBoardList .invoice_subhead:nth-child(2) {
+  min-width: 165px;
+}
+
+#deliveryDashBoardList .invoice_subhead:nth-child(3) {
+  min-width: 120px;
+}
+
+#deliveryDashBoardList .invoice_subhead:nth-child(4) {
+  min-width: 175px;
+}
+
+#deliveryDashBoardList .invoice_subhead:last-child {
+  min-width: 50px;
+}
+
+.deliverOrderRight .detailScrollDelivery {
+  height: calc(100% - 392px);
+  overflow-y: scroll;
+}
+
+#orderReviewDeliver .invoice_subhead:first-child {
+  min-width: 100px;
+}
+
+#orderReviewDeliver .invoice_subhead:nth-child(2) {
+  min-width: 155px;
+}
+
+#orderReviewDeliver .invoice_subhead:nth-child(3) {
+  min-width: 120px;
+}
+
+#orderReviewDeliver .invoice_subhead:nth-child(4) {
+  min-width: 160px;
+}
+
+.deliverDashboardTable .invoice_subhead:last-child {
+  min-width: 70px;
+}
+
+/*delivery module css end */
+/*product css start*/
+.filterBtn .serviceCancel {
+  font-size: 15px;
+  padding: 8px 18px;
+}
+.filterBtn .nextverifyBtn {
+  font-size: 15px;
+  padding: 8px 18px;
+}
+.filterBtn{
+  gap: 6px;
+}
+/*product css end*/

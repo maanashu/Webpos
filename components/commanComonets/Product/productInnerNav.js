@@ -81,14 +81,14 @@ const ProductInnerNav = ({ productCount, ServicesCount }) => {
       dispatch(
         getMainProduct({
           ...params,
-          cb(res) {},
+          cb(res) { },
         })
       );
     } else if (searchText?.length == 0) {
       dispatch(
         getMainProduct({
           ...params,
-          cb(res) {},
+          cb(res) { },
         })
       );
     }
@@ -104,14 +104,14 @@ const ProductInnerNav = ({ productCount, ServicesCount }) => {
       dispatch(
         getMainServices({
           ...params,
-          cb(res) {},
+          cb(res) { },
         })
       );
     } else if (searchText?.length == 0) {
       dispatch(
         getMainServices({
           ...params,
-          cb(res) {},
+          cb(res) { },
         })
       );
     }
@@ -226,11 +226,10 @@ const ProductInnerNav = ({ productCount, ServicesCount }) => {
                             data-bs-parent="#accordionExample"
                           >
                             <div
-                              className={`accordion-body ${
-                                productCategory?.length > 10
-                                  ? "overflow-scroll-common-filter"
-                                  : ""
-                              }`}
+                              className={`accordion-body ${productCategory?.length > 10
+                                ? "overflow-scroll-common-filter"
+                                : ""
+                                }`}
                             >
                               {productCategory?.map((item) => (
                                 <label className="custom-checkbox">
@@ -243,15 +242,15 @@ const ProductInnerNav = ({ productCount, ServicesCount }) => {
                                       setSelectedProductCategories((prev) =>
                                         prev.includes(item.id)
                                           ? prev.filter(
-                                              (element) => element !== item.id
-                                            )
+                                            (element) => element !== item.id
+                                          )
                                           : [...prev, item.id]
                                       );
                                     }}
                                   />
                                   <span
                                     className="checkmark"
-                                    // onClick={() => setSelectedProductCategories}
+                                  // onClick={() => setSelectedProductCategories}
                                   ></span>
                                   <span className="filteredheading">
                                     {item?.name}
@@ -281,11 +280,10 @@ const ProductInnerNav = ({ productCount, ServicesCount }) => {
                             data-bs-parent="#accordionExample"
                           >
                             <div
-                              className={`accordion-body ${
-                                productSubCategory?.length > 10
-                                  ? "overflow-scroll-common-filter"
-                                  : ""
-                              }`}
+                              className={`accordion-body ${productSubCategory?.length > 10
+                                ? "overflow-scroll-common-filter"
+                                : ""
+                                }`}
                             >
                               {productSubCategory?.map((item) => (
                                 <label className="custom-checkbox">
@@ -298,8 +296,8 @@ const ProductInnerNav = ({ productCount, ServicesCount }) => {
                                       setSelectedProductSubCategories((prev) =>
                                         prev.includes(item.id)
                                           ? prev.filter(
-                                              (element) => element !== item.id
-                                            )
+                                            (element) => element !== item.id
+                                          )
                                           : [...prev, item.id]
                                       );
                                     }}
@@ -333,11 +331,10 @@ const ProductInnerNav = ({ productCount, ServicesCount }) => {
                             data-bs-parent="#accordionExample"
                           >
                             <div
-                              className={`accordion-body ${
-                                productBrands?.length > 10
-                                  ? "overflow-scroll-common-filter"
-                                  : ""
-                              }`}
+                              className={`accordion-body ${productBrands?.length > 10
+                                ? "overflow-scroll-common-filter"
+                                : ""
+                                }`}
                             >
                               {productBrands?.map((item) => (
                                 <label className="custom-checkbox">
@@ -350,8 +347,8 @@ const ProductInnerNav = ({ productCount, ServicesCount }) => {
                                       setSelectedProductBrands((prev) =>
                                         prev.includes(item.id)
                                           ? prev.filter(
-                                              (element) => element !== item.id
-                                            )
+                                            (element) => element !== item.id
+                                          )
                                           : [...prev, item.id]
                                       );
                                     }}
@@ -370,6 +367,14 @@ const ProductInnerNav = ({ productCount, ServicesCount }) => {
                             </div>
                           </div>
                         </div>
+                      </div>
+                      <div className='addCustomerBtn mt-4 filterBtn'>
+                        <button className='serviceCancel w-100' type='submit'>
+                          Clear
+                        </button>
+                        <button className='nextverifyBtn w-100' type='submit'>
+                          Apply
+                        </button>
                       </div>
                     </div>
                   ) : (
@@ -395,11 +400,10 @@ const ProductInnerNav = ({ productCount, ServicesCount }) => {
                             data-bs-parent="#accordionExample"
                           >
                             <div
-                              className={`accordion-body ${
-                                serviceCategory?.length > 10
-                                  ? "overflow-scroll-common-filter"
-                                  : ""
-                              }`}
+                              className={`accordion-body ${serviceCategory?.length > 10
+                                ? "overflow-scroll-common-filter"
+                                : ""
+                                }`}
                             >
                               {serviceCategory?.map((item) => (
                                 <label className="custom-checkbox">
@@ -412,8 +416,8 @@ const ProductInnerNav = ({ productCount, ServicesCount }) => {
                                       setSelectedServiceCategories((prev) =>
                                         prev.includes(item.id)
                                           ? prev.filter(
-                                              (element) => element !== item.id
-                                            )
+                                            (element) => element !== item.id
+                                          )
                                           : [...prev, item.id]
                                       );
                                     }}
@@ -447,11 +451,10 @@ const ProductInnerNav = ({ productCount, ServicesCount }) => {
                             data-bs-parent="#accordionExample"
                           >
                             <div
-                              className={`accordion-body ${
-                                serviceSubCategory?.length > 10
-                                  ? "overflow-scroll-common-filter"
-                                  : ""
-                              }`}
+                              className={`accordion-body ${serviceSubCategory?.length > 10
+                                ? "overflow-scroll-common-filter"
+                                : ""
+                                }`}
                             >
                               {serviceSubCategory?.map((item) => (
                                 <label className="custom-checkbox">
@@ -464,8 +467,8 @@ const ProductInnerNav = ({ productCount, ServicesCount }) => {
                                       setSelectedServiceSubCategories((prev) =>
                                         prev.includes(item.id)
                                           ? prev.filter(
-                                              (element) => element !== item.id
-                                            )
+                                            (element) => element !== item.id
+                                          )
                                           : [...prev, item.id]
                                       );
                                     }}
@@ -499,11 +502,10 @@ const ProductInnerNav = ({ productCount, ServicesCount }) => {
                             data-bs-parent="#accordionExample"
                           >
                             <div
-                              className={`accordion-body ${
-                                posUsers?.length > 10
-                                  ? "overflow-scroll-common-filter"
-                                  : ""
-                              }`}
+                              className={`accordion-body ${posUsers?.length > 10
+                                ? "overflow-scroll-common-filter"
+                                : ""
+                                }`}
                             >
                               {posUsers?.map((item) => (
                                 <label className="custom-checkbox">
@@ -514,8 +516,8 @@ const ProductInnerNav = ({ productCount, ServicesCount }) => {
                                       setSelectedPosStaff((prev) =>
                                         prev.includes(item.id)
                                           ? prev.filter(
-                                              (element) => element !== item.id
-                                            )
+                                            (element) => element !== item.id
+                                          )
                                           : [...prev, item.id]
                                       );
                                     }}
@@ -523,9 +525,8 @@ const ProductInnerNav = ({ productCount, ServicesCount }) => {
                                   <span className="checkmark"></span>
                                   <span className="filteredheading">
                                     {item?.user?.user_profiles?.firstname +
-                                      ` ${
-                                        item?.user?.user_profiles?.lastname ??
-                                        ""
+                                      ` ${item?.user?.user_profiles?.lastname ??
+                                      ""
                                       }`}
                                   </span>
                                 </label>
@@ -533,6 +534,14 @@ const ProductInnerNav = ({ productCount, ServicesCount }) => {
                             </div>
                           </div>
                         </div>
+                      </div>
+                      <div className='addCustomerBtn mt-4 filterBtn'>
+                        <button className='serviceCancel w-100' type='submit'>
+                          Clear
+                        </button>
+                        <button className='nextverifyBtn w-100' type='submit'>
+                          Apply
+                        </button>
                       </div>
                     </div>
                   )}

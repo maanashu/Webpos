@@ -238,10 +238,10 @@ const DeliverDashboard = () => {
 
   return (
     <>
-      <div className="deliverySection ">
+      <div className="deliverySection afterViewOuter">
         <div className="deliverMain w-100">
           <div className="row ">
-            <div className="col-lg-4">
+            <div className="col-xl-4 col-lg-12">
               <div className="deliverLeft deliveryOuter me-0">
                 <div className="deliverOrderStatus">
                   <h4 className="customerLink text-start">
@@ -374,7 +374,7 @@ const DeliverDashboard = () => {
                 </div>
               </div>
             </div>
-            <div className="col-lg-8">
+            <div className="col-xl-8 col-lg-12">
               <div className=" deliveryOuter deliverRight ms-0">
                 <div className="deliverGraphSection">
                   {/* <form className="deliverCheck">
