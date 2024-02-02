@@ -23,6 +23,7 @@ import PickupModal from "../../components/modals/delivery/PickupModal";
 import CustomModal from "../../components/customModal/CustomModal";
 import CustomLoader from "../../components/commanComonets/Delivery/CustomLoader";
 import { toast } from "react-toastify";
+import { formatStringForId, replaceDeliveryStatus } from "../../utilities/globalMethods";
 
 const OrderDeliver = ({ orderDetail }) => {
   const orderStatus = orderDetail?.status;
@@ -215,7 +216,7 @@ const OrderDeliver = ({ orderDetail }) => {
       })
     );
   };
-  const trackHandler = () => {};
+  const trackHandler = () => { };
 
   const getLatestdata = (index, type) => {
     setShowCustomLoader(true);
@@ -255,7 +256,7 @@ const OrderDeliver = ({ orderDetail }) => {
       <div className=" orderDeliverSection deliverySection">
         <div className="deliverMain w-100">
           <div className="row ">
-            <div className="col-lg-6">
+            <div className="col-xl-6 col-lg-12">
               {showInvoice ? (
                 <MapleOrder
                   orderDetails={selectedOrderData}
@@ -372,7 +373,7 @@ const OrderDeliver = ({ orderDetail }) => {
               </div> */}
 
                   <OrderListItem
-                    id={orderListType?.title?.replace(/\s/g, "")}
+                    id={replaceDeliveryStatus(orderListType?.title)}
                     screen={"SeeAll"}
                     orderList={orderList?.data}
                     itemPressHandler={itemPressHandler}
@@ -380,7 +381,7 @@ const OrderDeliver = ({ orderDetail }) => {
                 </div>
               )}
             </div>
-            <div className="col-lg-6">
+            <div className="col-xl-6 col-lg-12">
               {/* <div className=" deliveryOuter assignMapRight ms-0">
               <Image src={Images.map} alt="map Image" className="mapImg" />
               <div className="orderStatusBox">

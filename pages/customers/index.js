@@ -22,6 +22,8 @@ import CustomModal from "../../components/customModal/CustomModal";
 import CashSummary from "../../components/modals/cashDrawerModals/cashSummary";
 import * as Images from "../../utilities/images";
 import CustomerSearchModal from "../../components/modals/searchModal/customerSearchModal";
+import { Form } from "react-bootstrap";
+import moment from "moment-timezone";
 
 const Customers = () => {
   ChartJS.register(...registerables);
@@ -45,7 +47,9 @@ const Customers = () => {
     const [start, end] = dates;
     setStartDate(start);
     setEndDate(end);
+    setTimeSpan("");
   };
+
   const STATS = [
     {
       icon: newCustomers,
@@ -53,6 +57,7 @@ const Customers = () => {
       count: totalCustomers?.newCustomer,
       bgColor: "#FFEEB3",
       textColor: "#93370D",
+      type: "new_customers",
     },
     {
       icon: returningCustomers,
@@ -60,6 +65,7 @@ const Customers = () => {
       count: totalCustomers?.onlineCustomers,
       bgColor: "#D7DEFF",
       textColor: "#172461",
+      type: "returning_customers",
     },
     {
       icon: onlineCustomers,
@@ -67,6 +73,7 @@ const Customers = () => {
       count: totalCustomers?.returningCustomer,
       bgColor: "#D1FADF",
       textColor: "#003921",
+      type: "online_customers",
     },
     {
       icon: walkInCustomers,
@@ -74,6 +81,7 @@ const Customers = () => {
       count: totalCustomers?.walkingCustomers,
       bgColor: "#BFEEFF",
       textColor: "#1F6A84",
+      type: "walkin_customers",
     },
   ];
 
@@ -105,16 +113,29 @@ const Customers = () => {
     setKey(Math.random());
   };
 
+  const filterHandler = () => {
+    if (timeSpan) {
+      return {
+        filter: timeSpan,
+      };
+    } else {
+      return {
+        start_date: moment(startDate).format("YYYY-MM-DD"),
+        end_date: moment(endDate).format("YYYY-MM-DD"),
+      };
+    }
+  };
+  const data = filterHandler();
+
   useEffect(() => {
     if (uniqueId) {
       let params = {
         seller_id: uniqueId,
-        filter: timeSpan,
+        ...data,
       };
       dispatch(getAllCustomers(params));
     }
-  }, [uniqueId, timeSpan]);
-
+  }, [uniqueId, timeSpan, startDate, endDate]);
   return (
     <>
       <div className="main-container-customers fullheightBox_ customerSection">
@@ -125,34 +146,47 @@ const Customers = () => {
           mainIcon={customerWallet}
           title="Total Customers"
           searchHandler={() => handleShowModal("End Cash", "remove")}
+          setStartDate={setStartDate}
+          setEndDate={setEndDate}
           onDateChange={handleDateChange}
+          startDate={startDate}
+          endDate={endDate}
         />
 
         {/* stats */}
         <div className="stats flex-row-space-between">
-          {STATS.map(({ bgColor, icon, title, count, textColor }, idx) => (
-            <div
-              key={idx + "stats"}
-              className="stat-box"
-              style={{ backgroundColor: bgColor }}
-            >
-              <Image
-                objectFit="center"
-                width={30}
-                height={30}
-                src={icon}
-                style={{ marginBottom: "35px" }}
-              />
-              <div>
-                <h4 className="stat-box-title" style={{ color: textColor }}>
-                  {title}
-                </h4>
-                <p className="stat-box-count" style={{ color: textColor }}>
-                  {count}
-                </p>
+          {STATS.map(
+            ({ bgColor, icon, title, count, textColor, type }, idx) => (
+              <div
+                key={idx + "stats"}
+                className="stat-box"
+                style={{ backgroundColor: bgColor }}
+              >
+                <Link
+                  href={{
+                    pathname: "/customers/users",
+                    query: { "time-span": timeSpan, customer_type: type },
+                  }}
+                >
+                  <Image
+                    objectFit="center"
+                    width={30}
+                    height={30}
+                    src={icon}
+                    style={{ marginBottom: "35px" }}
+                  />
+                  <div>
+                    <h4 className="stat-box-title" style={{ color: textColor }}>
+                      {title}
+                    </h4>
+                    <p className="stat-box-count" style={{ color: textColor }}>
+                      {count}
+                    </p>
+                  </div>
+                </Link>
               </div>
-            </div>
-          ))}
+            )
+          )}
         </div>
 
         {/* stats on chart */}
@@ -177,61 +211,48 @@ const Customers = () => {
               </div>
             </div>
             <div className="col-lg-6">
-              {/* <div style={{ gap: "24px" }} className="flex-row-space-between">
-            {[
-              {
-                textColor: "#F0C01A",
-                text: "New Customers",
-                id: "jbrCoin",
-              },
-              {
-                textColor: "#039855",
-                text: "Online Customers",
-                id: "cash",
-              },
-              {
-                textColor: "#47B0D6",
-                text: "Walking Customers",
-                id: "cc",
-              },
-            ]?.map(({ text, textColor, id }, idx) => (
-              <div
-                key={text + id + idx}
-                style={{
-                  gap: "6px",
-                  alignItems: "center",
-                  position: "relative",
-                }}
-                className="checkbox-cnt flex-row-space-between"
-              >
-                <input
-                  checked={selectedLines.includes(idx + 1)}
-                  value={selectedLines.includes(idx + 1)}
-                  id={id}
-                  onChange={() => {
-                    setSelectedLines((prev) => {
-                      if (prev?.includes(idx + 1)) {
-                        const filterd = prev.filter((el) => el !== idx + 1);
-                        return filterd;
-                      } else {
-                        return [...prev, idx + 1];
-                      }
-                    });
-                  }}
-                  type="checkbox"
-                  className={"checkbox-" + id}
-                />
-                <label
-                  htmlFor={id}
-                  className="checkbox-label"
-                  style={{ color: textColor }}
-                >
-                  {text}
-                </label>
-              </div>
-            ))}
-          </div> */}
               <form className="deliverCheck">
+                {[
+                  {
+                    textColor: "form-group checkBlue",
+                    text: "New Customers",
+                    id: "Incoming Orders",
+                  },
+                  {
+                    textColor: "form-group checkBlue checkGreen",
+                    text: "Online Customers",
+                    id: "Delivery Orders",
+                  },
+                  {
+                    textColor: "form-group checkBlue checkSky",
+                    text: "Walking Customers",
+                    id: "Returned Orders",
+                  },
+                ]?.map(({ text, textColor, id }, idx) => (
+                  <div key={text + id + idx} className={textColor}>
+                    <input
+                      checked={selectedLines.includes(idx + 1)}
+                      value={selectedLines.includes(idx + 1)}
+                      id={id}
+                      onChange={() => {
+                        setSelectedLines((prev) => {
+                          if (prev?.includes(idx + 1)) {
+                            const filterd = prev.filter((el) => el !== idx + 1);
+                            return filterd;
+                          } else {
+                            return [...prev, idx + 1];
+                          }
+                        });
+                      }}
+                      type="checkbox"
+                    />
+                    <label for={id} className="appointSub  m-0">
+                      {text}
+                    </label>
+                  </div>
+                ))}
+              </form>
+              {/* <form className="deliverCheck">
                 <div className="form-group checkBlue">
                   <input type="checkbox" id="Incoming Orders" />
                   <label for="Incoming Orders" className="appointSub  m-0">
@@ -250,7 +271,7 @@ const Customers = () => {
                     Returned Orders
                   </label>
                 </div>
-              </form>
+              </form> */}
             </div>
           </div>
 

@@ -43,6 +43,7 @@ function* changeStatusOfOrder(action) {
       dataToSend
     );
     if (resp.status) {
+      toast.success(resp?.data?.msg);
       // yield put(setSidebarCountData(resp.data));
       yield call(action.payload.cb, (action.res = resp));
       console.log(resp, "response");

@@ -16,6 +16,7 @@ const Sidebar = (props) => {
   const authData = useSelector(selectLoginAuth);
   const sellerUid = authData?.usersInfo?.payload?.uniqe_id;
   const router = useRouter();
+  const pathname = router?.pathname
   const [orderData, setOrderData] = useState([]);
   console.log(router?.pathname?.split("/")[1], "router");
   props?.sidebarToggle(activeSidebar);
@@ -61,7 +62,7 @@ const Sidebar = (props) => {
     if (sellerUid) {
       getAllShippingOrdeshandle()
     }
-  }, []);
+  }, [pathname]);
   console.log(router?.pathname?.split("/")[1]?.split("/")[1], "pathname called");
   return (
     <div
@@ -201,8 +202,9 @@ const Sidebar = (props) => {
                   src={Images.Shipping_Solid}
                   alt="image"
                   className="img-fluid hideImg"
-                />{orderData?.length}
+                />
                 <span className="sidebarTxt">Shipping Orders</span>
+                <span className="cartNum">{orderData ? orderData?.length : 0}</span>
               </Link>
             </ListGroupItem>
             <ListGroupItem className="sidebarItems">

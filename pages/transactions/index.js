@@ -10,10 +10,13 @@ import {
 } from "../../redux/slices/transactions";
 import ChartCommon from "../../components/commanComonets/ChartCommon";
 import Link from "next/link";
+import moment from "moment-timezone";
 
 const Transactions = () => {
   const [timeSpan, setTimeSpan] = useState("month");
   const [selectedLines, setSelectedLines] = useState([1, 2, 3]);
+  const [startDate, setStartDate] = useState(null);
+  const [endDate, setEndDate] = useState(null);
 
   const dispatch = useDispatch();
   const authData = useSelector(selectLoginAuth);
@@ -23,15 +26,39 @@ const Transactions = () => {
 
   const getTotalTraData = getWalletData?.totalTra?.payload;
   const graphData = getWalletData?.totalTra?.payload?.graphData;
+
+  const handleDateChange = (dates) => {
+    const [start, end] = dates;
+    setStartDate(start);
+    setEndDate(end);
+    setTimeSpan("");
+  };
+
+  const filterHandler = () => {
+    if (timeSpan) {
+      return {
+        filter: timeSpan,
+      };
+    } else if (startDate && endDate) {
+      return {
+        start_date: moment(startDate).format("YYYY-MM-DD"),
+        end_date: moment(endDate).format("YYYY-MM-DD"),
+      };
+    }
+  };
+
   useEffect(() => {
+    const data = filterHandler();
+
     if (sellerID) {
       let params = {
         seller_id: sellerID,
-        filter: timeSpan,
+        ...data,
       };
       dispatch(getTotalTra(params));
     }
-  }, [sellerID, timeSpan]);
+  }, [sellerID, timeSpan, startDate, endDate]);
+
   const STATS = [
     {
       icon: Images.analticsImg,
@@ -104,6 +131,11 @@ const Transactions = () => {
         onTimeSpanSelect={setTimeSpan}
         mainIcon={Images.customerWallet}
         title="Total Transactions"
+        setStartDate={setStartDate}
+        setEndDate={setEndDate}
+        onDateChange={handleDateChange}
+        startDate={startDate}
+        endDate={endDate}
       />
 
       {/* stats */}
@@ -117,9 +149,7 @@ const Transactions = () => {
             <Link
               href={{
                 pathname: "/transactions/transactionList",
-                query: 
-                  { "time-span": timeSpan , "transaction_type": type },
-                
+                query: { "time-span": timeSpan, transaction_type: type },
               }}
             >
               <Image
