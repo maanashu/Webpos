@@ -932,7 +932,22 @@ input:checked+.switch-slider:before {
 #orderReviewDeliver .invoice_subhead:nth-child(4) {
   min-width: 160px;
 }
-.deliverDashboardTable .invoice_subhead:last-child{
+
+.deliverDashboardTable .invoice_subhead:last-child {
   min-width: 70px;
 }
+
 /*delivery module css end */
+/*product css start*/
+.filterBtn .serviceCancel {
+  font-size: 15px;
+  padding: 8px 18px;
+}
+.filterBtn .nextverifyBtn {
+  font-size: 15px;
+  padding: 8px 18px;
+}
+.filterBtn{
+  gap: 6px;
+}
+/*product css end*/

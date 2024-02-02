@@ -82,7 +82,7 @@ const SessionModal = (props) => {
                     <p className='loginSub'>This is a hint text to help user.</p>
                     <div className='textAreaSection'>
                         <textarea class="form-control textControl" id="exampleFormControlTextarea1" rows="2" placeholder='Please enter note' onChange={(e) => setNotes(e.target.value)}></textarea>
-                        <Image src={Images.commentBox} alt="commentBox Image" className="img-fluid commentImg" />
+                        <Image src={Images.commentText} alt="commentBox Image" className="img-fluid commentImg" />
                     </div>
                     <div className='verifyBtn mt-4'>
                         <button className='nextverifyBtn w-100' type='button' onClick={() => { drawerSessionInfo() }}>

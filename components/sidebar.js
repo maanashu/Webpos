@@ -1,4 +1,4 @@
-import React, { use, useState } from "react";
+import React, { use, useEffect, useState } from "react";
 import Link from "next/link";
 import * as Images from "../utilities/images";
 import Image from "next/image";
@@ -8,13 +8,15 @@ import { logout, selectLoginAuth } from "../redux/slices/auth";
 import { dashboardLogout } from "../redux/slices/dashboard";
 import { useDispatch, useSelector } from "react-redux";
 import { toast } from "react-toastify";
+import { getOrdersList } from "../redux/slices/shipping";
 
 const Sidebar = (props) => {
   const dispatch = useDispatch();
   const [activeSidebar, setActiveSidebar] = useState(true);
   const authData = useSelector(selectLoginAuth);
-
+  const sellerUid = authData?.usersInfo?.payload?.uniqe_id;
   const router = useRouter();
+  const [orderData, setOrderData] = useState([]);
   console.log(router?.pathname?.split("/")[1], "router");
   props?.sidebarToggle(activeSidebar);
 
@@ -31,12 +33,35 @@ const Sidebar = (props) => {
     localStorage.removeItem("persist:root");
   };
 
-  const isLinkActive = (href) => {Sidebar
+  const isLinkActive = (href) => {
+    Sidebar
     console.log(href, "hrefhref");
     return router.pathname === href;
   };
 
+  const getAllShippingOrdeshandle = () => {
+    let orderListParam = {
+      seller_id: sellerUid,
+      status: 0,
+      delivery_option: "4"
+    };
+    dispatch(
+      getOrdersList({
+        ...orderListParam,
+        cb(res) {
+          if (res) {
+            setOrderData(res?.data?.payload?.data);
+          }
+        },
+      })
+    );
+  }
 
+  useEffect(() => {
+    if (sellerUid) {
+      getAllShippingOrdeshandle()
+    }
+  }, []);
   console.log(router?.pathname?.split("/")[1]?.split("/")[1], "pathname called");
   return (
     <div
@@ -176,7 +201,7 @@ const Sidebar = (props) => {
                   src={Images.Shipping_Solid}
                   alt="image"
                   className="img-fluid hideImg"
-                />
+                />{orderData?.length}
                 <span className="sidebarTxt">Shipping Orders</span>
               </Link>
             </ListGroupItem>

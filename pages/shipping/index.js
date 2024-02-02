@@ -4,8 +4,7 @@ import Image from "next/image";
 import ShipRightSidebar from '../../components/commanComonets/Shipping/shipRightSidebar';
 import { useDispatch, useSelector } from 'react-redux';
 import { selectLoginAuth } from '../../redux/slices/auth';
-import { getShippingGraphData, getShippingsSidebarCount, getShippingsStatus, getShippingstodayStatus, selectsShippingData } from '../../redux/slices/shipping';
-import { getCurrentOrderStatus, getOrderStat, getOrdersList, getTodayOrderCount } from '../../redux/slices/delivery';
+import { getShippingGraphData, getOrderStat, getOrdersList, getShippingsSidebarCount, getShippingsStatus, getShippingstodayStatus, selectsShippingData } from '../../redux/slices/shipping';
 import NoOrderFound from '../../components/NoOrderFound';
 import OrderListItem from '../Deliveries/Component/OrderListItem';
 import { useRouter } from 'next/router';
@@ -80,34 +79,6 @@ const Shipping = () => {
                 dataSets.filter((item) => item.label !== value))
         }
     };
-    // const chartData1 = {
-    //     datasets: [
-    //         {
-    //             fill: true,
-    //             label: 'Deliverd Order',
-    //             data: [orderStatData?.find(item => (item?.title === 'Deliverd Order'))?.percentage],
-    //             borderColor: '#914BEB',
-    //             backgroundColor: '#914BEB',
-    //             cubicInterpolationMode: 'monotone',
-    //         },
-    //         {
-    //             fill: true,
-    //             label: 'Returned Orders',
-    //             data: [orderStatData?.find(item => (item?.title === 'Returned Orders'))?.percentage],
-    //             borderColor: '#F0C01A',
-    //             backgroundColor: '#F0C01A',
-    //             cubicInterpolationMode: 'monotone',
-    //         },
-    //         {
-    //             fill: true,
-    //             label: 'Cancelled Orders',
-    //             data: [orderStatData?.find(item => (item?.title === 'Cancelled Orders'))?.percentage],
-    //             borderColor: '#F97066',
-    //             backgroundColor: '#F97066',
-    //             cubicInterpolationMode: 'monotone',
-    //         },
-    //     ],
-    // };
 
     const options = {
         responsive: true,
@@ -138,36 +109,6 @@ const Shipping = () => {
             },
         }
     };
-
-    // const options1 = {
-    //     responsive: true,
-    //     plugins: {
-    //         legend: {
-    //             display: false,
-    //         },
-    //     },
-    //     scales: {
-    //         y: {
-    //             border: {
-    //                 dash: [2, 2],
-    //                 display: false,
-    //                 color: "rgba(180, 190, 235, 1)",
-    //             }, // for the grid lines
-    //             beginAtZero: true,
-    //         },
-    //         x: {
-    //             grid: {
-    //                 display: false,
-    //             },
-    //             border: {
-    //                 display: false,
-    //             },
-    //             ticks: {
-    //                 color: "#7E8AC1",
-    //             },
-    //         },
-    //     }
-    // };
 
     const getAllShippingOrdeshandle = () => {
         let orderListParam = {

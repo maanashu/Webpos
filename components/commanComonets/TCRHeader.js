@@ -14,6 +14,7 @@ const TCRHeader = ({
   calendarHandler,
   notificationHandler,
   searchHandler,
+  onDateChange,
 }) => {
   const TIME_SPANS = [
     { value: "today", label: "Today" },
@@ -78,6 +79,7 @@ const TCRHeader = ({
                 calendarHandler={calendarHandler}
                 searchHandler={searchHandler}
                 notificationHandler={notificationHandler}
+                onDateChange={onDateChange}
               />
             </div>
           </div>

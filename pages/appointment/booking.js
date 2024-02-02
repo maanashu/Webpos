@@ -20,6 +20,9 @@ import { Calendar } from "../../components/CustomCalendar";
 import CustomModal from "../../components/customModal/CustomModal";
 import CustomHoursCell from "../../components/CustomHoursCell";
 import CustomEventCell from "../../components/CustomEventCell";
+import ReScheduleDetailModal from "../../components/ReScheduleDetailModal";
+import CalendarSettingModal from "../../components/modals/CalendarSettingModal";
+
 import {
   CALENDAR_MODES,
   CALENDAR_VIEW_MODES,
@@ -34,6 +37,11 @@ import {
   updateAppointmentStatus,
   getStaffUsers,
 } from "../../redux/slices/bookings";
+import {
+  getSecuritySettingInfo,
+  settingInfo,
+  updateSettings,
+} from "../../redux/slices/setting";
 import { selectLoginAuth } from "../../redux/slices/auth";
 import {
   calculateTimeDuration,
@@ -42,6 +50,7 @@ import {
 
 const Booking = () => {
   const [key, setKey] = useState(Math.random());
+  const [key1, setKey1] = useState(Math.random());
   const [bookingsView, setBookingsView] = useState("listview");
   const [modalDetail, setModalDetail] = useState({
     show: false,
@@ -49,6 +58,8 @@ const Booking = () => {
     flag: "",
   });
   const dispatch = useDispatch();
+  const settingData = useSelector(settingInfo);
+  const defaultSettingsForCalendar = settingData?.getSettings;
   const [searchedAppointments, setSearchedAppointments] = useState([]);
   const [searchedText, setSearchedText] = useState("");
   const [week, setWeek] = useState(true);
@@ -57,11 +68,15 @@ const Booking = () => {
   const [monthDays, setMonthDays] = useState([]);
   const windowHeight = Dimensions.get("window").height;
   const windowWidth = Dimensions.get("window").width;
-  const [isAMPM, setisAMPM] = useState(true);
+  const [isAMPM, setisAMPM] = useState(
+    defaultSettingsForCalendar?.time_format === "12" ?? true
+  );
   const [showMiniCalendar, setshowMiniCalendar] = useState(false);
   const [calendarViewMode, setCalendarViewMode] = useState(
-    CALENDAR_VIEW_MODES.LIST_VIEW
+    CALENDAR_VIEW_MODES.CALENDAR_VIEW
   );
+  const [isCalendarSettingModalVisible, setisCalendarSettingModalVisible] =
+    useState(false);
   const [pageNumber, setPageNumber] = useState(1);
   const appointmentsDetails = useSelector(bookingsDetails);
   const getAppointmentByStaffIdList = appointmentsDetails?.geAppointmentById;
@@ -97,12 +112,16 @@ const Booking = () => {
   const [shouldShowCalendarModeOptions, setshouldShowCalendarModeOptions] =
     useState(true);
   const [calendarDate, setCalendarDate] = useState(moment());
-  const [calendarMode, setCalendarMode] = useState(CALENDAR_MODES.WEEK);
+  const [calendarMode, setCalendarMode] = useState(
+    defaultSettingsForCalendar?.calender_view ?? CALENDAR_MODES.WEEK
+  );
   const nextMonth = () =>
     setCalendarDate(calendarDate.clone().add(1, calendarMode));
   const prevMonth = () =>
     setCalendarDate(calendarDate.clone().subtract(1, calendarMode));
   const [extractedAppointment, setExtractedAppointment] = useState([]);
+  const [showRescheduleTimeModal, setshowRescheduleTimeModal] = useState(false);
+  const [showEventDetailModal, setshowEventDetailModal] = useState(false);
 
   const authData = useSelector(selectLoginAuth);
 
@@ -126,7 +145,56 @@ const Booking = () => {
         },
       })
     );
+
+    getUserSettings();
+    onPressListViewMode();
   }, []);
+
+  useEffect(() => {
+    if (calendarMode === CALENDAR_VIEW_MODES.CALENDAR_VIEW) {
+      if (defaultSettingsForCalendar?.calender_view === CALENDAR_MODES.DAY) {
+        dayHandler();
+      } else if (
+        defaultSettingsForCalendar?.calender_view === CALENDAR_MODES.WEEK
+      ) {
+        weekHandler();
+      } else if (
+        defaultSettingsForCalendar?.calender_view === CALENDAR_MODES.MONTH
+      ) {
+        monthHandler();
+      }
+    }
+  }, [defaultSettingsForCalendar]);
+
+  const getUserSettings = () => {
+    let params = {
+      app_name: "pos",
+      seller_id: UniqueId,
+    };
+    dispatch(
+      getSecuritySettingInfo({
+        ...params,
+        cb(res) {
+          if (res.status) {
+            // setGetSelectedLanguages(res?.data?.payload?.languages)
+          }
+        },
+      })
+    );
+  };
+
+  const updateUserSettings = (data) => {
+    dispatch(
+      updateSettings({
+        ...data,
+        cb(res) {
+          if (res.status) {
+            getUserSettings();
+          }
+        },
+      })
+    );
+  };
 
   useEffect(() => {
     getAllBookings();
@@ -282,6 +350,11 @@ const Booking = () => {
     setKey(Math.random());
   };
 
+  const closeRescheduleModal = () => {
+    setshowRescheduleTimeModal(false);
+    setKey1(Math.random());
+  };
+
   const handleUserProfile = (flag) => {
     setModalDetail({
       show: true,
@@ -430,6 +503,30 @@ const Booking = () => {
     );
   };
 
+  const onPressSaveCalendarSettings = (calendarPreferences) => {
+    if (calendarPreferences?.defaultCalendarMode === CALENDAR_MODES.DAY) {
+      dayHandler();
+    } else if (
+      calendarPreferences?.defaultCalendarMode === CALENDAR_MODES.WEEK
+    ) {
+      weekHandler();
+    } else if (
+      calendarPreferences?.defaultCalendarMode === CALENDAR_MODES.MONTH
+    ) {
+      monthHandler();
+    }
+    setisAMPM(calendarPreferences?.defaultTimeFormat);
+
+    const data = {
+      calender_view: calendarPreferences?.defaultCalendarMode,
+      time_format: calendarPreferences?.defaultTimeFormat ? "12" : "24",
+      accept_appointment_request:
+        calendarPreferences?.defaultAppointmentRequestMode,
+      employee_color_set: calendarPreferences?.defaultEmployeesColorSet,
+    };
+    updateUserSettings(data);
+  };
+
   const handleBookingsView = (bookingsView) => {
     setBookingsView(bookingsView);
   };
@@ -489,8 +586,11 @@ const Booking = () => {
 
           <button
             className="editBtn"
-            // onClick={() =>
-            //   onPressEdit(item)}
+            onClick={() => {
+              setSelectedBooking(item);
+              setKey1(Math.random());
+              setshowRescheduleTimeModal(true);
+            }}
           >
             <Image src={Images.editImg} alt="editImg" className="editImg" />
           </button>
@@ -569,7 +669,9 @@ const Booking = () => {
                   alt="image"
                   className="img-fluid  sideBarImg"
                 />
-                <span className="bottomDots">1</span>
+                <span className="bottomDots">
+                  {appointmentListArr?.length ?? 0}
+                </span>
               </div>
             </ListGroupItem>
             {staffUsersList?.map((item, index) => {
@@ -665,17 +767,32 @@ const Booking = () => {
             </ListGroupItem> */}
 
             <ListGroupItem className="SidebarRightItems">
-              <div className="userSideBar">
+              <div
+                className="userSideBar"
+                onClick={() => {
+                  setCalendarViewMode(CALENDAR_VIEW_MODES.CALENDAR_VIEW);
+                  setshouldShowCalendarModeOptions(true);
+                  setSelectedStaffEmployeeId(null);
+                  if (selectedStaffEmployeeId) {
+                    setshowEmployeeHeader(true);
+                  } else {
+                    setshowEmployeeHeader(!showEmployeeHeader);
+                  }
+                }}
+              >
                 <Link className="userBook" href="#">
                   <Image
                     src={Images.usersImages}
                     alt="image"
                     className="img-fluid userImage  sidebarIcons  "
                   />
-                  <span className="bottomdot">8</span>
+                  <span className="bottomdot">
+                    {staffUsersList?.length || "0"}
+                  </span>
                 </Link>
               </div>
               <Image
+                onClick={() => setisCalendarSettingModalVisible(true)}
                 src={Images.settingBlue}
                 alt="image"
                 className="img-fluid  sidebarIcons  settingImgs"
@@ -835,11 +952,11 @@ const Booking = () => {
                               className="rejectBtn mr-6"
                               type="submit"
                               onClick={async () => {
+                                setshowRequestsView((prev) => !prev);
                                 updateBookingStatus(
                                   appointmentID,
                                   APPOINTMENT_STATUS.REJECTED_BY_SELLER
                                 );
-                                // onSearchAppoinment(searchedText);
                               }}
                             >
                               Decline
@@ -848,11 +965,11 @@ const Booking = () => {
                               className="acceptBtn"
                               type="submit"
                               onClick={async () => {
+                                setshowRequestsView((prev) => !prev);
                                 updateBookingStatus(
                                   appointmentID,
                                   APPOINTMENT_STATUS.ACCEPTED_BY_SELLER
                                 );
-                                // onSearchAppoinment(searchedText);
                               }}
                             >
                               Confirm
@@ -1039,6 +1156,8 @@ const Booking = () => {
                                               }
                                               alt="avtar"
                                               className="avtarImg me-2"
+                                              width={44}
+                                              height={44}
                                             />
                                           </figure>
                                           <div className="">
@@ -1140,6 +1259,28 @@ const Booking = () => {
         </div>
         <CommonSideBar />
       </div>
+      <CustomModal
+        key={key1}
+        show={showRescheduleTimeModal}
+        backdrop="static"
+        showCloseBtn={false}
+        isRightSideModal={true}
+        mediumWidth={false}
+        className={"checkIn"}
+        ids={"reschedule"}
+        child={
+          <ReScheduleDetailModal
+            showRecheduleModal={showRescheduleTimeModal}
+            appointmentData={selectedBooking}
+            onAppointmentUpdate={() => {
+              getAllBookings();
+            }}
+            setshowEventDetailModal={setshowEventDetailModal}
+            onCloseModal={closeRescheduleModal}
+          />
+        }
+        onCloseModal={closeRescheduleModal}
+      />
 
       <CustomModal
         key={key}
@@ -1201,6 +1342,21 @@ const Booking = () => {
         }
         onCloseModal={() => handleOnCloseModal()}
       />
+
+      {isCalendarSettingModalVisible && (
+        <div className="addBucket AddtoCart">
+          <CalendarSettingModal
+            isVisible={isCalendarSettingModalVisible}
+            setIsVisible={setisCalendarSettingModalVisible}
+            currentCalendarMode={calendarMode}
+            currentTimeFormat={isAMPM}
+            defaultSettingsForCalendar={defaultSettingsForCalendar}
+            onPressSave={(calendarPreferences) => {
+              onPressSaveCalendarSettings(calendarPreferences);
+            }}
+          />
+        </div>
+      )}
     </>
   );
 };

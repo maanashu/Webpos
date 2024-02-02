@@ -5286,7 +5286,6 @@ figure {
 #returnedOrder .invoice_subhead:first-child {
   min-width: 100px;
 }
-
 #rejectOrder .invoice_subhead:nth-child(3) {
   min-width: 180px;
 }
@@ -5530,4 +5529,9 @@ figure {
   font-size: 20px;
   font-weight: 500;
   margin: 25px 0 9px;
+}
+
+.overflow-scroll-common-filter {
+  overflow-y: scroll;
+  height: 60vh;
 }
