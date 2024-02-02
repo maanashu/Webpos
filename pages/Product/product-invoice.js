@@ -366,11 +366,11 @@ const ProductInvoice = () => {
                     </article>
                     <article>
                       <p className="productName">
-                        ${returnData?.products_refunded_amount}
+                        -${returnData?.products_refunded_amount}
                       </p>
-                      <p className="productName">{returnData?.tax}%</p>
+                      <p className="productName">-${returnData?.tax}</p>
 
-                      <p className="totalBtn">${returnData?.refunded_amount}</p>
+                      <p className="totalBtn">-${returnData?.refunded_amount}</p>
                     </article>
                   </div>
                   <div className="confirmFooter">

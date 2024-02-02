@@ -23,7 +23,6 @@ const productrefunds = () => {
   const [enableText, setEnabletext] = useState(false);
   const router = useRouter();
   const [refundAmount, setRefundAmount] = useState("");
-  console.log(refundAmount,'refundAmount');
   const [inputValues, setInputValues] = useState([]);
   const invoiceData = useSelector(selectReturnData);
   const orderDetails = invoiceData?.invoiceByInvoiceId;
@@ -45,13 +44,37 @@ const productrefunds = () => {
     setKey(Math.random());
   };
 
-  const handleGoToinventery = () => {
+  // const sumProductPrices = refundedItems.reduce((sum, item) => {
+  //   const price = parseFloat(item.price) || 0;
+  //   return sum + price;
+  // }, 0);
 
-    const isGreater = refundedItems.some(item => Number(refundAmount) > Number(item.price));
-    if(isGreater == false){
+  const { sumProductPrices, sumTax } = refundedItems.reduce(
+    (acc, item) => {
+      const price = parseFloat(item.price) || 0;
+      const tax = 0.08 * price; // 8% tax
+
+      acc.sumProductPrices += price;
+      acc.sumTax += tax;
+
+      return acc;
+    },
+    { sumProductPrices: 0, sumTax: 0 }
+  );
+  const totalAmount = sumProductPrices + sumTax;
+
+  console.log("Sum of Product Prices:", sumProductPrices);
+  console.log("Sum of Tax:", sumTax);
+  console.log("Total Amount:", totalAmount);
+
+  const handleGoToinventery = () => {
+    const isGreater = refundedItems.some(
+      (item) => Number(refundAmount) > Number(item.price)
+    );
+    if (isGreater == false) {
       setModalDetail({ show: true, flag: "ReturnInventory" });
       setKey(Math.random());
-  
+
       const shareData = {
         selectedItems: JSON.stringify(refundedItems),
         inputValues: JSON.stringify(inputValues),
@@ -60,10 +83,9 @@ const productrefunds = () => {
         totalTax: discount?.toString(),
       };
       dispatch(setInvoiceData(shareData));
-    }
-    else{
+    } else {
       toast.error("Please enter a valid refund amount");
-      return
+      return;
     }
   };
 
@@ -135,13 +157,13 @@ const productrefunds = () => {
         toastId.current = toast.error(
           "Refund amount should not be greater than the unit price"
         );
-      };
+      }
     }
     if (enteredValue === "") {
       const updatedInputValues = [...inputValues];
       updatedInputValues[index] = {
         ...updatedInputValues[index],
-        value: "", 
+        value: "",
         index: index,
       };
       setInputValues(updatedInputValues);
@@ -249,7 +271,6 @@ const productrefunds = () => {
                   onChange={(e) => inputCheck(e)}
                   type="checkbox"
                   className="me-2"
-                   onClick={(e) => inputCheck(e)}
                 />
                 <h5 className="priceHeading pe-3">
                   Apply a fixed amount to all items.
@@ -333,9 +354,9 @@ const productrefunds = () => {
                             disabled={enableText === false}
                           />
                           {refundAmount > Number(data?.price) && (
-                            <span style={{ color: "red" }}>
+                            <p style={{ color: "red" }}>
                               Refund amount should not grater then Unit Price.
-                            </span>
+                            </p>
                           )}
                         </td>
                         <td className="recent_subhead text-center">
@@ -368,30 +389,28 @@ const productrefunds = () => {
                 <div className="itemsRefundedsubTotal">
                   <div className="flexBox justify-content-between ">
                     <p className="orderHeading">Sub Total</p>
-                    <p className="orderHeading">${subtotal}</p>
+                    <p className="orderHeading">
+                      ${subtotal ? subtotal : sumProductPrices}
+                    </p>
                   </div>
                   <div className="flexBox justify-content-between ">
                     <p className="orderHeading">Total Taxes</p>
                     <p className="orderHeading">
-                      -${subtotal ? discount : "0.00"}%
+                      -${subtotal ? discount : sumTax}%
                     </p>
                   </div>
                 </div>
                 <div className="flexBox justify-content-between itemsRefundedTotal">
                   <p className="priceHeading">Total</p>
                   <p className="priceHeading">
-                    ${subtotal ? totalSum : "0.00"}
+                    ${subtotal ? totalSum : totalAmount}
                   </p>
                 </div>
                 <div className="text-end">
                   <button
                     type="button"
-                    className={
-                      inputValues?.length > 0
-                        ? "ConfirmReturn active"
-                        : "comfirmatiopnBtn"
-                    }
-                    disabled={!inputValues}
+                    className="ConfirmReturn active"
+                    //disabled={!inptotalAmountutValues}
                     onClick={(e) => handleGoToinventery(e)}
                   >
                     Confirm
