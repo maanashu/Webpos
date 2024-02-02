@@ -377,10 +377,7 @@ const ReScheduleDetailModal = ({
     <View style={styles.addCartCon}>
       <View style={styles.addCartConHeader}>
         <View style={styles.rowAligned}>
-          <Image
-            source={"../images/appointmentCalender.svg"}
-            style={styles.calendarIcon}
-          />
+          <Image source={"../images/bookImg.svg"} style={styles.calendarIcon} />
           <Spacer horizontal space={5} />
 
           <Text style={styles.modalHeading}>
