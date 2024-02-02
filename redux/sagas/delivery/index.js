@@ -95,7 +95,6 @@ function* getOrdersList(action) {
       ApiClient.get,
       `${ORDER_API_URL}${API_URL.getOrderList}${params}`
     );
-
     if (resp) {
       yield put(setOrdersList(resp?.data == "" ? [] : resp?.data?.payload));
       yield call(action.payload.cb, (action.res = resp));
@@ -174,6 +173,7 @@ function* acceptOrder(action, callbackFn) {
     );
     console.log("Response--", resp);
     if (resp) {
+      toast.success(resp?.msg);
       setAcceptOrder();
       yield call(action.payload.cb, (action.res = resp));
     } else {
@@ -194,16 +194,16 @@ function* verifyPickupOtp(action, callbackFn) {
       `${ORDER_API_URL}${API_URL.verifyPickupOtp}`,
       dataToSend
     );
-    console.log("ressopoppo", resp);
+    if (!resp?.status) {
+      toast.error("Invalid Otp");
+    }
 
     if (resp) {
       yield call(action.payload.cb, (action.res = resp));
     } else {
-      console.log("Errorr0eee", resp);
       throw resp;
     }
   } catch (e) {
-    console.log("Errorr0", e);
     // yield put(onErrorStopLoad());
     toast.error(e?.error?.response?.data?.msg);
   }

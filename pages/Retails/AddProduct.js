@@ -10,8 +10,9 @@ import {
   selectRetailData,
 } from "../../redux/slices/retails";
 import { selectLoginAuth } from "../../redux/slices/auth";
-import { Router, useRouter } from "next/router";
+import { useRouter } from "next/router";
 import { toast } from "react-toastify";
+import { amountFormat } from "../../utilities/globalMethods";
 
 const AddProduct = () => {
   const dispatch = useDispatch();
@@ -111,10 +112,11 @@ const AddProduct = () => {
       dispatch(
         addTocart({
           ...params,
-          cb(res) {
+          cb: (res) => {
+            router.back();
+
             dispatch(productCart());
             // router.push("/Retails?parameter=product");
-            router.back()
           },
         })
       );
@@ -163,9 +165,11 @@ const AddProduct = () => {
               dispatch(
                 addTocart({
                   ...params,
-                  cb(res) {
+                  cb: (res) => {
+                    router.back();
+
                     dispatch(productCart());
-                    router.push("/Retails?parameter=product");
+                    // router.push("/Retails?parameter=product");
                   },
                 })
               );
@@ -221,10 +225,13 @@ const AddProduct = () => {
                   </figure>
                 </figure>
                 <h4 className="loginMain mt-4">{productDetail?.name}</h4>
-                <button type="button" className="productId">
-                  <span className="productDot"></span>
-                  {productDetail?.sku}
-                </button>
+                {productDetail?.sku && (
+                  <div className="productId">
+                    <span className="productDot"></span>
+                    {productDetail?.sku}
+                  </div>
+                )}
+
                 <p className="linkHeading">
                   $
                   {
@@ -232,6 +239,23 @@ const AddProduct = () => {
                       ?.selling_price
                   }
                 </p>
+                {productDetail?.supplies?.[0]?.supply_prices?.[0]
+                  ?.offer_applicable_qty && (
+                  <p className="linkHeading">
+                    {" "}
+                    Offer qty :{" "}
+                    {
+                      productDetail?.supplies?.[0]?.supply_prices?.[0]
+                        ?.offer_applicable_qty
+                    }
+                    (
+                    {amountFormat(
+                      productDetail?.supplies?.[0]?.supply_prices?.[0]
+                        ?.offer_price
+                    )}
+                    )
+                  </p>
+                )}
               </div>
               {colorArray?.length > 0 && (
                 <div className="colorChart">

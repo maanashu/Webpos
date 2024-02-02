@@ -7,7 +7,11 @@ import {
   customerSearch,
 } from "../../utilities/images";
 
-const HeaderUtils = () => {
+const HeaderUtils = ({
+  calendarHandler,
+  notificationHandler,
+  searchHandler,
+}) => {
   return (
     <div className="extras flex-row-space-between">
       <div
@@ -15,6 +19,7 @@ const HeaderUtils = () => {
         style={{
           backgroundColor: "#F5F6FC",
         }}
+        onClick={calendarHandler}
       >
         <Image
           width={24}
@@ -28,6 +33,7 @@ const HeaderUtils = () => {
         style={{
           backgroundColor: "transparent",
         }}
+        onClick={notificationHandler}
       >
         <Image
           width={24}
@@ -36,19 +42,15 @@ const HeaderUtils = () => {
           objectFit="cover"
         />
       </div>
-      
+
       <div
         className="extra-item flex-row-space-between"
         style={{
           backgroundColor: "transparent",
         }}
+        onClick={searchHandler}
       >
-        <Image
-          width={24}
-          height={24}
-          src={customerSearch}
-          objectFit="cover"
-        />
+        <Image width={24} height={24} src={customerSearch} objectFit="cover" />
       </div>
     </div>
   );

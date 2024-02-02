@@ -11,7 +11,7 @@ function Plan({ handleTouch }) {
   const dispatch = useDispatch();
   const settingData = useSelector(settingInfo);
   const [activePlan, setActivePlan] = useState([]);
-  
+
   // get all plans
   useEffect(() => {
     dispatch(
@@ -40,13 +40,15 @@ function Plan({ handleTouch }) {
           </div>
         ) : (
           <>
-            <Image
-              src={Images.checkCircle}
-              alt="darkDevices image"
-              className="img-fluid"
-            />
-            <div className="planSubSection">
+            <div className="topsettingContent_">
+              <Image
+                src={Images.checkCircle}
+                alt="darkDevices image"
+                className="img-fluid me-2"
+              />
               <h4 className="appointMain">Current Plan</h4>
+            </div>
+            <div className="planSubSection">
               {settingData?.loading ? (
                 <div className="loaderOuter">
                   <div className="spinner-grow loaderSpinner text-center my-5"></div>

@@ -4,6 +4,7 @@ import {
   ORDER_API_URL,
   AUTH_API_URL,
   PRODUCT_API_URL,
+  WALLET_API_URL,
 } from "../../../utilities/config";
 import {
   onErrorStopLoad,
@@ -27,12 +28,25 @@ import {
   setUserDetail,
   setTimeSlots,
   setClearOneProduct,
+  setProductCategory,
+  setProductSubCategory,
+  setProductBrands,
+  setMerchantWalletCheck,
+  setWalletQr,
+  setwalletByPhone,
+  setRequestMoney,
+  setRequestCheck,
+  setQrcodestatus,
+  setPaymentRequestCancel,
+  setClearCart,
 } from "../../slices/retails";
 import { all, call, put, takeLatest } from "redux-saga/effects";
+import { store } from "../..";
 
 const ORDER_API_URL_V1 = ORDER_API_URL + "/api/v1/";
 const PRODUCT_API_URL_V1 = PRODUCT_API_URL + "/api/v1/";
 const USER_API_URL_V1 = AUTH_API_URL + "/api/v1/";
+const WALLET_API_URL_V1 = WALLET_API_URL + "/api/v1/";
 
 function* getMainProduct(action) {
   const dataToSend = { ...action.payload };
@@ -81,7 +95,7 @@ function* getMainServices(action) {
   try {
     const resp = yield call(
       ApiClient.get,
-      `${PRODUCT_API_URL_V1}products?delivery_options=2&service_type=service&need_&check_stock_out=true&${params}`
+      `${PRODUCT_API_URL_V1}products?app_name=pos&delivery_options=2&service_type=service&need_pos_users=true&check_stock_out=true&page=1&limit=25&${params}`
     );
     if (resp.status) {
       yield put(setMainServices(resp.data));
@@ -119,7 +133,9 @@ function* availableOffers(action) {
   try {
     const resp = yield call(
       ApiClient.get,
-      `${PRODUCT_API_URL_V1}offer/products?app_name=pos&delivery_options=${dataToSend?.type == 'product' ? '1,3,4'  : '2'}&service_type=${dataToSend?.type}&${params}`
+      `${PRODUCT_API_URL_V1}offer/products?app_name=pos&delivery_options=${
+        dataToSend?.type == "product" ? "1,3,4" : "2"
+      }&service_type=${dataToSend?.type}&${params}`
     );
     if (resp.status) {
       yield put(setAvailableOffers(resp.data));
@@ -173,6 +189,7 @@ function* clearCart(action) {
       `${ORDER_API_URL}/api/v1/poscarts`
     );
     if (resp.status) {
+      yield put(setClearCart(resp.data));
       yield call(action.payload.cb, (action.res = resp));
     } else {
       throw resp;
@@ -379,7 +396,6 @@ function* customProuductAdd(action) {
   }
 }
 
-
 function* getUserDetail(action) {
   const body = { ...action.payload };
   try {
@@ -446,13 +462,259 @@ function* clearOneProduct(action) {
   try {
     const resp = yield call(
       ApiClient.delete,
-      `${ORDER_API_URL_V1}/poscarts/${body?.cartId}/${body?.productId}`,
+      `${ORDER_API_URL_V1}poscarts/${body?.cartId}/${body?.productId}`,
       body
     );
     if (resp.status) {
       yield put(setClearOneProduct(resp.data));
       yield call(action.payload.cb, (action.res = resp));
       // toast.success(resp?.data?.msg);
+    } else {
+      throw resp;
+    }
+  } catch (e) {
+    yield put(onErrorStopLoad());
+    toast.error(e?.error?.response?.data?.msg);
+  }
+}
+
+function* getProductFilterCategory(action) {
+  const dataToSend = { ...action.payload };
+  const authData = store.getState().auth;
+  const sellerId = authData?.usersInfo?.payload?.uniqe_id;
+
+  const params = {
+    seller_id: sellerId,
+    main_category: true,
+    service_type: "product",
+  };
+
+  // If needs searched category
+  if (dataToSend?.search) {
+    params.search = dataToSend.search;
+  }
+
+  const queryParams = new URLSearchParams(params).toString();
+  try {
+    const resp = yield call(
+      ApiClient.get,
+      `${PRODUCT_API_URL_V1}categories?${queryParams}`
+    );
+    if (resp.status) {
+      yield put(setProductCategory(resp?.data?.payload?.data));
+    } else {
+      throw resp;
+    }
+  } catch (e) {
+    yield put(onErrorStopLoad());
+    toast.error(e?.error?.response?.data?.msg);
+  }
+}
+
+function* getProductFilterSubCategory(action) {
+  const dataToSend = { ...action.payload };
+  const authData = store.getState().auth;
+  const sellerId = authData?.usersInfo?.payload?.uniqe_id;
+
+  const params = {
+    seller_id: sellerId,
+    need_subcategory: true,
+    service_type: "product",
+  };
+
+  // If needs searched subcategory
+  if (dataToSend?.search) {
+    params.search = dataToSend.search;
+  }
+
+  const queryParams = new URLSearchParams(params).toString();
+  try {
+    const resp = yield call(
+      ApiClient.get,
+      `${PRODUCT_API_URL_V1}categories?${queryParams}`
+    );
+    if (resp.status) {
+      yield put(setProductSubCategory(resp?.data?.payload?.data));
+    } else {
+      throw resp;
+    }
+  } catch (e) {
+    yield put(onErrorStopLoad());
+    toast.error(e?.error?.response?.data?.msg);
+  }
+}
+function* getProductFilterBrands(action) {
+  const dataToSend = { ...action.payload };
+  const authData = store.getState().auth;
+  const sellerId = authData?.usersInfo?.payload?.uniqe_id;
+
+  const params = {
+    seller_id: sellerId,
+  };
+
+  // If needs searched subcategory
+  if (dataToSend?.search) {
+    params.search = dataToSend.search;
+  }
+
+  const queryParams = new URLSearchParams(params).toString();
+  try {
+    const resp = yield call(
+      ApiClient.get,
+      `${PRODUCT_API_URL_V1}brands?${queryParams}`
+    );
+    if (resp.status) {
+      yield put(setProductBrands(resp?.data?.payload?.data));
+    } else {
+      throw resp;
+    }
+  } catch (e) {
+    yield put(onErrorStopLoad());
+    toast.error(e?.error?.response?.data?.msg);
+  }
+}
+
+function* merchantWalletCheck(action) {
+  const sellerId = action?.payload?.seller_id;
+
+  try {
+    const resp = yield call(
+      ApiClient.get,
+      `${USER_API_URL_V1}users/uuid/${sellerId}`
+    );
+    if (resp.status) {
+      yield put(setMerchantWalletCheck(resp.data));
+      yield call(action.payload.cb, (action.res = resp?.data?.payload));
+    } else {
+      throw resp;
+    }
+  } catch (e) {
+    yield put(onErrorStopLoad());
+    toast.error(e?.error?.response?.data?.msg);
+  }
+}
+
+function* getWalletQr(action) {
+  const cartID = action?.payload?.cartId;
+
+  try {
+    const resp = yield call(
+      ApiClient.get,
+      `${ORDER_API_URL_V1}poscarts/qr-code/${cartID}`
+    );
+    if (resp.status) {
+      yield put(setWalletQr(resp.data));
+      yield call(action.payload.cb, (action.res = resp?.data?.payload));
+    } else {
+      throw resp;
+    }
+  } catch (e) {
+    yield put(onErrorStopLoad());
+    toast.error(e?.error?.response?.data?.msg);
+  }
+}
+
+function* walletGetByPhone(action) {
+  const phoneNumber = action?.payload?.phoneNumber;
+
+  try {
+    const resp = yield call(
+      ApiClient.get,
+      `${WALLET_API_URL_V1}wallets/other?search=${phoneNumber}`
+    );
+
+    if (resp.status) {
+      {
+        resp?.statusCode == 200
+          ? toast.success("Wallet Found Succesfully")
+          : toast.error("Wallet Not Found");
+      }
+      yield put(setwalletByPhone(resp.data));
+      yield call(action.payload.cb, (action.res = resp?.data?.payload));
+    }
+  } catch (e) {
+    // toast.error("Wallet Not Found");
+    yield put(onErrorStopLoad());
+    // toast.error(e?.error?.response?.data?.msg);
+  }
+}
+
+function* requestMoney(action) {
+  const body = { ...action?.payload };
+
+  try {
+    const resp = yield call(
+      ApiClient.post,
+      `${WALLET_API_URL_V1}transactions/request-money`,
+      body
+    );
+    if (resp.status) {
+      yield put(setRequestMoney(resp.data));
+      yield call(action.payload.cb, (action.res = resp?.data?.payload));
+    } else {
+      throw resp;
+    }
+  } catch (e) {
+    yield put(onErrorStopLoad());
+    toast.error(e?.error?.response?.data?.msg);
+  }
+}
+
+function* requestCheck(action) {
+  const dataToSend = action?.payload?.requestId;
+
+  try {
+    const resp = yield call(
+      ApiClient.get,
+      `${WALLET_API_URL_V1}transactions/${dataToSend}`
+    );
+    if (resp.status) {
+      yield put(setRequestCheck(resp.data));
+      yield call(action.payload.cb, (action.res = resp?.data));
+    } else {
+      throw resp;
+    }
+  } catch (e) {
+    yield put(onErrorStopLoad());
+    toast.error(e?.error?.response?.data?.msg);
+  }
+}
+
+function* qrcodestatus(action) {
+  const dataToSend = action?.payload?.cartId;
+
+  try {
+    const resp = yield call(
+      ApiClient.get,
+      `${ORDER_API_URL_V1}poscarts/check-payment-status/${dataToSend}`
+    );
+    if (resp.status) {
+      yield put(setQrcodestatus(resp.data));
+      yield call(action.payload.cb, (action.res = resp?.data));
+    } else {
+      throw resp;
+    }
+  } catch (e) {
+    yield put(onErrorStopLoad());
+    toast.error(e?.error?.response?.data?.msg);
+  }
+}
+
+function* paymentRequestCancel(action) {
+  const dataToSend = action?.payload?.requestId;
+
+  try {
+    const resp = yield call(
+      ApiClient.patch,
+      `${WALLET_API_URL_V1}transactions/request/cancel/${dataToSend}`
+    );
+    if (resp.status) {
+      {
+        resp?.data?.msg == "Transaction cancelled" &&
+          toast.success("Payment Request Cancel");
+      }
+      yield put(setPaymentRequestCancel(resp.data));
+      yield call(action.payload.cb, (action.res = resp?.data));
     } else {
       throw resp;
     }
@@ -486,6 +748,19 @@ function* retailsSaga() {
     takeLatest("retails/getTimeSlots", getTimeSlots),
     takeLatest("retails/addToCartService", addToCartService),
     takeLatest("retails/clearOneProduct", clearOneProduct),
+    takeLatest("retails/getProductFilterCategory", getProductFilterCategory),
+    takeLatest(
+      "retails/getProductFilterSubCategory",
+      getProductFilterSubCategory
+    ),
+    takeLatest("retails/getProductFilterBrands", getProductFilterBrands),
+    takeLatest("retails/merchantWalletCheck", merchantWalletCheck),
+    takeLatest("retails/getWalletQr", getWalletQr),
+    takeLatest("retails/walletGetByPhone", walletGetByPhone),
+    takeLatest("retails/requestMoney", requestMoney),
+    takeLatest("retails/requestCheck", requestCheck),
+    takeLatest("retails/qrcodestatus", qrcodestatus),
+    takeLatest("retails/paymentRequestCancel", paymentRequestCancel),
   ]);
 }
 

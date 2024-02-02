@@ -21,6 +21,8 @@ import OrderListItem from "./Component/OrderListItem";
 import MapleOrder from "./mapleOrder";
 import PickupModal from "../../components/modals/delivery/PickupModal";
 import CustomModal from "../../components/customModal/CustomModal";
+import CustomLoader from "../../components/commanComonets/Delivery/CustomLoader";
+import { toast } from "react-toastify";
 
 const OrderDeliver = ({ orderDetail }) => {
   const orderStatus = orderDetail?.status;
@@ -52,8 +54,9 @@ const OrderDeliver = ({ orderDetail }) => {
   const [selectedOrderIndex, setSelectedOrderIndex] = useState(
     selectedIndex ?? 0
   );
-  const [isLoading, setIsLoading] = useState(null);
-
+  const [isLoading, setIsLoading] = useState(false);
+  const [declineLoading, setDeclineLoading] = useState(false);
+  const [showCustomLoader, setShowCustomLoader] = useState(false);
   const [key, setKey] = useState(Math.random());
 
   const [modalDetail, setModalDetail] = useState({
@@ -93,6 +96,7 @@ const OrderDeliver = ({ orderDetail }) => {
       setSelectedOrderData(order);
       handleShowModal();
     } else {
+      setIsLoading(true);
       let params = {
         sellerID: uniqueId,
         status: parseInt(orderListType?.status) + 1,
@@ -103,6 +107,10 @@ const OrderDeliver = ({ orderDetail }) => {
           ...params,
           cb(res) {
             if (res) {
+              console.log("popsopdsapodasdasd", JSON.stringify(res));
+              toast.success(res?.data?.msg);
+              setIsLoading(false);
+
               getLatestdata(parseInt(orderListType?.status) + 1, "Accept");
             }
           },
@@ -111,6 +119,8 @@ const OrderDeliver = ({ orderDetail }) => {
     }
   };
   const changeOrderStatusAfterPickup = () => {
+    setIsLoading(true);
+
     let params = {
       sellerID: uniqueId,
       status: 5,
@@ -121,6 +131,8 @@ const OrderDeliver = ({ orderDetail }) => {
         ...params,
         cb(res) {
           if (res) {
+            toast.success(res?.data?.msg);
+            setIsLoading(false);
             getLatestdata(5, "Accept");
           }
         },
@@ -179,6 +191,8 @@ const OrderDeliver = ({ orderDetail }) => {
   };
 
   const declineHandler = (order) => {
+    setDeclineLoading(true);
+
     let params = {
       sellerID: uniqueId,
       status: 8,
@@ -189,6 +203,8 @@ const OrderDeliver = ({ orderDetail }) => {
         ...params,
         cb(res) {
           if (res) {
+            toast.success(res?.data?.msg);
+            setDeclineLoading(false);
             // setOrderListType({
             //   status: 8,
             //   title: deliveryDrawerStatus[6],
@@ -202,6 +218,7 @@ const OrderDeliver = ({ orderDetail }) => {
   const trackHandler = () => {};
 
   const getLatestdata = (index, type) => {
+    setShowCustomLoader(true);
     let orderListParam = {
       status: index,
       seller_id: uniqueId,
@@ -223,8 +240,16 @@ const OrderDeliver = ({ orderDetail }) => {
           ...orderListParam,
         })
       );
+      setShowCustomLoader(false);
     }, 50);
   };
+  useEffect(() => {
+    const timeoutId = setTimeout(() => {
+      setIsLoading(false);
+      setShowCustomLoader(false);
+    }, 700);
+    return () => clearTimeout(timeoutId);
+  }, []);
   return (
     <>
       <div className=" orderDeliverSection deliverySection">
@@ -347,6 +372,7 @@ const OrderDeliver = ({ orderDetail }) => {
               </div> */}
 
                   <OrderListItem
+                    id={orderListType?.title?.replace(/\s/g, "")}
                     screen={"SeeAll"}
                     orderList={orderList?.data}
                     itemPressHandler={itemPressHandler}
@@ -571,7 +597,8 @@ const OrderDeliver = ({ orderDetail }) => {
                 declineHandler={declineHandler}
                 trackHandler={trackHandler}
                 orderListType={orderListType}
-                isLoading={acceptOrderLoading}
+                isLoading={isLoading}
+                declineLoading={declineLoading}
                 showInvoice={showInvoice}
                 setShowInvoice={setShowInvoice}
               />
@@ -617,7 +644,10 @@ const OrderDeliver = ({ orderDetail }) => {
           }
           onCloseModal={() => handleOnCloseModal()}
         />
-        <DeliveryRightSidebar setOrderListType={setOrderListType} />
+        <DeliveryRightSidebar
+          setOrderListType={setOrderListType}
+          setShowCustomLoader={setShowCustomLoader}
+        />
       </div>
 
       {/* Whole screen map */}
@@ -1230,6 +1260,7 @@ const OrderDeliver = ({ orderDetail }) => {
       {/* </div>
         </div>
       </div> */}
+      {showCustomLoader && <CustomLoader />}
     </>
   );
 };

@@ -13,10 +13,10 @@ export const dashboardSlice = createSlice({
     initialState,
     reducers: {
         getAllOrderDeliveries: (state) => {
-            state.loading = true;
+            // state.loading = true;
         },
         setGetAllOrderDeliveries: (state, action) => {
-            state.loading = false;
+            // state.loading = false;
             state.orderDeliveries = action?.payload
         },
         getTodaySales: (state) => {

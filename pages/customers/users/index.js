@@ -22,7 +22,7 @@ import { useRouter } from "next/router";
 
 const Users = () => {
   const { query } = useRouter();
-  const router = useRouter()
+  const router = useRouter();
   const [selectedTab, setSelectedTab] = useState("all_customers");
   const [timeSpan, setTimeSpan] = useState(query["time-span"] || "week");
   const [limit, setLimit] = useState("10");
@@ -43,17 +43,21 @@ const Users = () => {
       const params = {
         page,
         limit: Number(limit),
-        filter: timeSpan,
-        type: selectedTab,
-        seller_id: uniqueId,
+        dayWisefilter: timeSpan,
+        customerType: selectedTab,
+        sellerID: uniqueId,
       };
       dispatch(getAllCustomersList(params));
-      dispatch(getSellerAreaList({ seller_id: params.seller_id }));
+      dispatch(getSellerAreaList({ seller_id: params.sellerID }));
     }
   }, [uniqueId, selectedTab, timeSpan, limit, page]);
 
   const TABS = [
-    { text: "All", count: totalCustomers?.totalCustomer, type: "all_customers" },
+    {
+      text: "All",
+      count: totalCustomers?.totalCustomer,
+      type: "all_customers",
+    },
     {
       text: "New Customers",
       count: totalCustomers?.newCustomer,
@@ -106,7 +110,7 @@ const Users = () => {
       />
 
       {/*  TABS*/}
-      <div className="users-tabs flex-row-space-between">
+      <div className="users-tabs flex-row-space-between paginateTop">
         {TABS.map(({ text, count, type }, idx) => (
           <div
             key={idx + "tabs"}
@@ -130,11 +134,7 @@ const Users = () => {
                   setSelectedTab(null);
                 }}
               >
-                <Image
-                  width={16}
-                  height={16}
-                  src={customersCross}
-                />
+                <Image width={16} height={16} src={customersCross} />
               </div>
             )}
           </div>
@@ -183,7 +183,8 @@ const Users = () => {
             <tr className="customers-table-row">
               <td
                 onClick={() => handleNavigateToTrackStatus(item)}
-                className="customers-table-data" style={{textAlign: "left" }}
+                className="customers-table-data"
+                style={{ textAlign: "left" }}
               >
                 {(idx + Number(page > 1 ? limit : 0) > 8 ? "" : "0") +
                   (idx + 1 + Number(page > 1 ? limit : 0))}
@@ -214,11 +215,7 @@ const Users = () => {
                     {item?.user_details?.lastname}
                   </p>
                   <div>
-                    <Image
-                      width={12}
-                      height={12}
-                      src={OrderLocation}
-                    />
+                    <Image width={12} height={12} src={OrderLocation} />
                     <span className="user-stats-row-name-address">
                       {item?.user_details?.current_address?.custom_address}
                       {", "}
@@ -234,19 +231,22 @@ const Users = () => {
               </td>
               <td
                 onClick={() => handleNavigateToTrackStatus(item)}
-                className="customers-table-data" style={{textAlign: "left" }}
+                className="customers-table-data"
+                style={{ textAlign: "left" }}
               >
                 {item?.total_orders}
               </td>
               <td
                 onClick={() => handleNavigateToTrackStatus(item)}
-                className="customers-table-data" style={{textAlign: "left" }}
+                className="customers-table-data"
+                style={{ textAlign: "left" }}
               >
                 {item?.total_products}
               </td>
               <td
                 onClick={() => handleNavigateToTrackStatus(item)}
-                className="customers-table-data"style={{textAlign: "left" }}
+                className="customers-table-data"
+                style={{ textAlign: "left" }}
               >
                 ${Number(item?.life_time_spent).toFixed(2)}
               </td>
@@ -257,11 +257,7 @@ const Users = () => {
 
       <div className="pagination-footer flex-row-space-between paginatePosition">
         <div className="flex-row-space-between">
-          <Image
-            src={ArrowLeft}
-            width={16}
-            height={16}
-          />
+          <Image src={ArrowLeft} width={16} height={16} />
           <p
             style={{
               color: "#B4BEEB",
@@ -282,14 +278,9 @@ const Users = () => {
         </p>
         <div className="flex-row-space-between">
           <p className="pagination-footer-text">Next</p>
-          <Image
-            src={ArrowRight}
-            width={16}
-            height={16}
-          />
+          <Image src={ArrowRight} width={16} height={16} />
         </div>
       </div>
-      
     </div>
   );
 };

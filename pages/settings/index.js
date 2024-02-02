@@ -19,6 +19,7 @@ import {
   settingHome,
   settingsDetails,
 } from "../../utilities/images";
+import * as Images from "../../utilities/images";
 import Image from "next/image";
 import StaffList from "./staff";
 import Devices from "./device";
@@ -42,45 +43,129 @@ import PlanFit from "./plans/planFit";
 import { getAllPosUser, selectLoginAuth } from "../../redux/slices/auth";
 import { useDispatch, useSelector } from "react-redux";
 import { getProfile } from "../../redux/slices/dashboard";
+import DeviceDetail from "./device/deviceDetail";
+import {
+  getActivePlan,
+  getLocationDetails,
+  settingInfo,
+} from "../../redux/slices/setting";
+import moment from "moment";
 
 export default function Settings() {
-  const dispatch = useDispatch()
-  const authData = useSelector(selectLoginAuth)
-  const UniqueId = authData?.usersInfo?.payload?.uniqe_id
-  const userId = authData?.usersInfo?.payload?.user?.user_profiles?.user_id ? authData?.usersInfo?.payload?.user?.user_profiles?.user_id : ""
+  const dispatch = useDispatch();
+  const receiptSettings = useSelector(settingInfo);
+  const wallet = receiptSettings?.walletInfo;
+  const authData = useSelector(selectLoginAuth);
+  const UniqueId = authData?.usersInfo?.payload?.uniqe_id;
+  const userId = authData?.usersInfo?.payload?.user?.user_profiles?.user_id
+    ? authData?.usersInfo?.payload?.user?.user_profiles?.user_id
+    : "";
   const [selectedItem, setSelectedItem] = useState("Security");
   const [getAllStaffList, setGetAllStaffList] = useState([]);
-  const [profileDetails, setProfileDetails] = useState("");
   const [securityStatus, setSecurityStatus] = useState("");
   const [selectedItemId, setSelectedItemId] = useState("");
   const [policyInfo, setPolicyInfo] = useState("");
   const [activeTab, setActiveTab] = useState("");
+  const [showSidebar, setShowSideBar] = useState(false);
+  const [sideBarInfo, setSideBarInfo] = useState({
+    location: "",
+    plan: "",
+  });
+ 
+  // API for get get Bussiness LocationInfo...............................
+
+  // get plan information
+  const handeGetPlanInfo = () => {
+    dispatch(
+      getActivePlan({
+        cb(res) {
+          if (res?.status) {
+            console.log("plassssss", res?.data?.payload[0]?.expiry_date);
+            setSideBarInfo({
+              plan: res?.data?.payload[0]?.res?.data?.payload[0]?.expiry_date,
+              location: "",
+            });
+          }
+        },
+      })
+    );
+  };
+  // get location count
+  const getBussinessLocationInfo = () => {
+    let params = {
+      seller_id: UniqueId,
+    };
+    dispatch(
+      getLocationDetails({
+        ...params,
+        cb(res) {
+          if (res.status) {
+            setSideBarInfo({
+              location: res?.data?.payload,
+            });
+          }
+        },
+      })
+    );
+  };
+  // getting setting sideBar information
+  useEffect(() => {
+    getBussinessLocationInfo();
+    handeGetPlanInfo();
+    getUserList();
+  }, [receiptSettings?.success]);
 
   const settingsOptions = [
     { id: 1, name: "Security", info: securityStatus, image: securityTick },
     { id: 2, name: "Devices", info: "Not Connected", image: settingsDevices },
     { id: 3, name: "Notifications", info: "Not Updated", image: ringing },
-    { id: 4, name: "Locations", info: "1 Locations", image: locationOutline },
+    {
+      id: 4,
+      name: "Locations",
+      info: `${sideBarInfo?.location?.length} Locations`,
+      image: locationOutline,
+    },
     {
       id: 5,
       name: "Plans",
-      info: "Expire on April 2024",
+      info: `Expire on ${moment(sideBarInfo?.plan).format("DD MMMM yyyy")}`,
       image: settingsMoney,
     },
     { id: 6, name: "Receipts", info: "Default", image: settingsReceipt },
     { id: 7, name: "Taxes", info: "Not Updated", image: settingsTax },
-    { id: 8, name: "Wallet", info: profileDetails, image: walletOutline },
+    {
+      id: 8,
+      name: "Wallet",
+      info: `${
+        wallet?.accept_card_payment ||
+        wallet?.accept_cash_payment ||
+        wallet?.accept_jbr_coin_payment
+          ? "Connected"
+          : "Not Connected"
+      }`,
+      image: walletOutline,
+    },
     {
       id: 9,
       name: "Shipping & Pick Up",
       info: "Default",
       image: settingsBoxes,
     },
-    { id: 10, name: "Staff", info: getAllStaffList?.length, image: usersOutline },
+    {
+      id: 10,
+      name: "Staff",
+      info: getAllStaffList?.length,
+      image: usersOutline,
+    },
     { id: 11, name: "Language", info: "English", image: settingsLanguage },
     { id: 12, name: "Legal", info: "English", image: settingsLaw },
     { id: 13, name: "Policies", info: "Default", image: settingsPolicies },
-    { id: 14, name: "Shop", info: "Locations", image: settingHome },
+    {
+      id: 14,
+      name: "Device Detail",
+      info: "Locations",
+      image: settingsDevices,
+    },
   ];
   const SettingsBar = ({ item }) => {
     return (
@@ -115,42 +200,18 @@ export default function Settings() {
     let params = {
       seller_id: UniqueId,
     };
-    dispatch(getAllPosUser({
-      ...params,
-      cb(res) {
-        if (res.status) {
-          setGetAllStaffList(res?.data?.payload?.pos_staff)
-        }
-      },
-    })
-    );
-  };
-  const getProfileInfo = (userId) => {
-    let params = {
-      id: userId
-    }
-    dispatch(getProfile({
-      ...params, cb(res) {
-        if (res.status) {
-          setProfileDetails(res?.data?.payload?.is_wallet === true ? "Connected" : "Not Connected")
-          setSecurityStatus(res?.data?.payload?.user_profiles?.is_two_fa_enabled === true ? "2-Step Enabled" : "2-Step Disabled")
-        }
-      },
-    })
+    dispatch(
+      getAllPosUser({
+        ...params,
+        cb(res) {
+          if (res.status) {
+            setGetAllStaffList(res?.data?.payload?.pos_staff);
+          }
+        },
+      })
     );
   };
 
-  useEffect(() => {
-    if (UniqueId) {
-      getUserList();
-    }
-  }, [UniqueId]);
-
-  useEffect(() => {
-    if (userId) {
-      getProfileInfo(userId)
-    }
-  }, [userId])
   const renderComponent = () => {
     switch (selectedItem) {
       case "Security":
@@ -172,7 +233,12 @@ export default function Settings() {
       case "Policies":
         return <Policy handleTouch={handleTouch} />;
       case "staffDetail":
-        return <StaffDetail handleTouch={handleTouch} selectedItemId={selectedItemId} />;
+        return (
+          <StaffDetail
+            handleTouch={handleTouch}
+            selectedItemId={selectedItemId}
+          />
+        );
       case "legalPolicy":
         return (
           <LegalPolicy policyInfo={policyInfo} handleTouch={handleTouch} />
@@ -189,6 +255,8 @@ export default function Settings() {
         return <PlanFit handleTouch={handleTouch} />;
       case "Shipping & Pick Up":
         return <ShippingPickup />;
+      case "Device Detail":
+        return <DeviceDetail />;
       default:
         return null;
     }
@@ -206,7 +274,22 @@ export default function Settings() {
           </div>
         </div>
         <div className="col-lg-9">
-          <div className="outerpage">{renderComponent()}</div>
+
+          {/* <div>
+            <Image src={Images.ShippingOrders} className="SecurityImg" alt="img" onClick={() => setShowSideBar(prev => !prev)} />
+
+            {showSidebar && <div className="deviceLeft settingOuter">
+              <div>
+                {settingsOptions.map((item) => (
+                  <SettingsBar key={item.id} item={item} />
+                ))}
+              </div>
+            </div>}
+          </div> */}
+
+          <div className="outerpage" onClick={() => setShowSideBar(false)}>
+            {renderComponent()}
+          </div>
         </div>
       </div>
     </div>

@@ -22,6 +22,7 @@ const ShowPaidAmountCart = () => {
   const authData = useSelector(selectLoginAuth);
   const posUserData = authData?.posUserLoginDetails;
   const merchentDetails = authData?.usersInfo?.payload?.user?.user_profiles;
+  console.log(JSON.stringify(retailData?.createOrderData));
 
   // change due function
   const payAmount = cartData?.amount?.total_amount?.toFixed(2);
@@ -90,13 +91,17 @@ const ShowPaidAmountCart = () => {
                   {payableData?.mode_of_payment == "card" ||
                   payableData?.mode_of_payment === "cash"
                     ? "$"
-                    : "JBR"}
+                    : "JBR"}{" "}
                   {amountFormat(payableData?.tips, "notSign")}
                 </p>
               </div>
-              <div>
-                <p className="amount">Change Due: {amountFormat(changeDue)}</p>
-              </div>
+              {payableData?.mode_of_payment === "cash" && (
+                <div>
+                  <p className="amount">
+                    Change Due: {amountFormat(changeDue)}
+                  </p>
+                </div>
+              )}
             </div>
           </div>
           <div className="col-lg-5 col-md-5">

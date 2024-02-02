@@ -26,7 +26,6 @@ const productrefunds = () => {
   const orderDetails = invoiceData?.invoiceByInvoiceId;
   const selectedData = invoiceData?.invoiceData;
   const refundedItems = JSON.parse(selectedData?.selectedItems || "[]");
-  console.log(refundedItems,'refundedItems');
   const [key, setKey] = useState(Math.random());
   const [modalDetail, setModalDetail] = useState({
     show: false,
@@ -393,7 +392,7 @@ const productrefunds = () => {
           modalDetail.flag === "ReturnInventory" ? (
             <ReturnInventory
               closeManulModal={() => handleOnCloseModal()}
-              selectedProductItems={refundedItems}
+              selectedProducts={refundedItems}
             />
           ) : (
             ""

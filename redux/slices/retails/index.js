@@ -9,7 +9,6 @@ const initialState = {
   cartDetails: {},
   checkSuppliedVariantLoad: false,
   addTocartLoad: false,
-  clearCartLoading: false,
   getTipsLoad: false,
   getTipsData: {},
   updateCartByTipLoad: false,
@@ -30,6 +29,23 @@ const initialState = {
   timeSlots: [],
   addToCartServiceLoad: false,
   clearOneProductLoad: false,
+  loading: false,
+  productCategories: [],
+  productSubCategories: [],
+  productBrands: [],
+  merchantWalletCheckLoad: false,
+  getWalletQrLoad: false,
+  walletQrData: {},
+  getWalletQrLoad: false,
+  walletGetByPhoneLoad: false,
+  walletGetByPhoneData: [],
+  requestCheckLoad: false,
+  requestCheckData: "",
+  qrcodestatusData: "",
+  qrcodestatusLoad: false,
+  paymentRequestCancelLoad: false,
+  getMainProductLoad: false,
+  getMainServicesLoad: false,
 };
 
 export const retailsSlice = createSlice({
@@ -37,10 +53,10 @@ export const retailsSlice = createSlice({
   initialState,
   reducers: {
     getMainProduct: (state) => {
-      state.loading = true;
+      state.getMainProductLoad = true;
     },
     setMainProduct: (state, action) => {
-      state.loading = false;
+      state.getMainProductLoad = false;
       state.mainProductData = action?.payload?.payload;
     },
     getOneProductById: (state) => {
@@ -58,10 +74,10 @@ export const retailsSlice = createSlice({
       state.oneServiceData = action?.payload?.payload;
     },
     getMainServices: (state) => {
-      state.loading = true;
+      state.getMainServicesLoad = true;
     },
     setMainServices: (state, action) => {
-      state.loading = false;
+      state.getMainServicesLoad = false;
       state.getMainServices = action?.payload?.payload;
       state.mainServicesData = action?.payload?.payload;
     },
@@ -75,11 +91,9 @@ export const retailsSlice = createSlice({
       state.availableOffers = action?.payload?.payload;
     },
     productCart: (state) => {
-      state.loading = true;
       state.productCartLoad = true;
     },
     setProductCart: (state, action) => {
-      state.loading = false;
       state.productCartLoad = false;
       state.productCart = action?.payload?.payload;
       state.cartDetails = action?.payload?.payload;
@@ -105,21 +119,16 @@ export const retailsSlice = createSlice({
       state.addTocartLoad = false;
     },
     clearCart: (state) => {
-      state.loading = true;
       state.clearCartLoad = true;
     },
     setClearCart: (state) => {
-      state.loading = false;
       state.clearCartLoad = false;
     },
     checkSuppliedVariant: (state) => {
-      state.loading = true;
       state.checkSuppliedVariantLoad = true;
     },
     setCheckSuppliedVariant: (state, action) => {
-      state.loading = false;
       state.checkSuppliedVariantLoad = false;
-      // state.addNotes = action?.payload?.payload;
     },
     getTips: (state) => {
       state.loading = true;
@@ -201,6 +210,86 @@ export const retailsSlice = createSlice({
       state.clearOneProductLoad = false;
       // state.timeSlots = action?.payload?.payload?.slots;
     },
+
+    getProductFilterCategory: (state) => {
+      state.loading = true;
+    },
+    getProductFilterSubCategory: (state) => {
+      state.loading = true;
+    },
+    getProductFilterBrands: (state) => {
+      state.loading = true;
+    },
+
+    setProductCategory: (state, action) => {
+      state.loading = false;
+      state.productCategories = action?.payload;
+    },
+
+    setProductSubCategory: (state, action) => {
+      state.loading = false;
+      state.productSubCategories = action?.payload;
+    },
+
+    setProductBrands: (state, action) => {
+      state.loading = false;
+      state.productBrands = action?.payload;
+    },
+
+    merchantWalletCheck: (state) => {
+      state.merchantWalletCheckLoad = true;
+    },
+    setMerchantWalletCheck: (state, action) => {
+      state.merchantWalletCheckLoad = false;
+      // state.timeSlots = action?.payload?.payload?.slots;
+    },
+
+    getWalletQr: (state) => {
+      state.getWalletQrLoad = true;
+    },
+    setWalletQr: (state, action) => {
+      state.getWalletQrLoad = false;
+      state.walletQrData = action?.payload?.payload;
+    },
+
+    walletGetByPhone: (state) => {
+      state.walletGetByPhoneLoad = true;
+    },
+    setwalletByPhone: (state, action) => {
+      state.walletGetByPhoneLoad = false;
+      state.walletGetByPhoneData = action?.payload?.payload?.data;
+    },
+
+    requestMoney: (state) => {
+      state.requestMoneyLoad = true;
+    },
+    setRequestMoney: (state, action) => {
+      state.requestMoneyLoad = false;
+    },
+
+    requestCheck: (state) => {
+      state.requestCheckLoad = true;
+    },
+    setRequestCheck: (state, action) => {
+      state.requestCheckLoad = false;
+      state.requestCheckData = action?.payload?.payload?.status;
+    },
+
+    qrcodestatus: (state) => {
+      state.qrcodestatusLoad = true;
+    },
+    setQrcodestatus: (state, action) => {
+      state.qrcodestatusLoad = false;
+      state.qrcodestatusData = action?.payload?.payload?.status;
+    },
+
+    paymentRequestCancel: (state) => {
+      state.paymentRequestCancelLoad = true;
+    },
+    setPaymentRequestCancel: (state, action) => {
+      state.paymentRequestCancelLoad = false;
+      // state.qrcodestatusData = action?.payload?.payload?.status;
+    },
     onErrorStopLoad: (state) => {
       state.loading = false;
       state.availableOffersLoad = false;
@@ -213,6 +302,18 @@ export const retailsSlice = createSlice({
       state.addToCartServiceLoad = false;
       state.checkSuppliedVariantLoad = false;
       state.clearOneProductLoad = false;
+      state.merchantWalletCheckLoad = false;
+      state.getWalletQrLoad = false;
+      state.walletGetByPhoneLoad = false;
+      state.requestMoneyLoad = false;
+      state.requestCheckLoad = false;
+      state.qrcodestatusLoad = false;
+      state.paymentRequestCancelLoad = false;
+      state.updateCartByTipLoad = false;
+      state.getMainProductLoad = false;
+      state.getMainServicesLoad = false;
+      state.addTocartLoad = false;
+      state.clearCartLoad = false;
     },
   },
 });
@@ -247,6 +348,7 @@ export const {
   createOrder,
   setCreateOrder,
   clearCart,
+  setClearCart,
   getDrawerSession,
   setDrawerSession,
   attachCustomer,
@@ -261,6 +363,26 @@ export const {
   setAddToCartService,
   clearOneProduct,
   setClearOneProduct,
+  getProductFilterCategory,
+  getProductFilterSubCategory,
+  getProductFilterBrands,
+  setProductCategory,
+  setProductSubCategory,
+  setProductBrands,
+  merchantWalletCheck,
+  setMerchantWalletCheck,
+  getWalletQr,
+  setWalletQr,
+  walletGetByPhone,
+  setwalletByPhone,
+  requestMoney,
+  setRequestMoney,
+  requestCheck,
+  setRequestCheck,
+  qrcodestatus,
+  setQrcodestatus,
+  paymentRequestCancel,
+  setPaymentRequestCancel,
 } = retailsSlice.actions;
 
 export const selectRetailData = (state) => state.retails;

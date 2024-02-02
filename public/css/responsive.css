@@ -328,6 +328,14 @@
         width: 100%;
         max-width: 200px;
     }
+
+    .customerHeader .tab-item {
+        padding: 6px 6px;
+    }
+
+    .customerHeader .header-descrip {
+        font-size: 13px;
+    }
 }
 
 @media (max-width: 1020px) {
@@ -520,6 +528,15 @@
         height: calc(100vh - 140px);
         overflow-y: scroll;
     }
+
+    .analyticsSection .deliverRightBar {
+        top: 104px;
+    }
+
+    .customerHeadRight {
+        display: block;
+        margin-top: 10px;
+    }
 }
 
 @media (max-width: 767px) {
@@ -669,6 +686,16 @@
     .shippingSection {
         margin-left: 12px;
         margin-right: 65px;
+    }
+
+    .customerHeader .tab-item {
+        padding: 4px 6px !important;
+        font-size: 12px !important;
+    }
+
+    .customerHeader .day-tabs {
+        gap: 5px;
+        margin-right: 6px;
     }
 }
 
@@ -874,6 +901,31 @@
     .anlyticHeadLeft .day-tabs {
         margin: 0;
     }
+
+    .analyticsSection .deliverRightBar {
+        top: 140px;
+    }
+
+    .customerHeadRight .flexDiv {
+        flex-wrap: wrap;
+        gap: 8px;
+    }
+
+    .customerHeader .day-tabs {
+        gap: 0px;
+        width: 100%;
+        justify-content: space-between;
+    }
+
+    .extras {
+        width: 100%;
+    }
+
+    .customerGraphLeft {
+        justify-content: space-between;
+        gap: 8px;
+        flex-wrap: wrap;
+    }
 }
 
 @media (max-width: 546px) {
@@ -907,6 +959,7 @@
     .analyticsSection {
         margin-right: 78px !important;
     }
+
     .tab-item {
         padding: 3px 5px !important;
         font-size: 12px;
@@ -1042,6 +1095,10 @@
     .cust-header .header-title {
         font-size: 21px;
     }
+
+    .customerSection {
+        margin: 10px !important;
+    }
 }
 
 @media (max-width: 425px) {
@@ -1132,6 +1189,14 @@
         padding: 6px 5px;
     }
 
+    .customerHeader .appointMain {
+        font-size: 22px;
+    }
+
+    .customerHeader .day-tabs {
+        padding: 6px;
+        margin-right: 0px;
+    }
 }
 
 @media (max-width: 375px) {
