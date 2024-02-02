@@ -871,7 +871,7 @@ input:checked+.switch-slider:before {
 .deliverSubdata:nth-child(3) {
   min-width: 130px;
 }
-
+ 
 /*auth css end*/
 /*ship module css start */
 #ordersToReview .invoice_subhead:nth-child(2) {
