@@ -190,7 +190,7 @@ const Sidebar = (props) => {
             <ListGroupItem className="sidebarItems">
               <Link
                 href="/shipping"
-                className={`sidebarLinks ${router?.pathname?.split("/")[1] == "shipping" ? "active" : ""
+                className={`sidebarLinks  position-relative ${router?.pathname?.split("/")[1] == "shipping" ? "active" : ""
                   }`}
               >
                 <Image
@@ -204,7 +204,7 @@ const Sidebar = (props) => {
                   className="img-fluid hideImg"
                 />
                 <span className="sidebarTxt">Shipping Orders</span>
-                <span className="cartNum">{orderData ? orderData?.length : 0}</span>
+                <span className=" shipNum">{orderData ? orderData?.length : 0}</span>
               </Link>
             </ListGroupItem>
             <ListGroupItem className="sidebarItems">
