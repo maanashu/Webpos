@@ -96,7 +96,7 @@ function* getMainServices(action) {
   try {
     const resp = yield call(
       ApiClient.get,
-      `${PRODUCT_API_URL_V1}products?app_name=pos&delivery_options=2&service_type=service&need_pos_users=true&check_stock_out=true&page=1&limit=25&${params}`
+      `${PRODUCT_API_URL_V1}products?app_name=pos&delivery_options=2&service_type=service&need_pos_users=true&check_stock_out=true&need_next_available_slot=true&page=1&limit=25&${params}`
     );
     if (resp.status) {
       yield put(setMainServices(resp.data));
@@ -481,12 +481,7 @@ function* clearOneProduct(action) {
 
 function* getProductFilterCategory(action) {
   const dataToSend = { ...action.payload };
-  // const authData = store.getState().auth;
   const authData = store?.getState()?.auth;
-  console.log(
-    "ddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd",
-    authData
-  );
   const sellerId = authData?.usersInfo?.payload?.uniqe_id;
 
   const params = {

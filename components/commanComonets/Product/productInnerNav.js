@@ -89,10 +89,13 @@ const ProductInnerNav = ({ productCount, ServicesCount }) => {
     }
   };
 
-  const debounceSearch = useCallback(
-    debounce(parameter == "product" ? onSearchProduct : onSearchService, 1000),
-    [sellerId]
-  );
+  const debounceSearchProduct = useCallback(debounce(onSearchProduct, 800), [
+    sellerId,
+  ]);
+
+  const debounceSearchService = useCallback(debounce(onSearchService, 800), [
+    sellerId,
+  ]);
 
   return (
     <>
@@ -118,7 +121,7 @@ const ProductInnerNav = ({ productCount, ServicesCount }) => {
                   value={productSearch}
                   onChange={(event) => {
                     setProductSearch(event.target.value);
-                    debounceSearch(event.target.value);
+                    debounceSearchProduct(event.target.value);
                   }}
                 />
               ) : (
@@ -126,7 +129,7 @@ const ProductInnerNav = ({ productCount, ServicesCount }) => {
                   value={serviceSearch}
                   onChange={(event) => {
                     setServiceSearch(event.target.value);
-                    debounceSearch(event.target.value);
+                    debounceSearchService(event.target.value);
                   }}
                 />
               )}
