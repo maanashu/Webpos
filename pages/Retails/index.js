@@ -28,7 +28,6 @@ const Retails = () => {
   const sellerId = authData?.usersInfo?.payload?.uniqe_id;
   const router = useRouter();
   const { parameter } = router.query;
-  console.log("parameter", parameter);
   const cartData = retailData?.productCart;
   const cartLength = cartData?.poscart_products?.length;
   const cartPosCart = cartData?.poscart_products || [];

@@ -30,8 +30,8 @@ const AddDiscount = (props) => {
       toast.error("Please enter discount less then total amount");
       return false;
     } else if (
-      amount ||
-      (percent && digitWithDot.test(amount || percent) === false)
+      (amount || percent) &&
+      digitWithDot.test(amount || percent) === false
     ) {
       toast.error("Please enter valid field");
       return false;
