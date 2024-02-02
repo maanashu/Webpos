@@ -86,7 +86,7 @@ const OrderReview = () => {
         );
     }
 
-    const getAllShippingOrdeshandle = () => {
+    const getAllShippingOrdeshandle = (status) => {
         let orderListParam = {
             seller_id: sellerUid,
             status: orderListType?.status,
@@ -109,10 +109,17 @@ const OrderReview = () => {
                         if (res?.data?.payload?.data?.length > 0) {
                             setSingleOrderData(res?.data?.payload?.data?.find(item => item?.id == selectedItemId) ? res?.data?.payload?.data?.find(item => item?.id == selectedItemId) : res?.data?.payload?.data[0])
                         } else {
-                            if (orderListType?.title === "Order to Review") {
+                            if (orderListType?.title === "Order to Review" && status == 3) {
                                 setOrderListType({
                                     title: "Printing Label",
                                     status: "3"
+                                })
+                                return false
+                            }
+                            if (orderListType?.title === "Order to Review" && status == 8) {
+                                setOrderListType({
+                                    title: "Rejected/Cancelled",
+                                    status: "7,8"
                                 })
                                 return false
                             }
@@ -143,7 +150,7 @@ const OrderReview = () => {
                     if (res) {
                         setAcceptLoading(false)
                         setDeclineLoading(false)
-                        getAllShippingOrdeshandle()
+                        getAllShippingOrdeshandle(status)
                         getAllShippingOrdesCountHandle()
                     }
                 },
@@ -159,7 +166,7 @@ const OrderReview = () => {
 
     useEffect(() => {
         if (sellerUid) {
-            getAllShippingOrdeshandle()
+            getAllShippingOrdeshandle(null)
             getAllShippingOrdesCountHandle()
         }
     }, [sellerUid, selectedDate, orderListType]);

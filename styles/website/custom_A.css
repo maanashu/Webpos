@@ -31,9 +31,11 @@
   padding: 0 10px;
   margin-bottom: 20px;
 }
+
 .productScrollBar::-webkit-scrollbar-track {
   margin: 0 10px;
 }
+
 /* Start Sidebar Css*/
 .main-sidebar {
   bottom: 0;
@@ -397,6 +399,7 @@
   justify-content: center;
   margin-left: 10px;
 }
+
 .expandBtn {
   padding: 8px 12px;
   border-radius: 5px;
@@ -685,7 +688,7 @@
   border-radius: 4px;
 }
 
-.custom-checkbox input:checked + .checkmark {
+.custom-checkbox input:checked+.checkmark {
   border: 1px solid #263682;
   color: #fff;
 }
@@ -696,7 +699,7 @@
   display: none;
 }
 
-.custom-checkbox input:checked + .checkmark:after {
+.custom-checkbox input:checked+.checkmark:after {
   display: block;
 }
 
@@ -1047,14 +1050,16 @@
   display: flex;
   justify-content: space-between;
 }
-.afterCheckedProduct{
+
+.afterCheckedProduct {
   border-radius: 8px;
-  border:1px solid #263682;
+  border: 1px solid #263682;
   padding: 8px;
   margin-bottom: 8px;
   display: flex;
   justify-content: space-between;
 }
+
 .productColor {
   display: flex;
   align-items: center;
@@ -1523,15 +1528,17 @@
   color: #263682;
   padding: 8px 16px;
 }
-.enableInput{
-    border-radius: 6px;
-    text-align: center;
-    font-size: 12px;
-    font-style: normal;
-    font-weight: 400;
 
-    padding: 8px 16px;
+.enableInput {
+  border-radius: 6px;
+  text-align: center;
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 400;
+
+  padding: 8px 16px;
 }
+
 .tablecustomInput::placeholder {
   text-align: left;
   justify-content: left;
@@ -1886,15 +1893,35 @@ button.comfirmatiopnBtn {
   border-radius: 10px;
   margin-block: 10px;
 }
+
 /*product css*/
-.mapleFlex{
+.mapleFlex {
   display: flex;
   align-items: center;
   justify-content: space-between;
 }
-.mapleSubFlex{
+
+.mapleSubFlex {
   display: flex;
   align-items: start;
   flex-direction: column;
   gap: 8px;
+}
+
+.shipNum {
+  width: 25px;
+  height: 25px;
+  top: 18px;
+  right: 0px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50px;
+  border: 1.5px solid #f5f6fc;
+  background: #263682;
+  color: #f5f6fc;
+  font-size: 11px;
+  font-weight: 500;
+  position: absolute;
+  z-index: 0;
 }
