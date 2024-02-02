@@ -21,6 +21,7 @@ import CustomModal from "../../components/customModal/CustomModal";
 import CustomHoursCell from "../../components/CustomHoursCell";
 import CustomEventCell from "../../components/CustomEventCell";
 import ReScheduleDetailModal from "../../components/ReScheduleDetailModal";
+import CalendarSettingModal from "../../components/modals/CalendarSettingModal";
 
 import {
   CALENDAR_MODES,
@@ -36,6 +37,11 @@ import {
   updateAppointmentStatus,
   getStaffUsers,
 } from "../../redux/slices/bookings";
+import {
+  getSecuritySettingInfo,
+  settingInfo,
+  updateSettings,
+} from "../../redux/slices/setting";
 import { selectLoginAuth } from "../../redux/slices/auth";
 import {
   calculateTimeDuration,
@@ -52,6 +58,8 @@ const Booking = () => {
     flag: "",
   });
   const dispatch = useDispatch();
+  const settingData = useSelector(settingInfo);
+  const defaultSettingsForCalendar = settingData?.getSettings;
   const [searchedAppointments, setSearchedAppointments] = useState([]);
   const [searchedText, setSearchedText] = useState("");
   const [week, setWeek] = useState(true);
@@ -60,11 +68,15 @@ const Booking = () => {
   const [monthDays, setMonthDays] = useState([]);
   const windowHeight = Dimensions.get("window").height;
   const windowWidth = Dimensions.get("window").width;
-  const [isAMPM, setisAMPM] = useState(true);
+  const [isAMPM, setisAMPM] = useState(
+    defaultSettingsForCalendar?.time_format === "12" ?? true
+  );
   const [showMiniCalendar, setshowMiniCalendar] = useState(false);
   const [calendarViewMode, setCalendarViewMode] = useState(
-    CALENDAR_VIEW_MODES.LIST_VIEW
+    CALENDAR_VIEW_MODES.CALENDAR_VIEW
   );
+  const [isCalendarSettingModalVisible, setisCalendarSettingModalVisible] =
+    useState(false);
   const [pageNumber, setPageNumber] = useState(1);
   const appointmentsDetails = useSelector(bookingsDetails);
   const getAppointmentByStaffIdList = appointmentsDetails?.geAppointmentById;
@@ -100,7 +112,9 @@ const Booking = () => {
   const [shouldShowCalendarModeOptions, setshouldShowCalendarModeOptions] =
     useState(true);
   const [calendarDate, setCalendarDate] = useState(moment());
-  const [calendarMode, setCalendarMode] = useState(CALENDAR_MODES.WEEK);
+  const [calendarMode, setCalendarMode] = useState(
+    defaultSettingsForCalendar?.calender_view ?? CALENDAR_MODES.WEEK
+  );
   const nextMonth = () =>
     setCalendarDate(calendarDate.clone().add(1, calendarMode));
   const prevMonth = () =>
@@ -131,7 +145,56 @@ const Booking = () => {
         },
       })
     );
+
+    getUserSettings();
+    onPressListViewMode();
   }, []);
+
+  useEffect(() => {
+    if (calendarMode === CALENDAR_VIEW_MODES.CALENDAR_VIEW) {
+      if (defaultSettingsForCalendar?.calender_view === CALENDAR_MODES.DAY) {
+        dayHandler();
+      } else if (
+        defaultSettingsForCalendar?.calender_view === CALENDAR_MODES.WEEK
+      ) {
+        weekHandler();
+      } else if (
+        defaultSettingsForCalendar?.calender_view === CALENDAR_MODES.MONTH
+      ) {
+        monthHandler();
+      }
+    }
+  }, [defaultSettingsForCalendar]);
+
+  const getUserSettings = () => {
+    let params = {
+      app_name: "pos",
+      seller_id: UniqueId,
+    };
+    dispatch(
+      getSecuritySettingInfo({
+        ...params,
+        cb(res) {
+          if (res.status) {
+            // setGetSelectedLanguages(res?.data?.payload?.languages)
+          }
+        },
+      })
+    );
+  };
+
+  const updateUserSettings = (data) => {
+    dispatch(
+      updateSettings({
+        ...data,
+        cb(res) {
+          if (res.status) {
+            getUserSettings();
+          }
+        },
+      })
+    );
+  };
 
   useEffect(() => {
     getAllBookings();
@@ -440,6 +503,30 @@ const Booking = () => {
     );
   };
 
+  const onPressSaveCalendarSettings = (calendarPreferences) => {
+    if (calendarPreferences?.defaultCalendarMode === CALENDAR_MODES.DAY) {
+      dayHandler();
+    } else if (
+      calendarPreferences?.defaultCalendarMode === CALENDAR_MODES.WEEK
+    ) {
+      weekHandler();
+    } else if (
+      calendarPreferences?.defaultCalendarMode === CALENDAR_MODES.MONTH
+    ) {
+      monthHandler();
+    }
+    setisAMPM(calendarPreferences?.defaultTimeFormat);
+
+    const data = {
+      calender_view: calendarPreferences?.defaultCalendarMode,
+      time_format: calendarPreferences?.defaultTimeFormat ? "12" : "24",
+      accept_appointment_request:
+        calendarPreferences?.defaultAppointmentRequestMode,
+      employee_color_set: calendarPreferences?.defaultEmployeesColorSet,
+    };
+    updateUserSettings(data);
+  };
+
   const handleBookingsView = (bookingsView) => {
     setBookingsView(bookingsView);
   };
@@ -705,6 +792,7 @@ const Booking = () => {
                 </Link>
               </div>
               <Image
+                onClick={() => setisCalendarSettingModalVisible(true)}
                 src={Images.settingBlue}
                 alt="image"
                 className="img-fluid  sidebarIcons  settingImgs"
@@ -1068,6 +1156,8 @@ const Booking = () => {
                                               }
                                               alt="avtar"
                                               className="avtarImg me-2"
+                                              width={44}
+                                              height={44}
                                             />
                                           </figure>
                                           <div className="">
@@ -1252,6 +1342,21 @@ const Booking = () => {
         }
         onCloseModal={() => handleOnCloseModal()}
       />
+
+      {isCalendarSettingModalVisible && (
+        <div className="addBucket AddtoCart">
+          <CalendarSettingModal
+            isVisible={isCalendarSettingModalVisible}
+            setIsVisible={setisCalendarSettingModalVisible}
+            currentCalendarMode={calendarMode}
+            currentTimeFormat={isAMPM}
+            defaultSettingsForCalendar={defaultSettingsForCalendar}
+            onPressSave={(calendarPreferences) => {
+              onPressSaveCalendarSettings(calendarPreferences);
+            }}
+          />
+        </div>
+      )}
     </>
   );
 };

@@ -298,3 +298,36 @@ export const getCalendarActionButtonTitle = (status) => {
       return "Status unknown";
   }
 };
+
+export const getDateLabel = (dateString) => {
+  const days = [
+    "Sunday",
+    "Monday",
+    "Tuesday",
+    "Wednesday",
+    "Thursday",
+    "Friday",
+    "Saturday",
+  ];
+  const date = new Date(dateString);
+  const dayIndex = date.getDay();
+  const todayIndex = new Date().getDay();
+
+  // Calculate the difference in days
+  const diff = dayIndex - todayIndex;
+  let label = "";
+
+  switch (diff) {
+    case 0:
+      label = "Today";
+      break;
+    case 1:
+      label = "Tomorrow";
+      break;
+    default:
+      label = days[dayIndex];
+      break;
+  }
+
+  return label;
+};
