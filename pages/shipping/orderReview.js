@@ -568,7 +568,7 @@ const OrderReview = () => {
                                 </div>
                             </div>
                         </div>}
-                <ShipRightSidebar data={orderCount} setSelectedDate={setSelectedDate} setOrderListType={setOrderListType} />
+                <ShipRightSidebar data={orderCount} from='orderReview' setSelectedDate={setSelectedDate} setOrderListType={setOrderListType} />
             </div>
             <CustomModal
                 key={key}
