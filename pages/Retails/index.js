@@ -16,7 +16,11 @@ import {
 import { useDispatch, useSelector } from "react-redux";
 import { selectLoginAuth } from "../../redux/slices/auth";
 import RightSideBar from "./RightSideBar";
-import { amountFormat, getDateLabel } from "../../utilities/globalMethods";
+import {
+  amountFormat,
+  getDateLabel,
+  getWeeklyDateLabel,
+} from "../../utilities/globalMethods";
 import { Modal } from "react-bootstrap";
 import CartAlert from "./CartAlert";
 
@@ -33,6 +37,7 @@ const Retails = () => {
   const cartPosCart = cartData?.poscart_products || [];
   const mainProductArray = retailData?.mainProductData?.data || [];
   const mainServicesArray = retailData?.mainServicesData?.data || [];
+  console.log("mainServicesArray", JSON.stringify(mainServicesArray));
   const [cartAlert, setCartAlert] = useState(false);
 
   const productPagination = {
@@ -302,12 +307,12 @@ const Retails = () => {
                                   className="img-fluid appointmentCalender"
                                 />
                                 <span className="Ontime">
-                                  {getDateLabel(
+                                  {getWeeklyDateLabel(
                                     services?.supplies?.[0]?.next_available_slot
                                       ?.date
                                   ) +
                                     " " +
-                                    "/" +
+                                    "-" +
                                     services?.supplies?.[0]?.next_available_slot
                                       ?.start_time +
                                     "-" +

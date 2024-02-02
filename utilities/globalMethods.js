@@ -331,3 +331,32 @@ export const getDateLabel = (dateString) => {
 
   return label;
 };
+
+export const getWeeklyDateLabel = (dateString) => {
+  const daysOfWeek = [
+    "Sunday",
+    "Monday",
+    "Tuesday",
+    "Wednesday",
+    "Thursday",
+    "Friday",
+    "Saturday",
+  ];
+  const date = new Date(dateString);
+  const today = new Date();
+  const oneWeekLater = new Date(today.getTime() + 7 * 24 * 60 * 60 * 1000); // Add 7 days to current date
+
+  if (date.getTime() >= oneWeekLater.getTime()) {
+    // After one week, show the date in regular format
+    return `${date.getDate()}/${date.getMonth() + 1}/${date.getFullYear()}`;
+  }
+
+  const diff = Math.floor(
+    (date.getTime() - today.getTime()) / (1000 * 60 * 60 * 24)
+  );
+
+  if (diff === 0) return "Today";
+  if (diff === 1) return "Tomorrow";
+
+  return daysOfWeek[date.getDay()];
+};

@@ -727,10 +727,10 @@ function* paymentRequestCancel(action) {
 }
 
 function* updateCart(action) {
-  const body = action?.payload?.updated_products;
+  console.log("action", action);
+  const body = action?.payload;
   const dataToSend = action?.payload?.cartId;
-  console.log("body", body);
-  console.log("dataToSend", dataToSend);
+  delete body.cartId;
 
   try {
     const resp = yield call(
