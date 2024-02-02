@@ -27,7 +27,7 @@ const TrackStatus = () => {
 
   return (
     <>
-      {/* <GoogleMap></GoogleMap> */}
+      <GoogleMap></GoogleMap>
       <div style={{ position: "absolute", bottom: "15px" }}>
         <Invoice
           isLoading={!orderDetails}

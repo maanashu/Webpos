@@ -19,14 +19,26 @@ import {
 } from "../../../redux/slices/customers";
 import { selectLoginAuth } from "../../../redux/slices/auth";
 import { useRouter } from "next/router";
+import moment from "moment-timezone";
 
 const Users = () => {
   const { query } = useRouter();
   const router = useRouter();
-  const [selectedTab, setSelectedTab] = useState("all_customers");
+  const [selectedTab, setSelectedTab] = useState(
+    query["customer_type"] || "all_customers"
+  );
   const [timeSpan, setTimeSpan] = useState(query["time-span"] || "week");
   const [limit, setLimit] = useState("10");
   const [page, setPage] = useState(1);
+  const [startDate, setStartDate] = useState(null);
+  const [endDate, setEndDate] = useState(null);
+
+  const handleDateChange = (dates) => {
+    const [start, end] = dates;
+    setStartDate(start);
+    setEndDate(end);
+    setTimeSpan("");
+  };
 
   const dispatch = useDispatch();
   const authData = useSelector(selectLoginAuth);
@@ -46,11 +58,13 @@ const Users = () => {
         dayWisefilter: timeSpan,
         customerType: selectedTab,
         sellerID: uniqueId,
+        start_date: moment(startDate).format("YYYY-MM-DD"),
+        end_date: moment(endDate).format("YYYY-MM-DD"),
       };
       dispatch(getAllCustomersList(params));
       dispatch(getSellerAreaList({ seller_id: params.sellerID }));
     }
-  }, [uniqueId, selectedTab, timeSpan, limit, page]);
+  }, [uniqueId, selectedTab, timeSpan, limit, page, startDate, endDate]);
 
   const TABS = [
     {
@@ -65,12 +79,12 @@ const Users = () => {
     },
     {
       text: "Returning Customers",
-      count: totalCustomers?.onlineCustomers,
+      count: totalCustomers?.returningCustomer,
       type: "returning_customers",
     },
     {
       text: "Online Customers",
-      count: totalCustomers?.returningCustomer,
+      count: totalCustomers?.onlineCustomers,
       type: "online_customers",
     },
     {
@@ -99,6 +113,11 @@ const Users = () => {
         timeSpan={timeSpan}
         onTimeSpanSelect={setTimeSpan}
         mainIcon={customerUsers}
+        setStartDate={setStartDate}
+        setEndDate={setEndDate}
+        onDateChange={handleDateChange}
+        startDate={startDate}
+        endDate={endDate}
       />
 
       <PaginationHeader

@@ -281,7 +281,7 @@ const TransactionsList = () => {
                           (idx + 1 + Number(page > 1 ? limit : 0))}
                       </td>
                       <td
-                        // onClick={() => handleNavigateToTrackStatus(item)}
+                        onClick={() => handleNavigateToTrackStatus(item)}
                         className="customers-table-data"
                         style={{ display: "flex", gap: "12px" }}
                       >
@@ -290,7 +290,7 @@ const TransactionsList = () => {
                           : "date not found"}
                       </td>
                       <td
-                        // onClick={() => handleNavigateToTrackStatus(item)}
+                        onClick={() => handleNavigateToTrackStatus(item)}
                         className="customers-table-data"
                       >
                         {item?.is_returned_order
@@ -298,7 +298,7 @@ const TransactionsList = () => {
                           : item?.invoices?.invoice_number}
                       </td>
                       <td
-                        // onClick={() => handleNavigateToTrackStatus(item)}
+                        onClick={() => handleNavigateToTrackStatus(item)}
                         className="customers-table-data"
                       >
                         {item.created_at
@@ -306,31 +306,31 @@ const TransactionsList = () => {
                           : "date not found"}
                       </td>
                       <td
-                        // onClick={() => handleNavigateToTrackStatus(item)}
+                        onClick={() => handleNavigateToTrackStatus(item)}
                         className="customers-table-data"
                       >
                         {item?.transaction_id}
                       </td>
                       <td
-                        // onClick={() => handleNavigateToTrackStatus(item)}
+                        onClick={() => handleNavigateToTrackStatus(item)}
                         className="customers-table-data"
                       >
                         {DELIVERY_MODE[item?.delivery_option]}
                       </td>
                       <td
-                        // onClick={() => handleNavigateToTrackStatus(item)}
+                        onClick={() => handleNavigateToTrackStatus(item)}
                         className="customers-table-data"
                       >
                         {item?.mode_of_payment}
                       </td>
                       <td
-                        // onClick={() => handleNavigateToTrackStatus(item)}
+                        onClick={() => handleNavigateToTrackStatus(item)}
                         className="customers-table-data"
                       >
                         ${Number(item?.payable_amount).toFixed(2)}
                       </td>
                       <td
-                        // onClick={() => handleNavigateToTrackStatus(item)}
+                        onClick={() => handleNavigateToTrackStatus(item)}
                         className="customers-table-data"
                       >
                         {item?.is_returned_order &&
