@@ -294,7 +294,8 @@
         margin-left: 7px;
     }
 
-    .shippingSection {
+    .shippingSection,
+    .deliverySection {
         min-width: calc(100% - 120px);
         margin-left: 16px;
         margin-right: 80px;
@@ -304,7 +305,8 @@
         margin: 0;
     }
 
-    .shipRightBar {
+    .shipRightBar,
+    .deliverRightBar {
         width: 44px;
         padding: 15px 0px;
     }
@@ -316,6 +318,10 @@
     .deliverOrderRight .detailScroll {
         height: calc(100% - 368px);
         overflow-y: scroll;
+    }
+
+    .customerLink {
+        font-size: 17px;
     }
 }
 
@@ -679,11 +685,17 @@
         max-width: 16ch;
     }
 
-    .shipRightBar {
+    .detailScrollDelivery .aboutProduct {
+        max-width: 16ch;
+    }
+
+    .shipRightBar,
+    .deliverRightBar {
         right: 12px;
     }
 
-    .shippingSection {
+    .shippingSection,
+    .deliverySection {
         margin-left: 12px;
         margin-right: 65px;
     }
@@ -696,6 +708,10 @@
     .customerHeader .day-tabs {
         gap: 5px;
         margin-right: 6px;
+    }
+
+    .productDataInfo {
+        min-width: 165px;
     }
 }
 
@@ -1196,6 +1212,10 @@
     .customerHeader .day-tabs {
         padding: 6px;
         margin-right: 0px;
+    }
+
+    .saleHeading {
+        font-size: 12px;
     }
 }
 

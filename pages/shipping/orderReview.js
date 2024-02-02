@@ -5,13 +5,12 @@ import Image from "next/image";
 import CustomModal from '../../components/customModal/CustomModal';
 import ConfirmShip from '../../components/modals/shipping/confirmShip';
 import { useRouter } from 'next/router';
-import { acceptOrder, getOrdersList } from '../../redux/slices/delivery';
 import { selectLoginAuth } from '../../redux/slices/auth';
 import { useDispatch, useSelector } from 'react-redux';
 import NoOrderFound from '../../components/NoOrderFound';
 import { getOrderDetailsById } from '../../redux/slices/dashboard';
 import moment from 'moment-timezone';
-import { changeStatusOfOrder, getShippingsSidebarCount } from '../../redux/slices/shipping';
+import { changeStatusOfOrder, getShippingsSidebarCount, getOrdersList } from '../../redux/slices/shipping';
 import ShipRightSidebar from '../../components/commanComonets/Shipping/shipRightSidebar';
 import PrintLabelModal from '../../components/modals/shipping/printLabelModal';
 import { flushSync } from 'react-dom';
@@ -51,7 +50,7 @@ const OrderReview = () => {
     const handleDateChange = (date) => {
         setSelectedDate(date);
     };
-    //closeModal
+
     const handleOnCloseModal = () => {
         setModalDetail({
             show: false,
@@ -62,7 +61,6 @@ const OrderReview = () => {
     };
 
     const handleUserProfile = (flag) => {
-
         setModalDetail({
             show: true,
             flag: flag,
@@ -70,6 +68,7 @@ const OrderReview = () => {
         });
         setKey(Math.random());
     };
+
     const getAllShippingOrdesCountHandle = () => {
         let orderParam = {
             seller_id: sellerUid,
@@ -86,25 +85,8 @@ const OrderReview = () => {
             })
         );
     }
-    const getOrderDetailsByIdHandle = () => {
-        let Param = {
-            id: selectedItemId,
-        };
-        setLoading(true)
-        dispatch(
-            getOrderDetailsById({
-                ...Param,
-                cb(res) {
-                    if (res) {
-                        setLoading(false)
-                        setSingleOrderData(res?.data?.payload);
-                    }
-                },
-            })
-        );
-    }
 
-    const getAllShippingOrdeshandle = () => {
+    const getAllShippingOrdeshandle = (status) => {
         let orderListParam = {
             seller_id: sellerUid,
             status: orderListType?.status,
@@ -115,14 +97,40 @@ const OrderReview = () => {
                 ...orderListParam, date: moment(selectedDate).format("YYYY-MM-DD")
             }
         }
-        setLoading1(true)
+        selectedDate ? setLoading1(true) : setLoading(true)
         dispatch(
             getOrdersList({
                 ...orderListParam,
                 cb(res) {
                     if (res) {
+                        setLoading(false)
                         setLoading1(false)
                         setOrderData(res?.data?.payload?.data);
+                        if (res?.data?.payload?.data?.length > 0) {
+                            setSingleOrderData(res?.data?.payload?.data?.find(item => item?.id == selectedItemId) ? res?.data?.payload?.data?.find(item => item?.id == selectedItemId) : res?.data?.payload?.data[0])
+                        } else {
+                            if (orderListType?.title === "Order to Review" && status == 3) {
+                                setOrderListType({
+                                    title: "Printing Label",
+                                    status: "3"
+                                })
+                                return false
+                            }
+                            if (orderListType?.title === "Order to Review" && status == 8) {
+                                setOrderListType({
+                                    title: "Rejected/Cancelled",
+                                    status: "7,8"
+                                })
+                                return false
+                            }
+                            if (orderListType?.title === "Printing Label") {
+                                setOrderListType({
+                                    title: "Shipped",
+                                    status: "4"
+                                })
+                                return false
+                            }
+                        }
                     }
                 },
             })
@@ -132,7 +140,7 @@ const OrderReview = () => {
     const acceptHandler = (status) => {
         let params = {
             status: status,
-            orderId: selectedItemId
+            orderId: singleOrderData?.id
         };
         status === 8 ? setDeclineLoading(true) : setAcceptLoading(true)
         dispatch(
@@ -142,233 +150,231 @@ const OrderReview = () => {
                     if (res) {
                         setAcceptLoading(false)
                         setDeclineLoading(false)
-                        getOrderDetailsByIdHandle()
-                        getAllShippingOrdeshandle()
+                        getAllShippingOrdeshandle(status)
                         getAllShippingOrdesCountHandle()
-                        console.log("screeen response", JSON.stringify(res));
                     }
                 },
             })
         );
     }
 
+    const singleOrderDetailsChangeHandle = (id) => {
+        if (orderData?.length > 0) {
+            setSingleOrderData(orderData?.find(item => item?.id == id))
+        }
+    }
+
     useEffect(() => {
         if (sellerUid) {
-            getAllShippingOrdeshandle()
+            getAllShippingOrdeshandle(null)
             getAllShippingOrdesCountHandle()
         }
     }, [sellerUid, selectedDate, orderListType]);
 
-    useEffect(() => {
-        if (selectedItemId) {
-            getOrderDetailsByIdHandle()
-        }
-    }, [selectedItemId])
-
     return (
         <>
             <div className='shippingSection shipOrderSection afterViewOuter'>
-                <div className='deliverMain w-100'>
-                    <div className='row '>
-                        <div className='col-xl-6 col-lg-12'>
-                            <div className='deliverOrderLeft deliveryOuter me-0'>
-                                <div className='flexTable'>
-                                    <Image src={Images.boldLeftArrow} style={{ cursor: "pointer" }} onClick={() => router.push('/shipping')} alt="boldLeftArrow " className="img-fluid me-2" />
-                                    <h4 className='loginMain text-start m-0'>Shipping {orderListType?.title === 'Returned' ? "Order Returns" : orderListType?.title === 'Shipped' ? "Tracking Orders" : orderListType?.title}</h4>
-                                </div>
-                                {
-                                    (orderListType?.status != 0) && (orderListType?.status != 7) && (orderListType?.status != 8) &&
-                                    <div className='appointmenMonth cancelCalendar'>
+                {
+                    loading ? (
+                        <>
+                            <div className="loaderOuter">
+                                <div className="spinner-grow loaderSpinner text-center my-5"></div>
+                            </div>
+                        </>
+                    ) :
+                        <div className='deliverMain w-100'>
+                            <div className='row '>
+                                <div className='col-xl-6 col-lg-12'>
+                                    <div className='deliverOrderLeft deliveryOuter me-0'>
                                         <div className='flexTable'>
-                                            <Image src={Images.calendarLight} alt='calendarimage' className='img-fluid' />
-                                            {/* <span className='monthText ms-2'>Today</span> */}
-                                            <div className='shipDate ms-1' >
-                                                <ReactDatePicker
-                                                    selected={selectedDate}
-                                                    onChange={handleDateChange}
-                                                    dateFormat="MM/dd/yyyy"
-                                                    placeholderText="Select date"
-                                                />
-                                            </div>
+                                            <Image src={Images.boldLeftArrow} style={{ cursor: "pointer" }} onClick={() => router.push('/shipping')} alt="boldLeftArrow " className="img-fluid me-2" />
+                                            <h4 className='loginMain text-start m-0'>Shipping {orderListType?.title === 'Returned' ? "Order Returns" : orderListType?.title === 'Shipped' ? "Tracking Orders" : orderListType?.title}</h4>
                                         </div>
-                                        <Image src={Images.arrowDown} alt='arrowDown image' className='img-fluid text-end' />
-                                    </div>
-                                }
-                                {
-                                    loading1 ? (
-                                        <>
-                                            <div className="loaderOuter">
-                                                <div className="spinner-grow loaderSpinner text-center my-5"></div>
+                                        {
+                                            (orderListType?.status != 0) && (orderListType?.status != 7) && (orderListType?.status != 8) &&
+                                            <div className='appointmenMonth cancelCalendar'>
+                                                <div className='flexTable'>
+                                                    <Image src={Images.calendarLight} alt='calendarimage' className='img-fluid' />
+                                                    {/* <span className='monthText ms-2'>Today</span> */}
+                                                    <div className='shipDate ms-1' >
+                                                        <ReactDatePicker
+                                                            selected={selectedDate}
+                                                            onChange={handleDateChange}
+                                                            dateFormat="MM/dd/yyyy"
+                                                            placeholderText="Select date"
+                                                        />
+                                                    </div>
+                                                </div>
+                                                <Image src={Images.arrowDown} alt='arrowDown image' className='img-fluid text-end' />
                                             </div>
-                                        </>
-                                    ) :
-                                        <div className='table-responsive mt-3'>
-                                            <table id={orderListType?.title === "Order to Review" ? "ordersToReview" :
-                                                orderListType?.title === "Order Accepted" ? "acceptedOrders" :
-                                                    orderListType?.title === "Order Prepared" ? "acceptedPrepared" :
-                                                        orderListType?.title === "Printing Label" ? "printingLabel" :
-                                                            orderListType?.title === "Shipped" ? "shippedOrders" :
-                                                                orderListType?.title === "Rejected/Cancelled" ? "rejectOrder" :
-                                                                    orderListType?.title === "Returned" ? "returnedOrder"
-                                                                        : ""} className="orderDeliverTable shipTrackTable">
-                                                {
-                                                    (orderListType?.status != 0) && (orderListType?.status != 7) && (orderListType?.status != 8) &&
-                                                    <thead className='invoiceHeadingBox'>
-                                                        <tr>
-                                                            <th className='invoiceHeading'>#</th>
-                                                            <th className='invoiceHeading'>Client/Items</th>
-                                                            <th className='invoiceHeading'>Delivery Type/Shipped Time</th>
-                                                            <th className='invoiceHeading'></th>
-                                                        </tr>
-                                                    </thead>
-                                                }
-                                                <tbody>
-                                                    {
-                                                        (orderListType?.status != 0) && (orderListType?.status != 7) && (orderListType?.status != 8) &&
-                                                        <tr>
-                                                            <td colSpan={4} className='innerHead'>
-                                                                <h4 className='processText'>In Process</h4>
-                                                            </td>
-                                                        </tr>}
-                                                    {
-                                                        orderData?.length > 0 ?
-                                                            orderData?.map((item, i) => {
-                                                                return (
-                                                                    <tr key={i} className={`product_invoice ${selectedItemId == item?.id ? 'active' : ""}`} onClick={() => setSelectedItemId(item?.id)}>
-                                                                        <td className='invoice_subhead verticalBase'>
-                                                                            <h4 className='assignId'>#{item?.id}</h4>
-                                                                            {(item?.status == 8 || item?.status == 7) &&
-                                                                                <div className='cancellingTime mt-5'>
-                                                                                    <h4 className='assignId'>Cancelled at:</h4>
-                                                                                    <div className='canceltimeBx'>
-                                                                                        <Image src={Images.cancelPackage} alt="cancelUser image" className="img-fluid" />
-                                                                                        <div className='timeAlert'>
-                                                                                            <h4 className='cancelBold'>{item?.status_desc?.status_7_updated_at ? moment(item?.status_desc?.status_7_updated_at).format("DD MMM YY") : moment(item?.status_desc?.status_8_updated_at).format("DD MMM YY")}</h4>
-                                                                                            <h4 className='cancelLight'> {item?.status_desc?.status_7_updated_at ? moment(item?.status_desc?.status_7_updated_at).format("hh : mm a") : moment(item?.status_desc?.status_8_updated_at).format("hh : mm a")}</h4>
+                                        }
+                                        {
+                                            loading1 ? (
+                                                <>
+                                                    <div className="loaderOuter">
+                                                        <div className="spinner-grow loaderSpinner text-center my-5"></div>
+                                                    </div>
+                                                </>
+                                            ) :
+                                                <div className='table-responsive mt-3'>
+                                                    <table id={orderListType?.title === "Order to Review" ? "ordersToReview" :
+                                                        orderListType?.title === "Order Accepted" ? "acceptedOrders" :
+                                                            orderListType?.title === "Order Prepared" ? "acceptedPrepared" :
+                                                                orderListType?.title === "Printing Label" ? "printingLabel" :
+                                                                    orderListType?.title === "Shipped" ? "shippedOrders" :
+                                                                        orderListType?.title === "Rejected/Cancelled" ? "rejectOrder" :
+                                                                            orderListType?.title === "Returned" ? "returnedOrder"
+                                                                                : ""} className="orderDeliverTable shipTrackTable">
+                                                        {
+                                                            (orderListType?.status != 0) && (orderListType?.status != 7) && (orderListType?.status != 8) &&
+                                                            <thead className='invoiceHeadingBox'>
+                                                                <tr>
+                                                                    <th className='invoiceHeading'>#</th>
+                                                                    <th className='invoiceHeading'>Client/Items</th>
+                                                                    <th className='invoiceHeading'>Delivery Type/Shipped Time</th>
+                                                                    <th className='invoiceHeading'></th>
+                                                                </tr>
+                                                            </thead>
+                                                        }
+                                                        <tbody>
+                                                            {
+                                                                (orderListType?.status != 0) && (orderListType?.status != 7) && (orderListType?.status != 8) &&
+                                                                <tr>
+                                                                    <td colSpan={4} className='innerHead'>
+                                                                        <h4 className='processText'>In Process</h4>
+                                                                    </td>
+                                                                </tr>}
+                                                            {
+                                                                orderData?.length > 0 ?
+                                                                    orderData?.map((item, i) => {
+                                                                        return (
+                                                                            <tr key={i} className={`product_invoice ${singleOrderData?.id == item?.id ? 'active' : ""}`} onClick={() => singleOrderDetailsChangeHandle(item?.id)}>
+                                                                                <td className='invoice_subhead verticalBase'>
+                                                                                    <h4 className='assignId'>#{item?.invoices?.invoice_number}</h4>
+                                                                                    {(item?.status == 8 || item?.status == 7) &&
+                                                                                        <div className='cancellingTime mt-5'>
+                                                                                            <h4 className='assignId'>Cancelled at:</h4>
+                                                                                            <div className='canceltimeBx'>
+                                                                                                <Image src={Images.cancelPackage} alt="cancelUser image" className="img-fluid" />
+                                                                                                <div className='timeAlert'>
+                                                                                                    <h4 className='cancelBold'>{item?.status_desc?.status_7_updated_at ? moment(item?.status_desc?.status_7_updated_at).format("DD MMM YY") : moment(item?.status_desc?.status_8_updated_at).format("DD MMM YY")}</h4>
+                                                                                                    <h4 className='cancelLight'> {item?.status_desc?.status_7_updated_at ? moment(item?.status_desc?.status_7_updated_at).format("hh : mm a") : moment(item?.status_desc?.status_8_updated_at).format("hh : mm a")}</h4>
+                                                                                                </div>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    }
+                                                                                </td>
+                                                                                <td className="invoice_subhead verticalBase">
+                                                                                    <div className="nameLocation">
+                                                                                        <h4 className="assignId">{item?.user_details?.firstname + " " + item?.user_details?.lastname}</h4>
+                                                                                        <div className="deliverTableBx">
+                                                                                            <Image
+                                                                                                src={Images.OrderLocation}
+                                                                                                alt="location Image"
+                                                                                                className="img-fluid m-0"
+                                                                                            />
+                                                                                            <span className="locateDistance">{item?.distance ? `${item.distance} miles` : "0"}</span>
                                                                                         </div>
                                                                                     </div>
-                                                                                </div>
-                                                                            }
-                                                                        </td>
-                                                                        <td className="invoice_subhead verticalBase">
-                                                                            <div className="nameLocation">
-                                                                                <h4 className="assignId">{item?.user_details?.firstname + " " + item?.user_details?.lastname}</h4>
-                                                                                <div className="deliverTableBx">
-                                                                                    <Image
-                                                                                        src={Images.OrderLocation}
-                                                                                        alt="location Image"
-                                                                                        className="img-fluid m-0"
-                                                                                    />
-                                                                                    <span className="locateDistance">{item?.distance ? `${item.distance} miles` : "0"}</span>
-                                                                                </div>
-                                                                            </div>
-                                                                            {(item?.status >= 3) &&
-                                                                                <div className="itemMoney mt-4">
-                                                                                    <h4 className="assignId">{item?.total_items} items</h4>
-                                                                                    <div className="deliverTableBx">
-                                                                                        <Image
-                                                                                            src={Images.MoneyItem}
-                                                                                            alt="MoneyItemImage "
-                                                                                            className="img-fluid m-0"
-                                                                                        />
-                                                                                        <span className="locateDistance">${item?.payable_amount || "00"}
-                                                                                        </span>
-                                                                                    </div>
-                                                                                </div>
-                                                                            }
-                                                                        </td>
-                                                                        {(item?.status == 0) &&
-                                                                            <td className="invoice_subhead">
-                                                                                <div className="itemMoney">
-                                                                                    <h4 className="assignId">{item?.total_items} items</h4>
-                                                                                    <div className="deliverTableBx">
-                                                                                        <Image
-                                                                                            src={Images.MoneyItem}
-                                                                                            alt="MoneyItemImage "
-                                                                                            className="img-fluid m-0"
-                                                                                        />
-                                                                                        <span className="locateDistance">${item?.payable_amount || "00"}
-                                                                                        </span>
-                                                                                    </div>
-                                                                                </div>
-                                                                            </td>}
-                                                                        <td className="invoice_subhead">
-                                                                            {
-                                                                                item?.shipping_details &&
-                                                                                <div className='expresSaver'>
-                                                                                    <Image width={50} height={50} src={item?.shipping_details?.image} alt="pickupImg image" className="img-fluid shipPickImg m-0" />
-                                                                                    <div className='subSaver'>
-                                                                                        <h4 className='assignId'>{item?.shipping_details?.title}</h4>
-                                                                                        {/* <div className='immediateBox mt-1'>
+                                                                                    {(item?.status > 3) &&
+                                                                                        <div className="itemMoney mt-4">
+                                                                                            <h4 className="assignId">{item?.total_items} items</h4>
+                                                                                            <div className="deliverTableBx">
+                                                                                                <Image
+                                                                                                    src={Images.MoneyItem}
+                                                                                                    alt="MoneyItemImage "
+                                                                                                    className="img-fluid m-0"
+                                                                                                />
+                                                                                                <span className="locateDistance">${item?.payable_amount || "00"}
+                                                                                                </span>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    }
+                                                                                </td>
+                                                                                {(item?.status == 0) || (item?.status == 3) ?
+                                                                                    <td className="itemMoney mt-4">
+                                                                                        <div className="itemMoney">
+                                                                                            <h4 className="assignId">{item?.total_items} items</h4>
+                                                                                            <div className="deliverTableBx">
+                                                                                                <Image
+                                                                                                    src={Images.MoneyItem}
+                                                                                                    alt="MoneyItemImage "
+                                                                                                    className="img-fluid m-0"
+                                                                                                />
+                                                                                                <span className="locateDistance">${item?.payable_amount || "00"}
+                                                                                                </span>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    </td> : <></>}
+                                                                                <td className="invoice_subhead">
+                                                                                    {
+                                                                                        item?.shipping_details &&
+                                                                                        <div className='expresSaver'>
+                                                                                            <Image width={50} height={50} src={item?.shipping_details?.image} alt="pickupImg image" className="img-fluid shipPickImg m-0" />
+                                                                                            <div className='subSaver'>
+                                                                                                <h4 className='assignId'>{item?.shipping_details?.title}</h4>
+                                                                                                {/* <div className='immediateBox mt-1'>
                                                                                             <Image src={Images.Fast} alt="deliverFast image" className="img-fluid m-0" />
                                                                                             <h4 className='immediateText'>3 Days Shipping</h4>
                                                                                         </div> */}
-                                                                                    </div>
-                                                                                </div>}
-                                                                            {(item?.status == 4) || (item?.status == 5) ?
-                                                                                <div className="itemTime mt-3">
-                                                                                    <h4 className="assignId">Shipped</h4>
-                                                                                    <div className="orderDeliverTime">
-                                                                                        <Image
-                                                                                            src={Images.deliverTime}
-                                                                                            alt="deliverTime image "
-                                                                                            className="img-fluid mb-1"
-                                                                                        />
-                                                                                        <span className="immediateText ">{moment(item?.status_desc?.status_4_updated_at).format("dddd DD MMM, YYYY | hh : mm a")}</span>
-                                                                                    </div>
-                                                                                </div> :
-                                                                                (item?.status == 7) || (item?.status == 8) ?
-                                                                                    <div className='itemType mt-4'>
-                                                                                        <h4 className='assignId'>Cancelled by</h4>
-                                                                                        <div className='cancelUserBx mt-1'>
-                                                                                            <Image src={Images.cancelUser} alt="cancelUser image" className="img-fluid" />
-                                                                                            <h4 className='cancelText'>{item?.status == 7 ? 'User' : "Seller"}</h4>
-                                                                                        </div>
-                                                                                    </div> :
-                                                                                    (item?.status == 9) ?
+                                                                                            </div>
+                                                                                        </div>}
+                                                                                    {(item?.status == 4) || (item?.status == 5) ?
                                                                                         <div className="itemTime mt-3">
-                                                                                            <h4 className="assignId">Return Within:</h4>
+                                                                                            <h4 className="assignId">Shipped</h4>
                                                                                             <div className="orderDeliverTime">
                                                                                                 <Image
                                                                                                     src={Images.deliverTime}
                                                                                                     alt="deliverTime image "
                                                                                                     className="img-fluid mb-1"
                                                                                                 />
-                                                                                                <span className="immediateText ">In 05:59 min</span>
+                                                                                                <span className="immediateText ">{moment(item?.status_desc?.status_4_updated_at).format("dddd DD MMM, YYYY | hh : mm a")}</span>
                                                                                             </div>
-                                                                                        </div>
-                                                                                        : <></>
-                                                                            }
-                                                                        </td>
-                                                                        {/* {(item?.status == 7 || item?.status == 8) ?
+                                                                                        </div> :
+                                                                                        (item?.status == 7) || (item?.status == 8) ?
+                                                                                            <div className='itemType mt-4'>
+                                                                                                <h4 className='assignId'>Cancelled by</h4>
+                                                                                                <div className='cancelUserBx mt-1'>
+                                                                                                    <Image src={Images.cancelUser} alt="cancelUser image" className="img-fluid" />
+                                                                                                    <h4 className='cancelText'>{item?.status == 7 ? 'User' : "Seller"}</h4>
+                                                                                                </div>
+                                                                                            </div> :
+                                                                                            (item?.status == 9) ?
+                                                                                                <div className="itemTime mt-3">
+                                                                                                    <h4 className="assignId">Return Within:</h4>
+                                                                                                    <div className="orderDeliverTime">
+                                                                                                        <Image
+                                                                                                            src={Images.deliverTime}
+                                                                                                            alt="deliverTime image "
+                                                                                                            className="img-fluid mb-1"
+                                                                                                        />
+                                                                                                        <span className="immediateText ">In 05:59 min</span>
+                                                                                                    </div>
+                                                                                                </div>
+                                                                                                : <></>
+                                                                                    }
+                                                                                </td>
+                                                                                {/* {(item?.status == 7 || item?.status == 8) ?
                                                                             <td className="invoice_subhead verticalBase">
                                                                                 
                                                                             </td> : <></>
                                                                         } */}
-                                                                        <td className='invoice_subhead verticalBase'>
-                                                                            <div className='deliverArrow text-end'>
-                                                                                <Image src={Images.RightArrow} alt="RightArrow image" className="img-fluid ms-1" />
-                                                                            </div>
-                                                                        </td>
-                                                                    </tr>
-                                                                )
-                                                            }) :
-                                                            <NoOrderFound />
-                                                    }
-                                                </tbody>
-                                            </table>
-                                        </div>}
-                            </div>
-                        </div>
-                        <div className='col-xl-6 col-lg-12'>
-                            {
-                                loading ? (
-                                    <>
-                                        <div className="loaderOuter">
-                                            <div className="spinner-grow loaderSpinner text-center my-5"></div>
-                                        </div>
-                                    </>
-                                ) :
+                                                                                <td className='invoice_subhead verticalBase'>
+                                                                                    <div className='deliverArrow text-end'>
+                                                                                        <Image src={Images.RightArrow} alt="RightArrow image" className="img-fluid ms-1" />
+                                                                                    </div>
+                                                                                </td>
+                                                                            </tr>
+                                                                        )
+                                                                    }) :
+                                                                    <NoOrderFound />
+                                                            }
+                                                        </tbody>
+                                                    </table>
+                                                </div>}
+                                    </div>
+                                </div>
+                                <div className='col-xl-6 col-lg-12'>
                                     <div className=' deliveryOuter deliverOrderRight ms-0'>
                                         <div className='orderLeftInfo'>
                                             <div className='flexTable'>
@@ -476,8 +482,8 @@ const OrderReview = () => {
                                                         <p className='orderSubHeading'>{moment.utc(singleOrderData?.created_at).format("MM/DD/YYYY")}</p>
                                                     </div>
                                                     <div className="OrderCheckoutBox">
-                                                        <p className='orderHeading'>Order ID#</p>
-                                                        <p className='orderSubHeading'>{singleOrderData?.id}</p>
+                                                        <p className='orderHeading'>Order ID</p>
+                                                        <p className='orderSubHeading'>#{singleOrderData?.invoices?.invoice_number}</p>
                                                     </div>
                                                     <div className="OrderCheckoutBox">
                                                         <p className='orderHeading'>Payment Method</p>
@@ -524,7 +530,9 @@ const OrderReview = () => {
                                                         {
                                                             singleOrderData?.status === 0 ?
                                                                 <div className='flexBox wrapFlex'>
-                                                                    <button onClick={() => acceptHandler(8)} className='declineButton' type='button'> Decline</button>
+                                                                    <button onClick={() => acceptHandler(8)} className='declineButton' type='button'>
+                                                                        {declineLoading ? <span className="spinner-border spinner-border-sm mx-1"></span> : <></>}
+                                                                        Decline</button>
                                                                     <button onClick={() => acceptHandler(3)} type='button' className='BlueBtn w-100'>
                                                                         {acceptLoading ? <span className="spinner-border spinner-border-sm mx-1"></span> : <></>}
                                                                         Accept Order
@@ -560,11 +568,11 @@ const OrderReview = () => {
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>}
-                        </div>
-                    </div>
-                </div>
-                <ShipRightSidebar data={orderCount} setOrderListType={setOrderListType} />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>}
+                <ShipRightSidebar data={orderCount} from='orderReview' setSelectedDate={setSelectedDate} setOrderListType={setOrderListType} />
             </div>
             <CustomModal
                 key={key}

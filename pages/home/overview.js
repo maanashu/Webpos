@@ -3,7 +3,7 @@ import * as Images from "../../utilities/images";
 import Image from "next/image";
 import CustomModal from "../../components/customModal/CustomModal";
 import SessionModal from "../../components/modals/homeModals/sessionModal";
-import { logout, selectLoginAuth } from "../../redux/slices/auth";
+import { logout, selectLoginAuth, posUserLogout } from "../../redux/slices/auth";
 import { useDispatch, useSelector } from "react-redux";
 import { useRouter } from "next/router";
 import withAuth from "../../components/withAuth";
@@ -13,7 +13,8 @@ import {
   getAllOrderDeliveries,
   getPosLoginDetails,
   getTodaySales,
-  getOnlineOrdersCount
+  getOnlineOrdersCount,
+  endTrackingSession
 } from "../../redux/slices/dashboard";
 import PaginationFooter from "../../components/commanComonets/customers/PaginationFooter";
 import Login from "../auth/login";
@@ -23,11 +24,13 @@ import { toast } from "react-toastify";
 const Overview = () => {
   const moment = require("moment");
   const authData = useSelector(selectLoginAuth);
-  console.log(authData, "authData");
   const dashboardData = useSelector(dashboardDetails);
   const trackingSession = dashboardData?.drawerSession?.payload;
   const UniqueId = authData?.usersInfo?.payload?.uniqe_id
     ? authData?.usersInfo?.payload?.uniqe_id
+    : "";
+  const posUserUniqueId = authData?.posUserLoginDetails?.payload?.uuid
+    ? authData?.posUserLoginDetails?.payload?.uuid
     : "";
   const router = useRouter();
   const dispatch = useDispatch();
@@ -45,8 +48,7 @@ const Overview = () => {
     title: "",
     flag: "",
   });
-
-
+  
     // API for get all oder deliveries...............................
     const allOrderDeliveriesInfo = () => {
         let params = {
@@ -86,8 +88,29 @@ const Overview = () => {
       getTodaySales({
         ...params,
         cb(res) {
-          if (res.status) {
-            setGetTodaySale(res?.data?.payload);
+          if (res.status && res?.data?.payload?.length) {
+            const dataArr = res.data.payload;
+            const sortedArr = [];
+            sortedArr.push(dataArr.find((item) => item.mode_of_payment == 'cash'));
+            sortedArr.push(dataArr.find((item) => item.mode_of_payment == 'card'));
+            sortedArr.push(dataArr.find((item) => item.mode_of_payment == 'jbr'));
+
+            // const sortingArr = ["cash", "card", "jbr", "all"];
+            // dataArr.sort((a, b) => {
+            //     const indexA = sortingArr.indexOf(a.mode_of_payment);
+            //     const indexB = sortingArr.indexOf(b.mode_of_payment);
+                
+            //     if (indexA === -1 && indexB === -1) {
+            //         return 0;
+            //     } else if (indexA === -1) {
+            //         return 1;
+            //     } else if (indexB === -1) {
+            //         return -1;
+            //     } else {
+            //         return indexA - indexB;
+            //     }
+            // });
+            setGetTodaySale(sortedArr);
           }
         },
       })
@@ -105,6 +128,30 @@ const Overview = () => {
         cb(res) {
           if (res.status) {
             setOnlineOrdersCount(res?.data?.payload?.onlineOrders);
+          }
+        },
+      })
+    );
+  };
+
+  // API for lock screen...............................
+  const lockScreen = () => {
+    let params =  {
+      // pos_user_id: posUserUniqueId,
+      drawer_id: trackingSession?.id,
+      amount: parseInt(trackingSession?.cash_balance),
+      transaction_type: 'end_tracking_session',
+      mode_of_cash: 'cash_out'
+    };
+    dispatch(
+      endTrackingSession({
+        ...params,
+        async cb(res) {
+          if (res.status) {
+            await dispatch(posUserLogout());
+            await dispatch(dashboardLogout());
+            localStorage.removeItem("authToken")
+            router.push("/auth/login");
           }
         },
       })
@@ -248,7 +295,7 @@ const Overview = () => {
                       getTodaySale &&
                       getTodaySale?.map((data, index) => {
 
-                        if(data?.mode_of_payment == 'all'){
+                        if(!data || data?.mode_of_payment == 'all'){
                           return;
                         }
 
@@ -262,7 +309,7 @@ const Overview = () => {
                                   data?.mode_of_payment?.slice(1)}{" "}
                               sales amount
                             </h4>
-                            <h4 className="saleHeading">
+                            <h4 className="saleHeading text-end">
                               {data?.mode_of_payment === "jbr" ? `JBR ${data?.total_sale_amount?.toFixed(2)}` : "$"+data?.total_sale_amount?.toFixed(2)}
                               {/* ${data?.total_sale_amount?.toFixed(2)} */}
                             </h4>
@@ -317,7 +364,7 @@ const Overview = () => {
                     // onClick={() => { handleUserProfile("trackingmodal") }}
                   />
                 </div>
-                <div className="lockScreenBox">
+                <div className="lockScreenBox" onClick={() => lockScreen()}>
                   <h4 className="linkHeading">Lock Screen</h4>
                   <Image
                     src={Images.ProductLock}
@@ -408,7 +455,7 @@ const Overview = () => {
                                   <tr onClick={() => {router.push(redirectURL)}} style={{cursor: 'pointer'}}>
                                     <td className="deliverSubdata" key={index}>
                                       <div className="orderFirstId">
-                                        <h4 className="orderId">#{data?.id}</h4>
+                                        <h4 className="orderId">#{data?.invoices?.invoice_number}</h4>
                                       </div>
                                     </td>
                                     <td className="deliverSubdata">

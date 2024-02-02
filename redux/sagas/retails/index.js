@@ -39,9 +39,13 @@ import {
   setQrcodestatus,
   setPaymentRequestCancel,
   setClearCart,
+  setServiceCategory,
+  setServiceSubCategory,
+  setUpdateCart,
 } from "../../slices/retails";
 import { all, call, put, takeLatest } from "redux-saga/effects";
-import { store } from "../..";
+import { store, wrapper } from "../..";
+import auth from "../../slices/auth";
 
 const ORDER_API_URL_V1 = ORDER_API_URL + "/api/v1/";
 const PRODUCT_API_URL_V1 = PRODUCT_API_URL + "/api/v1/";
@@ -95,7 +99,7 @@ function* getMainServices(action) {
   try {
     const resp = yield call(
       ApiClient.get,
-      `${PRODUCT_API_URL_V1}products?app_name=pos&delivery_options=2&service_type=service&need_pos_users=true&check_stock_out=true&page=1&limit=25&${params}`
+      `${PRODUCT_API_URL_V1}products?app_name=pos&delivery_options=2&service_type=service&need_pos_users=true&check_stock_out=true&need_next_available_slot=true&page=1&limit=25&${params}`
     );
     if (resp.status) {
       yield put(setMainServices(resp.data));
@@ -480,7 +484,7 @@ function* clearOneProduct(action) {
 
 function* getProductFilterCategory(action) {
   const dataToSend = { ...action.payload };
-  const authData = store.getState().auth;
+  const authData = store?.getState()?.auth;
   const sellerId = authData?.usersInfo?.payload?.uniqe_id;
 
   const params = {
@@ -520,6 +524,7 @@ function* getProductFilterSubCategory(action) {
     seller_id: sellerId,
     need_subcategory: true,
     service_type: "product",
+    check_product_existance: false,
   };
 
   // If needs searched subcategory
@@ -543,6 +548,7 @@ function* getProductFilterSubCategory(action) {
     toast.error(e?.error?.response?.data?.msg);
   }
 }
+
 function* getProductFilterBrands(action) {
   const dataToSend = { ...action.payload };
   const authData = store.getState().auth;
@@ -565,6 +571,73 @@ function* getProductFilterBrands(action) {
     );
     if (resp.status) {
       yield put(setProductBrands(resp?.data?.payload?.data));
+    } else {
+      throw resp;
+    }
+  } catch (e) {
+    yield put(onErrorStopLoad());
+    toast.error(e?.error?.response?.data?.msg);
+  }
+}
+
+function* getServiceFilterCategory(action) {
+  const dataToSend = { ...action.payload };
+  const authData = store.getState().auth;
+  const sellerId = authData?.usersInfo?.payload?.uniqe_id;
+
+  const params = {
+    seller_id: sellerId,
+    main_category: true,
+    service_type: "service",
+  };
+
+  // If needs searched category
+  if (dataToSend?.search) {
+    params.search = dataToSend.search;
+  }
+
+  const queryParams = new URLSearchParams(params).toString();
+  try {
+    const resp = yield call(
+      ApiClient.get,
+      `${PRODUCT_API_URL_V1}categories?${queryParams}`
+    );
+    if (resp.status) {
+      yield put(setServiceCategory(resp?.data?.payload?.data));
+    } else {
+      throw resp;
+    }
+  } catch (e) {
+    yield put(onErrorStopLoad());
+    toast.error(e?.error?.response?.data?.msg);
+  }
+}
+
+function* getServiceFilterSubCategory(action) {
+  const dataToSend = { ...action.payload };
+  const authData = store.getState().auth;
+  const sellerId = authData?.usersInfo?.payload?.uniqe_id;
+
+  const params = {
+    seller_id: sellerId,
+    need_subcategory: true,
+    service_type: "service",
+    check_product_existance: false,
+  };
+
+  // If needs searched subcategory
+  if (dataToSend?.search) {
+    params.search = dataToSend.search;
+  }
+
+  const queryParams = new URLSearchParams(params).toString();
+  try {
+    const resp = yield call(
+      ApiClient.get,
+      `${PRODUCT_API_URL_V1}categories?${queryParams}`
+    );
+    if (resp.status) {
+      yield put(setServiceSubCategory(resp?.data?.payload?.data));
     } else {
       throw resp;
     }
@@ -724,6 +797,30 @@ function* paymentRequestCancel(action) {
   }
 }
 
+function* updateCart(action) {
+  console.log("action", action);
+  const body = action?.payload;
+  const dataToSend = action?.payload?.cartId;
+  delete body.cartId;
+
+  try {
+    const resp = yield call(
+      ApiClient.put,
+      `${ORDER_API_URL_V1}poscarts/change-qty/${dataToSend}`,
+      body
+    );
+    if (resp.status) {
+      yield put(setUpdateCart(resp.data));
+      yield call(action.payload.cb, (action.res = resp?.data));
+    } else {
+      throw resp;
+    }
+  } catch (e) {
+    yield put(onErrorStopLoad());
+    toast.error(e?.error?.response?.data?.msg);
+  }
+}
+
 function* retailsSaga() {
   yield all([
     takeLatest("retails/getMainProduct", getMainProduct),
@@ -747,11 +844,17 @@ function* retailsSaga() {
     takeLatest("retails/getUserDetail", getUserDetail),
     takeLatest("retails/getTimeSlots", getTimeSlots),
     takeLatest("retails/addToCartService", addToCartService),
+    takeLatest("retails/updateCart", updateCart),
     takeLatest("retails/clearOneProduct", clearOneProduct),
     takeLatest("retails/getProductFilterCategory", getProductFilterCategory),
     takeLatest(
       "retails/getProductFilterSubCategory",
       getProductFilterSubCategory
+    ),
+    takeLatest("retails/getServiceFilterCategory", getServiceFilterCategory),
+    takeLatest(
+      "retails/getServiceFilterSubCategory",
+      getServiceFilterSubCategory
     ),
     takeLatest("retails/getProductFilterBrands", getProductFilterBrands),
     takeLatest("retails/merchantWalletCheck", merchantWalletCheck),

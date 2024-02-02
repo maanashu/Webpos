@@ -46,7 +46,9 @@ const OrderDetail = ({
               <figure className="orderAroundImg">
                 <Image
                   src={
-                    orderData?.user_details?.profile_photo ?? Images.LoginThird
+                    // orderData?.user_details?.profile_photo ?? 
+                    
+                    Images.LoginThird
                   }
                   alt="MoneyItemImage "
                   className="orderPerson"
@@ -99,7 +101,7 @@ const OrderDetail = ({
             </div> */}
           </div>
           <hr className="divideBorder my-3" />
-          <div className="detailScroll  mt-3">
+          <div className="detailScrollDelivery  mt-3">
             {orderData?.order_details?.map((item, index) => (
               <li key={index} style={{ listStyle: "none" }}>
                 <div className="selectedProductDetails">

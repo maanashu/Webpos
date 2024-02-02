@@ -12,11 +12,17 @@ import {
   selectRetailData,
   getProductFilterSubCategory,
   getProductFilterBrands,
+  getServiceFilterCategory,
+  getServiceFilterSubCategory,
 } from "../../redux/slices/retails";
 import { useDispatch, useSelector } from "react-redux";
-import { selectLoginAuth } from "../../redux/slices/auth";
+import { getAllPosUser, selectLoginAuth } from "../../redux/slices/auth";
 import RightSideBar from "./RightSideBar";
-import { amountFormat } from "../../utilities/globalMethods";
+import {
+  amountFormat,
+  getDateLabel,
+  getWeeklyDateLabel,
+} from "../../utilities/globalMethods";
 import { Modal } from "react-bootstrap";
 import CartAlert from "./CartAlert";
 
@@ -28,12 +34,12 @@ const Retails = () => {
   const sellerId = authData?.usersInfo?.payload?.uniqe_id;
   const router = useRouter();
   const { parameter } = router.query;
-  console.log("parameter", parameter);
   const cartData = retailData?.productCart;
   const cartLength = cartData?.poscart_products?.length;
   const cartPosCart = cartData?.poscart_products || [];
   const mainProductArray = retailData?.mainProductData?.data || [];
   const mainServicesArray = retailData?.mainServicesData?.data || [];
+  console.log("mainServicesArray", JSON.stringify(mainServicesArray));
   const [cartAlert, setCartAlert] = useState(false);
 
   const productPagination = {
@@ -120,6 +126,14 @@ const Retails = () => {
     dispatch(getProductFilterCategory());
     dispatch(getProductFilterSubCategory());
     dispatch(getProductFilterBrands());
+
+    /**
+     * Service Filter APIS
+     * Add {search:''} param if needed for searched results
+     */
+    dispatch(getServiceFilterCategory());
+    dispatch(getServiceFilterSubCategory());
+    dispatch(getAllPosUser({ seller_id: sellerId }));
   }, [sellerId]);
 
   return (
@@ -303,7 +317,17 @@ const Retails = () => {
                                   className="img-fluid appointmentCalender"
                                 />
                                 <span className="Ontime">
-                                  Tomorrow at 10:00hrs
+                                  {getWeeklyDateLabel(
+                                    services?.supplies?.[0]?.next_available_slot
+                                      ?.date
+                                  ) +
+                                    " " +
+                                    "-" +
+                                    services?.supplies?.[0]?.next_available_slot
+                                      ?.start_time +
+                                    "-" +
+                                    services?.supplies?.[0]?.next_available_slot
+                                      ?.end_time}
                                 </span>
                               </figure>
                               <figure className="Timezone">

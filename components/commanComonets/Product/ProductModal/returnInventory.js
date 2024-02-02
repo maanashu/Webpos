@@ -1,10 +1,8 @@
 import React, { useState } from "react";
 
-const ReturnInventory = ({ selectedProducts }) => {
+const ReturnInventory = ({ selectedProducts, setNewQty }) => {
   const [selectedProductItems, setSelectedProductItems] =
     useState(selectedProducts);
-
-
   const handleQuantity = (data, flag) => {
     let updateProductQuantity;
     if (flag === "increase") {
@@ -35,21 +33,21 @@ const ReturnInventory = ({ selectedProducts }) => {
       });
     }
     setSelectedProductItems(updateProductQuantity);
+    setNewQty(updateProductQuantity);
   };
 
   return (
     <>
-      <h5 className="inventorySubheading">
-        All returned items will be adjusted with inventory
-      </h5>
-      <div className="productBoxDetails pe-2">
+      <div className="productBoxDetails my-3">
         {selectedProductItems?.map((data, index) => {
           return (
-            <div key={index} className="productcartBox mb-2">
-              <p className="priceHeading">{data?.qty}×</p>
-              <article>
-                <h6 className="priceHeading"> {data?.product_name}</h6>
-              </article>
+            <div key={index} className="productcartBox mb-2 justify-content-between">
+              <div className="d-flex">
+                <p className="priceHeading">{data?.qty}×</p>
+                <article className="returnProduct">
+                  <h6 className="priceHeading"> {data?.product_name}</h6>
+                </article>
+              </div>
               <div className="form-group flexBox addCart ">
                 <button
                   className="removeProductBtn"
@@ -61,7 +59,7 @@ const ReturnInventory = ({ selectedProducts }) => {
                   className="form-control customTextarea"
                   type="text"
                   placeholder=""
-                  value={data.qty}
+                  value={data?.qty}
                   readOnly
                 />
                 <button

@@ -3,7 +3,7 @@ import { createSlice } from "@reduxjs/toolkit";
 const initialState = {
   usersInfo: "",
   selectedUserData: {},
-  // allPosUser: {},
+  allPosUser: [],
   posUserLoginDetails: "",
   isLoggedIn: false,
   loading: false,
@@ -19,29 +19,35 @@ export const authSlice = createSlice({
     setUserMerchantLogin: (state, action) => {
       state.loading = false;
       state.isLoggedIn = true;
-      state.usersInfo = action?.payload
+      state.usersInfo = action?.payload;
     },
     getAllPosUser: (state) => {
       state.loading = true;
     },
     setGetAllPosUser: (state, action) => {
       state.loading = false;
-      // state.allPosUser = action?.payload
+      state.allPosUser = action?.payload;
     },
     posUserLogin: (state) => {
       state.loading = true;
     },
     setPosUserLogin: (state, action) => {
       state.loading = false;
-      state.posUserLoginDetails = action?.payload
+      state.posUserLoginDetails = action?.payload;
     },
     selectedPosUser: (state, action) => {
-      state.selectedUserData = action?.payload
+      state.selectedUserData = action?.payload;
     },
 
     logout: (state) => {
       state.isLoggedIn = false;
       state.usersInfo = "";
+      state.posUserLoginDetails = "";
+      state.loading = false;
+    },
+
+    posUserLogout: (state) => {
+      state.isLoggedIn = false;
       state.posUserLoginDetails = "";
       state.loading = false;
     },
@@ -62,12 +68,10 @@ export const {
   setPosUserLogin,
   selectedPosUser,
   logout,
+  posUserLogout,
   onErrorStopLoad
 } = authSlice.actions;
 
 export const selectLoginAuth = (state) => state.auth;
 
 export default authSlice.reducer;
-
-
-

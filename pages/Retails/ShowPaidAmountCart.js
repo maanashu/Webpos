@@ -22,7 +22,7 @@ const ShowPaidAmountCart = () => {
   const authData = useSelector(selectLoginAuth);
   const posUserData = authData?.posUserLoginDetails;
   const merchentDetails = authData?.usersInfo?.payload?.user?.user_profiles;
-  console.log(JSON.stringify(retailData?.createOrderData));
+  const orderInvoice = retailData?.createOrderData;
 
   // change due function
   const payAmount = cartData?.amount?.total_amount?.toFixed(2);
@@ -121,7 +121,7 @@ const ShowPaidAmountCart = () => {
                   {merchentDetails?.full_phone_number}
                 </h4>
                 <p className="mapleProductHeading text-center p-2">
-                  Invoice No. #{"787"}
+                  Invoice No. #{orderInvoice?.invoices?.invoice_number || "---"}
                 </p>
               </div>
               <div className="mapleProductDetails confirmRightSub">

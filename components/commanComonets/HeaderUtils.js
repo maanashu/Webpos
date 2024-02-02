@@ -1,16 +1,35 @@
 import Image from "next/image";
-import React from "react";
+import React, { forwardRef } from "react";
 import {
   customerCalendar,
   customerNotification,
   customerScan,
   customerSearch,
 } from "../../utilities/images";
+import ReactDatePicker from "react-datepicker";
+import moment from "moment-timezone";
+
+const DatePickerCustomComponent = forwardRef(({ value, onClick }, ref) => (
+  // <p onClick={onClick} className="users-selected-date">
+  //   {value || "Date"}
+  // </p>
+  <Image
+    className="users-selected-date"
+    onClick={onClick}
+    width={24}
+    height={24}
+    src={customerCalendar}
+    objectFit="cover"
+  />
+));
 
 const HeaderUtils = ({
   calendarHandler,
   notificationHandler,
   searchHandler,
+  startDate,
+  endDate,
+  onDateChange,
 }) => {
   return (
     <div className="extras flex-row-space-between">
@@ -21,11 +40,13 @@ const HeaderUtils = ({
         }}
         onClick={calendarHandler}
       >
-        <Image
-          width={24}
-          height={24}
-          src={customerCalendar}
-          objectFit="cover"
+        <ReactDatePicker
+          selected={startDate}
+          onChange={onDateChange}
+          startDate={startDate}
+          endDate={endDate}
+          selectsRange
+          customInput={<DatePickerCustomComponent />}
         />
       </div>
       <div

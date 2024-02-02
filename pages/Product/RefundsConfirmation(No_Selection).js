@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import * as Images from "../../utilities/images";
 import Image from "next/image";
 import { useRouter } from "next/router";
@@ -6,6 +6,9 @@ import { selectLoginAuth } from "../../redux/slices/auth";
 import { useSelector } from "react-redux";
 import { selectReturnData } from "../../redux/slices/productReturn";
 import moment from "moment-timezone";
+import EmailReceiptModal from "../../components/modals/service/emailReceiptModal";
+import CustomModal from "../../components/customModal/CustomModal";
+import PhoneReceiptModal from "../../components/modals/service/phoneReceiptModal";
 
 const RefundsConfirmation = () => {
   const router = useRouter();
@@ -19,19 +22,54 @@ const RefundsConfirmation = () => {
   const invoiceNumber = invoiceData?.invoiceByInvoiceId?.invoice_number;
   const SearchInvoiceRespones = invoiceData?.invoiceByInvoiceId;
   const orderDetails = SearchInvoiceRespones?.order;
+  const [activeSms, setActiveSms] = useState(false);
+  const [activeEmail, setActiveEmail] = useState(false);
+  const [activeMsz, setActiveMsz] = useState(false);
+  const [key, setKey] = useState(Math.random());
+  const [modalDetail, setModalDetail] = useState({
+    show: false,
+    title: "",
+    flag: "",
+  });
+  const handleOnCloseModal = () => {
+    setModalDetail({
+      show: false,
+      title: "",
+      flag: "",
+    });
+    setKey(Math.random());
+  };
 
   const lineTotals = [];
   for (let i = 0; i < itemsList.length; i++) {
     const qty = itemsList[i].qty;
-    const refundAmount = refundamounts[i];
+    const refundAmount = refundamounts[i]?.value;
     lineTotals.push(qty * refundAmount);
   }
-  console.log("Individual sums for each row:", lineTotals);
 
   const handleConfirmReturnButton = () => {
     router.push({
       pathname: "/Product/Confirmation(Success)",
     });
+  };
+  const handleActiveButton = (flag) => {
+    if (flag == "sms") {
+      setActiveSms(true);
+      setActiveEmail(false);
+      setActiveMsz(false);
+      // setModalDetail({ show: true, flag: "sms" });
+      // setKey(Math.random());
+    } else if (flag == "email") {
+      setActiveEmail(true);
+      setActiveMsz(false);
+      setActiveSms(false);
+      // setModalDetail({ show: true, flag: "email" });
+      // setKey(Math.random());
+    } else if (flag == "noThnks") {
+      setActiveMsz(true);
+      setActiveSms(false);
+      setActiveEmail(false);
+    }
   };
   return (
     <>
@@ -137,8 +175,17 @@ const RefundsConfirmation = () => {
                 />
                 <p className="selectedproductDetails">Send your e-receipt?</p>
                 <div className="row justify-content-center">
-                  <div className="col-lg-3">
-                    <div className="receiptCard h-100">
+                  <div
+                    className="col-lg-3"
+                    onClick={() => handleActiveButton("sms")}
+                  >
+                    <div
+                      className={
+                        activeSms === true
+                          ? "receiptCard active h-100"
+                          : "receiptCard"
+                      }
+                    >
                       <Image
                         src={Images.Sms}
                         alt="Sms"
@@ -147,8 +194,17 @@ const RefundsConfirmation = () => {
                       <p>SMS</p>
                     </div>
                   </div>
-                  <div className="col-lg-3">
-                    <div className="receiptCard h-100">
+                  <div
+                    className="col-lg-3"
+                    onClick={() => handleActiveButton("email")}
+                  >
+                    <div
+                      className={
+                        activeEmail === true
+                          ? "receiptCard active h-100"
+                          : "receiptCard"
+                      }
+                    >
                       <Image
                         src={Images.Email}
                         alt="Email"
@@ -157,8 +213,17 @@ const RefundsConfirmation = () => {
                       <p>E-mail</p>
                     </div>
                   </div>
-                  <div className="col-lg-3">
-                    <div className="receiptCard active h-100">
+                  <div
+                    className="col-lg-3"
+                    onClick={() => handleActiveButton("noThnks")}
+                  >
+                    <div
+                      className={
+                        activeMsz === true
+                          ? "receiptCard active h-100"
+                          : "receiptCard"
+                      }
+                    >
                       <Image
                         src={Images.Like}
                         alt="Like"
@@ -218,10 +283,7 @@ const RefundsConfirmation = () => {
                   <div className="mapleSubFlex">
                     {itemsList?.map((data, idx) => {
                       return (
-                        <div
-                          key={idx}
-                          className="flexBox"
-                        >
+                        <div key={idx} className="flexBox">
                           <div className="flexbase">
                             <p className="mapleProductcount">× {data?.qty}</p>
                             <article className="ms-3">
@@ -306,6 +368,25 @@ const RefundsConfirmation = () => {
           </div>
         </div>
       </div>
+      <CustomModal
+        key={key}
+        show={modalDetail.show}
+        backdrop="static"
+        showCloseBtn={false}
+        isRightSideModal={false}
+        mediumWidth={false}
+        ids={modalDetail.flag === "email" ? "email" : ""}
+        child={
+          modalDetail.flag === "email" ? (
+            <EmailReceiptModal closeManulModal={() => handleOnCloseModal()} />
+          ):modalDetail.flag === "sms" ? (
+            <PhoneReceiptModal closeManulModal={() => handleOnCloseModal()} />
+          ) : (
+            ""
+          )
+        }
+        onCloseModal={() => handleOnCloseModal()}
+      />
     </>
   );
 };

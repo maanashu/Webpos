@@ -13,6 +13,7 @@ import {
   productCart,
   selectRetailData,
   setProductCart,
+  updateCart,
 } from "../../redux/slices/retails";
 import { useDispatch, useSelector } from "react-redux";
 import { selectLoginAuth } from "../../redux/slices/auth";
@@ -80,24 +81,43 @@ const ProductCart = () => {
     );
   };
 
+  const cartUpdate = () => {
+    var arr = retailData?.productCart;
+    if (arr?.poscart_products?.length > 0) {
+      const products = arr?.poscart_products.map((item) => ({
+        product_id: item?.product_id,
+        qty: item?.qty,
+      }));
+      let params = {
+        updated_products: products,
+        cartId: arr?.id,
+      };
+      dispatch(updateCart(params));
+    }
+  };
+
   useEffect(() => {
     offers();
   }, [sellerId]);
 
   const handleAddDiscount = () => {
+    cartUpdate();
     setModalDetail({ show: true, flag: "AddDiscount" });
     setKey(Math.random());
   };
   const handleAddNotes = () => {
+    cartUpdate();
     setModalDetail({ show: true, flag: "AddNotes" });
     setKey(Math.random());
   };
   const handleDeleteCart = () => {
+    cartUpdate();
     setModalDetail({ show: true, flag: "DeleteCarts" });
     setKey(Math.random());
   };
 
   const productFun = (productId, index, item) => {
+    cartUpdate();
     let params = {
       seller_id: sellerId,
       app_name: "pos",
@@ -120,6 +140,16 @@ const ProductCart = () => {
     const percentageValue = (percentage / 100) * parseFloat(value);
     return percentageValue.toFixed(2) ?? 0.0;
   }
+
+  const clearCartHandler = () => {
+    dispatch(
+      clearCart({
+        cb: () => {
+          dispatch(productCart());
+        },
+      })
+    );
+  };
   const calculateOrderAmount = (cart) => {
     if (cart?.poscart_products) {
       var subTotalAmount = cartData?.poscart_products?.reduce((acc, curr) => {
@@ -208,7 +238,6 @@ const ProductCart = () => {
         product.qty += 1;
         updatedProducts[index] = product;
         updatedCart.poscart_products = updatedProducts;
-        console.log("DATATA", JSON.stringify(updatedCart));
         calculateOrderAmount(updatedCart);
       } else {
         alert("There are no more quantity left to add");
@@ -286,14 +315,19 @@ const ProductCart = () => {
             <div className="commanOuter me-0 commonSubOuter fullCartLeft">
               <div className="fullCartInfo">
                 <div className="appointmentHeading">
-                  <Link href="/Retails?parameter=product">
+                  <div
+                    onClick={() => {
+                      cartUpdate();
+                      router.push("/Retails?parameter=product");
+                    }}
+                  >
                     <Image
                       src={Images.boldLeftArrow}
                       alt="leftarrow image"
                       className="img-fluid"
                     />
                     <h4 className="appointMain ms-2">Full Cart</h4>
-                  </Link>
+                  </div>
                 </div>
                 <div className="ProductSearch w-50">
                   <ProductSearch />
@@ -447,7 +481,10 @@ const ProductCart = () => {
               <div className="insertProductSection">
                 <div
                   className="addproductCart"
-                  onClick={() => setCustomProductAdd(true)}
+                  onClick={() => {
+                    setCustomProductAdd(true);
+                    cartUpdate();
+                  }}
                 >
                   <Image
                     src={Images.addProductImg}
@@ -480,7 +517,9 @@ const ProductCart = () => {
                 <div
                   className="addproductCart"
                   onClick={() =>
-                    cartLength > 0 ? setAttachCustomerModal(true) : noCartFun()
+                    cartLength > 0
+                      ? (setAttachCustomerModal(true), cartUpdate())
+                      : noCartFun()
                   }
                 >
                   <Image
@@ -673,6 +712,7 @@ const ProductCart = () => {
                   className="nextverifyBtn w-100 mt-3"
                   type="submit"
                   onClick={() => {
+                    cartUpdate();
                     router.push({ pathname: "/Retails/CartAmountByPay" });
                     let params = {
                       seller_id: sellerId,

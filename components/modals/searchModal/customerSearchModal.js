@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import * as Images from "../../../utilities/images";
 import Image from "next/image";
 import { useDispatch, useSelector } from "react-redux";
@@ -20,29 +20,29 @@ const CustomerSearchModal = ({ time }) => {
 
   const [searchedCustomer, setSearchedCustomer] = useState([]);
 
-  const onSearchAppoinment = (searchText) => {
-    if (searchText != "") {
-      setSearchedCustomer([]);
-    }
-    const callback = (searchData) => {
-      setSearchedCustomer(searchData?.data);
-    };
-
+  useEffect(() => {
     const data = {
       sellerID: uniqueId,
       customerType: "all_customers",
       calenderDate: undefined,
       dayWisefilter: time,
       area: "none",
-      search: searchText,
+      search: searchedText,
     };
+    dispatch(
+      getAllCustomersList({
+        ...data,
+        cb(res) {
+          if (res.status) {
+            searchedText != ""
+              ? setSearchedCustomer(res?.data?.payload)
+              : setSearchedCustomer([]);
+          }
+        },
+      })
+    );
+  }, [searchedText]);
 
-    dispatch(getAllCustomersList(data , callback));
-    if (searchedText) {
-      setSearchedCustomer(customersData?.searchCustomerList?.payload);
-    }
-  };
-  console.log("sfhgdfshgsd", searchedCustomer);
   return (
     <>
       <div className="customerSearchModal">
@@ -52,10 +52,7 @@ const CustomerSearchModal = ({ time }) => {
               type="text"
               className="form-control searchControl"
               placeholder="Search"
-              onChange={(e) => {
-                onSearchAppoinment(e?.target?.value),
-                  setSearchedText(e?.target?.value);
-              }}
+              onChange={(e) => setSearchedText(e?.target?.value)}
             />
             <Image
               src={Images.SearchIcon}
@@ -100,10 +97,11 @@ const CustomerSearchModal = ({ time }) => {
               </th>
             </tr>
           </thead>
+
           <tbody>
-            {searchedCustomer?.data?.length < 0 && searchedText == "" ? (
+            {searchedCustomer?.length === 0 || searchedText == "" ? (
               <div>
-                <h4>{"No Data Found"}</h4>
+                <h4>{"Data Not Found"}</h4>
               </div>
             ) : (
               searchedCustomer?.data?.map((item, idx) => (
