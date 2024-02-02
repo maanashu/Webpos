@@ -462,7 +462,7 @@ const Shipping = () => {
                                                             return (
                                                                 <tr key={i} className='product_invoice'>
                                                                     <td className='invoice_subhead verticalBase'>
-                                                                        <h4 className='orderId'>#{item?.id}</h4>
+                                                                        <h4 className='orderId'>#{item?.invoices?.invoice_number}</h4>
                                                                     </td>
                                                                     <td className="invoice_subhead">
                                                                         <div className="nameLocation">
