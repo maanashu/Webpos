@@ -20,6 +20,8 @@ import { Calendar } from "../../components/CustomCalendar";
 import CustomModal from "../../components/customModal/CustomModal";
 import CustomHoursCell from "../../components/CustomHoursCell";
 import CustomEventCell from "../../components/CustomEventCell";
+import ReScheduleDetailModal from "../../Components/ReScheduleDetailModal";
+
 import {
   CALENDAR_MODES,
   CALENDAR_VIEW_MODES,
@@ -42,6 +44,7 @@ import {
 
 const Booking = () => {
   const [key, setKey] = useState(Math.random());
+  const [key1, setKey1] = useState(Math.random());
   const [bookingsView, setBookingsView] = useState("listview");
   const [modalDetail, setModalDetail] = useState({
     show: false,
@@ -103,6 +106,8 @@ const Booking = () => {
   const prevMonth = () =>
     setCalendarDate(calendarDate.clone().subtract(1, calendarMode));
   const [extractedAppointment, setExtractedAppointment] = useState([]);
+  const [showRescheduleTimeModal, setshowRescheduleTimeModal] = useState(false);
+  const [showEventDetailModal, setshowEventDetailModal] = useState(false);
 
   const authData = useSelector(selectLoginAuth);
 
@@ -280,6 +285,11 @@ const Booking = () => {
       flag: "",
     });
     setKey(Math.random());
+  };
+
+  const closeRescheduleModal = () => {
+    setshowRescheduleTimeModal(false);
+    setKey1(Math.random());
   };
 
   const handleUserProfile = (flag) => {
@@ -489,8 +499,11 @@ const Booking = () => {
 
           <button
             className="editBtn"
-            // onClick={() =>
-            //   onPressEdit(item)}
+            onClick={() => {
+              setSelectedBooking(item);
+              setKey1(Math.random());
+              setshowRescheduleTimeModal(true);
+            }}
           >
             <Image src={Images.editImg} alt="editImg" className="editImg" />
           </button>
@@ -569,7 +582,9 @@ const Booking = () => {
                   alt="image"
                   className="img-fluid  sideBarImg"
                 />
-                <span className="bottomDots">1</span>
+                <span className="bottomDots">
+                  {appointmentListArr?.length ?? 0}
+                </span>
               </div>
             </ListGroupItem>
             {staffUsersList?.map((item, index) => {
@@ -665,14 +680,28 @@ const Booking = () => {
             </ListGroupItem> */}
 
             <ListGroupItem className="SidebarRightItems">
-              <div className="userSideBar">
+              <div
+                className="userSideBar"
+                onClick={() => {
+                  setCalendarViewMode(CALENDAR_VIEW_MODES.CALENDAR_VIEW);
+                  setshouldShowCalendarModeOptions(true);
+                  setSelectedStaffEmployeeId(null);
+                  if (selectedStaffEmployeeId) {
+                    setshowEmployeeHeader(true);
+                  } else {
+                    setshowEmployeeHeader(!showEmployeeHeader);
+                  }
+                }}
+              >
                 <Link className="userBook" href="#">
                   <Image
                     src={Images.usersImages}
                     alt="image"
                     className="img-fluid userImage  sidebarIcons  "
                   />
-                  <span className="bottomdot">8</span>
+                  <span className="bottomdot">
+                    {staffUsersList?.length || "0"}
+                  </span>
                 </Link>
               </div>
               <Image
@@ -835,11 +864,11 @@ const Booking = () => {
                               className="rejectBtn mr-6"
                               type="submit"
                               onClick={async () => {
+                                setshowRequestsView((prev) => !prev);
                                 updateBookingStatus(
                                   appointmentID,
                                   APPOINTMENT_STATUS.REJECTED_BY_SELLER
                                 );
-                                // onSearchAppoinment(searchedText);
                               }}
                             >
                               Decline
@@ -848,11 +877,11 @@ const Booking = () => {
                               className="acceptBtn"
                               type="submit"
                               onClick={async () => {
+                                setshowRequestsView((prev) => !prev);
                                 updateBookingStatus(
                                   appointmentID,
                                   APPOINTMENT_STATUS.ACCEPTED_BY_SELLER
                                 );
-                                // onSearchAppoinment(searchedText);
                               }}
                             >
                               Confirm
@@ -1140,6 +1169,28 @@ const Booking = () => {
         </div>
         <CommonSideBar />
       </div>
+      <CustomModal
+        key={key1}
+        show={showRescheduleTimeModal}
+        backdrop="static"
+        showCloseBtn={false}
+        isRightSideModal={true}
+        mediumWidth={false}
+        className={"checkIn"}
+        ids={"reschedule"}
+        child={
+          <ReScheduleDetailModal
+            showRecheduleModal={showRescheduleTimeModal}
+            appointmentData={selectedBooking}
+            onAppointmentUpdate={() => {
+              getAllBookings();
+            }}
+            setshowEventDetailModal={setshowEventDetailModal}
+            onCloseModal={closeRescheduleModal}
+          />
+        }
+        onCloseModal={closeRescheduleModal}
+      />
 
       <CustomModal
         key={key}

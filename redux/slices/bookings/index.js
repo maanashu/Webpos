@@ -7,6 +7,8 @@ const initialState = {
   staffUsers: [],
   posUserRole: null,
   loading: false,
+  timeSlots: null,
+  timeSlotInterval: null,
 };
 
 export const bookingsSlice = createSlice({
@@ -77,6 +79,24 @@ export const bookingsSlice = createSlice({
       state.getAppointment = updatedAppointments;
       state.pages = pages;
     },
+    getServiceTimeSlots: (state) => {
+      state.serviceTimeSlotsLoading = true;
+    },
+    setGetServiceTimeSlots: (state, action) => {
+      state.serviceTimeSlotsLoading = false;
+      const responseData = action?.payload;
+      console.log("SERVICE_TIME_SLOTS---" + JSON.stringify(responseData));
+
+      state.timeSlots = responseData?.payload?.slots;
+      state.timeSlotInterval = responseData?.payload?.interval;
+    },
+    reScheduleAppointment: (state) => {
+      state.serviceRescheduling = true;
+    },
+    setReScheduleAppointment: (state, action) => {
+      state.serviceRescheduling = false;
+      const responseData = action?.payload;
+    },
     onErrorStopLoad: (state) => {
       state.loading = false;
     },
@@ -92,6 +112,10 @@ export const {
   setUpdateAppointmentStatus,
   setGetStaffUsers,
   getStaffUsers,
+  getServiceTimeSlots,
+  setGetServiceTimeSlots,
+  reScheduleAppointment,
+  setReScheduleAppointment,
 } = bookingsSlice.actions;
 
 export const bookingsDetails = (state) => state.bookings;
