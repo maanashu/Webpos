@@ -111,7 +111,7 @@ const AddCashModal = ({ props, title, modalType, close }) => {
               onChange={(e) => setNotes(e.target.value)}
             ></textarea>
             <Image
-              src={Images.commentBox}
+              src={Images.commentText}
               alt="commentBox Image"
               className="img-fluid commentImg"
             />
