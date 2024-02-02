@@ -871,7 +871,7 @@ input:checked+.switch-slider:before {
 .deliverSubdata:nth-child(3) {
   min-width: 130px;
 }
- 
+
 /*auth css end*/
 /*ship module css start */
 #ordersToReview .invoice_subhead:nth-child(2) {
@@ -891,3 +891,48 @@ input:checked+.switch-slider:before {
 }
 
 /*ship module css end*/
+/*delivery module css start*/
+#deliveryDashBoardList .invoice_subhead:first-child {
+  min-width: 100px;
+}
+
+#deliveryDashBoardList .invoice_subhead:nth-child(2) {
+  min-width: 165px;
+}
+
+#deliveryDashBoardList .invoice_subhead:nth-child(3) {
+  min-width: 120px;
+}
+
+#deliveryDashBoardList .invoice_subhead:nth-child(4) {
+  min-width: 175px;
+}
+
+#deliveryDashBoardList .invoice_subhead:last-child {
+  min-width: 50px;
+}
+
+.deliverOrderRight .detailScrollDelivery {
+  height: calc(100% - 392px);
+  overflow-y: scroll;
+}
+
+#orderReviewDeliver .invoice_subhead:first-child {
+  min-width: 100px;
+}
+
+#orderReviewDeliver .invoice_subhead:nth-child(2) {
+  min-width: 155px;
+}
+
+#orderReviewDeliver .invoice_subhead:nth-child(3) {
+  min-width: 120px;
+}
+
+#orderReviewDeliver .invoice_subhead:nth-child(4) {
+  min-width: 160px;
+}
+.deliverDashboardTable .invoice_subhead:last-child{
+  min-width: 70px;
+}
+/*delivery module css end */

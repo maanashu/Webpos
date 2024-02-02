@@ -298,3 +298,18 @@ export const getCalendarActionButtonTitle = (status) => {
       return "Status unknown";
   }
 };
+export function replaceDeliveryStatus(str) {
+  const replacements = {
+    "Orders to review": "orderReviewDeliver",
+    "Order Accepted": "orderAcceptDeliver",
+    "Orders Prepared": "orderPrepareDeliver",
+    "Assign to Driver": "orderAssignDeliver",
+    "Picked up": "orderPickupDeliver",
+    "Delivered": "deliverOrderTable",
+    "Rejected/Cancelled": "cancelDeliver",
+    "Returned": "returnDeliver",
+  };
+
+  return replacements[str] || str;
+}
+

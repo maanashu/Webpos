@@ -5213,7 +5213,7 @@ figure {
 }
 
 .shippingMainTable .invoice_subhead:first-child {
-  min-width: 80px;
+  min-width: 100px;
 }
 
 .shippingMainTable .invoice_subhead:last-child {
@@ -5284,7 +5284,7 @@ figure {
 }
 
 #returnedOrder .invoice_subhead:first-child {
-  min-width: 80px;
+  min-width: 100px;
 }
 
 #rejectOrder .invoice_subhead:nth-child(3) {
@@ -5292,11 +5292,11 @@ figure {
 }
 
 #shippedOrders .invoice_subhead:first-child {
-  min-width: 80px;
+  min-width: 100px;
 }
 
 #ordersToReview .invoice_subhead:first-child {
-  min-width: 80px;
+  min-width: 100px;
 }
 
 .shipOrderSection .declineButton {
@@ -5308,7 +5308,7 @@ figure {
 }
 
 #printingLabel .invoice_subhead:first-child {
-  min-width: 80px;
+  min-width: 100px;
 }
 
 .cashText {

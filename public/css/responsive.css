@@ -317,6 +317,9 @@
         height: calc(100% - 368px);
         overflow-y: scroll;
     }
+    .customerLink {
+        font-size: 17px;
+    }
 }
 
 @media (max-width: 1080px) {
