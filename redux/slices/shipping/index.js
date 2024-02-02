@@ -28,6 +28,12 @@ export const shippingSlice = createSlice({
     getShippingGraphData: (state) => {
       state.loading = true;
     },
+    getOrderStat: (state) => {
+      state.loading = true;
+    },
+    getOrdersList: (state) => {
+      state.loading = true;
+    },
   },
 });
 
@@ -39,6 +45,8 @@ export const {
   getShippingsStatus,
   getShippingstodayStatus,
   getShippingGraphData,
+  getOrderStat,
+  getOrdersList
 } = shippingSlice.actions;
 
 export const selectsShippingData = (state) => state.shipping;

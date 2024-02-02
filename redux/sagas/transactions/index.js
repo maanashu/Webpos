@@ -38,7 +38,6 @@ function* getTotalTraDetail(action) {
   const dataToSend = { ...action.payload };
   // delete dataToSend.cb;
   const params = new URLSearchParams(dataToSend).toString();
-  console.log("fdhdfhdf", action);
 
   const defaultParams = {
     seller_id: dataToSend?.sellerId,

@@ -26,7 +26,6 @@ import SearchIcon from "../public/images/SearchIcon.svg";
 import HomeIcon from "../public/images/homeIcon.svg";
 import ShoppingCart from "../public/images/Shopping_Cart.svg";
 import SearchLight from "../public/images/SearchLight.svg";
-import Bell from "../public/images/bell.svg";
 import scanImg from "../public/images/scanImg.svg";
 import arrowIcon from "../public/images/arrowIcon.svg";
 import moneyImg from "../public/images/moneyImg.svg";
@@ -37,9 +36,7 @@ import MoneyItem from "../public/images/moneyItem.svg";
 import Time from "../public/images/time.svg";
 import modalCross from "../public/images/modalCross.svg";
 import trackingImage from "../public/images/trackingImage.svg";
-import commentBox from "../public/images/commentBox.svg";
 import bellIcon from "../public/images/bellIcon.svg";
-import Marlboro from "../public/images/marlboro.svg";
 import sideToggle from "../public/images/sideToggle.svg";
 import Logo from "../public/images/Logo.svg";
 import ProductsServices from "../public/images/ProductsServices.svg";
@@ -70,7 +67,6 @@ import Cancelproduct from "../public/images/Cancelproduct.svg";
 import PauseCircleOutline from "../public/images/Pause Circle_Outline.svg";
 import RightArrow from "../public/images/RightArrow.svg";
 import productService from "../public/images/productService.svg";
-import appointmentCalender from "../public/images/appointmentCalender.svg";
 import Appointmenttime from "../public/images/Appointmenttime.svg";
 import CardIcons from "../public/images/CardIcons.png";
 import cardThree from "../public/images/cardThree.png";
@@ -90,7 +86,6 @@ import paginationImg from "../public/images/paginationImg.svg";
 import calendarLight from "../public/images/calendarLight.svg";
 import arrowDown from "../public/images/arrowDown.svg";
 import calendarDark from "../public/images/calendarDark.svg";
-import calendarCell from "../public/images/calendarCell.svg";
 import serviceCart from "../public/images/serviceCart.svg";
 import redCross from "../public/images/redCross.svg";
 import addUser from "../public/images/addUser.svg";
@@ -188,7 +183,6 @@ import clockImg from "../public/images/clockImg.svg";
 import editImg from "../public/images/editImg.svg";
 import checkImg from "../public/images/checkImg.svg";
 import locatePurple from "../public/images/locatePurple.svg";
-import complete from "../public/images/complete.svg";
 import walletCoin from "../public/images/walletCoin.svg";
 import scanner from "../public/images/scanner.png";
 import gross_profit_blue from "../public/images/gross_profit_blue.png";
@@ -209,7 +203,6 @@ import deliverFast from "../public/images/deliverFast.svg";
 import deliveryLate from "../public/images/deliveryLate.svg";
 import pickupImg from "../public/images/pickupImg.svg";
 import garphCircle from "../public/images/garphCircle.png";
-import barChart from "../public/images/barChart.png";
 import lightArrowRight from "../public/images/lightArrowRight.svg";
 import overview_sales from "../public/images/overview_sales.png";
 import bagImg from "../public/images/bagImg.png";
@@ -252,7 +245,6 @@ import crossBlue from "../public/images/crossBlue.svg";
 import cashDraw from "../public/images/cashDraw.svg";
 import cardReader from "../public/images/cardReader.svg";
 import deviceScan from "../public/images/deviceScan.svg";
-import staffUser from "../public/images/staffUser.svg";
 import addDark from "../public/images/addDark.svg";
 import locationOutline from "../public/images/Location_Outline.png";
 import ringing from "../public/images/Ringing.png";
@@ -271,7 +263,6 @@ import walletOutline from "../public/images/Wallet_Outline.png";
 import settingsPhoneMessage from "../public/images/settingsPhoneMessage.png";
 import settingsEmail from "../public/images/settingsEmail.png";
 import settingsPrinter from "../public/images/settingsPrinter.png";
-import staffProfile from "../public/images/staffProfile.svg";
 import staffLocate from "../public/images/staffLocate.svg";
 import staffMobile from "../public/images/staffMobile.svg";
 import emailStaff from "../public/images/emailStaff.svg";
@@ -297,7 +288,6 @@ import Settings_Solid from "../public/images/Settings_Solid.svg";
 import Rewards_Solid from "../public/images/Rewards_Solid.svg";
 import Cash_Solid from "../public/images/Cash_Solid.svg";
 import Shipping_Solid from "../public/images/Shipping_Solid.svg";
-import checkverify from "../public/images/checkverify.svg";
 import countryflag from "../public/images/countryflag.svg";
 import countryflag1 from "../public/images/countryflag1.png";
 import profitMargin from "../public/images/profit_margin.png";
@@ -411,9 +401,7 @@ export {
   emailStaff,
   staffMobile,
   staffLocate,
-  staffProfile,
   addDark,
-  staffUser,
   deviceScan,
   cardReader,
   cashDraw,
@@ -462,7 +450,6 @@ export {
   coins,
   scanner,
   walletCoin,
-  complete,
   locatePurple,
   checkImg,
   editImg,
@@ -553,15 +540,12 @@ export {
   HomeIcon,
   ShoppingCart,
   SearchLight,
-  Bell,
   OrderLocation,
   MoneyItem,
   Time,
   modalCross,
   trackingImage,
-  commentBox,
   bellIcon,
-  Marlboro,
   sideToggle,
   Logo,
   ProductsServices,
@@ -588,7 +572,6 @@ export {
   PauseCircleOutline,
   RightArrow,
   productService,
-  appointmentCalender,
   Appointmenttime,
   CardIcons,
   cardThree,
@@ -608,7 +591,6 @@ export {
   calendarLight,
   arrowDown,
   calendarDark,
-  calendarCell,
   serviceCart,
   salesTracking,
   DrawerID,
@@ -650,7 +632,6 @@ export {
   deliveryLate,
   pickupImg,
   garphCircle,
-  barChart,
   lightArrowRight,
   bagImg,
   lightBell,
@@ -689,7 +670,6 @@ export {
   Rewards_Solid,
   Cash_Solid,
   Shipping_Solid,
-  checkverify,
   countryflag,
   countryflag1,
   toggleOn,

@@ -11,13 +11,20 @@ const TCRHeader = ({
   withTimeTabs = true,
   onTimeSpanSelect,
   timeSpan,
+  calendarHandler,
+  notificationHandler,
+  searchHandler,
+  onDateChange,
+  startDate,
+  endDate,
+  setStartDate,
+  setEndDate,
 }) => {
-
   const TIME_SPANS = [
-    { value: "today", label: "Today" },
-    { value: "week", label: "Weekly" },
-    { value: "month", label: "Monthly" },
-    { value: "year", label: "Yearly" },
+    { value: "today", label: "Today", id: 1 },
+    { value: "week", label: "Weekly", id: 2 },
+    { value: "month", label: "Monthly", id: 3 },
+    { value: "year", label: "Yearly", id: 4 },
   ];
 
   const boldInDescrip = () => (
@@ -28,7 +35,7 @@ const TCRHeader = ({
           fontWeight: "600",
         }}
       >
-        {TIME_SPANS.filter((el) => el.value == timeSpan)[0].label}
+        {TIME_SPANS?.filter((el) => el?.value == timeSpan)[0]?.label}
       </span>
     </>
   );
@@ -62,16 +69,28 @@ const TCRHeader = ({
                   {TIME_SPANS.map((el, idx) => (
                     <p
                       key={idx + "day-tabs"}
-                      onClick={() => onTimeSpanSelect(el.value)}
-                      className={`tab-item${timeSpan == el.value ? " selected-tab" : ""
-                        }`}
+                      onClick={() => {
+                        onTimeSpanSelect(el.value);
+                        setStartDate(null);
+                        setEndDate(null);
+                      }}
+                      className={`tab-item${
+                        timeSpan == el.value ? " selected-tab" : ""
+                      }`}
                     >
                       {el.label}
                     </p>
                   ))}
                 </div>
               )}
-              <HeaderUtils />
+              <HeaderUtils
+                calendarHandler={calendarHandler}
+                searchHandler={searchHandler}
+                notificationHandler={notificationHandler}
+                onDateChange={onDateChange}
+                startDate={startDate}
+                endDate={endDate}
+              />
             </div>
           </div>
         </div>

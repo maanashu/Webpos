@@ -1,11 +1,17 @@
 import { useDispatch, useSelector } from "react-redux";
-import { addDiscount, productCart, selectRetailData } from "../../redux/slices/retails";
+import {
+  addDiscount,
+  productCart,
+  selectRetailData,
+} from "../../redux/slices/retails";
 import { useState } from "react";
 import { toast } from "react-toastify";
+import { digitWithDot } from "../../utilities/validators";
 
 const AddDiscount = (props) => {
-  const retailData = useSelector(selectRetailData);
   const dispatch = useDispatch();
+  const retailData = useSelector(selectRetailData);
+  const cartData = retailData?.productCart || {};
   const cartId = retailData?.cartDetails?.id;
   const cartTotalAmount = retailData?.cartDetails?.amount;
   const [disCountFlag, setDiscountFlag] = useState("");
@@ -14,11 +20,22 @@ const AddDiscount = (props) => {
   const [amount, setAmount] = useState(null);
   const [percent, setPercent] = useState(null);
   const [code, setCode] = useState(null);
-
+  const finalAmountForDiscount =
+    cartData?.amount?.products_price.toFixed(2) -
+    Number(cartData?.amount?.tax)?.toFixed(2);
 
   const handleAddDiscount = (e) => {
     e.preventDefault();
-    if (disCountFlag === "") {
+    if (amount > finalAmountForDiscount) {
+      toast.error("Please enter discount less then total amount");
+      return false;
+    } else if (
+      (amount || percent) &&
+      digitWithDot.test(amount || percent) === false
+    ) {
+      toast.error("Please enter valid field");
+      return false;
+    } else if (disCountFlag === "") {
       toast.error("Please select any flag!");
       return false;
     } else if (!discountTitle) {

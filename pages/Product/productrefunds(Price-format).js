@@ -365,11 +365,11 @@ const productrefunds = () => {
                         <td className="recent_subhead text-center">
                           ${" "}
                           {!isNaN(parseFloat(inputValues[idx]?.value)) &&
-                          !isNaN(parseFloat(data?.qty))
+                            !isNaN(parseFloat(data?.qty))
                             ? (
-                                parseFloat(inputValues[idx]?.value) *
-                                parseFloat(data?.qty)
-                              ).toFixed(2)
+                              parseFloat(inputValues[idx]?.value) *
+                              parseFloat(data?.qty)
+                            ).toFixed(2)
                             : "0.00"}
                         </td>
                       </tr>
@@ -459,6 +459,9 @@ const productrefunds = () => {
               </figure>
 
               <p className="addProductHeading">Return to Inventory</p>
+              <h5 className="inventorySubheading">
+                All returned items will be adjusted with inventory
+              </h5>
             </h2>
             <button className="closeButton">
               <Image
@@ -471,35 +474,35 @@ const productrefunds = () => {
         }
         footer={
           <>
-            <div className="modal-footer">
-              <button
-                className="cancelBtn"
-                onClick={() => handleOnCloseModal()}
-              >
-                Cancel
-              </button>
 
-              <button
-                className="ModalBlue"
-                onClick={(e) => handlereturnToInventory(e)}
-              >
-                Return to Inventory
-                {invoiceData?.loading && (
-                  <Spinner
-                    as="span"
-                    animation="border"
-                    size="sm"
-                    role="status"
-                    aria-hidden="true"
-                  />
-                )}{" "}
-                <Image
-                  src={Images.ShoppingReturn}
-                  alt="image"
-                  className="img-fluid BtnIcon"
+            <button
+              className="cancelBtn"
+              onClick={() => handleOnCloseModal()}
+            >
+              Cancel
+            </button>
+
+            <button
+              className="ModalBlue"
+              onClick={(e) => handlereturnToInventory(e)}
+            >
+              Return to Inventory
+              {invoiceData?.loading && (
+                <Spinner
+                  as="span"
+                  animation="border"
+                  size="sm"
+                  role="status"
+                  aria-hidden="true"
                 />
-              </button>
-            </div>
+              )}{" "}
+              <Image
+                src={Images.ShoppingReturn}
+                alt="image"
+                className="img-fluid BtnIcon"
+              />
+            </button>
+
           </>
         }
       />

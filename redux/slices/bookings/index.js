@@ -7,6 +7,8 @@ const initialState = {
   staffUsers: [],
   posUserRole: null,
   loading: false,
+  timeSlots: null,
+  timeSlotInterval: null,
 };
 
 export const bookingsSlice = createSlice({
@@ -15,6 +17,28 @@ export const bookingsSlice = createSlice({
   reducers: {
     getAppointments: (state) => {
       state.loading = true;
+    },
+    getStaffUsers: (state) => {
+      state.staffUsersLoading = true;
+    },
+    setGetStaffUsers: (state, action) => {
+      // state.loading = false;
+      state.staffUsersLoading = false;
+      const responseData = action?.payload?.payload;
+
+      const currentPages = responseData?.current_page;
+      const totalPages = responseData?.total_pages;
+      const staffPages = { currentPages: currentPages, totalPages: totalPages };
+      const staffUsersList = responseData?.pos_staff;
+
+      state.staffUsers = staffUsersList;
+      state.staffPages = staffPages;
+    },
+    updateAppointmentStatus: (state) => {
+      state.loading = true;
+    },
+    setUpdateAppointmentStatus: (state, action) => {
+      state.loading = false;
     },
     setGetAppointments: (state, action) => {
       const { getAppointment } = state;
@@ -55,6 +79,24 @@ export const bookingsSlice = createSlice({
       state.getAppointment = updatedAppointments;
       state.pages = pages;
     },
+    getServiceTimeSlots: (state) => {
+      state.serviceTimeSlotsLoading = true;
+    },
+    setGetServiceTimeSlots: (state, action) => {
+      state.serviceTimeSlotsLoading = false;
+      const responseData = action?.payload;
+      console.log("SERVICE_TIME_SLOTS---" + JSON.stringify(responseData));
+
+      state.timeSlots = responseData?.payload?.slots;
+      state.timeSlotInterval = responseData?.payload?.interval;
+    },
+    reScheduleAppointment: (state) => {
+      state.serviceRescheduling = true;
+    },
+    setReScheduleAppointment: (state, action) => {
+      state.serviceRescheduling = false;
+      const responseData = action?.payload;
+    },
     onErrorStopLoad: (state) => {
       state.loading = false;
     },
@@ -62,8 +104,19 @@ export const bookingsSlice = createSlice({
 });
 
 // Action creators are generated for each case reducer function
-export const { getAppointments, setGetAppointments, onErrorStopLoad } =
-  bookingsSlice.actions;
+export const {
+  getAppointments,
+  setGetAppointments,
+  onErrorStopLoad,
+  updateAppointmentStatus,
+  setUpdateAppointmentStatus,
+  setGetStaffUsers,
+  getStaffUsers,
+  getServiceTimeSlots,
+  setGetServiceTimeSlots,
+  reScheduleAppointment,
+  setReScheduleAppointment,
+} = bookingsSlice.actions;
 
 export const bookingsDetails = (state) => state.bookings;
 

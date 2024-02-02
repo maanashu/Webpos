@@ -126,12 +126,12 @@ const CartAmountByPay = () => {
   }
 
   const paymentMethodData = [];
-  if (Object.keys(getSettingData?.getSettings)?.length == 0) {
+  if (Object.keys(getSettingData?.getSettings || {})?.length > 0) {
     paymentMethodData.push(
       {
         title: "cash",
         icon: Images.MoneyOutline,
-        status: getSettingData?.getSettings.accept_cash_payment || true,
+        status: getSettingData?.getSettings?.accept_cash_payment,
         id: 1,
       },
       {
@@ -143,7 +143,7 @@ const CartAmountByPay = () => {
       {
         title: "debit/credit",
         icon: Images.Mastercard,
-        status: getSettingData?.getSettings.accept_card_payment || true,
+        status: getSettingData?.getSettings?.accept_card_payment,
         id: 3,
       }
     );
@@ -159,27 +159,23 @@ const CartAmountByPay = () => {
     (item) => item.status
   );
 
-  const totalAmountByPaymentMethod = (index) => {
-    if (index === 0) {
+  const totalAmountByPaymentMethod = (item) => {
+    if (item?.id == 1) {
       return `${amountFormat(paymentShow())}`;
-    } else if (index === 1) {
+    } else if (item?.id == 2) {
       // return `J${(paymentShow() * 100).toFixed(0)}`;
       return `J ${amountFormat(paymentShow() * 100, "notSign")}`;
     } else {
       return `${amountFormat(paymentShow())}`;
     }
   };
-  const receiptData = [
-    { title: "SMS", icon: Images.Sms },
-    { title: "E-mail", icon: Images.Email },
-    { title: "No, thanks", icon: Images.Like },
-  ];
-  // if (getSettingData?.getSetting?.invoice_email_send_status) {
-  //   receiptData.unshift({ title: 'E-mail', icon: Images.emailReceipt });
-  // }
-  // if (getSettingData?.getSetting?.invoice_sms_send_status) {
-  //   receiptData.unshift({ title: 'SMS', icon: Images.smsReceipt });
-  // }
+  const receiptData = [{ title: "No, thanks", icon: Images.Like, id: 2 }];
+  if (getSettingData?.getSettings?.invoice_sms_send_status) {
+    receiptData?.unshift({ title: "SMS", icon: Images.Sms, id: 0 });
+  }
+  if (getSettingData?.getSettings?.invoice_email_send_status) {
+    receiptData?.unshift({ title: "E-mail", icon: Images.Email, id: 1 });
+  }
 
   const noThanksHandler = () => {
     let params = {
@@ -390,16 +386,16 @@ const CartAmountByPay = () => {
                               />
                               <p className="debitText">{item.title}</p>
                             </article>
-                            {index == "2" && (
+                            {item?.id == 3 && (
                               <p className="cardNumber pt-5">
                                 ●●●● ●●●● ●●●● 7224
                               </p>
                             )}
 
                             <p className="priceRefunded">
-                              {totalAmountByPaymentMethod(index)}
+                              {totalAmountByPaymentMethod(item)}
                             </p>
-                            {index == 1 && (
+                            {item?.id == 2 && (
                               <div className="savingText">Save 15%</div>
                             )}
                           </div>
@@ -425,14 +421,14 @@ const CartAmountByPay = () => {
                               className="receiptCard pointHand"
                               style={{
                                 background:
-                                  selectedRecipeIndex == index
+                                  selectedRecipeIndex == item?.id
                                     ? "#F79009"
                                     : "#FEEFC6",
                               }}
                               // onClick={() => {
                               //   handleUserProfile("PhoneReceipt");
                               // }}
-                              onClick={() => setSelectedRecipeIndex(index)}
+                              onClick={() => setSelectedRecipeIndex(item?.id)}
                             >
                               <Image
                                 src={item.icon}

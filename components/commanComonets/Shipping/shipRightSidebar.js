@@ -42,6 +42,7 @@ const ShipRightSidebar = (props) => {
                                         ""
             });
             setActiveSidebar("hideDeliver");
+            props.setSelectedDate(null)
         }
     };
 

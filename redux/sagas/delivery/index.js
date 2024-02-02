@@ -87,7 +87,6 @@ function* getOrderStat(action) {
 }
 
 function* getOrdersList(action) {
-  yield put(getOrdersList());
   const dataToSend = { ...action.payload };
   delete dataToSend.cb;
   const params = new URLSearchParams(dataToSend).toString();
@@ -96,7 +95,6 @@ function* getOrdersList(action) {
       ApiClient.get,
       `${ORDER_API_URL}${API_URL.getOrderList}${params}`
     );
-
     if (resp) {
       yield put(setOrdersList(resp?.data == "" ? [] : resp?.data?.payload));
       yield call(action.payload.cb, (action.res = resp));
@@ -175,6 +173,7 @@ function* acceptOrder(action, callbackFn) {
     );
     console.log("Response--", resp);
     if (resp) {
+      toast.success(resp?.msg);
       setAcceptOrder();
       yield call(action.payload.cb, (action.res = resp));
     } else {

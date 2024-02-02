@@ -41,7 +41,7 @@ const DeliveryRightSidebar = ({ setOrderListType, setShowCustomLoader }) => {
     );
     setTimeout(() => {
       setShowCustomLoader && setShowCustomLoader(false);
-    }, 500);
+    }, 600);
   };
   const onPressHandler = (titleIndex, status, count) => {
     if (!activeSidebar && count > 0) {

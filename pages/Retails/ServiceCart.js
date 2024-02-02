@@ -352,34 +352,41 @@ const ServiceCart = () => {
                           <h4 className="invoice_subhead p-0">
                             {amountFormat(getProductFinalPrice(data))}
                           </h4>
-                          {retailData?.clearOneProductLoad ||
+                          {/* {retailData?.clearOneProductLoad ||
                           retailData?.productCartLoad ? (
-                            <span className="spinner-border spinner-border-sm mx-1"></span>
-                          ) : (
-                            <div
-                              onClick={() => {
-                                let params = {
-                                  cartId: cartData?.id,
-                                  productId: data?.id,
-                                };
-                                setProductById(index);
-                                dispatch(
-                                  clearOneProduct({
-                                    ...params,
-                                    cb() {
-                                      dispatch(productCart());
-                                    },
-                                  })
-                                );
-                              }}
-                            >
-                              <Image
-                                src={Images.redCross}
-                                alt="crossImage"
-                                className="img-fluid ms-2"
-                              />
-                            </div>
-                          )}
+                            productById == index && (
+                              <span className="spinner-border spinner-border-sm mx-1"></span>
+                            )
+                          ) : ( */}
+                          <div
+                            onClick={() => {
+                              let params = {
+                                cartId: cartData?.id,
+                                productId: data?.id,
+                              };
+                              setProductById(index);
+                              dispatch(
+                                clearOneProduct({
+                                  ...params,
+                                  cb() {
+                                    dispatch(productCart());
+                                  },
+                                })
+                              );
+                            }}
+                          >
+                            <Image
+                              src={Images.redCross}
+                              alt="crossImage"
+                              className="img-fluid ms-2"
+                            />
+                            {/* {retailData?.clearOneProductLoad ||
+                              (retailData?.productCartLoad &&
+                                productById == index && (
+                                  <span className="spinner-border spinner-border-sm mx-1"></span>
+                                ))} */}
+                          </div>
+                          {/* )} */}
 
                           {/* {retailData?.clearOneProductLoad ||
                           retailData?.productCartLoad ? (

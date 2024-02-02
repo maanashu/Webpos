@@ -19,14 +19,26 @@ import {
 } from "../../../redux/slices/customers";
 import { selectLoginAuth } from "../../../redux/slices/auth";
 import { useRouter } from "next/router";
+import moment from "moment-timezone";
 
 const Users = () => {
   const { query } = useRouter();
-  const router = useRouter()
-  const [selectedTab, setSelectedTab] = useState("all_customers");
+  const router = useRouter();
+  const [selectedTab, setSelectedTab] = useState(
+    query["customer_type"] || "all_customers"
+  );
   const [timeSpan, setTimeSpan] = useState(query["time-span"] || "week");
   const [limit, setLimit] = useState("10");
   const [page, setPage] = useState(1);
+  const [startDate, setStartDate] = useState(null);
+  const [endDate, setEndDate] = useState(null);
+
+  const handleDateChange = (dates) => {
+    const [start, end] = dates;
+    setStartDate(start);
+    setEndDate(end);
+    setTimeSpan("");
+  };
 
   const dispatch = useDispatch();
   const authData = useSelector(selectLoginAuth);
@@ -43,17 +55,23 @@ const Users = () => {
       const params = {
         page,
         limit: Number(limit),
-        filter: timeSpan,
-        type: selectedTab,
-        seller_id: uniqueId,
+        dayWisefilter: timeSpan,
+        customerType: selectedTab,
+        sellerID: uniqueId,
+        start_date: moment(startDate).format("YYYY-MM-DD"),
+        end_date: moment(endDate).format("YYYY-MM-DD"),
       };
       dispatch(getAllCustomersList(params));
-      dispatch(getSellerAreaList({ seller_id: params.seller_id }));
+      dispatch(getSellerAreaList({ seller_id: params.sellerID }));
     }
-  }, [uniqueId, selectedTab, timeSpan, limit, page]);
+  }, [uniqueId, selectedTab, timeSpan, limit, page, startDate, endDate]);
 
   const TABS = [
-    { text: "All", count: totalCustomers?.totalCustomer, type: "all_customers" },
+    {
+      text: "All",
+      count: totalCustomers?.totalCustomer,
+      type: "all_customers",
+    },
     {
       text: "New Customers",
       count: totalCustomers?.newCustomer,
@@ -61,12 +79,12 @@ const Users = () => {
     },
     {
       text: "Returning Customers",
-      count: totalCustomers?.onlineCustomers,
+      count: totalCustomers?.returningCustomer,
       type: "returning_customers",
     },
     {
       text: "Online Customers",
-      count: totalCustomers?.returningCustomer,
+      count: totalCustomers?.onlineCustomers,
       type: "online_customers",
     },
     {
@@ -95,6 +113,11 @@ const Users = () => {
         timeSpan={timeSpan}
         onTimeSpanSelect={setTimeSpan}
         mainIcon={customerUsers}
+        setStartDate={setStartDate}
+        setEndDate={setEndDate}
+        onDateChange={handleDateChange}
+        startDate={startDate}
+        endDate={endDate}
       />
 
       <PaginationHeader
@@ -130,11 +153,7 @@ const Users = () => {
                   setSelectedTab(null);
                 }}
               >
-                <Image
-                  width={16}
-                  height={16}
-                  src={customersCross}
-                />
+                <Image width={16} height={16} src={customersCross} />
               </div>
             )}
           </div>
@@ -183,7 +202,8 @@ const Users = () => {
             <tr className="customers-table-row">
               <td
                 onClick={() => handleNavigateToTrackStatus(item)}
-                className="customers-table-data" style={{textAlign: "left" }}
+                className="customers-table-data"
+                style={{ textAlign: "left" }}
               >
                 {(idx + Number(page > 1 ? limit : 0) > 8 ? "" : "0") +
                   (idx + 1 + Number(page > 1 ? limit : 0))}
@@ -214,11 +234,7 @@ const Users = () => {
                     {item?.user_details?.lastname}
                   </p>
                   <div>
-                    <Image
-                      width={12}
-                      height={12}
-                      src={OrderLocation}
-                    />
+                    <Image width={12} height={12} src={OrderLocation} />
                     <span className="user-stats-row-name-address">
                       {item?.user_details?.current_address?.custom_address}
                       {", "}
@@ -234,19 +250,22 @@ const Users = () => {
               </td>
               <td
                 onClick={() => handleNavigateToTrackStatus(item)}
-                className="customers-table-data" style={{textAlign: "left" }}
+                className="customers-table-data"
+                style={{ textAlign: "left" }}
               >
                 {item?.total_orders}
               </td>
               <td
                 onClick={() => handleNavigateToTrackStatus(item)}
-                className="customers-table-data" style={{textAlign: "left" }}
+                className="customers-table-data"
+                style={{ textAlign: "left" }}
               >
                 {item?.total_products}
               </td>
               <td
                 onClick={() => handleNavigateToTrackStatus(item)}
-                className="customers-table-data"style={{textAlign: "left" }}
+                className="customers-table-data"
+                style={{ textAlign: "left" }}
               >
                 ${Number(item?.life_time_spent).toFixed(2)}
               </td>
@@ -257,11 +276,7 @@ const Users = () => {
 
       <div className="pagination-footer flex-row-space-between paginatePosition">
         <div className="flex-row-space-between">
-          <Image
-            src={ArrowLeft}
-            width={16}
-            height={16}
-          />
+          <Image src={ArrowLeft} width={16} height={16} />
           <p
             style={{
               color: "#B4BEEB",
@@ -282,14 +297,9 @@ const Users = () => {
         </p>
         <div className="flex-row-space-between">
           <p className="pagination-footer-text">Next</p>
-          <Image
-            src={ArrowRight}
-            width={16}
-            height={16}
-          />
+          <Image src={ArrowRight} width={16} height={16} />
         </div>
       </div>
-      
     </div>
   );
 };

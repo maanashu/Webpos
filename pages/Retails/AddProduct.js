@@ -10,7 +10,7 @@ import {
   selectRetailData,
 } from "../../redux/slices/retails";
 import { selectLoginAuth } from "../../redux/slices/auth";
-import { Router, useRouter } from "next/router";
+import { useRouter } from "next/router";
 import { toast } from "react-toastify";
 import { amountFormat } from "../../utilities/globalMethods";
 
@@ -112,10 +112,11 @@ const AddProduct = () => {
       dispatch(
         addTocart({
           ...params,
-          cb(res) {
+          cb: (res) => {
+            // router.back();
+
             dispatch(productCart());
-            // router.push("/Retails?parameter=product");
-            router.back();
+            router.push("/Retails?parameter=product");
           },
         })
       );
@@ -164,10 +165,11 @@ const AddProduct = () => {
               dispatch(
                 addTocart({
                   ...params,
-                  cb(res) {
+                  cb: (res) => {
+                    router.back();
+
                     dispatch(productCart());
                     // router.push("/Retails?parameter=product");
-                    router.back();
                   },
                 })
               );
@@ -223,10 +225,13 @@ const AddProduct = () => {
                   </figure>
                 </figure>
                 <h4 className="loginMain mt-4">{productDetail?.name}</h4>
-                <button type="button" className="productId">
-                  <span className="productDot"></span>
-                  {productDetail?.sku}
-                </button>
+                {productDetail?.sku && (
+                  <div className="productId">
+                    <span className="productDot"></span>
+                    {productDetail?.sku}
+                  </div>
+                )}
+
                 <p className="linkHeading">
                   $
                   {
@@ -284,13 +289,13 @@ const AddProduct = () => {
               {sizeArray?.length > 0 && (
                 <div className="sizeChart">
                   <p className="priceHeading">Size</p>
-                  <article className="productSizeBtnBox">
+                  <div style={{ display: "flex", flexDirection: "row" }}>
                     {sizeArray?.[0]?.values?.map((item, index) => (
                       <div
                         key={index}
                         onClick={() => setSizeId(item?.id)}
                         style={{
-                          width: "45px",
+                          width: "85px",
                           height: "45px",
                           border: "1px solid black",
                           borderRadius: "15%",
@@ -299,6 +304,7 @@ const AddProduct = () => {
                           alignItems: "center",
                           background:
                             sizeId == item?.id ? "#263682" : "transparent",
+                          marginRight: "10px",
                         }}
                       >
                         <p
@@ -310,7 +316,10 @@ const AddProduct = () => {
                         </p>
                       </div>
                     ))}
-                  </article>
+                  </div>
+                  {/* <article className="productSizeBtnBox"> */}
+
+                  {/* </article> */}
                 </div>
               )}
               <div className="incrementBtn productIncrement">

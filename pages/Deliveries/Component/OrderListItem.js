@@ -5,12 +5,13 @@ import Image from "next/image";
 import moment from "moment-timezone";
 import Link from "next/link";
 
-const OrderListItem = ({ screen, orderList, itemPressHandler }) => {
+const OrderListItem = ({ id, screen, orderList, itemPressHandler }) => {
   return (
     <>
       {orderList?.map((item, index) => (
         <li key={index} style={{ listStyle: "none" }}>
           <OrderDetailsItem
+            id={id}
             item={item}
             onPressHandler={() => itemPressHandler(item, index)}
           />
@@ -20,7 +21,7 @@ const OrderListItem = ({ screen, orderList, itemPressHandler }) => {
   );
 };
 
-const OrderDetailsItem = ({ item, onPressHandler }) => {
+const OrderDetailsItem = ({ id, item, onPressHandler }) => {
   // const isSelected = viewAllOrder && item?.id === userDetail?.id;
   const orderDetails = item?.order_details || [];
   const deliveryDate =
@@ -31,82 +32,84 @@ const OrderDetailsItem = ({ item, onPressHandler }) => {
   const endTime = item?.preffered_delivery_end_time || "00.00";
   const formattedTime = `${startTime} - ${endTime}`;
   return (
-    <table id="DeliverDashboard" className="deliverDashboardTable">
-      <tbody onClick={() => onPressHandler(item)}>
-        <tr className="product_invoice">
-          <td className="invoice_subhead">
-            <div className="nameLocation">
-              <h4 className="assignId">{"#" + item?.id}</h4>
-            </div>
-          </td>
-          <td className="invoice_subhead">
-            <div className="nameLocation">
-              <h4 className="assignId">
-                {item?.user_details?.firstname || "user"}
-              </h4>
-              <div className="deliverTableBx">
-                <Image
-                  src={Images.OrderLocation}
-                  alt="location Image"
-                  className="img-fluid ms-1"
-                />
-                <span className="locateDistance">
+    <div className="table-responsive">
+      <table id={id} className="deliverDashboardTable">
+        <tbody onClick={() => onPressHandler(item)}>
+          <tr className="product_invoice">
+            <td className="invoice_subhead">
+              <div className="nameLocation">
+                <h4 className="assignId">{"#" + item?.id}</h4>
+              </div>
+            </td>
+            <td className="invoice_subhead">
+              <div className="nameLocation">
+                <h4 className="assignId">
+                  {item?.user_details?.firstname || "user"}
+                </h4>
+                <div className="deliverTableBx">
+                  <Image
+                    src={Images.OrderLocation}
+                    alt="location Image"
+                    className="img-fluid ms-1"
+                  />
+                  <span className="locateDistance">
+                    {" "}
+                    {item?.distance ? `${item.distance} miles` : "0"}
+                  </span>
+                </div>
+              </div>
+            </td>
+            <td className="invoice_subhead">
+              <div className="itemMoney">
+                <h4 className="assignId">
                   {" "}
-                  {item?.distance ? `${item.distance} miles` : "0"}
-                </span>
+                  {orderDetails.length > 1
+                    ? `${orderDetails.length} Items`
+                    : `${orderDetails.length} Item`}
+                </h4>
+                <div className="deliverTableBx">
+                  <Image
+                    src={Images.MoneyItem}
+                    alt="MoneyItemImage "
+                    className="img-fluid ms-1"
+                  />
+                  <span className="locateDistance">
+                    {item?.payable_amount || "00"}
+                  </span>
+                </div>
               </div>
-            </div>
-          </td>
-          <td className="invoice_subhead">
-            <div className="itemMoney">
-              <h4 className="assignId">
-                {" "}
-                {orderDetails.length > 1
-                  ? `${orderDetails.length} Items`
-                  : `${orderDetails.length} Item`}
-              </h4>
-              <div className="deliverTableBx">
-                <Image
-                  src={Images.MoneyItem}
-                  alt="MoneyItemImage "
-                  className="img-fluid ms-1"
-                />
-                <span className="locateDistance">
-                  {item?.payable_amount || "00"}
-                </span>
+            </td>
+            <td className="invoice_subhead">
+              <div className="itemTime">
+                <h4 className="assignId"> {deliveryDate}</h4>
+                <div className="deliverTableBx">
+                  <Image
+                    src={Images.Time}
+                    alt="MoneyItemImage "
+                    className="img-fluid ms-1"
+                  />
+                  <span className="locateDistance">{formattedTime}</span>
+                </div>
               </div>
-            </div>
-          </td>
-          <td className="invoice_subhead">
-            <div className="itemTime">
-              <h4 className="assignId"> {deliveryDate}</h4>
-              <div className="deliverTableBx">
-                <Image
-                  src={Images.Time}
-                  alt="MoneyItemImage "
-                  className="img-fluid ms-1"
-                />
-                <span className="locateDistance">{formattedTime}</span>
-              </div>
-            </div>
-          </td>
-          {/* <td className="invoice_subhead">
+            </td>
+            {/* <td className="invoice_subhead">
             <div className="deliveryTime">
               <span className="assignId"> {formattedTime}</span>
             </div>
           </td> */}
-          <td className="invoice_subhead">
-            <div className="deliverArrow text-end">
-              <Image
-                src={Images.RightArrow}
-                alt="RightArrow image"
-                className="img-fluid ms-1"
-              />
-            </div>
-          </td>
-        </tr>
-      </tbody>
-    </table>
+            <td className="invoice_subhead">
+              <div className="deliverArrow text-end">
+                <Image
+                  src={Images.RightArrow}
+                  alt="RightArrow image"
+                  className="img-fluid ms-1"
+                />
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
   );
 };
 

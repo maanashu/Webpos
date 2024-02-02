@@ -5,6 +5,7 @@ import {
   onErrorStopLoad,
   setAllCustomers,
   setAllCustomersList,
+  setSearchedCustomerList,
   setSellerAreaList,
   setUserDetailsAndOrders,
   setUserMarketingStatus,
@@ -35,7 +36,54 @@ function* getAllCustomers(action) {
 
 function* getAllCustomersList(action) {
   const dataToSend = { ...action.payload };
-  const params = new URLSearchParams(dataToSend).toString();
+  delete dataToSend.cb;
+  const type = dataToSend?.customerType?.toLowerCase().replace(/\s+/g, "_");
+  const defaultParams = {
+    seller_id: dataToSend?.sellerID,
+    type: type,
+  };
+
+  const queryParams = {
+    ...defaultParams,
+  };
+  if (dataToSend?.page) {
+    queryParams.page = dataToSend?.page;
+  }
+  if (dataToSend?.limit) {
+    queryParams.limit = dataToSend?.limit;
+  }
+  if (dataToSend?.search) {
+    queryParams.search = dataToSend?.search;
+  }
+
+  if (dataToSend?.calenderDate !== undefined) {
+    queryParams.date = dataToSend?.calenderDate;
+  }
+
+  if (dataToSend?.area !== "none" && dataToSend?.area !== undefined) {
+    queryParams.area = dataToSend?.area;
+  }
+
+  if (dataToSend?.dayWisefilter) {
+    queryParams.filter = dataToSend?.dayWisefilter;
+  }
+
+  if (
+    dataToSend?.start_date !== "Invalid date" &&
+    dataToSend?.start_date !== undefined
+  ) {
+    queryParams.start_date = dataToSend?.start_date;
+  }
+
+  if (
+    dataToSend?.end_date !== "Invalid date" &&
+    dataToSend?.end_date !== undefined
+  ) {
+    queryParams.end_date = dataToSend?.end_date;
+  }
+
+  const params = new URLSearchParams(queryParams).toString();
+
   try {
     const resp = yield call(
       ApiClient.get,
@@ -43,6 +91,7 @@ function* getAllCustomersList(action) {
     );
     if (resp.status) {
       yield put(setAllCustomersList(resp.data));
+      yield call(action.payload.cb, (action.res = resp));
       // yield call(action.payload.cb, (action.res = resp));
     } else {
       throw resp;
