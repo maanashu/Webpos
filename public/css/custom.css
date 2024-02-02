@@ -851,6 +851,27 @@ input:checked+.switch-slider:before {
   display: none;
 }
 
+.loginScroll .loginCard:hover {
+  box-shadow: none;
+}
+
+.loginScroll .loginCard {
+  padding: 0;
+  margin-bottom: 16px;
+}
+
+.deliverSubdata:nth-child(4) {
+  min-width: 213px;
+}
+
+.deliverSubdata:nth-child(2) {
+  min-width: 160px;
+}
+
+.deliverSubdata:nth-child(3) {
+  min-width: 130px;
+}
+
 /*auth css end*/
 /*ship module css start */
 #ordersToReview .invoice_subhead:nth-child(2) {
