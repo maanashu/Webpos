@@ -85,9 +85,7 @@ const OrderReview = () => {
             })
         );
     }
-    const newDataChangeHandle = (length) => {
-        console.log(length, 'length');
-    }
+
     const getAllShippingOrdeshandle = () => {
         let orderListParam = {
             seller_id: sellerUid,
@@ -108,7 +106,6 @@ const OrderReview = () => {
                         setLoading(false)
                         setLoading1(false)
                         setOrderData(res?.data?.payload?.data);
-                        newDataChangeHandle(res?.data?.payload?.data?.length)
                         if (res?.data?.payload?.data?.length > 0) {
                             setSingleOrderData(res?.data?.payload?.data?.find(item => item?.id == selectedItemId) ? res?.data?.payload?.data?.find(item => item?.id == selectedItemId) : res?.data?.payload?.data[0])
                         } else {
