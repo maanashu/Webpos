@@ -67,11 +67,9 @@ export default function Settings() {
   const [policyInfo, setPolicyInfo] = useState("");
   const [activeTab, setActiveTab] = useState("");
   const [showSidebar, setShowSideBar] = useState(false);
-  const [sideBarInfo, setSideBarInfo] = useState({
-    location: "",
-    plan: "",
-  });
- 
+  const [userLocation, setUserLocation] = useState("");
+  const [userPlan, setUserPlan] = useState("");
+
   // API for get get Bussiness LocationInfo...............................
 
   // get plan information
@@ -80,16 +78,13 @@ export default function Settings() {
       getActivePlan({
         cb(res) {
           if (res?.status) {
-            console.log("plassssss", res?.data?.payload[0]?.expiry_date);
-            setSideBarInfo({
-              plan: res?.data?.payload[0]?.res?.data?.payload[0]?.expiry_date,
-              location: "",
-            });
+            setUserPlan(res?.data?.payload[0]?.expiry_date);
           }
         },
       })
     );
   };
+
   // get location count
   const getBussinessLocationInfo = () => {
     let params = {
@@ -100,21 +95,20 @@ export default function Settings() {
         ...params,
         cb(res) {
           if (res.status) {
-            setSideBarInfo({
-              location: res?.data?.payload,
-            });
+            setUserLocation(res?.data?.payload);
           }
         },
       })
     );
   };
+
   // getting setting sideBar information
   useEffect(() => {
     getBussinessLocationInfo();
     handeGetPlanInfo();
     getUserList();
   }, [receiptSettings?.success]);
-
+  console.log("receiptSettings?.success", receiptSettings?.success);
   const settingsOptions = [
     { id: 1, name: "Security", info: securityStatus, image: securityTick },
     { id: 2, name: "Devices", info: "Not Connected", image: settingsDevices },
@@ -122,13 +116,13 @@ export default function Settings() {
     {
       id: 4,
       name: "Locations",
-      info: `${sideBarInfo?.location?.length} Locations`,
+      info: `${userLocation?.length} Locations`,
       image: locationOutline,
     },
     {
       id: 5,
       name: "Plans",
-      info: `Expire on ${moment(sideBarInfo?.plan).format("DD MMMM yyyy")}`,
+      info: userPlan && `Expire on ${moment(userPlan).format("DD MMMM yyyy")}`,
       image: settingsMoney,
     },
     { id: 6, name: "Receipts", info: "Default", image: settingsReceipt },
@@ -164,7 +158,7 @@ export default function Settings() {
       id: 14,
       name: "Device Detail",
       info: "Locations",
-      image: settingsDevices,
+      image: settingsDetails,
     },
   ];
   const SettingsBar = ({ item }) => {
