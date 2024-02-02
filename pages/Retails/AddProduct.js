@@ -113,10 +113,10 @@ const AddProduct = () => {
         addTocart({
           ...params,
           cb: (res) => {
-            router.back();
+            // router.back();
 
             dispatch(productCart());
-            // router.push("/Retails?parameter=product");
+            router.push("/Retails?parameter=product");
           },
         })
       );
