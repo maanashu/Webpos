@@ -18,7 +18,7 @@ import {
 import { useDispatch, useSelector } from "react-redux";
 import { getAllPosUser, selectLoginAuth } from "../../redux/slices/auth";
 import RightSideBar from "./RightSideBar";
-import { amountFormat } from "../../utilities/globalMethods";
+import { amountFormat, getDateLabel } from "../../utilities/globalMethods";
 import { Modal } from "react-bootstrap";
 import CartAlert from "./CartAlert";
 
@@ -30,7 +30,6 @@ const Retails = () => {
   const sellerId = authData?.usersInfo?.payload?.uniqe_id;
   const router = useRouter();
   const { parameter } = router.query;
-  console.log("parameter", parameter);
   const cartData = retailData?.productCart;
   const cartLength = cartData?.poscart_products?.length;
   const cartPosCart = cartData?.poscart_products || [];
@@ -313,7 +312,17 @@ const Retails = () => {
                                   className="img-fluid appointmentCalender"
                                 />
                                 <span className="Ontime">
-                                  Tomorrow at 10:00hrs
+                                  {getDateLabel(
+                                    services?.supplies?.[0]?.next_available_slot
+                                      ?.date
+                                  ) +
+                                    " " +
+                                    "/" +
+                                    services?.supplies?.[0]?.next_available_slot
+                                      ?.start_time +
+                                    "-" +
+                                    services?.supplies?.[0]?.next_available_slot
+                                      ?.end_time}
                                 </span>
                               </figure>
                               <figure className="Timezone">

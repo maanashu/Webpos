@@ -48,6 +48,7 @@ const initialState = {
   paymentRequestCancelLoad: false,
   getMainProductLoad: false,
   getMainServicesLoad: false,
+  updateCartLoad: false,
 };
 
 export const retailsSlice = createSlice({
@@ -308,6 +309,14 @@ export const retailsSlice = createSlice({
       state.paymentRequestCancelLoad = false;
       // state.qrcodestatusData = action?.payload?.payload?.status;
     },
+
+    updateCart: (state) => {
+      state.updateCartLoad = true;
+    },
+    setUpdateCart: (state, action) => {
+      state.updateCartLoad = false;
+      // state.qrcodestatusData = action?.payload?.payload?.status;
+    },
     onErrorStopLoad: (state) => {
       state.loading = false;
       state.availableOffersLoad = false;
@@ -332,6 +341,7 @@ export const retailsSlice = createSlice({
       state.getMainServicesLoad = false;
       state.addTocartLoad = false;
       state.clearCartLoad = false;
+      state.updateCartLoad = false;
     },
   },
 });
@@ -405,6 +415,8 @@ export const {
   setQrcodestatus,
   paymentRequestCancel,
   setPaymentRequestCancel,
+  updateCart,
+  setUpdateCart,
 } = retailsSlice.actions;
 
 export const selectRetailData = (state) => state.retails;
