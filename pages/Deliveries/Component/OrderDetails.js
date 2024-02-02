@@ -19,6 +19,7 @@ const OrderDetail = ({
   trackHandler,
   orderListType,
   isLoading,
+  declineLoading,
   showInvoice,
   setShowInvoice,
 }) => {
@@ -289,6 +290,7 @@ const OrderDetail = ({
                     declineHandler={() => declineHandler(orderData)}
                     trackHandler={trackHandler}
                     isLoading={isLoading}
+                    declineLoading={declineLoading}
                   />
                 </div>
               </div>
