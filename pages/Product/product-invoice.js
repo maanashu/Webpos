@@ -20,12 +20,15 @@ const ProductInvoice = () => {
   const dispatch = useDispatch();
   const router = useRouter();
   const authData = useSelector(selectLoginAuth);
+  const posData = authData?.posUserLoginDetails?.payload;
+  const merchentDetails = authData?.usersInfo?.payload?.user?.user_profiles;
   const sellerId = authData?.usersInfo?.payload?.uniqe_id;
   const [searchInvoiceViaBarcode, setSearchInvoiceViaBarcode] = useState("");
+  console.log(searchInvoiceViaBarcode,'searchInvoiceViaBarcode');
   const invoiceData = useSelector(selectReturnData);
   const SearchInvoiceRespones = invoiceData?.invoiceByInvoiceId;
   const returnData = SearchInvoiceRespones?.return;
-  console.log(returnData, "returnData");
+  const returnProductArray = returnData?.return_details;
   const orderDetails = SearchInvoiceRespones?.order;
   const [checkeddata, setCheckedData] = useState("");
   const [productDetails, setProductDetails] = useState([]);
@@ -58,7 +61,7 @@ const ProductInvoice = () => {
 
   const handleSearchInvoice = (e) => {
     let params = {
-      invoiceId: e.target.value,
+      invoiceId: e?.target?.value ? e.target.value : e,
       seller_id: sellerId,
     };
 
@@ -125,6 +128,13 @@ const ProductInvoice = () => {
     }
   }, [searchInvoiceViaBarcode]);
 
+  const handleSacnBarcode=(e)=>{
+    const enteredValue = e.target.value;
+    if (enteredValue.length <= 15) {
+        setSearchInvoiceViaBarcode(enteredValue);
+    }
+  }
+
   useEffect(() => {
     if (checkeddata) {
       const updatedProductDetails = productDetails?.map((item) =>
@@ -135,6 +145,10 @@ const ProductInvoice = () => {
       setProductDetails(updatedProductDetails);
     }
   }, [checkeddata]);
+
+  useEffect(() => {
+    handleSearchInvoice(SearchInvoiceRespones?.id);
+  }, []);
 
   return (
     <>
@@ -267,7 +281,114 @@ const ProductInvoice = () => {
           </div>
 
           {returnData ? (
-            <>Product Retuned!</>
+            <>
+              {" "}
+              <div className="col-lg-5 col-md-5">
+                <div className="commanOuter me-0 ms-0 commonSubOuter confirmRight p-0">
+                  <div className="confirmRightSub confirmAddress">
+                    <h2 className="mapleHeading text-center">
+                      {merchentDetails?.organization_name}.
+                    </h2>
+                    <h4 className="mapleAddress text-center">
+                      {" "}
+                      {merchentDetails?.current_address?.street_address},
+                      {merchentDetails?.current_address?.city},
+                      {merchentDetails?.current_address?.state},
+                      {merchentDetails?.current_address?.country},
+                      {merchentDetails?.current_address?.zipcode}
+                    </h4>
+                    <h4 className="mapleAddress text-center p-0">
+                      {" "}
+                      {merchentDetails?.full_phone_number}
+                    </h4>
+                  </div>
+                  <div className="mapleProductDetails confirmRightSub">
+                    {returnProductArray?.map((data, idx) => {
+                      return (
+                        <div
+                          key={idx}
+                          className="flexBox mapleProductDetailsBox"
+                        >
+                          <div className="flexbase">
+                            <p className="mapleProductcount">
+                              × {data?.order_details?.qty}
+                            </p>
+                            <article className="ms-3">
+                              <p className="mapleProductHeading">
+                                {data?.order_details?.product_name}
+                              </p>
+                              {/* <span className="mapleProductcount">Yellow / M</span> */}
+                            </article>
+                          </div>
+                          <article>
+                            <p className="mapleProductPrice">
+                              ${data?.refunded_amount}
+                            </p>
+                          </article>
+                        </div>
+                      );
+                    })}
+                  </div>
+                  <div className="flexBox mapleInvoiceBox confirmRightSub">
+                    <article>
+                      <p className="mapleProductPrice">Status</p>
+                      <p className="mapleProductHeading">{returnData?.type}</p>
+                      <p className="mapleProductPrice">Invoice</p>
+                      <p className="mapleProductHeading">
+                        # {returnData?.invoices?.invoice_number}
+                      </p>
+                    </article>
+                    <article>
+                      <p className="mapleProductPrice">Date</p>
+                      <p className="mapleProductHeading">
+                        {" "}
+                        {moment
+                          .utc(returnData?.updated_at)
+                          .format("ddd, DD/MM/YYYY")}
+                      </p>
+                      <p className="mapleProductPrice">POS No.</p>
+                      <p className="mapleProductHeading">
+                        #{posData?.pos_number}
+                      </p>
+                    </article>
+                    <article>
+                      <p className="mapleProductPrice">Mode</p>
+                      <p className="mapleProductHeading">Walk-In</p>
+                      <p className="mapleProductPrice">User UD</p>
+                      <p className="mapleProductHeading">{posData?.id}</p>
+                    </article>
+                  </div>
+                  <div className="flexBox maplePriceBox">
+                    <article>
+                      <p className="productName">Subtotal</p>
+                      <p className="productName">Tax</p>
+
+                      <p className="productName fw-bold">Total</p>
+                    </article>
+                    <article>
+                      <p className="productName">
+                        ${returnData?.products_refunded_amount}
+                      </p>
+                      <p className="productName">{returnData?.tax}%</p>
+
+                      <p className="totalBtn">${returnData?.refunded_amount}</p>
+                    </article>
+                  </div>
+                  <div className="confirmFooter">
+                    <Image
+                      src={Images.Logo}
+                      alt="logo"
+                      className="img-fluid logo"
+                    />
+                    <Image
+                      src={Images.barCodeScanImg}
+                      alt="barCodeScanImg"
+                      className="img-fluid barCodeScanImg"
+                    />
+                  </div>
+                </div>
+              </div>
+            </>
           ) : SearchInvoiceRespones ? (
             <div className="col-lg-6">
               <div className="commanOuter">
@@ -311,9 +432,9 @@ const ProductInvoice = () => {
                         type="text"
                         className="form-control searchControl"
                         placeholder="Scan Barcode of each Item"
-                        onChange={(e) =>
-                          setSearchInvoiceViaBarcode(e.target.value)
-                        }
+                        value={searchInvoiceViaBarcode}
+                        onChange={(e) =>handleSacnBarcode(e)}
+           
                       />
                       <Image
                         src={Images.scanImg}

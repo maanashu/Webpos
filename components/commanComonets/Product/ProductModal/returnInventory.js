@@ -1,9 +1,8 @@
 import React, { useState } from "react";
 
-const ReturnInventory = ({ selectedProducts }) => {
+const ReturnInventory = ({ selectedProducts, setNewQty }) => {
   const [selectedProductItems, setSelectedProductItems] =
     useState(selectedProducts);
-
 
   const handleQuantity = (data, flag) => {
     let updateProductQuantity;
@@ -35,6 +34,7 @@ const ReturnInventory = ({ selectedProducts }) => {
       });
     }
     setSelectedProductItems(updateProductQuantity);
+    setNewQty(updateProductQuantity);
   };
 
   return (
