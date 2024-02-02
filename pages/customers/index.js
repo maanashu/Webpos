@@ -38,6 +38,14 @@ const Customers = () => {
 
   const uniqueId = authData?.usersInfo?.payload?.uniqe_id;
 
+  const [startDate, setStartDate] = useState(null);
+  const [endDate, setEndDate] = useState(null);
+
+  const handleDateChange = (dates) => {
+    const [start, end] = dates;
+    setStartDate(start);
+    setEndDate(end);
+  };
   const STATS = [
     {
       icon: newCustomers,
@@ -117,6 +125,7 @@ const Customers = () => {
           mainIcon={customerWallet}
           title="Total Customers"
           searchHandler={() => handleShowModal("End Cash", "remove")}
+          onDateChange={handleDateChange}
         />
 
         {/* stats */}
