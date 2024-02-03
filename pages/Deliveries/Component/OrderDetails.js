@@ -42,7 +42,7 @@ const OrderDetail = ({
       return (
         <div className=" deliveryOuter deliverOrderRight ms-0">
           <div className="orderLeftInfo">
-            <div className="flexTable">
+            <div className="flexTable deliverProfileData">
               <figure className="orderAroundImg">
                 <Image
                   src={
@@ -61,21 +61,21 @@ const OrderDetail = ({
                   // alignItems: "start",
                 }}
               >
-                <h4 className="linkHeading ms-1">
+                <h4 className="linkHeading ms-1 text-start">
                   {orderData?.user_details?.firstname}{" "}
                   {orderData?.user_details?.lastname}
                 </h4>
 
                 <p
                   style={{ whiteSpace: "pre-line" }}
-                  className="aboutProduct ms-1"
+                  className="deliverProduct ms-1"
                 >
                   {`${orderData?.user_details?.current_address?.street_address}, ${orderData?.user_details?.current_address?.city}`}
                 </p>
 
                 <p
                   style={{ whiteSpace: "pre-line" }}
-                  className="aboutProduct ms-1"
+                  className="deliverProduct ms-1"
                 >
                   {`${orderData?.user_details?.current_address?.state}, ${orderData?.user_details?.current_address?.country}`}
                 </p>
@@ -101,11 +101,11 @@ const OrderDetail = ({
             </div> */}
           </div>
           <hr className="divideBorder my-3" />
-          <div className="detailScrollDelivery  mt-3">
+          <div className="detailDeliver  mt-3">
             {orderData?.order_details?.map((item, index) => (
               <li key={index} style={{ listStyle: "none" }}>
                 <div className="selectedProductDetails">
-                  <div className="d-flex">
+                  <div className="d-flex productDataInfo">
                     <Image
                       src={item?.product_image}
                       alt="cartFoodImg"
@@ -115,8 +115,8 @@ const OrderDetail = ({
                     />
                     <div className="ps-1">
                       <p
-                        style={{ whiteSpace: "pre-line" }}
-                        className="aboutProduct"
+                        // style={{ whiteSpace: "pre-line" }}
+                        className="aboutProduct invoiceDataText"
                       >
                         {item.product_name}
                       </p>
@@ -155,7 +155,7 @@ const OrderDetail = ({
           </div>
           <div className="row">
             <div className="col-lg-4">
-              <div className="OrderBox p-0">
+              <div className="OrderBox px-0">
                 <div className="OrderCheckoutBox">
                   <p className="orderHeading">Total Items</p>
                   <p className="orderSubHeading">
