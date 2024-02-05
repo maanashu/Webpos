@@ -138,11 +138,11 @@ const ButtonComponent = ({
               className="preparedBtn w-100"
             >
               Order Prepared
-              <Image
+              {/* <Image
                 src={Images.ArrowRight}
                 alt="ArrowRight"
                 className="img-fluid ArrowRight"
-              />
+              /> */}
             </button>
           )}
         </div>
@@ -166,9 +166,9 @@ const ButtonComponent = ({
             >
               Ready to Pickup
               <Image
-                src={Images.ArrowRight}
-                alt="ArrowRight"
-                className="img-fluid ArrowRight"
+                src={Images.deliverHand}
+                alt="deliverHand"
+                className="img-fluid "
               />
             </button>
           )}
@@ -194,9 +194,9 @@ const ButtonComponent = ({
             >
               Ready to Pickup
               <Image
-                src={Images.ArrowRight}
-                alt="ArrowRight"
-                className="img-fluid ArrowRight"
+                src={Images.deliverHand}
+                alt="deliverHand"
+                className="img-fluid "
               />
             </button>
           )}

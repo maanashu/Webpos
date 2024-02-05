@@ -271,8 +271,8 @@ const RightSideBar = ({ props }) => {
                 );
 
               return (
-                <div className="cartSubInfo active" key={index}>
-                  <div className="orderTime">
+                <div className="cartSubInfo active productCartShow" key={index}>
+                  <div className="orderTime productCartInfo">
                     <Image
                       src={data?.product_details?.image}
                       alt="cartFoodImg"
@@ -281,7 +281,7 @@ const RightSideBar = ({ props }) => {
                       height="100"
                     />
                     <div className="cartorderHeading ms-2 ">
-                      <h4 className="cartText">
+                      <h4 className="cartText cartShowText">
                         {data?.product_details?.name}
                       </h4>
                       {data?.product_type === "service" && (

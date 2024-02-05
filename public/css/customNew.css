@@ -2798,6 +2798,9 @@ figure {
 
 .assignMapRight {
   position: relative;
+  border-radius: 20px;
+  box-shadow: -2px 4px 25px 0px rgba(50, 80, 127, 0.02),
+    -5px 10px 80px 0px rgba(50, 80, 127, 0.04);
 }
 
 .orderStatusBox {
@@ -4523,31 +4526,40 @@ figure {
   height: 18px;
   border-radius: 6px;
 }
+
 .topsettingContent_ {
   display: flex;
   align-items: flex-start;
 }
+
 .bottonContent_ {
   padding-left: 40px;
 }
+
 .taxpayData .nameControl {
   box-shadow: none;
 }
-.taxpayData  .emailField .verifyControl {
+
+.taxpayData .emailField .verifyControl {
   box-shadow: none;
 }
-.taxpayData .selectRole .form-select{
+
+.taxpayData .selectRole .form-select {
   box-shadow: none;
 }
+
 .taxpayData::-webkit-scrollbar {
   display: none;
 }
+
 .taxDateArea .cancelCalendar {
-  padding: 11px 10px!important;
+  padding: 11px 10px !important;
 }
+
 .selectRole .searchBox {
   padding: 0;
 }
+
 /*setting css end*/
 /* cash Drawer css start*/
 .cashDrawOuter {
@@ -4966,6 +4978,7 @@ figure {
   padding: 16px 24px;
   margin-top: 10px;
 }
+
 .georgiaBox {
   border-radius: 16px;
   border: 1px solid #d7deff;
@@ -4976,6 +4989,7 @@ figure {
   justify-content: space-between;
   margin-left: 40px;
 }
+
 .darkCheck input[type="checkbox"]:checked {
   background: #263682;
   border: 2px solid #263682;
@@ -5286,6 +5300,7 @@ figure {
 #returnedOrder .invoice_subhead:first-child {
   min-width: 100px;
 }
+
 #rejectOrder .invoice_subhead:nth-child(3) {
   min-width: 180px;
 }
@@ -5309,7 +5324,7 @@ figure {
 #printingLabel .invoice_subhead:first-child {
   min-width: 100px;
 }
-    
+
 .cashText {
   color: #263682;
   font-size: 16px;
@@ -5352,9 +5367,11 @@ figure {
 .analyticsSection .stats {
   flex-wrap: wrap;
 }
-.analyticsSection .stat-box{
+
+.analyticsSection .stat-box {
   min-width: 185px;
 }
+
 /*gaurav arora sir css start*/
 .headingTextStyle {
   color: #263682;
@@ -5391,7 +5408,7 @@ figure {
   line-height: normal;
   letter-spacing: -0.32px;
   flex-direction: row;
-  display: flex; 
+  display: flex;
   justify-content: space-between;
 }
 
@@ -5405,7 +5422,6 @@ figure {
   font-weight: 400;
   line-height: normal;
 }
-
 .modalTitleStyle {
   align-items: center;
   justify-content: center;
@@ -5516,6 +5532,7 @@ figure {
   font-weight: 500;
   margin: 0 0 10px;
 }
+
 .refundIntro ul li {
   color: #636E9F;
   font-size: 15px;
@@ -5524,6 +5541,7 @@ figure {
   list-style-type: disc;
   list-style-position: inside;
 }
+
 .refundIntro h2 {
   color: #263682;
   font-size: 20px;
@@ -5533,5 +5551,10 @@ figure {
 
 .overflow-scroll-common-filter {
   overflow-y: scroll;
+<<<<<<< HEAD
+  height: 60vh;
+}
+=======
   height: 50vh;
 }
+>>>>>>> 2654f6b4c35c8ae9fe0035c2a3467806b7e36f07

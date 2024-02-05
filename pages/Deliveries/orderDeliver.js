@@ -253,7 +253,7 @@ const OrderDeliver = ({ orderDetail }) => {
   }, []);
   return (
     <>
-      <div className=" orderDeliverSection deliverySection">
+      <div className=" orderDeliverSection deliverySection afterViewOuter">
         <div className="deliverMain w-100">
           <div className="row ">
             <div className="col-xl-6 col-lg-12">
