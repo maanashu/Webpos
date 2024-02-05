@@ -194,6 +194,12 @@ const index = () => {
               <tr>
                 <th
                   className="customers-table-data"
+                  style={{ border: "none", color: "#7E8AC1", textAlign: "center" }}
+                >
+                  Sr.No.
+                </th>
+                <th
+                  className="customers-table-data"
                   style={{
                     border: "none",
                     color: "#7E8AC1",
@@ -263,6 +269,11 @@ const index = () => {
                         {analyticsOrderData?.delivery_graph?.ordersListData?.map(
                           (row, idx) => (
                             <tr className="customers-table-row" key={idx}>
+                              <td
+                                className="customers-table-data"
+                              >
+                                {idx + 1}
+                              </td>
                               <td className="customers-table-data">
                                 {moment(row?.order_date).format("MM/DD/YYYY")}
                               </td>

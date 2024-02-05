@@ -11,7 +11,6 @@ import { getStartEndFormattedDate, pSBC } from "../utilities/globalMethods";
 import { CALENDAR_MODES, CALENDAR_VIEW_MODES } from "../constants/enums";
 import { Spacer } from "./Spacer";
 
-
 const styles = StyleSheet.create({
   profilePicContainer: {
     height: 12,
@@ -32,7 +31,7 @@ const styles = StyleSheet.create({
   eventTitle: {
     color: "#3C444D",
     // fontFamily: Fonts.Regular,
-    fontSize: 6,
+    fontSize: 9,
   },
   eventContainer: {
     backgroundColor: "white",
