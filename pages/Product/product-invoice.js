@@ -35,7 +35,7 @@ const ProductInvoice = () => {
   const [modalDetail, setModalDetail] = useState({
     show: false,
     title: "",
-    flag: "",
+    flag: "", 
   });
 
   const handleOnCloseModal = () => {
@@ -312,7 +312,7 @@ const ProductInvoice = () => {
           {returnData ? (
             <>
               {" "}
-              <div className="col-lg-5 col-md-5">
+              <div className="col-lg-6 col-md-6">
                 <div className="commanOuter me-0 ms-0 commonSubOuter confirmRight p-0">
                   <div className="confirmRightSub confirmAddress">
                     <h2 className="mapleHeading text-center">
