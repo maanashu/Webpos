@@ -281,7 +281,6 @@ const Booking = () => {
               setSearchedAppointments(searchData?.data);
             }
           }
-
           setIsLoadingSearchAppoinment(false);
         },
       })
@@ -297,7 +296,6 @@ const Booking = () => {
     const filteredAppointments = getApprovedAppointments?.filter(
       (appointments) => appointments?.pos_user_id === selectedStaffEmployeeId
     );
-
     return filteredAppointments;
   };
 
@@ -320,7 +318,6 @@ const Booking = () => {
           };
         }
       );
-
       setExtractedAppointment(extractedAppointmentEvents);
     }
   }, [getAppointmentList, selectedStaffEmployeeId]);
