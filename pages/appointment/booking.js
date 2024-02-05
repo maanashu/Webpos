@@ -40,7 +40,7 @@ import {
 import moment from "moment-timezone";
 import { Spacer } from "../../components/Spacer";
 import CheckinModal from "../../components/modals/appointmentModal/checkinModal";
-import EventDetailModal from "../../Components/modals/EventDetailModal";
+import EventDetailModal from "../../components/modals/EventDetailModal";
 import {
   getAppointments,
   bookingsDetails,
