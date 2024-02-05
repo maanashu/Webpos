@@ -135,7 +135,7 @@ const RightSideBar = ({ props }) => {
                 />
               </div>
             </ListGroupItem>
-            <ListGroupItem className="rightSidebarItems">
+            <ListGroupItem className="rightSidebarItems active">
               <div className="sidebarBg">
                 <Image
                   src={Images.PauseCircleOutline}
@@ -143,6 +143,7 @@ const RightSideBar = ({ props }) => {
                   className="img-fluid rightSidebarIcons"
                 />
               </div>
+              <span className="holdNum">1</span>
             </ListGroupItem>
 
             <ListGroupItem
@@ -359,9 +360,8 @@ const RightSideBar = ({ props }) => {
                   </h4>
                 </div>
                 <div className="cartTotal">
-                  <h4 className="userPosition">{`Discount ${
-                    cartData?.discount_flag === "percentage" ? "(%)" : ""
-                  } `}</h4>
+                  <h4 className="userPosition">{`Discount ${cartData?.discount_flag === "percentage" ? "(%)" : ""
+                    } `}</h4>
                   <h4 className="amountText m-0">
                     {formattedReturnPrice(cartAmount?.discount || "0.00")}
                   </h4>
