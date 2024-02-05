@@ -168,7 +168,7 @@ const index = () => {
           <table className="customers-stats-table">
             <thead>
               <tr>
-              <th
+                <th
                   className="customers-table-data"
                   style={{ border: "none", color: "#7E8AC1", textAlign: "center" }}
                 >
@@ -223,10 +223,10 @@ const index = () => {
                         analyticsOrderData?.pos_graph?.ordersListData?.length > 0 ? <tbody>
                           {analyticsOrderData?.pos_graph?.ordersListData?.map((row, idx) => (
                             <tr className="customers-table-row" key={idx}>
-                                           <td
+                              <td
                                 className="customers-table-data"
                               >
-                                {idx+1}
+                                {idx + 1}
                               </td>
                               <td
                                 className="customers-table-data"
