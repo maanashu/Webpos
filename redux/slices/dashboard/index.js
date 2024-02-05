@@ -64,9 +64,8 @@ export const dashboardSlice = createSlice({
         getOnlineOrdersCount: (state) => {
             state.loading = true;
         },
-        endTrackingSession: (state) => {
-            // state.loading = true;
-        },
+        endTrackingSession: () => {},
+        fetchInvoiceDetail: () => {}
     },
 });
 
@@ -86,7 +85,8 @@ export const {
     setGetProfile,
     onErrorStopLoad,
     getOrderDetailsById,
-    endTrackingSession
+    endTrackingSession,
+    fetchInvoiceDetail
 } = dashboardSlice.actions;
 
 export const dashboardDetails = (state) => state.dashboard;
