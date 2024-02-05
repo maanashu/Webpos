@@ -1916,13 +1916,16 @@ figure {
   border: 1.5px solid #f5f6fc;
   background: #263682;
   color: #f5f6fc;
-  font-size: 12px;
-  font-weight: 500;
+  font-size: 10px;
+  font-weight: 600;
   position: absolute;
   height: 18px;
   width: 18px;
   bottom: 12px;
-  right: 3px;
+  right: 0px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 /*service pages css end*/
@@ -5411,7 +5414,6 @@ figure {
   display: flex;
   justify-content: space-between;
 }
-
 .boxbottomTextStyle {
   margin-top: 20px;
   color: var(--Neutrals-N-600, #7e8ac1);
