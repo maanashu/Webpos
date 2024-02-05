@@ -367,12 +367,12 @@ const Booking = () => {
   const onPressCalendarViewMode = () => {
     setCalendarViewMode(CALENDAR_VIEW_MODES.CALENDAR_VIEW);
     setshouldShowCalendarModeOptions(true);
-    weekHandler();
+    // weekHandler();
   };
   const onPressListViewMode = () => {
     setCalendarViewMode(CALENDAR_VIEW_MODES.LIST_VIEW);
     setshouldShowCalendarModeOptions(false);
-    dayHandler();
+    //  dayHandler();
     setSelectedStaffEmployeeId(null);
     setshowEmployeeHeader(false);
   };
