@@ -42,6 +42,7 @@ import {
   setServiceCategory,
   setServiceSubCategory,
   setUpdateCart,
+  setHoldProductCart,
 } from "../../slices/retails";
 import { all, call, put, takeLatest } from "redux-saga/effects";
 import { store, wrapper } from "../..";
@@ -798,7 +799,6 @@ function* paymentRequestCancel(action) {
 }
 
 function* updateCart(action) {
-  console.log("action", action);
   const body = action?.payload;
   const dataToSend = action?.payload?.cartId;
   delete body.cartId;
@@ -811,6 +811,23 @@ function* updateCart(action) {
     );
     if (resp.status) {
       yield put(setUpdateCart(resp.data));
+      yield call(action.payload.cb, (action.res = resp?.data));
+    } else {
+      throw resp;
+    }
+  } catch (e) {
+    yield put(onErrorStopLoad());
+    toast.error(e?.error?.response?.data?.msg);
+  }
+}
+
+function* getHoldProductCart(action) {
+  const dataToSend = action?.payload?.cartId;
+
+  try {
+    const resp = yield call(ApiClient.get, `${ORDER_API_URL_V1}poscarts/`);
+    if (resp.status) {
+      yield put(setHoldProductCart(resp.data));
       yield call(action.payload.cb, (action.res = resp?.data));
     } else {
       throw resp;
@@ -864,6 +881,7 @@ function* retailsSaga() {
     takeLatest("retails/requestCheck", requestCheck),
     takeLatest("retails/qrcodestatus", qrcodestatus),
     takeLatest("retails/paymentRequestCancel", paymentRequestCancel),
+    takeLatest("retails/getHoldProductCart", getHoldProductCart),
   ]);
 }
 
