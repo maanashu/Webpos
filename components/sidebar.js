@@ -5,7 +5,7 @@ import Image from "next/image";
 import { ListGroup, ListGroupItem } from "react-bootstrap";
 import { useRouter } from "next/router";
 import { logout, selectLoginAuth } from "../redux/slices/auth";
-import { dashboardLogout } from "../redux/slices/dashboard";
+import { dashboardLogout, dashboardDetails, endTrackingSession } from "../redux/slices/dashboard";
 import { useDispatch, useSelector } from "react-redux";
 import { toast } from "react-toastify";
 import { getOrdersList } from "../redux/slices/shipping";
@@ -14,6 +14,8 @@ const Sidebar = (props) => {
   const dispatch = useDispatch();
   const [activeSidebar, setActiveSidebar] = useState(true);
   const authData = useSelector(selectLoginAuth);
+  const dashboardData = useSelector(dashboardDetails);
+  const trackingSession = dashboardData?.drawerSession?.payload;
   const sellerUid = authData?.usersInfo?.payload?.uniqe_id;
 
 
@@ -35,15 +37,48 @@ const Sidebar = (props) => {
 
   const userLogout = async (e) => {
     e.preventDefault();
-    await dispatch(logout());
-    await dispatch(dashboardLogout());
-    setTimeout(() => {
-      toast.success("Logout successfully");
-    }, 200);
-    router.push("/auth/verification");
-    localStorage.removeItem("merchantAuthToken");
-    localStorage.removeItem("authToken");
-    localStorage.removeItem("persist:root");
+    
+    let params =  {
+      // pos_user_id: posUserUniqueId,
+      drawer_id: trackingSession?.id,
+      amount: parseInt(trackingSession?.cash_balance),
+      transaction_type: 'end_tracking_session',
+      mode_of_cash: 'cash_out'
+    };
+
+    dispatch(
+      endTrackingSession({
+        ...params,
+        async cb(res) {
+          await dispatch(logout());
+          await dispatch(dashboardLogout());
+
+          setTimeout(() => {
+            toast.success("Logout successfully");
+          }, 200);
+
+          router.push("/auth/verification");
+          
+          localStorage.removeItem("merchantAuthToken");
+          localStorage.removeItem("authToken");
+          localStorage.removeItem("persist:root");
+        },
+      })
+    );
+
+
+      // await dispatch(logout());
+      // await dispatch(dashboardLogout());
+
+      // setTimeout(() => {
+      //   toast.success("Logout successfully");
+      // }, 200);
+
+      // localStorage.removeItem("merchantAuthToken");
+      // localStorage.removeItem("authToken");
+      // localStorage.removeItem("persist:root");
+
+      // router.push("/auth/verification");
   };
 
   const isLinkActive = (href) => {
