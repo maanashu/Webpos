@@ -14,8 +14,8 @@ const RefundsConfirmation = () => {
   const router = useRouter();
   const invoiceData = useSelector(selectReturnData);
   const selectedData = invoiceData?.invoiceData;
+  console.log(selectedData,'selectedData');
   const itemsList = JSON.parse(selectedData?.selectedItems || "[]");
-  console.log(itemsList,'itemsList');
   const refundamounts = JSON.parse(selectedData?.inputValues || "[]");
   const authData = useSelector(selectLoginAuth);
   const posData = authData?.posUserLoginDetails?.payload;
@@ -40,16 +40,20 @@ const RefundsConfirmation = () => {
     });
     setKey(Math.random());
   };
-
   const lineTotals = [];
+
   for (let i = 0; i < itemsList.length; i++) {
-    if(refundamounts?.length == 0){
-      const qty = itemsList[i].qty;
-      const refundAmount = refundamounts[i]?.value;
+    const qty = itemsList[i].qty;
+    const refundAmount = refundamounts[i]?.value;
+  
+    if (refundAmount !== undefined) {
       lineTotals.push(Number(qty) * Number(refundAmount));
+    } else {
+      const price = itemsList[i].price;
+      lineTotals.push(Number(qty) * Number(price));
     }
   }
-
+  
   const handleConfirmReturnButton = () => {
     router.push({
       pathname: "/Product/Confirmation(Success)",
@@ -60,14 +64,14 @@ const RefundsConfirmation = () => {
       setActiveSms(true);
       setActiveEmail(false);
       setActiveMsz(false);
-      // setModalDetail({ show: true, flag: "sms" });
-      // setKey(Math.random());
+      setModalDetail({ show: true, flag: "sms" });
+      setKey(Math.random());
     } else if (flag == "email") {
       setActiveEmail(true);
       setActiveMsz(false);
       setActiveSms(false);
-      // setModalDetail({ show: true, flag: "email" });
-      // setKey(Math.random());
+      setModalDetail({ show: true, flag: "email" });
+      setKey(Math.random());
     } else if (flag == "noThnks") {
       setActiveMsz(true);
       setActiveSms(false);
@@ -87,7 +91,7 @@ const RefundsConfirmation = () => {
     { sumProductPrices: 0, sumTax: 0 }
   );
   const totalAmount = sumProductPrices + sumTax;
-  console.log(totalAmount,'totalAmount');
+  console.log(totalAmount, "totalAmount");
   return (
     <>
       <div className="refundConfirmation me-3">
@@ -111,7 +115,12 @@ const RefundsConfirmation = () => {
               <div className="refundMethod">
                 <h4 className="totalRefund">Total Return Amount</h4>
                 <h5 className="totalrefundAmount">
-                  <p className="priceRefunded">-${Number(selectedData?.totalSum)?Number(selectedData?.totalSum):selectedData?.existingTotal}</p>
+                  <p className="priceRefunded">
+                    -$
+                    {Number(selectedData?.totalSum)
+                      ? Number(selectedData?.totalSum)
+                      : selectedData?.existingTotal?.toFixed(2)}
+                  </p>
                 </h5>
                 <p className="userPosition">
                   Select a method of payment to refund.
@@ -135,7 +144,12 @@ const RefundsConfirmation = () => {
                       <p>debit/credit</p>
                     </article>
                     <p className="cardNumber pt-5">●●●● ●●●● ●●●● 7224</p>
-                    <p className="priceRefunded">${Number(selectedData?.totalSum)?Number(selectedData?.totalSum):selectedData?.existingTotal}</p>
+                    <p className="priceRefunded">
+                      $
+                      {Number(selectedData?.totalSum)
+                        ? Number(selectedData?.totalSum)
+                        : selectedData?.existingTotal?.toFixed(2)}
+                    </p>
                   </div>
                 </div>
 
@@ -160,7 +174,12 @@ const RefundsConfirmation = () => {
                       />
                       <p>cash</p>
                     </article>
-                    <p className="priceRefunded">${Number(selectedData?.totalSum)?Number(selectedData?.totalSum):selectedData?.existingTotal}</p>
+                    <p className="priceRefunded">
+                      $
+                      {Number(selectedData?.totalSum)
+                        ? Number(selectedData?.totalSum)
+                        : selectedData?.existingTotal?.toFixed(2)}
+                    </p>
                   </div>
                 </div>
 
@@ -180,7 +199,12 @@ const RefundsConfirmation = () => {
                       />
                       <p>jobr coin</p>
                     </article>
-                    <p className="priceRefunded">${Number(selectedData?.totalSum)?Number(selectedData?.totalSum):selectedData?.existingTotal}</p>
+                    <p className="priceRefunded">
+                      $
+                      {Number(selectedData?.totalSum)
+                        ? Number(selectedData?.totalSum)
+                        : selectedData?.existingTotal?.toFixed(2)}
+                    </p>
                   </div>
                 </div>
               </div>
@@ -319,7 +343,7 @@ const RefundsConfirmation = () => {
                   <div>
                     <article className="mapleSubFlex">
                       {lineTotals?.map((total) => {
-                        return <p className="mapleProductPrice">-${total}</p>;
+                        return <p className="mapleProductPrice">-${total.toFixed(2)}</p>;
                       })}
                     </article>
                   </div>
@@ -369,13 +393,15 @@ const RefundsConfirmation = () => {
                     <p className="productName">$00.00</p>
                     <p className="productName">
                       -$
-                      {Number(selectedData?.totalTax) ? Number(selectedData?.totalTax) : selectedData?.existingTax}
+                      {Number(selectedData?.totalTax)
+                        ? Number(selectedData?.totalTax)
+                        : selectedData?.existingTax?.toFixed(2)}
                     </p>
                     <p className="userName refundTotalBtn">
                       -$
                       {Number(selectedData?.totalSum)
                         ? Number(selectedData?.totalSum)
-                        : selectedData?.existingTotal}
+                        : selectedData?.existingTotal?.toFixed(2)}
                     </p>
                   </article>
                 </div>
