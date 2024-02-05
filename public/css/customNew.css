@@ -2014,6 +2014,12 @@ figure {
   border: 1px solid #d7deff;
   margin-top: 16px;
   padding: 16px;
+  height: calc(60vh - 200px);
+  overflow: scroll;
+}
+
+.stockSub::-webkit-scrollbar {
+  display: none;
 }
 
 .stockBox {
