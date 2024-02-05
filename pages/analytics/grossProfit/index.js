@@ -169,6 +169,12 @@ const index = () => {
                   className="customers-table-data"
                   style={{ border: "none", color: "#7E8AC1", textAlign: "center" }}
                 >
+                  SR.No.
+                </th>
+                <th
+                  className="customers-table-data"
+                  style={{ border: "none", color: "#7E8AC1", textAlign: "center" }}
+                >
                   Date
                 </th>
                 <th
@@ -226,6 +232,11 @@ const index = () => {
                         analyticsProfitData?.orderData?.data?.length > 0 ? <tbody>
                           {analyticsProfitData?.orderData?.data?.map((row, idx) => (
                             <tr className="customers-table-row">
+                              <td
+                                className="customers-table-data"
+                              >
+                                {idx + 1}
+                              </td>
                               <td
                                 className="customers-table-data"
                               >
