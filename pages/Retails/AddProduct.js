@@ -183,7 +183,7 @@ const AddProduct = () => {
     <>
       <div className="productDetailSection" style={{ border: 1 }}>
         <div className="row">
-          <div className="col-lg-5 col-md-5">
+          <div className="col-xl-5 col-lg-12">
             <div className="commanOuter me-0 commonSubOuter productDetailLeft">
               <div className="newServiceDetail">
                 <div
@@ -241,21 +241,21 @@ const AddProduct = () => {
                 </p>
                 {productDetail?.supplies?.[0]?.supply_prices?.[0]
                   ?.offer_applicable_qty && (
-                  <p className="linkHeading">
-                    {" "}
-                    Offer qty :{" "}
-                    {
-                      productDetail?.supplies?.[0]?.supply_prices?.[0]
-                        ?.offer_applicable_qty
-                    }
-                    (
-                    {amountFormat(
-                      productDetail?.supplies?.[0]?.supply_prices?.[0]
-                        ?.offer_price
-                    )}
-                    )
-                  </p>
-                )}
+                    <p className="linkHeading">
+                      {" "}
+                      Offer qty :{" "}
+                      {
+                        productDetail?.supplies?.[0]?.supply_prices?.[0]
+                          ?.offer_applicable_qty
+                      }
+                      (
+                      {amountFormat(
+                        productDetail?.supplies?.[0]?.supply_prices?.[0]
+                          ?.offer_price
+                      )}
+                      )
+                    </p>
+                  )}
               </div>
               {colorArray?.length > 0 && (
                 <div className="colorChart">
@@ -343,8 +343,8 @@ const AddProduct = () => {
               retailData?.addTocartLoad ? ( */}
 
               {retailData?.addTocartLoad ||
-              retailData?.productCartLoad ||
-              retailData?.checkSuppliedVariantLoad ? (
+                retailData?.productCartLoad ||
+                retailData?.checkSuppliedVariantLoad ? (
                 <button
                   className="nextverifyBtn w-100 mt-3"
                   type="submit"
@@ -370,7 +370,7 @@ const AddProduct = () => {
               )}
             </div>
           </div>
-          <div className="col-lg-7 col-md-7">
+          <div className="col-xl-7 col-lg-12">
             <div className="commanOuter  ms-0 commonSubOuter productDetailRight">
               <h2 className="appointMain">Product details</h2>
               <div className="productData">
@@ -384,7 +384,7 @@ const AddProduct = () => {
               <div className="stockHandSetion">
                 <h4 className="payHeading text-start m-0">Stock on hand</h4>
                 <div className="stockSub">
-                  <div className="stockSlider"></div>
+                  {/* <div className="stockSlider"></div>
                   <div className="stockBox">
                     <div className="stockSubBox">
                       <div className="flexDiv">
@@ -574,6 +574,50 @@ const AddProduct = () => {
                           />
                         </figure>
                       </div>
+                    </div>
+                  </div> */}
+                  <div className="stockMain">
+                    <div className="stockEmpty"></div>
+                    <div className="stockColumn">
+                      <h4 className="appointSub m-0">Color/Size</h4>
+                      <h4 className="appointSub m-0">Stock</h4>
+                    </div>
+                    <div className="stockEmpty"></div>
+                  </div>
+                  <div className="stockMain mt-2">
+                    <div className="stockImageBox">
+                      <Image src={Images.ItemImage} className="img-fluid stockImg" />
+                    </div>
+                    <div className="stockColor">
+                      <div className="colorSizeBox">
+                        <div className="d-flex align-items-center">
+                          <h4 className="appointSub my-0 me-2">color :</h4>
+                          <span className="productColorBox"></span>
+                        </div>
+                        <h4 className="appointSub mt-1">Size : Small</h4>
+                      </div>
+                      <h4 className="cancelHeading">10</h4>
+                    </div>
+                    <div className="stockImageBox">
+                      <Image src={Images.lightBell} className="img-fluid smallImg" />
+                    </div>
+                  </div>
+                  <div className="stockMain mt-2">
+                    <div className="stockImageBox">
+                      <Image src={Images.ItemImage} className="img-fluid stockImg" />
+                    </div>
+                    <div className="stockColor">
+                      <div className="colorSizeBox">
+                        <div className="d-flex align-items-center">
+                          <h4 className="appointSub my-0 me-2">color :</h4>
+                          <span className="productColorBox"></span>
+                        </div>
+                        <h4 className="appointSub mt-1">Size : Small</h4>
+                      </div>
+                      <h4 className="cancelHeading">10</h4>
+                    </div>
+                    <div className="stockImageBox">
+                      <Image src={Images.lightBell} className="img-fluid smallImg" />
                     </div>
                   </div>
                 </div>

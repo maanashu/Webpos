@@ -9,7 +9,7 @@ import {
   updateLocationSetting,
 } from "../../../redux/slices/setting";
 
-const Location = () => {
+const Location = (props) => {
 
   const dispatch = useDispatch();
   const authData = useSelector(selectLoginAuth);
@@ -56,6 +56,10 @@ const Location = () => {
       getBussinessLocationInfo();
     }
   }, [UniqueId]);
+
+  useEffect(() => {
+    props?.setShowSideBar(false)
+  },[])
 
   return (
     <>

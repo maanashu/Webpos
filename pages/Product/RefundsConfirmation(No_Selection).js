@@ -14,6 +14,7 @@ const RefundsConfirmation = () => {
   const router = useRouter();
   const invoiceData = useSelector(selectReturnData);
   const selectedData = invoiceData?.invoiceData;
+  console.log(selectedData,'selectedData');
   const itemsList = JSON.parse(selectedData?.selectedItems || "[]");
   const refundamounts = JSON.parse(selectedData?.inputValues || "[]");
   const authData = useSelector(selectLoginAuth);
@@ -39,14 +40,20 @@ const RefundsConfirmation = () => {
     });
     setKey(Math.random());
   };
-
   const lineTotals = [];
+
   for (let i = 0; i < itemsList.length; i++) {
     const qty = itemsList[i].qty;
     const refundAmount = refundamounts[i]?.value;
-    lineTotals.push(qty * refundAmount);
+  
+    if (refundAmount !== undefined) {
+      lineTotals.push(Number(qty) * Number(refundAmount));
+    } else {
+      const price = itemsList[i].price;
+      lineTotals.push(Number(qty) * Number(price));
+    }
   }
-
+  
   const handleConfirmReturnButton = () => {
     router.push({
       pathname: "/Product/Confirmation(Success)",
@@ -57,20 +64,34 @@ const RefundsConfirmation = () => {
       setActiveSms(true);
       setActiveEmail(false);
       setActiveMsz(false);
-      // setModalDetail({ show: true, flag: "sms" });
-      // setKey(Math.random());
+      setModalDetail({ show: true, flag: "sms" });
+      setKey(Math.random());
     } else if (flag == "email") {
       setActiveEmail(true);
       setActiveMsz(false);
       setActiveSms(false);
-      // setModalDetail({ show: true, flag: "email" });
-      // setKey(Math.random());
+      setModalDetail({ show: true, flag: "email" });
+      setKey(Math.random());
     } else if (flag == "noThnks") {
       setActiveMsz(true);
       setActiveSms(false);
       setActiveEmail(false);
     }
   };
+  const { sumProductPrices, sumTax } = itemsList?.reduce(
+    (acc, item) => {
+      const price = parseFloat(item.price) || 0;
+      const tax = 0.08 * price; // 8% tax
+
+      acc.sumProductPrices += price;
+      acc.sumTax += tax;
+
+      return acc;
+    },
+    { sumProductPrices: 0, sumTax: 0 }
+  );
+  const totalAmount = sumProductPrices + sumTax;
+  console.log(totalAmount, "totalAmount");
   return (
     <>
       <div className="refundConfirmation me-3">
@@ -94,7 +115,12 @@ const RefundsConfirmation = () => {
               <div className="refundMethod">
                 <h4 className="totalRefund">Total Return Amount</h4>
                 <h5 className="totalrefundAmount">
-                  -${selectedData?.totalSum}
+                  <p className="priceRefunded">
+                    -$
+                    {Number(selectedData?.totalSum)
+                      ? Number(selectedData?.totalSum)
+                      : selectedData?.existingTotal?.toFixed(2)}
+                  </p>
                 </h5>
                 <p className="userPosition">
                   Select a method of payment to refund.
@@ -118,7 +144,12 @@ const RefundsConfirmation = () => {
                       <p>debit/credit</p>
                     </article>
                     <p className="cardNumber pt-5">●●●● ●●●● ●●●● 7224</p>
-                    <p className="priceRefunded">${selectedData?.totalSum}</p>
+                    <p className="priceRefunded">
+                      $
+                      {Number(selectedData?.totalSum)
+                        ? Number(selectedData?.totalSum)
+                        : selectedData?.existingTotal?.toFixed(2)}
+                    </p>
                   </div>
                 </div>
 
@@ -143,7 +174,12 @@ const RefundsConfirmation = () => {
                       />
                       <p>cash</p>
                     </article>
-                    <p className="priceRefunded">${selectedData?.totalSum}</p>
+                    <p className="priceRefunded">
+                      $
+                      {Number(selectedData?.totalSum)
+                        ? Number(selectedData?.totalSum)
+                        : selectedData?.existingTotal?.toFixed(2)}
+                    </p>
                   </div>
                 </div>
 
@@ -163,7 +199,12 @@ const RefundsConfirmation = () => {
                       />
                       <p>jobr coin</p>
                     </article>
-                    <p className="priceRefunded">${selectedData?.totalSum}</p>
+                    <p className="priceRefunded">
+                      $
+                      {Number(selectedData?.totalSum)
+                        ? Number(selectedData?.totalSum)
+                        : selectedData?.existingTotal?.toFixed(2)}
+                    </p>
                   </div>
                 </div>
               </div>
@@ -302,7 +343,7 @@ const RefundsConfirmation = () => {
                   <div>
                     <article className="mapleSubFlex">
                       {lineTotals?.map((total) => {
-                        return <p className="mapleProductPrice">-${total}</p>;
+                        return <p className="mapleProductPrice">-${total.toFixed(2)}</p>;
                       })}
                     </article>
                   </div>
@@ -343,11 +384,24 @@ const RefundsConfirmation = () => {
                     <p className="userName">Total</p>
                   </article>
                   <article>
-                    <p className="productName">-${selectedData?.subtotal}</p>
+                    <p className="productName">
+                      -$
+                      {Number(selectedData?.subtotal)
+                        ? Number(selectedData?.subtotal)
+                        : selectedData?.existingSubtotal}
+                    </p>
                     <p className="productName">$00.00</p>
-                    <p className="productName">-${selectedData?.totalTax}</p>
+                    <p className="productName">
+                      -$
+                      {Number(selectedData?.totalTax)
+                        ? Number(selectedData?.totalTax)
+                        : selectedData?.existingTax?.toFixed(2)}
+                    </p>
                     <p className="userName refundTotalBtn">
-                      -${selectedData?.totalSum}
+                      -$
+                      {Number(selectedData?.totalSum)
+                        ? Number(selectedData?.totalSum)
+                        : selectedData?.existingTotal?.toFixed(2)}
                     </p>
                   </article>
                 </div>
@@ -379,7 +433,7 @@ const RefundsConfirmation = () => {
         child={
           modalDetail.flag === "email" ? (
             <EmailReceiptModal closeManulModal={() => handleOnCloseModal()} />
-          ):modalDetail.flag === "sms" ? (
+          ) : modalDetail.flag === "sms" ? (
             <PhoneReceiptModal closeManulModal={() => handleOnCloseModal()} />
           ) : (
             ""

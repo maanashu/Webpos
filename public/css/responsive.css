@@ -323,6 +323,10 @@
     .customerLink {
         font-size: 17px;
     }
+
+    .assignMapRight {
+        margin-top: 20px !important;
+    }
 }
 
 @media (max-width: 1080px) {
@@ -662,20 +666,20 @@
         max-width: 425px;
     }
 
-    .ProductAddCart .orderTime {
+    /* .ProductAddCart .orderTime {
         width: 100%;
         justify-content: space-between;
-    }
+    } */
 
-    .ProductAddCart .orderCalculate {
+    /* .ProductAddCart .orderCalculate {
         justify-content: space-between;
         width: 100%;
-    }
+    } */
 
-    .ProductAddCart .cartSubInfo {
+    /* .ProductAddCart .cartSubInfo {
         flex-wrap: wrap;
         gap: 10px;
-    }
+    } */
 
     .deliverOrderRight .selectedProductDetails {
         min-width: 356px;
@@ -686,6 +690,10 @@
     }
 
     .detailScrollDelivery .aboutProduct {
+        max-width: 16ch;
+    }
+
+    .detailDeliver .aboutProduct {
         max-width: 16ch;
     }
 
@@ -942,6 +950,23 @@
         gap: 8px;
         flex-wrap: wrap;
     }
+
+    .shippingOrdersViewStyle .flexBox {
+        flex-wrap: wrap;
+        gap: 8px;
+    }
+
+    .orderStatusBox {
+        padding: 18px 12px;
+        width: 100%;
+        max-width: 300px;
+    }
+    .jobrPickUp {
+        margin-left: 5px;
+    }
+    .ProductAddCart .subFooter {
+        max-width: 335px;
+    }
 }
 
 @media (max-width: 546px) {
@@ -1075,9 +1100,9 @@
         max-width: 330px;
     }
 
-    .ProductAddCart .orderCalculate {
+    /* .ProductAddCart .orderCalculate {
         flex-wrap: wrap;
-    }
+    } */
 
     .ProductAddCart .subFooter {
         max-width: 280px;
@@ -1114,6 +1139,26 @@
 
     .customerSection {
         margin: 10px !important;
+    }
+
+    .preparedBtn {
+        padding: 6px 0px;
+        font-size: 13px;
+    }
+
+    .preparedBtn img {
+        width: 16px;
+        height: 16px;
+    }
+
+    .orderStatusBox {
+        padding: 12px 8px;
+        width: 100%;
+        max-width: 260px;
+    }
+
+    .orderStatusBox .appointSub {
+        font-size: 13px;
     }
 }
 
@@ -1217,6 +1262,14 @@
     .saleHeading {
         font-size: 12px;
     }
+
+    .subOrderTime {
+        display: flex;
+        align-items: flex-start;
+        gap: 4px;
+    }
+
+   
 }
 
 @media (max-width: 375px) {

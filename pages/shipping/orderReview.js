@@ -148,6 +148,7 @@ const OrderReview = () => {
                 ...params,
                 cb(res) {
                     if (res) {
+                        localStorage.setItem("status",status)
                         setAcceptLoading(false)
                         setDeclineLoading(false)
                         getAllShippingOrdeshandle(status)
@@ -226,12 +227,12 @@ const OrderReview = () => {
                                                                             orderListType?.title === "Returned" ? "returnedOrder"
                                                                                 : ""} className="orderDeliverTable shipTrackTable">
                                                         {
-                                                            (orderListType?.status != 0) && (orderListType?.status != 7) && (orderListType?.status != 8) &&
+                                                            (orderListType?.status != 0) && (orderListType?.status != 3) && (orderListType?.status != "7,8") &&
                                                             <thead className='invoiceHeadingBox'>
                                                                 <tr>
                                                                     <th className='invoiceHeading'>#</th>
                                                                     <th className='invoiceHeading'>Client/Items</th>
-                                                                    <th className='invoiceHeading'>Delivery Type/Shipped Time</th>
+                                                                    <th className='invoiceHeading'>Delivery Type/{orderListType?.status == 9 ? "Return" : 'Shipped'} Time</th>
                                                                     <th className='invoiceHeading'></th>
                                                                 </tr>
                                                             </thead>

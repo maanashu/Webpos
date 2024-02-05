@@ -200,11 +200,11 @@ const MapleOrder = ({
                 <DeliveryRightSidebar />
             </div> */}
 
-      <div className="mapleOrderSection deliverMapSection">
+      {/* <div className="mapleOrderSection deliverMapSection"> */}
         {/* <Image src={Images.map} alt="map Image" className="mapImg" /> */}
-        <div className="deliverSubMap">
-          <div className="row">
-            <div className="col-lg-5">
+        {/* <div className="deliverSubMap">
+          <div className="row"> */}
+            {/* <div className="col-lg-5"> */}
               <div className="deliveryOuter me-0 mapleLeft">
                 <div className="confirmRightSub confirmAddress">
                   <h2 className="mapleHeading text-center">Maple Inc.</h2>
@@ -325,7 +325,7 @@ const MapleOrder = ({
                   />
                 </div>
               </div>
-            </div>
+            {/* </div> */}
             {/* <div className="col-lg-7">
               <div className=" deliveryOuter assignMapRight ms-0">
                 <Image src={Images.map} alt="map Image" className="mapImg" />
@@ -461,10 +461,10 @@ const MapleOrder = ({
                 </div>
               </div>
             </div> */}
-          </div>
-        </div>
-        <DeliveryRightSidebar />
-      </div>
+          {/* </div>
+        </div> */}
+        {/* <DeliveryRightSidebar />
+      </div> */}
     </>
   );
 };

@@ -6,7 +6,7 @@ import AddStoreModal from "../../../components/settingModal/addStoreModal";
 import { getAllPosUser, selectLoginAuth } from "../../../redux/slices/auth";
 import { useDispatch, useSelector } from "react-redux";
 
-const StaffList = ({ handleTouch }) => {
+const StaffList = (props) => {
   const dispatch = useDispatch();
   const authData = useSelector(selectLoginAuth);
   const UniqueId = authData?.usersInfo?.payload?.uniqe_id;
@@ -60,6 +60,10 @@ const StaffList = ({ handleTouch }) => {
       getUserList();
     }
   }, [UniqueId]);
+
+  useEffect(() => {
+    props?.setShowSideBar(false)
+  },[])
 
   return (
     <>
@@ -130,7 +134,7 @@ const StaffList = ({ handleTouch }) => {
                       className="staffArrow pointHand"
                       hight={100}
                       width={100}
-                      onClick={() => handleTouch("staffDetail", data?.id)}
+                      onClick={() => props?.handleTouch("staffDetail", data?.id)}
                     />
                   </div>
                 );

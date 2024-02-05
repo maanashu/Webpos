@@ -132,7 +132,7 @@ const Retails = () => {
     dispatch(
       getMainProduct({
         ...params,
-        cb(res) {},
+        cb(res) { },
       })
     );
   };
@@ -143,7 +143,7 @@ const Retails = () => {
     dispatch(
       getMainServices({
         ...params,
-        cb(res) {},
+        cb(res) { },
       })
     );
   };
@@ -290,27 +290,37 @@ const Retails = () => {
                             <p className="productGender">
                               {item.sub_category?.name}
                             </p>
-                            {item?.supplies?.[0]?.supply_prices?.[0]
-                              ?.offer_price &&
-                            item?.supplies?.[0]?.supply_prices?.[0]
-                              ?.actual_price ? (
-                              <p className="productPrice">
-                                $
-                                {
-                                  item?.supplies?.[0]?.supply_prices?.[0]
-                                    ?.offer_price
-                                }
-                              </p>
-                            ) : (
-                              <p className="productPrice">
-                                {" "}
-                                $
-                                {
-                                  item?.supplies?.[0]?.supply_prices?.[0]
-                                    ?.selling_price
-                                }
-                              </p>
-                            )}
+                            <div className="productCartPrice">
+                              {item?.supplies?.[0]?.supply_prices?.[0]
+                                ?.offer_price &&
+                                item?.supplies?.[0]?.supply_prices?.[0]
+                                  ?.actual_price ? (
+                                <p className="productPrice">
+                                  $
+                                  {
+                                    item?.supplies?.[0]?.supply_prices?.[0]
+                                      ?.offer_price
+                                  }
+                                </p>
+                              ) : (
+                                <p className="productPrice">
+                                  {" "}
+                                  $
+                                  {
+                                    item?.supplies?.[0]?.supply_prices?.[0]
+                                      ?.selling_price
+                                  }
+                                </p>
+                              )}
+                              <div className="cartProductImg">
+                                <Image
+                                  src={Images.ShoppingOutline}
+                                  alt="image"
+                                  className="imgSize"
+                                />
+                                <span className="productNum">2</span>
+                              </div>
+                            </div>
                           </article>
                           {/* <div onClick={() => checkAttributes(item, index)}>
                             <h6>hloo {"0"}</h6>
@@ -387,8 +397,8 @@ const Retails = () => {
 
                               {services?.supplies?.[0]?.supply_prices?.[0]
                                 ?.offer_price &&
-                              services?.supplies?.[0]?.supply_prices?.[0]
-                                ?.actual_price ? (
+                                services?.supplies?.[0]?.supply_prices?.[0]
+                                  ?.actual_price ? (
                                 <p className="productPrice">
                                   {amountFormat(
                                     services?.supplies?.[0]?.supply_prices?.[0]
@@ -431,7 +441,7 @@ const Retails = () => {
                                   className="img-fluid AppointmenttimeIcon"
                                 />
                                 {services.supplies?.[0]?.approx_service_time ==
-                                null ? (
+                                  null ? (
                                   <span className="AppointmentEstTime">
                                     Estimated Time Not found
                                   </span>

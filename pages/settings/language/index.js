@@ -11,7 +11,7 @@ import {
 } from "../../../redux/slices/setting";
 import { useDispatch, useSelector } from "react-redux";
 
-const Language = () => {
+const Language = (props) => {
   const authData = useSelector(selectLoginAuth);
   const UniqueId = authData?.usersInfo?.payload?.uniqe_id;
   const settingData = useSelector(settingInfo);
@@ -99,6 +99,10 @@ const Language = () => {
       getselectedLang();
     }
   }, [UniqueId]);
+
+  useEffect(() => {
+    props?.setShowSideBar(false)
+  },[])
 
   return (
     <>

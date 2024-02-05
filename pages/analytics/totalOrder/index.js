@@ -197,7 +197,7 @@ const index = () => {
                   className="customers-table-data"
                   style={{ border: "none", color: "#7E8AC1", textAlign: "center" }}
                 >
-                  Total Sales
+                  Total Revenue
                 </th>
               </tr>
             </thead>
