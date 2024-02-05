@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { ListGroup, ListGroupItem } from 'react-bootstrap';
 import * as Images from "../../../utilities/images"
 import Image from "next/image";
@@ -7,7 +7,7 @@ import CustomModal from '../../../components/customModal/CustomModal';
 import BarcodeModal from '../../../components/settingModal/barcodeModal';
 import BluetoothScan from '../../../components/settingModal/bluetoothScan';
 
-const Devices = () => {
+const Devices = (props) => {
     const [key, setKey] = useState(Math.random());
     const [modalDetail, setModalDetail] = useState({
         show: false,
@@ -34,6 +34,10 @@ const Devices = () => {
         });
         setKey(Math.random());
     };
+
+    useEffect(() => {
+        props?.setShowSideBar(false)
+      },[])
     return (
         <>
             <div className='deviceRight settingOuter'>

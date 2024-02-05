@@ -11,7 +11,7 @@ import ForgetSecurityPin from "../../../components/settingModal/ForgetSecurityPi
 import GetSecurityScanerCode from "../../../components/settingModal/GetSecurityScaner";
 import { getProfile } from "../../../redux/slices/dashboard";
 
-const Security = () => {
+const Security = (props) => {
   const authData = useSelector(selectLoginAuth)
   const userId = authData?.usersInfo?.payload?.user?.user_profiles?.user_id ? authData?.usersInfo?.payload?.user?.user_profiles?.user_id : ""
   const dispatch = useDispatch();
@@ -91,6 +91,11 @@ const Security = () => {
       getProfileInfo(userId)
     }
   }, [userId])
+
+
+  useEffect(() => {
+    props?.setShowSideBar(false)
+  },[])
 
   return (
     <>

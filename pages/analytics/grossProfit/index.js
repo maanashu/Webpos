@@ -271,7 +271,6 @@ const index = () => {
                                 No Record Found
                               </td>
                             </tr>
-
                           </tbody>
                       }
                     </>

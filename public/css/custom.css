@@ -909,63 +909,20 @@ input:checked+.switch-slider:before {
 #invoiceProduct .invoice_subhead:nth-child(3) {
   min-width: 140px;
 }
+
 #invoiceProduct .invoice_subhead:nth-child(4) {
   min-width: 50px;
 }
+
 #invoiceProduct .invoice_subhead:nth-child(5) {
   min-width: 130px;
 }
-#invoiceProduct .invoice_subhead:last-child{
+
+#invoiceProduct .invoice_subhead:last-child {
   min-width: 60px;
 }
+
 /*ship module css end*/
-/*delivery module css start*/
-#deliveryDashBoardList .invoice_subhead:first-child {
-  min-width: 100px;
-}
-
-#deliveryDashBoardList .invoice_subhead:nth-child(2) {
-  min-width: 165px;
-}
-
-#deliveryDashBoardList .invoice_subhead:nth-child(3) {
-  min-width: 120px;
-}
-
-#deliveryDashBoardList .invoice_subhead:nth-child(4) {
-  min-width: 175px;
-}
-
-#deliveryDashBoardList .invoice_subhead:last-child {
-  min-width: 50px;
-}
-
-.detailScrollDelivery {
-  height: calc(100% - 392px);
-  overflow-y: scroll;
-}
-
-#orderReviewDeliver .invoice_subhead:first-child {
-  min-width: 100px;
-}
-
-#orderReviewDeliver .invoice_subhead:nth-child(2) {
-  min-width: 155px;
-}
-
-#orderReviewDeliver .invoice_subhead:nth-child(3) {
-  min-width: 120px;
-}
-
-#orderReviewDeliver .invoice_subhead:nth-child(4) {
-  min-width: 160px;
-}
-
-.deliverDashboardTable .invoice_subhead:last-child {
-  min-width: 70px;
-}
-
-/*delivery module css end */
 /*product css start*/
 .filterBtn .serviceCancel {
   font-size: 15px;
@@ -1024,4 +981,133 @@ input:checked+.switch-slider:before {
   max-width: 32ch;
 }
 
+.productCartShow {
+  min-width: 450px;
+}
+
+.productCartInfo {
+  min-width: 207px;
+}
+
+.cartShowText {
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+  width: 100%;
+  max-width: 15ch;
+
+}
+
+.productCartPrice {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.cartProductImg {
+  border-radius: 12px;
+  background: #f3e096;
+  padding: 5px 6px;
+  position: relative;
+}
+
+.productNum {
+  position: absolute;
+  border-radius: 50%;
+  background: #263682;
+  color: #f5f6fc;
+  font-size: 10px;
+  font-weight: 600;
+  height: 18px;
+  width: 18px;
+  top: -7px;
+  right: -9px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.holdNum {
+  position: absolute;
+  border-radius: 50%;
+  background: #fff;
+  color: #888181;
+  font-size: 10px;
+  font-weight: 600;
+  height: 18px;
+  width: 18px;
+  bottom: 10px;
+  right: 3px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 2px solid #7a7474;
+}
+
 /*product css end*/
+/*delivery module css start*/
+#deliveryDashBoardList .invoice_subhead:first-child {
+  min-width: 100px;
+}
+
+#deliveryDashBoardList .invoice_subhead:nth-child(2) {
+  min-width: 165px;
+}
+
+#deliveryDashBoardList .invoice_subhead:nth-child(3) {
+  min-width: 120px;
+}
+
+#deliveryDashBoardList .invoice_subhead:nth-child(4) {
+  min-width: 185px;
+}
+
+#deliveryDashBoardList .invoice_subhead:last-child {
+  min-width: 50px;
+}
+
+.detailScrollDelivery {
+  height: calc(100% - 392px);
+  overflow-y: scroll;
+}
+
+.detailDeliver {
+  height: calc(100% - 378px);
+  overflow-y: scroll;
+}
+
+#orderReviewDeliver .invoice_subhead:first-child,
+#orderAcceptDeliver .invoice_subhead:first-child,
+.deliverDashboardTable .invoice_subhead:first-child {
+  min-width: 100px;
+}
+
+#orderReviewDeliver .invoice_subhead:nth-child(2),
+#orderAcceptDeliver .invoice_subhead:nth-child(2),
+.deliverDashboardTable .invoice_subhead:nth-child(2) {
+  min-width: 155px;
+}
+
+#orderReviewDeliver .invoice_subhead:nth-child(3),
+#orderAcceptDeliver .invoice_subhead:nth-child(3),
+.deliverDashboardTable .invoice_subhead:nth-child(3) {
+  min-width: 120px;
+}
+
+#orderReviewDeliver .invoice_subhead:nth-child(4),
+#orderAcceptDeliver .invoice_subhead:nth-child(4),
+.deliverDashboardTable .invoice_subhead:nth-child(4) {
+  min-width: 185px;
+}
+
+.deliverDashboardTable .invoice_subhead:last-child {
+  min-width: 70px;
+}
+
+.deliverProduct {
+  color: #7e8ac1;
+  font-size: 12px;
+  font-weight: 400;
+}
+
+/*delivery module css end */

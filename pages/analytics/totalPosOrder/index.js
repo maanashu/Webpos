@@ -60,7 +60,7 @@ const index = () => {
     },
     {
       icon: overview_sales,
-      title: "Total Sales",
+      title: "Total Revenue",
       count: `$${addThousandSeparator((analyticsOrderData?.pos_graph?.ordersOverView?.total_sales_or_actual_amount)?.toFixed(2))}`,
       bgColor: "#D1FADF",
       textColor: "#003921",
@@ -196,7 +196,7 @@ const index = () => {
                   className="customers-table-data"
                   style={{ border: "none", color: "#7E8AC1", textAlign: "center" }}
                 >
-                  Total Sales
+                  Total Revenue
                 </th>
               </tr>
             </thead>

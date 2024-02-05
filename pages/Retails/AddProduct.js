@@ -380,7 +380,7 @@ const AddProduct = () => {
                     <h4 className="detailText">{item?.value}</h4>
                   </div>
                 ))}
-              </div>
+              </div> 
               <div className="stockHandSetion">
                 <h4 className="payHeading text-start m-0">Stock on hand</h4>
                 <div className="stockSub">

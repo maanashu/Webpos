@@ -1,8 +1,8 @@
-import React, { useCallback, useMemo, useState } from "react";
+import React, { useCallback, useEffect, useMemo, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { settingInfo, updateSettings } from "../../../redux/slices/setting";
 
-const Notification = () => {
+const Notification = (props) => {
   const dispatch = useDispatch();
   const settingsData = useSelector(settingInfo);
   const [isLoading, setIsLoading] = useState("");
@@ -119,6 +119,10 @@ const Notification = () => {
     dispatch(updateSettings(updatedSettings));
     setIsLoading({ ...item, type });
   }, []);
+
+  useEffect(() => {
+    props?.setShowSideBar(false)
+  },[])
 
   return (
     <>

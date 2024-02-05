@@ -5,11 +5,11 @@ import { useDispatch, useSelector } from "react-redux";
 import { settingInfo, updateSettings } from "../../../redux/slices/setting";
 import CustomModal from "../../../components/customModal/CustomModal";
 import TaxPayerModal from "../../../components/settingModal/taxPayerModal";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import ActivateTax from "../../../components/settingModal/activateTax";
 import CreateTaxModal from "../../../components/settingModal/createTaxModal";
 
-const Taxes = () => {
+const Taxes = (props) => {
   const dispatch = useDispatch();
   const receiptSettings = useSelector(settingInfo);
   const userSettings = receiptSettings?.getSettings;
@@ -39,6 +39,10 @@ const Taxes = () => {
     });
     setKey(Math.random());
   };
+
+  useEffect(() => {
+    props?.setShowSideBar(false)
+  },[])
 
   return (
     <>
