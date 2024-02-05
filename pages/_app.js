@@ -27,6 +27,7 @@ function App({ Component, pageProps }) {
     setActiveSidebar((prev) => !prev);
   };
 
+  
   useEffect(() => {
     // Simulate an asynchronous delay (replace with actual authentication data fetching)
     const delay = setTimeout(() => {
