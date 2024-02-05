@@ -6,7 +6,7 @@ import { selectLoginAuth } from '../../../redux/slices/auth';
 import { getSecuritySettingInfo, settingInfo } from '../../../redux/slices/setting';
 import moment from 'moment-timezone';
 
-const Legal = ({ handleTouch }) => {
+const Legal = (props) => {
     const dispatch = useDispatch();
     const authData = useSelector(selectLoginAuth)
     const settingData = useSelector(settingInfo)
@@ -51,6 +51,10 @@ const Legal = ({ handleTouch }) => {
         }
     }, [UniqueId]);
 
+    useEffect(() => {
+        props?.setShowSideBar(false)
+      },[])
+
     return (
         <>
                 <div className='agreementRight settingOuter'>
@@ -77,7 +81,7 @@ const Legal = ({ handleTouch }) => {
                                             console.log(data, "nareshdata");
                                             return (
                                                 <div className='col-xl-4 col-lg-6  mt-4' key={index}>
-                                                    <div className='publishSection' onClick={() => handleTouch("legalPolicy", data)} style={{ cursor: 'pointer' }}>
+                                                    <div className='publishSection' onClick={() => props?.handleTouch("legalPolicy", data)} style={{ cursor: 'pointer' }}>
                                                         <div className='flexContent'>
                                                             <h4 className='addServicePara m-0'>Published</h4>
                                                             <div className='activeBox'>

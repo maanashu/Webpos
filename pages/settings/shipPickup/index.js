@@ -9,7 +9,7 @@ import {
   updateLocationSetting,
 } from "../../../redux/slices/setting";
 
-const ShippingPickup = () => {
+const ShippingPickup = (props) => {
   const dispatch = useDispatch();
   const authData = useSelector(selectLoginAuth);
   const settingData = useSelector(settingInfo);
@@ -77,6 +77,10 @@ const ShippingPickup = () => {
       })
     );
   };
+
+  useEffect(() => {
+    props?.setShowSideBar(false)
+  },[])
 
   return (
     <>

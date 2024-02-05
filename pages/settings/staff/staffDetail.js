@@ -12,7 +12,7 @@ import { useDispatch, useSelector } from "react-redux";
 import moment from "moment-timezone";
 import { useRouter } from "next/router";
 
-const StaffDetail = ({ selectedItemId, handleTouch }) => {
+const StaffDetail = (props) => {
   const router = useRouter();
   const [getStaffInfo, setGetStaffInfo] = useState("");
   const targetDate = moment(getStaffInfo?.pos_staff_detail?.created_at);
@@ -31,7 +31,7 @@ const StaffDetail = ({ selectedItemId, handleTouch }) => {
 
   const getStaffDetail = () => {
     let params = {
-      id: selectedItemId,
+      id: props?.selectedItemId,
     };
     dispatch(
       getStaffDetails({
@@ -59,7 +59,7 @@ const StaffDetail = ({ selectedItemId, handleTouch }) => {
       let data = {
         start_date: moment(startDate).format("YYYY-MM-DD"),
         end_date: moment(endDate).format("YYYY-MM-DD"),
-        staff_details_id: selectedItemId?.toString(),
+        staff_details_id: props?.selectedItemId?.toString(),
         // "staff_details_id": '2'
       };
       dispatch(
@@ -73,13 +73,17 @@ const StaffDetail = ({ selectedItemId, handleTouch }) => {
         })
       );
     } else {
-      handleTouch("staffLocation", data);
+      props?.handleTouch("staffLocation", data);
     }
   };
 
   useEffect(() => {
     getStaffDetail();
   }, []);
+
+  useEffect(() => {
+    props?.setShowSideBar(false)
+  },[])
 
   return (
     <>
@@ -98,7 +102,7 @@ const StaffDetail = ({ selectedItemId, handleTouch }) => {
             <Image
               style={{ cursor: "pointer" }}
               src={Images.boldLeftArrow}
-              onClick={() => handleTouch("Staff")}
+              onClick={() => props?.handleTouch("Staff")}
               alt="boldLeftArrow "
               className="img-fluid me-2"
             />

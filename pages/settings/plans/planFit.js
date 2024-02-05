@@ -10,7 +10,7 @@ import * as Images from "../../../utilities/images";
 import Image from "next/image";
 import { settingInfo } from "../../../redux/slices/setting";
 
-const PlanFit = ({ handleTouch }) => {
+const PlanFit = (props) => {
   const dispatch = useDispatch();
   const settingData = useSelector(settingInfo);
   const [activeTab, setActiveTab] = useState("monthly");
@@ -58,14 +58,17 @@ const PlanFit = ({ handleTouch }) => {
         ...params,
         cb(res) {
           if (res?.status) {
-            handleTouch("Plans");
+            props?.handleTouch("Plans");
           }
         },
       })
     );
   };
 
-  
+  useEffect(() => {
+    props?.setShowSideBar(false)
+  },[])
+
   return (
     <>
         <div className="row">
@@ -73,7 +76,7 @@ const PlanFit = ({ handleTouch }) => {
             <div className="settingOuter planFitRight">
               <h4 className="appointMain text-center">
                 <i
-                  onClick={() => handleTouch("Plans")}
+                  onClick={() => props?.handleTouch("Plans")}
                   className="fa fa-arrow-left me-2 backarrow-plan"
                 ></i>
                 Plans that fit your scale
