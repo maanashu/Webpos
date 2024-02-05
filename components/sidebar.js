@@ -15,6 +15,17 @@ const Sidebar = (props) => {
   const [activeSidebar, setActiveSidebar] = useState(true);
   const authData = useSelector(selectLoginAuth);
   const sellerUid = authData?.usersInfo?.payload?.uniqe_id;
+
+
+
+  const ADMIN = () => {
+    const admin = authData?.posUserLoginDetails?.payload?.user_roles?.filter((item) => item?.role?.slug == 'pos_admin');
+    return admin;
+  };
+
+
+  console.log(ADMIN(), "auth data");
+
   const router = useRouter();
   const pathname = router?.pathname
   const [orderData, setOrderData] = useState([]);
@@ -63,7 +74,7 @@ const Sidebar = (props) => {
       getAllShippingOrdeshandle()
     }
   }, [pathname]);
-  console.log(router?.pathname?.split("/")[1]?.split("/")[1], "pathname called");
+
   return (
     <div
       className={`main-sidebar ${activeSidebar ? "hide" : "full"}`}
@@ -321,25 +332,30 @@ const Sidebar = (props) => {
                 <span className="sidebarTxt">Rewards</span>
               </Link>
             </ListGroupItem> */}
-            <ListGroupItem className="sidebarItems">
-              <Link
-                href="/settings"
-                className={`sidebarLinks ${router?.pathname?.split("/")[1] == "settings" ? "active" : ""
-                  }`}
-              >
-                <Image
-                  src={Images.Settings}
-                  alt="image"
-                  className="img-fluid showImg"
-                />
-                <Image
-                  src={Images.Settings_Solid}
-                  alt="image"
-                  className="img-fluid hideImg"
-                />
-                <span className="sidebarTxt">Settings</span>
-              </Link>
-            </ListGroupItem>
+
+            {
+              ADMIN()?.length > 0 &&
+              <ListGroupItem className="sidebarItems">
+                <Link
+                  href="/settings"
+                  className={`sidebarLinks ${router?.pathname?.split("/")[1] == "settings" ? "active" : ""
+                    }`}
+                >
+                  <Image
+                    src={Images.Settings}
+                    alt="image"
+                    className="img-fluid showImg"
+                  />
+                  <Image
+                    src={Images.Settings_Solid}
+                    alt="image"
+                    className="img-fluid hideImg"
+                  />
+                  <span className="sidebarTxt">Settings</span>
+                </Link>
+              </ListGroupItem>
+            }
+
             {/* <ListGroupItem className="sidebarItems" >
                         <Link href="/dashboard" className={`sidebarLinks ${isLinkActive("/appointment/booking") ? "active" : ""}`} >
                             <Image src={Images.Addsquarelight} className="img-fluid showImg" alt="" />
@@ -359,26 +375,30 @@ const Sidebar = (props) => {
                 </div> */}
         </ListGroup>
       </div>
-      <div className=" ">
-        <Link
-          href="#"
-          className={`logoutLink ${isLinkActive("/appointment/booking") ? "active" : ""
-            }`}
-        >
-          <button
-            className="logOut"
-            type="button"
-            onClick={(e) => userLogout(e)}
+      {
+        ADMIN()?.length > 0 &&
+        <div className=" ">
+          <Link
+            href="#"
+            className={`logoutLink ${isLinkActive("/appointment/booking") ? "active" : ""
+              }`}
           >
-            <Image
-              src={Images.LogOut}
-              alt="image"
-              className="img-fluid showImg"
-            />
-            <span className="sidebarTxt">LogOut</span>
-          </button>
-        </Link>
-      </div>
+            <button
+              className="logOut"
+              type="button"
+              onClick={(e) => userLogout(e)}
+            >
+              <Image
+                src={Images.LogOut}
+                alt="image"
+                className="img-fluid showImg"
+              />
+              <span className="sidebarTxt">LogOut</span>
+            </button>
+          </Link>
+        </div>
+      }
+
     </div>
   );
 };
