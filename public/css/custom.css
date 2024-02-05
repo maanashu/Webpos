@@ -985,7 +985,7 @@ input:checked+.switch-slider:before {
 }
 .productCartInfo{
   min-width: 207px;
-}
+} 
 .cartShowText{
   text-overflow: ellipsis;
   white-space: nowrap;
