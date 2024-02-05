@@ -40,7 +40,7 @@ import {
 import moment from "moment-timezone";
 import { Spacer } from "../../components/Spacer";
 import CheckinModal from "../../components/modals/appointmentModal/checkinModal";
-import EventDetailModal from "../../Components/modals/EventDetailModal";
+import EventDetailModal from "../../components/modals/EventDetailModal";
 import {
   getAppointments,
   bookingsDetails,
@@ -281,7 +281,6 @@ const Booking = () => {
               setSearchedAppointments(searchData?.data);
             }
           }
-
           setIsLoadingSearchAppoinment(false);
         },
       })
@@ -297,7 +296,6 @@ const Booking = () => {
     const filteredAppointments = getApprovedAppointments?.filter(
       (appointments) => appointments?.pos_user_id === selectedStaffEmployeeId
     );
-
     return filteredAppointments;
   };
 
@@ -311,7 +309,6 @@ const Booking = () => {
         (booking) => {
           const startDateTime = new Date(booking.start_date_time);
           const endDateTime = new Date(booking.end_date_time);
-
           return {
             title: booking?.product_name || "NULL",
             start: startDateTime,
@@ -320,7 +317,6 @@ const Booking = () => {
           };
         }
       );
-
       setExtractedAppointment(extractedAppointmentEvents);
     }
   }, [getAppointmentList, selectedStaffEmployeeId]);

@@ -132,7 +132,7 @@ const Retails = () => {
     dispatch(
       getMainProduct({
         ...params,
-        cb(res) { },
+        cb(res) {},
       })
     );
   };
@@ -143,7 +143,7 @@ const Retails = () => {
     dispatch(
       getMainServices({
         ...params,
-        cb(res) { },
+        cb(res) {},
       })
     );
   };
@@ -293,8 +293,8 @@ const Retails = () => {
                             <div className="productCartPrice">
                               {item?.supplies?.[0]?.supply_prices?.[0]
                                 ?.offer_price &&
-                                item?.supplies?.[0]?.supply_prices?.[0]
-                                  ?.actual_price ? (
+                              item?.supplies?.[0]?.supply_prices?.[0]
+                                ?.actual_price ? (
                                 <p className="productPrice">
                                   $
                                   {
@@ -318,13 +318,10 @@ const Retails = () => {
                                   alt="image"
                                   className="imgSize"
                                 />
-                                <span className="productNum">2</span>
+                                {/* <span className="productNum">2</span> */}
                               </div>
                             </div>
                           </article>
-                          {/* <div onClick={() => checkAttributes(item, index)}>
-                            <h6>hloo {"0"}</h6>
-                          </div> */}
                         </div>
                         {/* </Link> */}
                       </div>
@@ -397,8 +394,8 @@ const Retails = () => {
 
                               {services?.supplies?.[0]?.supply_prices?.[0]
                                 ?.offer_price &&
-                                services?.supplies?.[0]?.supply_prices?.[0]
-                                  ?.actual_price ? (
+                              services?.supplies?.[0]?.supply_prices?.[0]
+                                ?.actual_price ? (
                                 <p className="productPrice">
                                   {amountFormat(
                                     services?.supplies?.[0]?.supply_prices?.[0]
@@ -441,7 +438,7 @@ const Retails = () => {
                                   className="img-fluid AppointmenttimeIcon"
                                 />
                                 {services.supplies?.[0]?.approx_service_time ==
-                                  null ? (
+                                null ? (
                                   <span className="AppointmentEstTime">
                                     Estimated Time Not found
                                   </span>

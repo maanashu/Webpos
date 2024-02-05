@@ -1161,3 +1161,7 @@ input:checked+.switch-slider:before {
 }
 
 /*delivery module css end */
+.userSide{
+  justify-content: start !important;
+  gap: 60px;
+}

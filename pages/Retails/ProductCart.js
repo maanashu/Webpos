@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import * as Images from "../../utilities/images";
 import Image from "next/image";
 import ProductSearch from "../../components/commanComonets/Product/productSearch";
@@ -34,6 +34,7 @@ import { Modal } from "react-bootstrap";
 import CustomProductAdd from "./CustomProductAdd";
 import { flightRouterStateSchema } from "next/dist/server/app-render/types";
 import AttachCustomer from "./AttachCustomer";
+import { debounce } from "lodash";
 
 const ProductCart = () => {
   const router = useRouter();
@@ -49,6 +50,8 @@ const ProductCart = () => {
   const [attachCustomerModal, setAttachCustomerModal] = useState(false);
   const [productById, setProductById] = useState();
 
+  const [cartSearch, setCartSearch] = useState("");
+
   const holdCartArray = retailData?.holdProductData || [];
   const holdProductArray = holdCartArray?.filter(
     (item) => item.is_on_hold === true
@@ -57,6 +60,11 @@ const ProductCart = () => {
   const onlyProductCartArray = cartData?.poscart_products?.filter(
     (item) => item?.product_type == "product"
   );
+
+  const [cartDetails, setCartDetails] = useState(onlyProductCartArray || []);
+  useEffect(() => {
+    setCartDetails(onlyProductCartArray);
+  }, [retailData?.productCart]);
 
   const cartLength = onlyProductCartArray?.length;
 
@@ -338,6 +346,19 @@ const ProductCart = () => {
     );
   };
 
+  const onSearchCart = (text) => {
+    if (text?.length > 1) {
+      const filterData = onlyProductCartArray?.filter((item) =>
+        item?.product_details?.name.toLowerCase().includes(text.toLowerCase())
+      );
+      setCartDetails(filterData);
+    } else if (text?.length == 0) {
+      setCartDetails(onlyProductCartArray);
+    }
+  };
+
+  const cartdebounceSearch = useCallback(debounce(onSearchCart, 1000), [,]);
+
   return (
     <>
       <div className="fullCartSection">
@@ -361,7 +382,13 @@ const ProductCart = () => {
                   </div>
                 </div>
                 <div className="ProductSearch w-50">
-                  <ProductSearch />
+                  <ProductSearch
+                    value={cartSearch}
+                    onChange={(event) => {
+                      setCartSearch(event.target.value);
+                      cartdebounceSearch(event.target.value);
+                    }}
+                  />
                 </div>
               </div>
               <hr className="cartDivide" />
@@ -382,12 +409,12 @@ const ProductCart = () => {
                   <span className="spinner-border spinner-border-sm mx-1"></span>
                 </div>
               ) :  */}
-              {Object.keys(cartData)?.length == 0 ? (
+              {cartDetails?.length == 0 ? (
                 <div className="mt-5">
                   <h6 className="mt-2 mb-2 text-center">No Carts Found!</h6>
                 </div>
               ) : (
-                onlyProductCartArray?.map((data, index) => {
+                cartDetails?.map((data, index) => {
                   return (
                     <div className="cartSubInfo active " key={index}>
                       <div className="cartItemDetail w-50">
