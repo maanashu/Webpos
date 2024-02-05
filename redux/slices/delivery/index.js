@@ -10,6 +10,7 @@ const initialState = {
   orderList: [],
   drawerOrderCount: [],
   orderDetail: [],
+  pendingOrderCountData: {},
 };
 
 export const deliverySlice = createSlice({
@@ -40,6 +41,11 @@ export const deliverySlice = createSlice({
     setOrdersList: (state, action) => {
       state.orderListLoading = false;
       state.orderList = action?.payload;
+    },
+    getPendingOrderCount: (state) => {},
+    setPendingOrderCount: (state, action) => {
+      console.log("oppoaposopaopsas", action);
+      state.pendingOrderCountData = action?.payload;
     },
 
     getDrawerOrdersCount: (state) => {
@@ -85,6 +91,8 @@ export const {
   acceptOrder,
   setAcceptOrder,
   verifyPickupOtp,
+  getPendingOrderCount,
+  setPendingOrderCount,
 } = deliverySlice.actions;
 
 export const deliveryData = (state) => state.delivery;

@@ -13,6 +13,7 @@ import {
   deliveryData,
   getDrawerOrdersCount,
   getOrdersList,
+  getPendingOrderCount,
 } from "../../redux/slices/delivery";
 import OrderListSeeAll from "./Component/OrderListSeeAll";
 import Link from "next/link";
@@ -23,7 +24,10 @@ import PickupModal from "../../components/modals/delivery/PickupModal";
 import CustomModal from "../../components/customModal/CustomModal";
 import CustomLoader from "../../components/commanComonets/Delivery/CustomLoader";
 import { toast } from "react-toastify";
-import { formatStringForId, replaceDeliveryStatus } from "../../utilities/globalMethods";
+import {
+  formatStringForId,
+  replaceDeliveryStatus,
+} from "../../utilities/globalMethods";
 
 const OrderDeliver = ({ orderDetail }) => {
   const orderStatus = orderDetail?.status;
@@ -216,9 +220,19 @@ const OrderDeliver = ({ orderDetail }) => {
       })
     );
   };
-  const trackHandler = () => { };
-
+  const trackHandler = () => {};
+  const getDeliveryPendingOrderCount = () => {
+    let orderListParam = {
+      seller_id: uniqueId,
+    };
+    dispatch(
+      getPendingOrderCount({
+        ...orderListParam,
+      })
+    );
+  };
   const getLatestdata = (index, type) => {
+    getDeliveryPendingOrderCount();
     setShowCustomLoader(true);
     let orderListParam = {
       status: index,
@@ -282,102 +296,104 @@ const OrderDeliver = ({ orderDetail }) => {
                       </h4>
                     </div>
                   </Link>
-                  {/* <div className="table-responsive mt-3">
-                <table id="" className="orderDeliverTable">
-                  <thead className="invoiceHeadingBox">
-                    <tr>
-                      <th className="invoiceHeading">#</th>
-                      <th className="invoiceHeading">Client/Items</th>
-                      <th className="invoiceHeading">Driver/Timing</th>
-                      <th className="invoiceHeading"></th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr className="product_invoice active">
-                      <td className="invoice_subhead verticalBase">
-                        <h4 className="assignId">#7869YZ</h4>
-                      </td>
-                      <td className="invoice_subhead">
-                        <div className="nameLocation">
-                          <h4 className="assignId">Samara Schwansteiger</h4>
-                          <div className="deliverTableBx">
-                            <Image
-                              src={Images.OrderLocation}
-                              alt="location Image"
-                              className="img-fluid ms-1"
-                            />
-                            <span className="locateDistance">2.5 miles</span>
-                          </div>
-                        </div>
-                        <div className="itemMoney mt-4">
-                          <h4 className="assignId">3 items</h4>
-                          <div className="deliverTableBx">
-                            <Image
-                              src={Images.MoneyItem}
-                              alt="MoneyItemImage "
-                              className="img-fluid ms-1"
-                            />
-                            <span className="locateDistance">$500.50</span>
-                          </div>
-                        </div>
-                      </td>
-                      <td className="invoice_subhead">
-                        <div className="itemTime">
-                          <div className="flexTable">
-                            <Image
-                              src={Images.driverProfile}
-                              alt="driverProfile image "
-                              className="driverImg"
-                            />
-                            <h4 className="assignId">
-                              1 hour delivery window
-                            </h4>
-                          </div>
-                          <div className="deliverTableBx">
-                            <Image
-                              src={Images.Time}
-                              alt="MoneyItemImage "
-                              className="img-fluid ms-1"
-                            />
-                            <span className="locateDistance">
-                              Immediately
-                            </span>
-                          </div>
-                        </div>
-                        <div className="itemTime mt-3">
-                          <h4 className="assignId">Delivered at:</h4>
-                          <div className="orderDeliverTime">
-                            <Image
-                              src={Images.deliverTime}
-                              alt="deliverTime image "
-                              className="img-fluid mb-1"
-                            />
-                            <span className="immediateText ">
-                              21 Oct 23 | 00:10:35
-                            </span>
-                          </div>
-                        </div>
-                      </td>
-                      <td className="invoice_subhead verticalBase">
-                        <div className="deliverArrow ">
-                          <Image
-                            src={Images.RightArrow}
-                            alt="RightArrow image"
-                            className="img-fluid "
-                          />
-                        </div>
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div> */}
+                  <div className="table-responsive mt-3">
+                    <table id="" className="orderDeliverTable">
+                      <thead className="invoiceHeadingBox">
+                        <tr>
+                          <th className="invoiceHeading">#</th>
+                          <th className="invoiceHeading">Client/Items</th>
+                          <th className="invoiceHeading">Driver/Timing</th>
+                          <th className="invoiceHeading"></th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr className="product_invoice active">
+                          <td className="invoice_subhead verticalBase">
+                            <h4 className="assignId">#7869YZ</h4>
+                          </td>
+                          <td className="invoice_subhead">
+                            <div className="nameLocation">
+                              <h4 className="assignId">Samara Schwansteiger</h4>
+                              <div className="deliverTableBx">
+                                <Image
+                                  src={Images.OrderLocation}
+                                  alt="location Image"
+                                  className="img-fluid ms-1"
+                                />
+                                <span className="locateDistance">
+                                  2.5 miles
+                                </span>
+                              </div>
+                            </div>
+                            <div className="itemMoney mt-4">
+                              <h4 className="assignId">3 items</h4>
+                              <div className="deliverTableBx">
+                                <Image
+                                  src={Images.MoneyItem}
+                                  alt="MoneyItemImage "
+                                  className="img-fluid ms-1"
+                                />
+                                <span className="locateDistance">$500.50</span>
+                              </div>
+                            </div>
+                          </td>
+                          <td className="invoice_subhead">
+                            <div className="itemTime">
+                              <div className="flexTable">
+                                <Image
+                                  src={Images.driverProfile}
+                                  alt="driverProfile image "
+                                  className="driverImg"
+                                />
+                                <h4 className="assignId">
+                                  1 hour delivery window
+                                </h4>
+                              </div>
+                              <div className="deliverTableBx">
+                                <Image
+                                  src={Images.Time}
+                                  alt="MoneyItemImage "
+                                  className="img-fluid ms-1"
+                                />
+                                <span className="locateDistance">
+                                  Immediately
+                                </span>
+                              </div>
+                            </div>
+                            <div className="itemTime mt-3">
+                              <h4 className="assignId">Delivered at:</h4>
+                              <div className="orderDeliverTime">
+                                <Image
+                                  src={Images.deliverTime}
+                                  alt="deliverTime image "
+                                  className="img-fluid mb-1"
+                                />
+                                <span className="immediateText ">
+                                  21 Oct 23 | 00:10:35
+                                </span>
+                              </div>
+                            </div>
+                          </td>
+                          <td className="invoice_subhead verticalBase">
+                            <div className="deliverArrow ">
+                              <Image
+                                src={Images.RightArrow}
+                                alt="RightArrow image"
+                                className="img-fluid "
+                              />
+                            </div>
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
 
-                  <OrderListItem
+                  {/* <OrderListItem
                     id={replaceDeliveryStatus(orderListType?.title)}
                     screen={"SeeAll"}
                     orderList={orderList?.data}
                     itemPressHandler={itemPressHandler}
-                  />
+                  /> */}
                 </div>
               )}
             </div>
