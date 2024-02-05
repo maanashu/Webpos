@@ -43,6 +43,7 @@ import {
   setServiceSubCategory,
   setUpdateCart,
   setHoldProductCart,
+  setHoldCart,
 } from "../../slices/retails";
 import { all, call, put, takeLatest } from "redux-saga/effects";
 import { store, wrapper } from "../..";
@@ -838,6 +839,29 @@ function* getHoldProductCart(action) {
   }
 }
 
+function* holdCart(action) {
+  const dataToSend = action?.payload?.cartId;
+  const body = action?.payload;
+  delete body.cartId;
+
+  try {
+    const resp = yield call(
+      ApiClient.put,
+      `${ORDER_API_URL_V1}poscarts/change-hold-status/${dataToSend}`,
+      body
+    );
+    if (resp.status) {
+      yield put(setHoldCart(resp.data));
+      yield call(action.payload.cb, (action.res = resp?.data));
+    } else {
+      throw resp;
+    }
+  } catch (e) {
+    yield put(onErrorStopLoad());
+    toast.error(e?.error?.response?.data?.msg);
+  }
+}
+
 function* retailsSaga() {
   yield all([
     takeLatest("retails/getMainProduct", getMainProduct),
@@ -882,6 +906,7 @@ function* retailsSaga() {
     takeLatest("retails/qrcodestatus", qrcodestatus),
     takeLatest("retails/paymentRequestCancel", paymentRequestCancel),
     takeLatest("retails/getHoldProductCart", getHoldProductCart),
+    takeLatest("retails/holdCart", holdCart),
   ]);
 }
 

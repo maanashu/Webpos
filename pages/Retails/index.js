@@ -263,11 +263,11 @@ const Retails = () => {
                               ? "productsCard active"
                               : "productsCard"
                           }
-                          // onClick={() => {
-                          //   onlyServiceCartArray?.length > 0
-                          //     ? setCartAlert(true)
-                          //     : productFun(item.id, index, item);
-                          // }}
+                          onClick={() => {
+                            onlyServiceCartArray?.length > 0
+                              ? setCartAlert(true)
+                              : productFun(item.id, index, item);
+                          }}
                         >
                           <figure className="productImageBox">
                             <Image
@@ -312,9 +312,9 @@ const Retails = () => {
                               </p>
                             )}
                           </article>
-                          <div onClick={() => checkAttributes(item, index)}>
+                          {/* <div onClick={() => checkAttributes(item, index)}>
                             <h6>hloo {"0"}</h6>
-                          </div>
+                          </div> */}
                         </div>
                         {/* </Link> */}
                       </div>

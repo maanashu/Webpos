@@ -52,6 +52,7 @@ const initialState = {
   getHoldProductCartLoad: false,
   holdProductData: [],
   localCartArray: [],
+  holdCartLoad: false,
 };
 
 export const retailsSlice = createSlice({
@@ -326,7 +327,7 @@ export const retailsSlice = createSlice({
     },
     setHoldProductCart: (state, action) => {
       state.getHoldProductCartLoad = false;
-      state.holdProductData = action?.payload;
+      state.holdProductData = action?.payload?.payload;
     },
 
     // addLocalCart: (state) => {
@@ -335,6 +336,15 @@ export const retailsSlice = createSlice({
     setLocalCart: (state, action) => {
       state.localCartArray = action?.payload;
     },
+
+    holdCart: (state) => {
+      state.holdCartLoad = true;
+    },
+    setHoldCart: (state, action) => {
+      state.holdCartLoad = false;
+      // state.qrcodestatusData = action?.payload?.payload?.status;
+    },
+
     onErrorStopLoad: (state) => {
       state.loading = false;
       state.availableOffersLoad = false;
@@ -361,6 +371,7 @@ export const retailsSlice = createSlice({
       state.clearCartLoad = false;
       state.updateCartLoad = false;
       state.getHoldProductCartLoad = false;
+      state.holdCartLoad = false;
     },
   },
 });
@@ -440,6 +451,8 @@ export const {
   setHoldProductCart,
   addLocalCart,
   setLocalCart,
+  holdCart,
+  setHoldCart,
 } = retailsSlice.actions;
 
 export const selectRetailData = (state) => state.retails;

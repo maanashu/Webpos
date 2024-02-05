@@ -9,7 +9,9 @@ import {
   clearCart,
   clearOneProduct,
   getDrawerSession,
+  getHoldProductCart,
   getOneProductById,
+  holdCart,
   productCart,
   selectRetailData,
   setProductCart,
@@ -46,6 +48,11 @@ const ProductCart = () => {
   const [customProductAdd, setCustomProductAdd] = useState(false);
   const [attachCustomerModal, setAttachCustomerModal] = useState(false);
   const [productById, setProductById] = useState();
+
+  const holdCartArray = retailData?.holdProductData || [];
+  const holdProductArray = holdCartArray?.filter(
+    (item) => item.is_on_hold === true
+  );
 
   const onlyProductCartArray = cartData?.poscart_products?.filter(
     (item) => item?.product_type == "product"
@@ -307,6 +314,30 @@ const ProductCart = () => {
     }
   };
 
+  // hold Cart function
+  const serviceCartStatusHandler = () => {
+    cartUpdate();
+    const params =
+      holdProductArray?.length > 0
+        ? {
+            status: !holdProductArray?.[0]?.is_on_hold,
+            cartId: holdProductArray?.[0]?.id,
+          }
+        : {
+            status: !retailData?.productCart?.is_on_hold,
+            cartId: retailData?.productCart?.id,
+          };
+    dispatch(
+      holdCart({
+        ...params,
+        cb: () => {
+          dispatch(getHoldProductCart());
+          dispatch(productCart());
+        },
+      })
+    );
+  };
+
   return (
     <>
       <div className="fullCartSection">
@@ -506,14 +537,27 @@ const ProductCart = () => {
                   />
                   {/* <h4 className="monthText">Delete Product</h4> */}
                 </div>
-                <div className="addproductCart ">
-                  <Image
-                    src={Images.pauseImg}
-                    alt="pauseproductImage"
-                    className="img-fluid"
-                  />
-                  {/* <h4 className="monthText">Pause Product</h4> */}
-                </div>
+                {retailData?.holdCartLoad ||
+                retailData?.getHoldProductCartLoad ? (
+                  <div className="addproductCart ">
+                    <>
+                      <span className="spinner-border spinner-border-sm mx-1"></span>
+                    </>
+                  </div>
+                ) : (
+                  <div
+                    className="addproductCart "
+                    onClick={() => serviceCartStatusHandler()}
+                  >
+                    <Image
+                      src={Images.pauseImg}
+                      alt="pauseproductImage"
+                      className="img-fluid"
+                    />
+                    <p>{holdProductArray?.length}</p>
+                    {/* <h4 className="monthText">Pause Product</h4> */}
+                  </div>
+                )}
                 <div
                   className="addproductCart"
                   onClick={() =>
