@@ -309,7 +309,6 @@ const Booking = () => {
         (booking) => {
           const startDateTime = new Date(booking.start_date_time);
           const endDateTime = new Date(booking.end_date_time);
-
           return {
             title: booking?.product_name || "NULL",
             start: startDateTime,
