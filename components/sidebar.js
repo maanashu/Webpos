@@ -79,7 +79,7 @@ const Sidebar = (props) => {
   console.log(router?.pathname?.split("/")[1]?.split("/")[1], "pathname called");
   return (
     <div
-      className={`main-sidebar ${activeSidebar ? "hide" : "full"}`}
+      className={`main-sidebar ${activeSidebar ? "hide" : "full"} ${ADMIN()?.length > 0 ?"admin": "user"}`}
       id="myNav"
     >
       <div className="sidebarAuth sidebarMain">
