@@ -980,13 +980,16 @@ input:checked+.switch-slider:before {
   width: 100%;
   max-width: 32ch;
 }
-.productCartShow{
+
+.productCartShow {
   min-width: 450px;
 }
-.productCartInfo{
+
+.productCartInfo {
   min-width: 207px;
-} 
-.cartShowText{
+}
+
+.cartShowText {
   text-overflow: ellipsis;
   white-space: nowrap;
   overflow: hidden;
@@ -994,6 +997,53 @@ input:checked+.switch-slider:before {
   max-width: 15ch;
 
 }
+
+.productCartPrice {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.cartProductImg {
+  border-radius: 12px;
+  background: #f3e096;
+  padding: 5px 6px;
+  position: relative;
+}
+
+.productNum {
+  position: absolute;
+  border-radius: 50%;
+  background: #263682;
+  color: #f5f6fc;
+  font-size: 10px;
+  font-weight: 600;
+  height: 18px;
+  width: 18px;
+  top: -7px;
+  right: -9px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.holdNum {
+  position: absolute;
+  border-radius: 50%;
+  background: #fff;
+  color: #888181;
+  font-size: 10px;
+  font-weight: 600;
+  height: 18px;
+  width: 18px;
+  bottom: 10px;
+  right: 3px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 2px solid #7a7474;
+}
+
 /*product css end*/
 /*delivery module css start*/
 #deliveryDashBoardList .invoice_subhead:first-child {
