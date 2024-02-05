@@ -28,6 +28,7 @@ const Sidebar = (props) => {
 
   const router = useRouter();
   const pathname = router?.pathname
+  const status = localStorage.getItem("status")
   const [orderData, setOrderData] = useState([]);
   console.log(router?.pathname?.split("/")[1], "router");
   props?.sidebarToggle(activeSidebar);
@@ -63,6 +64,7 @@ const Sidebar = (props) => {
         cb(res) {
           if (res) {
             setOrderData(res?.data?.payload?.data);
+            localStorage.removeItem("status");
           }
         },
       })
@@ -73,8 +75,8 @@ const Sidebar = (props) => {
     if (sellerUid) {
       getAllShippingOrdeshandle()
     }
-  }, [pathname]);
-
+  }, [pathname, status]);
+  console.log(router?.pathname?.split("/")[1]?.split("/")[1], "pathname called");
   return (
     <div
       className={`main-sidebar ${activeSidebar ? "hide" : "full"}`}
