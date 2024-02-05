@@ -19,7 +19,6 @@ import Layout from "../components/layouts/layouts";
 import AuthLayout from "../components/layouts/authLayouts";
 import { useEffect, useState } from "react";
 import { wrapper } from "../redux";
-import { useDispatch } from "react-redux";
 
 function App({ Component, pageProps }) {
   const [loading, setLoading] = useState(true);
@@ -36,8 +35,6 @@ function App({ Component, pageProps }) {
 
     return () => clearTimeout(delay); // Clear the timeout if the component unmounts
   }, []);
-
-
 
   const LayoutPaths = [
     "/home",
