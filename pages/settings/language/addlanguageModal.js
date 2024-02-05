@@ -91,7 +91,7 @@ const AddlanguageModal = (props) => {
     <div className="addlanguageContent mt-3">
       <div className="addStoreForm">
         <div className="addlanguagebox_">
-          {settingData?.loading ? (
+          {settingData?.loading && !isLoading ? (
             <div className="d-flex justify-content-center">
               <div className="spinner-grow loaderSpinner text-center my-5"></div>
             </div>
