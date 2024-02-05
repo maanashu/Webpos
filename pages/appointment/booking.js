@@ -40,6 +40,7 @@ import {
 import moment from "moment-timezone";
 import { Spacer } from "../../components/Spacer";
 import CheckinModal from "../../components/modals/appointmentModal/checkinModal";
+import EventDetailModal from "../../Components/modals/EventDetailModal";
 import {
   getAppointments,
   bookingsDetails,
@@ -70,6 +71,7 @@ const Booking = () => {
   const dispatch = useDispatch();
   const settingData = useSelector(settingInfo);
   const defaultSettingsForCalendar = settingData?.getSettings;
+
   const [searchedAppointments, setSearchedAppointments] = useState([]);
   const [searchedText, setSearchedText] = useState("");
   const [week, setWeek] = useState(true);
@@ -81,6 +83,7 @@ const Booking = () => {
   const [isAMPM, setisAMPM] = useState(
     defaultSettingsForCalendar?.time_format === "12" ?? true
   );
+  const [eventData, setEventData] = useState({});
   const [showMiniCalendar, setshowMiniCalendar] = useState(false);
   const [calendarViewMode, setCalendarViewMode] = useState(
     CALENDAR_VIEW_MODES.CALENDAR_VIEW
@@ -165,19 +168,19 @@ const Booking = () => {
   }, []);
 
   useEffect(() => {
-    if (calendarMode === CALENDAR_VIEW_MODES.CALENDAR_VIEW) {
-      if (defaultSettingsForCalendar?.calender_view === CALENDAR_MODES.DAY) {
-        dayHandler();
-      } else if (
-        defaultSettingsForCalendar?.calender_view === CALENDAR_MODES.WEEK
-      ) {
-        weekHandler();
-      } else if (
-        defaultSettingsForCalendar?.calender_view === CALENDAR_MODES.MONTH
-      ) {
-        monthHandler();
-      }
+    // if (calendarMode === CALENDAR_VIEW_MODES.CALENDAR_VIEW) {
+    if (defaultSettingsForCalendar?.calender_view === CALENDAR_MODES.DAY) {
+      dayHandler();
+    } else if (
+      defaultSettingsForCalendar?.calender_view === CALENDAR_MODES.WEEK
+    ) {
+      weekHandler();
+    } else if (
+      defaultSettingsForCalendar?.calender_view === CALENDAR_MODES.MONTH
+    ) {
+      monthHandler();
     }
+    // }
   }, [defaultSettingsForCalendar]);
 
   const getUserSettings = () => {
@@ -875,6 +878,10 @@ const Booking = () => {
                 ? getAppointmentByStaffIdList
                 : appointmentListArr?.map((item, index) => {
                     const userDetails = item?.user_details;
+                    const invitedUserDetails = item?.invitation_details;
+                    const userId = item?.user_id;
+                    const customerDetails =
+                      userId != null ? userDetails : invitedUserDetails;
                     const userAddress = userDetails?.current_address;
                     const posUserDetails =
                       item?.pos_user_details?.user?.user_profiles;
@@ -883,7 +890,8 @@ const Booking = () => {
                       <div
                         className={
                           item?.mode_of_payment == "cash"
-                            ? "bg-skygrey border-lightpurple"
+                            ? "bg-skygrey border-lightpurple" +
+                              " bookingRequest"
                             : "bg-green-50 border-green" + " bookingRequest"
                         }
                       >
@@ -919,7 +927,7 @@ const Booking = () => {
                             <figure className="profileImage">
                               <Image
                                 src={
-                                  userDetails?.profile_photo ??
+                                  customerDetails?.profile_photo ??
                                   Images.defaultUser
                                 }
                                 alt="customerImg"
@@ -930,9 +938,9 @@ const Booking = () => {
                             </figure>
                             <div className="">
                               <span className="innerHeading">
-                                {userDetails?.firstname +
+                                {customerDetails?.firstname +
                                   " " +
-                                  userDetails?.lastname}
+                                  customerDetails?.lastname}
                               </span>
                               <div className="">
                                 <Image
@@ -941,7 +949,7 @@ const Booking = () => {
                                   className="locate me-2"
                                 />
                                 <span className="purpleText">
-                                  {userAddress?.street_address}
+                                  {userAddress?.street_address ?? "-"}
                                 </span>
                               </div>
                             </div>
@@ -1235,7 +1243,7 @@ const Booking = () => {
               <>
                 {calendarViewMode === CALENDAR_VIEW_MODES.CALENDAR_VIEW ? (
                   <Calendar
-                    ampm={true}
+                    ampm={isAMPM}
                     swipeEnabled={false}
                     date={calendarDate}
                     mode={calendarMode}
@@ -1257,6 +1265,15 @@ const Booking = () => {
                     }}
                     dayHeaderHighlightColor={"rgb(66, 133, 244)"}
                     hourComponent={CustomHoursCell}
+                    onPressEvent={(event) => {
+                      setEventData(event);
+                      if (calendarMode === CALENDAR_MODES.MONTH) {
+                        dayHandler();
+                        setCalendarDate(moment(event.start));
+                      } else {
+                        setshowEventDetailModal(true);
+                      }
+                    }}
                     renderEvent={(event, touchableOpacityProps, allEvents) =>
                       CustomEventCell(
                         event,
@@ -1492,6 +1509,21 @@ const Booking = () => {
         onCloseModal={() => handleOnCloseModal()}
       />
 
+      {showEventDetailModal && (
+        <div className="addBucket AddtoCart">
+          <EventDetailModal
+            {...{ eventData, showEventDetailModal, setshowEventDetailModal }}
+            onAppointmentStatusUpdate={(appointmentId, appointmentStatus) => {
+              updateBookingStatus(appointmentId, appointmentStatus);
+            }}
+            onModifyAppointmentPress={(selectedBooking) => {
+              setSelectedBooking(selectedBooking);
+              setKey1(Math.random());
+              setshowRescheduleTimeModal(true);
+            }}
+          />
+        </div>
+      )}
       {isCalendarSettingModalVisible && (
         <div className="addBucket AddtoCart">
           <CalendarSettingModal

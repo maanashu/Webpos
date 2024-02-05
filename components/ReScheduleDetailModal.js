@@ -573,7 +573,7 @@ const ReScheduleDetailModal = ({
               style={[styles.continueBtnCon, {}]}
               onPress={onCancelAppoinment}
             />
-            <Spacer space={10} horizontal />
+            <Spacer space={24} horizontal />
             <ArrowButton
               title="Accept Changes"
               textStyle={styles.addTocartText}
@@ -662,7 +662,7 @@ const styles = StyleSheet.create({
   continueBtnCon: {
     height: 40,
     padding: 10,
-    // width: "45%",
+    flex: 1,
     justifyContent: "center",
     alignItems: "center",
     borderRadius: 30,
@@ -673,6 +673,7 @@ const styles = StyleSheet.create({
   addToCartCon: {
     // width: "45%",
     height: 40,
+    flex: 1,
   },
   detailBtnCon: {
     color: "#ff0000",
@@ -715,9 +716,10 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: "row",
     marginTop: 10,
-    marginHorizontal: 26,
+    paddingHorizontal: 32,
     alignSelf: "center",
     marginBottom: 10,
+    width: "100%",
   },
   row: {
     flexDirection: "row",

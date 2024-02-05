@@ -36,6 +36,11 @@ const CheckinModal = ({
     });
     setKey(Math.random());
   };
+  const userDetails = bookingDetails?.user_details;
+  const invitedUserDetails = bookingDetails?.invitation_details;
+  const userId = bookingDetails?.user_id;
+  const customerDetails = userId != null ? userDetails : invitedUserDetails;
+
   return (
     <>
       <div className="checkService_">
@@ -51,10 +56,7 @@ const CheckinModal = ({
             <div className="customerCheck d-flex mt-2">
               <figure className="">
                 <Image
-                  src={
-                    bookingDetails?.user_details?.profile_photo ??
-                    Images.userImages
-                  }
+                  src={customerDetails?.profile_photo ?? Images.userImages}
                   width={50}
                   height={50}
                   className="img-fluid userImg40"
@@ -63,7 +65,7 @@ const CheckinModal = ({
               </figure>
               <div className="">
                 <span className="innerHeading">
-                  {`${bookingDetails?.user_details?.firstname} ${bookingDetails?.user_details?.lastname}`}{" "}
+                  {`${customerDetails?.firstname} ${customerDetails?.lastname}`}{" "}
                 </span>
                 <div className="">
                   <Image
@@ -72,7 +74,12 @@ const CheckinModal = ({
                     className="locate me-2"
                   />
                   <span className="purpleText">
-                    {`${bookingDetails?.user_details?.current_address?.city}, ${bookingDetails?.user_details?.current_address?.state}`}
+                    {`${
+                      bookingDetails?.user_details?.current_address?.city ?? "-"
+                    }, ${
+                      bookingDetails?.user_details?.current_address?.state ??
+                      " "
+                    }`}
                   </span>
                 </div>
               </div>
