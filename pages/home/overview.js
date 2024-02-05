@@ -273,7 +273,7 @@ const Overview = () => {
             //Your search query and it will run the function after 3secs from user stops typing
             var keyword = searchKeyword.toLowerCase();
             searchInvoice(keyword);
-        }, 3000);
+        }, 2000);
         return () => clearTimeout(search)
     }
     else {
@@ -464,7 +464,7 @@ const Overview = () => {
                           ) : (
                             <tbody>
                               {invoiceDetail && Object.keys(invoiceDetail).length > 0 ?
-                                  <tr onClick={() => {router.push("/invoices/invoices")}} style={{cursor: 'pointer'}}>
+                                  <tr onClick={() => {router.push("/invoices/invoices?showInvoiceData=true")}} style={{cursor: 'pointer'}}>
                                     <td>
                                       <div className="orderFirstId">
                                         <h4 className="orderId">#{invoiceDetail?.invoice_number}</h4>
