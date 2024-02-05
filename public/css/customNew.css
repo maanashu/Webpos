@@ -5415,8 +5415,7 @@ figure {
 .boxbottomTextStyle {
   margin-top: 20px;
   color: var(--Neutrals-N-600, #7e8ac1);
-
-  font-family: Roobert;
+  font-family: 'Roobert';
   font-size: 14px;
   font-style: normal;
   font-weight: 400;
