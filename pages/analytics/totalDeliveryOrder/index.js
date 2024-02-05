@@ -84,7 +84,7 @@ const index = () => {
     },
     {
       icon: overview_sales,
-      title: "Total Sales",
+      title: "Total Revenue",
       count: `$${addThousandSeparator(
         analyticsOrderData?.delivery_graph?.ordersOverView?.total_sales_or_actual_amount?.toFixed(
           2
@@ -240,7 +240,7 @@ const index = () => {
                     textAlign: "center",
                   }}
                 >
-                  Total Sales
+                  Total Revenue
                 </th>
               </tr>
             </thead>
