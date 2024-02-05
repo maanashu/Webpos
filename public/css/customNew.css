@@ -5551,10 +5551,5 @@ figure {
 
 .overflow-scroll-common-filter {
   overflow-y: scroll;
-<<<<<<< HEAD
-  height: 60vh;
-}
-=======
   height: 50vh;
 }
->>>>>>> 2654f6b4c35c8ae9fe0035c2a3467806b7e36f07
