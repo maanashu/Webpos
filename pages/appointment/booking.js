@@ -47,6 +47,7 @@ import {
   updateAppointmentStatus,
   getStaffUsers,
 } from "../../redux/slices/bookings";
+import { getPendingOrderCount } from "../../redux/slices/delivery";
 import {
   getSecuritySettingInfo,
   settingInfo,
@@ -247,9 +248,26 @@ const Booking = () => {
         cb(res) {
           if (res.status) {
             getAllBookings();
-            // dispatch(getStaffUsersList());
+
+            if (
+              status == APPOINTMENT_STATUS.ACCEPTED_BY_SELLER ||
+              status == APPOINTMENT_STATUS.REJECTED_BY_SELLER
+            ) {
+              getPendingAppointmentCount();
+            }
           }
         },
+      })
+    );
+  };
+
+  const getPendingAppointmentCount = () => {
+    let orderListParam = {
+      seller_id: UniqueId,
+    };
+    dispatch(
+      getPendingOrderCount({
+        ...orderListParam,
       })
     );
   };
