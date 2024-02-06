@@ -55,9 +55,9 @@ export default function Layout({ children, isLoggedIn, userType }) {
       {/* <div className= {`rightWrapper ${activeSidebar ? 'show' : 'hide'}`}> */}
       <div className="rightWrapper">
         <main>
-          <div className="languageBox_">
+          {/* <div className="languageBox_">
             <GlobalLanguage />
-          </div>
+          </div> */}
           {navbarPaths.includes(router.pathname) ? (
             ""
           ) : (

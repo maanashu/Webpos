@@ -4,7 +4,6 @@ import Image from "next/image";
 import moment from "moment-timezone";
 import { useRouter } from "next/router";
 import { toast } from "react-toastify";
-import GlobalLanguage from "../pages/settings/language/globalLanguage";
 
 const Navbar = () => {
   const router = useRouter();
