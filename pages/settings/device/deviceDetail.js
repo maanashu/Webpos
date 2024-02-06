@@ -8,14 +8,15 @@ const DeviceDetail = (props) => {
     props?.setShowSideBar(false)
   },[])
   return (
-    <div className="row settingMain">
-      <div className="col-lg-9">
+    
         <div className="settingOuter deviceDetailRight deviceRight">
+          <div className="topsettingContent_">
           <Image
             src={Images.darkDevices}
             alt="darkDevices image"
-            className="img-fluid"
+            className="img-fluid me-3"
           />
+         
           <div className="deviceDetailData w-100">
             <h2 className="appointMain">Devices</h2>
             <p className="lightOfferText mt-2">
@@ -23,6 +24,8 @@ const DeviceDetail = (props) => {
               verification code will be required in addition to password each
               time you sign in.
             </p>
+            </div>
+            </div>
             <div className="deviceDetailSub">
               <div 
               // className="SoftwareUpdateBx active"
@@ -101,9 +104,7 @@ const DeviceDetail = (props) => {
               </div>
             </div>
           </div>
-        </div>
-      </div>
-    </div>
+  
   );
 };
 

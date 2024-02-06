@@ -2544,7 +2544,7 @@ figure {
   float: none;
   right: 24px;
   position: fixed;
-  top: 107px;
+  top: 120px;
   width: 60px;
   transition: 1s;
   z-index: 999;
@@ -5579,4 +5579,7 @@ figure {
 .headerSection {
   padding: 7px 10px 14px 16px!important;
 
+}
+.analyticsSection::-webkit-scrollbar {
+  display: none;
 }
