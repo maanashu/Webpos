@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import * as Images from "../../utilities/images";
 import Image from "next/image";
 import ProductInnerNav from "../../components/commanComonets/Product/productInnerNav";
@@ -36,7 +36,6 @@ const Retails = () => {
   const authData = useSelector(selectLoginAuth);
   const retailData = useSelector(selectRetailData);
   const holdProuctCartArray = retailData?.holdProductData || [];
-  console.log("holdProuctCartArray", holdProuctCartArray);
   const [showSidebar, setShowSidebar] = useState(false);
   const sellerId = authData?.usersInfo?.payload?.uniqe_id;
   const router = useRouter();
@@ -51,8 +50,9 @@ const Retails = () => {
   // const CART_LENGTH = useSelector(getCartLength);
   // const cartLength = CART_LENGTH;
   const LOCAL_CART_ARRAY = retailData?.localCartArray;
+  const listInnerRef = useRef();
 
-  console.log("LOCAL_CART_ARRAY", LOCAL_CART_ARRAY);
+  const [page, setPage] = useState(1);
 
   const [isFocus, setIsFocus] = useState(false);
 
@@ -227,6 +227,13 @@ const Retails = () => {
     dispatch(setMainProduct(mainProductArray));
   };
 
+  const paginationData = {
+    total: retailData?.mainProductData?.total,
+    totalPages: retailData?.mainProductData?.total_pages,
+    perPage: retailData?.mainProductData?.per_page,
+    currentPage: retailData?.mainProductData?.current_page,
+  };
+
   return (
     <>
       <div className="flexBox">
@@ -238,11 +245,12 @@ const Retails = () => {
           <div className="commanscrollBar productScrollBar">
             {parameter == "product" ? (
               <div className="row">
-                {retailData?.getMainProductLoad ? (
+                {/* {retailData?.getMainProductLoad ? (
                   <div className="loaderOuter">
                     <span className="spinner-border spinner-border-sm mx-1"></span>
                   </div>
-                ) : mainProductArray?.length == 0 ? (
+                ) : */}
+                {mainProductArray?.length == 0 ? (
                   <div className="text-center mt-5">
                     <h3>No Product Found!</h3>
                   </div>
@@ -296,20 +304,17 @@ const Retails = () => {
                               item?.supplies?.[0]?.supply_prices?.[0]
                                 ?.actual_price ? (
                                 <p className="productPrice">
-                                  $
-                                  {
+                                  {amountFormat(
                                     item?.supplies?.[0]?.supply_prices?.[0]
                                       ?.offer_price
-                                  }
+                                  )}
                                 </p>
                               ) : (
                                 <p className="productPrice">
-                                  {" "}
-                                  $
-                                  {
+                                  {amountFormat(
                                     item?.supplies?.[0]?.supply_prices?.[0]
                                       ?.selling_price
-                                  }
+                                  )}
                                 </p>
                               )}
                               <div className="cartProductImg">
@@ -332,11 +337,12 @@ const Retails = () => {
             ) : (
               <>
                 <div className="row">
-                  {retailData?.getMainServicesLoad ? (
+                  {/* {retailData?.getMainServicesLoad ? (
                     <div className="loaderOuter">
                       <span className="spinner-border spinner-border-sm mx-1"></span>
                     </div>
-                  ) : mainServicesArray?.length == 0 ? (
+                  ) : */}
+                  {mainServicesArray?.length == 0 ? (
                     <div className="text-center mt-5">
                       <h3>No Service Found!</h3>
                     </div>

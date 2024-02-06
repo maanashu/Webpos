@@ -217,6 +217,7 @@ import timeImg from "../public/images/timeImg.svg";
 import pickupStep from "../public/images/pickupStep.svg";
 import deliverTime from "../public/images/deliverTime.svg";
 import deliverDot from "../public/images/deliverDot.svg";
+import Edit_line from "../public/images/Edit_line.svg";
 import cancelUser from "../public/images/cancelUser.svg";
 import cancelPackage from "../public/images/cancelPackage.svg";
 import mapleCard from "../public/images/mapleCard.svg";
@@ -696,4 +697,5 @@ export {
   enablesec,
   downloadimagee,
   qrcodeimg,
+  Edit_line,
 };

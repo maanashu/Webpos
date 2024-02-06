@@ -235,11 +235,10 @@ const AddProduct = () => {
                 )}
 
                 <p className="linkHeading">
-                  $
-                  {
+                  {amountFormat(
                     productDetail?.supplies?.[0]?.supply_prices?.[0]
                       ?.selling_price
-                  }
+                  )}
                 </p>
                 {productDetail?.supplies?.[0]?.supply_prices?.[0]
                   ?.offer_applicable_qty && (
