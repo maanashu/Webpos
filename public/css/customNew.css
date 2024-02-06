@@ -4573,7 +4573,7 @@ figure {
 /* cash Drawer css start*/
 .cashDrawOuter {
   height: calc(100vh - 130px);
-  overflow-y: hidden;
+  overflow-y: scroll;
   border-radius: 20px;
   background: #fff;
   margin: 0 16px;
@@ -5397,7 +5397,6 @@ figure {
   font-weight: 400;
   line-height: normal;
 }
-
 .shadowBox {
   border-radius: 20px;
   border: 1px solid var(--Neutrals-N-100, #d7deff);
@@ -5562,4 +5561,22 @@ figure {
   display: flex;
   justify-content: end;
   align-items: center;
+}
+
+.languageBox_ {
+  background: white;
+  padding: 5px 10px;
+  border-radius: 6px;
+  box-shadow: 0 0 10px #eee;
+  display: inline-block;
+  margin-left: 20px;
+  margin-top: 17px;
+}
+.languageBox_ .goog-te-gadget-simple {
+  background: transparent;
+  border: none;
+}
+.headerSection {
+  padding: 7px 10px 14px 16px!important;
+
 }
