@@ -173,8 +173,14 @@ const OrderDetail = ({
                   </p>
                 </div>
                 <div className="OrderCheckoutBox">
-                  <p className="orderHeading">Order ID</p>
-                  <p className="orderSubHeading">{`#${orderData?.id}`}</p>
+                  {/* <p className="orderHeading">Order ID</p>
+                  <p className="orderSubHeading">{`#${orderData?.id}`}</p> */}
+                  <p className="orderHeading">Invoice ID</p>
+                  <p className="orderSubHeading">{`#${
+                    orderData?.return_detail
+                      ? orderData?.return_detail?.invoices?.invoice_number
+                      : orderData?.invoices?.invoice_number ?? "-"
+                  }`}</p>
                 </div>
                 <div className="OrderCheckoutBox">
                   <p className="orderHeading">Payment Method</p>
