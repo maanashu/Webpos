@@ -164,7 +164,7 @@
   color: var(--extras-purple-ex-purple-400, #7233c2);
 
   /* Text XS/Medium 12 */
-  font-family: Roobert;
+  /* font-family: Roobert; */
   font-size: 14px;
   font-style: normal;
   font-weight: 500;
@@ -174,7 +174,7 @@
   color: var(--primary-p-600-main, #263682);
 
   /* Text S/Regular 14 */
-  font-family: Roobert;
+  /* font-family: Roobert; */
   font-size: 14px;
   font-style: normal;
   font-weight: 400;
@@ -206,7 +206,7 @@
   color: var(--neutrals-n-900, #2f3552);
 
   /* Text XS/Medium 12 */
-  font-family: Roobert;
+  /* font-family: Roobert; */
   font-size: 14px;
   font-style: normal;
   font-weight: 500;
@@ -224,7 +224,7 @@
   color: var(--primary-p-600-main, #263682);
 
   /* XL/Regular 60 */
-  font-family: Roobert;
+  /* font-family: Roobert; */
   font-size: 60px;
   font-style: normal;
   font-weight: 400;
@@ -235,7 +235,7 @@
   color: var(--primary-p-600-main, #263682);
 
   /* Text M/Regular 16 */
-  font-family: Roobert;
+  /* font-family: Roobert; */
   font-size: 16px;
   font-style: normal;
   font-weight: 400;
@@ -275,7 +275,7 @@
   color: var(--primary-p-600-main, #263682);
 
   /* Text L/Regular 18 */
-  font-family: Roobert;
+  /* font-family: Roobert; */
   font-size: 18px;
   font-style: normal;
   font-weight: 400;
@@ -286,7 +286,7 @@
   color: var(--primary-p-50-main, #f5f6fc);
 
   /* Text L/Regular 18 */
-  font-family: Roobert;
+  /* font-family: Roobert; */
   font-size: 18px;
   font-style: normal;
   font-weight: 400;
@@ -341,7 +341,7 @@
   color: var(--primary-p-600-main, #263682);
 
   /* Text L/Semibold 18 */
-  font-family: normal;
+  /* font-family: normal; */
   font-size: 18px;
   font-style: normal;
   font-weight: 400;
@@ -371,7 +371,7 @@
   color: var(--primary-p-600-main, #263682);
 
   /* Text L/Semibold 18 */
-  font-family: Roobert;
+  /* font-family: Roobert; */
   font-size: 18px;
   font-style: normal;
   font-weight: 600;
@@ -402,7 +402,7 @@
   color: var(--primary-p-600-main, #263682);
 
   /* Text XL/Medium 20 */
-  font-family: Roobert;
+  /* font-family: Roobert; */
   font-size: 20px;
   font-style: normal;
   font-weight: 500;
@@ -432,7 +432,7 @@
   text-align: center;
 
   /* Text XS/Medium 12 */
-  font-family: Roobert;
+  /* font-family: Roobert; */
   font-size: 12px;
   font-style: normal;
   font-weight: 500;
@@ -524,7 +524,7 @@
   color: var(--surfaces-s-top, #fff);
 
   /* Text S/Regular 14 */
-  font-family: Roobert;
+  /* font-family: Roobert; */
   font-size: 14px;
   font-style: normal;
   font-weight: 400;
@@ -555,7 +555,7 @@
   color: var(--primary-p-600-main, #263682);
 
   /* Text XL/Medium 20 */
-  font-family: Roobert;
+  /* font-family: Roobert; */
   font-size: 20px;
   font-style: normal;
   font-weight: 500;
@@ -586,7 +586,7 @@
   color: var(--neutrals-n-900, #2f3552);
 
   /* Text S/Medium 14 */
-  font-family: Roobert;
+  /* font-family: Roobert; */
   font-size: 14px;
   font-style: normal;
   font-weight: 500;
@@ -602,7 +602,7 @@
   color: var(--primary-p-600-main, #263682);
 
   /* Text XS/Medium 12 */
-  font-family: Roobert;
+  /* font-family: Roobert; */
   font-size: 12px;
   font-style: normal;
   font-weight: 500;
@@ -625,7 +625,7 @@
   color: var(--primary-p-400, #4659b5);
 
   /* Text XS/Regular 12 */
-  font-family: Roobert;
+  /* font-family: Roobert; */
   font-size: 12px;
   font-style: normal;
   font-weight: 400;
@@ -653,7 +653,7 @@
   color: var(--primary-p-600-main, #263682);
 
   /* Text M/Regular 16 */
-  font-family: Roobert;
+  /* font-family: Roobert; */
   font-size: 16px;
   font-style: normal;
   font-weight: 400;
@@ -674,7 +674,7 @@
   color: var(--primary-p-50-main, #f5f6fc);
 
   /* Text M/Regular 16 */
-  font-family: Roobert;
+  /* font-family: Roobert; */
   font-size: 16px;
   font-style: normal;
   font-weight: 400;

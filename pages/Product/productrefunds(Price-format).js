@@ -49,7 +49,6 @@ const productrefunds = () => {
     setKey(Math.random());
   };
 
-
   const handleGoToinventery = () => {
     const isGreater = refundedItems.some(
       (item) => Number(refundAmount) > Number(item.price)
@@ -88,28 +87,32 @@ const productrefunds = () => {
       refundAmount ||
       0,
   }));
+
+  // Return API should not hit here
   const handlereturnToInventory = () => {
-    let params = {
+    const refundSubTotal = subtotal ? subtotal : sumQtyPrice;
+    const refundTaxAmount = sumTax ? sumTax : discount;
+    const refundAmount = totalSum ? totalSum : totalAmount;
+
+    const { title, deliveryCharges } = deliveryShippingCharges();
+
+    let refundData = {
+      subtotal: refundSubTotal?.toFixed(2),
       order_id: orderDetails?.order?.id,
       products: products,
-      total_taxes: discount,
-      total_refund_amount: subtotal,
+      total_taxes: refundTaxAmount?.toFixed(2),
+      total_refund_amount: refundAmount?.toFixed(2), //totalRefundableAmount().toFixed(2), //subtotal,
       delivery_charge: orderDetails?.order?.delivery_charge,
       return_reason: "testing reason",
       drawer_id: orderDetails?.order?.drawer_id || 0,
+      deliveryShippingTitle: title,
+      deliveryShippingCharges: deliveryCharges,
     };
-    dispatch(
-      returnToInventory({
-        ...params,
-        cb(res) {
-          if (res) {
-            router.push({
-              pathname: "/Product/RefundsConfirmation(No_Selection)",
-            });
-          }
-        },
-      })
-    );
+
+    router.push({
+      pathname: "/Product/RefundsConfirmation(No_Selection)",
+      query: { refundData: JSON.stringify(refundData) },
+    });
   };
 
   useEffect(() => {
@@ -213,14 +216,14 @@ const productrefunds = () => {
     const lineTotal = inputValues[idx]?.value * qty || 0;
     return acc + parseFloat(lineTotal);
   }, 0);
-  
+
   const sumTax = refundedItems.reduce((acc, item, index) => {
     const qty = item.qty || 0;
     const lineTotal = inputValues[index]?.value * qty || 0;
     const tax = 0.08 * lineTotal;
     return acc + tax;
   }, 0);
-  
+
   const { sumQtyPrice } = refundedItems.reduce(
     (acc, item) => {
       const qty = Number(item.qty) || 0;
@@ -233,8 +236,24 @@ const productrefunds = () => {
     { sumQtyPrice: 0 }
   );
   const discount = (sumQtyPrice * 0.08).toFixed(2);
-  const totalSum = (subtotal +sumTax);
+  const totalSum = subtotal + sumTax;
   const totalAmount = (parseFloat(discount) + sumQtyPrice).toFixed(2);
+
+  const deliveryShippingCharges = () => {
+    let deliveryCharges;
+    let title;
+    if (orderDetails?.order?.delivery_charge !== "0") {
+      deliveryCharges = orderDetails?.order?.delivery_charge;
+      title = "Delivery Charges";
+    } else if (orderDetails?.order?.shipping_charge !== "0") {
+      deliveryCharges = orderDetails?.order?.shipping_charge;
+      title = "Shipping Charges";
+    } else {
+      title = "";
+      deliveryCharges = "0";
+    }
+    return { title, deliveryCharges };
+  };
 
   const handleActiveText = (flag) => {
     if (flag == "flagPrice") {
@@ -507,9 +526,7 @@ const productrefunds = () => {
                   <div className="flexBox justify-content-between ">
                     <p className="orderHeading">Total Taxes</p>
                     <p className="orderHeading">
-                      +${sumTax ? sumTax.toFixed(2) : discount}%
-                
-                   
+                      +${sumTax ? sumTax.toFixed(2) : discount}
                     </p>
                   </div>
                 </div>

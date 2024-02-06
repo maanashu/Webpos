@@ -25,7 +25,7 @@ const ReturnInventory = ({ selectedProducts, setNewQty }) => {
       updateProductQuantity = selectedProductItems?.map((item) => {
         if (
           item?.product_id === getSingleProduct?.product_id &&
-          item?.qty > 1
+          item?.qty >= 1
         ) {
           return { ...item, qty: item?.qty - 1 };
         }
@@ -41,7 +41,10 @@ const ReturnInventory = ({ selectedProducts, setNewQty }) => {
       <div className="productBoxDetails my-3">
         {selectedProductItems?.map((data, index) => {
           return (
-            <div key={index} className="productcartBox mb-2 justify-content-between">
+            <div
+              key={index}
+              className="productcartBox mb-2 justify-content-between"
+            >
               <div className="d-flex">
                 <p className="priceHeading">{data?.qty}×</p>
                 <article className="returnProduct">
