@@ -25,7 +25,7 @@ const MapleOrder = ({
     selectedOrderIndex !== null && selectedOrderIndex !== undefined
       ? (orderList?.data && orderList?.data[selectedOrderIndex]) || null
       : (orderList?.data && orderList?.data[0]) || null;
-  console.log("authData-==--=", JSON.stringify(authData));
+  console.log("miekkekeee-==--=", JSON.stringify(orderData));
   return (
     <>
       {/* <div className='mapleOrderSection deliverySection'>
@@ -200,133 +200,129 @@ const MapleOrder = ({
                 <DeliveryRightSidebar />
             </div> */}
 
-      <div className="mapleOrderSection deliverMapSection">
-        {/* <Image src={Images.map} alt="map Image" className="mapImg" /> */}
-        <div className="deliverSubMap">
-          <div className="row">
-            <div className="col-lg-5">
-              <div className="deliveryOuter me-0 mapleLeft">
-                <div className="confirmRightSub confirmAddress">
-                  <h2 className="mapleHeading text-center">Maple Inc.</h2>
-                  <h4 className="mapleAddress text-center">
-                    {`${
-                      orderData?.seller_details?.current_address
-                        ?.street_address ?? "-"
-                    }`}
-                  </h4>
-                  <h4 className="mapleAddress text-center p-0">
-                    {`${orderData?.seller_details?.phone_number}` ?? "-"}
-                  </h4>
-                </div>
-                <div className="mapleProductDetails confirmRightSub">
-                  {orderData?.order_details.map((item, index) => {
-                    return (
-                      <div className="flexBox mapleProductDetailsBox">
-                        <div className="flexbase">
-                          <p className="mapleProductcount">× 1</p>
-                          <article className="ms-3">
-                            <p className="mapleProductHeading">
-                              {item?.product_name ?? "-"}
-                            </p>
-                            <span className="mapleProductcount">
-                              {`QTY : ${item?.qty}`}
-                            </span>
-                          </article>
-                        </div>
-                        <article>
-                          <p className="mapleProductPrice">
-                            {`$${item?.price}` ?? "-"}
-                          </p>
-                        </article>
-                      </div>
-                    );
-                  })}
-                </div>
-                <div className="flexBox mapleInvoiceBox confirmRightSub">
-                  <article>
-                    <p className="mapleProductPrice">Payment Option</p>
+      {/* <div className="mapleOrderSection deliverMapSection"> */}
+      {/* <Image src={Images.map} alt="map Image" className="mapImg" /> */}
+      {/* <div className="deliverSubMap">
+          <div className="row"> */}
+      {/* <div className="col-lg-5"> */}
+      <div className="deliveryOuter me-0 mapleLeft">
+        <div className="confirmRightSub confirmAddress">
+          <h2 className="mapleHeading text-center">
+            {`${orderData?.seller_details?.organization_name}` ?? "-"}
+          </h2>
+          <h4 className="mapleAddress text-center">
+            {`${
+              orderData?.seller_details?.current_address?.street_address ?? "-"
+            }`}
+          </h4>
+          <h4 className="mapleAddress text-center p-0">
+            {`${orderData?.seller_details?.phone_number}` ?? "-"}
+          </h4>
+        </div>
+        <div className="mapleProductDetails confirmRightSub">
+          {orderData?.order_details.map((item, index) => {
+            return (
+              <div className="flexBox mapleProductDetailsBox">
+                <div className="flexbase">
+                  <p className="mapleProductcount">× 1</p>
+                  <article className="ms-3">
                     <p className="mapleProductHeading">
-                      {" "}
-                      {orderData?.mode_of_payment?.toUpperCase() ?? "-"}
+                      {item?.product_name ?? "-"}
                     </p>
-                    <p className="mapleProductPrice">Invoice</p>
-                    <p className="mapleProductHeading">
-                      #{" "}
-                      {orderData?.status === 9
-                        ? orderData?.returns?.invoices?.invoice_number
-                        : orderData?.invoices?.invoice_number ?? "-"}
-                    </p>
-                  </article>
-                  <article>
-                    <p className="mapleProductPrice">Date</p>
-                    <p className="mapleProductHeading">
-                      {" "}
-                      {moment
-                        .utc(orderData?.created_at)
-                        .format("ddd DD MMM, YYYY HH:mm A") ?? "-"}
-                    </p>
-                    <p className="mapleProductPrice">POS No.</p>
-                    <p className="mapleProductHeading">
-                      {authData?.posUserLoginDetails?.payload?.pos_number ??
-                        "-"}
-                    </p>
-                  </article>
-                  <article>
-                    {/* <p className="mapleProductPrice">Mode</p>
-                    <p className="mapleProductHeading">Walk-In</p> */}
-                    <p className="mapleProductPrice">User UD</p>
-                    <p className="mapleProductHeading">
-                      {orderData?.user_details?.id ?? "-"}
-                    </p>
+                    <span className="mapleProductcount">
+                      {`QTY : ${item?.qty}`}
+                    </span>
                   </article>
                 </div>
-                <div className="flexBox maplePriceBox">
-                  <article>
-                    <p className="productName">Subtotal</p>
-                    <p className="productName">Discount</p>
-                    <p className="productName">Delivery</p>
-                    <p className="productName">Tax</p>
-                    <p className="productName fw-bold">Total</p>
-                  </article>
-                  <article>
-                    <p className="productName">
-                      {" "}
-                      {`$${
-                        orderData?.status === 9
-                          ? Number(
-                              orderData?.returns?.products_refunded_amount
-                            )?.toFixed(2)
-                          : Number(orderData?.actual_amount)?.toFixed(2)
-                      }` ?? "-"}
-                    </p>
-                    <p className="productName">${orderData?.discount}</p>
-                    <p className="productName">${orderData?.delivery_charge}</p>
-                    <p className="productName">${orderData?.tax}</p>
-                    <p className="totalBtn">
-                      {" "}
-                      {`$${
-                        orderData?.status === 9
-                          ? orderData?.returns?.refunded_amount
-                          : orderData?.payable_amount
-                      }` ?? "-"}
-                    </p>
-                  </article>
-                </div>
-                <div className="confirmFooter">
-                  <Image
-                    src={Images.Logo}
-                    alt="logo"
-                    className="img-fluid logo"
-                  />
-                  <Image
-                    src={Images.barCodeScanImg}
-                    alt="barCodeScanImg"
-                    className="img-fluid barCodeScanImg"
-                  />
-                </div>
+                <article>
+                  <p className="mapleProductPrice">
+                    {`$${item?.price}` ?? "-"}
+                  </p>
+                </article>
               </div>
-            </div>
-            {/* <div className="col-lg-7">
+            );
+          })}
+        </div>
+        <div className="flexBox mapleInvoiceBox confirmRightSub">
+          <article>
+            <p className="mapleProductPrice">Payment Option</p>
+            <p className="mapleProductHeading">
+              {" "}
+              {orderData?.mode_of_payment?.toUpperCase() ?? "-"}
+            </p>
+            <p className="mapleProductPrice">Invoice</p>
+            <p className="mapleProductHeading">
+              #{" "}
+              {orderData?.status === 9
+                ? orderData?.returns?.invoices?.invoice_number
+                : orderData?.invoices?.invoice_number ?? "-"}
+            </p>
+          </article>
+          <article>
+            <p className="mapleProductPrice">Date</p>
+            <p className="mapleProductHeading">
+              {" "}
+              {moment
+                .utc(orderData?.created_at)
+                .format("ddd DD MMM, YYYY HH:mm A") ?? "-"}
+            </p>
+            <p className="mapleProductPrice">POS No.</p>
+            <p className="mapleProductHeading">
+              {authData?.posUserLoginDetails?.payload?.pos_number ?? "-"}
+            </p>
+          </article>
+          <article>
+            {/* <p className="mapleProductPrice">Mode</p>
+                    <p className="mapleProductHeading">Walk-In</p> */}
+            <p className="mapleProductPrice">User UD</p>
+            <p className="mapleProductHeading">
+              {orderData?.user_details?.id ?? "-"}
+            </p>
+          </article>
+        </div>
+        <div className="flexBox maplePriceBox">
+          <article>
+            <p className="productName">Subtotal</p>
+            <p className="productName">Discount</p>
+            <p className="productName">Delivery</p>
+            <p className="productName">Tax</p>
+            <p className="productName fw-bold">Total</p>
+          </article>
+          <article>
+            <p className="productName">
+              {" "}
+              {`$${
+                orderData?.status === 9
+                  ? Number(
+                      orderData?.returns?.products_refunded_amount
+                    )?.toFixed(2)
+                  : Number(orderData?.actual_amount)?.toFixed(2)
+              }` ?? "-"}
+            </p>
+            <p className="productName">${orderData?.discount}</p>
+            <p className="productName">${orderData?.delivery_charge}</p>
+            <p className="productName">${orderData?.tax}</p>
+            <p className="totalBtn">
+              {" "}
+              {`$${
+                orderData?.status === 9
+                  ? orderData?.returns?.refunded_amount
+                  : orderData?.payable_amount
+              }` ?? "-"}
+            </p>
+          </article>
+        </div>
+        <div className="confirmFooter">
+          <Image src={Images.Logo} alt="logo" className="img-fluid logo" />
+          <Image
+            src={Images.barCodeScanImg}
+            alt="barCodeScanImg"
+            className="img-fluid barCodeScanImg"
+          />
+        </div>
+      </div>
+      {/* </div> */}
+      {/* <div className="col-lg-7">
               <div className=" deliveryOuter assignMapRight ms-0">
                 <Image src={Images.map} alt="map Image" className="mapImg" />
                 <div className="orderStatusBox">
@@ -461,10 +457,10 @@ const MapleOrder = ({
                 </div>
               </div>
             </div> */}
-          </div>
-        </div>
-        <DeliveryRightSidebar />
-      </div>
+      {/* </div>
+        </div> */}
+      {/* <DeliveryRightSidebar />
+      </div> */}
     </>
   );
 };

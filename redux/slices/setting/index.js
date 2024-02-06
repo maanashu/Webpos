@@ -14,6 +14,10 @@ export const settingSlice = createSlice({
   reducers: {
     // start security slices..........................................
 
+    onStopSuccess: (state, action) => {
+      state.success = action.payload;
+    },
+
     getActivePlan: (state) => {
       state.loading = true;
     },
@@ -23,9 +27,11 @@ export const settingSlice = createSlice({
 
     subScribePlan: (state) => {
       state.loading = true;
+      state.success = false;
     },
     setSubScribePlan: (state) => {
       state.loading = false;
+      state.success = true;
     },
     getAllPlans: (state) => {
       state.loading = true;
@@ -96,11 +102,13 @@ export const settingSlice = createSlice({
     },
     updateSettings: (state) => {
       state.loading = true;
+      state.success = false;
     },
     setUpdateSettings: (state, action) => {
       state.loading = false;
       state.getSettings = action?.payload;
       state.walletInfo = action?.payload;
+      state.success = true;
     },
     // end staff slices////////////////////////////////////////////
 
@@ -178,6 +186,7 @@ export const {
   setGetActivePlan,
   getLanguageList,
   setGetLanguageList,
+  onStopSuccess
 } = settingSlice.actions;
 
 export const settingInfo = (state) => state.setting;

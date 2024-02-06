@@ -4,7 +4,6 @@ import React, { useState } from "react";
 import { Chart as ChartJS, registerables } from "chart.js";
 import Header from "../../../../components/commanComonets/cashdrawer/Header";
 import {
-  calendarCell,
   calendarDark,
   Cross,
   CrossCircle,

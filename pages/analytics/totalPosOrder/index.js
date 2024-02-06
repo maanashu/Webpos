@@ -60,7 +60,7 @@ const index = () => {
     },
     {
       icon: overview_sales,
-      title: "Total Sales",
+      title: "Total Revenue",
       count: `$${addThousandSeparator((analyticsOrderData?.pos_graph?.ordersOverView?.total_sales_or_actual_amount)?.toFixed(2))}`,
       bgColor: "#D1FADF",
       textColor: "#003921",
@@ -172,6 +172,12 @@ const index = () => {
                   className="customers-table-data"
                   style={{ border: "none", color: "#7E8AC1", textAlign: "center" }}
                 >
+                  Sr.No.
+                </th>
+                <th
+                  className="customers-table-data"
+                  style={{ border: "none", color: "#7E8AC1", textAlign: "center" }}
+                >
                   Date
                 </th>
                 <th
@@ -196,7 +202,7 @@ const index = () => {
                   className="customers-table-data"
                   style={{ border: "none", color: "#7E8AC1", textAlign: "center" }}
                 >
-                  Total Sales
+                  Total Revenue
                 </th>
               </tr>
             </thead>
@@ -217,6 +223,11 @@ const index = () => {
                         analyticsOrderData?.pos_graph?.ordersListData?.length > 0 ? <tbody>
                           {analyticsOrderData?.pos_graph?.ordersListData?.map((row, idx) => (
                             <tr className="customers-table-row" key={idx}>
+                              <td
+                                className="customers-table-data"
+                              >
+                                {idx + 1}
+                              </td>
                               <td
                                 className="customers-table-data"
                               >

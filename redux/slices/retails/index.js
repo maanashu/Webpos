@@ -33,6 +33,8 @@ const initialState = {
   productCategories: [],
   productSubCategories: [],
   productBrands: [],
+  serviceCategories: [],
+  serviceSubCategories: [],
   merchantWalletCheckLoad: false,
   getWalletQrLoad: false,
   walletQrData: {},
@@ -46,6 +48,11 @@ const initialState = {
   paymentRequestCancelLoad: false,
   getMainProductLoad: false,
   getMainServicesLoad: false,
+  updateCartLoad: false,
+  getHoldProductCartLoad: false,
+  holdProductData: [],
+  localCartArray: [],
+  holdCartLoad: false,
 };
 
 export const retailsSlice = createSlice({
@@ -236,6 +243,22 @@ export const retailsSlice = createSlice({
       state.productBrands = action?.payload;
     },
 
+    setServiceCategory: (state, action) => {
+      state.loading = false;
+      state.serviceCategories = action?.payload;
+    },
+
+    setServiceSubCategory: (state, action) => {
+      state.loading = false;
+      state.serviceSubCategories = action?.payload;
+    },
+
+    getServiceFilterCategory: (state) => {
+      state.loading = true;
+    },
+    getServiceFilterSubCategory: (state) => {
+      state.loading = true;
+    },
     merchantWalletCheck: (state) => {
       state.merchantWalletCheckLoad = true;
     },
@@ -290,6 +313,38 @@ export const retailsSlice = createSlice({
       state.paymentRequestCancelLoad = false;
       // state.qrcodestatusData = action?.payload?.payload?.status;
     },
+
+    updateCart: (state) => {
+      state.updateCartLoad = true;
+    },
+    setUpdateCart: (state, action) => {
+      state.updateCartLoad = false;
+      // state.qrcodestatusData = action?.payload?.payload?.status;
+    },
+
+    getHoldProductCart: (state) => {
+      state.getHoldProductCartLoad = true;
+    },
+    setHoldProductCart: (state, action) => {
+      state.getHoldProductCartLoad = false;
+      state.holdProductData = action?.payload?.payload;
+    },
+
+    // addLocalCart: (state) => {
+    //   state.getHoldProductCartLoad = true;
+    // },
+    setLocalCart: (state, action) => {
+      state.localCartArray = action?.payload;
+    },
+
+    holdCart: (state) => {
+      state.holdCartLoad = true;
+    },
+    setHoldCart: (state, action) => {
+      state.holdCartLoad = false;
+      // state.qrcodestatusData = action?.payload?.payload?.status;
+    },
+
     onErrorStopLoad: (state) => {
       state.loading = false;
       state.availableOffersLoad = false;
@@ -314,6 +369,9 @@ export const retailsSlice = createSlice({
       state.getMainServicesLoad = false;
       state.addTocartLoad = false;
       state.clearCartLoad = false;
+      state.updateCartLoad = false;
+      state.getHoldProductCartLoad = false;
+      state.holdCartLoad = false;
     },
   },
 });
@@ -369,6 +427,10 @@ export const {
   setProductCategory,
   setProductSubCategory,
   setProductBrands,
+  getServiceFilterCategory,
+  getServiceFilterSubCategory,
+  setServiceCategory,
+  setServiceSubCategory,
   merchantWalletCheck,
   setMerchantWalletCheck,
   getWalletQr,
@@ -383,6 +445,14 @@ export const {
   setQrcodestatus,
   paymentRequestCancel,
   setPaymentRequestCancel,
+  updateCart,
+  setUpdateCart,
+  getHoldProductCart,
+  setHoldProductCart,
+  addLocalCart,
+  setLocalCart,
+  holdCart,
+  setHoldCart,
 } = retailsSlice.actions;
 
 export const selectRetailData = (state) => state.retails;

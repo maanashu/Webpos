@@ -1,4 +1,10 @@
-import React, { useState, useEffect, useMemo } from "react";
+import React, {
+  useRef,
+  useState,
+  useEffect,
+  useMemo,
+  useCallback,
+} from "react";
 import {
   Dimensions,
   ScrollView,
@@ -7,8 +13,11 @@ import {
   View,
   Image as ReactNativeImage,
   FlatList,
+  TextInput,
+  ActivityIndicator,
 } from "react-native";
 import * as Images from "../../utilities/images";
+import { debounce } from "lodash";
 import Image from "next/image";
 import { ListGroup, ListGroupItem } from "react-bootstrap";
 import Link from "next/link";
@@ -20,6 +29,9 @@ import { Calendar } from "../../components/CustomCalendar";
 import CustomModal from "../../components/customModal/CustomModal";
 import CustomHoursCell from "../../components/CustomHoursCell";
 import CustomEventCell from "../../components/CustomEventCell";
+import ReScheduleDetailModal from "../../components/ReScheduleDetailModal";
+import CalendarSettingModal from "../../components/modals/CalendarSettingModal";
+
 import {
   CALENDAR_MODES,
   CALENDAR_VIEW_MODES,
@@ -28,12 +40,18 @@ import {
 import moment from "moment-timezone";
 import { Spacer } from "../../components/Spacer";
 import CheckinModal from "../../components/modals/appointmentModal/checkinModal";
+import EventDetailModal from "../../components/modals/EventDetailModal";
 import {
   getAppointments,
   bookingsDetails,
   updateAppointmentStatus,
   getStaffUsers,
 } from "../../redux/slices/bookings";
+import {
+  getSecuritySettingInfo,
+  settingInfo,
+  updateSettings,
+} from "../../redux/slices/setting";
 import { selectLoginAuth } from "../../redux/slices/auth";
 import {
   calculateTimeDuration,
@@ -42,6 +60,8 @@ import {
 
 const Booking = () => {
   const [key, setKey] = useState(Math.random());
+  const [key1, setKey1] = useState(Math.random());
+  const [key2, setKey2] = useState(Math.random());
   const [bookingsView, setBookingsView] = useState("listview");
   const [modalDetail, setModalDetail] = useState({
     show: false,
@@ -49,6 +69,9 @@ const Booking = () => {
     flag: "",
   });
   const dispatch = useDispatch();
+  const settingData = useSelector(settingInfo);
+  const defaultSettingsForCalendar = settingData?.getSettings;
+
   const [searchedAppointments, setSearchedAppointments] = useState([]);
   const [searchedText, setSearchedText] = useState("");
   const [week, setWeek] = useState(true);
@@ -57,11 +80,20 @@ const Booking = () => {
   const [monthDays, setMonthDays] = useState([]);
   const windowHeight = Dimensions.get("window").height;
   const windowWidth = Dimensions.get("window").width;
-  const [isAMPM, setisAMPM] = useState(true);
+  const [isAMPM, setisAMPM] = useState(
+    defaultSettingsForCalendar?.time_format === "12" ?? true
+  );
+  const [eventData, setEventData] = useState({});
   const [showMiniCalendar, setshowMiniCalendar] = useState(false);
   const [calendarViewMode, setCalendarViewMode] = useState(
-    CALENDAR_VIEW_MODES.LIST_VIEW
+    CALENDAR_VIEW_MODES.CALENDAR_VIEW
   );
+  const [isLoadingSearchAppoinment, setIsLoadingSearchAppoinment] =
+    useState(false);
+  const [showSearchModal, setShowSearchModal] = useState(false);
+  const searchAppoinmentInputRef = useRef(null);
+  const [isCalendarSettingModalVisible, setisCalendarSettingModalVisible] =
+    useState(false);
   const [pageNumber, setPageNumber] = useState(1);
   const appointmentsDetails = useSelector(bookingsDetails);
   const getAppointmentByStaffIdList = appointmentsDetails?.geAppointmentById;
@@ -97,12 +129,16 @@ const Booking = () => {
   const [shouldShowCalendarModeOptions, setshouldShowCalendarModeOptions] =
     useState(true);
   const [calendarDate, setCalendarDate] = useState(moment());
-  const [calendarMode, setCalendarMode] = useState(CALENDAR_MODES.WEEK);
+  const [calendarMode, setCalendarMode] = useState(
+    defaultSettingsForCalendar?.calender_view ?? CALENDAR_MODES.WEEK
+  );
   const nextMonth = () =>
     setCalendarDate(calendarDate.clone().add(1, calendarMode));
   const prevMonth = () =>
     setCalendarDate(calendarDate.clone().subtract(1, calendarMode));
   const [extractedAppointment, setExtractedAppointment] = useState([]);
+  const [showRescheduleTimeModal, setshowRescheduleTimeModal] = useState(false);
+  const [showEventDetailModal, setshowEventDetailModal] = useState(false);
 
   const authData = useSelector(selectLoginAuth);
 
@@ -126,7 +162,56 @@ const Booking = () => {
         },
       })
     );
+
+    getUserSettings();
+    onPressListViewMode();
   }, []);
+
+  useEffect(() => {
+    // if (calendarMode === CALENDAR_VIEW_MODES.CALENDAR_VIEW) {
+    if (defaultSettingsForCalendar?.calender_view === CALENDAR_MODES.DAY) {
+      dayHandler();
+    } else if (
+      defaultSettingsForCalendar?.calender_view === CALENDAR_MODES.WEEK
+    ) {
+      weekHandler();
+    } else if (
+      defaultSettingsForCalendar?.calender_view === CALENDAR_MODES.MONTH
+    ) {
+      monthHandler();
+    }
+    // }
+  }, [defaultSettingsForCalendar]);
+
+  const getUserSettings = () => {
+    let params = {
+      app_name: "pos",
+      seller_id: UniqueId,
+    };
+    dispatch(
+      getSecuritySettingInfo({
+        ...params,
+        cb(res) {
+          if (res.status) {
+            // setGetSelectedLanguages(res?.data?.payload?.languages)
+          }
+        },
+      })
+    );
+  };
+
+  const updateUserSettings = (data) => {
+    dispatch(
+      updateSettings({
+        ...data,
+        cb(res) {
+          if (res.status) {
+            getUserSettings();
+          }
+        },
+      })
+    );
+  };
 
   useEffect(() => {
     getAllBookings();
@@ -173,22 +258,44 @@ const Booking = () => {
     if (searchText != "") {
       setSearchedAppointments([]);
     }
-    const callback = (searchData) => {
-      if (searchData === null) {
-        setSearchedAppointments([]);
-      } else {
-        setSearchedAppointments(searchData?.data);
-      }
-      setIsLoadingSearchAppoinment(false);
+
+    let params = {
+      seller_id: UniqueId,
+      need_upcoming: true,
+      page: pageNumber,
+      limit: 10,
     };
-    // dispatch(searchAppointments(pageNumber, searchText, callback));
+
+    if (searchText) {
+      params.search = searchText;
+    }
+    dispatch(
+      getAppointments({
+        params,
+        cb(res) {
+          if (res.status) {
+            const searchData = res?.data?.payload;
+            if (searchData === null) {
+              setSearchedAppointments([]);
+            } else {
+              setSearchedAppointments(searchData?.data);
+            }
+          }
+          setIsLoadingSearchAppoinment(false);
+        },
+      })
+    );
   };
+
+  const debouncedSearchAppointment = useCallback(
+    debounce(onSearchAppoinment, 300),
+    []
+  );
 
   const getAppointmentsForSelectedStaff = () => {
     const filteredAppointments = getApprovedAppointments?.filter(
       (appointments) => appointments?.pos_user_id === selectedStaffEmployeeId
     );
-
     return filteredAppointments;
   };
 
@@ -202,7 +309,6 @@ const Booking = () => {
         (booking) => {
           const startDateTime = new Date(booking.start_date_time);
           const endDateTime = new Date(booking.end_date_time);
-
           return {
             title: booking?.product_name || "NULL",
             start: startDateTime,
@@ -211,7 +317,6 @@ const Booking = () => {
           };
         }
       );
-
       setExtractedAppointment(extractedAppointmentEvents);
     }
   }, [getAppointmentList, selectedStaffEmployeeId]);
@@ -258,12 +363,12 @@ const Booking = () => {
   const onPressCalendarViewMode = () => {
     setCalendarViewMode(CALENDAR_VIEW_MODES.CALENDAR_VIEW);
     setshouldShowCalendarModeOptions(true);
-    weekHandler();
+    // weekHandler();
   };
   const onPressListViewMode = () => {
     setCalendarViewMode(CALENDAR_VIEW_MODES.LIST_VIEW);
     setshouldShowCalendarModeOptions(false);
-    dayHandler();
+    //  dayHandler();
     setSelectedStaffEmployeeId(null);
     setshowEmployeeHeader(false);
   };
@@ -280,6 +385,18 @@ const Booking = () => {
       flag: "",
     });
     setKey(Math.random());
+  };
+
+  const closeRescheduleModal = () => {
+    setshowRescheduleTimeModal(false);
+    setKey1(Math.random());
+  };
+
+  const closeSearchModal = () => {
+    setShowSearchModal(false);
+    setSearchedText("");
+    setIsLoadingSearchAppoinment(false);
+    setKey2(Math.random());
   };
 
   const handleUserProfile = (flag) => {
@@ -430,6 +547,30 @@ const Booking = () => {
     );
   };
 
+  const onPressSaveCalendarSettings = (calendarPreferences) => {
+    if (calendarPreferences?.defaultCalendarMode === CALENDAR_MODES.DAY) {
+      dayHandler();
+    } else if (
+      calendarPreferences?.defaultCalendarMode === CALENDAR_MODES.WEEK
+    ) {
+      weekHandler();
+    } else if (
+      calendarPreferences?.defaultCalendarMode === CALENDAR_MODES.MONTH
+    ) {
+      monthHandler();
+    }
+    setisAMPM(calendarPreferences?.defaultTimeFormat);
+
+    const data = {
+      calender_view: calendarPreferences?.defaultCalendarMode,
+      time_format: calendarPreferences?.defaultTimeFormat ? "12" : "24",
+      accept_appointment_request:
+        calendarPreferences?.defaultAppointmentRequestMode,
+      employee_color_set: calendarPreferences?.defaultEmployeesColorSet,
+    };
+    updateUserSettings(data);
+  };
+
   const handleBookingsView = (bookingsView) => {
     setBookingsView(bookingsView);
   };
@@ -489,8 +630,11 @@ const Booking = () => {
 
           <button
             className="editBtn"
-            // onClick={() =>
-            //   onPressEdit(item)}
+            onClick={() => {
+              setSelectedBooking(item);
+              setKey1(Math.random());
+              setshowRescheduleTimeModal(true);
+            }}
           >
             <Image src={Images.editImg} alt="editImg" className="editImg" />
           </button>
@@ -569,7 +713,9 @@ const Booking = () => {
                   alt="image"
                   className="img-fluid  sideBarImg"
                 />
-                <span className="bottomDots">1</span>
+                <span className="bottomDots">
+                  {appointmentListArr?.length ?? 0}
+                </span>
               </div>
             </ListGroupItem>
             {staffUsersList?.map((item, index) => {
@@ -594,11 +740,11 @@ const Booking = () => {
                   className="SidebarRightItems mt-2"
                 >
                   <Image
-                    src={imageUrl ?? Images.userImages}
+                    src={imageUrl ?? Images.defaultUser}
                     alt="image"
-                    height={50}
                     width={50}
-                    className="img-fluid  staffUserImage"
+                    height={50}
+                    className="img-fluid userImg40"
                   />
                   <span className="bottomdot">{item?.appointment_counts}</span>
                 </ListGroupItem>
@@ -665,17 +811,32 @@ const Booking = () => {
             </ListGroupItem> */}
 
             <ListGroupItem className="SidebarRightItems">
-              <div className="userSideBar">
+              <div
+                className="userSideBar"
+                onClick={() => {
+                  setCalendarViewMode(CALENDAR_VIEW_MODES.CALENDAR_VIEW);
+                  setshouldShowCalendarModeOptions(true);
+                  setSelectedStaffEmployeeId(null);
+                  if (selectedStaffEmployeeId) {
+                    setshowEmployeeHeader(true);
+                  } else {
+                    setshowEmployeeHeader(!showEmployeeHeader);
+                  }
+                }}
+              >
                 <Link className="userBook" href="#">
                   <Image
                     src={Images.usersImages}
                     alt="image"
                     className="img-fluid userImage  sidebarIcons  "
                   />
-                  <span className="bottomdot">8</span>
+                  <span className="bottomdot">
+                    {staffUsersList?.length || "0"}
+                  </span>
                 </Link>
               </div>
               <Image
+                onClick={() => setisCalendarSettingModalVisible(true)}
                 src={Images.settingBlue}
                 alt="image"
                 className="img-fluid  sidebarIcons  settingImgs"
@@ -707,157 +868,167 @@ const Booking = () => {
                 className="img-fluid  text-end"
               />
             </div>
+            <Spacer space={16} />
+            <ScrollView style={{ height: "90%" }}>
+              {selectedStaffEmployeeId
+                ? getAppointmentByStaffIdList
+                : appointmentListArr?.map((item, index) => {
+                    const userDetails = item?.user_details;
+                    const invitedUserDetails = item?.invitation_details;
+                    const userId = item?.user_id;
+                    const customerDetails =
+                      userId != null ? userDetails : invitedUserDetails;
+                    const userAddress = userDetails?.current_address;
+                    const posUserDetails =
+                      item?.pos_user_details?.user?.user_profiles;
+                    const appointmentID = item?.id;
+                    return (
+                      <div
+                        className={
+                          item?.mode_of_payment == "cash"
+                            ? "bg-skygrey border-lightpurple" +
+                              " bookingRequest"
+                            : "bg-green-50 border-green" + " bookingRequest"
+                        }
+                      >
+                        <div className="checkUser">
+                          <div className="userCheckin unpaidDetails">
+                            <h6 className="userText">Customer:</h6>
 
-            {selectedStaffEmployeeId
-              ? getAppointmentByStaffIdList
-              : appointmentListArr?.map((item, index) => {
-                  const userDetails = item?.user_details;
-                  const userAddress = userDetails?.current_address;
-                  const posUserDetails =
-                    item?.pos_user_details?.user?.user_profiles;
-                  const appointmentID = item?.id;
-                  return (
-                    <div
-                      className={
-                        item?.mode_of_payment == "cash"
-                          ? "bg-skygrey border-lightpurple"
-                          : "bg-green-50 border-green" + " bookingRequest"
-                      }
-                    >
-                      <div className="checkUser">
-                        <div className="userCheckin unpaidDetails">
-                          <h6 className="userText">Customer:</h6>
+                            <div className="checkinBg">
+                              <div className="paymentMode">
+                                <span
+                                  className={
+                                    "textPaymentMode " +
+                                      item?.mode_of_payment ==
+                                    "cash"
+                                      ? "textNeavyBlue"
+                                      : "textWhite" + " mr-6"
+                                  }
+                                >
+                                  {item?.mode_of_payment == "cash"
+                                    ? "Unpaid"
+                                    : "Paid"}
+                                </span>
+                                <Image
+                                  src={Images.complete}
+                                  alt="complete"
+                                  className="completeimg"
+                                />
+                              </div>
+                            </div>
+                          </div>
 
-                          <div className="checkinBg">
-                            <div className="paymentMode">
-                              <span
-                                className={
-                                  "textPaymentMode " + item?.mode_of_payment ==
-                                  "cash"
-                                    ? "textNeavyBlue"
-                                    : "textWhite" + " mr-6"
+                          <div className="customerCheck d-flex mt-2">
+                            <figure className="profileImage">
+                              <Image
+                                src={
+                                  customerDetails?.profile_photo ??
+                                  Images.defaultUser
                                 }
-                              >
-                                {item?.mode_of_payment == "cash"
-                                  ? "Unpaid"
-                                  : "Paid"}
-                              </span>
-                              <Image
-                                src={Images.complete}
-                                alt="complete"
-                                className="completeimg"
+                                alt="customerImg"
+                                width={50}
+                                height={50}
+                                className="img-fluid userImg40"
                               />
-                            </div>
-                          </div>
-                        </div>
-
-                        <div className="customerCheck d-flex mt-2">
-                          <figure className="">
-                            <Image
-                              src={
-                                userDetails?.profile_photo ?? Images.userImages
-                              }
-                              alt="customerImg"
-                              className="img-fluid me-2"
-                            />
-                          </figure>
-                          <div className="">
-                            <span className="innerHeading">
-                              {userDetails?.firstname +
-                                " " +
-                                userDetails?.lastname}
-                            </span>
+                            </figure>
                             <div className="">
-                              <Image
-                                src={Images.locatePurple}
-                                alt="locate"
-                                className="locate me-2"
-                              />
-                              <span className="purpleText">
-                                {userAddress?.street_address}
+                              <span className="innerHeading">
+                                {customerDetails?.firstname +
+                                  " " +
+                                  customerDetails?.lastname}
                               </span>
+                              <div className="">
+                                <Image
+                                  src={Images.locatePurple}
+                                  alt="locate"
+                                  className="locate me-2"
+                                />
+                                <span className="purpleText">
+                                  {userAddress?.street_address ?? "-"}
+                                </span>
+                              </div>
                             </div>
                           </div>
-                        </div>
-                        <div className="userCheckin  mt-4">
-                          <h6 className="textSmall fw-600">
-                            Services requested:
-                          </h6>
-                          <div className="userService">
-                            <span className="subHeadText me-2">
-                              {item?.product_name}
-                            </span>
-                            {/* <span className="subHeadText">Pet Bathing</span> */}
-                          </div>
-                        </div>
-                        <div className="ServiceText mt-4 mb-4">
-                          <h6 className="textSmall">Service Time</h6>
-                          <div className="d-flex mt-3">
-                            <div className="serviceDate">
-                              <Image
-                                src={Images.calendarDark}
-                                alt="calendarImg"
-                                className="calendaerImg me-2"
-                              />
-                              <span className="purpleText fw-600">
-                                {moment
-                                  .utc(item?.start_date_time)
-                                  .format("dddd, DD/MM/YYYY")}
+                          <div className="userCheckin  mt-4">
+                            <h6 className="textSmall fw-600">
+                              Services requested:
+                            </h6>
+                            <div className="userService">
+                              <span className="subHeadText me-2">
+                                {item?.product_name}
                               </span>
-                            </div>
-                            <div className="serviceDate">
-                              <Image
-                                src={Images.timeImg}
-                                alt="timeIcon"
-                                className="timeImage me-2"
-                              />
-                              <span className="purpleText fw-600">
-                                {calculateTimeDuration(item)}
-                              </span>
+                              {/* <span className="subHeadText">Pet Bathing</span> */}
                             </div>
                           </div>
-                        </div>
-                        <div className="borderDashed"></div>
-                        <div className="bookingsAmountView mt-4 mb-2">
-                          <h6 className="textBookingAmount fw-700 mr-6">
-                            Total
-                          </h6>
-                          <h6 className="textBookingAmount fw-700">
-                            {item?.mode_of_payment?.toUpperCase() === "JBR"
-                              ? item?.mode_of_payment?.toUpperCase() + " "
-                              : "$"}
+                          <div className="ServiceText mt-4 mb-4">
+                            <h6 className="textSmall">Service Time</h6>
+                            <div className="d-flex mt-3">
+                              <div className="serviceDate">
+                                <Image
+                                  src={Images.calendarDark}
+                                  alt="calendarImg"
+                                  className="calendaerImg me-2"
+                                />
+                                <span className="purpleText fw-600">
+                                  {moment
+                                    .utc(item?.start_date_time)
+                                    .format("dddd, DD/MM/YYYY")}
+                                </span>
+                              </div>
+                              <div className="serviceDate">
+                                <Image
+                                  src={Images.timeImg}
+                                  alt="timeIcon"
+                                  className="timeImage me-2"
+                                />
+                                <span className="purpleText fw-600">
+                                  {calculateTimeDuration(item)}
+                                </span>
+                              </div>
+                            </div>
+                          </div>
+                          <div className="borderDashed"></div>
+                          <div className="bookingsAmountView mt-4 mb-2">
+                            <h6 className="textBookingAmount fw-700 mr-6">
+                              Total
+                            </h6>
+                            <h6 className="textBookingAmount fw-700">
+                              {item?.mode_of_payment?.toUpperCase() === "JBR"
+                                ? item?.mode_of_payment?.toUpperCase() + " "
+                                : "$"}
 
-                            {`${parseFloat(item?.price).toFixed(2)}`}
-                          </h6>
+                              {`${parseFloat(item?.price).toFixed(2)}`}
+                            </h6>
 
-                          <div className="checkinBg ml-16">
-                            <button
-                              className="rejectBtn mr-6"
-                              type="submit"
-                              onClick={async () => {
-                                updateBookingStatus(
-                                  appointmentID,
-                                  APPOINTMENT_STATUS.REJECTED_BY_SELLER
-                                );
-                                // onSearchAppoinment(searchedText);
-                              }}
-                            >
-                              Decline
-                            </button>
-                            <button
-                              className="acceptBtn"
-                              type="submit"
-                              onClick={async () => {
-                                updateBookingStatus(
-                                  appointmentID,
-                                  APPOINTMENT_STATUS.ACCEPTED_BY_SELLER
-                                );
-                                // onSearchAppoinment(searchedText);
-                              }}
-                            >
-                              Confirm
-                            </button>
-                            {/* <div className="confirmbtn">
+                            <div className="checkinBg ml-16">
+                              <button
+                                className="rejectBtn mr-6"
+                                type="submit"
+                                onClick={async () => {
+                                  setshowRequestsView((prev) => !prev);
+                                  updateBookingStatus(
+                                    appointmentID,
+                                    APPOINTMENT_STATUS.REJECTED_BY_SELLER
+                                  );
+                                }}
+                              >
+                                Decline
+                              </button>
+                              <button
+                                className="acceptBtn"
+                                type="submit"
+                                onClick={async () => {
+                                  setshowRequestsView((prev) => !prev);
+                                  updateBookingStatus(
+                                    appointmentID,
+                                    APPOINTMENT_STATUS.ACCEPTED_BY_SELLER
+                                  );
+                                }}
+                              >
+                                Confirm
+                              </button>
+                              {/* <div className="confirmbtn">
                               Confirm
                               <Image
                                 src={Images.ArrowRight}
@@ -865,17 +1036,153 @@ const Booking = () => {
                                 className="img-fluid "
                               />
                             </div> */}
+                            </div>
                           </div>
                         </div>
                       </div>
-                    </div>
-                  );
-                })}
+                    );
+                  })}
+            </ScrollView>
           </div>
         ) : (
           <></>
         )}
       </>
+    );
+  };
+
+  const DisplayBookings = ({ appointments }) => {
+    return (
+      <div className="commanscrollBar InvoiceTableBox">
+        <div className="table-responsive">
+          <table id="bookingTable" className="product_table ">
+            <thead className="invoiceHeadingBox">
+              <tr>
+                <th className="invoiceHeading">Client</th>
+                <th className="invoiceHeading">Staff</th>
+                <th className="invoiceHeading">Service</th>
+                <th className="invoiceHeading">Time</th>
+                <th className="invoiceHeading"></th>
+              </tr>
+            </thead>
+            <tbody>
+              {appointments?.length > 0 ? (
+                <>
+                  {appointments?.map((item, index) => {
+                    const userDetails = item?.user_details;
+                    const invitedUserDetails = item?.invitation_details;
+                    const userId = item?.user_id;
+                    const customerDetails =
+                      userId != null ? userDetails : invitedUserDetails;
+                    const userAddress = userDetails?.current_address;
+                    const posUserDetails =
+                      item?.pos_user_details?.user?.user_profiles;
+                    const appointmentID = item?.id;
+
+                    return (
+                      <tr className="product_invoice bookCheck">
+                        <td className="invoice_subhead">
+                          <div className="d-flex">
+                            <figure className="">
+                              <Image
+                                src={
+                                  customerDetails?.profile_photo ??
+                                  Images.defaultUser
+                                }
+                                alt="avtar"
+                                width={50}
+                                height={50}
+                                className="img-fluid userImg40"
+                              />
+                            </figure>
+                            <div className="">
+                              <span className="subHeadText">
+                                {customerDetails?.firstname +
+                                  " " +
+                                  customerDetails?.lastname}
+                              </span>
+                              <div>
+                                {/* <Image
+                                  src={Images.locatePurple}
+                                  alt="locate"
+                                  className="locate me-2"
+                                /> */}
+                                <span className="purpleText">
+                                  {userId !== null
+                                    ? customerDetails?.phone_number
+                                    : customerDetails?.phone_code +
+                                      customerDetails?.phone_no}
+                                </span>
+                              </div>
+                            </div>
+                          </div>
+                        </td>
+                        <td className="invoice_subhead">
+                          <span className="subHeadText">
+                            {posUserDetails?.firstname +
+                              " " +
+                              posUserDetails?.lastname}
+                          </span>
+                        </td>
+
+                        <td className="invoice_subhead">
+                          <span className="subHeadText">
+                            {item?.product_name}
+                          </span>
+                        </td>
+                        <td className="invoice_subhead">
+                          <Image
+                            src={Images.clockImg}
+                            alt="clock"
+                            className="clockImg me-2"
+                          />
+                          <span className="subHeadText">
+                            {`${item?.start_time}-${item?.end_time}`}
+                          </span>
+                        </td>
+
+                        <td className="invoice_subhead">
+                          <div className="checkinBg">
+                            {renderButtons(item)[item?.status]}
+                            {/* <figure
+                          className="checkinBox me-2 "
+                          onClick={() => {
+                            handleUserProfile("checkIn");
+                          }}
+                        >
+                          <span className="textSmall me-2">
+                            {item?.status}
+                          </span>
+                          <Image
+                            src={Images.checkImg}
+                            alt="money"
+                            className="moneyImg"
+                          />
+                        </figure>
+                        <button className="editBtn">
+                          <Image
+                            src={Images.editImg}
+                            alt="editImg"
+                            className="editImg"
+                          />
+                        </button> */}
+                          </div>
+                        </td>
+                      </tr>
+                    );
+                  })}
+                </>
+              ) : (
+                <tr>
+                  <td className="colorBlue text text-center py-3" colSpan={8}>
+                    No Record Found
+                  </td>
+                </tr>
+              )}
+            </tbody>
+          </table>
+        </div>
+      </div>
     );
   };
 
@@ -906,9 +1213,10 @@ const Booking = () => {
               // });
             }}
             onPressSearch={() => {
-              // setShowSearchModal(true);
-              // setSearchedAppointments([]);
-              // setSearchedText('');
+              setKey2(Math.random());
+              setShowSearchModal(true);
+              setSearchedAppointments([]);
+              setSearchedText("");
               // setTimeout(() => {
               //   searchAppoinmentInputRef.current.focus();
               // }, 300);
@@ -931,7 +1239,7 @@ const Booking = () => {
               <>
                 {calendarViewMode === CALENDAR_VIEW_MODES.CALENDAR_VIEW ? (
                   <Calendar
-                    ampm={true}
+                    ampm={isAMPM}
                     swipeEnabled={false}
                     date={calendarDate}
                     mode={calendarMode}
@@ -953,6 +1261,15 @@ const Booking = () => {
                     }}
                     dayHeaderHighlightColor={"rgb(66, 133, 244)"}
                     hourComponent={CustomHoursCell}
+                    onPressEvent={(event) => {
+                      setEventData(event);
+                      if (calendarMode === CALENDAR_MODES.MONTH) {
+                        dayHandler();
+                        setCalendarDate(moment(event.start));
+                      } else {
+                        setshowEventDetailModal(true);
+                      }
+                    }}
                     renderEvent={(event, touchableOpacityProps, allEvents) =>
                       CustomEventCell(
                         event,
@@ -997,141 +1314,7 @@ const Booking = () => {
                         </Text>
                       </View>
                     </View>
-                    <div className="commanscrollBar InvoiceTableBox">
-                      <div className="table-responsive">
-                        <table id="bookingTable" className="product_table ">
-                          <thead className="invoiceHeadingBox">
-                            <tr>
-                              <th className="invoiceHeading">Client</th>
-                              <th className="invoiceHeading">Staff</th>
-                              <th className="invoiceHeading">Service</th>
-                              <th className="invoiceHeading">Time</th>
-                              <th className="invoiceHeading"></th>
-                            </tr>
-                          </thead>
-                          <tbody>
-                            {getAppointmentsByDate?.length > 0 ? (
-                              <>
-                                {getAppointmentsByDate?.map((item, index) => {
-                                  const userDetails = item?.user_details;
-                                  const invitedUserDetails =
-                                    item?.invitation_details;
-                                  const userId = item?.user_id;
-                                  const customerDetails =
-                                    userId != null
-                                      ? userDetails
-                                      : invitedUserDetails;
-                                  const userAddress =
-                                    userDetails?.current_address;
-                                  const posUserDetails =
-                                    item?.pos_user_details?.user?.user_profiles;
-                                  const appointmentID = item?.id;
-
-                                  return (
-                                    <tr className="product_invoice bookCheck">
-                                      <td className="invoice_subhead">
-                                        <div className="d-flex">
-                                          <figure className="">
-                                            <Image
-                                              src={
-                                                customerDetails?.profile_photo ??
-                                                Images.userAvtar
-                                              }
-                                              alt="avtar"
-                                              className="avtarImg me-2"
-                                            />
-                                          </figure>
-                                          <div className="">
-                                            <span className="subHeadText">
-                                              {customerDetails?.firstname +
-                                                " " +
-                                                customerDetails?.lastname}
-                                            </span>
-                                            <div>
-                                              <Image
-                                                src={Images.locatePurple}
-                                                alt="locate"
-                                                className="locate me-2"
-                                              />
-                                              <span className="purpleText">
-                                                {userId !== null
-                                                  ? customerDetails?.phone_number
-                                                  : customerDetails?.phone_code +
-                                                    customerDetails?.phone_no}
-                                              </span>
-                                            </div>
-                                          </div>
-                                        </div>
-                                      </td>
-                                      <td className="invoice_subhead">
-                                        <span className="subHeadText">
-                                          {posUserDetails?.firstname +
-                                            " " +
-                                            posUserDetails?.lastname}
-                                        </span>
-                                      </td>
-
-                                      <td className="invoice_subhead">
-                                        <span className="subHeadText">
-                                          {item?.product_name}
-                                        </span>
-                                      </td>
-                                      <td className="invoice_subhead">
-                                        <Image
-                                          src={Images.clockImg}
-                                          alt="clock"
-                                          className="clockImg me-2"
-                                        />
-                                        <span className="subHeadText">
-                                          {`${item?.start_time}-${item?.end_time}`}
-                                        </span>
-                                      </td>
-
-                                      <td className="invoice_subhead">
-                                        <div className="checkinBg">
-                                          {renderButtons(item)[item?.status]}
-                                          {/* <figure
-                                            className="checkinBox me-2 "
-                                            onClick={() => {
-                                              handleUserProfile("checkIn");
-                                            }}
-                                          >
-                                            <span className="textSmall me-2">
-                                              {item?.status}
-                                            </span>
-                                            <Image
-                                              src={Images.checkImg}
-                                              alt="money"
-                                              className="moneyImg"
-                                            />
-                                          </figure>
-                                          <button className="editBtn">
-                                            <Image
-                                              src={Images.editImg}
-                                              alt="editImg"
-                                              className="editImg"
-                                            />
-                                          </button> */}
-                                        </div>
-                                      </td>
-                                    </tr>
-                                  );
-                                })}
-                              </>
-                            ) : (
-                              <tr>
-                                <td
-                                  className="colorBlue text text-center py-3"
-                                  colSpan={8}
-                                >
-                                  No Record Found
-                                </td>
-                              </tr>
-                            )}
-                          </tbody>
-                        </table>
-                      </div>
-                    </div>
+                    <DisplayBookings appointments={getAppointmentsByDate} />
                   </div>
                 )}
               </>
@@ -1140,6 +1323,126 @@ const Booking = () => {
         </div>
         <CommonSideBar />
       </div>
+      <CustomModal
+        key={key1}
+        show={showRescheduleTimeModal}
+        backdrop="static"
+        showCloseBtn={false}
+        isRightSideModal={true}
+        mediumWidth={false}
+        className={"checkIn"}
+        ids={"reschedule"}
+        child={
+          <ReScheduleDetailModal
+            showRecheduleModal={showRescheduleTimeModal}
+            appointmentData={selectedBooking}
+            onAppointmentUpdate={() => {
+              getAllBookings();
+            }}
+            setshowEventDetailModal={setshowEventDetailModal}
+            onCloseModal={closeRescheduleModal}
+          />
+        }
+        onCloseModal={closeRescheduleModal}
+      />
+
+      <CustomModal
+        key={key2}
+        show={showSearchModal}
+        backdrop="static"
+        showCloseBtn={false}
+        isRightSideModal={true}
+        mediumWidth={false}
+        className={"checkIn"}
+        ids={"showSearchModal"}
+        child={
+          <View
+            style={{
+              backgroundColor: "white",
+              borderRadius: 10,
+              padding: 16,
+              width: windowWidth * 0.45,
+              // paddingBottom: ms(15),
+              paddingTop: 5,
+              alignSelf: "flex-end",
+              height: windowHeight * 0.8,
+              shadowColor: "#000",
+              shadowOffset: {
+                width: 0,
+                height: 2,
+              },
+              shadowOpacity: 0.25,
+              shadowRadius: 4,
+              elevation: 5,
+            }}
+          >
+            <Spacer space={16} />
+            <TouchableOpacity onPress={() => closeSearchModal()}>
+              <ReactNativeImage
+                source={"../images/modalCross.svg"}
+                style={{
+                  height: 24,
+                  width: 24,
+                  alignSelf: "flex-end",
+                }}
+              />
+            </TouchableOpacity>
+
+            <Spacer space={24} />
+
+            <View
+              style={[
+                {
+                  marginVertical: 10,
+                  borderWidth: 1,
+                  height: 40,
+                  borderRadius: 30,
+                  borderColor: "#CACACA",
+                  flexDirection: "row",
+                  alignItems: "center",
+                  paddingLeft: 10,
+                },
+              ]}
+            >
+              <ReactNativeImage
+                source={"../images/SearchLight.svg"}
+                style={{ width: 20, height: 20, resizeMode: "contain" }}
+              />
+              <TextInput
+                ref={searchAppoinmentInputRef}
+                placeholder={
+                  "Search appointments with service name, customer name or phone number"
+                }
+                style={{
+                  height: 40,
+                  width: "100%",
+                  fontStyle: "italic",
+                  fontSize: 12,
+                  paddingLeft: 5,
+                  margin: 0,
+                  padding: 0,
+                  outlineStyle: "none",
+                }}
+                placeholderTextColor={"#626262"}
+                value={searchedText}
+                onChangeText={(searchText) => {
+                  setIsLoadingSearchAppoinment(true);
+                  setSearchedText(searchText);
+                  debouncedSearchAppointment(searchText);
+                }}
+              />
+            </View>
+            <Spacer space={8} />
+
+            {isLoadingSearchAppoinment ? (
+              <ActivityIndicator size="large" color={"#0000ff"} />
+            ) : (
+              <DisplayBookings appointments={searchedAppointments} />
+            )}
+          </View>
+        }
+        onCloseModal={closeSearchModal}
+      />
 
       <CustomModal
         key={key}
@@ -1201,6 +1504,36 @@ const Booking = () => {
         }
         onCloseModal={() => handleOnCloseModal()}
       />
+
+      {showEventDetailModal && (
+        <div className="addBucket AddtoCart">
+          <EventDetailModal
+            {...{ eventData, showEventDetailModal, setshowEventDetailModal }}
+            onAppointmentStatusUpdate={(appointmentId, appointmentStatus) => {
+              updateBookingStatus(appointmentId, appointmentStatus);
+            }}
+            onModifyAppointmentPress={(selectedBooking) => {
+              setSelectedBooking(selectedBooking);
+              setKey1(Math.random());
+              setshowRescheduleTimeModal(true);
+            }}
+          />
+        </div>
+      )}
+      {isCalendarSettingModalVisible && (
+        <div className="addBucket AddtoCart">
+          <CalendarSettingModal
+            isVisible={isCalendarSettingModalVisible}
+            setIsVisible={setisCalendarSettingModalVisible}
+            currentCalendarMode={calendarMode}
+            currentTimeFormat={isAMPM}
+            defaultSettingsForCalendar={defaultSettingsForCalendar}
+            onPressSave={(calendarPreferences) => {
+              onPressSaveCalendarSettings(calendarPreferences);
+            }}
+          />
+        </div>
+      )}
     </>
   );
 };

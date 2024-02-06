@@ -169,6 +169,12 @@ const index = () => {
                   className="customers-table-data"
                   style={{ border: "none", color: "#7E8AC1", textAlign: "center" }}
                 >
+                  Sr.No.
+                </th>
+                <th
+                  className="customers-table-data"
+                  style={{ border: "none", color: "#7E8AC1", textAlign: "center" }}
+                >
                   Date
                 </th>
                 <th
@@ -229,6 +235,11 @@ const index = () => {
                               <td
                                 className="customers-table-data"
                               >
+                                {(page - 1) * 10 + idx + 1}
+                              </td>
+                              <td
+                                className="customers-table-data"
+                              >
                                 {moment(row?.order_date).format('MM/DD/YYYY')}
                               </td>
                               <td
@@ -271,7 +282,6 @@ const index = () => {
                                 No Record Found
                               </td>
                             </tr>
-
                           </tbody>
                       }
                     </>

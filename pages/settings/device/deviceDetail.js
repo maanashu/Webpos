@@ -1,8 +1,12 @@
-import React from "react";
+import React, { useEffect } from "react";
 import * as Images from "../../../utilities/images";
 import Image from "next/image";
 
-const DeviceDetail = () => {
+const DeviceDetail = (props) => {
+
+  useEffect(() => {
+    props?.setShowSideBar(false)
+  },[])
   return (
     <div className="row settingMain">
       <div className="col-lg-9">

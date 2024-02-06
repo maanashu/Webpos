@@ -7,7 +7,7 @@ import { settingInfo } from "../../../redux/slices/setting";
 import { useSelector } from "react-redux";
 import moment from "moment-timezone";
 
-function Plan({ handleTouch }) {
+function Plan(props) {
   const dispatch = useDispatch();
   const settingData = useSelector(settingInfo);
   const [activePlan, setActivePlan] = useState([]);
@@ -25,6 +25,10 @@ function Plan({ handleTouch }) {
     );
   }, []);
 
+  useEffect(() => {
+    props?.setShowSideBar(false)
+  },[])
+
   return (
     <>
       <div className="planRight settingOuter">
@@ -32,7 +36,7 @@ function Plan({ handleTouch }) {
           <div className="no-plan-found-section">
             <p className="customerLink">No plan found</p>
             <button
-              onClick={() => handleTouch("allPlans")}
+              onClick={() => props?.handleTouch("allPlans")}
               className="nextverifyBtn"
             >
               Buy Plan
@@ -66,7 +70,7 @@ function Plan({ handleTouch }) {
                         </p>
                       </div>
                       <button
-                        onClick={() => handleTouch("allPlans")}
+                        onClick={() => props?.handleTouch("allPlans")}
                         className="createTaxBtn m-0"
                         type="button"
                       >

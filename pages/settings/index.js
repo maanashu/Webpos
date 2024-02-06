@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import styles from "./styles.module.css";
 import Security from "./security";
 import {
   locationOutline,
@@ -11,12 +10,10 @@ import {
   settingsMoney,
   settingsPolicies,
   settingsReceipt,
-  settingsSecurity,
   settingsTax,
   usersOutline,
   walletOutline,
   securityTick,
-  settingHome,
   settingsDetails,
 } from "../../utilities/images";
 import * as Images from "../../utilities/images";
@@ -26,8 +23,6 @@ import Devices from "./device";
 import Receipts from "./Receipts";
 import Location from "./location";
 import StaffDetail from "./staff/staffDetail";
-import { ListGroup } from "react-bootstrap";
-import ListGroupItem from "react-bootstrap";
 import Link from "next/link";
 import Taxes from "./Taxes";
 import Legal from "./legal";
@@ -42,7 +37,6 @@ import ShippingPickup from "./shipPickup";
 import PlanFit from "./plans/planFit";
 import { getAllPosUser, selectLoginAuth } from "../../redux/slices/auth";
 import { useDispatch, useSelector } from "react-redux";
-import { getProfile } from "../../redux/slices/dashboard";
 import DeviceDetail from "./device/deviceDetail";
 import {
   getActivePlan,
@@ -67,11 +61,9 @@ export default function Settings() {
   const [policyInfo, setPolicyInfo] = useState("");
   const [activeTab, setActiveTab] = useState("");
   const [showSidebar, setShowSideBar] = useState(false);
-  const [sideBarInfo, setSideBarInfo] = useState({
-    location: "",
-    plan: "",
-  });
- 
+  const [userLocation, setUserLocation] = useState("");
+  const [userPlan, setUserPlan] = useState("");
+
   // API for get get Bussiness LocationInfo...............................
 
   // get plan information
@@ -80,16 +72,13 @@ export default function Settings() {
       getActivePlan({
         cb(res) {
           if (res?.status) {
-            console.log("plassssss", res?.data?.payload[0]?.expiry_date);
-            setSideBarInfo({
-              plan: res?.data?.payload[0]?.res?.data?.payload[0]?.expiry_date,
-              location: "",
-            });
+            setUserPlan(res?.data?.payload[0]?.expiry_date);
           }
         },
       })
     );
   };
+
   // get location count
   const getBussinessLocationInfo = () => {
     let params = {
@@ -100,14 +89,13 @@ export default function Settings() {
         ...params,
         cb(res) {
           if (res.status) {
-            setSideBarInfo({
-              location: res?.data?.payload,
-            });
+            setUserLocation(res?.data?.payload);
           }
         },
       })
     );
   };
+
   // getting setting sideBar information
   useEffect(() => {
     getBussinessLocationInfo();
@@ -115,6 +103,7 @@ export default function Settings() {
     getUserList();
   }, [receiptSettings?.success]);
 
+  console.log("receiptSettings?.success", receiptSettings?.success);
   const settingsOptions = [
     { id: 1, name: "Security", info: securityStatus, image: securityTick },
     { id: 2, name: "Devices", info: "Not Connected", image: settingsDevices },
@@ -122,13 +111,13 @@ export default function Settings() {
     {
       id: 4,
       name: "Locations",
-      info: `${sideBarInfo?.location?.length} Locations`,
+      info: `${userLocation?.length} Locations`,
       image: locationOutline,
     },
     {
       id: 5,
       name: "Plans",
-      info: `Expire on ${moment(sideBarInfo?.plan).format("DD MMMM yyyy")}`,
+      info: userPlan && `Expire on ${moment(userPlan).format("DD MMMM yyyy")}`,
       image: settingsMoney,
     },
     { id: 6, name: "Receipts", info: "Default", image: settingsReceipt },
@@ -164,7 +153,7 @@ export default function Settings() {
       id: 14,
       name: "Device Detail",
       info: "Locations",
-      image: settingsDevices,
+      image: settingsDetails,
     },
   ];
   const SettingsBar = ({ item }) => {
@@ -215,48 +204,74 @@ export default function Settings() {
   const renderComponent = () => {
     switch (selectedItem) {
       case "Security":
-        return <Security handleTouch={handleTouch} />;
+        return (
+          <Security handleTouch={handleTouch} setShowSideBar={setShowSideBar} />
+        );
       case "Staff":
-        return <StaffList handleTouch={handleTouch} />;
+        return (
+          <StaffList
+            handleTouch={handleTouch}
+            setShowSideBar={setShowSideBar}
+          />
+        );
       case "Devices":
-        return <Devices />;
+        return <Devices setShowSideBar={setShowSideBar} />;
       case "Receipts":
-        return <Receipts />;
+        return <Receipts setShowSideBar={setShowSideBar} />;
       case "Taxes":
-        return <Taxes />;
+        return <Taxes setShowSideBar={setShowSideBar} />;
       case "Locations":
-        return <Location />;
+        return <Location setShowSideBar={setShowSideBar} />;
       case "Language":
-        return <Language />;
+        return <Language setShowSideBar={setShowSideBar} />;
       case "Legal":
-        return <Legal handleTouch={handleTouch} />;
+        return (
+          <Legal handleTouch={handleTouch} setShowSideBar={setShowSideBar} />
+        );
       case "Policies":
-        return <Policy handleTouch={handleTouch} />;
+        return (
+          <Policy handleTouch={handleTouch} setShowSideBar={setShowSideBar} />
+        );
       case "staffDetail":
         return (
           <StaffDetail
             handleTouch={handleTouch}
             selectedItemId={selectedItemId}
+            setShowSideBar={setShowSideBar}
           />
         );
       case "legalPolicy":
         return (
-          <LegalPolicy policyInfo={policyInfo} handleTouch={handleTouch} />
+          <LegalPolicy
+            policyInfo={policyInfo}
+            handleTouch={handleTouch}
+            setShowSideBar={setShowSideBar}
+          />
         );
       case "PolicyInfo":
-        return <PolicyInfo policyInfo={policyInfo} handleTouch={handleTouch} />;
+        return (
+          <PolicyInfo
+            policyInfo={policyInfo}
+            handleTouch={handleTouch}
+            setShowSideBar={setShowSideBar}
+          />
+        );
       case "Wallet":
-        return <Wallet />;
+        return <Wallet setShowSideBar={setShowSideBar} />;
       case "Notifications":
-        return <Notification />;
+        return <Notification setShowSideBar={setShowSideBar} />;
       case "Plans":
-        return <Plan handleTouch={handleTouch} />;
+        return (
+          <Plan handleTouch={handleTouch} setShowSideBar={setShowSideBar} />
+        );
       case "allPlans":
-        return <PlanFit handleTouch={handleTouch} />;
+        return (
+          <PlanFit handleTouch={handleTouch} setShowSideBar={setShowSideBar} />
+        );
       case "Shipping & Pick Up":
-        return <ShippingPickup />;
+        return <ShippingPickup setShowSideBar={setShowSideBar} />;
       case "Device Detail":
-        return <DeviceDetail />;
+        return <DeviceDetail setShowSideBar={setShowSideBar} />;
       default:
         return null;
     }
@@ -274,22 +289,20 @@ export default function Settings() {
           </div>
         </div>
         <div className="col-lg-9">
-
-          {/* <div>
-            <Image src={Images.ShippingOrders} className="SecurityImg" alt="img" onClick={() => setShowSideBar(prev => !prev)} />
-
-            {showSidebar && <div className="deviceLeft settingOuter">
-              <div>
-                {settingsOptions.map((item) => (
-                  <SettingsBar key={item.id} item={item} />
-                ))}
+          <div>
+            {/* <Image src={Images.ShippingOrders} className="SecurityImg" alt="img" onClick={() => setShowSideBar(prev => !prev)} /> */}
+            {showSidebar && (
+              <div className="deviceLeft settingOuter">
+                <div>
+                  {settingsOptions.map((item) => (
+                    <SettingsBar key={item.id} item={item} />
+                  ))}
+                </div>
               </div>
-            </div>}
-          </div> */}
-
-          <div className="outerpage" onClick={() => setShowSideBar(false)}>
-            {renderComponent()}
+            )}
           </div>
+
+          <div className="outerpage">{renderComponent()}</div>
         </div>
       </div>
     </div>

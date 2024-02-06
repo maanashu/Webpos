@@ -19,8 +19,9 @@ import { toast } from "react-toastify";
 const AddService = () => {
   const router = useRouter();
   const dispatch = useDispatch();
-  const retailData = useSelector(selectRetailData);
   const authData = useSelector(selectLoginAuth);
+  const retailData = useSelector(selectRetailData);
+  const cartData = retailData?.productCart || {};
   const sellerId = authData?.usersInfo?.payload?.uniqe_id;
   const itemData = retailData?.oneServiceData?.product_detail;
   const posStaffArray = itemData?.pos_staff;
@@ -29,6 +30,10 @@ const AddService = () => {
   );
   const [providerDetail, setProviderDetail] = useState(
     posStaffArray?.[0]?.user
+  );
+
+  const onlyServiceCartArray = cartData?.poscart_products?.filter(
+    (item) => item?.product_type == "service"
   );
 
   // function modifiedPosArray(arr, size) {
@@ -57,8 +62,6 @@ const AddService = () => {
   const [timeSlotsData, setTimeSlotsData] = useState([]);
   const [selectedTimeSlotIndex, setselectedTimeSlotIndex] = useState(null);
   const [selectedTimeSlotData, setSelectedTimeSlotData] = useState("");
-
-  console.log("timeSlotsData", timeSlotsData);
 
   useEffect(() => {
     const daysArray = getDaysAndDates(
@@ -161,16 +164,29 @@ const AddService = () => {
       pos_user_id: posUserId,
       qty: 1,
     };
-    dispatch(
-      addTocart({
-        ...params,
-        cb(res) {
-          dispatch(productCart());
-          // router.push("/Retails?parameter=services");
-          router.back();
-        },
-      })
-    );
+
+    const exists = onlyServiceCartArray?.some((item) => {
+      return (
+        item.start_time === params.start_time &&
+        item.end_time === params.end_time &&
+        item?.pos_user_details?.user?.unique_uuid === params?.pos_user_id
+      );
+    });
+
+    if (!exists) {
+      dispatch(
+        addTocart({
+          ...params,
+          cb(res) {
+            dispatch(productCart());
+            // router.push("/Retails?parameter=services");
+            router.back();
+          },
+        })
+      );
+    } else {
+      toast.error("This pos staff not available this time");
+    }
   };
 
   return (

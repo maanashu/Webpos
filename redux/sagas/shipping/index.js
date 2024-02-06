@@ -43,6 +43,7 @@ function* changeStatusOfOrder(action) {
       dataToSend
     );
     if (resp.status) {
+      toast.success(resp?.data?.msg);
       // yield put(setSidebarCountData(resp.data));
       yield call(action.payload.cb, (action.res = resp));
       console.log(resp, "response");
@@ -97,6 +98,47 @@ function* getShippingGraphData(action) {
     toast.error(e?.error?.response?.data?.msg);
   }
 }
+function* getOrderStat(action) {
+  const dataToSend = { ...action.payload };
+  delete dataToSend.cb;
+  const params = new URLSearchParams(dataToSend).toString();
+  try {
+    const resp = yield call(
+      ApiClient.get,
+      `${ORDER_API_URL}/api/v1/orders/pos/orders/conversion/statistics?${params}`
+    );
+    if (resp) {
+      //   yield put(setProfitData(resp.data));
+      yield call(action.payload.cb, (action.res = resp));
+    } else {
+      throw resp;
+    }
+  } catch (e) {
+    // yield put(onErrorStopLoad());
+    toast.error(e?.error?.response?.data?.msg);
+  }
+}
+function* getOrdersList(action) {
+  const dataToSend = { ...action.payload };
+  delete dataToSend.cb;
+  const params = new URLSearchParams(dataToSend).toString();
+  try {
+    const resp = yield call(
+      ApiClient.get,
+      `${ORDER_API_URL}/api/v1/orders?${params}`
+    );
+
+    if (resp) {
+      yield call(action.payload.cb, (action.res = resp));
+    } else {
+      throw resp;
+    }
+  } catch (e) {
+    console.log("error", e);
+    // yield put(onErrorStopLoad());
+    toast.error(e?.error?.response?.data?.msg);
+  }
+}
 function* shippingSaga() {
   yield all([
     takeLatest("shipping/getShippingsSidebarCount", getShippingsSidebarCount),
@@ -104,6 +146,8 @@ function* shippingSaga() {
     takeLatest("shipping/getShippingsStatus", getShippingsStatus),
     takeLatest("shipping/getShippingstodayStatus", getShippingsStatus),
     takeLatest("shipping/getShippingGraphData", getShippingGraphData),
+    takeLatest("shipping/getOrderStat", getOrderStat),
+    takeLatest("shipping/getOrdersList", getOrdersList),
   ]);
 }
 

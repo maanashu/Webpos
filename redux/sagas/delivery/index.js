@@ -8,6 +8,7 @@ import {
   setDrawerOrdersCount,
   setOrderDetailById,
   setOrdersList,
+  setPendingOrderCount,
 } from "../../slices/delivery";
 
 const API_URL = {
@@ -19,6 +20,7 @@ const API_URL = {
   getOrderDetailById: "/api/v1/orders/pos/",
   acceptOrder: "/api/v1/orders/status/",
   verifyPickupOtp: "/api/v1/orders/verify-pickup-otp",
+  pendingOrderCount: "/api/v1/orders/pos/pending-orders-count?",
 };
 
 function* getTodayOrderCount(action) {
@@ -98,6 +100,30 @@ function* getOrdersList(action) {
     if (resp) {
       yield put(setOrdersList(resp?.data == "" ? [] : resp?.data?.payload));
       yield call(action.payload.cb, (action.res = resp));
+    } else {
+      throw resp;
+    }
+  } catch (e) {
+    console.log("error", e);
+    // yield put(onErrorStopLoad());
+    toast.error(e?.error?.response?.data?.msg);
+  }
+}
+function* getPendingOrderCount(action) {
+  const dataToSend = { ...action.payload };
+  // delete dataToSend.cb;
+  const params = new URLSearchParams(dataToSend).toString();
+  console.log("=--=-==-=-=-=-sdghasvduasvd", params);
+  try {
+    const resp = yield call(
+      ApiClient.get,
+      `${ORDER_API_URL}${API_URL.pendingOrderCount}${params}`
+    );
+    console.log("dsdsdsds=pimddd", JSON.stringify(resp));
+    if (resp) {
+      console.log("dsdsdsds=pimddd", JSON.stringify(resp));
+      yield put(setPendingOrderCount(resp?.data?.payload));
+      // yield call(action.payload.cb, (action.res = resp));
     } else {
       throw resp;
     }
@@ -222,6 +248,9 @@ function* deliverySaga() {
   yield all([takeLatest("delivery/getOrderDetailById", getOrderDetailById)]);
   yield all([takeLatest("delivery/acceptOrder", acceptOrder)]);
   yield all([takeLatest("delivery/verifyPickupOtp", verifyPickupOtp)]);
+  yield all([
+    takeLatest("delivery/getPendingOrderCount", getPendingOrderCount),
+  ]);
 }
 
 export default deliverySaga;

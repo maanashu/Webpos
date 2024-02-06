@@ -298,3 +298,80 @@ export const getCalendarActionButtonTitle = (status) => {
       return "Status unknown";
   }
 };
+export function replaceDeliveryStatus(str) {
+  const replacements = {
+    "Orders to review": "orderReviewDeliver",
+    "Order Accepted": "orderAcceptDeliver",
+    "Orders Prepared": "orderPrepareDeliver",
+    "Assign to Driver": "orderAssignDeliver",
+    "Picked up": "orderPickupDeliver",
+    "Delivered": "deliverOrderTable",
+    "Rejected/Cancelled": "cancelDeliver",
+    "Returned": "returnDeliver",
+  };
+
+  return replacements[str] || str;
+}
+
+
+export const getDateLabel = (dateString) => {
+  const days = [
+    "Sunday",
+    "Monday",
+    "Tuesday",
+    "Wednesday",
+    "Thursday",
+    "Friday",
+    "Saturday",
+  ];
+  const date = new Date(dateString);
+  const dayIndex = date.getDay();
+  const todayIndex = new Date().getDay();
+
+  // Calculate the difference in days
+  const diff = dayIndex - todayIndex;
+  let label = "";
+
+  switch (diff) {
+    case 0:
+      label = "Today";
+      break;
+    case 1:
+      label = "Tomorrow";
+      break;
+    default:
+      label = days[dayIndex];
+      break;
+  }
+
+  return label;
+};
+
+export const getWeeklyDateLabel = (dateString) => {
+  const daysOfWeek = [
+    "Sunday",
+    "Monday",
+    "Tuesday",
+    "Wednesday",
+    "Thursday",
+    "Friday",
+    "Saturday",
+  ];
+  const date = new Date(dateString);
+  const today = new Date();
+  const oneWeekLater = new Date(today.getTime() + 7 * 24 * 60 * 60 * 1000); // Add 7 days to current date
+
+  if (date.getTime() >= oneWeekLater.getTime()) {
+    // After one week, show the date in regular format
+    return `${date.getDate()}/${date.getMonth() + 1}/${date.getFullYear()}`;
+  }
+
+  const diff = Math.floor(
+    (date.getTime() - today.getTime()) / (1000 * 60 * 60 * 24)
+  );
+
+  if (diff === 0) return "Today";
+  if (diff === 1) return "Tomorrow";
+
+  return daysOfWeek[date.getDay()];
+};

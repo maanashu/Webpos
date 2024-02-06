@@ -294,7 +294,8 @@
         margin-left: 7px;
     }
 
-    .shippingSection {
+    .shippingSection,
+    .deliverySection {
         min-width: calc(100% - 120px);
         margin-left: 16px;
         margin-right: 80px;
@@ -304,7 +305,8 @@
         margin: 0;
     }
 
-    .shipRightBar {
+    .shipRightBar,
+    .deliverRightBar {
         width: 44px;
         padding: 15px 0px;
     }
@@ -316,6 +318,14 @@
     .deliverOrderRight .detailScroll {
         height: calc(100% - 368px);
         overflow-y: scroll;
+    }
+
+    .customerLink {
+        font-size: 17px;
+    }
+
+    .assignMapRight {
+        margin-top: 20px !important;
     }
 }
 
@@ -656,20 +666,20 @@
         max-width: 425px;
     }
 
-    .ProductAddCart .orderTime {
+    /* .ProductAddCart .orderTime {
         width: 100%;
         justify-content: space-between;
-    }
+    } */
 
-    .ProductAddCart .orderCalculate {
+    /* .ProductAddCart .orderCalculate {
         justify-content: space-between;
         width: 100%;
-    }
+    } */
 
-    .ProductAddCart .cartSubInfo {
+    /* .ProductAddCart .cartSubInfo {
         flex-wrap: wrap;
         gap: 10px;
-    }
+    } */
 
     .deliverOrderRight .selectedProductDetails {
         min-width: 356px;
@@ -679,11 +689,21 @@
         max-width: 16ch;
     }
 
-    .shipRightBar {
+    .detailScrollDelivery .aboutProduct {
+        max-width: 16ch;
+    }
+
+    .detailDeliver .aboutProduct {
+        max-width: 16ch;
+    }
+
+    .shipRightBar,
+    .deliverRightBar {
         right: 12px;
     }
 
-    .shippingSection {
+    .shippingSection,
+    .deliverySection {
         margin-left: 12px;
         margin-right: 65px;
     }
@@ -696,6 +716,10 @@
     .customerHeader .day-tabs {
         gap: 5px;
         margin-right: 6px;
+    }
+
+    .productDataInfo {
+        min-width: 165px;
     }
 }
 
@@ -926,6 +950,25 @@
         gap: 8px;
         flex-wrap: wrap;
     }
+
+    .shippingOrdersViewStyle .flexBox {
+        flex-wrap: wrap;
+        gap: 8px;
+    }
+
+    .orderStatusBox {
+        padding: 18px 12px;
+        width: 100%;
+        max-width: 300px;
+    }
+
+    .jobrPickUp {
+        margin-left: 5px;
+    }
+
+    .ProductAddCart .subFooter {
+        max-width: 335px;
+    }
 }
 
 @media (max-width: 546px) {
@@ -1059,9 +1102,9 @@
         max-width: 330px;
     }
 
-    .ProductAddCart .orderCalculate {
+    /* .ProductAddCart .orderCalculate {
         flex-wrap: wrap;
-    }
+    } */
 
     .ProductAddCart .subFooter {
         max-width: 280px;
@@ -1098,6 +1141,26 @@
 
     .customerSection {
         margin: 10px !important;
+    }
+
+    .preparedBtn {
+        padding: 6px 0px;
+        font-size: 13px;
+    }
+
+    .preparedBtn img {
+        width: 16px;
+        height: 16px;
+    }
+
+    .orderStatusBox {
+        padding: 12px 8px;
+        width: 100%;
+        max-width: 260px;
+    }
+
+    .orderStatusBox .appointSub {
+        font-size: 13px;
     }
 }
 
@@ -1197,6 +1260,21 @@
         padding: 6px;
         margin-right: 0px;
     }
+
+    .saleHeading {
+        font-size: 12px;
+    }
+
+    .subOrderTime {
+        display: flex;
+        align-items: flex-start;
+        gap: 4px;
+    }
+
+    .orderStatusBox {
+        max-width: 213px;
+    }
+
 }
 
 @media (max-width: 375px) {

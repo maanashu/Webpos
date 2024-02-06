@@ -39,7 +39,6 @@ const CartAmountByPay = () => {
   const merchentDetails = authData?.usersInfo?.payload?.user?.user_profiles;
   const retailData = useSelector(selectRetailData);
   const getSettingData = useSelector(settingInfo);
-  console.log("getSettingData", JSON.stringify(getSettingData));
   const getTip = retailData?.getTipsData;
   const cartData = retailData?.productCart;
   const cartAmount = cartData?.amount;
@@ -127,12 +126,12 @@ const CartAmountByPay = () => {
   }
 
   const paymentMethodData = [];
-  if (Object.keys(getSettingData?.getSettings)?.length > 0) {
+  if (Object.keys(getSettingData?.getSettings || {})?.length > 0) {
     paymentMethodData.push(
       {
         title: "cash",
         icon: Images.MoneyOutline,
-        status: getSettingData?.getSettings.accept_cash_payment,
+        status: getSettingData?.getSettings?.accept_cash_payment,
         id: 1,
       },
       {
@@ -144,7 +143,7 @@ const CartAmountByPay = () => {
       {
         title: "debit/credit",
         icon: Images.Mastercard,
-        status: getSettingData?.getSettings.accept_card_payment,
+        status: getSettingData?.getSettings?.accept_card_payment,
         id: 3,
       }
     );
@@ -170,17 +169,13 @@ const CartAmountByPay = () => {
       return `${amountFormat(paymentShow())}`;
     }
   };
-  const receiptData = [
-    { title: "SMS", icon: Images.Sms },
-    { title: "E-mail", icon: Images.Email },
-    { title: "No, thanks", icon: Images.Like },
-  ];
-  // if (getSettingData?.getSetting?.invoice_email_send_status) {
-  //   receiptData.unshift({ title: 'E-mail', icon: Images.emailReceipt });
-  // }
-  // if (getSettingData?.getSetting?.invoice_sms_send_status) {
-  //   receiptData.unshift({ title: 'SMS', icon: Images.smsReceipt });
-  // }
+  const receiptData = [{ title: "No, thanks", icon: Images.Like, id: 2 }];
+  if (getSettingData?.getSettings?.invoice_sms_send_status) {
+    receiptData?.unshift({ title: "SMS", icon: Images.Sms, id: 0 });
+  }
+  if (getSettingData?.getSettings?.invoice_email_send_status) {
+    receiptData?.unshift({ title: "E-mail", icon: Images.Email, id: 1 });
+  }
 
   const noThanksHandler = () => {
     let params = {
@@ -426,14 +421,14 @@ const CartAmountByPay = () => {
                               className="receiptCard pointHand"
                               style={{
                                 background:
-                                  selectedRecipeIndex == index
+                                  selectedRecipeIndex == item?.id
                                     ? "#F79009"
                                     : "#FEEFC6",
                               }}
                               // onClick={() => {
                               //   handleUserProfile("PhoneReceipt");
                               // }}
-                              onClick={() => setSelectedRecipeIndex(index)}
+                              onClick={() => setSelectedRecipeIndex(item?.id)}
                             >
                               <Image
                                 src={item.icon}

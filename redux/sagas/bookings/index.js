@@ -5,6 +5,8 @@ import {
   setGetAppointments,
   setUpdateAppointmentStatus,
   setGetStaffUsers,
+  setGetServiceTimeSlots,
+  setReScheduleAppointment,
 } from "../../slices/bookings";
 import { toast } from "react-toastify";
 import {
@@ -39,7 +41,9 @@ function* getAppointments(action) {
 
     // console.log("BOOKINGS----" + JSON.stringify(resp));
     if (resp.status) {
-      yield put(setGetAppointments(resp.data));
+      if (!dataToSend?.search) {
+        yield put(setGetAppointments(resp.data));
+      }
       yield call(action.payload.cb, (action.res = resp));
       // toast.success(resp?.data?.msg);
     } else {
@@ -97,11 +101,56 @@ function* getStaffUsers(action) {
   }
 }
 
+function* getServiceTimeSlots(action) {
+  const dataToSend = { ...action.payload.params };
+  try {
+    const params = new URLSearchParams(dataToSend).toString();
+    const resp = yield call(
+      ApiClient.get,
+      `${ORDER_API_URL}/api/v1/slots/pos/service-appointment-slots?${params}`
+    );
+    if (resp.status) {
+      yield put(setGetServiceTimeSlots(resp.data));
+      yield call(action.payload.cb, (action.res = resp));
+      // toast.success(resp?.data?.msg);
+    } else {
+      throw resp;
+    }
+  } catch (e) {
+    yield put(onErrorStopLoad());
+    toast.error(e?.error?.response?.data?.msg);
+  }
+}
+
+function* reScheduleAppointment(action) {
+  const { appointmentId, requestData } = action.payload;
+  try {
+    const resp = yield call(
+      ApiClient.put,
+      `${ORDER_API_URL}/api/v1/appointments/reschedule/${appointmentId}`,
+      requestData
+    );
+
+    if (resp.status) {
+      yield put(setReScheduleAppointment(resp.data));
+      yield call(action.payload.cb, (action.res = resp));
+      toast.success("Appointment Rescheduled");
+    } else {
+      throw resp;
+    }
+  } catch (e) {
+    yield put(onErrorStopLoad());
+    toast.error(e?.error?.response?.data?.msg);
+  }
+}
+
 function* bookingSaga() {
   yield all([
     takeLatest("bookings/getStaffUsers", getStaffUsers),
     takeLatest("bookings/getAppointments", getAppointments),
     takeLatest("bookings/updateAppointmentStatus", updateAppointmentStatus),
+    takeLatest("bookings/getServiceTimeSlots", getServiceTimeSlots),
+    takeLatest("bookings/reScheduleAppointment", reScheduleAppointment),
   ]);
 }
 

@@ -6,6 +6,8 @@ import Link from "next/link";
 import { useDispatch, useSelector } from "react-redux";
 import {
   clearCart,
+  getHoldProductCart,
+  holdCart,
   productCart,
   selectRetailData,
 } from "../../redux/slices/retails";
@@ -33,6 +35,10 @@ const RightSideBar = ({ props }) => {
   const [filterShow, setFilterShow] = useState(false);
   const [customProductAdd, setCustomProductAdd] = useState(false);
   const [customServiceAdd, setCustomServiceAdd] = useState(false);
+  const holdCartArray = retailData?.holdProductData || [];
+  const holdProductArray = holdCartArray?.filter(
+    (item) => item.is_on_hold === true
+  );
   const [cartAlert, setCartAlert] = useState(false);
 
   const productCarts = cartData?.poscart_products?.filter(
@@ -62,6 +68,29 @@ const RightSideBar = ({ props }) => {
       flag: "",
     });
     setKey(Math.random());
+  };
+
+  // hold Cart function
+  const serviceCartStatusHandler = () => {
+    const params =
+      holdProductArray?.length > 0
+        ? {
+            status: !holdProductArray?.[0]?.is_on_hold,
+            cartId: holdProductArray?.[0]?.id,
+          }
+        : {
+            status: !retailData?.productCart?.is_on_hold,
+            cartId: retailData?.productCart?.id,
+          };
+    dispatch(
+      holdCart({
+        ...params,
+        cb: () => {
+          dispatch(getHoldProductCart());
+          dispatch(productCart());
+        },
+      })
+    );
   };
 
   return (
@@ -135,16 +164,38 @@ const RightSideBar = ({ props }) => {
                 />
               </div>
             </ListGroupItem>
-            <ListGroupItem className="rightSidebarItems">
-              <div className="sidebarBg">
-                <Image
-                  src={Images.PauseCircleOutline}
-                  alt="image"
-                  className="img-fluid rightSidebarIcons"
-                />
+            {retailData?.holdCartLoad || retailData?.getHoldProductCartLoad ? (
+              <div
+                className="rightSidebarItems mt-4"
+                style={{ borderWidth: "1px" }}
+              >
+                <span className="spinner-border spinner-border-sm mx-1"></span>
               </div>
-            </ListGroupItem>
-
+            ) : (
+              <ListGroupItem
+                className={
+                  holdProductArray?.length > 0
+                    ? "rightSidebarItems active "
+                    : "rightSidebarItems"
+                }
+                onClick={() => serviceCartStatusHandler()}
+              >
+                <>
+                  <div className="sidebarBg">
+                    <Image
+                      src={Images.PauseCircleOutline}
+                      alt="image"
+                      className="img-fluid rightSidebarIcons"
+                    />
+                  </div>
+                  {holdProductArray?.length > 0 && (
+                    <span className="holdNum">
+                      {holdProductArray?.length || "0"}
+                    </span>
+                  )}
+                </>
+              </ListGroupItem>
+            )}
             <ListGroupItem
               className="rightSidebarItems"
               onClick={() =>
@@ -230,15 +281,40 @@ const RightSideBar = ({ props }) => {
                 />
               </div>
             </ListGroupItem>
-            <ListGroupItem className="rightSidebarItems">
-              <div className="sidebarBg">
-                <Image
-                  src={Images.PauseCircleOutline}
-                  alt="image"
-                  className="img-fluid rightSidebarIcons"
-                />
+
+            {retailData?.holdCartLoad || retailData?.getHoldProductCartLoad ? (
+              <div
+                className="rightSidebarItems mt-4"
+                style={{ borderWidth: "1px" }}
+              >
+                <span className="spinner-border spinner-border-sm mx-1"></span>
               </div>
-            </ListGroupItem>
+            ) : (
+              <ListGroupItem
+                className={
+                  holdProductArray?.length > 0
+                    ? "rightSidebarItems active "
+                    : "rightSidebarItems"
+                }
+                onClick={() => serviceCartStatusHandler()}
+              >
+                <>
+                  <div className="sidebarBg">
+                    <Image
+                      src={Images.PauseCircleOutline}
+                      alt="image"
+                      className="img-fluid rightSidebarIcons"
+                    />
+                  </div>
+                  {holdProductArray?.length > 0 && (
+                    <span className="holdNum">
+                      {holdProductArray?.length || "0"}
+                    </span>
+                  )}
+                </>
+              </ListGroupItem>
+            )}
+
             <ListGroupItem
               className="rightSidebarItems"
               onClick={() =>
@@ -263,16 +339,16 @@ const RightSideBar = ({ props }) => {
             {cartData?.poscart_products?.map((data, index) => {
               const productSize =
                 data?.product_details?.supply?.attributes?.filter(
-                  (item) => item?.name === "Size"
+                  (item) => item?.name?.toLowerCase() == "size"
                 );
               const productColor =
                 data?.product_details?.supply?.attributes?.filter(
-                  (item) => item?.name === "Color"
+                  (item) => item?.name?.toLowerCase() == "color"
                 );
 
               return (
-                <div className="cartSubInfo active" key={index}>
-                  <div className="orderTime">
+                <div className="cartSubInfo active productCartShow" key={index}>
+                  <div className="orderTime productCartInfo">
                     <Image
                       src={data?.product_details?.image}
                       alt="cartFoodImg"
@@ -281,7 +357,7 @@ const RightSideBar = ({ props }) => {
                       height="100"
                     />
                     <div className="cartorderHeading ms-2 ">
-                      <h4 className="cartText">
+                      <h4 className="cartText cartShowText">
                         {data?.product_details?.name}
                       </h4>
                       {data?.product_type === "service" && (

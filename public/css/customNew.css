@@ -1916,13 +1916,16 @@ figure {
   border: 1.5px solid #f5f6fc;
   background: #263682;
   color: #f5f6fc;
-  font-size: 12px;
-  font-weight: 500;
+  font-size: 10px;
+  font-weight: 600;
   position: absolute;
   height: 18px;
   width: 18px;
   bottom: 12px;
-  right: 3px;
+  right: 0px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 /*service pages css end*/
@@ -2011,6 +2014,12 @@ figure {
   border: 1px solid #d7deff;
   margin-top: 16px;
   padding: 16px;
+  height: calc(60vh - 200px);
+  overflow: scroll;
+}
+
+.stockSub::-webkit-scrollbar {
+  display: none;
 }
 
 .stockBox {
@@ -2798,6 +2807,9 @@ figure {
 
 .assignMapRight {
   position: relative;
+  border-radius: 20px;
+  box-shadow: -2px 4px 25px 0px rgba(50, 80, 127, 0.02),
+    -5px 10px 80px 0px rgba(50, 80, 127, 0.04);
 }
 
 .orderStatusBox {
@@ -4523,31 +4535,40 @@ figure {
   height: 18px;
   border-radius: 6px;
 }
+
 .topsettingContent_ {
   display: flex;
   align-items: flex-start;
 }
+
 .bottonContent_ {
   padding-left: 40px;
 }
+
 .taxpayData .nameControl {
   box-shadow: none;
 }
-.taxpayData  .emailField .verifyControl {
+
+.taxpayData .emailField .verifyControl {
   box-shadow: none;
 }
-.taxpayData .selectRole .form-select{
+
+.taxpayData .selectRole .form-select {
   box-shadow: none;
 }
+
 .taxpayData::-webkit-scrollbar {
   display: none;
 }
+
 .taxDateArea .cancelCalendar {
-  padding: 11px 10px!important;
+  padding: 11px 10px !important;
 }
+
 .selectRole .searchBox {
   padding: 0;
 }
+
 /*setting css end*/
 /* cash Drawer css start*/
 .cashDrawOuter {
@@ -4966,6 +4987,7 @@ figure {
   padding: 16px 24px;
   margin-top: 10px;
 }
+
 .georgiaBox {
   border-radius: 16px;
   border: 1px solid #d7deff;
@@ -4976,6 +4998,7 @@ figure {
   justify-content: space-between;
   margin-left: 40px;
 }
+
 .darkCheck input[type="checkbox"]:checked {
   background: #263682;
   border: 2px solid #263682;
@@ -5213,7 +5236,7 @@ figure {
 }
 
 .shippingMainTable .invoice_subhead:first-child {
-  min-width: 80px;
+  min-width: 100px;
 }
 
 .shippingMainTable .invoice_subhead:last-child {
@@ -5284,7 +5307,7 @@ figure {
 }
 
 #returnedOrder .invoice_subhead:first-child {
-  min-width: 80px;
+  min-width: 100px;
 }
 
 #rejectOrder .invoice_subhead:nth-child(3) {
@@ -5292,11 +5315,11 @@ figure {
 }
 
 #shippedOrders .invoice_subhead:first-child {
-  min-width: 80px;
+  min-width: 100px;
 }
 
 #ordersToReview .invoice_subhead:first-child {
-  min-width: 80px;
+  min-width: 100px;
 }
 
 .shipOrderSection .declineButton {
@@ -5308,7 +5331,7 @@ figure {
 }
 
 #printingLabel .invoice_subhead:first-child {
-  min-width: 80px;
+  min-width: 100px;
 }
 
 .cashText {
@@ -5353,9 +5376,11 @@ figure {
 .analyticsSection .stats {
   flex-wrap: wrap;
 }
-.analyticsSection .stat-box{
+
+.analyticsSection .stat-box {
   min-width: 185px;
 }
+
 /*gaurav arora sir css start*/
 .headingTextStyle {
   color: #263682;
@@ -5381,10 +5406,8 @@ figure {
   flex-direction: row;
   box-shadow: "20 100px 16px 0 rgba(0, 0, 0, 0.15)";
 }
-
 .boxTopTitleTextStyle {
   color: var(--Primary-P-600-Main, #263682);
-
   font-family: Roobert;
   font-size: 16px;
   font-style: normal;
@@ -5395,18 +5418,15 @@ figure {
   display: flex;
   justify-content: space-between;
 }
-
 .boxbottomTextStyle {
   margin-top: 20px;
   color: var(--Neutrals-N-600, #7e8ac1);
-
-  font-family: Roobert;
+  font-family: 'Roobert';
   font-size: 14px;
   font-style: normal;
   font-weight: 400;
   line-height: normal;
 }
-
 .modalTitleStyle {
   align-items: center;
   justify-content: center;
@@ -5517,6 +5537,7 @@ figure {
   font-weight: 500;
   margin: 0 0 10px;
 }
+
 .refundIntro ul li {
   color: #636E9F;
   font-size: 15px;
@@ -5525,9 +5546,20 @@ figure {
   list-style-type: disc;
   list-style-position: inside;
 }
+
 .refundIntro h2 {
   color: #263682;
   font-size: 20px;
   font-weight: 500;
   margin: 25px 0 9px;
+}
+
+.overflow-scroll-common-filter {
+  overflow-y: scroll;
+  height: 50vh;
+}
+.select-language-drop{
+  display: flex;
+  justify-content: end;
+  align-items: center;
 }

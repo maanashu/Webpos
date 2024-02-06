@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import * as Images from "../../utilities/images";
 import Image from "next/image";
 import { useRouter } from "next/router";
@@ -6,11 +6,15 @@ import { selectLoginAuth } from "../../redux/slices/auth";
 import { useSelector } from "react-redux";
 import { selectReturnData } from "../../redux/slices/productReturn";
 import moment from "moment-timezone";
+import EmailReceiptModal from "../../components/modals/service/emailReceiptModal";
+import CustomModal from "../../components/customModal/CustomModal";
+import PhoneReceiptModal from "../../components/modals/service/phoneReceiptModal";
 
 const RefundsConfirmation = () => {
   const router = useRouter();
   const invoiceData = useSelector(selectReturnData);
   const selectedData = invoiceData?.invoiceData;
+  console.log(selectedData,'selectedData');
   const itemsList = JSON.parse(selectedData?.selectedItems || "[]");
   const refundamounts = JSON.parse(selectedData?.inputValues || "[]");
   const authData = useSelector(selectLoginAuth);
@@ -19,20 +23,63 @@ const RefundsConfirmation = () => {
   const invoiceNumber = invoiceData?.invoiceByInvoiceId?.invoice_number;
   const SearchInvoiceRespones = invoiceData?.invoiceByInvoiceId;
   const orderDetails = SearchInvoiceRespones?.order;
-
+  const [activeSms, setActiveSms] = useState(false);
+  const [activeEmail, setActiveEmail] = useState(false);
+  const [activeMsz, setActiveMsz] = useState(false);
+  const [key, setKey] = useState(Math.random());
+  const [modalDetail, setModalDetail] = useState({
+    show: false,
+    title: "",
+    flag: "",
+  });
+  const handleOnCloseModal = () => {
+    setModalDetail({
+      show: false,
+      title: "",
+      flag: "",
+    });
+    setKey(Math.random());
+  };
   const lineTotals = [];
+
   for (let i = 0; i < itemsList.length; i++) {
     const qty = itemsList[i].qty;
-    const refundAmount = refundamounts[i];
-    lineTotals.push(qty * refundAmount);
+    const refundAmount = refundamounts[i]?.value;
+  
+    if (refundAmount !== undefined) {
+      lineTotals.push(Number(qty) * Number(refundAmount));
+    } else {
+      const price = itemsList[i].price;
+      lineTotals.push(Number(qty) * Number(price));
+    }
   }
-  console.log("Individual sums for each row:", lineTotals);
-
+  
   const handleConfirmReturnButton = () => {
     router.push({
       pathname: "/Product/Confirmation(Success)",
     });
   };
+  const handleActiveButton = (flag) => {
+    if (flag == "sms") {
+      setActiveSms(true);
+      setActiveEmail(false);
+      setActiveMsz(false);
+      // setModalDetail({ show: true, flag: "sms" });
+      // setKey(Math.random());
+    } else if (flag == "email") {
+      setActiveEmail(true);
+      setActiveMsz(false);
+      setActiveSms(false);
+      // setModalDetail({ show: true, flag: "email" });
+      // setKey(Math.random());
+    } else if (flag == "noThnks") {
+      setActiveMsz(true);
+      setActiveSms(false);
+      setActiveEmail(false);
+    }
+  };
+
+
   return (
     <>
       <div className="refundConfirmation me-3">
@@ -56,7 +103,12 @@ const RefundsConfirmation = () => {
               <div className="refundMethod">
                 <h4 className="totalRefund">Total Return Amount</h4>
                 <h5 className="totalrefundAmount">
-                  -${selectedData?.totalSum}
+                  <p className="priceRefunded">
+                    -$
+                    {Number(selectedData?.totalSum)
+                      ? Number(selectedData?.totalSum)
+                      : selectedData?.existingTotal?.toFixed(2)}
+                  </p>
                 </h5>
                 <p className="userPosition">
                   Select a method of payment to refund.
@@ -80,7 +132,12 @@ const RefundsConfirmation = () => {
                       <p>debit/credit</p>
                     </article>
                     <p className="cardNumber pt-5">●●●● ●●●● ●●●● 7224</p>
-                    <p className="priceRefunded">${selectedData?.totalSum}</p>
+                    <p className="priceRefunded">
+                      $
+                      {Number(selectedData?.totalSum)
+                        ? Number(selectedData?.totalSum)
+                        : selectedData?.existingTotal?.toFixed(2)}
+                    </p>
                   </div>
                 </div>
 
@@ -105,7 +162,12 @@ const RefundsConfirmation = () => {
                       />
                       <p>cash</p>
                     </article>
-                    <p className="priceRefunded">${selectedData?.totalSum}</p>
+                    <p className="priceRefunded">
+                      $
+                      {Number(selectedData?.totalSum)
+                        ? Number(selectedData?.totalSum)
+                        : selectedData?.existingTotal?.toFixed(2)}
+                    </p>
                   </div>
                 </div>
 
@@ -125,7 +187,12 @@ const RefundsConfirmation = () => {
                       />
                       <p>jobr coin</p>
                     </article>
-                    <p className="priceRefunded">${selectedData?.totalSum}</p>
+                    <p className="priceRefunded">
+                      $
+                      {Number(selectedData?.totalSum)
+                        ? Number(selectedData?.totalSum)
+                        : selectedData?.existingTotal?.toFixed(2)}
+                    </p>
                   </div>
                 </div>
               </div>
@@ -137,8 +204,17 @@ const RefundsConfirmation = () => {
                 />
                 <p className="selectedproductDetails">Send your e-receipt?</p>
                 <div className="row justify-content-center">
-                  <div className="col-lg-3">
-                    <div className="receiptCard h-100">
+                  <div
+                    className="col-lg-3"
+                    onClick={() => handleActiveButton("sms")}
+                  >
+                    <div
+                      className={
+                        activeSms === true
+                          ? "receiptCard active h-100"
+                          : "receiptCard"
+                      }
+                    >
                       <Image
                         src={Images.Sms}
                         alt="Sms"
@@ -147,8 +223,17 @@ const RefundsConfirmation = () => {
                       <p>SMS</p>
                     </div>
                   </div>
-                  <div className="col-lg-3">
-                    <div className="receiptCard h-100">
+                  <div
+                    className="col-lg-3"
+                    onClick={() => handleActiveButton("email")}
+                  >
+                    <div
+                      className={
+                        activeEmail === true
+                          ? "receiptCard active h-100"
+                          : "receiptCard"
+                      }
+                    >
                       <Image
                         src={Images.Email}
                         alt="Email"
@@ -157,8 +242,17 @@ const RefundsConfirmation = () => {
                       <p>E-mail</p>
                     </div>
                   </div>
-                  <div className="col-lg-3">
-                    <div className="receiptCard active h-100">
+                  <div
+                    className="col-lg-3"
+                    onClick={() => handleActiveButton("noThnks")}
+                  >
+                    <div
+                      className={
+                        activeMsz === true
+                          ? "receiptCard active h-100"
+                          : "receiptCard"
+                      }
+                    >
                       <Image
                         src={Images.Like}
                         alt="Like"
@@ -218,10 +312,7 @@ const RefundsConfirmation = () => {
                   <div className="mapleSubFlex">
                     {itemsList?.map((data, idx) => {
                       return (
-                        <div
-                          key={idx}
-                          className="flexBox"
-                        >
+                        <div key={idx} className="flexBox">
                           <div className="flexbase">
                             <p className="mapleProductcount">× {data?.qty}</p>
                             <article className="ms-3">
@@ -240,7 +331,7 @@ const RefundsConfirmation = () => {
                   <div>
                     <article className="mapleSubFlex">
                       {lineTotals?.map((total) => {
-                        return <p className="mapleProductPrice">-${total}</p>;
+                        return <p className="mapleProductPrice">-${total.toFixed(2)}</p>;
                       })}
                     </article>
                   </div>
@@ -281,11 +372,24 @@ const RefundsConfirmation = () => {
                     <p className="userName">Total</p>
                   </article>
                   <article>
-                    <p className="productName">-${selectedData?.subtotal}</p>
-                    <p className="productName">$00.00</p>
-                    <p className="productName">-${selectedData?.totalTax}</p>
+                    <p className="productName">
+                      -$
+                      {Number(selectedData?.subtotal)
+                        ? Number(selectedData?.subtotal)
+                        : selectedData?.existingSubtotal}
+                    </p>
+                    <p className="productName">$0.00</p>
+                    <p className="productName">
+                      +$
+                      {Number(selectedData?.totalTax)
+                        ? Number(selectedData?.totalTax)
+                        : selectedData?.existingTax?.toFixed(2)}
+                    </p>
                     <p className="userName refundTotalBtn">
-                      -${selectedData?.totalSum}
+                      -$
+                      {Number(selectedData?.totalSum)
+                        ? Number(selectedData?.totalSum)
+                        : selectedData?.existingTotal?.toFixed(2)}
                     </p>
                   </article>
                 </div>
@@ -306,6 +410,25 @@ const RefundsConfirmation = () => {
           </div>
         </div>
       </div>
+      <CustomModal
+        key={key}
+        show={modalDetail.show}
+        backdrop="static"
+        showCloseBtn={false}
+        isRightSideModal={false}
+        mediumWidth={false}
+        ids={modalDetail.flag === "email" ? "email" : ""}
+        child={
+          modalDetail.flag === "email" ? (
+            <EmailReceiptModal closeManulModal={() => handleOnCloseModal()} />
+          ) : modalDetail.flag === "sms" ? (
+            <PhoneReceiptModal closeManulModal={() => handleOnCloseModal()} />
+          ) : (
+            ""
+          )
+        }
+        onCloseModal={() => handleOnCloseModal()}
+      />
     </>
   );
 };

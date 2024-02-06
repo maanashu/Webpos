@@ -410,6 +410,9 @@ const Analytics = () => {
             totalInventoryHandle()
         }
     }, [timeSpan, channelSelected, endDate, sellerId]);
+
+
+    console.log(totalProductSoldAnalyticsData?.totalProductSoldList, "total product sold");
     return (
         <div className="main-container-customers analyticsSection analytics_box">
             <AnalyticsHeader
@@ -436,7 +439,7 @@ const Analytics = () => {
                                     {" "}
                                     $
                                     {addThousandSeparator(
-                                        100
+                                        analyticsProfitData?.profit?.total_count
                                     )}
                                 </h4>
                             </div>
@@ -647,7 +650,7 @@ const Analytics = () => {
                                 <h4 className="expectedHeading">
                                     {" "}
                                     {addThousandSeparator(
-                                        totalProductSoldAnalyticsData?.totalProductSoldList?.total
+                                        totalProductSoldAnalyticsData?.productOverview?.totalProducts
                                     )}
                                 </h4>
                             </div>
@@ -660,7 +663,6 @@ const Analytics = () => {
                             />
                         </div>
                     </div>
-
                 </div>
             </div>
             <AnalyticsRightsidebar />
