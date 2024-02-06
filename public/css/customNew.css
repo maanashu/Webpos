@@ -5576,10 +5576,9 @@ figure {
   background: transparent;
   border: none;
 }
-.headerSection {
+/* .headerSection {
   padding: 7px 10px 14px 16px!important;
-
-}
+} */
 .analyticsSection::-webkit-scrollbar {
   display: none;
 }
