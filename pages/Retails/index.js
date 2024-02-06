@@ -238,11 +238,12 @@ const Retails = () => {
           <div className="commanscrollBar productScrollBar">
             {parameter == "product" ? (
               <div className="row">
-                {retailData?.getMainProductLoad ? (
+                {/* {retailData?.getMainProductLoad ? (
                   <div className="loaderOuter">
                     <span className="spinner-border spinner-border-sm mx-1"></span>
                   </div>
-                ) : mainProductArray?.length == 0 ? (
+                ) : */}
+                {mainProductArray?.length == 0 ? (
                   <div className="text-center mt-5">
                     <h3>No Product Found!</h3>
                   </div>
@@ -296,20 +297,17 @@ const Retails = () => {
                               item?.supplies?.[0]?.supply_prices?.[0]
                                 ?.actual_price ? (
                                 <p className="productPrice">
-                                  $
-                                  {
+                                  {amountFormat(
                                     item?.supplies?.[0]?.supply_prices?.[0]
                                       ?.offer_price
-                                  }
+                                  )}
                                 </p>
                               ) : (
                                 <p className="productPrice">
-                                  {" "}
-                                  $
-                                  {
+                                  {amountFormat(
                                     item?.supplies?.[0]?.supply_prices?.[0]
                                       ?.selling_price
-                                  }
+                                  )}
                                 </p>
                               )}
                               <div className="cartProductImg">
@@ -332,11 +330,12 @@ const Retails = () => {
             ) : (
               <>
                 <div className="row">
-                  {retailData?.getMainServicesLoad ? (
+                  {/* {retailData?.getMainServicesLoad ? (
                     <div className="loaderOuter">
                       <span className="spinner-border spinner-border-sm mx-1"></span>
                     </div>
-                  ) : mainServicesArray?.length == 0 ? (
+                  ) : */}
+                  {mainServicesArray?.length == 0 ? (
                     <div className="text-center mt-5">
                       <h3>No Service Found!</h3>
                     </div>

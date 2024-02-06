@@ -55,6 +55,7 @@ const initialState = {
   holdCartLoad: false,
   attachWithPhone: false,
   attachWithEmail: false,
+  updatePriceLoad: false,
 };
 
 export const retailsSlice = createSlice({
@@ -354,6 +355,13 @@ export const retailsSlice = createSlice({
       state.attachWithEmail = action?.payload;
     },
 
+    updatePrice: (state) => {
+      state.updatePriceLoad = true;
+    },
+    setUpdatePrice: (state, action) => {
+      state.updatePriceLoad = false;
+    },
+
     onErrorStopLoad: (state) => {
       state.loading = false;
       state.availableOffersLoad = false;
@@ -381,6 +389,7 @@ export const retailsSlice = createSlice({
       state.updateCartLoad = false;
       state.getHoldProductCartLoad = false;
       state.holdCartLoad = false;
+      state.updatePriceLoad = false;
     },
   },
 });
@@ -464,6 +473,8 @@ export const {
   setHoldCart,
   setAttachWithPhone,
   setAttachWithEmail,
+  updatePrice,
+  setUpdatePrice,
 } = retailsSlice.actions;
 
 export const selectRetailData = (state) => state.retails;

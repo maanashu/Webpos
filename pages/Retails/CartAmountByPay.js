@@ -466,6 +466,8 @@ const CartAmountByPay = () => {
                                   flag: "PhoneReceipt",
                                 });
                                 setKey(Math.random());
+                                dispatch(setAttachWithPhone(true));
+                                dispatch(setAttachWithEmail(false));
                               } else if (selectedRecipeIndex == "1") {
                                 // handleUserProfile("emailReceipt");
                                 // setEmailModal(true);
@@ -474,8 +476,12 @@ const CartAmountByPay = () => {
                                   flag: "emailReceipt",
                                 });
                                 setKey(Math.random());
+                                dispatch(setAttachWithPhone(false));
+                                dispatch(setAttachWithEmail(true));
                               } else if (selectedRecipeIndex == "2") {
                                 noThanksHandler();
+                                dispatch(setAttachWithPhone(false));
+                                dispatch(setAttachWithEmail(false));
                                 // router.push({
                                 //   pathname: "/Retails/CartPayByCash",
                                 // });
