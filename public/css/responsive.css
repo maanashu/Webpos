@@ -974,6 +974,17 @@
     .maximizeImg {
         padding: 10px;
     }
+
+    .deliverRightBar .rightLinkBar img {
+        width: 20px;
+        height: 20px;
+    }
+
+    .totalBtn {
+        font-size: 14px;
+        font-weight: 500;
+        padding: 6px 11px;
+    }
 }
 
 @media (max-width: 546px) {
@@ -1012,6 +1023,7 @@
         padding: 3px 5px !important;
         font-size: 12px;
     }
+
     .BlueBtn {
         padding: 7px 9px;
     }
@@ -1179,8 +1191,21 @@
         font-size: 10px;
         font-weight: 500;
     }
+
     .jobrPickUp {
         margin-left: 0px;
+    }
+
+    .mapleProductHeading {
+        font-size: 12px;
+    }
+
+    .mapleProductHeading {
+        font-size: 12px;
+    }
+
+    .mapleProductHeading {
+        font-weight: 600;
     }
 }
 

@@ -1087,7 +1087,7 @@ input:checked+.switch-slider:before {
 }
 
 .stockColumn {
- width: 70%;
+  width: 70%;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -1097,7 +1097,7 @@ input:checked+.switch-slider:before {
 /*product css end*/
 /*delivery module css start*/
 #deliveryDashBoardList .invoice_subhead:first-child {
-  min-width: 100px;
+  min-width: 80px;
 }
 
 #deliveryDashBoardList .invoice_subhead:nth-child(2) {
@@ -1129,7 +1129,7 @@ input:checked+.switch-slider:before {
 #orderReviewDeliver .invoice_subhead:first-child,
 #orderAcceptDeliver .invoice_subhead:first-child,
 .deliverDashboardTable .invoice_subhead:first-child {
-  min-width: 100px;
+  min-width: 80px;
 }
 
 #orderReviewDeliver .invoice_subhead:nth-child(2),
@@ -1158,22 +1158,43 @@ input:checked+.switch-slider:before {
   color: #7e8ac1;
   font-size: 12px;
   font-weight: 400;
-}  
+}
 
 /*delivery module css end */
-.userSide{
+.userSide {
   justify-content: start !important;
   gap: 60px;
 }
-.homeTable .homeSubtable:first-child{
+
+.homeTable .homeSubtable:first-child {
   min-width: 80px;
 }
-.homeTable .homeSubtable:nth-child(2){
+
+.homeTable .homeSubtable:nth-child(2) {
   min-width: 156px;
 }
-.homeTable .homeSubtable:nth-child(3){
+
+.homeTable .homeSubtable:nth-child(3) {
   min-width: 125px;
 }
-.homeTable .homeSubtable:last-child{
+
+.homeTable .homeSubtable:last-child {
   min-width: 130px;
+}
+
+.mapleInvoiceBox {
+  flex-wrap: wrap;
+}
+
+.mapleProductDetailsBox {
+  min-width: 200px;
+  overflow-x: scroll;
+}
+
+.mapleProductDetailsBox .flexbase {
+  min-width: 200px;
+}
+
+.mapleProductDetailsBox .mapleProductcount:first-child {
+  min-width: 25px;
 }
