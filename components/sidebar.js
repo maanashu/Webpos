@@ -8,7 +8,7 @@ import { logout, selectLoginAuth } from "../redux/slices/auth";
 import { dashboardLogout, dashboardDetails, endTrackingSession } from "../redux/slices/dashboard";
 import { useDispatch, useSelector } from "react-redux";
 import { toast } from "react-toastify";
-import { getOrdersList } from "../redux/slices/shipping";
+import { getShippingsSidebarCount, selectsShippingData } from "../redux/slices/shipping";
 import {
   deliveryData,
   getOrdersList as deliveryOrderList,
@@ -23,8 +23,6 @@ const Sidebar = (props) => {
   const trackingSession = dashboardData?.drawerSession?.payload;
   const sellerUid = authData?.usersInfo?.payload?.uniqe_id;
 
-
-
   const ADMIN = () => {
     const admin = authData?.posUserLoginDetails?.payload?.user_roles?.filter((item) => item?.role?.slug == 'pos_admin');
     return admin;
@@ -35,12 +33,10 @@ const Sidebar = (props) => {
 
   const router = useRouter();
   const pathname = router?.pathname
-  const status = localStorage.getItem("status")
-  const [orderData, setOrderData] = useState([]);
-
   console.log(router?.pathname?.split("/")[1], "router");
   props?.sidebarToggle(activeSidebar);
   const { orderList, pendingOrderCountData } = useSelector(deliveryData);
+  const {  sidebarCountData } = useSelector(selectsShippingData);
 
   const userLogout = async (e) => {
     e.preventDefault();
@@ -57,7 +53,8 @@ const Sidebar = (props) => {
       endTrackingSession({
         ...params,
         async cb(res) {
-          await dispatch(logout());
+          if(res.status){
+         await dispatch(logout());
           await dispatch(dashboardLogout());
 
           setTimeout(() => {
@@ -69,6 +66,7 @@ const Sidebar = (props) => {
           localStorage.removeItem("merchantAuthToken");
           localStorage.removeItem("authToken");
           localStorage.removeItem("persist:root");
+          }
         },
       })
     );
@@ -109,31 +107,29 @@ const Sidebar = (props) => {
     );
   };
 
-  const getAllShippingOrdeshandle = () => {
-    let orderListParam = {
-      seller_id: sellerUid,
-      status: 0,
-      delivery_option: "4",
+  const getAllShippingOrdesCountHandle = () => {
+    let orderParam = {
+        seller_id: sellerUid,
+        delivery_option: "4"
     };
     dispatch(
-      getOrdersList({
-        ...orderListParam,
-        cb(res) {
-          if (res) {
-            setOrderData(res?.data?.payload?.data);
-            localStorage.removeItem("status");
-          }
-        },
-      })
+        getShippingsSidebarCount({
+            ...orderParam,
+            // cb(res) {
+            //     if (res) {
+            //         setOrderCount(res?.data?.payload);
+            //     }
+            // },
+        })
     );
-  };
+}
 
   useEffect(() => {
     if (sellerUid) {
       getDeliveryPendingOrderCount();
-      getAllShippingOrdeshandle();
+      getAllShippingOrdesCountHandle();
     }
-  }, [pathname, status]);
+  }, [pathname]);
   console.log(router?.pathname?.split("/")[1]?.split("/")[1], "pathname called");
   return (
     <div
@@ -287,7 +283,7 @@ const Sidebar = (props) => {
                 />
                 <span className="sidebarTxt">Shipping Orders</span>
                 <span className=" shipNum">
-                  {orderData ? orderData?.length : 0}
+                  {sidebarCountData?.payload?.find(v=>v?.title === 'ordersToReview')?.count}
                 </span>
               </Link>
             </ListGroupItem>
