@@ -79,7 +79,7 @@ const ProductInnerNav = ({ productCount, ServicesCount }) => {
     const productFilterIds = {
       category_ids: selectedProductCategories.join(","),
       sub_category_ids: selectedProductSubCategories.join(","),
-      pos_staff_ids: selectedProductBrands.join(","),
+      brand_id: selectedProductBrands.join(","),
     };
     let params = {
       seller_id: sellerId,
@@ -97,7 +97,7 @@ const ProductInnerNav = ({ productCount, ServicesCount }) => {
     const serviceFilterIds = {
       category_ids: selectedServiceCategories.join(","),
       sub_category_ids: selectedServiceSubCategories.join(","),
-      brand_id: selectedPosStaff.join(","),
+      pos_staff_ids: selectedPosStaff.join(","),
     };
 
     let params = {
