@@ -160,7 +160,7 @@ function* endTrackingSession(action) {
       throw resp
     }
   } catch (e) {
-    yield put(onErrorStopLoad())
+    // yield put(onErrorStopLoad())
     toast.error(e?.error?.response?.data?.msg);
   }
 }

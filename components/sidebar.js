@@ -57,7 +57,7 @@ const Sidebar = (props) => {
       endTrackingSession({
         ...params,
         async cb(res) {
-          if (res.status) {
+          // if (res.status) {
             await dispatch(logout());
             await dispatch(dashboardLogout());
 
@@ -70,7 +70,7 @@ const Sidebar = (props) => {
             localStorage.removeItem("merchantAuthToken");
             localStorage.removeItem("authToken");
             localStorage.removeItem("persist:root");
-          }
+          // }
         },
       })
     );
