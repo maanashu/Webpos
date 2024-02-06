@@ -1044,6 +1044,56 @@ input:checked+.switch-slider:before {
   border: 2px solid #7a7474;
 }
 
+.stockImageBox {
+  border-radius: 10px;
+  border: 1px solid #D7DEFF;
+  padding: 8px;
+  display: inline-block;
+  min-width: 60px;
+  text-align: center;
+}
+
+.stockColor {
+  border-radius: 10px;
+  border: 1px solid #D7DEFF;
+  padding: 8px;
+  display: flex;
+  align-items: start;
+  justify-content: space-between;
+  width: 70%;
+}
+
+.stockImg {
+  width: 42px;
+  height: 46px;
+  border-radius: 8px;
+}
+
+.stockMain {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: nowrap;
+  gap: 12px;
+}
+
+.productColorBox {
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  background-color: #000;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.stockColumn {
+ width: 70%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8px;
+}
+
 /*product css end*/
 /*delivery module css start*/
 #deliveryDashBoardList .invoice_subhead:first-child {
@@ -1111,3 +1161,19 @@ input:checked+.switch-slider:before {
 }
 
 /*delivery module css end */
+.userSide{
+  justify-content: start !important;
+  gap: 60px;
+}
+.homeTable .homeSubtable:first-child{
+  min-width: 80px;
+}
+.homeTable .homeSubtable:nth-child(2){
+  min-width: 156px;
+}
+.homeTable .homeSubtable:nth-child(3){
+  min-width: 125px;
+}
+.homeTable .homeSubtable:last-child{
+  min-width: 130px;
+}

@@ -8,6 +8,7 @@ import {
   searchInvoiceByInvoiceId,
   selectReturnData,
   setInvoiceData,
+  setSearchInvoiceByInvoiceId
 } from "../../redux/slices/productReturn";
 import { selectLoginAuth } from "../../redux/slices/auth";
 import moment from "moment-timezone";
@@ -19,6 +20,8 @@ import Manualinvoice from "./manual-entry(search)";
 const ProductInvoice = () => {
   const dispatch = useDispatch();
   const router = useRouter();
+  const showInvoiceData = router?.query?.["showInvoiceData"];
+
   const authData = useSelector(selectLoginAuth);
   const posData = authData?.posUserLoginDetails?.payload;
   const merchentDetails = authData?.usersInfo?.payload?.user?.user_profiles;
@@ -32,10 +35,11 @@ const ProductInvoice = () => {
   const [checkeddata, setCheckedData] = useState("");
   const [productDetails, setProductDetails] = useState([]);
   const [key, setKey] = useState(Math.random());
+  const [searchInvoice, setSearchInvoice] = useState();
   const [modalDetail, setModalDetail] = useState({
     show: false,
     title: "",
-    flag: "",
+    flag: "", 
   });
 
   const handleOnCloseModal = () => {
@@ -132,7 +136,7 @@ const ProductInvoice = () => {
     if (enteredValue.length <= 15) {
       setSearchInvoiceViaBarcode(enteredValue);
     }
-  }
+  };
 
   useEffect(() => {
     if (checkeddata) {
@@ -146,8 +150,35 @@ const ProductInvoice = () => {
   }, [checkeddata]);
 
   useEffect(() => {
-    handleSearchInvoice(SearchInvoiceRespones?.id);
+    if(!(showInvoiceData && showInvoiceData == 'true') && SearchInvoiceRespones){
+      dispatch(setSearchInvoiceByInvoiceId(null));
+    }
+    else if(SearchInvoiceRespones?.invoice_number){
+      setSearchInvoice(SearchInvoiceRespones.invoice_number)
+    }
   }, []);
+
+  const { sumQtyPrice } = returnProductArray
+    ? returnProductArray.reduce(
+        (acc, item) => {
+          const qty = Number(item?.order_details?.qty) || 0;
+          const price = Number(item?.order_details?.price) || 0;
+
+          acc.sumQtyPrice += qty * price;
+
+          return acc;
+        },
+        { sumQtyPrice: 0 }
+      )
+    : { sumQtyPrice: 0 };
+
+  const sumTax = returnProductArray?.reduce((acc, item) => {
+    const price = Number(item?.order_details?.price) || 0;
+    const tax = 0.08 * price; // 8% tax
+    return acc + tax;
+  }, 0);
+
+  const totalAmount = sumQtyPrice + sumTax;
 
   return (
     <>
@@ -160,7 +191,8 @@ const ProductInvoice = () => {
                   type="text"
                   class="form-control searchControl"
                   placeholder="Search here the # of invoice"
-                  onChange={(e) => handleSearchInvoice(e)}
+                  value={searchInvoice}
+                  onChange={(e) => {handleSearchInvoice(e); setSearchInvoice(e.target.value)}}
                 />
                 <figure className="scanBox">
                   <Image
@@ -214,7 +246,7 @@ const ProductInvoice = () => {
                                 {SearchInvoiceRespones?.order?.user_details
                                   ?.user_profiles?.firstname
                                   ? SearchInvoiceRespones?.order?.user_details
-                                    ?.user_profiles?.firstname
+                                      ?.user_profiles?.firstname
                                   : "NA"}
                               </span>
                             </figure>
@@ -231,15 +263,15 @@ const ProductInvoice = () => {
                                   ?.delivery_option === "1"
                                   ? "Delivery"
                                   : SearchInvoiceRespones?.order
-                                    ?.delivery_option === "2"
-                                    ? "Reservation"
-                                    : SearchInvoiceRespones?.order
+                                      ?.delivery_option === "2"
+                                  ? "Reservation"
+                                  : SearchInvoiceRespones?.order
                                       ?.delivery_option === "3"
-                                      ? "Instore"
-                                      : SearchInvoiceRespones?.order
-                                        ?.delivery_option === "4"
-                                        ? "Shipping"
-                                        : "Instore"}
+                                  ? "Instore"
+                                  : SearchInvoiceRespones?.order
+                                      ?.delivery_option === "4"
+                                  ? "Shipping"
+                                  : "Instore"}
                               </span>
                             </figure>
                           </td>
@@ -273,7 +305,9 @@ const ProductInvoice = () => {
                       <tbody>
                         <tr>
                           <td colSpan={6}>
-                            <p className="noInvoiceText my-3">No Invoices Found</p>
+                            <p className="noInvoiceText my-3">
+                              No Invoices Found
+                            </p>
                           </td>
                         </tr>
                       </tbody>
@@ -288,7 +322,7 @@ const ProductInvoice = () => {
           {returnData ? (
             <>
               {" "}
-              <div className="col-lg-5 col-md-5">
+              <div className="col-lg-6 col-md-6">
                 <div className="commanOuter me-0 ms-0 commonSubOuter confirmRight p-0">
                   <div className="confirmRightSub confirmAddress">
                     <h2 className="mapleHeading text-center">
@@ -327,7 +361,14 @@ const ProductInvoice = () => {
                           </div>
                           <article>
                             <p className="mapleProductPrice">
-                              ${data?.refunded_amount}
+                              $
+                              {/* {Number(data?.refunded_amount)
+                                ? Number(data?.refunded_amount).toFixed(2)
+                                : Number(data?.order_details?.price) *
+                                  Number(data?.order_details?.qty)} */}
+                              {Number(data?.refunded_amount) *
+                                Number(data?.returned_qty)?Number(data?.refunded_amount) *
+                                Number(data?.returned_qty):Number(data?.product_price)*Number(data?.returned_qty)}
                             </p>
                           </article>
                         </div>
@@ -372,11 +413,26 @@ const ProductInvoice = () => {
                     </article>
                     <article>
                       <p className="productName">
-                        ${returnData?.products_refunded_amount}
+                        -$
+                        {Number(returnData?.refunded_amount)
+                          ? Number(returnData?.refunded_amount)
+                          : Number(sumQtyPrice)}
                       </p>
-                      <p className="productName">{returnData?.tax}%</p>
+                      <p className="productName">
+                        +$
+                        {Number(returnData?.tax)
+                          ? Number(returnData?.tax)
+                          : Number(sumTax).toFixed(2)}
+                      </p>
 
-                      <p className="totalBtn">${returnData?.refunded_amount}</p>
+                      <p className="totalBtn">
+                        +$
+                        {Number(returnData?.refunded_amount) +
+                        Number(returnData?.tax)
+                          ? Number(returnData?.refunded_amount) +
+                            Number(returnData?.tax)
+                          : totalAmount.toFixed(2)}
+                      </p>
                     </article>
                   </div>
                   <div className="confirmFooter">
@@ -417,12 +473,12 @@ const ProductInvoice = () => {
                       {SearchInvoiceRespones?.order?.delivery_option == "1"
                         ? "Delivery"
                         : SearchInvoiceRespones?.order?.delivery_option === "2"
-                          ? "Reservation"
-                          : SearchInvoiceRespones?.order?.delivery_option === "3"
-                            ? "In-store"
-                            : SearchInvoiceRespones?.order?.delivery_option === "4"
-                              ? "Shipping"
-                              : "In-store"}
+                        ? "Reservation"
+                        : SearchInvoiceRespones?.order?.delivery_option === "3"
+                        ? "In-store"
+                        : SearchInvoiceRespones?.order?.delivery_option === "4"
+                        ? "Shipping"
+                        : "In-store"}
                     </span>
                     <button className="inStoreBtn">
                       {" "}
@@ -439,7 +495,6 @@ const ProductInvoice = () => {
                         placeholder="Scan Barcode of each Item"
                         value={searchInvoiceViaBarcode}
                         onChange={(e) => handleSacnBarcode(e)}
-
                       />
                       <Image
                         src={Images.scanImg}
@@ -478,7 +533,9 @@ const ProductInvoice = () => {
                             />
                           </figure>
                           <div className="ps-1">
-                            <p className="aboutProduct invoiceDataText">{data?.product_name}</p>
+                            <p className="aboutProduct invoiceDataText">
+                              {data?.product_name}
+                            </p>
                             <div className="d-flex">
                               {/* <article className="productColor">
                               <span className="Yellow"></span>
@@ -538,7 +595,7 @@ const ProductInvoice = () => {
                       </div>
                       <div className="OrderCheckoutBox">
                         <p className="orderHeading">Order ID#</p>
-                        <p className="orderSubHeading">{orderDetails?.id}</p>
+                        <p className="orderSubHeading">{SearchInvoiceRespones?.invoice_number}</p>
                       </div>
                       <div className="OrderCheckoutBox">
                         <p className="orderHeading">Payment Method</p>
@@ -616,11 +673,7 @@ const ProductInvoice = () => {
               <div className="commanOuter d-flex align-items-center justify-content-center">
                 <div className="w-100 text-center">
                   <Image src={Images.Receiptbill} />
-                  <h2
-                    className="noInvoiceText"
-                  >
-                    No Invoices selected
-                  </h2>
+                  <h2 className="noInvoiceText">No Invoices selected</h2>
                 </div>
               </div>
             </div>

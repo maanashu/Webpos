@@ -689,3 +689,7 @@
   gap: var(--main-system-16-px, 16px);
   flex: 1 0 0;
 }
+.userImage {
+  width: var(--main-system-16-px, 80px);
+  height: var(--main-system-16-px, 80px);
+}

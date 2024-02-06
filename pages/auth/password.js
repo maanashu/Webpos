@@ -111,10 +111,10 @@ const Verify = () => {
               setKey(Math.random());
             }
 
-            // else if (res?.data?.payload?.user_profiles?.is_two_fa_enabled === false) {
-            //   router.push("/home/overview")
-            //   localStorage.removeItem('PhoneNumber');
-            // }
+            else if (res?.data?.payload?.user_profiles?.is_two_fa_enabled === false) {
+              router.push("/home/overview")
+              localStorage.removeItem('PhoneNumber');
+            }
 
           }
         },
@@ -149,8 +149,8 @@ const Verify = () => {
 
                   {selectedposusernfo?.user?.api_tokens?.length > 0 ? (
                     <>
-                      <h4 className='loginPara mt-3'>{moment(selectedposusernfo?.user?.api_tokens[0]?.created_at).fromNow()}</h4>
-                      <h4 className='loginPara '>{moment(selectedposusernfo?.user?.api_tokens[0]?.created_at).format('LT')}</h4>
+                      <h4 className='loginPara mt-3'>{moment(selectedposusernfo?.user?.api_tokens[0]?.updated_at).fromNow()}</h4>
+                      <h4 className='loginPara '>{moment(selectedposusernfo?.user?.api_tokens[0]?.updated_at).format('LT')}</h4>
                     </>
                   ) :
                     ""}

@@ -8,6 +8,9 @@ import {
   setGetPosLoginDetails,
   setGetProfile
 } from "../../slices/dashboard";
+import {
+  setSearchInvoiceByInvoiceId
+} from "../../slices/productReturn";
 import { toast } from "react-toastify";
 import { ORDER_API_URL, AUTH_API_URL } from "../../../utilities/config"
 
@@ -162,6 +165,25 @@ function* endTrackingSession(action) {
   }
 }
 
+function* fetchInvoiceDetail(action) {
+  const invoiceNumber = action.payload.invoice_number;
+  const sellerId = action.payload.seller_id;
+  try {
+    const resp = yield call(ApiClient.get, (`${ORDER_API_URL}/api/v1/invoices/by-invoice-number/${invoiceNumber}?seller_id=${sellerId}`))
+    if (resp.status) {
+      yield put(setSearchInvoiceByInvoiceId(resp.data));
+      yield call(action.payload.cb, (action.res = resp));
+    } else if (!resp.data) {
+      yield put(setSearchInvoiceByInvoiceId(null));
+    } else {
+      throw resp;
+    }
+  } catch (e) {
+    yield put(onErrorStopLoad())
+    toast.error(e?.error?.response?.data?.msg);
+  }
+}
+
 function* dashboardSaga() {
   yield all([
     takeLatest("dashboard/getAllOrderDeliveries", getAllOrderDeliveries),
@@ -172,6 +194,7 @@ function* dashboardSaga() {
     takeLatest("dashboard/getProfile", getProfile),
     takeLatest("dashboard/getOrderDetailsById", getOrderDetailsById),
     takeLatest("dashboard/endTrackingSession", endTrackingSession),
+    takeLatest("dashboard/fetchInvoiceDetail", fetchInvoiceDetail)
   ]);
 }
 

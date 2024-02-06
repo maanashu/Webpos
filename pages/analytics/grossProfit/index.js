@@ -169,7 +169,7 @@ const index = () => {
                   className="customers-table-data"
                   style={{ border: "none", color: "#7E8AC1", textAlign: "center" }}
                 >
-                  SR.No.
+                  Sr.No.
                 </th>
                 <th
                   className="customers-table-data"
@@ -235,7 +235,7 @@ const index = () => {
                               <td
                                 className="customers-table-data"
                               >
-                                {idx + 1}
+                                {(page - 1) * 10 + idx + 1}
                               </td>
                               <td
                                 className="customers-table-data"

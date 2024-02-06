@@ -34,6 +34,8 @@ const AddProduct = () => {
   const [colorId, setColorId] = useState(null);
   const [sizeId, setSizeId] = useState(null);
 
+  const stockHandArray = productDetail?.supplies?.[0]?.supply_variants;
+
   // avaiblity option
   let deliveryOption =
     retailData?.oneProductData?.product_detail?.supplies?.[0]?.delivery_options?.split(
@@ -183,7 +185,7 @@ const AddProduct = () => {
     <>
       <div className="productDetailSection" style={{ border: 1 }}>
         <div className="row">
-          <div className="col-lg-5 col-md-5">
+          <div className="col-xl-5 col-lg-12">
             <div className="commanOuter me-0 commonSubOuter productDetailLeft">
               <div className="newServiceDetail">
                 <div
@@ -370,7 +372,7 @@ const AddProduct = () => {
               )}
             </div>
           </div>
-          <div className="col-lg-7 col-md-7">
+          <div className="col-xl-7 col-lg-12">
             <div className="commanOuter  ms-0 commonSubOuter productDetailRight">
               <h2 className="appointMain">Product details</h2>
               <div className="productData">
@@ -380,204 +382,91 @@ const AddProduct = () => {
                     <h4 className="detailText">{item?.value}</h4>
                   </div>
                 ))}
-              </div> 
-              <div className="stockHandSetion">
-                <h4 className="payHeading text-start m-0">Stock on hand</h4>
-                <div className="stockSub">
-                  <div className="stockSlider"></div>
-                  <div className="stockBox">
-                    <div className="stockSubBox">
-                      <div className="flexDiv">
-                        <h4 className="dayTimeText">Sizes</h4>
-                        <h4 className="dayTimeText">Stock</h4>
-                        <h4 className="dayTimeText">Notify</h4>
+              </div>
+              {productDetail?.supplies?.[0]?.supply_variants?.length > 0 && (
+                <div className="stockHandSetion">
+                  <h4 className="payHeading text-start m-0">Stock on hand</h4>
+                  <div className="stockSub">
+                    <div className="stockMain">
+                      <div className="stockEmpty"></div>
+                      <div className="stockColumn">
+                        <h4 className="appointSub m-0">Color/Size</h4>
+                        <h4 className="appointSub m-0">Stock</h4>
                       </div>
-                      <div className="flexDiv mt-1">
-                        <div className="blueSize">
-                          <h6 className="sizeText">S</h6>
-                        </div>
-                        <h6 className="sizeText">15</h6>
-                        <figure className="noNotify">
-                          <Image
-                            src={Images.lightBell}
-                            alt="leftarrow image"
-                            className="img-fluid"
-                          />
-                        </figure>
-                      </div>
-                      <div className="flexDiv mt-1">
-                        <div className="redSize">
-                          <h6 className="sizeText">S</h6>
-                        </div>
-                        <div className="redStock">
-                          <h6 className="sizeText">15</h6>
-                        </div>
-                        <figure className="Notify">
-                          <Image
-                            src={Images.darkBell}
-                            alt="leftarrow image"
-                            className="img-fluid"
-                          />
-                        </figure>
-                      </div>
-                      <div className="flexDiv mt-1">
-                        <div className="yellowSize">
-                          <h6 className="sizeText">S</h6>
-                        </div>
-                        <div className="yellowStock">
-                          <h6 className="sizeText">15</h6>
-                        </div>
-                        <figure className="Notify">
-                          <Image
-                            src={Images.darkBell}
-                            alt="leftarrow image"
-                            className="img-fluid"
-                          />
-                        </figure>
-                      </div>
-                      <div className="flexDiv mt-1">
-                        <div className="blueSize">
-                          <h6 className="sizeText">S</h6>
-                        </div>
-                        <h6 className="sizeText">15</h6>
-                        <figure className="noNotify">
-                          <Image
-                            src={Images.lightBell}
-                            alt="leftarrow image"
-                            className="img-fluid"
-                          />
-                        </figure>
-                      </div>
+                      <div className="stockEmpty"></div>
                     </div>
-                    <div className="stockSubBox">
-                      <div className="flexDiv">
-                        <h4 className="dayTimeText">Sizes</h4>
-                        <h4 className="dayTimeText">Stock</h4>
-                        <h4 className="dayTimeText">Notify</h4>
-                      </div>
-                      <div className="flexDiv mt-1">
-                        <div className="blueSize">
-                          <h6 className="sizeText">S</h6>
+                    {stockHandArray?.map((item, index) => {
+                      const variant = JSON.parse(
+                        item?.attribute_variant?.variants
+                      );
+                      const productSize = variant?.filter(
+                        (item) => item.attribute_name?.toLowerCase() == "size"
+                      );
+                      const productColor = variant?.filter(
+                        (item) => item.attribute_name?.toLowerCase() == "color"
+                      );
+                      return (
+                        <div className="stockMain mt-2" key={index}>
+                          <div className="stockImageBox">
+                            <Image
+                              src={item?.image}
+                              className="img-fluid stockImg"
+                              width="100"
+                              height="100"
+                            />
+                          </div>
+                          <div className="stockColor">
+                            <div className="colorSizeBox">
+                              {colorArray?.length >= 1 && (
+                                <div className="d-flex align-items-center">
+                                  <h4 className="appointSub my-0 me-2">
+                                    color :
+                                  </h4>
+                                  <span
+                                    className="productColorBox"
+                                    style={{
+                                      backgroundColor:
+                                        productColor?.[0]?.attribute_value_name,
+                                    }}
+                                  ></span>
+                                </div>
+                              )}
+
+                              {sizeArray?.length >= 1 && (
+                                <h4 className="appointSub mt-1">
+                                  Size :{" "}
+                                  {productSize?.[0]?.attribute_value_name}
+                                </h4>
+                              )}
+                            </div>
+                            <h4
+                              className="cancelHeading"
+                              style={{
+                                color: item?.stock <= 10 ? "red" : "black",
+                              }}
+                            >
+                              {item?.stock}
+                            </h4>
+                          </div>
+                          <div
+                            className="stockImageBox"
+                            style={{ opacity: item?.stock <= 10 ? 0.5 : 1 }}
+                            onClick={() =>
+                              item?.stock <= 10 ? alert("coming soom") : void 0
+                            }
+                          >
+                            <Image
+                              src={Images.lightBell}
+                              className="img-fluid smallImg"
+                            />
+                          </div>
                         </div>
-                        <h6 className="sizeText">15</h6>
-                        <figure className="noNotify">
-                          <Image
-                            src={Images.lightBell}
-                            alt="leftarrow image"
-                            className="img-fluid"
-                          />
-                        </figure>
-                      </div>
-                      <div className="flexDiv mt-1">
-                        <div className="redSize">
-                          <h6 className="sizeText">S</h6>
-                        </div>
-                        <div className="redStock">
-                          <h6 className="sizeText">15</h6>
-                        </div>
-                        <figure className="Notify">
-                          <Image
-                            src={Images.darkBell}
-                            alt="leftarrow image"
-                            className="img-fluid"
-                          />
-                        </figure>
-                      </div>
-                      <div className="flexDiv mt-1">
-                        <div className="yellowSize">
-                          <h6 className="sizeText">S</h6>
-                        </div>
-                        <div className="yellowStock">
-                          <h6 className="sizeText">15</h6>
-                        </div>
-                        <figure className="Notify">
-                          <Image
-                            src={Images.darkBell}
-                            alt="leftarrow image"
-                            className="img-fluid"
-                          />
-                        </figure>
-                      </div>
-                      <div className="flexDiv mt-1">
-                        <div className="blueSize">
-                          <h6 className="sizeText">S</h6>
-                        </div>
-                        <h6 className="sizeText">15</h6>
-                        <figure className="noNotify">
-                          <Image
-                            src={Images.lightBell}
-                            alt="leftarrow image"
-                            className="img-fluid"
-                          />
-                        </figure>
-                      </div>
-                    </div>
-                    <div className="stockSubBox">
-                      <div className="flexDiv">
-                        <h4 className="dayTimeText">Sizes</h4>
-                        <h4 className="dayTimeText">Stock</h4>
-                        <h4 className="dayTimeText">Notify</h4>
-                      </div>
-                      <div className="flexDiv mt-1">
-                        <div className="blueSize">
-                          <h6 className="sizeText">S</h6>
-                        </div>
-                        <h6 className="sizeText">15</h6>
-                        <figure className="noNotify">
-                          <Image
-                            src={Images.lightBell}
-                            alt="leftarrow image"
-                            className="img-fluid"
-                          />
-                        </figure>
-                      </div>
-                      <div className="flexDiv mt-1">
-                        <div className="redSize">
-                          <h6 className="sizeText">S</h6>
-                        </div>
-                        <div className="redStock">
-                          <h6 className="sizeText">15</h6>
-                        </div>
-                        <figure className="Notify">
-                          <Image
-                            src={Images.darkBell}
-                            alt="leftarrow image"
-                            className="img-fluid"
-                          />
-                        </figure>
-                      </div>
-                      <div className="flexDiv mt-1">
-                        <div className="yellowSize">
-                          <h6 className="sizeText">S</h6>
-                        </div>
-                        <div className="yellowStock">
-                          <h6 className="sizeText">15</h6>
-                        </div>
-                        <figure className="Notify">
-                          <Image
-                            src={Images.darkBell}
-                            alt="leftarrow image"
-                            className="img-fluid"
-                          />
-                        </figure>
-                      </div>
-                      <div className="flexDiv mt-1">
-                        <div className="blueSize">
-                          <h6 className="sizeText">S</h6>
-                        </div>
-                        <h6 className="sizeText">15</h6>
-                        <figure className="noNotify">
-                          <Image
-                            src={Images.lightBell}
-                            alt="leftarrow image"
-                            className="img-fluid"
-                          />
-                        </figure>
-                      </div>
-                    </div>
+                      );
+                    })}
                   </div>
                 </div>
-              </div>
+              )}
+
               <div className="productAvailable">
                 <h4 className="payHeading text-start m-0">Availability</h4>
                 <div className="stockBox mt-3">

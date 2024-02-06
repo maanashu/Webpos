@@ -148,6 +148,7 @@ const OrderReview = () => {
                 ...params,
                 cb(res) {
                     if (res) {
+                        localStorage.setItem("status",status)
                         setAcceptLoading(false)
                         setDeclineLoading(false)
                         getAllShippingOrdeshandle(status)

@@ -214,10 +214,11 @@
 
     .BlueBtn {
         padding: 7px 12px;
+        margin-left: 0;
     }
 
     .GreyBtn {
-        padding: 10px 12px;
+        padding: 7px 12px;
     }
 }
 
@@ -961,11 +962,17 @@
         width: 100%;
         max-width: 300px;
     }
+
     .jobrPickUp {
         margin-left: 5px;
     }
+
     .ProductAddCart .subFooter {
         max-width: 335px;
+    }
+
+    .maximizeImg {
+        padding: 10px;
     }
 }
 
@@ -1004,6 +1011,13 @@
     .tab-item {
         padding: 3px 5px !important;
         font-size: 12px;
+    }
+    .BlueBtn {
+        padding: 7px 9px;
+    }
+
+    .GreyBtn {
+        padding: 7px 9px;
     }
 }
 
@@ -1160,6 +1174,14 @@
     .orderStatusBox .appointSub {
         font-size: 13px;
     }
+
+    .orderPara {
+        font-size: 10px;
+        font-weight: 500;
+    }
+    .jobrPickUp {
+        margin-left: 0px;
+    }
 }
 
 @media (max-width: 425px) {
@@ -1269,7 +1291,10 @@
         gap: 4px;
     }
 
-   
+    .orderStatusBox {
+        max-width: 213px;
+    }
+
 }
 
 @media (max-width: 375px) {

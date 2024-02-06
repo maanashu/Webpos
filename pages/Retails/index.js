@@ -14,6 +14,10 @@ import {
   getProductFilterBrands,
   getServiceFilterCategory,
   getServiceFilterSubCategory,
+  getHoldProductCart,
+  addLocalCart,
+  setLocalCart,
+  setMainProduct,
 } from "../../redux/slices/retails";
 import { useDispatch, useSelector } from "react-redux";
 import { getAllPosUser, selectLoginAuth } from "../../redux/slices/auth";
@@ -25,22 +29,56 @@ import {
 } from "../../utilities/globalMethods";
 import { Modal } from "react-bootstrap";
 import CartAlert from "./CartAlert";
+import { set } from "react-ga";
 
 const Retails = () => {
   const dispatch = useDispatch();
   const authData = useSelector(selectLoginAuth);
   const retailData = useSelector(selectRetailData);
+  const holdProuctCartArray = retailData?.holdProductData || [];
+  console.log("holdProuctCartArray", holdProuctCartArray);
   const [showSidebar, setShowSidebar] = useState(false);
   const sellerId = authData?.usersInfo?.payload?.uniqe_id;
   const router = useRouter();
   const { parameter } = router.query;
   const cartData = retailData?.productCart;
-  const cartLength = cartData?.poscart_products?.length;
+  // const cartLength = cartData?.poscart_products?.length;
   const cartPosCart = cartData?.poscart_products || [];
   const mainProductArray = retailData?.mainProductData?.data || [];
   const mainServicesArray = retailData?.mainServicesData?.data || [];
-  console.log("mainServicesArray", JSON.stringify(mainServicesArray));
   const [cartAlert, setCartAlert] = useState(false);
+  const [selectedCartItem, setSelectedCartItems] = useState([]);
+  // const CART_LENGTH = useSelector(getCartLength);
+  // const cartLength = CART_LENGTH;
+  const LOCAL_CART_ARRAY = retailData?.localCartArray;
+
+  console.log("LOCAL_CART_ARRAY", LOCAL_CART_ARRAY);
+
+  const [isFocus, setIsFocus] = useState(false);
+
+  useEffect(() => {
+    dispatch(getHoldProductCart());
+  }, []);
+
+  useEffect(() => {
+    if (retailData?.productCart?.poscart_products?.length > 0) {
+      const cartmatchId = retailData?.productCart?.poscart_products?.map(
+        (obj) => ({
+          product_type: "product",
+          product_id: obj.product_id,
+          qty: obj.qty,
+          supply_id: obj.supply_id,
+          supply_price_id: obj.supply_price_id,
+          ...(obj.supply_variant_id && {
+            supply_variant_id: obj.supply_variant_id,
+          }),
+        })
+      );
+      dispatch(setLocalCart(cartmatchId));
+      setSelectedCartItems(cartmatchId);
+    } else {
+    }
+  }, [cartData]);
 
   const productPagination = {
     total: retailData?.mainProductData?.total || "0",
@@ -94,7 +132,7 @@ const Retails = () => {
     dispatch(
       getMainProduct({
         ...params,
-        cb(res) { },
+        cb(res) {},
       })
     );
   };
@@ -105,7 +143,7 @@ const Retails = () => {
     dispatch(
       getMainServices({
         ...params,
-        cb(res) { },
+        cb(res) {},
       })
     );
   };
@@ -135,6 +173,59 @@ const Retails = () => {
     dispatch(getServiceFilterSubCategory());
     dispatch(getAllPosUser({ seller_id: sellerId }));
   }, [sellerId]);
+
+  const checkAttributes = (item, index) => {
+    if (onlyServiceCartArray?.length > 0) {
+      setCartAlert(true);
+    } else {
+      if (item?.supplies?.[0]?.attributes?.length !== 0) {
+        productFun(item.id, index, item);
+      } else {
+        onClickAddCart(item, index);
+      }
+    }
+  };
+
+  const onClickAddCart = (item, index, supplyVarientId) => {
+    const mainProductArray = { ...retailData?.mainProductData };
+    console.log("mainProductArray", mainProductArray);
+    // return;
+    let mainProductData = { ...mainProductArray?.data[index] };
+    const product = { ...mainProductArray?.data[index] };
+    const cartArray = [...selectedCartItem];
+    const existingItemIndex = cartArray.findIndex(
+      (cartItem) => cartItem.product_id === item?.id
+    );
+    const params = {
+      product_type: "product",
+      product_id: item?.id,
+      qty: 1,
+      supply_id: item?.supplies?.[0]?.id,
+      supply_price_id: item?.supplies?.[0]?.supply_prices[0]?.id,
+    };
+    if (supplyVarientId) {
+      params.supply_variant_id = supplyVarientId;
+    }
+    if (existingItemIndex === -1) {
+      cartArray.push(params);
+      // dispatch(updateCartLength(cartLength + 1));
+    } else {
+      const restProductQty =
+        mainProductArray.data[index].supplies[0]?.rest_quantity;
+      if (restProductQty > cartArray[existingItemIndex].qty) {
+        cartArray[existingItemIndex].qty = cartQty + 1;
+      } else {
+        alert("There are no more quantity left to add");
+      }
+    }
+    dispatch(setLocalCart(cartArray));
+    setSelectedCartItems(cartArray);
+    product.cart_qty += 1;
+    console.log("mainProductArray", mainProductArray);
+    mainProductData = product;
+    // mainProductArray.data[index].cart_qty += 1;
+    dispatch(setMainProduct(mainProductArray));
+  };
 
   return (
     <>
@@ -202,8 +293,8 @@ const Retails = () => {
                             <div className="productCartPrice">
                               {item?.supplies?.[0]?.supply_prices?.[0]
                                 ?.offer_price &&
-                                item?.supplies?.[0]?.supply_prices?.[0]
-                                  ?.actual_price ? (
+                              item?.supplies?.[0]?.supply_prices?.[0]
+                                ?.actual_price ? (
                                 <p className="productPrice">
                                   $
                                   {
@@ -227,7 +318,7 @@ const Retails = () => {
                                   alt="image"
                                   className="imgSize"
                                 />
-                                <span className="productNum">2</span>
+                                {/* <span className="productNum">2</span> */}
                               </div>
                             </div>
                           </article>
@@ -303,8 +394,8 @@ const Retails = () => {
 
                               {services?.supplies?.[0]?.supply_prices?.[0]
                                 ?.offer_price &&
-                                services?.supplies?.[0]?.supply_prices?.[0]
-                                  ?.actual_price ? (
+                              services?.supplies?.[0]?.supply_prices?.[0]
+                                ?.actual_price ? (
                                 <p className="productPrice">
                                   {amountFormat(
                                     services?.supplies?.[0]?.supply_prices?.[0]
@@ -347,7 +438,7 @@ const Retails = () => {
                                   className="img-fluid AppointmenttimeIcon"
                                 />
                                 {services.supplies?.[0]?.approx_service_time ==
-                                  null ? (
+                                null ? (
                                   <span className="AppointmentEstTime">
                                     Estimated Time Not found
                                   </span>

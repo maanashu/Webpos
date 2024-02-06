@@ -5,46 +5,117 @@ import Image from "next/image";
 import { ListGroup, ListGroupItem } from "react-bootstrap";
 import { useRouter } from "next/router";
 import { logout, selectLoginAuth } from "../redux/slices/auth";
-import { dashboardLogout } from "../redux/slices/dashboard";
+import { dashboardLogout, dashboardDetails, endTrackingSession } from "../redux/slices/dashboard";
 import { useDispatch, useSelector } from "react-redux";
 import { toast } from "react-toastify";
 import { getOrdersList } from "../redux/slices/shipping";
+import {
+  deliveryData,
+  getOrdersList as deliveryOrderList,
+  getPendingOrderCount,
+} from "../redux/slices/delivery";
 
 const Sidebar = (props) => {
   const dispatch = useDispatch();
   const [activeSidebar, setActiveSidebar] = useState(true);
   const authData = useSelector(selectLoginAuth);
+  const dashboardData = useSelector(dashboardDetails);
+  const trackingSession = dashboardData?.drawerSession?.payload;
   const sellerUid = authData?.usersInfo?.payload?.uniqe_id;
+
+
+
+  const ADMIN = () => {
+    const admin = authData?.posUserLoginDetails?.payload?.user_roles?.filter((item) => item?.role?.slug == 'pos_admin');
+    return admin;
+  };
+
+
+  console.log(ADMIN(), "auth data");
+
   const router = useRouter();
   const pathname = router?.pathname
+  const status = localStorage.getItem("status")
   const [orderData, setOrderData] = useState([]);
+
   console.log(router?.pathname?.split("/")[1], "router");
   props?.sidebarToggle(activeSidebar);
+  const { orderList, pendingOrderCountData } = useSelector(deliveryData);
 
   const userLogout = async (e) => {
     e.preventDefault();
-    await dispatch(logout());
-    await dispatch(dashboardLogout());
-    setTimeout(() => {
-      toast.success("Logout successfully");
-    }, 200);
-    router.push("/auth/verification");
-    localStorage.removeItem("merchantAuthToken");
-    localStorage.removeItem("authToken");
-    localStorage.removeItem("persist:root");
+    
+    let params =  {
+      // pos_user_id: posUserUniqueId,
+      drawer_id: trackingSession?.id,
+      amount: parseInt(trackingSession?.cash_balance),
+      transaction_type: 'end_tracking_session',
+      mode_of_cash: 'cash_out'
+    };
+
+    dispatch(
+      endTrackingSession({
+        ...params,
+        async cb(res) {
+          if(res.status){
+            await dispatch(logout());
+            await dispatch(dashboardLogout());
+
+            setTimeout(() => {
+              toast.success("Logout successfully");
+            }, 200);
+
+            router.push("/auth/verification");
+            
+            localStorage.removeItem("merchantAuthToken");
+            localStorage.removeItem("authToken");
+            localStorage.removeItem("persist:root");
+          }
+        },
+      })
+    );
+
+
+      // await dispatch(logout());
+      // await dispatch(dashboardLogout());
+
+      // setTimeout(() => {
+      //   toast.success("Logout successfully");
+      // }, 200);
+
+      // localStorage.removeItem("merchantAuthToken");
+      // localStorage.removeItem("authToken");
+      // localStorage.removeItem("persist:root");
+
+      // router.push("/auth/verification");
   };
 
   const isLinkActive = (href) => {
-    Sidebar
+    Sidebar;
     console.log(href, "hrefhref");
     return router.pathname === href;
+  };
+  const getDeliveryPendingOrderCount = () => {
+    let orderListParam = {
+      seller_id: sellerUid,
+    };
+    dispatch(
+      getPendingOrderCount({
+        ...orderListParam,
+        // cb(res) {
+        //   if (res) {
+        //     setdeliveryData(res?.data?.payload?.data);
+        //   }
+        // },
+      })
+    );
   };
 
   const getAllShippingOrdeshandle = () => {
     let orderListParam = {
       seller_id: sellerUid,
       status: 0,
-      delivery_option: "4"
+      delivery_option: "4",
     };
     dispatch(
       getOrdersList({
@@ -52,21 +123,23 @@ const Sidebar = (props) => {
         cb(res) {
           if (res) {
             setOrderData(res?.data?.payload?.data);
+            localStorage.removeItem("status");
           }
         },
       })
     );
-  }
+  };
 
   useEffect(() => {
     if (sellerUid) {
-      getAllShippingOrdeshandle()
+      getDeliveryPendingOrderCount();
+      getAllShippingOrdeshandle();
     }
-  }, [pathname]);
+  }, [pathname, status]);
   console.log(router?.pathname?.split("/")[1]?.split("/")[1], "pathname called");
   return (
     <div
-      className={`main-sidebar ${activeSidebar ? "hide" : "full"}`}
+      className={`main-sidebar ${activeSidebar ? "hide" : "full"} ${ADMIN()?.length > 0 ?"admin": "userSide"}`}
       id="myNav"
     >
       <div className="sidebarAuth sidebarMain">
@@ -97,7 +170,7 @@ const Sidebar = (props) => {
                 authData?.posUserLoginDetails?.payload?.user_profiles
                   ?.profile_photo
                   ? authData?.posUserLoginDetails?.payload?.user_profiles
-                    ?.profile_photo
+                      ?.profile_photo
                   : Images.HomeProfileImg
               }
               alt="image"
@@ -132,8 +205,9 @@ const Sidebar = (props) => {
               <Link
                 //  href="/Retails"
                 href="/Retails?parameter=product"
-                className={`sidebarLinks ${router?.pathname?.split("/")[1] == "Retails" ? "active" : ""
-                  }`}
+                className={`sidebarLinks ${
+                  router?.pathname?.split("/")[1] == "Retails" ? "active" : ""
+                }`}
               >
                 <Image
                   src={Images.ProductsServices}
@@ -151,8 +225,11 @@ const Sidebar = (props) => {
             <ListGroupItem className="sidebarItems">
               <Link
                 href="/Deliveries"
-                className={`sidebarLinks ${router?.pathname?.split("/")[1] == "Deliveries" ? "active" : ""
-                  }`}
+                className={`sidebarLinks ${
+                  router?.pathname?.split("/")[1] == "Deliveries"
+                    ? "active"
+                    : ""
+                }`}
               >
                 <Image
                   src={Images.DeliveryOrders}
@@ -165,6 +242,12 @@ const Sidebar = (props) => {
                   className="img-fluid hideImg"
                 />
                 <span className="sidebarTxt">Delivery Orders</span>
+
+                <span className=" shipNum">
+                  {pendingOrderCountData?.delivery_count
+                    ? pendingOrderCountData?.delivery_count
+                    : 0}
+                </span>
               </Link>
             </ListGroupItem>
             {/* <ListGroupItem className="sidebarItems">
@@ -190,8 +273,9 @@ const Sidebar = (props) => {
             <ListGroupItem className="sidebarItems">
               <Link
                 href="/shipping"
-                className={`sidebarLinks  position-relative ${router?.pathname?.split("/")[1] == "shipping" ? "active" : ""
-                  }`}
+                className={`sidebarLinks  position-relative ${
+                  router?.pathname?.split("/")[1] == "shipping" ? "active" : ""
+                }`}
               >
                 <Image
                   src={Images.ShippingOrders}
@@ -204,14 +288,19 @@ const Sidebar = (props) => {
                   className="img-fluid hideImg"
                 />
                 <span className="sidebarTxt">Shipping Orders</span>
-                <span className=" shipNum">{orderData ? orderData?.length : 0}</span>
+                <span className=" shipNum">
+                  {orderData ? orderData?.length : 0}
+                </span>
               </Link>
             </ListGroupItem>
             <ListGroupItem className="sidebarItems">
               <Link
                 href="/appointment/booking"
-                className={`sidebarLinks ${router?.pathname?.split("/")[1] == "appointment/booking" ? "active" : ""
-                  }`}
+                className={`sidebarLinks ${
+                  router?.pathname?.split("/")[1] == "appointment/booking"
+                    ? "active"
+                    : ""
+                }`}
               >
                 <Image
                   src={Images.Appointments}
@@ -229,8 +318,9 @@ const Sidebar = (props) => {
             <ListGroupItem className="sidebarItems">
               <Link
                 href="/analytics"
-                className={`sidebarLinks ${router?.pathname?.split("/")[1] == "analytics" ? "active" : ""
-                  }`}
+                className={`sidebarLinks ${
+                  router?.pathname?.split("/")[1] == "analytics" ? "active" : ""
+                }`}
               >
                 <Image
                   src={Images.Analytics}
@@ -250,8 +340,11 @@ const Sidebar = (props) => {
 
               <Link
                 href="/transactions"
-                className={`sidebarLinks ${router?.pathname?.split("/")[1] == "transactions" ? "active" : ""
-                  }`}
+                className={`sidebarLinks ${
+                  router?.pathname?.split("/")[1] == "transactions"
+                    ? "active"
+                    : ""
+                }`}
               >
                 <Image
                   src={Images.Wallets}
@@ -287,8 +380,9 @@ const Sidebar = (props) => {
             <ListGroupItem className="sidebarItems">
               <Link
                 href="/customers"
-                className={`sidebarLinks ${router?.pathname?.split("/")[1] == "customers" ? "active" : ""
-                  }`}
+                className={`sidebarLinks ${
+                  router?.pathname?.split("/")[1] == "customers" ? "active" : ""
+                }`}
               >
                 <Image
                   src={Images.Customer}
@@ -321,25 +415,30 @@ const Sidebar = (props) => {
                 <span className="sidebarTxt">Rewards</span>
               </Link>
             </ListGroupItem> */}
-            <ListGroupItem className="sidebarItems">
-              <Link
-                href="/settings"
-                className={`sidebarLinks ${router?.pathname?.split("/")[1] == "settings" ? "active" : ""
-                  }`}
-              >
-                <Image
-                  src={Images.Settings}
-                  alt="image"
-                  className="img-fluid showImg"
-                />
-                <Image
-                  src={Images.Settings_Solid}
-                  alt="image"
-                  className="img-fluid hideImg"
-                />
-                <span className="sidebarTxt">Settings</span>
-              </Link>
-            </ListGroupItem>
+
+            {
+              ADMIN()?.length > 0 &&
+              <ListGroupItem className="sidebarItems">
+                <Link
+                  href="/settings"
+                  className={`sidebarLinks ${router?.pathname?.split("/")[1] == "settings" ? "active" : ""
+                    }`}
+                >
+                  <Image
+                    src={Images.Settings}
+                    alt="image"
+                    className="img-fluid showImg"
+                  />
+                  <Image
+                    src={Images.Settings_Solid}
+                    alt="image"
+                    className="img-fluid hideImg"
+                  />
+                  <span className="sidebarTxt">Settings</span>
+                </Link>
+              </ListGroupItem>
+            }
+
             {/* <ListGroupItem className="sidebarItems" >
                         <Link href="/dashboard" className={`sidebarLinks ${isLinkActive("/appointment/booking") ? "active" : ""}`} >
                             <Image src={Images.Addsquarelight} className="img-fluid showImg" alt="" />
@@ -359,26 +458,30 @@ const Sidebar = (props) => {
                 </div> */}
         </ListGroup>
       </div>
-      <div className=" ">
-        <Link
-          href="#"
-          className={`logoutLink ${isLinkActive("/appointment/booking") ? "active" : ""
-            }`}
-        >
-          <button
-            className="logOut"
-            type="button"
-            onClick={(e) => userLogout(e)}
+      {
+        ADMIN()?.length > 0 &&
+        <div className=" ">
+          <Link
+            href="#"
+            className={`logoutLink ${isLinkActive("/appointment/booking") ? "active" : ""
+              }`}
           >
-            <Image
-              src={Images.LogOut}
-              alt="image"
-              className="img-fluid showImg"
-            />
-            <span className="sidebarTxt">LogOut</span>
-          </button>
-        </Link>
-      </div>
+            <button
+              className="logOut"
+              type="button"
+              onClick={(e) => userLogout(e)}
+            >
+              <Image
+                src={Images.LogOut}
+                alt="image"
+                className="img-fluid showImg"
+              />
+              <span className="sidebarTxt">LogOut</span>
+            </button>
+          </Link>
+        </div>
+      }
+
     </div>
   );
 };

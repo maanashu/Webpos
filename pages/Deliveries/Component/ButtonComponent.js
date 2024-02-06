@@ -207,11 +207,11 @@ const ButtonComponent = ({
         <div className="flexBox ">
           <button type="button" className="cancelledByUser w-100">
             Cancelled by User
-            <Image
+            {/* <Image
               src={Images.ArrowRight}
               alt="ArrowRight"
               className="img-fluid ArrowRight"
-            />
+            /> */}
           </button>
         </div>
       )}

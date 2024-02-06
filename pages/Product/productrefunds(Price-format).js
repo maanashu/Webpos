@@ -16,15 +16,19 @@ import {
 } from "../../redux/slices/productReturn";
 import { toast } from "react-toastify";
 import { Spinner } from "react-bootstrap";
+import { logout } from "../../redux/slices/auth";
 
 const productrefunds = () => {
   const toastId = React.useRef(null);
   const dispatch = useDispatch();
   const [enableText, setEnabletext] = useState(false);
+  const [enableTextForPercent, setnableTextForPercent] = useState(false);
+  const [enableTextFordoller, setnableTextForDoller] = useState(true);
   const router = useRouter();
   const [refundAmount, setRefundAmount] = useState("");
-  console.log(refundAmount,'refundAmount');
   const [inputValues, setInputValues] = useState([]);
+  const [applyRefund, setApplyRefund] = useState(false);
+  const [allApplicable, setAppApplicable] = useState(false);
   const invoiceData = useSelector(selectReturnData);
   const orderDetails = invoiceData?.invoiceByInvoiceId;
   const selectedData = invoiceData?.invoiceData;
@@ -45,26 +49,32 @@ const productrefunds = () => {
     setKey(Math.random());
   };
 
-  const handleGoToinventery = () => {
 
-    const isGreater = refundedItems.some(item => Number(refundAmount) > Number(item.price));
-    if(isGreater == false){
-      setModalDetail({ show: true, flag: "ReturnInventory" });
-      setKey(Math.random());
-  
-      const shareData = {
-        selectedItems: JSON.stringify(refundedItems),
-        inputValues: JSON.stringify(inputValues),
-        totalSum: totalSum?.toString(),
-        subtotal: subtotal?.toString(),
-        totalTax: discount?.toString(),
-      };
-      dispatch(setInvoiceData(shareData));
-    }
-    else{
-      toast.error("Please enter a valid refund amount");
-      return
-    }
+  const handleGoToinventery = () => {
+    const isGreater = refundedItems.some(
+      (item) => Number(refundAmount) > Number(item.price)
+    );
+    // if (isGreater == false) {
+    setModalDetail({ show: true, flag: "ReturnInventory" });
+    setKey(Math.random());
+
+    const shareData = {
+      selectedItems: JSON.stringify(refundedItems),
+      inputValues: JSON.stringify(inputValues),
+      totalSum: totalSum?.toString(),
+      subtotal: subtotal?.toString(),
+      totalTax: discount?.toString(),
+      existingTax: sumTax,
+      existingSubtotal: sumQtyPrice,
+      existingTotal: totalAmount,
+    };
+    dispatch(setInvoiceData(shareData));
+    // } else {
+    //   if (!toast.isActive(toastId.current)) {
+    //     toastId.current = toast.error("Please enter a valid refund amount");
+    //   }
+    //   return;
+    // }
   };
 
   let products = refundedItems?.map((item, index) => ({
@@ -86,7 +96,7 @@ const productrefunds = () => {
       total_refund_amount: subtotal,
       delivery_charge: orderDetails?.order?.delivery_charge,
       return_reason: "testing reason",
-      drawer_id: orderDetails?.order?.drawer_id,
+      drawer_id: orderDetails?.order?.drawer_id || 0,
     };
     dispatch(
       returnToInventory({
@@ -109,7 +119,6 @@ const productrefunds = () => {
   const handleInputChange = (e, index) => {
     const enteredValue = e.target.value;
     const isValidInput = /^[+]?\d*\.?\d*$/.test(enteredValue);
-
     if (!isValidInput) {
       if (!toast.isActive(toastId.current)) {
         toastId.current = toast.error(
@@ -131,70 +140,127 @@ const productrefunds = () => {
       };
       setInputValues(updatedInputValues);
     } else {
-      if (!toast.isActive(toastId.current)) {
-        toastId.current = toast.error(
-          "Refund amount should not be greater than the unit price"
-        );
-      };
+      // if (!toast.isActive(toastId.current)) {
+      //   toastId.current = toast.error(
+      //     "Refund amount should not be greater than the unit price"
+      //   );
+      // }
     }
     if (enteredValue === "") {
       const updatedInputValues = [...inputValues];
       updatedInputValues[index] = {
         ...updatedInputValues[index],
-        value: "", 
+        value: "",
         index: index,
       };
       setInputValues(updatedInputValues);
     }
   };
 
-  const inputCheck = (e) => {
+  const inputCheck = (
+    isChecked,
+    refundAmountUpdated,
+    hasDollar,
+    hasPercentage
+  ) => {
     let updateValue;
-    if (inputValues && inputValues.length > 0) {
-      if (e.target.checked) {
-        updateValue = inputValues?.map(
-          (item) => Number(item) + Number(refundAmount)
-        );
-      } else {
-        setRefundAmount("");
-        updateValue = inputValues?.map(
-          (item) => Number(item) - Number(refundAmount)
-        );
-        // setInputValues(updateValue);
-      }
-      setInputValues(updateValue);
-    } else {
-      const newValues = [...inputValues];
-      for (let i = 0; i < refundedItems?.length; i++) {
+    if (isChecked === false) {
+      setApplyRefund(false);
+    }
+    setAppApplicable(isChecked);
+    if (isChecked == false) {
+      setInputValues([]);
+      return;
+    }
+    // if (inputValues && inputValues.length > 0) {
+    //   if (e.target.checked) {
+    //     updateValue = inputValues?.map(
+    //       (item) => Number(item) + Number(refundAmount)
+    //     );
+    //   } else {
+    //     setRefundAmount("");
+    //     updateValue = inputValues?.map(
+    //       (item) => Number(item) - Number(refundAmount)
+    //     );
+    // setInputValues(updateValue);
+    // }
+    // setInputValues(updateValue);
+    // } else {
+    const newValues = [];
+    for (let i = 0; i < refundedItems?.length; i++) {
+      if (hasDollar == true) {
         let result = {
-          value: refundAmount,
+          value: refundAmountUpdated,
           index: i,
         };
         newValues.push(result);
       }
-      setInputValues(newValues);
+      if (hasPercentage) {
+        let result = {
+          value: (
+            (Number(refundedItems[i].price) * Number(refundAmountUpdated)) /
+            100
+          ).toFixed(2),
+          index: i,
+        };
+        newValues.push(result);
+      }
+    }
+    setInputValues(newValues);
+  };
+  const subtotal = refundedItems?.reduce((acc, data, idx) => {
+    const qty = Number(data?.qty) || 0;
+    const lineTotal = inputValues[idx]?.value * qty || 0;
+    return acc + parseFloat(lineTotal);
+  }, 0);
+  
+  const sumTax = refundedItems.reduce((acc, item, index) => {
+    const qty = item.qty || 0;
+    const lineTotal = inputValues[index]?.value * qty || 0;
+    const tax = 0.08 * lineTotal;
+    return acc + tax;
+  }, 0);
+  
+  const { sumQtyPrice } = refundedItems.reduce(
+    (acc, item) => {
+      const qty = Number(item.qty) || 0;
+      const price = Number(item.price) || 0;
+
+      acc.sumQtyPrice += qty * price;
+
+      return acc;
+    },
+    { sumQtyPrice: 0 }
+  );
+  const discount = (sumQtyPrice * 0.08).toFixed(2);
+  const totalSum = (subtotal +sumTax);
+  const totalAmount = (parseFloat(discount) + sumQtyPrice).toFixed(2);
+
+  const handleActiveText = (flag) => {
+    if (flag == "flagPrice") {
+      setnableTextForDoller(true);
+      setnableTextForPercent(false);
+      setRefundAmount("");
+      setInputValues([]);
+      setApplyRefund(false);
+    } else if (flag == "flagPercent") {
+      setnableTextForPercent(true);
+      setnableTextForDoller(false);
+      setApplyRefund(false);
+      setRefundAmount("");
+      setInputValues([]);
     }
   };
 
-  const subtotal = refundedItems?.reduce((acc, data, idx) => {
-    const itemTotal =
-      !isNaN(parseFloat(inputValues[idx]?.value)) &&
-      !isNaN(parseFloat(data?.qty))
-        ? (parseFloat(inputValues[idx]?.value) * parseFloat(data?.qty)).toFixed(
-            2
-          )
-        : "0.00";
-
-    return acc + parseFloat(itemTotal);
-  }, 0);
-
-  const discount = (subtotal * 0.08).toFixed(2);
-  const totalSum = (subtotal - parseFloat(discount)).toFixed(2);
-
-  const handleActiveText = () => {
-    setEnabletext(true);
+  const handleApplyRefund = () => {
+    setApplyRefund(true);
   };
-
+  const handleCheckeachItems = (e) => {
+    if (e.target.checked === false) {
+      setApplyRefund(false);
+    }
+    setEnabletext(e.target.checked);
+  };
   const handleRefund = (e) => {
     const enteredValue = e.target.value;
     const isValidInput = /^[+]?\d*\.?\d*$/.test(enteredValue);
@@ -210,25 +276,24 @@ const productrefunds = () => {
     const maxPrice = Math.max(
       ...refundedItems?.map((item) => parseFloat(item?.price))
     );
-    if (!isNaN(enteredValue) && enteredValue <= maxPrice) {
-      setRefundAmount(enteredValue);
+
+    if (!isNaN(enteredValue)) {
+      setRefundAmount(enteredValue > maxPrice ? maxPrice : enteredValue);
     } else {
-      toastId.current = toast.error(
-        "Refund amount should not be greater than any item's price"
-      );
+      if (!toast.isActive(toastId.current)) {
+        toastId.current = toast.error(
+          "Refund amount should not be greater than any item's price"
+        );
+      }
+      return;
     }
 
-    // const maxPrices = [];
-    // for (let i = 0; i < refundedItems.length; i++) {
-    //   const price = parseFloat(refundedItems[i]?.price);
-    //   if (!isNaN(price)) {
-    //     const maxPrice = maxPrices[i] || 0;
-    //     const currentMax = Math.max(maxPrice, price);
-    //     maxPrices[i] = currentMax;
-    //   }
-    // }
-
-    // console.log("Maximum prices for each index:", maxPrices);
+    inputCheck(
+      allApplicable,
+      enteredValue,
+      enableTextFordoller,
+      enableTextForPercent
+    );
   };
 
   return (
@@ -246,34 +311,94 @@ const productrefunds = () => {
               </article>
               <div className="flexBox">
                 <input
-                  onChange={(e) => inputCheck(e)}
+                  onChange={(e) =>
+                    inputCheck(
+                      e.target.checked,
+                      refundAmount,
+                      enableTextFordoller,
+                      enableTextForPercent
+                    )
+                  }
                   type="checkbox"
                   className="me-2"
-                   onClick={(e) => inputCheck(e)}
+                  checked={allApplicable}
+                  disabled={enableText === true}
                 />
-                <h5 className="priceHeading pe-3">
-                  Apply a fixed amount to all items.
-                </h5>
+                <h5 className="priceHeading pe-3">Applicable for all items.</h5>
                 <div className="flexBox refundPricebox">
-                  <input
-                    type="text"
-                    placeholder="$00.00"
-                    className="tablecustomInput"
-                    value={refundAmount}
-                    onChange={(e) => handleRefund(e)}
-                  />
+                  {enableTextFordoller === true ? (
+                    <input
+                      type="text"
+                      placeholder="$0.00"
+                      className="tablecustomInput"
+                      value={refundAmount}
+                      disabled={enableText === true}
+                      onChange={(e) => handleRefund(e)}
+                    />
+                  ) : (
+                    <input
+                      type="text"
+                      placeholder="0%"
+                      className="tablecustomInput"
+                      value={refundAmount}
+                      disabled={enableText === true}
+                      onChange={(e) => handleRefund(e)}
+                    />
+                  )}
                   <article>
-                    <div
+                    <button
                       className={
-                        enableText === true
+                        enableTextFordoller === true
                           ? "priceFilterBtn active"
                           : "priceFilterBtn "
                       }
-                      onClick={handleActiveText}
+                      onClick={() => handleActiveText("flagPrice")}
                     >
-                      $ %
-                    </div>
+                      $
+                    </button>
+
+                    <button
+                      className={
+                        enableTextForPercent === true
+                          ? "priceFilterBtn active"
+                          : "priceFilterBtn "
+                      }
+                      onClick={() => handleActiveText("flagPercent")}
+                    >
+                      %
+                    </button>
                   </article>
+
+                  <div className="flexBox">
+                    <input
+                      onChange={(e) => handleCheckeachItems(e)}
+                      type="checkbox"
+                      className="me-2"
+                      checked={enableText}
+                      disabled={allApplicable === true}
+                    />
+                    <h5 className="priceHeading pe-3">
+                      Applicable for each items.
+                    </h5>
+
+                    {applyRefund == true ? (
+                      <button className="ConfirmReturn active">Applied</button>
+                    ) : (
+                      <button
+                        className={
+                          allApplicable === false && enableText === false
+                            ? "ConfirmReturn"
+                            : "ConfirmReturn active"
+                        }
+                        onClick={(e) => handleApplyRefund(e)}
+                        disabled={
+                          allApplicable === false && enableText === false
+                        }
+                      >
+                        Apply Refund
+                      </button>
+                    )}
+                  </div>
                 </div>
               </div>
             </div>
@@ -322,21 +447,27 @@ const productrefunds = () => {
                         <td className="recent_subhead text-center">
                           <input
                             type="text"
-                            placeholder="$00.00"
+                            placeholder="$0.00"
                             className={
                               enableText === true
                                 ? "enableInput"
                                 : "tablecustomInput"
                             }
-                            value={inputValues[idx]?.value}
+                            value={
+                              inputValues?.length > 0
+                                ? inputValues[idx]?.value > Number(data?.price)
+                                  ? String(Number(data?.price))
+                                  : inputValues[idx]?.value
+                                : ""
+                            }
                             onChange={(e) => handleInputChange(e, idx)}
                             disabled={enableText === false}
                           />
-                          {refundAmount > Number(data?.price) && (
-                            <span style={{ color: "red" }}>
-                              Refund amount should not grater then Unit Price.
-                            </span>
-                          )}
+                          {/* {refundAmount > Number(data?.price) && (
+                            <p style={{ color: "red" }}>
+                              Refund amount should not greater then Unit Price.
+                            </p>
+                          )} */}
                         </td>
                         <td className="recent_subhead text-center">
                           × {data?.qty}
@@ -344,12 +475,13 @@ const productrefunds = () => {
                         <td className="recent_subhead text-center">
                           ${" "}
                           {!isNaN(parseFloat(inputValues[idx]?.value)) &&
-                            !isNaN(parseFloat(data?.qty))
-                            ? (
-                              parseFloat(inputValues[idx]?.value) *
+                          !isNaN(parseFloat(data?.qty))
+                            ? (parseFloat(inputValues[idx]?.value) >
+                              parseFloat(data?.price)
+                                ? parseFloat(data?.price)
+                                : parseFloat(inputValues[idx]?.value)) *
                               parseFloat(data?.qty)
-                            ).toFixed(2)
-                            : "0.00"}
+                            : parseFloat(data?.qty) * parseFloat(data?.price)}
                         </td>
                       </tr>
                     );
@@ -368,39 +500,58 @@ const productrefunds = () => {
                 <div className="itemsRefundedsubTotal">
                   <div className="flexBox justify-content-between ">
                     <p className="orderHeading">Sub Total</p>
-                    <p className="orderHeading">${subtotal}</p>
+                    <p className="orderHeading">
+                      +${subtotal ? subtotal : sumQtyPrice.toFixed(2)}
+                    </p>
                   </div>
                   <div className="flexBox justify-content-between ">
                     <p className="orderHeading">Total Taxes</p>
                     <p className="orderHeading">
-                      -${subtotal ? discount : "0.00"}%
+                      +${sumTax ? sumTax.toFixed(2) : discount}%
+                
+                   
                     </p>
                   </div>
                 </div>
                 <div className="flexBox justify-content-between itemsRefundedTotal">
                   <p className="priceHeading">Total</p>
                   <p className="priceHeading">
-                    ${subtotal ? totalSum : "0.00"}
+                    ${totalSum ? totalSum.toFixed(2) : totalAmount}
                   </p>
                 </div>
                 <div className="text-end">
-                  <button
-                    type="button"
-                    className={
-                      inputValues?.length > 0
-                        ? "ConfirmReturn active"
-                        : "comfirmatiopnBtn"
-                    }
-                    disabled={!inputValues}
-                    onClick={(e) => handleGoToinventery(e)}
-                  >
-                    Confirm
-                    <Image
-                      src={Images.Arrowtopright}
-                      alt="Arrowtopright"
-                      className="img-fluid Arrowtopright"
-                    />
-                  </button>
+                  {allApplicable === true ? (
+                    <button
+                      type="button"
+                      className={
+                        applyRefund == true
+                          ? "ConfirmReturn active"
+                          : "ConfirmReturn"
+                      }
+                      disabled={applyRefund === false}
+                      onClick={(e) => handleGoToinventery(e)}
+                    >
+                      Confirm
+                      <Image
+                        src={Images.Arrowtopright}
+                        alt="Arrowtopright"
+                        className="img-fluid Arrowtopright"
+                      />
+                    </button>
+                  ) : (
+                    <button
+                      type="button"
+                      className="ConfirmReturn active"
+                      onClick={(e) => handleGoToinventery(e)}
+                    >
+                      Confirm
+                      <Image
+                        src={Images.Arrowtopright}
+                        alt="Arrowtopright"
+                        className="img-fluid Arrowtopright"
+                      />
+                    </button>
+                  )}
                 </div>
               </div>
             </div>
@@ -455,11 +606,7 @@ const productrefunds = () => {
         }
         footer={
           <>
-
-            <button
-              className="cancelBtn"
-              onClick={() => handleOnCloseModal()}
-            >
+            <button className="cancelBtn" onClick={() => handleOnCloseModal()}>
               Cancel
             </button>
 
@@ -483,7 +630,6 @@ const productrefunds = () => {
                 className="img-fluid BtnIcon"
               />
             </button>
-
           </>
         }
       />
