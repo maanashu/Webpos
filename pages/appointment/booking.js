@@ -691,7 +691,7 @@ const Booking = () => {
     // };
     return (
       <>
-        <div className="sidebarRightBooking">
+        <div className="sidebarRightBooking ms-0">
           <ListGroup>
             <ListGroupItem className="SidebarRightItems">
               <Link className="sideBarUser" href="#">
@@ -718,7 +718,7 @@ const Booking = () => {
                 </span>
               </div>
             </ListGroupItem>
-            <div className="bookingUsers">
+            <div className="bookingUsers mt-3">
               {staffUsersList?.map((item, index) => {
                 const userProfile = item?.user?.user_profiles;
                 const posUserId = item?.user?.unique_uuid;

@@ -577,6 +577,8 @@ input:checked+.switch-slider:before {
   min-width: calc(100% - 107px) !important;
   margin-right: 95px !important;
   position: relative;
+  height: calc(100vh - 84px);
+  overflow-y: scroll;
 }
 
 .analyticsSection .deliverRightBar {
@@ -1219,13 +1221,16 @@ input:checked+.switch-slider:before {
   border: 1.5px solid #fff;
   background: #12b76a;
   color: #fff;
-  font-size: 12px;
-  font-weight: 500;
+  font-size: 10px;
+  font-weight: 600;
   bottom: -7px;
   right: -8px;
   text-align: center;
-  height: 18px;
-  width: 18px;
+  height: 21px;
+  width: 21px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .bookUserImg {
@@ -1241,19 +1246,23 @@ input:checked+.switch-slider:before {
   border: 1.5px solid #fff;
   background: #12b76a;
   color: #fff;
-  font-size: 12px;
-  font-weight: 500;
+  font-size: 10px;
+  font-weight: 600;
   bottom: 0px;
   right: 0px;
   text-align: center;
-  height: 18px;
-  width: 18px;
+  height: 21px;
+  width: 21px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .bookingUsers {
   height: calc(80vh - 300px);
   overflow-y: scroll;
 }
+
 .bookingUsers::-webkit-scrollbar {
-display: none;
+  display: none;
 }
