@@ -53,6 +53,7 @@ const initialState = {
   holdProductData: [],
   localCartArray: [],
   holdCartLoad: false,
+  cartLength: 0,
 };
 
 export const retailsSlice = createSlice({
@@ -63,6 +64,7 @@ export const retailsSlice = createSlice({
       state.getMainProductLoad = true;
     },
     setMainProduct: (state, action) => {
+      console.log("actions", JSON.stringify(action));
       state.getMainProductLoad = false;
       state.mainProductData = action?.payload?.payload;
     },
@@ -100,11 +102,16 @@ export const retailsSlice = createSlice({
     productCart: (state) => {
       state.productCartLoad = true;
     },
+    setCartLength: (state, action) => {
+      console.log("actionasasasa", JSON.stringify(action));
+      state.cartLength = action?.payload;
+    },
     setProductCart: (state, action) => {
       state.productCartLoad = false;
       state.productCart = action?.payload?.payload;
       state.cartDetails = action?.payload?.payload;
     },
+    createBulkCart: (state, action) => {},
     addNotes: (state) => {
       state.loading = true;
     },
@@ -390,7 +397,9 @@ export const {
   availableOffers,
   setAvailableOffers,
   productCart,
+  setCartLength,
   setProductCart,
+  createBulkCart,
   addNotes,
   setNotes,
   addTocart,

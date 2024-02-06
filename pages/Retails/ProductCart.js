@@ -25,6 +25,7 @@ import CustomModal from "../../components/customModal/CustomModal";
 import DeleteCarts from "./DeleteCarts";
 import {
   amountFormat,
+  calculatePercentageValue,
   formattedReturnPrice,
   getProductFinalPrice,
   getProductPrice,
@@ -148,13 +149,6 @@ const ProductCart = () => {
       })
     );
   };
-  function calculatePercentageValue(value, percentage) {
-    if (percentage == "") {
-      return "";
-    }
-    const percentageValue = (percentage / 100) * parseFloat(value);
-    return percentageValue.toFixed(2) ?? 0.0;
-  }
 
   const clearCartHandler = () => {
     dispatch(

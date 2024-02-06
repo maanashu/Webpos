@@ -7,13 +7,19 @@ import { useDispatch, useSelector } from "react-redux";
 import {
   clearCart,
   getHoldProductCart,
+  getMainProduct,
   holdCart,
   productCart,
   selectRetailData,
+  setCartLength,
+  setLocalCart,
+  setProductCart,
 } from "../../redux/slices/retails";
 import {
   amountFormat,
+  calculatePercentageValue,
   formattedReturnPrice,
+  getProductFinalPrice,
   getProductPrice,
 } from "../../utilities/globalMethods";
 import CustomProductAdd from "./CustomProductAdd";
@@ -21,24 +27,30 @@ import { useRouter } from "next/router";
 import CartAlert from "./CartAlert";
 import CustomServiceAdd from "./CustomServiceAdd";
 import moment from "moment";
+import { selectLoginAuth } from "../../redux/slices/auth";
 // import CustomModal from '../../customModal/CustomModal';
 // import AddProduct from '../../../components/';
 
-const RightSideBar = ({ props }) => {
+const RightSideBar = ({ props, bulkCartFunction }) => {
   const router = useRouter();
   const dispatch = useDispatch();
   const { parameter } = router.query;
+  const authData = useSelector(selectLoginAuth);
+  console.log("Bulklkslkdlsdsd", bulkCartFunction);
   const retailData = useSelector(selectRetailData);
   const cartData = retailData?.productCart || {};
   const cartAmount = cartData?.amount;
-  const cartLength = cartData?.poscart_products?.length;
+  const CART_LENGTH = retailData?.cartLength;
+  const cartLength = CART_LENGTH;
+  const sellerId = authData?.usersInfo?.payload?.uniqe_id;
   const [filterShow, setFilterShow] = useState(false);
   const [customProductAdd, setCustomProductAdd] = useState(false);
   const [customServiceAdd, setCustomServiceAdd] = useState(false);
+  const [animating, setAnimating] = useState(retailData?.productCartLoad);
+  console.log("LOADTTDTDT", retailData?.productCartLoad);
   const holdCartArray = retailData?.holdProductData || [];
-  const holdProductArray = holdCartArray?.filter(
-    (item) => item.is_on_hold === true
-  );
+  const holdProductArray =
+    holdCartArray ?? holdCartArray?.filter((item) => item.is_on_hold === true);
   const [cartAlert, setCartAlert] = useState(false);
 
   const productCarts = cartData?.poscart_products?.filter(
@@ -48,12 +60,11 @@ const RightSideBar = ({ props }) => {
   const serviceCart = cartData?.poscart_products?.filter(
     (item) => item?.product_type == "service"
   );
-
-  useEffect(() => {
-    if (Object.keys(cartData)?.length == 0) {
-      setFilterShow(false);
-    }
-  }, [cartData]);
+  // useEffect(() => {
+  //   if (Object.keys(cartData)?.length == 0) {
+  //     setFilterShow(false);
+  //   }
+  // }, [cartData]);
 
   const [key, setKey] = useState(Math.random());
   const [modalDetail, setModalDetail] = useState({
@@ -92,7 +103,181 @@ const RightSideBar = ({ props }) => {
       })
     );
   };
+  const calculateOrderAmount = (cart) => {
+    if (cart?.poscart_products) {
+      var subTotalAmount = cartData?.poscart_products?.reduce((acc, curr) => {
+        const productPrice = getProductFinalPrice(curr);
 
+        return acc + productPrice;
+
+        // return acc + productPrice * curr.qty;
+      }, 0);
+      // var subTotalAmount = cartData?.amout?.total_amount;
+
+      var discountAmount = 0;
+      var deliveryFee = 0;
+      var taxesAndOtherCharges = 0;
+
+      // if coupon applied
+      // if (objCoupon) {
+      //   const couponDetail = objCoupon;
+      //   if (couponDetail.discount_percentage) {
+      //     discountAmount =
+      //       (subTotalAmount * couponDetail.discount_percentage) / 100;
+      //     discountAmount = Number(discountAmount).toFixed(2);
+      //   }
+
+      //   if (
+      //     couponDetail.max_discount &&
+      //     discountAmount > couponDetail.max_discount
+      //   ) {
+      //     discountAmount = couponDetail.max_discount;
+      //   }
+      // }
+
+      // var productsDiscountAmount = cartData?.cart_products?.reduce(
+      //   (acc, curr) =>
+      //     acc +
+      //     (curr.product_details?.supply?.supply_prices?.offer_price
+      //       ? curr.product_details?.supply?.supply_prices?.actual_price -
+      //         curr.product_details?.supply?.supply_prices?.offer_price
+      //       : 0) *
+      //       curr.qty,
+      //   0
+      // );
+
+      // if (productsDiscountAmount > 0) {
+      //   discountAmount = discountAmount + productsDiscountAmount;
+      // }
+
+      // if (cartData?.amout?.tax_percentage) {
+      //   taxesAndOtherCharges =
+      //     ((subTotalAmount - discountAmount) *
+      //       cartData?.amout?.tax_percentage) /
+      //     100;
+      // }
+
+      taxesAndOtherCharges = parseFloat(
+        calculatePercentageValue(
+          subTotalAmount,
+          parseInt(cart.amount.tax_percentage)
+        )
+      );
+
+      var totalOrderAmount =
+        subTotalAmount - discountAmount + deliveryFee + taxesAndOtherCharges;
+      let amountObj = { ...cart.amount };
+      amountObj.tax = parseFloat(taxesAndOtherCharges); // Update tax value
+      amountObj.total_amount = totalOrderAmount;
+      amountObj.products_price = subTotalAmount;
+      cart.amount = amountObj;
+      // console.log("CART----", JSON.stringify(cart));
+
+      // return;
+      var DATA = {
+        payload: cart,
+      };
+      dispatch(setProductCart(DATA));
+    }
+  };
+  const updateQuantity = (operation, index) => {
+    const updatedCart = { ...retailData?.productCart };
+    const updatedProducts = [...updatedCart?.poscart_products];
+
+    const product = { ...updatedProducts[index] };
+    const restProductQty = product?.product_details?.supply?.rest_quantity;
+    if (operation === "+") {
+      if (restProductQty > product?.qty) {
+        product.qty += 1;
+        updatedProducts[index] = product;
+        updatedCart.poscart_products = updatedProducts;
+        calculateOrderAmount(updatedCart);
+      } else {
+        alert("There are no more quantity left to add");
+      }
+    } else if (operation === "-") {
+      if (product.qty > 0) {
+        if (product.qty === 1) {
+          updatedProducts.splice(index, 1);
+          if (CART_LENGTH > 0) {
+            dispatch(setCartLength(CART_LENGTH - 1));
+          } else {
+            setFilterShow(false);
+            dispatch(setCartLength(0));
+          }
+        } else {
+          product.qty -= 1;
+          updatedProducts[index] = product;
+        }
+        updatedCart.poscart_products = updatedProducts;
+        calculateOrderAmount(updatedCart);
+      }
+    }
+  };
+  const removeOneCartHandler = (data, index) => {
+    const offeyKey = data?.product_details?.supply?.supply_offers;
+    const updatedCart = { ...retailData?.productCart };
+
+    if (updatedCart?.poscart_products?.length === 1 && index === 0) {
+      clearCartHandler();
+    } else {
+      const newCart = { ...updatedCart };
+
+      if (offeyKey?.length > 0) {
+        const product = newCart?.poscart_products[index];
+        const productPrice = getProductFinalPrice(data);
+
+        if (product.qty > 0) {
+          newCart.amount = { ...newCart.amount };
+          newCart.amount.total_amount -= productPrice;
+          newCart.amount.products_price -= productPrice;
+          newCart.poscart_products = [
+            ...newCart.poscart_products.slice(0, index),
+            ...newCart.poscart_products.slice(index + 1),
+          ];
+        }
+      } else {
+        const product = newCart?.poscart_products[index];
+        const productPrice =
+          product.product_details?.supply?.supply_prices?.selling_price;
+
+        if (product.qty > 0) {
+          newCart.amount = { ...newCart.amount };
+          newCart.amount.total_amount -= productPrice * product.qty;
+          newCart.amount.products_price -= productPrice * product.qty;
+          newCart.poscart_products = [
+            ...newCart.poscart_products.slice(0, index),
+            ...newCart.poscart_products.slice(index + 1),
+          ];
+        }
+      }
+
+      const totalAmount = newCart.amount.products_price;
+      const TAX = calculatePercentageValue(
+        totalAmount,
+        parseInt(newCart.amount.tax_percentage)
+      );
+      newCart.amount.tax = parseFloat(TAX);
+      newCart.amount.total_amount = totalAmount + parseFloat(TAX);
+      dispatch(setCartLength(CART_LENGTH - 1));
+      var DATA = {
+        payload: newCart,
+      };
+      dispatch(setProductCart(DATA));
+    }
+  };
+  const clearCartHandler = () => {
+    dispatch(
+      clearCart({
+        cb: () => {
+          dispatch(productCart());
+          dispatch(setCartLength(0));
+          dispatch(setLocalCart([]));
+          setFilterShow((prev) => !prev);
+        },
+      })
+    );
+  };
   return (
     <>
       {parameter == "product" ? (
@@ -105,9 +290,13 @@ const RightSideBar = ({ props }) => {
             <ListGroupItem
               className="rightSidebarItems active"
               onClick={() => {
-                productCarts?.length > 0
+                setTimeout(() => {
+                  bulkCartFunction();
+                }, 100);
+
+                cartLength > 0
                   ? setFilterShow((prev) => !prev)
-                  : void 0;
+                  : setFilterShow(false);
               }}
             >
               <div className="sidebarBg">
@@ -117,7 +306,7 @@ const RightSideBar = ({ props }) => {
                   className="imgSize"
                 />
               </div>
-              <span className="cartNum">{productCarts?.length || "0"}</span>
+              <span className="cartNum">{cartLength || "0"}</span>
             </ListGroupItem>
             {/* <ListGroupItem className="rightSidebarItems" onClick={() => {
                       setModalDetail({ show: true, flag: "AddProduct" });
@@ -132,9 +321,10 @@ const RightSideBar = ({ props }) => {
               <div
                 className="sidebarBg"
                 onClick={() => {
-                  serviceCart?.length > 0
-                    ? setCartAlert(true)
-                    : setCustomProductAdd(true);
+                  bulkCartFunction(),
+                    serviceCart?.length > 0
+                      ? setCartAlert(true)
+                      : setCustomProductAdd(true);
                 }}
               >
                 <Image
@@ -146,15 +336,26 @@ const RightSideBar = ({ props }) => {
             </ListGroupItem>
             <ListGroupItem
               className="rightSidebarItems"
-              onClick={() =>
+              onClick={() => {
+                dispatch(setCartLength(0));
+                dispatch(setLocalCart([]));
                 dispatch(
                   clearCart({
                     cb: () => {
+                      let params = {
+                        seller_id: sellerId,
+                      };
+                      // dispatch(
+                      //   getMainProduct({
+                      //     ...params,
+                      //     cb(res) {},
+                      //   })
+                      // );
                       dispatch(productCart());
                     },
                   })
-                )
-              }
+                );
+              }}
             >
               <div className="sidebarBg">
                 <Image
@@ -335,143 +536,170 @@ const RightSideBar = ({ props }) => {
 
       {filterShow ? (
         <div className="AddtoCart ProductAddCart">
-          <div className="cartInfo">
-            {cartData?.poscart_products?.map((data, index) => {
-              const productSize =
-                data?.product_details?.supply?.attributes?.filter(
-                  (item) => item?.name?.toLowerCase() == "size"
-                );
-              const productColor =
-                data?.product_details?.supply?.attributes?.filter(
-                  (item) => item?.name?.toLowerCase() == "color"
-                );
+          {animating ? (
+            <div className="text-center">
+              <span className="spinner-border spinner-border-sm mx-auto"></span>
+            </div>
+          ) : (
+            <div className="cartInfo">
+              {cartData?.poscart_products?.map((data, index) => {
+                const productSize =
+                  data?.product_details?.supply?.attributes?.filter(
+                    (item) => item?.name?.toLowerCase() == "size"
+                  );
+                const productColor =
+                  data?.product_details?.supply?.attributes?.filter(
+                    (item) => item?.name?.toLowerCase() == "color"
+                  );
 
-              return (
-                <div className="cartSubInfo active productCartShow" key={index}>
-                  <div className="orderTime productCartInfo">
-                    <Image
-                      src={data?.product_details?.image}
-                      alt="cartFoodImg"
-                      className="img-fluid cartFoodImg"
-                      width="100"
-                      height="100"
-                    />
-                    <div className="cartorderHeading ms-2 ">
-                      <h4 className="cartText cartShowText">
-                        {data?.product_details?.name}
-                      </h4>
-                      {data?.product_type === "service" && (
-                        <div className="userIdText mt-1">
-                          {moment.utc(data?.date).format("LL")} @
-                          {data?.start_time + "-" + data?.end_time}
+                return (
+                  <div
+                    className="cartSubInfo active productCartShow"
+                    key={index}
+                  >
+                    <div className="orderTime productCartInfo">
+                      <Image
+                        src={data?.product_details?.image}
+                        alt="cartFoodImg"
+                        className="img-fluid cartFoodImg"
+                        width="100"
+                        height="100"
+                      />
+                      <div className="cartorderHeading ms-2 ">
+                        <h4 className="cartText cartShowText">
+                          {data?.product_details?.name}
+                        </h4>
+                        {data?.product_type === "service" && (
+                          <div className="userIdText mt-1">
+                            {moment.utc(data?.date).format("LL")} @
+                            {data?.start_time + "-" + data?.end_time}
+                          </div>
+                        )}
+
+                        <div className="flexTable mt-1">
+                          {productColor?.length > 0 && (
+                            <>
+                              <span className="userIdText">Colors :</span>
+                              <div
+                                style={{
+                                  width: "12px",
+                                  height: "12px",
+                                  border: "1px solid black",
+                                  borderRadius: "15%",
+                                  // display: "flex",
+                                  justifyContent: "center",
+                                  alignItems: "center",
+                                  background: productColor?.[0]?.values?.name,
+                                }}
+                              ></div>
+                            </>
+                          )}
+
+                          {productSize?.length > 0 && (
+                            <span className="userIdText mx-2">
+                              Size : {productSize?.[0]?.values?.name}{" "}
+                            </span>
+                          )}
                         </div>
-                      )}
-
-                      <div className="flexTable mt-1">
-                        {productColor?.length > 0 && (
-                          <>
-                            <span className="userIdText">Colors :</span>
-                            <div
-                              style={{
-                                width: "12px",
-                                height: "12px",
-                                border: "1px solid black",
-                                borderRadius: "15%",
-                                // display: "flex",
-                                justifyContent: "center",
-                                alignItems: "center",
-                                background: productColor?.[0]?.values?.name,
-                              }}
-                            ></div>
-                          </>
-                        )}
-
-                        {productSize?.length > 0 && (
-                          <span className="userIdText mx-2">
-                            Size : {productSize?.[0]?.values?.name}{" "}
-                          </span>
-                        )}
                       </div>
                     </div>
-                  </div>
-                  <div className="orderCalculate">
-                    <h4 className="cartMoney">
-                      {amountFormat(
-                        getProductPrice(
-                          data.product_details?.supply?.supply_offers,
-                          data.product_details?.supply?.supply_prices
-                            ?.selling_price,
-                          data.qty
-                        )
-                      )}
-                    </h4>
-                    <div className="incrementBtn ">
-                      <i className="fa-solid fa-minus plusMinus"></i>
-                      <input
-                        className="form-control addBtnControl"
-                        type="number"
-                        placeholder="1"
-                      />
-                      <i className="fa-solid fa-plus plusMinus"></i>
-                    </div>
-                    <label className="custom-checkbox">
-                      <input type="checkbox" />
-                      <span className="checkmark"></span>
-                    </label>
-                  </div>
-                </div>
-              );
-            })}
+                    <div className="orderCalculate">
+                      <h4 className="cartMoney">
+                        {amountFormat(
+                          getProductPrice(
+                            data.product_details?.supply?.supply_offers,
+                            data.product_details?.supply?.supply_prices
+                              ?.selling_price,
+                            data.qty
+                          )
+                        )}
+                      </h4>
+                      <div className="incrementBtn ">
+                        <i
+                          onClick={() => updateQuantity("-", index)}
+                          className="fa-solid fa-minus plusMinus"
+                        ></i>
+                        <input
+                          className="form-control addBtnControl"
+                          type="number"
+                          placeholder="1"
+                          value={data?.qty}
+                        />
 
-            <div className="subFooter">
-              <div className="dividesection">
-                <hr className="divideBorder" />
-              </div>
-              <div className="cartTotalsection">
-                <div className="cartTotal">
-                  <h4 className="userPosition">Sub Total</h4>
-                  <h4 className="amountText m-0">
-                    {amountFormat(cartAmount?.products_price)}
-                  </h4>
+                        <i
+                          onClick={() => updateQuantity("+", index)}
+                          className="fa-solid fa-plus plusMinus"
+                        ></i>
+                      </div>
+                      {/* <label className="custom-checkbox"> */}
+                      <div
+                        onClick={() => {
+                          removeOneCartHandler(data, index);
+                        }}
+                      >
+                        <Image
+                          src={Images.redCross}
+                          alt="crossImage"
+                          className="img-fluid ms-2"
+                        />
+                      </div>
+                      {/* <span className="checkmark"></span> */}
+                      {/* </label> */}
+                    </div>
+                  </div>
+                );
+              })}
+
+              <div className="subFooter">
+                <div className="dividesection">
+                  <hr className="divideBorder" />
                 </div>
-                <div className="cartTotal">
-                  <h4 className="userPosition">{`Discount ${
-                    cartData?.discount_flag === "percentage" ? "(%)" : ""
-                  } `}</h4>
-                  <h4 className="amountText m-0">
-                    {formattedReturnPrice(cartAmount?.discount || "0.00")}
-                  </h4>
+                <div className="cartTotalsection">
+                  <div className="cartTotal">
+                    <h4 className="userPosition">Sub Total</h4>
+                    <h4 className="amountText m-0">
+                      {amountFormat(cartAmount?.products_price)}
+                    </h4>
+                  </div>
+                  <div className="cartTotal">
+                    <h4 className="userPosition">{`Discount ${
+                      cartData?.discount_flag === "percentage" ? "(%)" : ""
+                    } `}</h4>
+                    <h4 className="amountText m-0">
+                      {formattedReturnPrice(cartAmount?.discount || "0.00")}
+                    </h4>
+                  </div>
+                  <div className="cartTotal">
+                    <h4 className="userPosition">Total Taxes</h4>
+                    <h4 className="amountText m-0">
+                      {amountFormat(cartAmount?.tax)}
+                    </h4>
+                  </div>
+                  <div className="cartTotal">
+                    <h4 className="userPosition">Total</h4>
+                    <h4 className="amountText m-0">
+                      {amountFormat(cartAmount?.total_amount)}
+                    </h4>
+                  </div>
+                  <button
+                    className="nextverifyBtn w-100"
+                    onClick={() => {
+                      parameter == "product"
+                        ? router.push({ pathname: "/Retails/ProductCart" })
+                        : router.push({ pathname: "/Retails/ServiceCart" });
+                    }}
+                  >
+                    Proceed to checkout
+                    <Image
+                      src={Images.ArrowRight}
+                      alt="rightArrow"
+                      className="img-fluid rightImg"
+                    />
+                  </button>
                 </div>
-                <div className="cartTotal">
-                  <h4 className="userPosition">Total Taxes</h4>
-                  <h4 className="amountText m-0">
-                    {amountFormat(cartAmount?.tax)}
-                  </h4>
-                </div>
-                <div className="cartTotal">
-                  <h4 className="userPosition">Total</h4>
-                  <h4 className="amountText m-0">
-                    {amountFormat(cartAmount?.total_amount)}
-                  </h4>
-                </div>
-                <button
-                  className="nextverifyBtn w-100"
-                  onClick={() => {
-                    parameter == "product"
-                      ? router.push({ pathname: "/Retails/ProductCart" })
-                      : router.push({ pathname: "/Retails/ServiceCart" });
-                  }}
-                >
-                  Proceed to checkout
-                  <Image
-                    src={Images.ArrowRight}
-                    alt="rightArrow"
-                    className="img-fluid rightImg"
-                  />
-                </button>
               </div>
             </div>
-          </div>
+          )}
         </div>
       ) : (
         <></>

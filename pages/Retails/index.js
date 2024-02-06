@@ -18,6 +18,8 @@ import {
   addLocalCart,
   setLocalCart,
   setMainProduct,
+  setCartLength,
+  createBulkCart,
 } from "../../redux/slices/retails";
 import { useDispatch, useSelector } from "react-redux";
 import { getAllPosUser, selectLoginAuth } from "../../redux/slices/auth";
@@ -42,6 +44,7 @@ const Retails = () => {
   const router = useRouter();
   const { parameter } = router.query;
   const cartData = retailData?.productCart;
+  const CART_LENGTH = retailData?.cartLength;
   // const cartLength = cartData?.poscart_products?.length;
   const cartPosCart = cartData?.poscart_products || [];
   const mainProductArray = retailData?.mainProductData?.data || [];
@@ -49,16 +52,19 @@ const Retails = () => {
   const [cartAlert, setCartAlert] = useState(false);
   const [selectedCartItem, setSelectedCartItems] = useState([]);
   // const CART_LENGTH = useSelector(getCartLength);
-  // const cartLength = CART_LENGTH;
+  const cartLength = CART_LENGTH;
   const LOCAL_CART_ARRAY = retailData?.localCartArray;
-
-  console.log("LOCAL_CART_ARRAY", LOCAL_CART_ARRAY);
+  const [localCartArray, setLocalCartArray] = useState(LOCAL_CART_ARRAY);
+  console.log("LOADTTDTDT--reatil", retailData?.productCartLoad);
 
   const [isFocus, setIsFocus] = useState(false);
-
+  useEffect(() => {
+    setLocalCartArray(LOCAL_CART_ARRAY);
+  }, [LOCAL_CART_ARRAY]);
   useEffect(() => {
     dispatch(getHoldProductCart());
   }, []);
+  console.log("LOCAL_CART_ARRAY", LOCAL_CART_ARRAY);
 
   useEffect(() => {
     if (retailData?.productCart?.poscart_products?.length > 0) {
@@ -174,28 +180,40 @@ const Retails = () => {
     dispatch(getAllPosUser({ seller_id: sellerId }));
   }, [sellerId]);
 
-  const checkAttributes = (item, index) => {
+  const checkAttributes = (item, index, cartQty) => {
     if (onlyServiceCartArray?.length > 0) {
       setCartAlert(true);
     } else {
       if (item?.supplies?.[0]?.attributes?.length !== 0) {
         productFun(item.id, index, item);
       } else {
-        onClickAddCart(item, index);
+        onClickAddCart(item, index, cartQty);
       }
     }
   };
 
-  const onClickAddCart = (item, index, supplyVarientId) => {
+  const bulkCart = async () => {
+    if (localCartArray.length > 0) {
+      const dataToSend = {
+        seller_id: sellerId,
+        products: localCartArray,
+      };
+
+      try {
+        dispatch(createBulkCart(dataToSend));
+      } catch (error) {}
+    }
+  };
+  const onClickAddCart = (item, index, cartQty, supplyVarientId) => {
     const mainProductArray = { ...retailData?.mainProductData };
-    console.log("mainProductArray", mainProductArray);
-    // return;
-    let mainProductData = { ...mainProductArray?.data[index] };
+    let mainProduct = [...mainProductArray?.data];
     const product = { ...mainProductArray?.data[index] };
     const cartArray = [...selectedCartItem];
+
     const existingItemIndex = cartArray.findIndex(
       (cartItem) => cartItem.product_id === item?.id
     );
+    const cartArrayProduct = { ...cartArray[existingItemIndex] };
     const params = {
       product_type: "product",
       product_id: item?.id,
@@ -208,12 +226,14 @@ const Retails = () => {
     }
     if (existingItemIndex === -1) {
       cartArray.push(params);
-      // dispatch(updateCartLength(cartLength + 1));
+
+      dispatch(setCartLength(cartLength + 1));
     } else {
       const restProductQty =
         mainProductArray.data[index].supplies[0]?.rest_quantity;
       if (restProductQty > cartArray[existingItemIndex].qty) {
-        cartArray[existingItemIndex].qty = cartQty + 1;
+        cartArrayProduct.qty = cartQty + 1;
+        cartArray[existingItemIndex] = cartArrayProduct;
       } else {
         alert("There are no more quantity left to add");
       }
@@ -221,10 +241,12 @@ const Retails = () => {
     dispatch(setLocalCart(cartArray));
     setSelectedCartItems(cartArray);
     product.cart_qty += 1;
-    console.log("mainProductArray", mainProductArray);
-    mainProductData = product;
-    // mainProductArray.data[index].cart_qty += 1;
-    dispatch(setMainProduct(mainProductArray));
+    mainProduct[index] = product;
+    mainProductArray.mainProductData = mainProduct;
+    const data = {
+      payload: mainProductArray,
+    };
+    dispatch(setMainProduct(data));
   };
 
   return (
@@ -251,6 +273,15 @@ const Retails = () => {
                     const cartMatchProduct = cartPosCart?.find(
                       (data) => data?.product_id == item?.id
                     );
+                    const isProductMatchArray = localCartArray?.find(
+                      (data) => data.product_id === item.id
+                    );
+                    const cartAddQty = isProductMatchArray?.qty;
+
+                    const updatedItem = { ...item };
+                    if (cartAddQty !== undefined) {
+                      updatedItem.cart_qty = cartAddQty;
+                    }
                     return (
                       <div
                         className="col-xl-2 col-lg-3 col-md-4 mb-3"
@@ -259,11 +290,12 @@ const Retails = () => {
                         {/* <Link href='/Retails/AddProduct'> */}
                         <div
                           className={
-                            cartMatchProduct?.qty > 0
+                            updatedItem?.cart_qty > 0
                               ? "productsCard active"
                               : "productsCard"
                           }
-                          onClick={() => {
+                          onClick={(e) => {
+                            e.stopPropagation();
                             onlyServiceCartArray?.length > 0
                               ? setCartAlert(true)
                               : productFun(item.id, index, item);
@@ -312,13 +344,23 @@ const Retails = () => {
                                   }
                                 </p>
                               )}
-                              <div className="cartProductImg">
+                              <div
+                                onClick={(e) => {
+                                  e.stopPropagation();
+                                  checkAttributes(item, index, cartAddQty);
+                                }}
+                                className="cartProductImg"
+                              >
                                 <Image
                                   src={Images.ShoppingOutline}
                                   alt="image"
                                   className="imgSize"
                                 />
-                                {/* <span className="productNum">2</span> */}
+                                {updatedItem?.cart_qty > 0 && (
+                                  <span className="productNum">
+                                    {updatedItem?.cart_qty}
+                                  </span>
+                                )}
                               </div>
                             </div>
                           </article>
@@ -502,7 +544,11 @@ const Retails = () => {
           </div>
         </div>
 
-        <RightSideBar showSidebar={showSidebar} parameter={parameter} />
+        <RightSideBar
+          showSidebar={showSidebar}
+          parameter={parameter}
+          bulkCartFunction={() => bulkCart()}
+        />
       </div>
       <Modal show={cartAlert} centered keyboard={false}>
         <CartAlert crossHandler={() => setCartAlert(false)} />
