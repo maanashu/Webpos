@@ -4644,8 +4644,8 @@ figure {
 
 .batchData {
   border-radius: 30px;
-  border: 1px solid #f5f6fc;
-  background: #f5f6fc;
+  border: 1px solid #e4e6f2bf;
+  background: #e4e6f2bf;
   padding: 8px 8px 8px 26px;
   display: flex;
   align-items: center;
@@ -4656,7 +4656,7 @@ figure {
 .batchDataSub {
   display: flex;
   align-items: center;
-  gap: 70px;
+  gap: 30px;
 }
 
 .viewSessionBtn {
@@ -5557,4 +5557,9 @@ figure {
 .overflow-scroll-common-filter {
   overflow-y: scroll;
   height: 50vh;
+}
+.select-language-drop{
+  display: flex;
+  justify-content: end;
+  align-items: center;
 }

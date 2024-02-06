@@ -1,9 +1,8 @@
 import Image from "next/image";
 import React, { useEffect, useState } from "react";
 import { PaginationFooter } from "../../../components/commanComonets/customers/PaginationFooter";
-
+import Link from "next/link";
 import { Chart as ChartJS, registerables } from "chart.js";
-import { backArrow, DrawerID } from "../../../utilities/images";
 import {
   getSessionHistory,
   selectCashDrawerData,
@@ -34,15 +33,18 @@ const SessionHistory = () => {
 
   return (
     <div className="cashDrawOuter cashDrawSessionMain">
-      <div className="sessionHeader">
-        <Image
-          src={backArrow}
-          width={50}
-          height={50}
-          style={{ marginTop: "3px" }}
-        />
-        <div style={{ marginLeft: "6px" }}>
-          <h6>Session History</h6>
+      <div className="sessionHeader" style={{margin: "16px"}}>
+        <Link href="/cashDrawer">
+          {/* <Image
+            src={backArrow}
+            width={50}
+            height={50}
+            style={{ marginTop: "3px", cursor: "pointer" }}
+          /> */}
+          <Image src={Images.arrowLeftUp} alt="leftArrow" className="img-fluid leftImg" />
+        </Link>
+        <div style={{ marginLeft: "6px" }} className="textNeavyBlue">
+          <h5><b>Session History</b></h5>
         </div>
       </div>
 

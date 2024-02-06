@@ -45,6 +45,7 @@ import {
   setHoldProductCart,
   setHoldCart,
   setCartLength,
+  setUpdatePrice,
 } from "../../slices/retails";
 import { all, call, put, takeLatest } from "redux-saga/effects";
 import { store, wrapper } from "../..";
@@ -340,9 +341,15 @@ function* updateCartByTip(action) {
 }
 
 function* createOrder(action) {
-  const body = { ...action.payload };
+  const attachWithPhone = store?.getState()?.retails?.attachWithPhone;
+  const attachWithEmail = store?.getState()?.retails?.attachWithEmail;
+  const body = {
+    ...action.payload,
+    reciept_on_phone: attachWithPhone,
+    reciept_on_email: attachWithEmail,
+  };
   delete body.tips;
-  // delete body.mode_of_payment;
+
   try {
     const resp = yield call(
       ApiClient.post,
@@ -885,6 +892,31 @@ function* holdCart(action) {
   }
 }
 
+function* updatePrice(action) {
+  const cartId = action?.payload?.cartid;
+  const productId = action?.payload?.cartProductId;
+  const body = action?.payload;
+  delete body.cartid;
+  delete body.cartProductId;
+
+  try {
+    const resp = yield call(
+      ApiClient.put,
+      `${ORDER_API_URL_V1}poscarts/update-price/${cartId}/${productId}`,
+      body
+    );
+    if (resp.status) {
+      yield put(setUpdatePrice(resp.data));
+      yield call(action.payload.cb, (action.res = resp?.data));
+    } else {
+      throw resp;
+    }
+  } catch (e) {
+    yield put(onErrorStopLoad());
+    toast.error(e?.error?.response?.data?.msg);
+  }
+}
+
 function* retailsSaga() {
   yield all([
     takeLatest("retails/getMainProduct", getMainProduct),
@@ -931,6 +963,7 @@ function* retailsSaga() {
     takeLatest("retails/getHoldProductCart", getHoldProductCart),
     takeLatest("retails/holdCart", holdCart),
     takeLatest("retails/createBulkCart", createBulkCart),
+    takeLatest("retails/updatePrice", updatePrice),
   ]);
 }
 

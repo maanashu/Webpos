@@ -111,10 +111,10 @@ const Verify = () => {
               setKey(Math.random());
             }
 
-            // else if (res?.data?.payload?.user_profiles?.is_two_fa_enabled === false) {
-            //   router.push("/home/overview")
-            //   localStorage.removeItem('PhoneNumber');
-            // }
+            else if (res?.data?.payload?.user_profiles?.is_two_fa_enabled === false) {
+              router.push("/home/overview")
+              localStorage.removeItem('PhoneNumber');
+            }
 
           }
         },

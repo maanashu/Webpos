@@ -148,7 +148,6 @@ const OrderReview = () => {
                 ...params,
                 cb(res) {
                     if (res) {
-                        localStorage.setItem("status",status)
                         setAcceptLoading(false)
                         setDeclineLoading(false)
                         getAllShippingOrdeshandle(status)
@@ -167,7 +166,7 @@ const OrderReview = () => {
 
     useEffect(() => {
         if (sellerUid) {
-            getAllShippingOrdeshandle(null)
+            getAllShippingOrdeshandle()
             getAllShippingOrdesCountHandle()
         }
     }, [sellerUid, selectedDate, orderListType]);
@@ -483,7 +482,7 @@ const OrderReview = () => {
                                                         <p className='orderSubHeading'>{moment.utc(singleOrderData?.created_at).format("MM/DD/YYYY")}</p>
                                                     </div>
                                                     <div className="OrderCheckoutBox">
-                                                        <p className='orderHeading'>Order ID</p>
+                                                        <p className='orderHeading'>Invoice ID</p>
                                                         <p className='orderSubHeading'>#{singleOrderData?.invoices?.invoice_number}</p>
                                                     </div>
                                                     <div className="OrderCheckoutBox">

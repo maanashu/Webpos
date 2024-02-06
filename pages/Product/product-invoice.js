@@ -178,7 +178,7 @@ const ProductInvoice = () => {
     return acc + tax;
   }, 0);
 
-  const totalAmount = sumQtyPrice - sumTax;
+  const totalAmount = sumQtyPrice + sumTax;
 
   return (
     <>
@@ -367,7 +367,8 @@ const ProductInvoice = () => {
                                 : Number(data?.order_details?.price) *
                                   Number(data?.order_details?.qty)} */}
                               {Number(data?.refunded_amount) *
-                                Number(data?.returned_qty)}
+                                Number(data?.returned_qty)?Number(data?.refunded_amount) *
+                                Number(data?.returned_qty):Number(data?.product_price)*Number(data?.returned_qty)}
                             </p>
                           </article>
                         </div>
@@ -418,17 +419,17 @@ const ProductInvoice = () => {
                           : Number(sumQtyPrice)}
                       </p>
                       <p className="productName">
-                        -$
+                        +$
                         {Number(returnData?.tax)
                           ? Number(returnData?.tax)
                           : Number(sumTax).toFixed(2)}
                       </p>
 
                       <p className="totalBtn">
-                        -$
-                        {Number(returnData?.refunded_amount) -
+                        +$
+                        {Number(returnData?.refunded_amount) +
                         Number(returnData?.tax)
-                          ? Number(returnData?.refunded_amount) -
+                          ? Number(returnData?.refunded_amount) +
                             Number(returnData?.tax)
                           : totalAmount.toFixed(2)}
                       </p>
@@ -594,7 +595,7 @@ const ProductInvoice = () => {
                       </div>
                       <div className="OrderCheckoutBox">
                         <p className="orderHeading">Order ID#</p>
-                        <p className="orderSubHeading">{orderDetails?.id}</p>
+                        <p className="orderSubHeading">{SearchInvoiceRespones?.invoice_number}</p>
                       </div>
                       <div className="OrderCheckoutBox">
                         <p className="orderHeading">Payment Method</p>

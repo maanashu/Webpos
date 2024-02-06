@@ -48,7 +48,7 @@ const index = () => {
     {
       icon: total_volume,
       title: "Total Volume",
-      count: `${addThousandSeparator(totalOrderAnalyticsData?.ordersOverView?.total_volume ? (totalOrderAnalyticsData?.ordersOverView?.total_volume).toFixed(2) : 0)}`,
+      count: `$${addThousandSeparator(totalOrderAnalyticsData?.ordersOverView?.total_volume ? (totalOrderAnalyticsData?.ordersOverView?.total_volume).toFixed(2) : 0)}`,
       bgColor: "#D1FADF",
       textColor: "#003921",
     },
@@ -203,7 +203,7 @@ const index = () => {
                   className="customers-table-data"
                   style={{ border: "none", color: "#7E8AC1", textAlign: "center" }}
                 >
-                  Total Revenue
+                  Total Sales
                 </th>
               </tr>
             </thead>

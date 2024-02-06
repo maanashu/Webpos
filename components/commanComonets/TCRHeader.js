@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { customerWallet } from "../../utilities/images";
 import Image from "next/image";
 import HeaderUtils from "./HeaderUtils";
+import moment from "moment-timezone";
 
 // Transactions, Customers, Rewards header
 const TCRHeader = ({
@@ -27,6 +28,9 @@ const TCRHeader = ({
     { value: "year", label: "Yearly", id: 4 },
   ];
 
+  const startDated = moment(startDate).format("YYYY-MM-DD");
+  const endDated = moment(endDate).format("YYYY-MM-DD");
+
   const boldInDescrip = () => (
     <>
       All the following data is gathered{" "}
@@ -35,7 +39,9 @@ const TCRHeader = ({
           fontWeight: "600",
         }}
       >
-        {TIME_SPANS?.filter((el) => el?.value == timeSpan)[0]?.label}
+        {timeSpan
+          ? TIME_SPANS?.filter((el) => el?.value == timeSpan)[0]?.label
+          : `${startDated} - ${endDated}`}
       </span>
     </>
   );

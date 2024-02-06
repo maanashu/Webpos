@@ -239,6 +239,7 @@ const OrderDeliver = ({ orderDetail }) => {
       seller_id: uniqueId,
       delivery_option: "1,3",
       need_walkin: false,
+      need_returned: false,
     };
     setTimeout(() => {
       getDrawerCount();
@@ -296,7 +297,7 @@ const OrderDeliver = ({ orderDetail }) => {
                       </h4>
                     </div>
                   </Link>
-                  <div className="table-responsive mt-3">
+                  {/* <div className="table-responsive mt-3">
                     <table id="" className="orderDeliverTable">
                       <thead className="invoiceHeadingBox">
                         <tr>
@@ -386,14 +387,14 @@ const OrderDeliver = ({ orderDetail }) => {
                         </tr>
                       </tbody>
                     </table>
-                  </div>
+                  </div> */}
 
-                  {/* <OrderListItem
+                  <OrderListItem
                     id={replaceDeliveryStatus(orderListType?.title)}
                     screen={"SeeAll"}
                     orderList={orderList?.data}
                     itemPressHandler={itemPressHandler}
-                  /> */}
+                  />
                 </div>
               )}
             </div>

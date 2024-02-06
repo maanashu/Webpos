@@ -8,6 +8,8 @@ import {
   merchantWalletCheck,
   productCart,
   selectRetailData,
+  setAttachWithEmail,
+  setAttachWithPhone,
   setProductCart,
   updateCartByTip,
 } from "../../redux/slices/retails";
@@ -464,6 +466,8 @@ const CartAmountByPay = () => {
                                   flag: "PhoneReceipt",
                                 });
                                 setKey(Math.random());
+                                dispatch(setAttachWithPhone(true));
+                                dispatch(setAttachWithEmail(false));
                               } else if (selectedRecipeIndex == "1") {
                                 // handleUserProfile("emailReceipt");
                                 // setEmailModal(true);
@@ -472,8 +476,12 @@ const CartAmountByPay = () => {
                                   flag: "emailReceipt",
                                 });
                                 setKey(Math.random());
+                                dispatch(setAttachWithPhone(false));
+                                dispatch(setAttachWithEmail(true));
                               } else if (selectedRecipeIndex == "2") {
                                 noThanksHandler();
+                                dispatch(setAttachWithPhone(false));
+                                dispatch(setAttachWithEmail(false));
                                 // router.push({
                                 //   pathname: "/Retails/CartPayByCash",
                                 // });
@@ -508,6 +516,9 @@ const CartAmountByPay = () => {
                           let params = {
                             seller_id: sellerId,
                           };
+                          dispatch(setAttachWithPhone(false));
+                          dispatch(setAttachWithEmail(false));
+
                           dispatch(
                             merchantWalletCheck({
                               ...params,

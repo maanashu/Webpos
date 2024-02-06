@@ -13,6 +13,7 @@ import TCRHeader from "../../../components/commanComonets/TCRHeader";
 import PaginationHeader from "../../../components/commanComonets/PaginationHeader";
 import { useDispatch, useSelector } from "react-redux";
 import {
+  getAllCustomers,
   getAllCustomersList,
   getSellerAreaList,
   selectCustomersData,
@@ -49,6 +50,30 @@ const Users = () => {
 
   const paginatedCustomersList = customersData?.allCustomersList?.payload;
   const sellerAreaList = customersData?.sellerAreaList?.payload?.data;
+
+  const filterHandler = () => {
+    if (startDate && endDate) {
+      return {
+        start_date: moment(startDate).format("YYYY-MM-DD"),
+        end_date: moment(endDate).format("YYYY-MM-DD"),
+      };
+    } else if (timeSpan) {
+      return {
+        filter: timeSpan,
+      };
+    }
+  };
+  const data = filterHandler();
+
+  useEffect(() => {
+    if (uniqueId && data) {
+      let params = {
+        seller_id: uniqueId,
+        ...data,
+      };
+      dispatch(getAllCustomers(params));
+    }
+  }, [uniqueId, timeSpan, startDate, endDate]);
 
   useEffect(() => {
     if (uniqueId) {

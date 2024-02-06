@@ -4,7 +4,11 @@ import Image from "next/image";
 import CustomModal from "../../components/customModal/CustomModal";
 import SessionModal from "../../components/modals/homeModals/sessionModal";
 import { DELIVERY_MODE } from "../../constants/commonConstants";
-import { logout, selectLoginAuth, posUserLogout } from "../../redux/slices/auth";
+import {
+  logout,
+  selectLoginAuth,
+  posUserLogout,
+} from "../../redux/slices/auth";
 import { useDispatch, useSelector } from "react-redux";
 import { useRouter } from "next/router";
 import withAuth from "../../components/withAuth";
@@ -16,7 +20,7 @@ import {
   getTodaySales,
   getOnlineOrdersCount,
   endTrackingSession,
-  fetchInvoiceDetail
+  fetchInvoiceDetail,
 } from "../../redux/slices/dashboard";
 import PaginationFooter from "../../components/commanComonets/customers/PaginationFooter";
 import Login from "../auth/login";
@@ -54,35 +58,34 @@ const Overview = () => {
     title: "",
     flag: "",
   });
-  
-    // API for get all oder deliveries...............................
-    const allOrderDeliveriesInfo = () => {
-        let params = {
-            seller_id: UniqueId,
-            delivery_option: "1,3,4",
-            page: pageNumber,
-            limit: recordsPerPage,
-            app_name: 'b2c'
-        };
-        setLoadingOrders(true);
-        dispatch(getAllOrderDeliveries({
-            ...params,
-            cb(res) {
-              if (res.status && res?.data?.payload?.data?.length) {
-                setOrderDeliveriesInfo(res?.data?.payload?.data);
-                setTotalItems(res?.data?.payload?.total);
-                setLoadingOrders(false);
-              }
-              else {
-                setOrderDeliveriesInfo([]);
-                setTotalItems(0);
-                setLoadingOrders(false);
-              }
-            },
-          })
-        );
-    };
 
+  // API for get all oder deliveries...............................
+  const allOrderDeliveriesInfo = () => {
+    let params = {
+      seller_id: UniqueId,
+      delivery_option: "1,3,4",
+      page: pageNumber,
+      limit: recordsPerPage,
+      app_name: "b2c",
+    };
+    setLoadingOrders(true);
+    dispatch(
+      getAllOrderDeliveries({
+        ...params,
+        cb(res) {
+          if (res.status && res?.data?.payload?.data?.length) {
+            setOrderDeliveriesInfo(res?.data?.payload?.data);
+            setTotalItems(res?.data?.payload?.total);
+            setLoadingOrders(false);
+          } else {
+            setOrderDeliveriesInfo([]);
+            setTotalItems(0);
+            setLoadingOrders(false);
+          }
+        },
+      })
+    );
+  };
 
   // API for get today sales...............................
   const todaySaleInfo = () => {
@@ -97,15 +100,21 @@ const Overview = () => {
           if (res.status && res?.data?.payload?.length) {
             const dataArr = res.data.payload;
             const sortedArr = [];
-            sortedArr.push(dataArr.find((item) => item.mode_of_payment == 'cash'));
-            sortedArr.push(dataArr.find((item) => item.mode_of_payment == 'card'));
-            sortedArr.push(dataArr.find((item) => item.mode_of_payment == 'jbr'));
+            sortedArr.push(
+              dataArr.find((item) => item.mode_of_payment == "cash")
+            );
+            sortedArr.push(
+              dataArr.find((item) => item.mode_of_payment == "card")
+            );
+            sortedArr.push(
+              dataArr.find((item) => item.mode_of_payment == "jbr")
+            );
 
             // const sortingArr = ["cash", "card", "jbr", "all"];
             // dataArr.sort((a, b) => {
             //     const indexA = sortingArr.indexOf(a.mode_of_payment);
             //     const indexB = sortingArr.indexOf(b.mode_of_payment);
-                
+
             //     if (indexA === -1 && indexB === -1) {
             //         return 0;
             //     } else if (indexA === -1) {
@@ -126,7 +135,7 @@ const Overview = () => {
   // API for get online orders count...............................
   const fetchOnlineOrdersCount = () => {
     let params = {
-      seller_id: UniqueId
+      seller_id: UniqueId,
     };
     dispatch(
       getOnlineOrdersCount({
@@ -142,12 +151,12 @@ const Overview = () => {
 
   // API for lock screen...............................
   const lockScreen = () => {
-    let params =  {
+    let params = {
       // pos_user_id: posUserUniqueId,
       drawer_id: trackingSession?.id,
       amount: parseInt(trackingSession?.cash_balance),
-      transaction_type: 'end_tracking_session',
-      mode_of_cash: 'cash_out'
+      transaction_type: "end_tracking_session",
+      mode_of_cash: "cash_out",
     };
     dispatch(
       endTrackingSession({
@@ -156,7 +165,7 @@ const Overview = () => {
           if (res.status) {
             await dispatch(posUserLogout());
             await dispatch(dashboardLogout());
-            localStorage.removeItem("authToken")
+            localStorage.removeItem("authToken");
             router.push("/auth/login");
           }
         },
@@ -164,21 +173,23 @@ const Overview = () => {
     );
   };
 
-
   // API for search invoice ...............................
-  const searchInvoice = (invoiceNumber) => {    
-    let params =  {
+  const searchInvoice = (invoiceNumber) => {
+    let params = {
       invoice_number: invoiceNumber,
-      seller_id: UniqueId
+      seller_id: UniqueId,
     };
     dispatch(
       fetchInvoiceDetail({
         ...params,
         cb(res) {
-          if (res.status && res?.data?.payload && Object.keys(res.data.payload).length > 0) {
+          if (
+            res.status &&
+            res?.data?.payload &&
+            Object.keys(res.data.payload).length > 0
+          ) {
             setInvoiceDetail(res.data.payload);
-          }
-          else {
+          } else {
             setInvoiceDetail({});
           }
           setIsSearching(false);
@@ -250,36 +261,34 @@ const Overview = () => {
   }, []);
 
   useEffect(() => {
-      if (UniqueId) {
-          todaySaleInfo();
-          fetchOnlineOrdersCount();
-          userLoginDetails();
-      }
+    if (UniqueId) {
+      todaySaleInfo();
+      fetchOnlineOrdersCount();
+      userLoginDetails();
+    }
   }, [UniqueId]);
 
   useEffect(() => {
     if (UniqueId) {
-        allOrderDeliveriesInfo();
+      allOrderDeliveriesInfo();
     }
   }, [UniqueId, pageNumber]);
 
   useEffect(() => {
-    if(searchKeyword && typeof searchKeyword != 'undefined'){
-        
-        setIsSearching(true);
-        setDisplaySearchBox(true);
+    if (searchKeyword && typeof searchKeyword != "undefined") {
+      setIsSearching(true);
+      setDisplaySearchBox(true);
 
-        const search = setTimeout(() => {
-            //Your search query and it will run the function after 3secs from user stops typing
-            var keyword = searchKeyword.toLowerCase();
-            searchInvoice(keyword);
-        }, 2000);
-        return () => clearTimeout(search)
-    }
-    else {
+      const search = setTimeout(() => {
+        //Your search query and it will run the function after 3secs from user stops typing
+        var keyword = searchKeyword.toLowerCase();
+        searchInvoice(keyword);
+      }, 3000);
+      return () => clearTimeout(search);
+    } else {
       setDisplaySearchBox(false);
     }
-  }, [searchKeyword])
+  }, [searchKeyword]);
 
   return (
     <>
@@ -304,7 +313,21 @@ const Overview = () => {
                       className="img-fluid homeProfileImg"
                     />
                   </figure>
-                  <h2 className="loginheading mt-2">{`${authData?.posUserLoginDetails?.payload?.user_profiles?.firstname} ${authData?.posUserLoginDetails?.payload?.user_profiles?.lastname}`}</h2>
+                  {console.log(
+                    "lasttt",
+                    authData?.posUserLoginDetails?.payload?.user_profiles
+                      ?.lastname
+                  )}
+                  <h2 className="loginheading mt-2">{`${
+                    authData?.posUserLoginDetails?.payload?.user_profiles
+                      ?.firstname
+                  } ${
+                    authData?.posUserLoginDetails?.payload?.user_profiles
+                      ?.lastname === null
+                      ? ""
+                      : authData?.posUserLoginDetails?.payload?.user_profiles
+                          ?.lastname
+                  }`}</h2>
                   <div className="cashBox">
                     <h4 className="cashierHeading">
                       {authData?.posUserLoginDetails?.payload?.user_roles
@@ -341,15 +364,15 @@ const Overview = () => {
                     ) : (
                       getTodaySale &&
                       getTodaySale?.map((data, index) => {
-
-                        if(!data || data?.mode_of_payment == 'all'){
+                        if (!data || data?.mode_of_payment == "all") {
                           return;
                         }
 
                         return (
                           <div key={index} className="flexHeading mt-4">
                             <h4 className="saleHeading">
-                              {data?.mode_of_payment === "jbr" ? "JBR Coin"
+                              {data?.mode_of_payment === "jbr"
+                                ? "JBR Coin"
                                 : data?.mode_of_payment
                                     ?.charAt(0)
                                     ?.toUpperCase() +
@@ -357,7 +380,9 @@ const Overview = () => {
                               sales amount
                             </h4>
                             <h4 className="saleHeading text-end">
-                              {data?.mode_of_payment === "jbr" ? `JBR ${data?.total_sale_amount?.toFixed(2)}` : "$"+data?.total_sale_amount?.toFixed(2)}
+                              {data?.mode_of_payment === "jbr"
+                                ? `JBR ${data?.total_sale_amount?.toFixed(2)}`
+                                : "$" + data?.total_sale_amount?.toFixed(2)}
                               {/* ${data?.total_sale_amount?.toFixed(2)} */}
                             </h4>
                           </div>
@@ -369,11 +394,15 @@ const Overview = () => {
                     <h4 className="loginMain">Cash Drawer</h4>
                     <div className="flexHeading mt-4">
                       <h4 className="saleHeading">Opening Balance</h4>
-                      <h4 className="saleHeading">${trackingSession?.opening_balance}</h4>
+                      <h4 className="saleHeading">
+                        ${trackingSession?.opening_balance}
+                      </h4>
                     </div>
                     <div className="flexHeading mt-2">
                       <h4 className="saleHeading">Closing Balance</h4>
-                      <h4 className="saleHeading">${trackingSession?.cash_balance}</h4>
+                      <h4 className="saleHeading">
+                        ${trackingSession?.cash_balance}
+                      </h4>
                     </div>
                   </div>
                   <div className="timedetail">
@@ -388,12 +417,16 @@ const Overview = () => {
                     <div className="flexHeading mt-2">
                       <h4 className="dayTimeText">Log in Time:</h4>
                       <h4 className="dayTimeText">
-                        {moment(posLoginDetail?.updated_at).format("hh:mm:ss A")}
+                        {moment(posLoginDetail?.updated_at).format(
+                          "hh:mm:ss A"
+                        )}
                       </h4>
                     </div>
                     <div className="flexHeading mt-2">
                       <h4 className="dayTimeText">Session:</h4>
-                      <h4 className="dayTimeText">{`${hours}h:${minutes < 0 ? 0 : minutes}m`}</h4>
+                      <h4 className="dayTimeText">{`${hours}h:${
+                        minutes < 0 ? 0 : minutes
+                      }m`}</h4>
                     </div>
                   </div>
                 </div>
@@ -430,7 +463,9 @@ const Overview = () => {
                       className="form-control searchControl"
                       placeholder="Search here"
                       value={searchKeyword}
-                      onChange={(e) => {setSearchKeyword(e.target.value)}}
+                      onChange={(e) => {
+                        setSearchKeyword(e.target.value);
+                      }}
                     />
                     <Image
                       src={Images.Scan}
@@ -444,42 +479,67 @@ const Overview = () => {
                     />
                   </div>
 
-                  {displaySearchBox && 
+                  {displaySearchBox && (
                     <div className="custom-search-box">
                       <div className="custom-search-dropdown">
-                        <div className="cross-icon" onClick={() => {setDisplaySearchBox(false); setSearchKeyword(""); setIsSearching(false);}}>
-                            <Image
-                              src={Images.crossBlue}
-                              alt="SearchImageIcon"
-                              className="img-fluid "
-                            />
+                        <div
+                          className="cross-icon"
+                          onClick={() => {
+                            setDisplaySearchBox(false);
+                            setSearchKeyword("");
+                            setIsSearching(false);
+                          }}
+                        >
+                          <Image
+                            src={Images.crossBlue}
+                            alt="SearchImageIcon"
+                            className="img-fluid "
+                          />
                         </div>
-                        <table id="tableProduct" className="product_table mt-2">
-                          {isSearching ? (
-                            <tbody>
-                              <div className="text-center">
-                                <div className="spinner-grow loaderSpinner text-center my-2"></div>
-                              </div>
-                            </tbody>
-                          ) : (
-                            <tbody>
-                              {invoiceDetail && Object.keys(invoiceDetail).length > 0 ?
-                                  <tr onClick={() => {router.push("/invoices/invoices?showInvoiceData=true")}} style={{cursor: 'pointer'}}>
-                                    <td>
+                        <div className="table-responsive">
+                          <table
+                            id="tableProduct"
+                            className="product_table mt-2 homeTable"
+                          >
+                            {isSearching ? (
+                              <tbody>
+                                <div className="text-center">
+                                  <div className="spinner-grow loaderSpinner text-center my-2"></div>
+                                </div>
+                              </tbody>
+                            ) : (
+                              <tbody>
+                                {invoiceDetail &&
+                                Object.keys(invoiceDetail).length > 0 ? (
+                                  <tr
+                                    onClick={() => {
+                                      router.push(
+                                        "/invoices/invoices?showInvoiceData=true"
+                                      );
+                                    }}
+                                    style={{ cursor: "pointer" }}
+                                  >
+                                    <td className="homeSubtable">
                                       <div className="orderFirstId">
-                                        <h4 className="orderId">#{invoiceDetail?.invoice_number}</h4>
+                                        <h4 className="orderId">
+                                          #{invoiceDetail?.invoice_number}
+                                        </h4>
                                       </div>
                                     </td>
-                                    <td>
+                                    <td className="homeSubtable">
                                       <div className="nameLocation">
                                         <h4 className="orderId">
-                                          {invoiceDetail?.order?.user_details?.user_profiles
-                                            ? invoiceDetail.order.user_details.user_profiles.firstname +
+                                          {invoiceDetail?.order?.user_details
+                                            ?.user_profiles
+                                            ? invoiceDetail.order.user_details
+                                                .user_profiles.firstname +
                                               " " +
-                                              invoiceDetail.order.user_details.user_profiles.lastname
+                                              invoiceDetail.order.user_details
+                                                .user_profiles.lastname
                                             : ""}
                                         </h4>
-                                        {invoiceDetail?.order?.order_delivery?.distance &&
+                                        {invoiceDetail?.order?.order_delivery
+                                          ?.distance && (
                                           <div className="flexTable">
                                             <Image
                                               src={Images.OrderLocation}
@@ -487,16 +547,24 @@ const Overview = () => {
                                               className="img-fluid ms-1"
                                             />
                                             <span className="locateDistance">
-                                              {invoiceDetail?.order?.order_delivery?.distance} miles
+                                              {
+                                                invoiceDetail?.order
+                                                  ?.order_delivery?.distance
+                                              }{" "}
+                                              miles
                                             </span>
                                           </div>
-                                        }
+                                        )}
                                       </div>
                                     </td>
-                                    <td>
+                                    <td className="homeSubtable">
                                       <div className="itemMoney">
                                         <h4 className="orderId">
-                                          {invoiceDetail?.order?.order_details?.length} items
+                                          {
+                                            invoiceDetail?.order?.order_details
+                                              ?.length
+                                          }{" "}
+                                          items
                                         </h4>
                                         <div className="flexTable">
                                           <Image
@@ -505,17 +573,20 @@ const Overview = () => {
                                             className="img-fluid ms-1"
                                           />
                                           <span className="locateDistance">
-                                            {invoiceDetail?.order?.payable_amount
-                                              ? invoiceDetail?.order?.payable_amount
+                                            {invoiceDetail?.order
+                                              ?.payable_amount
+                                              ? invoiceDetail?.order
+                                                  ?.payable_amount
                                               : 0}
                                           </span>
                                         </div>
                                       </div>
                                     </td>
-                                    <td>
+                                    <td className="homeSubtable">
                                       <div className="itemTime">
                                         {/* <h4 className="orderId">Customer:</h4> */}
-                                        {invoiceDetail?.order?.delivery_option ? (
+                                        {invoiceDetail?.order
+                                          ?.delivery_option ? (
                                           <div className="flexTable">
                                             <Image
                                               src={Images.Time}
@@ -523,7 +594,14 @@ const Overview = () => {
                                               className="img-fluid ms-1"
                                             />
                                             <span className="locateDistance">
-                                              {DELIVERY_MODE[Number(invoiceDetail.order.delivery_option)]}
+                                              {
+                                                DELIVERY_MODE[
+                                                  Number(
+                                                    invoiceDetail.order
+                                                      .delivery_option
+                                                  )
+                                                ]
+                                              }
                                             </span>
                                           </div>
                                         ) : (
@@ -532,27 +610,36 @@ const Overview = () => {
                                       </div>
                                     </td>
                                   </tr>
-                                :
+                                ) : (
                                   <tr>
-                                    <td style={{width: 0, padding: "5px"}}></td>
+                                    <td
+                                      style={{ width: 0, padding: "5px" }}
+                                    ></td>
                                     <td
                                       className="colorBlue text text-center py-3"
                                       colSpan={8}
-                                      style={{color: "#263682"}}
+                                      style={{ color: "#263682" }}
                                     >
                                       <h5>No Data</h5>
                                     </td>
                                   </tr>
-                              }
-                            </tbody>
-                          )}
-                        </table>
+                                )}
+                              </tbody>
+                            )}
+                          </table>
+                        </div>
                       </div>
                     </div>
-                  }
+                  )}
                 </form>
                 <div className="sellingOrder">
-                  <div className="startSelling" onClick={() => {router.push("/Retails?parameter=product")}} style={{cursor: "pointer"}}>
+                  <div
+                    className="startSelling"
+                    onClick={() => {
+                      router.push("/Retails?parameter=product");
+                    }}
+                    style={{ cursor: "pointer" }}
+                  >
                     <figure className="profileImage">
                       <Image
                         src={Images.HomeIcon}
@@ -570,7 +657,13 @@ const Overview = () => {
                       <span className="smallText">Scan / Search</span>
                     </figure>
                   </div>
-                  <div className="onlineOrder" onClick={() => {router.push("/Deliveries")}} style={{cursor: "pointer"}}>
+                  <div
+                    className="onlineOrder"
+                    onClick={() => {
+                      router.push("/Deliveries");
+                    }}
+                    style={{ cursor: "pointer" }}
+                  >
                     <figure className="profileImage">
                       <Image
                         src={Images.ShoppingCart}
@@ -579,7 +672,9 @@ const Overview = () => {
                       />
                     </figure>
                     <h4 className="loginMain">Online Orders</h4>
-                    <button className="OrderBtn">{ onlineOrdersCount } New Orders</button>
+                    <button className="OrderBtn">
+                      {onlineOrdersCount} New Orders
+                    </button>
                     <div className="bellImg">
                       <figure className="bellOuter">
                         <Image
@@ -606,12 +701,22 @@ const Overview = () => {
                           {orderDeliveriesInfo?.length > 0 ? (
                             <>
                               {orderDeliveriesInfo?.map((data, index) => {
-                                const redirectURL = data?.delivery_option == '4' ? '/shipping' : '/Deliveries'
+                                const redirectURL =
+                                  data?.delivery_option == "4"
+                                    ? "/shipping"
+                                    : "/Deliveries";
                                 return (
-                                  <tr onClick={() => {router.push(redirectURL)}} style={{cursor: 'pointer'}}>
+                                  <tr
+                                    onClick={() => {
+                                      router.push(redirectURL);
+                                    }}
+                                    style={{ cursor: "pointer" }}
+                                  >
                                     <td className="deliverSubdata" key={index}>
                                       <div className="orderFirstId">
-                                        <h4 className="orderId">#{data?.invoices?.invoice_number}</h4>
+                                        <h4 className="orderId">
+                                          #{data?.invoices?.invoice_number}
+                                        </h4>
                                       </div>
                                     </td>
                                     <td className="deliverSubdata">
@@ -711,14 +816,16 @@ const Overview = () => {
                         </tbody>
                       )}
                     </table>
-                    {totalItems > recordsPerPage &&
+                    {totalItems > recordsPerPage && (
                       <PaginationFooter
                         page={pageNumber}
                         limit={recordsPerPage}
-                        setPage={(newPageNumber) => setPageNumber(newPageNumber)}
+                        setPage={(newPageNumber) =>
+                          setPageNumber(newPageNumber)
+                        }
                         totalItems={totalItems}
                       />
-                    }
+                    )}
                   </div>
                 </div>
               </div>

@@ -7,17 +7,24 @@ import { toast } from "react-toastify";
 import { getAllPosUser, selectLoginAuth } from "../../../redux/slices/auth";
 import CustomModal from "../../customModal/CustomModal";
 import CashSummary from "./cashSummary";
+import {
+  getExpectedCashByDrawerId,
+  selectCashDrawerData,
+} from "../../../redux/slices/cashDrawer";
 
 const EndCashModal = ({ props, title, modalType }) => {
   const dispatch = useDispatch();
-  const toastId = React.useRef(null);
-  const authData = useSelector(selectLoginAuth);
+  const sessionData = useSelector(selectCashDrawerData);
+  const drawerSessionDetail = sessionData?.drawerSession?.payload;
+  const expectedCash = sessionData?.expectedCashByDrawerId;
 
+  const digits = /^[0-9]+$/;
   const [key, setKey] = useState(Math.random());
+  const [amount, setAmount] = useState("");
 
   const [modalDetail, setModalDetail] = useState({
     show: false,
-    title: "Add Cash",
+    title: "End Cash Tracking Session",
     type: "add",
     flag: "trackingmodal",
   });
@@ -40,42 +47,18 @@ const EndCashModal = ({ props, title, modalType }) => {
     });
     setKey(Math.random());
   };
-  const [amount, setAmount] = useState("");
-  const [notes, setNotes] = useState("");
 
-  const UniqueId = authData?.usersInfo?.payload?.uniqe_id
-    ? authData?.usersInfo?.payload?.uniqe_id
-    : "";
-  // API for get Drawer Session Info...............................
-  const drawerSessionInfo = () => {
-    if (!amount) {
-      if (!toast.isActive(toastId.current)) {
-        toastId.current = toast.error("Please enter amount");
+  const countCashFirst = async () => {
+    if (amount && digits.test(amount) === false) {
+      alert("Please enter valid amount");
+    } else if (amount <= 0) {
+      alert("Please enter valid amount");
+    } else {
+      await dispatch(getExpectedCashByDrawerId(drawerSessionDetail?.id));
+      if (expectedCash?.status_code == 200) {
+        handleShowModal("End Cash Tracking Session", "remove");
       }
-      return;
-    } else if (!notes) {
-      if (!toast.isActive(toastId.current)) {
-        toastId.current = toast.error("Please enter note");
-      }
-      return;
     }
-    let params = {
-      seller_id: UniqueId,
-      amount: amount,
-      notes: notes,
-    };
-    dispatch(
-      getDrawerSessionInfo({
-        ...params,
-        cb(res) {
-          if (res.status) {
-            setAmount("");
-            setNotes("");
-            props.close();
-          }
-        },
-      })
-    );
   };
 
   return (
@@ -95,32 +78,22 @@ const EndCashModal = ({ props, title, modalType }) => {
         <form className="trackingForm">
           <h4 className="amountText">Enter Amount</h4>
           <div className="inputSelect mt-2">
-            {/* <input className="form-control trackingInput" type="text" placeholder=" $  500.00" /> */}
             <input
               type="number"
               className="form-control trackingInput"
               // name={generateRandomName}
               // autoComplete="new-password"
-              placeholder=" $  500.00"
-              // value={amount}
+              placeholder="$0.00"
+              value={amount}
               onChange={(e) => setAmount(e.target.value)}
             />
-            <select name="cars" id="cars" className="trackingSelect">
-              <option value="volvo">USD</option>
-              <option value="saab">Saab</option>
-              <option value="mercedes">Mercedes</option>
-              <option value="audi">Audi</option>
-            </select>
           </div>
 
           <div className="verifyBtn mt-4">
             <button
               className="nextverifyBtn w-100"
               type="button"
-              //   onClick={() => {
-              //     drawerSessionInfo();
-              //   }}
-              onClick={() => handleShowModal("End Cash", "remove")}
+              onClick={() => countCashFirst()}
             >
               Confirm
               <Image
@@ -144,7 +117,7 @@ const EndCashModal = ({ props, title, modalType }) => {
           modalDetail.flag === "trackingmodal" ? (
             <CashSummary
               title={modalDetail.title}
-              modalType={modalDetail.type}
+              amount={amount}
               close={() => handleOnCloseModal()}
             />
           ) : (

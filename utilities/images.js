@@ -119,6 +119,7 @@ import customerWallet from "../public/images/dark_wallet_cust.svg";
 import customerNotification from "../public/images/dark_notification_cust.svg";
 import customerSearch from "../public/images/dark_search_cust.svg";
 import customerCalendar from "../public/images/dark_calendar_cust.svg";
+import selectedCalendar from "../public/images/light_calendar.svg";
 import newCustomers from "../public/images/cust_home_1.svg";
 import returningCustomers from "../public/images/cust_home_2.svg";
 import onlineCustomers from "../public/images/cust_home_3.svg";
@@ -217,6 +218,7 @@ import timeImg from "../public/images/timeImg.svg";
 import pickupStep from "../public/images/pickupStep.svg";
 import deliverTime from "../public/images/deliverTime.svg";
 import deliverDot from "../public/images/deliverDot.svg";
+import Edit_line from "../public/images/Edit_line.svg";
 import cancelUser from "../public/images/cancelUser.svg";
 import cancelPackage from "../public/images/cancelPackage.svg";
 import mapleCard from "../public/images/mapleCard.svg";
@@ -242,6 +244,7 @@ import printer from "../public/images/printer.svg";
 import checkedImages from "../public/images/checkedImages.svg";
 import arrowLeftPos from "../public/images/arrowLeftPos.svg";
 import rightArrowPos from "../public/images/rightArrowPos.svg";
+import rightArrow from "../public/images/rightArrow.png";
 import crossBlue from "../public/images/crossBlue.svg";
 import cashDraw from "../public/images/cashDraw.svg";
 import cardReader from "../public/images/cardReader.svg";
@@ -412,6 +415,7 @@ export {
   securityTick,
   crossBlue,
   rightArrowPos,
+  rightArrow,
   arrowLeftPos,
   checkedImages,
   trackOrder,
@@ -696,4 +700,6 @@ export {
   enablesec,
   downloadimagee,
   qrcodeimg,
+  Edit_line,
+  selectedCalendar,
 };

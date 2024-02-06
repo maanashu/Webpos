@@ -102,6 +102,7 @@ export default function Settings() {
     handeGetPlanInfo();
     getUserList();
   }, [receiptSettings?.success]);
+
   console.log("receiptSettings?.success", receiptSettings?.success);
   const settingsOptions = [
     { id: 1, name: "Security", info: securityStatus, image: securityTick },
@@ -124,12 +125,13 @@ export default function Settings() {
     {
       id: 8,
       name: "Wallet",
-      info: `${wallet?.accept_card_payment ||
-          wallet?.accept_cash_payment ||
-          wallet?.accept_jbr_coin_payment
+      info: `${
+        wallet?.accept_card_payment ||
+        wallet?.accept_cash_payment ||
+        wallet?.accept_jbr_coin_payment
           ? "Connected"
           : "Not Connected"
-        }`,
+      }`,
       image: walletOutline,
     },
     {
@@ -202,23 +204,34 @@ export default function Settings() {
   const renderComponent = () => {
     switch (selectedItem) {
       case "Security":
-        return <Security handleTouch={handleTouch} setShowSideBar={setShowSideBar} />;
+        return (
+          <Security handleTouch={handleTouch} setShowSideBar={setShowSideBar} />
+        );
       case "Staff":
-        return <StaffList handleTouch={handleTouch} setShowSideBar={setShowSideBar}/>;
+        return (
+          <StaffList
+            handleTouch={handleTouch}
+            setShowSideBar={setShowSideBar}
+          />
+        );
       case "Devices":
-        return <Devices setShowSideBar={setShowSideBar}/>;
+        return <Devices setShowSideBar={setShowSideBar} />;
       case "Receipts":
-        return <Receipts setShowSideBar={setShowSideBar}/>;
+        return <Receipts setShowSideBar={setShowSideBar} />;
       case "Taxes":
-        return <Taxes setShowSideBar={setShowSideBar}/>;
+        return <Taxes setShowSideBar={setShowSideBar} />;
       case "Locations":
-        return <Location setShowSideBar={setShowSideBar}/>;
+        return <Location setShowSideBar={setShowSideBar} />;
       case "Language":
-        return <Language setShowSideBar={setShowSideBar}/>;
+        return <Language setShowSideBar={setShowSideBar} />;
       case "Legal":
-        return <Legal handleTouch={handleTouch} setShowSideBar={setShowSideBar}/>;
+        return (
+          <Legal handleTouch={handleTouch} setShowSideBar={setShowSideBar} />
+        );
       case "Policies":
-        return <Policy handleTouch={handleTouch} setShowSideBar={setShowSideBar}/>;
+        return (
+          <Policy handleTouch={handleTouch} setShowSideBar={setShowSideBar} />
+        );
       case "staffDetail":
         return (
           <StaffDetail
@@ -229,22 +242,36 @@ export default function Settings() {
         );
       case "legalPolicy":
         return (
-          <LegalPolicy policyInfo={policyInfo} handleTouch={handleTouch} setShowSideBar={setShowSideBar}/>
+          <LegalPolicy
+            policyInfo={policyInfo}
+            handleTouch={handleTouch}
+            setShowSideBar={setShowSideBar}
+          />
         );
       case "PolicyInfo":
-        return <PolicyInfo policyInfo={policyInfo} handleTouch={handleTouch} setShowSideBar={setShowSideBar}/>;
+        return (
+          <PolicyInfo
+            policyInfo={policyInfo}
+            handleTouch={handleTouch}
+            setShowSideBar={setShowSideBar}
+          />
+        );
       case "Wallet":
-        return <Wallet setShowSideBar={setShowSideBar}/>;
+        return <Wallet setShowSideBar={setShowSideBar} />;
       case "Notifications":
-        return <Notification setShowSideBar={setShowSideBar}/>;
+        return <Notification setShowSideBar={setShowSideBar} />;
       case "Plans":
-        return <Plan handleTouch={handleTouch} setShowSideBar={setShowSideBar}/>;
+        return (
+          <Plan handleTouch={handleTouch} setShowSideBar={setShowSideBar} />
+        );
       case "allPlans":
-        return <PlanFit handleTouch={handleTouch} setShowSideBar={setShowSideBar}/>;
+        return (
+          <PlanFit handleTouch={handleTouch} setShowSideBar={setShowSideBar} />
+        );
       case "Shipping & Pick Up":
-        return <ShippingPickup setShowSideBar={setShowSideBar}/>;
+        return <ShippingPickup setShowSideBar={setShowSideBar} />;
       case "Device Detail":
-        return <DeviceDetail setShowSideBar={setShowSideBar}/>;
+        return <DeviceDetail setShowSideBar={setShowSideBar} />;
       default:
         return null;
     }
@@ -262,22 +289,20 @@ export default function Settings() {
           </div>
         </div>
         <div className="col-lg-9">
-
           <div>
-            <Image src={Images.ShippingOrders} className="SecurityImg" alt="img" onClick={() => setShowSideBar(prev => !prev)} />
-
-            {showSidebar && <div className="deviceLeft settingOuter">
-              <div>
-                {settingsOptions.map((item) => (
-                  <SettingsBar key={item.id} item={item} />
-                ))}
+            {/* <Image src={Images.ShippingOrders} className="SecurityImg" alt="img" onClick={() => setShowSideBar(prev => !prev)} /> */}
+            {showSidebar && (
+              <div className="deviceLeft settingOuter">
+                <div>
+                  {settingsOptions.map((item) => (
+                    <SettingsBar key={item.id} item={item} />
+                  ))}
+                </div>
               </div>
-            </div>}
+            )}
           </div>
 
-          <div className="outerpage">
-            {renderComponent()}
-          </div>
+          <div className="outerpage">{renderComponent()}</div>
         </div>
       </div>
     </div>

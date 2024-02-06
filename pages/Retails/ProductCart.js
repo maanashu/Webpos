@@ -36,6 +36,7 @@ import CustomProductAdd from "./CustomProductAdd";
 import { flightRouterStateSchema } from "next/dist/server/app-render/types";
 import AttachCustomer from "./AttachCustomer";
 import { debounce } from "lodash";
+import UpdatePrice from "./UpdatePrice";
 
 const ProductCart = () => {
   const router = useRouter();
@@ -52,6 +53,7 @@ const ProductCart = () => {
   const [productById, setProductById] = useState();
 
   const [cartSearch, setCartSearch] = useState("");
+  const [cartProduct, setCartProduct] = useState("");
 
   const holdCartArray = retailData?.holdProductData || [];
   const holdProductArray = holdCartArray?.filter(
@@ -446,7 +448,11 @@ const ProductCart = () => {
                         <div className="incrementBtn ">
                           <i
                             className="fa-solid fa-minus plusMinus"
-                            onClick={() => updateQuantity("-", index)}
+                            onClick={() => {
+                              data.qty == 1
+                                ? void 0
+                                : updateQuantity("-", index);
+                            }}
                           ></i>
 
                           {data?.qty}
@@ -459,35 +465,48 @@ const ProductCart = () => {
                           <h4 className="invoice_subhead p-0">
                             {amountFormat(getProductFinalPrice(data))}
                           </h4>
-                          {retailData?.clearOneProductLoad ||
-                          retailData?.productCartLoad ? (
-                            <span className="spinner-border spinner-border-sm mx-1"></span>
-                          ) : (
-                            <div
-                              onClick={() => {
-                                // let params = {
-                                //   cartId: cartData?.id,
-                                //   productId: data?.id,
-                                // };
-                                // setProductById(index);
-                                // dispatch(
-                                //   clearOneProduct({
-                                //     ...params,
-                                //     cb() {
-                                //       dispatch(productCart());
-                                //     },
-                                //   })
-                                // );
-                                removeOneCartHandler(data, index);
-                              }}
-                            >
-                              <Image
-                                src={Images.redCross}
-                                alt="crossImage"
-                                className="img-fluid ms-2"
-                              />
-                            </div>
-                          )}
+                          <div
+                            className="mx-3"
+                            onClick={() => {
+                              setModalDetail({
+                                show: true,
+                                flag: "UpdatePrice",
+                              });
+                              setKey(Math.random());
+                              setCartProduct(data);
+                              cartUpdate();
+                            }}
+                          >
+                            <Image
+                              src={Images.Edit_line}
+                              alt="crossImage"
+                              className="img-fluid ms-2"
+                            />
+                          </div>
+                          <div
+                            onClick={() => {
+                              // let params = {
+                              //   cartId: cartData?.id,
+                              //   productId: data?.id,
+                              // };
+                              // setProductById(index);
+                              // dispatch(
+                              //   clearOneProduct({
+                              //     ...params,
+                              //     cb() {
+                              //       dispatch(productCart());
+                              //     },
+                              //   })
+                              // );
+                              removeOneCartHandler(data, index);
+                            }}
+                          >
+                            <Image
+                              src={Images.redCross}
+                              alt="crossImage"
+                              className="img-fluid ms-2"
+                            />
+                          </div>
 
                           {/* {retailData?.clearOneProductLoad ||
                           retailData?.productCartLoad ? (
@@ -820,6 +839,8 @@ const ProductCart = () => {
             : "AddNotes"
             ? "AddNotes"
             : "DeleteCarts"
+            ? "DeleteCarts"
+            : "UpdatePrice"
         }
         child={
           modalDetail.flag === "AddDiscount" ? (
@@ -828,6 +849,12 @@ const ProductCart = () => {
             <AddNotes close={() => handleOnCloseModal()} />
           ) : modalDetail.flag === "DeleteCarts" ? (
             <DeleteCarts close={() => handleOnCloseModal()} />
+          ) : modalDetail.flag === "UpdatePrice" ? (
+            <UpdatePrice
+              close={() => handleOnCloseModal()}
+              {...{ cartProduct }}
+              crossHandler={() => handleOnCloseModal()}
+            />
           ) : (
             ""
           )
@@ -840,6 +867,8 @@ const ProductCart = () => {
               <h4 className="appointMain mb-0">Add Notes</h4>
             ) : modalDetail.flag === "DeleteCarts" ? (
               <h4 className="appointMain mb-0">Delete Product</h4>
+            ) : modalDetail.flag === "UpdatePrice" ? (
+              <h4 className="appointMain mb-0">Price Changing</h4>
             ) : (
               ""
             )}

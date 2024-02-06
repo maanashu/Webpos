@@ -3,7 +3,7 @@ import { ApiClient } from "../../../utilities/api";
 import { ORDER_API_URL } from "../../../utilities/config";
 import { onErrorStopLoad } from "../../slices/customers";
 import { all, call, put, takeLatest } from "redux-saga/effects";
-import { setSidebarCountData } from "../../slices/shipping";
+import { setSidebarCountData,setOrdersList } from "../../slices/shipping";
 
 const ORDER_API_URL_V1 = ORDER_API_URL + "/api/v1/";
 
@@ -129,6 +129,7 @@ function* getOrdersList(action) {
     );
 
     if (resp) {
+      yield put(setOrdersList(resp?.data?.payload));
       yield call(action.payload.cb, (action.res = resp));
     } else {
       throw resp;

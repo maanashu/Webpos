@@ -170,7 +170,7 @@ const index = () => {
           <table className="customers-stats-table">
             <thead>
               <tr>
-              <th
+                <th
                   className="customers-table-data"
                   style={{ border: "none", color: "#7E8AC1", textAlign: "center" }}
                 >
@@ -225,7 +225,7 @@ const index = () => {
                         totalProductSoldAnalyticsData?.totalProductSoldList?.data?.length > 0 ? <tbody>
                           {totalProductSoldAnalyticsData?.totalProductSoldList?.data?.map((row, idx) => (
                             <tr className="customers-table-row" key={idx}>
-                                <td
+                              <td
                                 className="customers-table-data"
                               >
                                 {idx + 1}
@@ -256,13 +256,13 @@ const index = () => {
                               >
                                 {moment(row?.last_sold_date).format('MM/DD/YYYY')}
                               </td>
-                              <td
+                              {/* <td
                                 className="customers-table-data"
                               >
                                 <button className="secondaryOuterbtn_" type="button" onClick={() =>
                                   handleGoReviewPage(row?.last_sold_date)
                                 }>Review</button>
-                              </td>
+                              </td> */}
                             </tr>
                           ))}
                         </tbody> :

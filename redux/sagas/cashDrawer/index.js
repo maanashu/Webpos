@@ -4,6 +4,7 @@ import { AUTH_API_URL } from "../../../utilities/config";
 import { all, call, put, takeLatest } from "redux-saga/effects";
 import {
   onErrorStopLoad,
+  setExpectedCashByDrawerId,
   setGetDrawerHistory,
   setGetDrawerSession,
   setSessionHistory,
@@ -116,11 +117,35 @@ function* trackSessionSave(action) {
   }
 }
 
+function* getExpectedCashByDrawerId(action) {
+  try {
+    const resp = yield call(
+      ApiClient.get,
+      `${USER_API_URL_V1}drawer_management/drawer-session/cash-expected/${action?.payload}`
+    );
+
+    if (resp.status) {
+      yield put(setExpectedCashByDrawerId(resp.data));
+    } else {
+      throw resp;
+    }
+  } catch (e) {
+    yield put(onErrorStopLoad());
+    toast.error(e?.error?.response?.data?.msg);
+  }
+}
+
 function* cashDrawerSaga() {
   yield all([takeLatest("cashDrawer/getSessionHistory", getSessionHistory)]);
   yield all([takeLatest("cashDrawer/getDrawerSession", getDrawerSession)]);
   yield all([takeLatest("cashDrawer/getDrawerHistory", getDrawerHistory)]);
   yield all([takeLatest("cashDrawer/trackSessionSave", trackSessionSave)]);
+  yield all([
+    takeLatest(
+      "cashDrawer/getExpectedCashByDrawerId",
+      getExpectedCashByDrawerId
+    ),
+  ]);
 }
 
 export default cashDrawerSaga;

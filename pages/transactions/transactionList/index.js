@@ -46,15 +46,26 @@ const TransactionsList = () => {
   const getTotalTraDetails = getWalletData?.totalTraDetail?.payload?.data ?? [];
   const transactionTypeArray = getWalletData?.totalTraType?.payload;
   const sellerID = authData?.usersInfo?.payload?.uniqe_id;
+  const [startDate, setStartDate] = useState(null);
+  const [endDate, setEndDate] = useState(null);
+
+  const handleDateRangeChange = (dates) => {
+    const [start, end] = dates;
+    setStartDate(start);
+    setEndDate(end);
+    setTimeSpan("");
+  };
 
   useEffect(() => {
     const data = {
       dayWiseFilter: timeSpan,
       sellerID: sellerID,
       orderType: "none",
+      start_date: moment(startDate).format("YYYY-MM-DD"),
+      end_date: moment(endDate).format("YYYY-MM-DD"),
     };
     dispatch(getTotalTraType(data));
-  }, [timeSpan]);
+  }, [timeSpan, startDate, endDate]);
 
   useEffect(() => {
     let data = {
@@ -65,16 +76,11 @@ const TransactionsList = () => {
       transactionType: transaction,
       orderType: "none",
       status: "none",
+      start_date: moment(startDate).format("YYYY-MM-DD"),
+      end_date: moment(endDate).format("YYYY-MM-DD"),
     };
-    if (date) {
-      data = {
-        ...data,
-        start_date: date,
-        end_date: date,
-      };
-    }
     dispatch(getTotalTraDetail(data));
-  }, [limit, page, timeSpan, transaction, date]);
+  }, [limit, page, timeSpan, transaction, endDate, startDate]);
 
   const handleDateChange = (dates) => {
     setDate(moment(dates).format("YYYY-MM-DD"));
@@ -152,6 +158,11 @@ const TransactionsList = () => {
           setDate("");
         }}
         mainIcon={customerWallet}
+        setStartDate={setStartDate}
+        setEndDate={setEndDate}
+        onDateChange={handleDateRangeChange}
+        startDate={startDate}
+        endDate={endDate}
       />
 
       <PaginationHeader
