@@ -27,10 +27,10 @@ const GlobalLanguage = () => {
             ...params,
             cb: async (res) => {
               if (res.status) {
-                const languageCode = res?.data?.payload?.languages
+                const languageCode = res?.data?.payload?.languages?.filter((item)=>item?.status === 1)
                   ?.map((item) => item?.lang_code)
                   ?.filter((val) => val != null);
-
+                 console.log("languageCode",res?.data?.payload?.languages);
                 // Use Set to remove duplicates
                 const formattedLanguageCode = Array.from(new Set(languageCode));
                 setLanguageCode(formattedLanguageCode);

@@ -119,9 +119,7 @@ function* getPendingOrderCount(action) {
       ApiClient.get,
       `${ORDER_API_URL}${API_URL.pendingOrderCount}${params}`
     );
-    console.log("dsdsdsds=pimddd", JSON.stringify(resp));
     if (resp) {
-      console.log("dsdsdsds=pimddd", JSON.stringify(resp));
       yield put(setPendingOrderCount(resp?.data?.payload));
       // yield call(action.payload.cb, (action.res = resp));
     } else {

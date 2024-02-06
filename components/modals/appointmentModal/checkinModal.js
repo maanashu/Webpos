@@ -10,6 +10,7 @@ const CheckinModal = ({
   formattedTime,
   close,
   onConfirmPress,
+  onDeclinePress,
 }) => {
   const [key, setKey] = useState(Math.random());
   const [modalDetail, setModalDetail] = useState({
@@ -126,7 +127,11 @@ const CheckinModal = ({
           </div>
         </div>
         <div className="CustomerBtn mt-4">
-          <button className="declineBtn" type="submit" onClick={() => close()}>
+          <button
+            className="declineBtn"
+            type="submit"
+            onClick={() => onDeclinePress()}
+          >
             Decline
           </button>
           <button
