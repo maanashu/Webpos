@@ -5,48 +5,14 @@ import { useDispatch, useSelector } from "react-redux";
 import { getDrawerSessionInfo } from "../../../redux/slices/dashboard";
 import { toast } from "react-toastify";
 import { selectLoginAuth } from "../../../redux/slices/auth";
+import { selectCashDrawerData } from "../../../redux/slices/cashDrawer";
 
-const CashSummary = ({ props, title, modalType }) => {
+const CashSummary = ({ props, title, amount }) => {
   const dispatch = useDispatch();
-  const toastId = React.useRef(null);
-  const authData = useSelector(selectLoginAuth);
-  const [amount, setAmount] = useState("");
-  const [notes, setNotes] = useState("");
 
-  const UniqueId = authData?.usersInfo?.payload?.uniqe_id
-    ? authData?.usersInfo?.payload?.uniqe_id
-    : "";
-  // API for get Drawer Session Info...............................
-  const drawerSessionInfo = () => {
-    if (!amount) {
-      if (!toast.isActive(toastId.current)) {
-        toastId.current = toast.error("Please enter amount");
-      }
-      return;
-    } else if (!notes) {
-      if (!toast.isActive(toastId.current)) {
-        toastId.current = toast.error("Please enter note");
-      }
-      return;
-    }
-    let params = {
-      seller_id: UniqueId,
-      amount: amount,
-      notes: notes,
-    };
-    dispatch(
-      getDrawerSessionInfo({
-        ...params,
-        cb(res) {
-          if (res.status) {
-            setAmount("");
-            setNotes("");
-            props.close();
-          }
-        },
-      })
-    );
-  };
+  const sessionData = useSelector(selectCashDrawerData);
+  const expectedCash = sessionData?.expectedCashByDrawerId?.payload;
+  const discrepancy = expectedCash?.remainingCash - amount;
 
   return (
     <>
@@ -82,31 +48,53 @@ const CashSummary = ({ props, title, modalType }) => {
               <option value="audi">Audi</option>
             </select>
           </div> */}
+          {/* setExpectedCashValue(res?.payload?.remainingCash);
+          setCashInValue(res?.payload?.cashIn);
+          setCashOutValue(res?.payload?.cashOut);
+          setJobrSummaryValue(res?.payload?.remainingJbrCoin);
+          setCardSummaryValue(res?.payload?.remainingCardAmount); */}
           <div className="summaryDetail">
             <h4 className="cashText">Cash Summary</h4>
             <hr className="dottedDivide" />
             <div className="flexDiv">
               <h4 className="cancelOrderText">Amount Expected</h4>
-              <h4 className="cancelOrderText">$6,589.00</h4>
+              <h4 className="cancelOrderText">
+                ${expectedCash?.remainingCash}
+              </h4>
             </div>
             <hr className="dottedDivide" />
             <div className="flexDiv">
               <h4 className="cancelOrderText">Amount Counted</h4>
-              <h4 className="cancelOrderText">$6,589.00</h4>
+              <h4 className="cancelOrderText">${amount}</h4>
             </div>
             <hr className="dottedDivide" />
             <div className="flexDiv">
-              <h4 className="endCashText">Discrepancy</h4>
-              <h4 className="endCashText">- $489.00</h4>
+              <h4
+                className="endCashText"
+                style={{
+                  color: discrepancy < 0 ? "red" : "blue",
+                }}
+              >
+                Discrepancy
+              </h4>
+              <h4
+                className="endCashText"
+                style={{
+                  color: discrepancy < 0 ? "red" : "blue",
+                }}
+              >
+                {discrepancy < 0 ? "-" : null} $
+                {discrepancy < 0 ? Math.abs(discrepancy).toFixed(2) : discrepancy?.toFixed(2)}
+              </h4>
             </div>
           </div>
           <div className="verifyBtn mt-4">
             <button
               className="nextverifyBtn w-100"
               type="button"
-            //   onClick={() => {
-            //     drawerSessionInfo();
-            //   }}
+              //   onClick={() => {
+              //     drawerSessionInfo();
+              //   }}
             >
               Confirm
               <Image
