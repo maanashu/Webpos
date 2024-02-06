@@ -57,18 +57,20 @@ const Sidebar = (props) => {
       endTrackingSession({
         ...params,
         async cb(res) {
-          await dispatch(logout());
-          await dispatch(dashboardLogout());
+          if(res.status){
+            await dispatch(logout());
+            await dispatch(dashboardLogout());
 
-          setTimeout(() => {
-            toast.success("Logout successfully");
-          }, 200);
+            setTimeout(() => {
+              toast.success("Logout successfully");
+            }, 200);
 
-          router.push("/auth/verification");
-          
-          localStorage.removeItem("merchantAuthToken");
-          localStorage.removeItem("authToken");
-          localStorage.removeItem("persist:root");
+            router.push("/auth/verification");
+            
+            localStorage.removeItem("merchantAuthToken");
+            localStorage.removeItem("authToken");
+            localStorage.removeItem("persist:root");
+          }
         },
       })
     );
