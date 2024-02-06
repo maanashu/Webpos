@@ -119,6 +119,7 @@ import customerWallet from "../public/images/dark_wallet_cust.svg";
 import customerNotification from "../public/images/dark_notification_cust.svg";
 import customerSearch from "../public/images/dark_search_cust.svg";
 import customerCalendar from "../public/images/dark_calendar_cust.svg";
+import selectedCalendar from "../public/images/light_calendar.svg";
 import newCustomers from "../public/images/cust_home_1.svg";
 import returningCustomers from "../public/images/cust_home_2.svg";
 import onlineCustomers from "../public/images/cust_home_3.svg";
@@ -700,4 +701,5 @@ export {
   downloadimagee,
   qrcodeimg,
   Edit_line,
+  selectedCalendar,
 };
