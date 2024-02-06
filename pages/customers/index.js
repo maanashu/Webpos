@@ -114,21 +114,21 @@ const Customers = () => {
   };
 
   const filterHandler = () => {
-    if (timeSpan) {
-      return {
-        filter: timeSpan,
-      };
-    } else {
+    if (startDate && endDate) {
       return {
         start_date: moment(startDate).format("YYYY-MM-DD"),
         end_date: moment(endDate).format("YYYY-MM-DD"),
+      };
+    } else if (timeSpan) {
+      return {
+        filter: timeSpan,
       };
     }
   };
   const data = filterHandler();
 
   useEffect(() => {
-    if (uniqueId) {
+    if (uniqueId && data) {
       let params = {
         seller_id: uniqueId,
         ...data,
@@ -136,6 +136,7 @@ const Customers = () => {
       dispatch(getAllCustomers(params));
     }
   }, [uniqueId, timeSpan, startDate, endDate]);
+
   return (
     <>
       <div className="main-container-customers fullheightBox_ customerSection">

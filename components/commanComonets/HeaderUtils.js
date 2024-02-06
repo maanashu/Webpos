@@ -5,6 +5,7 @@ import {
   customerNotification,
   customerScan,
   customerSearch,
+  selectedCalendar,
 } from "../../utilities/images";
 import ReactDatePicker from "react-datepicker";
 import moment from "moment-timezone";
@@ -18,7 +19,7 @@ const DatePickerCustomComponent = forwardRef(({ value, onClick }, ref) => (
     onClick={onClick}
     width={24}
     height={24}
-    src={customerCalendar}
+    src={value ? selectedCalendar : customerCalendar}
     objectFit="cover"
   />
 ));
@@ -36,7 +37,7 @@ const HeaderUtils = ({
       <div
         className="extra-item flex-row-space-between"
         style={{
-          backgroundColor: "#F5F6FC",
+          backgroundColor: startDate && endDate ? "#263682" : "#F5F6FC",
         }}
         onClick={calendarHandler}
       >

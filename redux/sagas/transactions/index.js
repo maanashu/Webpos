@@ -110,7 +110,6 @@ function* getTotalTraDetail(action) {
 }
 
 function* getTotalTraType(action) {
-  console.log("first", action);
   const dataToSend = { ...action.payload };
   const params = new URLSearchParams(dataToSend).toString();
 
