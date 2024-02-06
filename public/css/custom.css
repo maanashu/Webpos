@@ -643,7 +643,7 @@ input:checked+.switch-slider:before {
 }
 
 .fullheightBox_ {
-  height: calc(100vh - 34px);
+  height: calc(100vh - 85px);
   min-height: 100% !important;
   overflow-y: auto;
 }
@@ -1197,4 +1197,63 @@ input:checked+.switch-slider:before {
 
 .mapleProductDetailsBox .mapleProductcount:first-child {
   min-width: 25px;
+}
+
+.sidebarRightBooking {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.bookSideDown {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.bookingDot {
+  position: absolute;
+  border-radius: 20px;
+  border: 1.5px solid #fff;
+  background: #12b76a;
+  color: #fff;
+  font-size: 12px;
+  font-weight: 500;
+  bottom: -7px;
+  right: -8px;
+  text-align: center;
+  height: 18px;
+  width: 18px;
+}
+
+.bookUserImg {
+  width: 36px;
+  height: 36px;
+  border: 1px solid #fff;
+  border-radius: 20px;
+}
+
+.bookUserDot {
+  position: absolute;
+  border-radius: 20px;
+  border: 1.5px solid #fff;
+  background: #12b76a;
+  color: #fff;
+  font-size: 12px;
+  font-weight: 500;
+  bottom: 0px;
+  right: 0px;
+  text-align: center;
+  height: 18px;
+  width: 18px;
+}
+
+.bookingUsers {
+  height: calc(80vh - 300px);
+  overflow-y: scroll;
+}
+.bookingUsers::-webkit-scrollbar {
+display: none;
 }
