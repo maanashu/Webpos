@@ -456,16 +456,16 @@ const Overview = () => {
                         </div>
                         <div className="table-responsive">
                           <table id="tableProduct" className="product_table mt-2 homeTable">
-                            {isSearching ? (
-                              <tbody>
-                                <div className="text-center">
-                                  <div className="spinner-grow loaderSpinner text-center my-2"></div>
-                                </div>
-                              </tbody>
-                            ) : (
-                              <tbody>
-                                {invoiceDetail && Object.keys(invoiceDetail).length > 0 ?
-                                  <tr onClick={() => { router.push("/invoices/invoices") }} style={{ cursor: 'pointer' }}>
+                          {isSearching ? (
+                            <tbody>
+                              <div className="text-center">
+                                <div className="spinner-grow loaderSpinner text-center my-2"></div>
+                              </div>
+                            </tbody>
+                          ) : (
+                            <tbody>
+                              {invoiceDetail && Object.keys(invoiceDetail).length > 0 ?
+                                  <tr onClick={() => {router.push("/invoices/invoices?showInvoiceData=true")}} style={{cursor: 'pointer'}}>
                                     <td className="homeSubtable">
                                       <div className="orderFirstId">
                                         <h4 className="orderId">#{invoiceDetail?.invoice_number}</h4>

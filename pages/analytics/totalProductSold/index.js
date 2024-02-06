@@ -170,7 +170,7 @@ const index = () => {
           <table className="customers-stats-table">
             <thead>
               <tr>
-              <th
+                <th
                   className="customers-table-data"
                   style={{ border: "none", color: "#7E8AC1", textAlign: "center" }}
                 >
@@ -225,7 +225,7 @@ const index = () => {
                         totalProductSoldAnalyticsData?.totalProductSoldList?.data?.length > 0 ? <tbody>
                           {totalProductSoldAnalyticsData?.totalProductSoldList?.data?.map((row, idx) => (
                             <tr className="customers-table-row" key={idx}>
-                                <td
+                              <td
                                 className="customers-table-data"
                               >
                                 {idx + 1}

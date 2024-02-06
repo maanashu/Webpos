@@ -27,7 +27,6 @@ const AttachWithEmail = ({ close, tipUpdate }) => {
   }, [cartData?.user_details]);
 
   const attachWithEmailHandler = () => {
-    console.log("email", email);
     if (!email) {
       toast.error("Please Enter email");
     } else if (email && emailReg.test(email) === false) {
