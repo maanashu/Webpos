@@ -34,6 +34,8 @@ const CartPayByCash = () => {
   const [cashRate, setCashRate] = useState();
   const [amount, setAmount] = useState();
   const drawerData = retailData?.drawerSession;
+  const withPhone = retailData?.attachWithPhone;
+  console.log("withPhone", withPhone);
 
   const handleContineAmount = () => {
     if (!selectedCart) {

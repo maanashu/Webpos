@@ -8,6 +8,8 @@ import {
   merchantWalletCheck,
   productCart,
   selectRetailData,
+  setAttachWithEmail,
+  setAttachWithPhone,
   setProductCart,
   updateCartByTip,
 } from "../../redux/slices/retails";
@@ -508,6 +510,9 @@ const CartAmountByPay = () => {
                           let params = {
                             seller_id: sellerId,
                           };
+                          dispatch(setAttachWithPhone(false));
+                          dispatch(setAttachWithEmail(false));
+
                           dispatch(
                             merchantWalletCheck({
                               ...params,

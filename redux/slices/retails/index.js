@@ -53,6 +53,8 @@ const initialState = {
   holdProductData: [],
   localCartArray: [],
   holdCartLoad: false,
+  attachWithPhone: false,
+  attachWithEmail: false,
 };
 
 export const retailsSlice = createSlice({
@@ -345,6 +347,13 @@ export const retailsSlice = createSlice({
       // state.qrcodestatusData = action?.payload?.payload?.status;
     },
 
+    setAttachWithPhone: (state, action) => {
+      state.attachWithPhone = action?.payload;
+    },
+    setAttachWithEmail: (state, action) => {
+      state.attachWithEmail = action?.payload;
+    },
+
     onErrorStopLoad: (state) => {
       state.loading = false;
       state.availableOffersLoad = false;
@@ -453,6 +462,8 @@ export const {
   setLocalCart,
   holdCart,
   setHoldCart,
+  setAttachWithPhone,
+  setAttachWithEmail,
 } = retailsSlice.actions;
 
 export const selectRetailData = (state) => state.retails;

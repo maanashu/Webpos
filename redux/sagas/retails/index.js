@@ -317,9 +317,15 @@ function* updateCartByTip(action) {
 }
 
 function* createOrder(action) {
-  const body = { ...action.payload };
+  const attachWithPhone = store?.getState()?.retails?.attachWithPhone;
+  const attachWithEmail = store?.getState()?.retails?.attachWithEmail;
+  const body = {
+    ...action.payload,
+    reciept_on_phone: attachWithPhone,
+    reciept_on_email: attachWithEmail,
+  };
   delete body.tips;
-  // delete body.mode_of_payment;
+
   try {
     const resp = yield call(
       ApiClient.post,
