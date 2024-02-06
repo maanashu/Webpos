@@ -25,7 +25,7 @@ const index = () => {
   };
   const sellerId = auth?.usersInfo?.payload?.uniqe_id
   const dispatch = useDispatch()
-  console.log(analyticsProfitData, "analytics data")
+  console.log(analyticsProfitData?.overView, "analytics data")
 
   function addThousandSeparator(number) {
     return number?.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
@@ -47,7 +47,7 @@ const index = () => {
     {
       icon: total_volume,
       title: "Total Volume",
-      count: `${addThousandSeparator(analyticsProfitData?.overView?.transaction ? (analyticsProfitData?.overView?.transaction).toFixed(2) : 0)}`,
+      count: `$${addThousandSeparator(analyticsProfitData?.overView?.transaction ? (analyticsProfitData?.overView?.transaction).toFixed(2) : 0)}`,
       bgColor: "#D1FADF",
       textColor: "#003921",
     },
@@ -60,8 +60,8 @@ const index = () => {
     },
     {
       icon: overview_sales,
-      title: "Total Sales",
-      count: `${addThousandSeparator(analyticsProfitData?.overView?.total_cost ? (analyticsProfitData?.overView?.total_cost).toFixed(2) : 0)}`,
+      title: "Total Cost",
+      count: `$${addThousandSeparator(analyticsProfitData?.overView?.total_cost ? (analyticsProfitData?.overView?.total_cost).toFixed(2) : 0)}`,
       bgColor: "#D1FADF",
       textColor: "#003921",
     },
