@@ -559,8 +559,13 @@ const ProductCart = () => {
                 <div
                   className="addproductCart"
                   onClick={() => {
-                    setCustomProductAdd(true);
+                    // setCustomProductAdd(true);
                     cartUpdate();
+                    setModalDetail({
+                      show: true,
+                      flag: "AddProduct",
+                    });
+                    setKey(Math.random());
                   }}
                 >
                   <Image
@@ -823,9 +828,9 @@ const ProductCart = () => {
         </div>
       </div>
       {/* custom product add */}
-      <Modal show={customProductAdd} centered keyboard={false}>
+      {/* <Modal show={customProductAdd} centered keyboard={false}>
         <CustomProductAdd crosshandler={() => setCustomProductAdd(false)} />
-      </Modal>
+      </Modal> */}
 
       {/* custom product add */}
       <Modal show={attachCustomerModal} centered keyboard={false}>
@@ -847,6 +852,8 @@ const ProductCart = () => {
             : "DeleteCarts"
             ? "DeleteCarts"
             : "UpdatePrice"
+            ? "AddProduct"
+            : "AddProduct"
         }
         child={
           modalDetail.flag === "AddDiscount" ? (
@@ -861,6 +868,8 @@ const ProductCart = () => {
               {...{ cartProduct }}
               crossHandler={() => handleOnCloseModal()}
             />
+          ) : modalDetail.flag === "AddProduct" ? (
+            <CustomProductAdd crosshandler={() => handleOnCloseModal()} />
           ) : (
             ""
           )
@@ -875,6 +884,18 @@ const ProductCart = () => {
               <h4 className="appointMain mb-0">Delete Product</h4>
             ) : modalDetail.flag === "UpdatePrice" ? (
               <h4 className="appointMain mb-0">Price Changing</h4>
+            ) : modalDetail.flag === "AddProduct" ? (
+              // <h4 className="appointMain mb-0">Price Changing</h4>
+              <>
+                <h2 className="modalHeading mb-0">
+                  <figure className="text-center">
+                    <Image src={Images.plusRound} alt="img" />
+                  </figure>
+                  <p className="addProductHeading">
+                    Add New Product<br></br> Manually
+                  </p>
+                </h2>
+              </>
             ) : (
               ""
             )}

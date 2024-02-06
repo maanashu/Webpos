@@ -483,7 +483,12 @@ const ServiceCart = () => {
                   className="addproductCart"
                   onClick={() => {
                     cartUpdate();
-                    setCustomServiceAdd(true);
+                    // setCustomServiceAdd(true);
+                    setModalDetail({
+                      show: true,
+                      flag: "AddService",
+                    });
+                    setKey(Math.random());
                   }}
                 >
                   <Image
@@ -743,9 +748,9 @@ const ServiceCart = () => {
         </div>
       </div>
       {/* custom service add popup */}
-      <Modal show={customServiceAdd} centered keyboard={false}>
+      {/* <Modal show={customServiceAdd} centered keyboard={false}>
         <CustomServiceAdd crosshandler={() => setCustomServiceAdd(false)} />
-      </Modal>
+      </Modal> */}
 
       {/* custom product add */}
       <Modal show={attachCustomerModal} centered keyboard={false}>
@@ -767,6 +772,10 @@ const ServiceCart = () => {
             : "DeleteCarts"
             ? "DeleteCarts"
             : "UpdatePrice"
+            ? "UpdatePrice"
+            : "AddService"
+            ? "AddService"
+            : ""
         }
         child={
           modalDetail.flag === "AddDiscount" ? (
@@ -781,6 +790,8 @@ const ServiceCart = () => {
               {...{ cartProduct }}
               crossHandler={() => handleOnCloseModal()}
             />
+          ) : modalDetail.flag === "AddService" ? (
+            <CustomServiceAdd crosshandler={() => handleOnCloseModal()} />
           ) : (
             ""
           )
@@ -795,6 +806,29 @@ const ServiceCart = () => {
               <h4 className="appointMain mb-0">Delete Product</h4>
             ) : modalDetail.flag === "UpdatePrice" ? (
               <h4 className="appointMain mb-0">Price Changing</h4>
+            ) : modalDetail.flag === "AddService" ? (
+              <>
+                <h2 className="modalHeading mb-0">
+                  <figure className="text-center">
+                    <Image
+                      src={Images.plusRound}
+                      alt="img"
+                      onClick={() => handleOnCloseModal()}
+                    />
+                  </figure>
+                  <p className="addProductHeading">
+                    Add New Service
+                    <br></br> Manually
+                  </p>
+                </h2>
+                <button className="closeButton d-none">
+                  <Image
+                    src={Images.crossIcon}
+                    alt="img"
+                    onClick={() => handleOnCloseModal()}
+                  />
+                </button>
+              </>
             ) : (
               ""
             )}
