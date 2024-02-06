@@ -961,9 +961,11 @@
         width: 100%;
         max-width: 300px;
     }
+
     .jobrPickUp {
         margin-left: 5px;
     }
+
     .ProductAddCart .subFooter {
         max-width: 335px;
     }
@@ -1269,7 +1271,10 @@
         gap: 4px;
     }
 
-   
+    .orderStatusBox {
+        max-width: 213px;
+    }
+
 }
 
 @media (max-width: 375px) {
