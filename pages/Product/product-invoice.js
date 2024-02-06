@@ -427,9 +427,9 @@ const ProductInvoice = () => {
 
                       <p className="totalBtn">
                         -$
-                        {Number(returnData?.refunded_amount) -
+                        {Number(returnData?.refunded_amount) +
                         Number(returnData?.tax)
-                          ? Number(returnData?.refunded_amount) -
+                          ? Number(returnData?.refunded_amount) +
                             Number(returnData?.tax)
                           : totalAmount.toFixed(2)}
                       </p>

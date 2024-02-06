@@ -16,6 +16,7 @@ import {
 } from "../../redux/slices/productReturn";
 import { toast } from "react-toastify";
 import { Spinner } from "react-bootstrap";
+import { logout } from "../../redux/slices/auth";
 
 const productrefunds = () => {
   const toastId = React.useRef(null);
@@ -48,24 +49,6 @@ const productrefunds = () => {
     setKey(Math.random());
   };
 
-  const { sumQtyPrice } = refundedItems.reduce(
-    (acc, item) => {
-      const qty = Number(item.qty) || 0;
-      const price = Number(item.price) || 0;
-
-      acc.sumQtyPrice += qty * price;
-
-      return acc;
-    },
-    { sumQtyPrice: 0 }
-  );
-  const sumTax = refundedItems.reduce((acc, item) => {
-    const price = Number(item.price) || 0;
-    const tax = 0.08 * price; // 8% tax
-    return acc + tax;
-  }, 0);
-
-  const totalAmount = sumQtyPrice + sumTax;
 
   const handleGoToinventery = () => {
     const isGreater = refundedItems.some(
@@ -225,21 +208,33 @@ const productrefunds = () => {
     }
     setInputValues(newValues);
   };
-
   const subtotal = refundedItems?.reduce((acc, data, idx) => {
-    const itemTotal =
-      !isNaN(parseFloat(inputValues[idx]?.value)) &&
-      !isNaN(parseFloat(data?.qty))
-        ? (parseFloat(inputValues[idx]?.value) * parseFloat(data?.qty)).toFixed(
-            2
-          )
-        : "0.00";
-
-    return acc + parseFloat(itemTotal);
+    const qty = Number(data?.qty) || 0;
+    const lineTotal = inputValues[idx]?.value * qty || 0;
+    return acc + parseFloat(lineTotal);
   }, 0);
+  
+  const sumTax = refundedItems.reduce((acc, item, index) => {
+    const qty = item.qty || 0;
+    const lineTotal = inputValues[index]?.value * qty || 0;
+    const tax = 0.08 * lineTotal;
+    return acc + tax;
+  }, 0);
+  
+  const { sumQtyPrice } = refundedItems.reduce(
+    (acc, item) => {
+      const qty = Number(item.qty) || 0;
+      const price = Number(item.price) || 0;
 
-  const discount = (subtotal * 0.08).toFixed(2);
-  const totalSum = (subtotal - parseFloat(discount)).toFixed(2);
+      acc.sumQtyPrice += qty * price;
+
+      return acc;
+    },
+    { sumQtyPrice: 0 }
+  );
+  const discount = (sumQtyPrice * 0.08).toFixed(2);
+  const totalSum = (subtotal +sumTax);
+  const totalAmount = (parseFloat(discount) + sumQtyPrice).toFixed(2);
 
   const handleActiveText = (flag) => {
     if (flag == "flagPrice") {
@@ -512,14 +507,16 @@ const productrefunds = () => {
                   <div className="flexBox justify-content-between ">
                     <p className="orderHeading">Total Taxes</p>
                     <p className="orderHeading">
-                      +${subtotal ? discount : sumTax.toFixed(2)}%
+                      +${sumTax ? sumTax.toFixed(2) : discount}%
+                
+                   
                     </p>
                   </div>
                 </div>
                 <div className="flexBox justify-content-between itemsRefundedTotal">
                   <p className="priceHeading">Total</p>
                   <p className="priceHeading">
-                    ${subtotal ? totalSum : totalAmount.toFixed(2)}
+                    ${totalSum ? totalSum.toFixed(2) : totalAmount}
                   </p>
                 </div>
                 <div className="text-end">
