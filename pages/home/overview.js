@@ -54,34 +54,34 @@ const Overview = () => {
     title: "",
     flag: "",
   });
-  
-    // API for get all oder deliveries...............................
-    const allOrderDeliveriesInfo = () => {
-        let params = {
-            seller_id: UniqueId,
-            delivery_option: "1,3,4",
-            page: pageNumber,
-            limit: recordsPerPage,
-            app_name: 'b2c'
-        };
-        setLoadingOrders(true);
-        dispatch(getAllOrderDeliveries({
-            ...params,
-            cb(res) {
-              if (res.status && res?.data?.payload?.data?.length) {
-                setOrderDeliveriesInfo(res?.data?.payload?.data);
-                setTotalItems(res?.data?.payload?.total);
-                setLoadingOrders(false);
-              }
-              else {
-                setOrderDeliveriesInfo([]);
-                setTotalItems(0);
-                setLoadingOrders(false);
-              }
-            },
-          })
-        );
+
+  // API for get all oder deliveries...............................
+  const allOrderDeliveriesInfo = () => {
+    let params = {
+      seller_id: UniqueId,
+      delivery_option: "1,3,4",
+      page: pageNumber,
+      limit: recordsPerPage,
+      app_name: 'b2c'
     };
+    setLoadingOrders(true);
+    dispatch(getAllOrderDeliveries({
+      ...params,
+      cb(res) {
+        if (res.status && res?.data?.payload?.data?.length) {
+          setOrderDeliveriesInfo(res?.data?.payload?.data);
+          setTotalItems(res?.data?.payload?.total);
+          setLoadingOrders(false);
+        }
+        else {
+          setOrderDeliveriesInfo([]);
+          setTotalItems(0);
+          setLoadingOrders(false);
+        }
+      },
+    })
+    );
+  };
 
 
   // API for get today sales...............................
@@ -105,7 +105,7 @@ const Overview = () => {
             // dataArr.sort((a, b) => {
             //     const indexA = sortingArr.indexOf(a.mode_of_payment);
             //     const indexB = sortingArr.indexOf(b.mode_of_payment);
-                
+
             //     if (indexA === -1 && indexB === -1) {
             //         return 0;
             //     } else if (indexA === -1) {
@@ -142,7 +142,7 @@ const Overview = () => {
 
   // API for lock screen...............................
   const lockScreen = () => {
-    let params =  {
+    let params = {
       // pos_user_id: posUserUniqueId,
       drawer_id: trackingSession?.id,
       amount: parseInt(trackingSession?.cash_balance),
@@ -166,8 +166,8 @@ const Overview = () => {
 
 
   // API for search invoice ...............................
-  const searchInvoice = (invoiceNumber) => {    
-    let params =  {
+  const searchInvoice = (invoiceNumber) => {
+    let params = {
       invoice_number: invoiceNumber,
       seller_id: UniqueId
     };
@@ -250,31 +250,31 @@ const Overview = () => {
   }, []);
 
   useEffect(() => {
-      if (UniqueId) {
-          todaySaleInfo();
-          fetchOnlineOrdersCount();
-          userLoginDetails();
-      }
+    if (UniqueId) {
+      todaySaleInfo();
+      fetchOnlineOrdersCount();
+      userLoginDetails();
+    }
   }, [UniqueId]);
 
   useEffect(() => {
     if (UniqueId) {
-        allOrderDeliveriesInfo();
+      allOrderDeliveriesInfo();
     }
   }, [UniqueId, pageNumber]);
 
   useEffect(() => {
-    if(searchKeyword && typeof searchKeyword != 'undefined'){
-        
-        setIsSearching(true);
-        setDisplaySearchBox(true);
+    if (searchKeyword && typeof searchKeyword != 'undefined') {
 
-        const search = setTimeout(() => {
-            //Your search query and it will run the function after 3secs from user stops typing
-            var keyword = searchKeyword.toLowerCase();
-            searchInvoice(keyword);
-        }, 2000);
-        return () => clearTimeout(search)
+      setIsSearching(true);
+      setDisplaySearchBox(true);
+
+      const search = setTimeout(() => {
+        //Your search query and it will run the function after 3secs from user stops typing
+        var keyword = searchKeyword.toLowerCase();
+        searchInvoice(keyword);
+      }, 3000);
+      return () => clearTimeout(search)
     }
     else {
       setDisplaySearchBox(false);
@@ -295,7 +295,7 @@ const Overview = () => {
                         authData?.posUserLoginDetails?.payload?.user_profiles
                           ?.profile_photo
                           ? authData?.posUserLoginDetails?.payload
-                              ?.user_profiles?.profile_photo
+                            ?.user_profiles?.profile_photo
                           : Images.HomeProfileImg
                       }
                       alt="HomeProfileImage"
@@ -342,7 +342,7 @@ const Overview = () => {
                       getTodaySale &&
                       getTodaySale?.map((data, index) => {
 
-                        if(!data || data?.mode_of_payment == 'all'){
+                        if (!data || data?.mode_of_payment == 'all') {
                           return;
                         }
 
@@ -351,13 +351,13 @@ const Overview = () => {
                             <h4 className="saleHeading">
                               {data?.mode_of_payment === "jbr" ? "JBR Coin"
                                 : data?.mode_of_payment
-                                    ?.charAt(0)
-                                    ?.toUpperCase() +
-                                  data?.mode_of_payment?.slice(1)}{" "}
+                                  ?.charAt(0)
+                                  ?.toUpperCase() +
+                                data?.mode_of_payment?.slice(1)}{" "}
                               sales amount
                             </h4>
                             <h4 className="saleHeading text-end">
-                              {data?.mode_of_payment === "jbr" ? `JBR ${data?.total_sale_amount?.toFixed(2)}` : "$"+data?.total_sale_amount?.toFixed(2)}
+                              {data?.mode_of_payment === "jbr" ? `JBR ${data?.total_sale_amount?.toFixed(2)}` : "$" + data?.total_sale_amount?.toFixed(2)}
                               {/* ${data?.total_sale_amount?.toFixed(2)} */}
                             </h4>
                           </div>
@@ -408,7 +408,7 @@ const Overview = () => {
                     src={Images.ProductBox}
                     alt="BoxImage"
                     className="img-fluid "
-                    // onClick={() => { handleUserProfile("trackingmodal") }}
+                  // onClick={() => { handleUserProfile("trackingmodal") }}
                   />
                 </div>
                 <div className="lockScreenBox" onClick={() => lockScreen()}>
@@ -430,7 +430,7 @@ const Overview = () => {
                       className="form-control searchControl"
                       placeholder="Search here"
                       value={searchKeyword}
-                      onChange={(e) => {setSearchKeyword(e.target.value)}}
+                      onChange={(e) => { setSearchKeyword(e.target.value) }}
                     />
                     <Image
                       src={Images.Scan}
@@ -444,17 +444,18 @@ const Overview = () => {
                     />
                   </div>
 
-                  {displaySearchBox && 
+                  {displaySearchBox &&
                     <div className="custom-search-box">
                       <div className="custom-search-dropdown">
-                        <div className="cross-icon" onClick={() => {setDisplaySearchBox(false); setSearchKeyword(""); setIsSearching(false);}}>
-                            <Image
-                              src={Images.crossBlue}
-                              alt="SearchImageIcon"
-                              className="img-fluid "
-                            />
+                        <div className="cross-icon" onClick={() => { setDisplaySearchBox(false); setSearchKeyword(""); setIsSearching(false); }}>
+                          <Image
+                            src={Images.crossBlue}
+                            alt="SearchImageIcon"
+                            className="img-fluid "
+                          />
                         </div>
-                        <table id="tableProduct" className="product_table mt-2">
+                        <div className="table-responsive">
+                          <table id="tableProduct" className="product_table mt-2 homeTable">
                           {isSearching ? (
                             <tbody>
                               <div className="text-center">
@@ -465,18 +466,18 @@ const Overview = () => {
                             <tbody>
                               {invoiceDetail && Object.keys(invoiceDetail).length > 0 ?
                                   <tr onClick={() => {router.push("/invoices/invoices?showInvoiceData=true")}} style={{cursor: 'pointer'}}>
-                                    <td>
+                                    <td className="homeSubtable">
                                       <div className="orderFirstId">
                                         <h4 className="orderId">#{invoiceDetail?.invoice_number}</h4>
                                       </div>
                                     </td>
-                                    <td>
+                                    <td className="homeSubtable">
                                       <div className="nameLocation">
                                         <h4 className="orderId">
                                           {invoiceDetail?.order?.user_details?.user_profiles
                                             ? invoiceDetail.order.user_details.user_profiles.firstname +
-                                              " " +
-                                              invoiceDetail.order.user_details.user_profiles.lastname
+                                            " " +
+                                            invoiceDetail.order.user_details.user_profiles.lastname
                                             : ""}
                                         </h4>
                                         {invoiceDetail?.order?.order_delivery?.distance &&
@@ -493,7 +494,7 @@ const Overview = () => {
                                         }
                                       </div>
                                     </td>
-                                    <td>
+                                    <td className="homeSubtable">
                                       <div className="itemMoney">
                                         <h4 className="orderId">
                                           {invoiceDetail?.order?.order_details?.length} items
@@ -512,7 +513,7 @@ const Overview = () => {
                                         </div>
                                       </div>
                                     </td>
-                                    <td>
+                                    <td className="homeSubtable">
                                       <div className="itemTime">
                                         {/* <h4 className="orderId">Customer:</h4> */}
                                         {invoiceDetail?.order?.delivery_option ? (
@@ -532,27 +533,28 @@ const Overview = () => {
                                       </div>
                                     </td>
                                   </tr>
-                                :
+                                  :
                                   <tr>
-                                    <td style={{width: 0, padding: "5px"}}></td>
+                                    <td style={{ width: 0, padding: "5px" }}></td>
                                     <td
                                       className="colorBlue text text-center py-3"
                                       colSpan={8}
-                                      style={{color: "#263682"}}
+                                      style={{ color: "#263682" }}
                                     >
                                       <h5>No Data</h5>
                                     </td>
                                   </tr>
-                              }
-                            </tbody>
-                          )}
-                        </table>
+                                }
+                              </tbody>
+                            )}
+                          </table>
+                        </div>
                       </div>
                     </div>
                   }
                 </form>
                 <div className="sellingOrder">
-                  <div className="startSelling" onClick={() => {router.push("/Retails?parameter=product")}} style={{cursor: "pointer"}}>
+                  <div className="startSelling" onClick={() => { router.push("/Retails?parameter=product") }} style={{ cursor: "pointer" }}>
                     <figure className="profileImage">
                       <Image
                         src={Images.HomeIcon}
@@ -570,7 +572,7 @@ const Overview = () => {
                       <span className="smallText">Scan / Search</span>
                     </figure>
                   </div>
-                  <div className="onlineOrder" onClick={() => {router.push("/Deliveries")}} style={{cursor: "pointer"}}>
+                  <div className="onlineOrder" onClick={() => { router.push("/Deliveries") }} style={{ cursor: "pointer" }}>
                     <figure className="profileImage">
                       <Image
                         src={Images.ShoppingCart}
@@ -579,7 +581,7 @@ const Overview = () => {
                       />
                     </figure>
                     <h4 className="loginMain">Online Orders</h4>
-                    <button className="OrderBtn">{ onlineOrdersCount } New Orders</button>
+                    <button className="OrderBtn">{onlineOrdersCount} New Orders</button>
                     <div className="bellImg">
                       <figure className="bellOuter">
                         <Image
@@ -608,7 +610,7 @@ const Overview = () => {
                               {orderDeliveriesInfo?.map((data, index) => {
                                 const redirectURL = data?.delivery_option == '4' ? '/shipping' : '/Deliveries'
                                 return (
-                                  <tr onClick={() => {router.push(redirectURL)}} style={{cursor: 'pointer'}}>
+                                  <tr onClick={() => { router.push(redirectURL) }} style={{ cursor: 'pointer' }}>
                                     <td className="deliverSubdata" key={index}>
                                       <div className="orderFirstId">
                                         <h4 className="orderId">#{data?.invoices?.invoice_number}</h4>
@@ -619,8 +621,8 @@ const Overview = () => {
                                         <h4 className="orderId">
                                           {data?.user_details
                                             ? data?.user_details?.firstname +
-                                              " " +
-                                              data?.user_details?.lastname
+                                            " " +
+                                            data?.user_details?.lastname
                                             : ""}
                                         </h4>
                                         <div className="flexTable">
@@ -686,11 +688,11 @@ const Overview = () => {
                                         <i className="fa-sharp fa-solid fa-chevron-right"></i>
                                         <span className="orderId">
                                           {data?.estimated_preparation_time ===
-                                          null
+                                            null
                                             ? "00:00:00"
                                             : moment(
-                                                data?.estimated_preparation_time
-                                              ).format("LTS")}
+                                              data?.estimated_preparation_time
+                                            ).format("LTS")}
                                         </span>
                                       </div>
                                     </td>
