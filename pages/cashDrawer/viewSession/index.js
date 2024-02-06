@@ -71,7 +71,6 @@ const ViewSession = () => {
     );
   }, []);
 
-  console.log("fdsfsad", drawerHistoryData);
   return (
     <>
       <div className="main-container-customers">

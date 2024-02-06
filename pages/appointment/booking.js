@@ -828,7 +828,7 @@ const Booking = () => {
                   <Image
                     src={Images.usersImages}
                     alt="image"
-                    className="img-fluid userImage  sidebarIcons  "
+                    className="img-fluid sidebarIcons  "
                   />
                   <span className="bottomdot">
                     {staffUsersList?.length || "0"}
@@ -1466,6 +1466,14 @@ const Booking = () => {
                 updateBookingStatus(
                   selectedBooking?.id,
                   APPOINTMENT_STATUS.CHECKED_IN
+                );
+                onSearchAppoinment(searchedText);
+              }}
+              onDeclinePress={() => {
+                handleOnCloseModal();
+                updateBookingStatus(
+                  selectedBooking?.id,
+                  APPOINTMENT_STATUS.REJECTED_BY_SELLER
                 );
                 onSearchAppoinment(searchedText);
               }}

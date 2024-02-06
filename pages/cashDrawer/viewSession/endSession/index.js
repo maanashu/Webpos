@@ -18,14 +18,19 @@ import {
 import CustomModal from "../../../../components/customModal/CustomModal";
 import EndCashModal from "../../../../components/modals/cashDrawerModals/endCashModal";
 import * as Images from "../../../../utilities/images";
+import { useSelector } from "react-redux";
+import { selectLoginAuth } from "../../../../redux/slices/auth";
 
 const EndSession = () => {
   ChartJS.register(...registerables);
+
+  const getUserData = useSelector(selectLoginAuth);
+  const getPosUser = getUserData?.posUserLoginDetails?.payload;
   const [key, setKey] = useState(Math.random());
 
   const [modalDetail, setModalDetail] = useState({
     show: false,
-    title: "Add Cash",
+    title: "End Cash Tracking Session",
     type: "add",
     flag: "trackingmodal",
   });
@@ -52,29 +57,19 @@ const EndSession = () => {
   return (
     <>
       <div className="main-container-customers ">
-        <Header mainIcon={CrossCircle} title={"End Tracking Session"} />
+        <Header mainIcon={CrossCircle} title={"Back"} />
         <div className="innerContainer">
-          <div className="drawerIdBox">
-            <Image src={DrawerIcon} width={"24px"} height={"24px"} />
-            <p className="drawerIdText">Drawer ID:1</p>
-          </div>
-          <div className="batchBox">
-            <p className="batchText">Batch</p>
-
-            <p className="dateText">Date</p>
-          </div>
           <div className="closeBatchView">
             <div className="batchView">
-              <p className="batchText">Batch</p>
+              <h4 className="appointMain">Batch</h4>
             </div>
-            <div className="batchView">
-              <Image src={calendarDark} className="calendarStyle" />
-              <p className="batchText">5/December/2023</p>
-            </div>
+
             <div className="closeButtonView">
               <div
                 className="closeBatchButton"
-                onClick={() => handleShowModal("End Cash", "remove")}
+                onClick={() =>
+                  handleShowModal("End Cash Tracking Session", "remove")
+                }
               >
                 <p className="closeBatchText">Close Batch</p>
                 <Image src={Cross} className="crossStyle" />
@@ -87,20 +82,33 @@ const EndSession = () => {
             </div>
             <div className="logoutView">
               <div className="profileView">
-                <Image src={userSale} />
+                <Image
+                  src={
+                    getPosUser?.user_profiles?.profile_photo
+                      ? getPosUser?.user_profiles?.profile_photo
+                      : Images.defaultUser
+                  }
+                  className="userImage"
+                />
                 <div className="profileNameView">
-                  <p className="profileNameStyle">Michelle Graycastle</p>
+                  <p className="profileNameStyle">
+                    {`${getPosUser?.user_profiles?.firstname} ${getPosUser?.user_profiles?.lastname}`}
+                  </p>
                   <div className="profileTypeView">
-                    <Image src={DrawerBlue} width={"18px"} height={"18px"} />
-                    <p className="profileTypeTextStyle">POS Cashier</p>
+                    <p className="profileTypeTextStyle">
+                      {getPosUser?.user_roles?.length > 0
+                        ? getPosUser?.user_roles?.map((item) => item.role?.name)
+                        : "admin"}
+                    </p>
+                  </div>
+                  <div className="profileTypeView">
+                    <p className="profileNameStyle">
+                      ID: {getPosUser?.user_profiles?.user_id ?? "0"}
+                    </p>
                   </div>
                 </div>
               </div>
-              <div className="skuView">
-                <div className="skuStyle">
-                  <p className="skuTextStyle">SKU 0199 - 3221</p>
-                </div>
-              </div>
+
               <div className="logView">
                 <div className="lockButton">
                   <p className="lockTextStyle">Lock Screen</p>

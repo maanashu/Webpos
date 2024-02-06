@@ -5,6 +5,7 @@ const initialState = {
   drawerSession: {},
   drawerHistory: {},
   trackSession: {},
+  expectedCashByDrawerId: {},
   loading: false,
 };
 
@@ -40,6 +41,13 @@ export const cashDrawerSlice = createSlice({
       state.loading = false;
       state.trackSession = action?.payload;
     },
+    getExpectedCashByDrawerId: (state) => {
+      state.loading = true;
+    },
+    setExpectedCashByDrawerId: (state, action) => {
+      state.loading = false;
+      state.expectedCashByDrawerId = action?.payload;
+    },
     onErrorStopLoad: (state) => {
       state.loading = false;
     },
@@ -57,6 +65,8 @@ export const {
   setGetDrawerHistory,
   trackSessionSave,
   setTrackSessionSave,
+  getExpectedCashByDrawerId,
+  setExpectedCashByDrawerId,
 } = cashDrawerSlice.actions;
 
 export const selectCashDrawerData = (state) => state.cashDrawer;
