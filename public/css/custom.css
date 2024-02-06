@@ -577,6 +577,8 @@ input:checked+.switch-slider:before {
   min-width: calc(100% - 107px) !important;
   margin-right: 95px !important;
   position: relative;
+  height: calc(100vh - 84px);
+  overflow-y: scroll;
 }
 
 .analyticsSection .deliverRightBar {
@@ -643,7 +645,7 @@ input:checked+.switch-slider:before {
 }
 
 .fullheightBox_ {
-  height: calc(100vh - 34px);
+  height: calc(100vh - 85px);
   min-height: 100% !important;
   overflow-y: auto;
 }
@@ -1087,7 +1089,7 @@ input:checked+.switch-slider:before {
 }
 
 .stockColumn {
- width: 70%;
+  width: 70%;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -1097,7 +1099,7 @@ input:checked+.switch-slider:before {
 /*product css end*/
 /*delivery module css start*/
 #deliveryDashBoardList .invoice_subhead:first-child {
-  min-width: 100px;
+  min-width: 80px;
 }
 
 #deliveryDashBoardList .invoice_subhead:nth-child(2) {
@@ -1129,7 +1131,7 @@ input:checked+.switch-slider:before {
 #orderReviewDeliver .invoice_subhead:first-child,
 #orderAcceptDeliver .invoice_subhead:first-child,
 .deliverDashboardTable .invoice_subhead:first-child {
-  min-width: 100px;
+  min-width: 80px;
 }
 
 #orderReviewDeliver .invoice_subhead:nth-child(2),
@@ -1158,22 +1160,109 @@ input:checked+.switch-slider:before {
   color: #7e8ac1;
   font-size: 12px;
   font-weight: 400;
-}  
+}
 
 /*delivery module css end */
-.userSide{
+.userSide {
   justify-content: start !important;
   gap: 60px;
 }
-.homeTable .homeSubtable:first-child{
+
+.homeTable .homeSubtable:first-child {
   min-width: 80px;
 }
-.homeTable .homeSubtable:nth-child(2){
+
+.homeTable .homeSubtable:nth-child(2) {
   min-width: 156px;
 }
-.homeTable .homeSubtable:nth-child(3){
+
+.homeTable .homeSubtable:nth-child(3) {
   min-width: 125px;
 }
-.homeTable .homeSubtable:last-child{
+
+.homeTable .homeSubtable:last-child {
   min-width: 130px;
+}
+
+.mapleInvoiceBox {
+  flex-wrap: wrap;
+}
+
+.mapleProductDetailsBox {
+  min-width: 200px;
+  overflow-x: scroll;
+}
+
+.mapleProductDetailsBox .flexbase {
+  min-width: 200px;
+}
+
+.mapleProductDetailsBox .mapleProductcount:first-child {
+  min-width: 25px;
+}
+
+.sidebarRightBooking {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.bookSideDown {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.bookingDot {
+  position: absolute;
+  border-radius: 20px;
+  border: 1.5px solid #fff;
+  background: #12b76a;
+  color: #fff;
+  font-size: 10px;
+  font-weight: 600;
+  bottom: -7px;
+  right: -8px;
+  text-align: center;
+  height: 21px;
+  width: 21px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.bookUserImg {
+  width: 36px;
+  height: 36px;
+  border: 1px solid #fff;
+  border-radius: 20px;
+}
+
+.bookUserDot {
+  position: absolute;
+  border-radius: 20px;
+  border: 1.5px solid #fff;
+  background: #12b76a;
+  color: #fff;
+  font-size: 10px;
+  font-weight: 600;
+  bottom: 0px;
+  right: 0px;
+  text-align: center;
+  height: 21px;
+  width: 21px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.bookingUsers {
+  height: calc(80vh - 300px);
+  overflow-y: scroll;
+}
+
+.bookingUsers::-webkit-scrollbar {
+  display: none;
 }
