@@ -18,6 +18,7 @@ const Language = (props) => {
   const dispatch = useDispatch();
   const [key, setKey] = useState(Math.random());
   const [isLoading, setIsLoading] = useState("");
+  const [listLoader, setListLoader] = useState(false);
   const [getSelectedLanguages, setGetSelectedLanguages] = useState();
   const [modalDetail, setModalDetail] = useState({
     show: false,
@@ -54,16 +55,25 @@ const Language = (props) => {
     ) {
       return;
     }
-    alert("checkk");
+    setListLoader(true);
     setIsLoading(data?.id);
+
+    const updateLanguageStatus = getSelectedLanguages
+      ?.map((item) => {
+        if (item?.id === data?.id) {
+          return { ...item, status: item?.status === 0 ? 1 : 0 };
+        }
+        return item;
+      })
+      ?.map((value) => ({
+        id: value.id,
+        status: value.status,
+      }));
+
     let params = {
-      languages: [
-        {
-          id: data?.id,
-          status: data?.status === 0 ? 1 : 0,
-        },
-      ],
+      languages: updateLanguageStatus,
     };
+
     dispatch(
       updateSettings({
         ...params,
@@ -101,8 +111,8 @@ const Language = (props) => {
   }, [UniqueId]);
 
   useEffect(() => {
-    props?.setShowSideBar(false)
-  },[])
+    props?.setShowSideBar(false);
+  }, []);
 
   return (
     <>
@@ -121,70 +131,78 @@ const Language = (props) => {
             </p>
           </div>
         </div>
-        <div className="languageMain mt-4 bottonContent_">
-          {getSelectedLanguages?.map((data, index) => {
-            return (
-              <div
-                key={index}
-                className={
-                  settingData?.loading && isLoading === data?.id
-                    ? "taxCountryMain mb-3 justify-content-center"
-                    : "taxCountryMain mb-3"
-                }
-              >
-                <>
-                  {settingData?.loading && isLoading === data?.id ? (
-                    <div className="spinner-grow loaderSpinner text-center"></div>
-                  ) : (
-                    <>
-                      <div className="operatingCountry">
-                        <Image
-                          src={data?.flag}
-                          className="countryImg"
-                          alt="countryImage"
-                          width={50}
-                          height={50}
-                        />
-                        <div className="countryText">
-                          <h4 className="cancelOrderText">
-                            {data?.language} ({data?.country})
-                          </h4>
-                          <h4 className="settingText mt-1">Default</h4>
-                        </div>
-                      </div>
-                      <div className="roundCheck mb-0">
-                        <input
-                          type="checkbox"
-                          checked={data?.status}
-                          onChange={(e) => {
-                            setLanguageEnableDisable(data);
-                          }}
-                        />
-                        <label className="amountText d-none "></label>
-                      </div>
-                    </>
-                  )}
-                </>
-              </div>
-            );
-          })}
-          <div className="addlanguage_ mt-4 pt-2">
-            <button
-              className="addlangueBtn_"
-              onClick={() => {
-                handleOpenModal("addlanguageModal");
-              }}
-            >
-              {" "}
-              <Image
-                src={Images.addDark}
-                className="countryImg me-3"
-                alt="countryImage"
-              />{" "}
-              <span>Add language</span>
-            </button>
+        {settingData?.loading && !listLoader ? (
+          <div className="d-flex justify-content-center">
+            <div className="spinner-grow loaderSpinner text-center my-5"></div>
           </div>
-        </div>
+        ) : (
+          <div className="languageMain mt-4 bottonContent_">
+            {getSelectedLanguages?.map((data, index) => {
+              return (
+                <div
+                  key={index}
+                  className={
+                    settingData?.loading && isLoading === data?.id
+                      ? "taxCountryMain mb-3 justify-content-center"
+                      : "taxCountryMain mb-3"
+                  }
+                >
+                  <>
+                    {settingData?.loading &&
+                    isLoading === data?.id &&
+                    listLoader ? (
+                      <div className="spinner-grow loaderSpinner text-center"></div>
+                    ) : (
+                      <>
+                        <div className="operatingCountry">
+                          <Image
+                            src={data?.flag}
+                            className="countryImg"
+                            alt="countryImage"
+                            width={50}
+                            height={50}
+                          />
+                          <div className="countryText">
+                            <h4 className="cancelOrderText">
+                              {data?.language} ({data?.country})
+                            </h4>
+                            <h4 className="settingText mt-1">Default</h4>
+                          </div>
+                        </div>
+                        <div className="roundCheck mb-0">
+                          <input
+                            type="checkbox"
+                            checked={data?.status}
+                            onChange={(e) => {
+                              setLanguageEnableDisable(data);
+                            }}
+                          />
+                          <label className="amountText d-none "></label>
+                        </div>
+                      </>
+                    )}
+                  </>
+                </div>
+              );
+            })}
+            <div className="addlanguage_ mt-4 pt-2">
+              <button
+                className="addlangueBtn_"
+                onClick={() => {
+                  handleOpenModal("addlanguageModal");
+                }}
+              >
+                {" "}
+                <Image
+                  src={Images.addDark}
+                  className="countryImg me-3"
+                  alt="countryImage"
+                />{" "}
+                <span>Add language</span>
+              </button>
+            </div>
+          </div>
+        )}
       </div>
       <CustomModal
         key={key}

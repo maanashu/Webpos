@@ -5558,3 +5558,8 @@ figure {
   overflow-y: scroll;
   height: 50vh;
 }
+.select-language-drop{
+  display: flex;
+  justify-content: end;
+  align-items: center;
+}
