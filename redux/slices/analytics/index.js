@@ -1,5 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 
+import { restAllData } from "../commonActions";
+
 const initialState = {
   loading: false,
 };
@@ -7,6 +9,7 @@ const initialState = {
 export const analyticsSlice = createSlice({
   name: "analytics",
   initialState,
+  extraReducers: (builder) => builder.addCase(restAllData, () => initialState),
   reducers: {
     getProfitsData: (state) => {
       state.loading = true;
@@ -14,28 +17,28 @@ export const analyticsSlice = createSlice({
     setProfitData: (state, action) => {
       state.loading = false;
     },
-    orderAnalyticsData:  (state) => {
+    orderAnalyticsData: (state) => {
       state.loading = true;
     },
     setOrderData: (state, action) => {
       state.loading = false;
     },
-    totalOrderAnalyticsDataApi:(state) => {
+    totalOrderAnalyticsDataApi: (state) => {
       state.loading = true;
     },
-    setTotalOrderAnalyticsData:(state) => {
+    setTotalOrderAnalyticsData: (state) => {
       state.loading = false;
     },
-    totalAnalyticsProductSoldData:(state) => {
+    totalAnalyticsProductSoldData: (state) => {
       state.loading = true;
     },
-    setTotalAnalyticsProductSoldData:(state) => {
+    setTotalAnalyticsProductSoldData: (state) => {
       state.loading = false;
     },
-    totalInventoryDataApi:(state) => {
+    totalInventoryDataApi: (state) => {
       state.loading = true;
     },
-    setTotalInventoryData:(state) => {
+    setTotalInventoryData: (state) => {
       state.loading = false;
     },
     onErrorStopLoad: (state) => {
@@ -56,7 +59,7 @@ export const {
   totalOrderAnalyticsDataApi,
   setTotalOrderAnalyticsData,
   totalAnalyticsProductSoldData,
-  setTotalAnalyticsProductSoldData
+  setTotalAnalyticsProductSoldData,
 } = analyticsSlice.actions;
 
 export const analyticsDetails = (state) => state.analytics;

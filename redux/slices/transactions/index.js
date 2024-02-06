@@ -1,4 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { restAllData } from "../commonActions";
 
 const initialState = {
   totalTraDetail: {},
@@ -10,6 +11,7 @@ const initialState = {
 export const transactionsSlice = createSlice({
   name: "transactions",
   initialState,
+  extraReducers: (builder) => builder.addCase(restAllData, () => initialState),
   reducers: {
     getTotalTraDetail: (state) => {
       state.loading = true;

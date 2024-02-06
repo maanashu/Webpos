@@ -163,10 +163,10 @@ const Overview = () => {
         ...params,
         async cb(res) {
           // if (res.status) {
-            await dispatch(posUserLogout());
-            await dispatch(dashboardLogout());
-            localStorage.removeItem("authToken");
-            router.push("/auth/login");
+          await dispatch(posUserLogout());
+          await dispatch(dashboardLogout());
+          localStorage.removeItem("authToken");
+          router.push("/auth/login");
           // }
         },
       })

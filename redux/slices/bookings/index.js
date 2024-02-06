@@ -1,4 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { restAllData } from "../commonActions";
 
 const initialState = {
   getAppointment: [],
@@ -14,6 +15,7 @@ const initialState = {
 export const bookingsSlice = createSlice({
   name: "bookings",
   initialState,
+  extraReducers: (builder) => builder.addCase(restAllData, () => initialState),
   reducers: {
     getAppointments: (state, action) => {
       if (!action?.payload?.params?.search) {
@@ -24,16 +26,8 @@ export const bookingsSlice = createSlice({
       state.staffUsersLoading = true;
     },
     setGetStaffUsers: (state, action) => {
-      // state.loading = false;
       state.staffUsersLoading = false;
       const responseData = action?.payload?.payload;
-
-      if (!responseData) {
-        state.staffUsers = [];
-        state.staffPages = null;
-        return;
-      }
-
       const currentPages = responseData?.current_page;
       const totalPages = responseData?.total_pages;
       const staffPages = { currentPages: currentPages, totalPages: totalPages };
@@ -52,14 +46,6 @@ export const bookingsSlice = createSlice({
       const { getAppointment } = state;
 
       const responseData = action?.payload?.payload;
-
-      if (!responseData) {
-        state.loading = false;
-        state.getAppointment = [];
-        state.pages = null;
-
-        return;
-      }
       const currentPages = responseData?.current_page;
       const totalPages = responseData?.total_pages;
       const pages = { currentPages: currentPages, totalPages: totalPages };
@@ -100,13 +86,6 @@ export const bookingsSlice = createSlice({
     setGetServiceTimeSlots: (state, action) => {
       state.serviceTimeSlotsLoading = false;
       const responseData = action?.payload;
-
-      if (!responseData) {
-        state.timeSlots = null;
-        state.timeSlotInterval = null;
-        return;
-      }
-
       state.timeSlots = responseData?.payload?.slots;
       state.timeSlotInterval = responseData?.payload?.interval;
     },
