@@ -44,7 +44,6 @@ export const deliverySlice = createSlice({
     },
     getPendingOrderCount: (state) => {},
     setPendingOrderCount: (state, action) => {
-      console.log("oppoaposopaopsas", action);
       state.pendingOrderCountData = action?.payload;
     },
 

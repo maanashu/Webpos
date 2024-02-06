@@ -5,7 +5,11 @@ import Image from "next/image";
 import { ListGroup, ListGroupItem } from "react-bootstrap";
 import { useRouter } from "next/router";
 import { logout, selectLoginAuth } from "../redux/slices/auth";
-import { dashboardLogout, dashboardDetails, endTrackingSession } from "../redux/slices/dashboard";
+import {
+  dashboardLogout,
+  dashboardDetails,
+  endTrackingSession,
+} from "../redux/slices/dashboard";
 import { useDispatch, useSelector } from "react-redux";
 import { toast } from "react-toastify";
 import { getOrdersList } from "../redux/slices/shipping";
@@ -23,34 +27,30 @@ const Sidebar = (props) => {
   const trackingSession = dashboardData?.drawerSession?.payload;
   const sellerUid = authData?.usersInfo?.payload?.uniqe_id;
 
-
-
   const ADMIN = () => {
-    const admin = authData?.posUserLoginDetails?.payload?.user_roles?.filter((item) => item?.role?.slug == 'pos_admin');
+    const admin = authData?.posUserLoginDetails?.payload?.user_roles?.filter(
+      (item) => item?.role?.slug == "pos_admin"
+    );
     return admin;
   };
 
-
-  console.log(ADMIN(), "auth data");
-
   const router = useRouter();
-  const pathname = router?.pathname
-  const status = localStorage.getItem("status")
+  const pathname = router?.pathname;
+  const status = localStorage.getItem("status");
   const [orderData, setOrderData] = useState([]);
 
-  console.log(router?.pathname?.split("/")[1], "router");
   props?.sidebarToggle(activeSidebar);
   const { orderList, pendingOrderCountData } = useSelector(deliveryData);
 
   const userLogout = async (e) => {
     e.preventDefault();
-    
-    let params =  {
+
+    let params = {
       // pos_user_id: posUserUniqueId,
       drawer_id: trackingSession?.id,
       amount: parseInt(trackingSession?.cash_balance),
-      transaction_type: 'end_tracking_session',
-      mode_of_cash: 'cash_out'
+      transaction_type: "end_tracking_session",
+      mode_of_cash: "cash_out",
     };
 
     dispatch(
@@ -65,7 +65,7 @@ const Sidebar = (props) => {
           }, 200);
 
           router.push("/auth/verification");
-          
+
           localStorage.removeItem("merchantAuthToken");
           localStorage.removeItem("authToken");
           localStorage.removeItem("persist:root");
@@ -73,24 +73,22 @@ const Sidebar = (props) => {
       })
     );
 
+    // await dispatch(logout());
+    // await dispatch(dashboardLogout());
 
-      // await dispatch(logout());
-      // await dispatch(dashboardLogout());
+    // setTimeout(() => {
+    //   toast.success("Logout successfully");
+    // }, 200);
 
-      // setTimeout(() => {
-      //   toast.success("Logout successfully");
-      // }, 200);
+    // localStorage.removeItem("merchantAuthToken");
+    // localStorage.removeItem("authToken");
+    // localStorage.removeItem("persist:root");
 
-      // localStorage.removeItem("merchantAuthToken");
-      // localStorage.removeItem("authToken");
-      // localStorage.removeItem("persist:root");
-
-      // router.push("/auth/verification");
+    // router.push("/auth/verification");
   };
 
   const isLinkActive = (href) => {
     Sidebar;
-    console.log(href, "hrefhref");
     return router.pathname === href;
   };
   const getDeliveryPendingOrderCount = () => {
@@ -134,10 +132,11 @@ const Sidebar = (props) => {
       getAllShippingOrdeshandle();
     }
   }, [pathname, status]);
-  console.log(router?.pathname?.split("/")[1]?.split("/")[1], "pathname called");
   return (
     <div
-      className={`main-sidebar ${activeSidebar ? "hide" : "full"} ${ADMIN()?.length > 0 ?"admin": "userSide"}`}
+      className={`main-sidebar ${activeSidebar ? "hide" : "full"} ${
+        ADMIN()?.length > 0 ? "admin" : "userSide"
+      }`}
       id="myNav"
     >
       <div className="sidebarAuth sidebarMain">
@@ -414,13 +413,15 @@ const Sidebar = (props) => {
               </Link>
             </ListGroupItem> */}
 
-            {
-              ADMIN()?.length > 0 &&
+            {ADMIN()?.length > 0 && (
               <ListGroupItem className="sidebarItems">
                 <Link
                   href="/settings"
-                  className={`sidebarLinks ${router?.pathname?.split("/")[1] == "settings" ? "active" : ""
-                    }`}
+                  className={`sidebarLinks ${
+                    router?.pathname?.split("/")[1] == "settings"
+                      ? "active"
+                      : ""
+                  }`}
                 >
                   <Image
                     src={Images.Settings}
@@ -435,7 +436,7 @@ const Sidebar = (props) => {
                   <span className="sidebarTxt">Settings</span>
                 </Link>
               </ListGroupItem>
-            }
+            )}
 
             {/* <ListGroupItem className="sidebarItems" >
                         <Link href="/dashboard" className={`sidebarLinks ${isLinkActive("/appointment/booking") ? "active" : ""}`} >
@@ -456,13 +457,13 @@ const Sidebar = (props) => {
                 </div> */}
         </ListGroup>
       </div>
-      {
-        ADMIN()?.length > 0 &&
+      {ADMIN()?.length > 0 && (
         <div className=" ">
           <Link
             href="#"
-            className={`logoutLink ${isLinkActive("/appointment/booking") ? "active" : ""
-              }`}
+            className={`logoutLink ${
+              isLinkActive("/appointment/booking") ? "active" : ""
+            }`}
           >
             <button
               className="logOut"
@@ -478,8 +479,7 @@ const Sidebar = (props) => {
             </button>
           </Link>
         </div>
-      }
-
+      )}
     </div>
   );
 };
