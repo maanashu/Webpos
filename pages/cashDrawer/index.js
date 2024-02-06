@@ -1,15 +1,8 @@
 import Image from "next/image";
 import React, { useEffect, useState } from "react";
 import {
-  customerWallet,
-  newCustomers,
-  returningCustomers,
-  onlineCustomers,
-  walkInCustomers,
-  salesTracking,
-  DrawerID,
-  arrowDown,
-  searchMoney,
+  rightArrow,
+  salesTracking
 } from "../../utilities/images";
 import { Line } from "react-chartjs-2";
 import { Chart as ChartJS, registerables } from "chart.js";
@@ -54,27 +47,18 @@ const CashDrawer = () => {
       <div className="cashDrawOuter cashDrawMain">
         <Header mainIcon={salesTracking} title="Sales Tracking" />
         <div className="cashDrawSub">
-          <div className="outerCashFlex">
-            <h4 className="settingSub">Batch</h4>
-            <h4 className="settingSub">Drawer</h4>
-          </div>
           <div className="batchData">
             <div className="batchDataSub">
-              <h4 className="cartText">Batch</h4>
+              <h5 className="textNeavyBlue">Batch</h5>
               <div className="flexBox">
-                <Image
-                  src={DrawerID}
-                  className="img-fluid"
-                  alt="mainIcon Image"
-                />
                 <h4 className="locateDistance">
-                  Drawer ID {drawerSessionDetail?.id}
+                  Drawer ID: {drawerSessionDetail?.id}
                 </h4>
               </div>
             </div>
             <Link href="cashDrawer/viewSession">
               <button className="viewSessionBtn" type="submit">
-                View Session
+                <b>View Session</b>
               </button>
             </Link>
           </div>
@@ -91,12 +75,12 @@ const CashDrawer = () => {
               <Image src={searchMoney} className="img-fluid" alt="searchMoney Image" />
             </button>
           </div> */}
-          <div className="cashSession">
-            <h4 className="activateText text-start">Session History</h4>
-            <Link href="cashDrawer/sessionHistory">
-              <Image src={arrowDown} className="img-fluid" alt="arrow image" />
-            </Link>
-          </div>
+          <Link href="cashDrawer/sessionHistory">
+            <div className="cashSession">
+              <h4 className="activateText text-start">Session History</h4>
+              <Image src={rightArrow} className="img-fluid" alt="arrow image" />
+            </div>
+          </Link>
         </div>
         {/* <div className="paginatePosition">
           <PaginationFooter />

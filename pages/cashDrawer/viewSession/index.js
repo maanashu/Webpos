@@ -79,18 +79,11 @@ const ViewSession = () => {
           <div className="innerViewContainer">
             <div className="topBox">
               <div className="topBox1">
-                <div className="batchBox">
-                  <p className="batchTextStyle">Batch</p>
-                </div>
-                <div className="batchBox">
-                  <Link href="viewSession/endSession">
-                    <div className="drawerBox">
-                      <Image className="clockStyle" src={DrawerID} />
-                      <p className="drawerTestStyle">
-                        Drawer ID {drawerSessionDetail?.id}
-                      </p>
-                    </div>
-                  </Link>
+                <h5 className="textNeavyBlue me-5">Batch</h5>
+                <div className="flexBox">
+                  <h4 className="locateDistance">
+                    Drawer ID: {drawerSessionDetail?.id}
+                  </h4>
                 </div>
                 <div className="dateContainer">
                   <div className="dateBox">
