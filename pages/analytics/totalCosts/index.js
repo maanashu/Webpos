@@ -240,7 +240,7 @@ const index = () => {
                                 className="customers-table-data"
                               // style={{ display: "flex", gap: "12px" }}
                               >
-                                {`$${(row.transaction).toFixed(2)}`}
+                                {`$${addThousandSeparator((row.transaction).toFixed(2))}`}
                               </td>
                               <td
                                 className="customers-table-data"
