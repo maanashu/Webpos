@@ -28,6 +28,12 @@ export const bookingsSlice = createSlice({
       state.staffUsersLoading = false;
       const responseData = action?.payload?.payload;
 
+      if (!responseData) {
+        state.staffUsers = [];
+        state.staffPages = null;
+        return;
+      }
+
       const currentPages = responseData?.current_page;
       const totalPages = responseData?.total_pages;
       const staffPages = { currentPages: currentPages, totalPages: totalPages };
@@ -47,12 +53,19 @@ export const bookingsSlice = createSlice({
 
       const responseData = action?.payload?.payload;
 
+      if (!responseData) {
+        state.loading = false;
+        state.getAppointment = [];
+        state.pages = null;
+
+        return;
+      }
       const currentPages = responseData?.current_page;
       const totalPages = responseData?.total_pages;
       const pages = { currentPages: currentPages, totalPages: totalPages };
       const appointments = responseData?.data;
 
-      let updatedAppointments;
+      let updatedAppointments = [];
 
       // Check if the page number is 1
       if (pages?.currentPages === 1) {
@@ -87,6 +100,13 @@ export const bookingsSlice = createSlice({
     setGetServiceTimeSlots: (state, action) => {
       state.serviceTimeSlotsLoading = false;
       const responseData = action?.payload;
+
+      if (!responseData) {
+        state.timeSlots = null;
+        state.timeSlotInterval = null;
+        return;
+      }
+
       state.timeSlots = responseData?.payload?.slots;
       state.timeSlotInterval = responseData?.payload?.interval;
     },
