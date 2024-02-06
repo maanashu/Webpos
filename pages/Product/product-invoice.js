@@ -8,6 +8,7 @@ import {
   searchInvoiceByInvoiceId,
   selectReturnData,
   setInvoiceData,
+  setSearchInvoiceByInvoiceId
 } from "../../redux/slices/productReturn";
 import { selectLoginAuth } from "../../redux/slices/auth";
 import moment from "moment-timezone";
@@ -19,6 +20,8 @@ import Manualinvoice from "./manual-entry(search)";
 const ProductInvoice = () => {
   const dispatch = useDispatch();
   const router = useRouter();
+  const showInvoiceData = router?.query?.["showInvoiceData"];
+
   const authData = useSelector(selectLoginAuth);
   const posData = authData?.posUserLoginDetails?.payload;
   const merchentDetails = authData?.usersInfo?.payload?.user?.user_profiles;
@@ -32,10 +35,11 @@ const ProductInvoice = () => {
   const [checkeddata, setCheckedData] = useState("");
   const [productDetails, setProductDetails] = useState([]);
   const [key, setKey] = useState(Math.random());
+  const [searchInvoice, setSearchInvoice] = useState();
   const [modalDetail, setModalDetail] = useState({
     show: false,
     title: "",
-    flag: "",
+    flag: "", 
   });
 
   const handleOnCloseModal = () => {
@@ -146,7 +150,12 @@ const ProductInvoice = () => {
   }, [checkeddata]);
 
   useEffect(() => {
-    handleSearchInvoice(SearchInvoiceRespones?.id);
+    if(!(showInvoiceData && showInvoiceData == 'true') && SearchInvoiceRespones){
+      dispatch(setSearchInvoiceByInvoiceId(null));
+    }
+    else if(SearchInvoiceRespones?.invoice_number){
+      setSearchInvoice(SearchInvoiceRespones.invoice_number)
+    }
   }, []);
 
   const { sumQtyPrice } = returnProductArray
@@ -182,7 +191,8 @@ const ProductInvoice = () => {
                   type="text"
                   class="form-control searchControl"
                   placeholder="Search here the # of invoice"
-                  onChange={(e) => handleSearchInvoice(e)}
+                  value={searchInvoice}
+                  onChange={(e) => {handleSearchInvoice(e); setSearchInvoice(e.target.value)}}
                 />
                 <figure className="scanBox">
                   <Image
@@ -312,7 +322,7 @@ const ProductInvoice = () => {
           {returnData ? (
             <>
               {" "}
-              <div className="col-lg-5 col-md-5">
+              <div className="col-lg-6 col-md-6">
                 <div className="commanOuter me-0 ms-0 commonSubOuter confirmRight p-0">
                   <div className="confirmRightSub confirmAddress">
                     <h2 className="mapleHeading text-center">

@@ -18,6 +18,7 @@ import ChartCommon from "../../components/commanComonets/ChartCommon";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { getShippingGraphData } from "../../redux/slices/shipping";
+import { Circle } from "rc-progress";
 const DeliverDashboard = () => {
   const router = useRouter();
 
@@ -98,7 +99,7 @@ const DeliverDashboard = () => {
         },
       })
     );
-
+    console.log("statata", JSON.stringify(orderStatData));
     dispatch(
       getShippingGraphData({
         ...graphParams,
@@ -160,6 +161,27 @@ const DeliverDashboard = () => {
       })
     );
   }, []);
+
+  function sumPercentage(data) {
+    const relevantStatuses = [
+      "Deliverd Order",
+      "Returned Order",
+      "Cancelled Order",
+    ];
+
+    // Filter the array to include only relevant statuses
+    const relevantData = data?.filter((item) =>
+      relevantStatuses.includes(item.title)
+    );
+
+    // Calculate the sum of percentages
+    const totalPercentage = relevantData?.reduce(
+      (sum, item) => sum + parseFloat(item.percentage),
+      0
+    );
+
+    return totalPercentage?.toFixed(2) ?? 0; // Round to two decimal places
+  }
 
   function Loading() {
     return (
@@ -340,13 +362,44 @@ const DeliverDashboard = () => {
                 </div>
                 <div className="deliverOrder">
                   <h4 className="customerLink text-start">Orders</h4>
-                  <div className="deliverGraph">
-                    <Image
+                  {/* <div className="deliverGraph"> */}
+                  {/* <Image
                       src={Images.garphCircle}
                       alt="pickupImg image"
                       className="img-fluid graphCircleImg"
-                    />
+                    /> */}
+                  <div className="deliverGraph order-all-progress">
+                    <div className="order-all-progress-inner">
+                      <div className="order-first-progress">
+                        <Circle
+                          trailWidth={5}
+                          percent={parseInt(orderStatData?.[0]?.percentage)}
+                          strokeWidth={5}
+                          strokeColor="#914BEB"
+                        />
+                      </div>
+                      <div className="order-second-progress">
+                        <Circle
+                          trailWidth={5}
+                          percent={parseInt(orderStatData?.[1]?.percentage)}
+                          strokeWidth={5}
+                          strokeColor="#F0C01A"
+                        />
+                      </div>
+                      <div className="order-third-progress">
+                        <Circle
+                          trailWidth={5}
+                          percent={parseInt(orderStatData?.[2]?.percentage)}
+                          strokeWidth={5}
+                          strokeColor="#F97066"
+                        />
+                      </div>
+                      <div className="order-progress-value">
+                        <p>{sumPercentage(orderStatData) + "%" ?? +"0%"}</p>
+                      </div>
+                    </div>
                   </div>
+                  {/* </div> */}
                   <div className="flexDiv mt-3">
                     <h4 className="orderDeliverText">Delivery Order</h4>
                     <div className="deliverPercent">

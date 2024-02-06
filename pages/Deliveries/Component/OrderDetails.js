@@ -46,9 +46,7 @@ const OrderDetail = ({
               <figure className="orderAroundImg">
                 <Image
                   src={
-                    // orderData?.user_details?.profile_photo ?? 
-                    
-                    Images.LoginThird
+                    orderData?.user_details?.profile_photo ?? Images.LoginThird
                   }
                   alt="MoneyItemImage "
                   className="orderPerson"
@@ -175,7 +173,7 @@ const OrderDetail = ({
                   </p>
                 </div>
                 <div className="OrderCheckoutBox">
-                  <p className="orderHeading">Order ID#</p>
+                  <p className="orderHeading">Order ID</p>
                   <p className="orderSubHeading">{`#${orderData?.id}`}</p>
                 </div>
                 <div className="OrderCheckoutBox">
