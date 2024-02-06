@@ -35,22 +35,21 @@ const Transactions = () => {
   };
 
   const filterHandler = () => {
-    if (timeSpan) {
-      return {
-        filter: timeSpan,
-      };
-    } else if (startDate && endDate) {
+    if (startDate && endDate) {
       return {
         start_date: moment(startDate).format("YYYY-MM-DD"),
         end_date: moment(endDate).format("YYYY-MM-DD"),
       };
+    } else if (timeSpan) {
+      return {
+        filter: timeSpan,
+      };
     }
   };
+  const data = filterHandler();
 
   useEffect(() => {
-    const data = filterHandler();
-
-    if (sellerID) {
+    if (sellerID && data) {
       let params = {
         seller_id: sellerID,
         ...data,
