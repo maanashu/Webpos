@@ -56,16 +56,16 @@ const Sidebar = (props) => {
       endTrackingSession({
         ...params,
         async cb(res) {
-          if(res.status){
-         await dispatch(logout());
-          await dispatch(dashboardLogout());
+          // if(res.status){
+            await dispatch(logout());
+            await dispatch(dashboardLogout());
 
-            router.push("/auth/verification");
-          
-          localStorage.removeItem("merchantAuthToken");
-          localStorage.removeItem("authToken");
-          localStorage.removeItem("persist:root");
-          }
+              router.push("/auth/verification");
+            
+            localStorage.removeItem("merchantAuthToken");
+            localStorage.removeItem("authToken");
+            localStorage.removeItem("persist:root");
+          // }
         },
       })
     );
