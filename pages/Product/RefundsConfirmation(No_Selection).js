@@ -64,14 +64,14 @@ const RefundsConfirmation = () => {
       setActiveSms(true);
       setActiveEmail(false);
       setActiveMsz(false);
-      setModalDetail({ show: true, flag: "sms" });
-      setKey(Math.random());
+      // setModalDetail({ show: true, flag: "sms" });
+      // setKey(Math.random());
     } else if (flag == "email") {
       setActiveEmail(true);
       setActiveMsz(false);
       setActiveSms(false);
-      setModalDetail({ show: true, flag: "email" });
-      setKey(Math.random());
+      // setModalDetail({ show: true, flag: "email" });
+      // setKey(Math.random());
     } else if (flag == "noThnks") {
       setActiveMsz(true);
       setActiveSms(false);
