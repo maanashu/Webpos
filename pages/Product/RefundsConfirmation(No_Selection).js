@@ -78,20 +78,8 @@ const RefundsConfirmation = () => {
       setActiveEmail(false);
     }
   };
-  const { sumProductPrices, sumTax } = itemsList?.reduce(
-    (acc, item) => {
-      const price = parseFloat(item.price) || 0;
-      const tax = 0.08 * price; // 8% tax
 
-      acc.sumProductPrices += price;
-      acc.sumTax += tax;
 
-      return acc;
-    },
-    { sumProductPrices: 0, sumTax: 0 }
-  );
-  const totalAmount = sumProductPrices + sumTax;
-  console.log(totalAmount, "totalAmount");
   return (
     <>
       <div className="refundConfirmation me-3">
@@ -390,9 +378,9 @@ const RefundsConfirmation = () => {
                         ? Number(selectedData?.subtotal)
                         : selectedData?.existingSubtotal}
                     </p>
-                    <p className="productName">$00.00</p>
+                    <p className="productName">$0.00</p>
                     <p className="productName">
-                      -$
+                      +$
                       {Number(selectedData?.totalTax)
                         ? Number(selectedData?.totalTax)
                         : selectedData?.existingTax?.toFixed(2)}
