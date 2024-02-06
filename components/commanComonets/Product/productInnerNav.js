@@ -118,6 +118,8 @@ const ProductInnerNav = ({ productCount, ServicesCount }) => {
     let params = {
       ...(searchText?.length != 0 && { search: searchText }),
       seller_id: sellerId,
+      page: 1,
+      limit: 18,
     };
     if (searchText?.length > 2) {
       dispatch(
@@ -141,6 +143,8 @@ const ProductInnerNav = ({ productCount, ServicesCount }) => {
     let params = {
       ...(searchText?.length != 0 && { search: searchText }),
       seller_id: sellerId,
+      page: 1,
+      limit: 18,
     };
     if (searchText?.length > 2) {
       dispatch(

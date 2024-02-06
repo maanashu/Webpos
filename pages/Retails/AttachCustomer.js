@@ -42,7 +42,6 @@ const AttachCustomer = ({ crosshandler }) => {
   const [invitationFirstName, setInvitationFirstName] = useState();
   const [invitationLastName, setInvitationLastName] = useState();
 
-
   const saveAndAddCustomer = () => {
     if (!firstName) {
       toast.error("Please enter first name");
@@ -111,7 +110,7 @@ const AttachCustomer = ({ crosshandler }) => {
     return Math.random().toString(36).substr(2, 10);
   };
   const onChangePhoneNumber = (value, data) => {
-    let phoneCode = data.dialCode;
+    let phoneCode = "+" + data.dialCode;
     let phoneNumber = value.slice(data.dialCode.length);
     setPhoneNo(phoneNumber);
     SetPhoneCode(phoneCode);
@@ -123,6 +122,7 @@ const AttachCustomer = ({ crosshandler }) => {
         phone_code: phoneCode,
         phone_no: phoneNo,
       };
+
       dispatch(getUserDetail(params));
       setDetailArea(true);
     } else {
@@ -360,7 +360,8 @@ const AttachCustomer = ({ crosshandler }) => {
                         </label>
                         <div className="flexDiv ">
                           <h4 className="trackingHeading">
-                            {getuserDetailByNo?.user_profile?.phone_code}
+                            {getuserDetailByNo?.user_profile?.phone_code}{" "}
+                            {getuserDetailByNo?.user_profile?.phone_no}
                           </h4>
                           <Image
                             src={Images.AlertCircle}
