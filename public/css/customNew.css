@@ -5579,6 +5579,7 @@ figure {
 /* .headerSection {
   padding: 7px 10px 14px 16px!important;
 } */
+
 .analyticsSection::-webkit-scrollbar {
   display: none;
 }
