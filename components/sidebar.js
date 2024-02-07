@@ -62,7 +62,7 @@ const Sidebar = (props) => {
         ...params,
         async cb(res) {
           console.log("RESET_CALL_CALLED1");
-          // if (res.status) {
+          if (res.status) {
             await dispatch(restAllData());
             // await dispatch(logout());
             // await dispatch(dashboardLogout());
@@ -77,7 +77,7 @@ const Sidebar = (props) => {
             localStorage.removeItem("merchantAuthToken");
             localStorage.removeItem("authToken");
             localStorage.removeItem("persist:root");
-          // }
+          }
         },
       })
     );

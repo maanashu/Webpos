@@ -5,6 +5,7 @@ import Router from "next/router";
 import { selectLoginAuth } from "../redux/slices/auth";
 import { useSelector } from "react-redux";
 import { getCurrentTimeZone } from "./globalMethods";
+import { restAllData } from "../redux/slices/commonActions";
 
 const getTimeZone = getCurrentTimeZone();
 
@@ -38,10 +39,23 @@ axiosInstance.interceptors.response.use(
   (error) => {
     if (error.response.status === 401) {
       // handle 401 errors here
-      localStorage.clear();
-      Router.push("/");
-      toast.dismiss()
-      toast.warning("Session expired");
+
+      dispatch(restAllData());
+
+      setTimeout(() => {
+        toast.warning("Session expired");
+      }, 200);
+
+      Router.push("/auth/verification");
+
+      localStorage.removeItem("merchantAuthToken");
+      localStorage.removeItem("authToken");
+      localStorage.removeItem("persist:root");
+
+      // localStorage.clear();
+      // Router.push("/");
+      // toast.dismiss()
+      // toast.warning("Session expired");
     }
     return Promise.reject(error);
   }
