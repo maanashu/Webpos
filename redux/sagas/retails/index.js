@@ -169,7 +169,6 @@ function* createBulkCart(action) {
       `${ORDER_API_URL_V1}poscarts/bulk-create`,
       dataToSend
     );
-    console.log("responseee", JSON.stringify(resp));
     if (resp.status) {
       yield call(productCart);
       yield call(action.payload.cb, (action.res = resp));
@@ -186,7 +185,6 @@ function* productCart(action) {
     const resp = yield call(ApiClient.get, `${ORDER_API_URL_V1}poscarts/user`);
     if (resp.status) {
       yield put(setProductCart(resp.data));
-      console.log("RESPONNSEEE", JSON.stringify(resp));
       if (resp?.data !== "") {
         yield put(setCartLength(resp?.data?.payload?.poscart_products?.length));
       } else {
@@ -866,7 +864,7 @@ function* getHoldProductCart(action) {
 
   try {
     const resp = yield call(ApiClient.get, `${ORDER_API_URL_V1}poscarts/`);
-    console.log("HODLDLDLLLDLDLD", JSON.stringify(resp));
+
     if (resp.status) {
       yield put(setHoldProductCart(resp.data));
       yield call(action.payload.cb, (action.res = resp?.data));

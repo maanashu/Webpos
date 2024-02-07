@@ -41,7 +41,6 @@ const RightSideBar = ({ props, bulkCartFunction, setSelectedCartItems }) => {
   const dispatch = useDispatch();
   const { parameter } = router.query;
   const authData = useSelector(selectLoginAuth);
-  console.log("Bulklkslkdlsdsd", bulkCartFunction);
   const retailData = useSelector(selectRetailData);
   const cartData = retailData?.productCart || {};
   const cartAmount = cartData?.amount;
@@ -54,14 +53,12 @@ const RightSideBar = ({ props, bulkCartFunction, setSelectedCartItems }) => {
   const [animating, setAnimating] = useState(retailData?.productCartLoad);
 
   const holdCartArray = retailData?.holdProductData || [];
-  console.log("HOLDEEEEE", JSON.stringify(holdCartArray));
 
   const LOCAL_CART_ARRAY = retailData?.localCartArray;
   const [localCartArray, setLocalCartArray] = useState(LOCAL_CART_ARRAY);
   const holdProductArray = holdCartArray?.filter(
     (item) => item.is_on_hold === true
   );
-  console.log("LOcalalalalaalalal", JSON.stringify(LOCAL_CART_ARRAY));
   const [holdLoader, setHoldLoader] = useState(false);
   const [clearCartLoader, setClearCartLoader] = useState(false);
 
@@ -118,7 +115,7 @@ const RightSideBar = ({ props, bulkCartFunction, setSelectedCartItems }) => {
       );
     } catch (error) {
       setHoldLoader(false);
-      console.error("Error in bulkCart:", error);
+      // console.error("Error in bulkCart:", error);
     }
   };
 

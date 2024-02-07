@@ -226,7 +226,6 @@ const Retails = () => {
         products: localCartArray,
       };
 
-      console.log("Bulk--Dataa", JSON.stringify(dataToSend));
       try {
         dispatch(createBulkCart(dataToSend));
       } catch (error) {}
@@ -254,7 +253,6 @@ const Retails = () => {
     }
     if (existingItemIndex === -1) {
       cartArray.push(params);
-      console.log("datattaaa");
 
       dispatch(setCartLength(cartLength + 1));
     } else {
