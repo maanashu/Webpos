@@ -9,6 +9,7 @@ import {
   selectLoginAuth,
   posUserLogout,
 } from "../../redux/slices/auth";
+import { restAllData } from "../../redux/slices/commonActions";
 import { useDispatch, useSelector } from "react-redux";
 import { useRouter } from "next/router";
 import withAuth from "../../components/withAuth";
@@ -163,8 +164,9 @@ const Overview = () => {
         ...params,
         async cb(res) {
           // if (res.status) {
-          await dispatch(posUserLogout());
-          await dispatch(dashboardLogout());
+            await dispatch(restAllData({skipAuth: true}));
+          // await dispatch(posUserLogout());
+          // await dispatch(dashboardLogout());
           localStorage.removeItem("authToken");
           router.push("/auth/login");
           // }

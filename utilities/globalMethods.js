@@ -376,3 +376,10 @@ export const getWeeklyDateLabel = (dateString) => {
 
   return daysOfWeek[date.getDay()];
 };
+export function calculatePercentageValue(value, percentage) {
+  if (percentage == "") {
+    return "";
+  }
+  const percentageValue = (percentage / 100) * parseFloat(value);
+  return percentageValue.toFixed(2) ?? 0.0;
+}

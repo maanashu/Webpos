@@ -10,6 +10,7 @@ import {
   dashboardDetails,
   endTrackingSession,
 } from "../redux/slices/dashboard";
+import { restAllData } from "../redux/slices/commonActions";
 import { useDispatch, useSelector } from "react-redux";
 import { toast } from "react-toastify";
 import {
@@ -62,19 +63,20 @@ const Sidebar = (props) => {
         async cb(res) {
           console.log("RESET_CALL_CALLED1");
           // if (res.status) {
-          await dispatch(logout());
-          await dispatch(dashboardLogout());
-          console.log("RESET_CALL_CALLED");
+            await dispatch(restAllData());
+            // await dispatch(logout());
+            // await dispatch(dashboardLogout());
+            console.log("RESET_CALL_CALLED");
 
-          setTimeout(() => {
-            toast.success("Logout successfully");
-          }, 200);
+            setTimeout(() => {
+              toast.success("Logout successfully");
+            }, 200);
 
-          router.push("/auth/verification");
+            router.push("/auth/verification");
 
-          localStorage.removeItem("merchantAuthToken");
-          localStorage.removeItem("authToken");
-          localStorage.removeItem("persist:root");
+            localStorage.removeItem("merchantAuthToken");
+            localStorage.removeItem("authToken");
+            localStorage.removeItem("persist:root");
           // }
         },
       })
