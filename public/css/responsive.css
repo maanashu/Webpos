@@ -80,6 +80,49 @@
         max-width: 385px;
     }
 
+    .passwordLogin .loginMain {
+        font-size: 18px;
+    }
+
+    .passwordLogin .loginSub {
+        font-size: 12px;
+    }
+
+    .passwordLogin .loginPara {
+        font-size: 11px;
+    }
+
+    .passwordLogin .otpMain {
+        margin: 24px 0;
+    }
+
+    .passwordLogin .pin-box input {
+        width: 52px !important;
+        height: 52px !important;
+    }
+
+    .passwordLogin .verifyBtn {
+        gap: 12px;
+    }
+
+    .passwordLogin .verifyHeading {
+        font-size: 28px;
+    }
+
+    .passwordLogin .verifySub {
+        font-size: 16px;
+    }
+
+    .passwordLogin .nextverifyBtn {
+        padding: 14px 20px;
+        font-size: 16px;
+    }
+
+    .passwordLogin .backverifyBtn {
+        padding: 14px 20px;
+        font-size: 16px;
+    }
+
 }
 
 @media (max-width:1366px) {
@@ -548,6 +591,11 @@
         display: block;
         margin-top: 10px;
     }
+
+    .loginOtpSub {
+        width: 100%;
+        max-width: 360px;
+    }
 }
 
 @media (max-width: 767px) {
@@ -722,6 +770,11 @@
     .productDataInfo {
         min-width: 165px;
     }
+
+    .sidebarRightBooking {
+        width: 65px !important;
+        padding: 24px 5px !important;
+    }
 }
 
 @media (max-width: 576px) {
@@ -806,8 +859,8 @@
     }
 
     .loginPasswordOtp .verifyBox {
-        margin-top: 40px;
-        padding: 35px 10px;
+        margin-top: 18px;
+        padding: 20px 10px;
     }
 
     .loginOtpSub {
@@ -1206,6 +1259,10 @@
 
     .mapleProductHeading {
         font-weight: 600;
+    }
+    .loginPasswordOtp .verifyBox {
+        margin-top: 11px;
+        padding: 16px 8px;
     }
 }
 
