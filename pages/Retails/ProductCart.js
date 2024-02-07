@@ -399,13 +399,12 @@ const ProductCart = () => {
                   <h4 className="providerSubText ">Line Total</h4>
                 </div>
               </div>
-              {/* 
+
               {retailData?.productCartLoad ? (
                 <div className="loaderOuter">
                   <span className="spinner-border spinner-border-sm mx-1"></span>
                 </div>
-              ) :  */}
-              {cartDetails?.length == 0 ? (
+              ) : cartDetails?.length == 0 ? (
                 <div className="mt-5">
                   <h6 className="mt-2 mb-2 text-center">No Carts Found!</h6>
                 </div>

@@ -108,8 +108,6 @@ const CartPayByCash = () => {
               clearCart({
                 cb: () => {
                   dispatch(productCart());
-                  dispatch(setLocalCart([]));
-                  dispatch(setCartLength(0));
                 },
               })
             );
