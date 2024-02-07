@@ -185,6 +185,11 @@ function* productCart(action) {
     const resp = yield call(ApiClient.get, `${ORDER_API_URL_V1}poscarts/user`);
     if (resp.status) {
       yield put(setProductCart(resp.data));
+      console.log("RESPONNSEEE", JSON.stringify(resp));
+      if (resp?.data !== "") {
+        yield put(setCartLength(resp?.data?.payload?.poscart_products?.length));
+      } else {
+      }
       // yield put(setCartLength(resp.data));
       yield call(action.payload.cb, (action.res = resp));
     } else {

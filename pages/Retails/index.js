@@ -130,7 +130,6 @@ const Retails = () => {
   useEffect(() => {
     dispatch(getHoldProductCart());
   }, []);
-  console.log("LOCAL_CART_ARRAY", LOCAL_CART_ARRAY);
 
   useEffect(() => {
     if (retailData?.productCart?.poscart_products?.length > 0) {
@@ -166,6 +165,7 @@ const Retails = () => {
   );
 
   const productFun = (productId, index, item) => {
+    bulkCart();
     let params = {
       seller_id: sellerId,
       app_name: "pos",
@@ -226,6 +226,7 @@ const Retails = () => {
         products: localCartArray,
       };
 
+      console.log("Bulk--Dataa", JSON.stringify(dataToSend));
       try {
         dispatch(createBulkCart(dataToSend));
       } catch (error) {}
@@ -253,6 +254,7 @@ const Retails = () => {
     }
     if (existingItemIndex === -1) {
       cartArray.push(params);
+      console.log("datattaaa");
 
       dispatch(setCartLength(cartLength + 1));
     } else {
@@ -285,7 +287,7 @@ const Retails = () => {
 
   return (
     <>
-      <div className="flexBox">
+      <div className="flexBox ">
         <div className="commanOuter w-100  position-relative">
           <ProductInnerNav
             productCount={productPagination?.total}
@@ -619,6 +621,7 @@ const Retails = () => {
         <RightSideBar
           showSidebar={showSidebar}
           parameter={parameter}
+          setSelectedCartItems={setSelectedCartItems}
           bulkCartFunction={() => bulkCart()}
         />
       </div>

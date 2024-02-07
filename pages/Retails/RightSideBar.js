@@ -6,6 +6,7 @@ import Link from "next/link";
 import { useDispatch, useSelector } from "react-redux";
 import {
   clearCart,
+  createBulkCart,
   getHoldProductCart,
   getMainProduct,
   holdCart,
@@ -13,6 +14,7 @@ import {
   selectRetailData,
   setCartLength,
   setLocalCart,
+  setMainProduct,
   setProductCart,
 } from "../../redux/slices/retails";
 import {
@@ -29,10 +31,11 @@ import CustomServiceAdd from "./CustomServiceAdd";
 import moment from "moment";
 import { selectLoginAuth } from "../../redux/slices/auth";
 import CustomModal from "../../components/customModal/CustomModal";
+import CartInfoModal from "./CartInfoModal";
 // import CustomModal from '../../customModal/CustomModal';
 // import AddProduct from '../../../components/';
 
-const RightSideBar = ({ props, bulkCartFunction }) => {
+const RightSideBar = ({ props, bulkCartFunction, setSelectedCartItems }) => {
   const router = useRouter();
   const dispatch = useDispatch();
   const { parameter } = router.query;
@@ -50,6 +53,8 @@ const RightSideBar = ({ props, bulkCartFunction }) => {
   const [animating, setAnimating] = useState(retailData?.productCartLoad);
   console.log("LOADTTDTDT", retailData?.productCartLoad);
   const holdCartArray = retailData?.holdProductData || [];
+  const LOCAL_CART_ARRAY = retailData?.localCartArray;
+  const [localCartArray, setLocalCartArray] = useState(LOCAL_CART_ARRAY);
   const holdProductArray =
     holdCartArray ?? holdCartArray?.filter((item) => item.is_on_hold === true);
   const [cartAlert, setCartAlert] = useState(false);
@@ -81,7 +86,94 @@ const RightSideBar = ({ props, bulkCartFunction }) => {
     });
     setKey(Math.random());
   };
+  const eraseCart = async () => {
+    setAnimating(false);
+    setSelectedCartItems([]);
+    dispatch(setCartLength(0));
+    dispatch(setLocalCart([]));
+  };
+  const cartStatusHandler = async () => {
+    if (localCartArray.length > 0) {
+      const dataToSend = {
+        seller_id: sellerId,
+        products: localCartArray,
+      };
+      try {
+        // eraseClearCart();
+        eraseCart();
+        const bulkData = await createBulkCart(dataToSend)(dispatch);
 
+        // if (holdProductArray?.length == 0 || getRetailData?.getAllCart?.length == 0) {
+        if (
+          holdProductArray?.length == 0 &&
+          Object.keys(retailData?.productCart)?.length == 0
+        ) {
+          const params =
+            holdProductArray?.length > 0
+              ? {
+                  status: true,
+                  cartId: holdProductArray?.[0]?.id,
+                }
+              : {
+                  status: true,
+                  cartId: bulkData?.id,
+                };
+          dispatch(
+            holdCart({
+              ...params,
+              cb: () => {
+                dispatch(getHoldProductCart());
+                dispatch(productCart());
+              },
+            })
+          );
+        } else {
+          const params =
+            holdProductArray?.length > 0
+              ? {
+                  status: !holdProductArray?.[0]?.is_on_hold,
+                  cartId: holdProductArray?.[0]?.id,
+                }
+              : {
+                  status: !retailData?.productCart?.is_on_hold,
+                  cartId: bulkData?.id,
+                };
+
+          dispatch(
+            holdCart({
+              ...params,
+              cb: () => {
+                dispatch(getHoldProductCart());
+                dispatch(productCart());
+              },
+            })
+          );
+        }
+      } catch (error) {
+        console.log("catch", error);
+      }
+    } else {
+      const params =
+        holdProductArray?.length > 0
+          ? {
+              status: !holdProductArray?.[0]?.is_on_hold,
+              cartId: holdProductArray?.[0]?.id,
+            }
+          : {
+              status: !retailData?.productCart?.is_on_hold,
+              cartId: retailData?.productCart?.id,
+            };
+      dispatch(
+        holdCart({
+          ...params,
+          cb: () => {
+            dispatch(getHoldProductCart());
+            dispatch(productCart());
+          },
+        })
+      );
+    }
+  };
   // hold Cart function
   const serviceCartStatusHandler = () => {
     const params =
@@ -267,14 +359,18 @@ const RightSideBar = ({ props, bulkCartFunction }) => {
       dispatch(setProductCart(DATA));
     }
   };
+
   const clearCartHandler = () => {
+    setAnimating(true);
     dispatch(
       clearCart({
         cb: () => {
-          dispatch(productCart());
+          setAnimating(false);
+          setSelectedCartItems([]);
           dispatch(setCartLength(0));
           dispatch(setLocalCart([]));
-          setFilterShow((prev) => !prev);
+          dispatch(productCart());
+          setFilterShow(false);
         },
       })
     );
@@ -284,7 +380,7 @@ const RightSideBar = ({ props, bulkCartFunction }) => {
       {parameter == "product" ? (
         <div
           className={
-            props?.showSidebar ? "sidebarRight show" : "sidebarRight hide"
+            props?.showSidebar ? "sidebarRight show " : "sidebarRight hide"
           }
         >
           <ListGroup>
@@ -342,26 +438,7 @@ const RightSideBar = ({ props, bulkCartFunction }) => {
             </ListGroupItem>
             <ListGroupItem
               className="rightSidebarItems"
-              onClick={() => {
-                dispatch(setCartLength(0));
-                dispatch(setLocalCart([]));
-                dispatch(
-                  clearCart({
-                    cb: () => {
-                      let params = {
-                        seller_id: sellerId,
-                      };
-                      // dispatch(
-                      //   getMainProduct({
-                      //     ...params,
-                      //     cb(res) {},
-                      //   })
-                      // );
-                      dispatch(productCart());
-                    },
-                  })
-                );
-              }}
+              onClick={() => clearCartHandler()}
             >
               <div className="sidebarBg">
                 <Image
@@ -385,7 +462,7 @@ const RightSideBar = ({ props, bulkCartFunction }) => {
                     ? "rightSidebarItems active "
                     : "rightSidebarItems"
                 }
-                onClick={() => serviceCartStatusHandler()}
+                onClick={() => cartStatusHandler()}
               >
                 <>
                   <div className="sidebarBg">
@@ -546,172 +623,187 @@ const RightSideBar = ({ props, bulkCartFunction }) => {
       )}
 
       {filterShow ? (
-        <div className="AddtoCart ProductAddCart">
-          {animating ? (
-            <div className="text-center">
-              <span className="spinner-border spinner-border-sm mx-auto"></span>
-            </div>
-          ) : (
-            <div className="cartInfo">
-              {cartData?.poscart_products?.map((data, index) => {
-                const productSize =
-                  data?.product_details?.supply?.attributes?.filter(
-                    (item) => item?.name?.toLowerCase() == "size"
-                  );
-                const productColor =
-                  data?.product_details?.supply?.attributes?.filter(
-                    (item) => item?.name?.toLowerCase() == "color"
-                  );
+        // <div className="AddtoCart ProductAddCart">
+        //   {animating ? (
+        //     <div className="text-center">
+        //       <span className="spinner-border spinner-border-sm mx-auto"></span>
+        //     </div>
+        //   ) : (
+        //     <div className="cartInfo">
+        //       {cartData?.poscart_products?.map((data, index) => {
+        //         const productSize =
+        //           data?.product_details?.supply?.attributes?.filter(
+        //             (item) => item?.name?.toLowerCase() == "size"
+        //           );
+        //         const productColor =
+        //           data?.product_details?.supply?.attributes?.filter(
+        //             (item) => item?.name?.toLowerCase() == "color"
+        //           );
 
-                return (
-                  <div
-                    className="cartSubInfo active productCartShow"
-                    key={index}
-                  >
-                    <div className="orderTime productCartInfo">
-                      <Image
-                        src={data?.product_details?.image}
-                        alt="cartFoodImg"
-                        className="img-fluid cartFoodImg"
-                        width="100"
-                        height="100"
-                      />
-                      <div className="cartorderHeading ms-2 ">
-                        <h4 className="cartText cartShowText">
-                          {data?.product_details?.name}
-                        </h4>
-                        {data?.product_type === "service" && (
-                          <div className="userIdText mt-1">
-                            {moment.utc(data?.date).format("LL")} @
-                            {data?.start_time + "-" + data?.end_time}
-                          </div>
-                        )}
+        //         return (
+        //           <div
+        //             className="cartSubInfo active productCartShow"
+        //             key={index}
+        //           >
+        //             <div className="orderTime productCartInfo">
+        //               <Image
+        //                 src={data?.product_details?.image}
+        //                 alt="cartFoodImg"
+        //                 className="img-fluid cartFoodImg"
+        //                 width="100"
+        //                 height="100"
+        //               />
+        //               <div className="cartorderHeading ms-2 ">
+        //                 <h4 className="cartText cartShowText">
+        //                   {data?.product_details?.name}
+        //                 </h4>
+        //                 {data?.product_type === "service" && (
+        //                   <div className="userIdText mt-1">
+        //                     {moment.utc(data?.date).format("LL")} @
+        //                     {data?.start_time + "-" + data?.end_time}
+        //                   </div>
+        //                 )}
 
-                        <div className="flexTable mt-1">
-                          {productColor?.length > 0 && (
-                            <>
-                              <span className="userIdText">Colors :</span>
-                              <div
-                                style={{
-                                  width: "12px",
-                                  height: "12px",
-                                  border: "1px solid black",
-                                  borderRadius: "15%",
-                                  // display: "flex",
-                                  justifyContent: "center",
-                                  alignItems: "center",
-                                  background: productColor?.[0]?.values?.name,
-                                }}
-                              ></div>
-                            </>
-                          )}
+        //                 <div className="flexTable mt-1">
+        //                   {productColor?.length > 0 && (
+        //                     <>
+        //                       <span className="userIdText">Colors :</span>
+        //                       <div
+        //                         style={{
+        //                           width: "12px",
+        //                           height: "12px",
+        //                           border: "1px solid black",
+        //                           borderRadius: "15%",
+        //                           // display: "flex",
+        //                           justifyContent: "center",
+        //                           alignItems: "center",
+        //                           background: productColor?.[0]?.values?.name,
+        //                         }}
+        //                       ></div>
+        //                     </>
+        //                   )}
 
-                          {productSize?.length > 0 && (
-                            <span className="userIdText mx-2">
-                              Size : {productSize?.[0]?.values?.name}{" "}
-                            </span>
-                          )}
-                        </div>
-                      </div>
-                    </div>
-                    <div className="orderCalculate">
-                      <h4 className="cartMoney">
-                        {amountFormat(
-                          getProductPrice(
-                            data.product_details?.supply?.supply_offers,
-                            data.product_details?.supply?.supply_prices
-                              ?.selling_price,
-                            data.qty
-                          )
-                        )}
-                      </h4>
-                      <div className="incrementBtn ">
-                        <i
-                          onClick={() => updateQuantity("-", index)}
-                          className="fa-solid fa-minus plusMinus"
-                        ></i>
-                        <input
-                          className="form-control addBtnControl"
-                          type="number"
-                          placeholder="1"
-                          value={data?.qty}
-                        />
+        //                   {productSize?.length > 0 && (
+        //                     <span className="userIdText mx-2">
+        //                       Size : {productSize?.[0]?.values?.name}{" "}
+        //                     </span>
+        //                   )}
+        //                 </div>
+        //               </div>
+        //             </div>
+        //             <div className="orderCalculate">
+        //               <h4 className="cartMoney">
+        //                 {amountFormat(
+        //                   getProductPrice(
+        //                     data.product_details?.supply?.supply_offers,
+        //                     data.product_details?.supply?.supply_prices
+        //                       ?.selling_price,
+        //                     data.qty
+        //                   )
+        //                 )}
+        //               </h4>
+        //               {data?.product_type === "product" ? (
+        //                 <div className="incrementBtn ">
+        //                   <i
+        //                     onClick={() => updateQuantity("-", index)}
+        //                     className="fa-solid fa-minus plusMinus"
+        //                   ></i>
+        //                   <input
+        //                     className="form-control addBtnControl"
+        //                     type="number"
+        //                     placeholder="1"
+        //                     value={data?.qty}
+        //                   />
 
-                        <i
-                          onClick={() => updateQuantity("+", index)}
-                          className="fa-solid fa-plus plusMinus"
-                        ></i>
-                      </div>
-                      {/* <label className="custom-checkbox"> */}
-                      <div
-                        onClick={() => {
-                          removeOneCartHandler(data, index);
-                        }}
-                      >
-                        <Image
-                          src={Images.redCross}
-                          alt="crossImage"
-                          className="img-fluid ms-2"
-                        />
-                      </div>
-                      {/* <span className="checkmark"></span> */}
-                      {/* </label> */}
-                    </div>
-                  </div>
-                );
-              })}
+        //                   <i
+        //                     onClick={() => updateQuantity("+", index)}
+        //                     className="fa-solid fa-plus plusMinus"
+        //                   ></i>
+        //                 </div>
+        //               ) : (
+        //                 <p>1</p>
+        //               )}
+        //               {/* <label className="custom-checkbox"> */}
+        //               <div
+        //                 onClick={() => {
+        //                   removeOneCartHandler(data, index);
+        //                 }}
+        //               >
+        //                 <Image
+        //                   src={Images.redCross}
+        //                   alt="crossImage"
+        //                   className="img-fluid ms-2"
+        //                 />
+        //               </div>
+        //               {/* <span className="checkmark"></span> */}
+        //               {/* </label> */}
+        //             </div>
+        //           </div>
+        //         );
+        //       })}
 
-              <div className="subFooter">
-                <div className="dividesection">
-                  <hr className="divideBorder" />
-                </div>
-                <div className="cartTotalsection">
-                  <div className="cartTotal">
-                    <h4 className="userPosition">Sub Total</h4>
-                    <h4 className="amountText m-0">
-                      {amountFormat(cartAmount?.products_price)}
-                    </h4>
-                  </div>
-                  <div className="cartTotal">
-                    <h4 className="userPosition">{`Discount ${
-                      cartData?.discount_flag === "percentage" ? "(%)" : ""
-                    } `}</h4>
-                    <h4 className="amountText m-0">
-                      {formattedReturnPrice(cartAmount?.discount || "0.00")}
-                    </h4>
-                  </div>
-                  <div className="cartTotal">
-                    <h4 className="userPosition">Total Taxes</h4>
-                    <h4 className="amountText m-0">
-                      {amountFormat(cartAmount?.tax)}
-                    </h4>
-                  </div>
-                  <div className="cartTotal">
-                    <h4 className="userPosition">Total</h4>
-                    <h4 className="amountText m-0">
-                      {amountFormat(cartAmount?.total_amount)}
-                    </h4>
-                  </div>
-                  <button
-                    className="nextverifyBtn w-100"
-                    onClick={() => {
-                      parameter == "product"
-                        ? router.push({ pathname: "/Retails/ProductCart" })
-                        : router.push({ pathname: "/Retails/ServiceCart" });
-                    }}
-                  >
-                    Proceed to checkout
-                    <Image
-                      src={Images.ArrowRight}
-                      alt="rightArrow"
-                      className="img-fluid rightImg"
-                    />
-                  </button>
-                </div>
-              </div>
-            </div>
-          )}
-        </div>
+        //       <div className="subFooter">
+        //         <div className="dividesection">
+        //           <hr className="divideBorder" />
+        //         </div>
+        //         <div className="cartTotalsection">
+        //           <div className="cartTotal">
+        //             <h4 className="userPosition">Sub Total</h4>
+        //             <h4 className="amountText m-0">
+        //               {amountFormat(cartAmount?.products_price)}
+        //             </h4>
+        //           </div>
+        //           <div className="cartTotal">
+        //             <h4 className="userPosition">{`Discount ${
+        //               cartData?.discount_flag === "percentage" ? "(%)" : ""
+        //             } `}</h4>
+        //             <h4 className="amountText m-0">
+        //               {formattedReturnPrice(cartAmount?.discount || "0.00")}
+        //             </h4>
+        //           </div>
+        //           <div className="cartTotal">
+        //             <h4 className="userPosition">Total Taxes</h4>
+        //             <h4 className="amountText m-0">
+        //               {amountFormat(cartAmount?.tax)}
+        //             </h4>
+        //           </div>
+        //           <div className="cartTotal">
+        //             <h4 className="userPosition">Total</h4>
+        //             <h4 className="amountText m-0">
+        //               {amountFormat(cartAmount?.total_amount)}
+        //             </h4>
+        //           </div>
+        //           <button
+        //             className="nextverifyBtn w-100"
+        //             onClick={() => {
+        //               parameter == "product"
+        //                 ? router.push({ pathname: "/Retails/ProductCart" })
+        //                 : router.push({ pathname: "/Retails/ServiceCart" });
+        //             }}
+        //           >
+        //             Proceed to checkout
+        //             <Image
+        //               src={Images.ArrowRight}
+        //               alt="rightArrow"
+        //               className="img-fluid rightImg"
+        //             />
+        //           </button>
+        //         </div>
+        //       </div>
+        //     </div>
+        //   )}
+        // </div>
+        <CartInfoModal
+          cartData={cartData}
+          cartAmount={cartAmount}
+          animating={animating}
+          setAnimating={setAnimating}
+          parameter={parameter}
+          router={router}
+          removeOneCartHandler={removeOneCartHandler}
+          updateQuantity={updateQuantity}
+          bulkCartFunction={bulkCartFunction}
+        />
       ) : (
         <></>
       )}
