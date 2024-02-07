@@ -305,14 +305,13 @@ export function replaceDeliveryStatus(str) {
     "Orders Prepared": "orderPrepareDeliver",
     "Assign to Driver": "orderAssignDeliver",
     "Picked up": "orderPickupDeliver",
-    "Delivered": "deliverOrderTable",
+    Delivered: "deliverOrderTable",
     "Rejected/Cancelled": "cancelDeliver",
-    "Returned": "returnDeliver",
+    Returned: "returnDeliver",
   };
 
   return replacements[str] || str;
 }
-
 
 export const getDateLabel = (dateString) => {
   const days = [
@@ -375,3 +374,10 @@ export const getWeeklyDateLabel = (dateString) => {
 
   return daysOfWeek[date.getDay()];
 };
+export function calculatePercentageValue(value, percentage) {
+  if (percentage == "") {
+    return "";
+  }
+  const percentageValue = (percentage / 100) * parseFloat(value);
+  return percentageValue.toFixed(2) ?? 0.0;
+}

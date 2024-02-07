@@ -10,6 +10,8 @@ import {
   createOrder,
   productCart,
   selectRetailData,
+  setCartLength,
+  setLocalCart,
 } from "../../redux/slices/retails";
 import { useDispatch, useSelector } from "react-redux";
 import {
@@ -106,6 +108,8 @@ const CartPayByCash = () => {
               clearCart({
                 cb: () => {
                   dispatch(productCart());
+                  dispatch(setLocalCart([]));
+                  dispatch(setCartLength(0));
                 },
               })
             );

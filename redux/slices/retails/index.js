@@ -53,6 +53,7 @@ const initialState = {
   holdProductData: [],
   localCartArray: [],
   holdCartLoad: false,
+  cartLength: 0,
   attachWithPhone: false,
   attachWithEmail: false,
   updatePriceLoad: false,
@@ -66,6 +67,7 @@ export const retailsSlice = createSlice({
       state.getMainProductLoad = true;
     },
     setMainProduct: (state, action) => {
+      console.log("actions", JSON.stringify(action));
       state.getMainProductLoad = false;
       state.mainProductData = action?.payload?.payload;
     },
@@ -103,11 +105,16 @@ export const retailsSlice = createSlice({
     productCart: (state) => {
       state.productCartLoad = true;
     },
+    setCartLength: (state, action) => {
+      console.log("actionasasasa", JSON.stringify(action));
+      state.cartLength = action?.payload;
+    },
     setProductCart: (state, action) => {
       state.productCartLoad = false;
       state.productCart = action?.payload?.payload;
       state.cartDetails = action?.payload?.payload;
     },
+    createBulkCart: (state, action) => {},
     addNotes: (state) => {
       state.loading = true;
     },
@@ -133,6 +140,8 @@ export const retailsSlice = createSlice({
     },
     setClearCart: (state) => {
       state.clearCartLoad = false;
+      state.localCartArray = [];
+      state.cartLength = 0;
     },
     checkSuppliedVariant: (state) => {
       state.checkSuppliedVariantLoad = true;
@@ -162,9 +171,9 @@ export const retailsSlice = createSlice({
       state.createOrderLoad = false;
       state.createOrderData = action?.payload?.payload;
     },
-    clearCart: (state) => {
-      state.loading = true;
-    },
+    // clearCart: (state) => {
+    //   state.loading = true;
+    // },
     getDrawerSession: (state) => {
       state.loading = true;
       state.drawerSessionLoad = true;
@@ -408,7 +417,9 @@ export const {
   availableOffers,
   setAvailableOffers,
   productCart,
+  setCartLength,
   setProductCart,
+  createBulkCart,
   addNotes,
   setNotes,
   addTocart,
