@@ -305,7 +305,7 @@ const Sidebar = (props) => {
               <Link
                 href="/appointment/booking"
                 className={`sidebarLinks ${
-                  router?.pathname?.split("/")[1] == "appointment/booking"
+                  router?.pathname?.split("/")[1] == "appointment"
                     ? "active"
                     : ""
                 }`}
