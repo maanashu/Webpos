@@ -17,6 +17,7 @@ import {
 import { toast } from "react-toastify";
 import { Spinner } from "react-bootstrap";
 import { logout } from "../../redux/slices/auth";
+import { formattedReturnPrice } from "../../utilities/globalMethods";
 
 const productrefunds = () => {
   const toastId = React.useRef(null);
@@ -113,7 +114,7 @@ const productrefunds = () => {
       order_id: orderDetails?.order?.id,
       products: products,
       total_taxes: parseFloat(refundTaxAmount).toFixed(2),
-      total_refund_amount: parseFloat(refundAmount).toFixed(2),
+      total_refund_amount: totalRefundableAmount(),
       return_reason: "testing reason",
       drawer_id: orderDetails?.order?.drawer_id || 0,
       deliveryShippingTitle: title,
@@ -124,6 +125,17 @@ const productrefunds = () => {
       pathname: "/Product/RefundsConfirmation(No_Selection)",
       query: { refundData: JSON.stringify(refundData) },
     });
+  };
+
+  const totalRefundableAmount = () => {
+    const { deliveryCharges } = deliveryShippingCharges();
+    const _refundAmount = totalSum ? totalSum : totalAmount;
+    const _refundTaxAmount = sumTax ? sumTax : discount;
+    const total_payable_amount =
+      parseFloat(deliveryCharges) +
+      // parseFloat(_refundTaxAmount) +
+      parseFloat(_refundAmount);
+    return total_payable_amount.toFixed(2) || 0;
   };
 
   useEffect(() => {
@@ -535,20 +547,40 @@ const productrefunds = () => {
                   <div className="flexBox justify-content-between ">
                     <p className="orderHeading">Sub Total</p>
                     <p className="orderHeading">
-                      +${subtotal ? subtotal : sumQtyPrice.toFixed(2)}
+                      {formattedReturnPrice(
+                        subtotal ? subtotal : sumQtyPrice.toFixed(2)
+                      )}
+                      {/* +${subtotal ? subtotal : sumQtyPrice.toFixed(2)} */}
                     </p>
                   </div>
+                  {deliveryShippingCharges().title != "" && (
+                    <div className="flexBox justify-content-between ">
+                      <p className="orderHeading">
+                        {deliveryShippingCharges().title}
+                      </p>
+                      <p className="orderHeading">
+                        {formattedReturnPrice(
+                          deliveryShippingCharges().deliveryCharges
+                        )}
+                      </p>
+                    </div>
+                  )}
+
                   <div className="flexBox justify-content-between ">
                     <p className="orderHeading">Total Taxes</p>
                     <p className="orderHeading">
-                      +${sumTax ? sumTax.toFixed(2) : discount}
+                      {formattedReturnPrice(
+                        sumTax ? sumTax.toFixed(2) : discount
+                      )}
+                      {/* +${sumTax ? sumTax.toFixed(2) : discount} */}
                     </p>
                   </div>
                 </div>
                 <div className="flexBox justify-content-between itemsRefundedTotal">
                   <p className="priceHeading">Total</p>
                   <p className="priceHeading">
-                    ${totalSum ? totalSum.toFixed(2) : totalAmount}
+                    {/* ${totalSum ? totalSum.toFixed(2) : totalAmount} */}
+                    {formattedReturnPrice(totalRefundableAmount())}
                   </p>
                 </div>
                 <div className="text-end">
