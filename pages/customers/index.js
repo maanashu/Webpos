@@ -27,6 +27,7 @@ import moment from "moment-timezone";
 
 const Customers = () => {
   ChartJS.register(...registerables);
+  const router = useRouter();
 
   const [timeSpan, setTimeSpan] = useState("week");
   const [selectedLines, setSelectedLines] = useState([1, 2, 3]);
@@ -137,6 +138,10 @@ const Customers = () => {
     }
   }, [uniqueId, timeSpan, startDate, endDate]);
 
+  const handleNotification = () => {
+    router.push("/transactions/notification", `/customers/notification`);
+  };
+
   return (
     <>
       <div className="main-container-customers fullheightBox_ customerSection">
@@ -152,6 +157,7 @@ const Customers = () => {
           onDateChange={handleDateChange}
           startDate={startDate}
           endDate={endDate}
+          notificationHandler={handleNotification}
         />
 
         {/* stats */}
@@ -215,7 +221,7 @@ const Customers = () => {
               <form className="deliverCheck">
                 {[
                   {
-                    textColor: "form-group checkBlue",
+                    textColor: "form-group checkBlue checkYellow",
                     text: "New Customers",
                     id: "Incoming Orders",
                   },

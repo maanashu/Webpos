@@ -11,8 +11,12 @@ import {
 import ChartCommon from "../../components/commanComonets/ChartCommon";
 import Link from "next/link";
 import moment from "moment-timezone";
+import { useRouter } from "next/router";
+import { amountFormat } from "../../utilities/globalMethods";
 
 const Transactions = () => {
+  const router = useRouter();
+
   const [timeSpan, setTimeSpan] = useState("month");
   const [selectedLines, setSelectedLines] = useState([1, 2, 3]);
   const [startDate, setStartDate] = useState(null);
@@ -62,7 +66,12 @@ const Transactions = () => {
     {
       icon: Images.analticsImg,
       title: "Total",
-      count: `$${getTotalTraData?.data?.total.toFixed(2) ?? "0"}`,
+      count: getTotalTraData?.data?.total
+        ? getTotalTraData?.data?.total < 0
+          ? "-$" +
+            amountFormat(Math.abs(getTotalTraData?.data?.total), "notSign")
+          : amountFormat(getTotalTraData?.data?.total)
+        : "$0",
       bgColor: "#FFEEB3",
       textColor: "#93370D",
       type: "all",
@@ -70,7 +79,7 @@ const Transactions = () => {
     {
       icon: Images.coinImg,
       title: "JBR Coin",
-      count: getTotalTraData?.data?.jbr.toFixed(2) ?? "0",
+      count: amountFormat(getTotalTraData?.data?.jbr, "noSign"),
       bgColor: "#D7DEFF",
       textColor: "#172461",
       type: "jbr",
@@ -78,7 +87,12 @@ const Transactions = () => {
     {
       icon: Images.MoneyOutline,
       title: "Cash",
-      count: `$${getTotalTraData?.data?.cash.toFixed(2) ?? "0"}`,
+      count: getTotalTraData?.data?.cash
+        ? getTotalTraData?.data?.cash < 0
+          ? "-$" +
+            amountFormat(Math.abs(getTotalTraData?.data?.cash), "notSign")
+          : amountFormat(getTotalTraData?.data?.cash)
+        : "$0",
       bgColor: "#D1FADF",
       textColor: "#003921",
       type: "cash",
@@ -86,7 +100,13 @@ const Transactions = () => {
     {
       icon: Images.visaGreen,
       title: "Card",
-      count: `$${getTotalTraData?.data?.card.toFixed(2) ?? "0"}`,
+      count: getTotalTraData?.data?.card
+        ? getTotalTraData?.data?.card < 0
+          ? "-$" +
+            amountFormat(Math.abs(getTotalTraData?.data?.card), "notSign")
+          : amountFormat(getTotalTraData?.data?.card)
+        : "$0",
+
       bgColor: "#BFEEFF",
       textColor: "#1F6A84",
       type: "card",
@@ -123,6 +143,10 @@ const Transactions = () => {
     },
   };
 
+  const handleNotification = () => {
+    router.push("/transactions/notification");
+  };
+
   return (
     <div className="main-container-customers">
       <TCRHeader
@@ -135,6 +159,7 @@ const Transactions = () => {
         onDateChange={handleDateChange}
         startDate={startDate}
         endDate={endDate}
+        notificationHandler={handleNotification}
       />
 
       {/* stats */}

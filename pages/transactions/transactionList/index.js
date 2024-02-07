@@ -121,6 +121,10 @@ const TransactionsList = () => {
     });
   };
 
+  const handleNotification = () => {
+    router.push("/transactions/notification")
+  }
+
   const statusFun = (status) => {
     switch (status) {
       case 0:
@@ -170,6 +174,7 @@ const TransactionsList = () => {
         onDateChange={handleDateRangeChange}
         startDate={startDate}
         endDate={endDate}
+        notificationHandler={handleNotification}
       />
 
       <PaginationHeader

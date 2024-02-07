@@ -27,7 +27,7 @@ const TrackStatus = () => {
         })
         .catch((err) => {});
   }, [userId]);
-  
+  console.log("khkfshsd", orderDetails);
   return (
     <>
       <GoogleMap></GoogleMap>
@@ -38,11 +38,7 @@ const TrackStatus = () => {
           date={orderDetails?.date}
           discount={orderDetails?.discount}
           total={orderDetails?.payable_amount}
-          subtotal={
-            orderDetails?.is_returned_order
-              ? orderDetails?.return_detail?.total_sale_price
-              : orderDetails?.total_sale_price
-          }
+          subtotal={orderDetails?.total_sale_price}
           shipping={
             orderDetails?.delivery_charge || orderDetails?.shipping_charge
           }
@@ -65,12 +61,13 @@ const TrackStatus = () => {
           }
           invoiceNumber={
             orderDetails?.is_returned_order
-              ? orderDetails?.return_detail?.id
+              ? orderDetails?.return_detail?.invoices?.invoice_number
               : orderDetails?.invoices?.invoice_number
           }
           phoneNumber={orderDetails?.seller_details?.phone_number}
           sellerName={orderDetails?.seller_details?.organization_name}
           sellerAddress={createFullAddress(orderDetails?.seller_details)}
+          orderDetails={orderDetails}
         />
       </div>
       <div

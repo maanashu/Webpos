@@ -2,7 +2,10 @@ import React from "react";
 import Image from "next/image";
 import moment from "moment-timezone";
 import { jobrFullIcon } from "../../utilities/images";
-import { formattedReturnPrice } from "../../utilities/globalMethods";
+import {
+  formattedPrice,
+  formattedReturnPrice,
+} from "../../utilities/globalMethods";
 
 const Invoice = ({
   tax,
@@ -21,11 +24,12 @@ const Invoice = ({
   paymentMode,
   invoiceNumber,
   sellerAddress,
+  orderDetails
 }) => {
   const strUserId = userId?.toString();
 
   const hr = <div className="invoice-dotted-hr" />;
-  console.log(posUserId, "pos user id");
+
   return (
     <div className="flex-row-space-between invoice-container">
       {isLoading ? (
@@ -77,32 +81,44 @@ const Invoice = ({
               alignSelf: "stretch",
             }}
           >
-            {ordersList?.map((item, idx) => (
-              <li
-                key={item?.id + idx}
-                className="invoice-list-item-customer flex-row-space-between"
-              >
-                <p
-                  className="main-text-color-styles-customers"
-                  style={{
-                    fontSize: "10px",
-                    fontWeight: "400",
-                    width: "40px",
-                  }}
+            {ordersList?.map((item, idx) => {
+              const quantity = orderDetails?.is_returned_order
+                ? item?.order_details?.qty
+                : item?.qty;
+
+              const productName = orderDetails?.is_returned_order
+                ? item?.order_details?.product_name
+                : item?.product_name;
+
+              const amonut = orderDetails?.is_returned_order
+                ? item?.order_details?.actual_price
+                : item?.actual_price;
+              return (
+                <li
+                  key={item?.id + idx}
+                  className="invoice-list-item-customer flex-row-space-between"
                 >
-                  {item?.qty} X
-                </p>
-                <div>
                   <p
                     className="main-text-color-styles-customers"
                     style={{
                       fontSize: "10px",
-                      fontWeight: "600",
+                      fontWeight: "400",
+                      width: "40px",
                     }}
                   >
-                    {item?.product_name}
+                    {quantity} X
                   </p>
-                  <p
+                  <div>
+                    <p
+                      className="main-text-color-styles-customers"
+                      style={{
+                        fontSize: "10px",
+                        fontWeight: "600",
+                      }}
+                    >
+                      {productName}
+                    </p>
+                    {/* <p
                     className="main-text-color-styles-customers"
                     style={{
                       fontSize: "10px",
@@ -110,19 +126,20 @@ const Invoice = ({
                     }}
                   >
                     Yellow / M
+                  </p> */}
+                  </div>
+                  <p
+                    className="main-text-color-styles-customers"
+                    style={{
+                      fontSize: "10px",
+                      fontWeight: "400",
+                    }}
+                  >
+                    {formattedPrice(amonut)}
                   </p>
-                </div>
-                <p
-                  className="main-text-color-styles-customers"
-                  style={{
-                    fontSize: "10px",
-                    fontWeight: "400",
-                  }}
-                >
-                  ${item?.actual_price}
-                </p>
-              </li>
-            ))}
+                </li>
+              );
+            })}
           </ul>
 
           {hr}
@@ -184,7 +201,7 @@ const Invoice = ({
                 }}
                 className="main-text-color-styles-customers"
               >
-                {moment(date).format("ddd, DD/MM/YYYY")}
+                {moment.utc(date).format("ddd, DD/MM/YYYY")}
               </td>
               <td
                 style={{
@@ -267,14 +284,14 @@ const Invoice = ({
             }}
           >
             {[
-              { text: "Subtotal", amount: `${formattedReturnPrice(subtotal)}` },
+              { text: "Subtotal", amount: `${subtotal}` },
               {
                 text: "Discount",
-                amount: `${formattedReturnPrice(discount)}`,
+                amount: `${discount}`,
               },
-              { text: "Shipping", amount: `$${shipping}` },
+              { text: "Shipping", amount: `${shipping}` },
               { text: "Tax", amount: `${tax}` },
-              { text: "Total", amount: `$${total}` },
+              { text: "Total", amount: `${total}` },
             ].map(({ text, amount }) => (
               <div
                 style={{
@@ -305,7 +322,7 @@ const Invoice = ({
                   }}
                   className="main-text-color-styles-customers"
                 >
-                  {amount}
+                  {formattedPrice(amount)}
                 </p>
               </div>
             ))}

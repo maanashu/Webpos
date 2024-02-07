@@ -661,5 +661,8 @@
   z-index: 9999;
   backdrop-filter: blur(0.2px); /* Adjust the blur amount as needed */
 }
-
+.mapleGap{
+  gap: 12px;
+  width: 100%;
+}
 /* policies */

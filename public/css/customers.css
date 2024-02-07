@@ -186,11 +186,11 @@
 }
 
 .checkbox-jbrCoin[type="checkbox"] {
-  border: 2px solid #f0c01a !important;
+  border: 2px solid #4659B5 !important;
 }
 
 .checkbox-jbrCoin[type="checkbox"]:checked::before {
-  color: #f0c01a;
+  color: #4659B5;
 }
 
 .checkbox-cash[type="checkbox"] {
