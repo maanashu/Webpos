@@ -13,6 +13,7 @@ import {
   productCart,
   selectRetailData,
   setCartLength,
+  setHoldProductCart,
   setLocalCart,
   setMainProduct,
   setProductCart,
@@ -51,12 +52,19 @@ const RightSideBar = ({ props, bulkCartFunction, setSelectedCartItems }) => {
   const [customProductAdd, setCustomProductAdd] = useState(false);
   const [customServiceAdd, setCustomServiceAdd] = useState(false);
   const [animating, setAnimating] = useState(retailData?.productCartLoad);
-  console.log("LOADTTDTDT", retailData?.productCartLoad);
+
   const holdCartArray = retailData?.holdProductData || [];
+  console.log("HOLDEEEEE", JSON.stringify(holdCartArray));
+
   const LOCAL_CART_ARRAY = retailData?.localCartArray;
   const [localCartArray, setLocalCartArray] = useState(LOCAL_CART_ARRAY);
-  const holdProductArray =
-    holdCartArray ?? holdCartArray?.filter((item) => item.is_on_hold === true);
+  const holdProductArray = holdCartArray?.filter(
+    (item) => item.is_on_hold === true
+  );
+  console.log("LOcalalalalaalalal", JSON.stringify(LOCAL_CART_ARRAY));
+  const [holdLoader, setHoldLoader] = useState(false);
+  const [clearCartLoader, setClearCartLoader] = useState(false);
+
   const [cartAlert, setCartAlert] = useState(false);
 
   const productCarts = cartData?.poscart_products?.filter(
@@ -91,91 +99,68 @@ const RightSideBar = ({ props, bulkCartFunction, setSelectedCartItems }) => {
     setSelectedCartItems([]);
     dispatch(setCartLength(0));
     dispatch(setLocalCart([]));
+    // dispatch(productCart());
   };
-  const cartStatusHandler = async () => {
-    if (localCartArray.length > 0) {
-      const dataToSend = {
-        seller_id: sellerId,
-        products: localCartArray,
-      };
-      try {
-        // eraseClearCart();
-        eraseCart();
-        const bulkData = await createBulkCart(dataToSend)(dispatch);
-
-        // if (holdProductArray?.length == 0 || getRetailData?.getAllCart?.length == 0) {
-        if (
-          holdProductArray?.length == 0 &&
-          Object.keys(retailData?.productCart)?.length == 0
-        ) {
-          const params =
-            holdProductArray?.length > 0
-              ? {
-                  status: true,
-                  cartId: holdProductArray?.[0]?.id,
-                }
-              : {
-                  status: true,
-                  cartId: bulkData?.id,
-                };
-          dispatch(
-            holdCart({
-              ...params,
-              cb: () => {
-                dispatch(getHoldProductCart());
-                dispatch(productCart());
-              },
-            })
-          );
-        } else {
-          const params =
-            holdProductArray?.length > 0
-              ? {
-                  status: !holdProductArray?.[0]?.is_on_hold,
-                  cartId: holdProductArray?.[0]?.id,
-                }
-              : {
-                  status: !retailData?.productCart?.is_on_hold,
-                  cartId: bulkData?.id,
-                };
-
-          dispatch(
-            holdCart({
-              ...params,
-              cb: () => {
-                dispatch(getHoldProductCart());
-                dispatch(productCart());
-              },
-            })
-          );
-        }
-      } catch (error) {
-        console.log("catch", error);
-      }
-    } else {
-      const params =
-        holdProductArray?.length > 0
-          ? {
-              status: !holdProductArray?.[0]?.is_on_hold,
-              cartId: holdProductArray?.[0]?.id,
-            }
-          : {
-              status: !retailData?.productCart?.is_on_hold,
-              cartId: retailData?.productCart?.id,
-            };
+  const bulkCart = async () => {
+    setHoldLoader(true);
+    const params = {
+      seller_id: sellerId,
+      products: LOCAL_CART_ARRAY,
+    };
+    try {
       dispatch(
-        holdCart({
+        createBulkCart({
           ...params,
-          cb: () => {
-            dispatch(getHoldProductCart());
-            dispatch(productCart());
+          cb: (resp) => {
+            productCartStatusHandler(resp?.data?.payload?.id, "hold");
           },
         })
       );
+    } catch (error) {
+      setHoldLoader(false);
+      console.error("Error in bulkCart:", error);
     }
   };
+
+  const productHoldCartHandler = async () => {
+    if (LOCAL_CART_ARRAY?.length > 0) {
+      await bulkCart();
+    } else {
+      productCartStatusHandler();
+    }
+  };
+
+  const productCartStatusHandler = (bulkId) => {
+    setHoldLoader(true);
+    const params =
+      holdProductArray?.length > 0
+        ? {
+            status: !holdProductArray?.[0]?.is_on_hold,
+            cartId: holdProductArray?.[0]?.id,
+          }
+        : {
+            status: !retailData?.productCart?.is_on_hold,
+            cartId: bulkId,
+          };
+
+    dispatch(
+      holdCart({
+        ...params,
+        cb: () => {
+          if (params?.status) {
+            eraseCart();
+          }
+          dispatch(getHoldProductCart());
+          dispatch(productCart());
+          setHoldLoader(false);
+        },
+      })
+    );
+  };
+
   // hold Cart function
   const serviceCartStatusHandler = () => {
+    setHoldLoader(true);
     const params =
       holdProductArray?.length > 0
         ? {
@@ -192,6 +177,7 @@ const RightSideBar = ({ props, bulkCartFunction, setSelectedCartItems }) => {
         cb: () => {
           dispatch(getHoldProductCart());
           dispatch(productCart());
+          setHoldLoader(false);
         },
       })
     );
@@ -362,6 +348,7 @@ const RightSideBar = ({ props, bulkCartFunction, setSelectedCartItems }) => {
 
   const clearCartHandler = () => {
     setAnimating(true);
+    setClearCartLoader(true);
     dispatch(
       clearCart({
         cb: () => {
@@ -371,6 +358,7 @@ const RightSideBar = ({ props, bulkCartFunction, setSelectedCartItems }) => {
           dispatch(setLocalCart([]));
           dispatch(productCart());
           setFilterShow(false);
+          setClearCartLoader(false);
         },
       })
     );
@@ -420,7 +408,11 @@ const RightSideBar = ({ props, bulkCartFunction, setSelectedCartItems }) => {
                 onClick={() => {
                   bulkCartFunction(),
                     serviceCart?.length > 0
-                      ? setCartAlert(true)
+                      ? (setModalDetail({
+                          show: true,
+                          flag: "CartAlert",
+                        }),
+                        setKey(Math.random()))
                       : setModalDetail({
                           show: true,
                           flag: "AddProduct",
@@ -441,14 +433,18 @@ const RightSideBar = ({ props, bulkCartFunction, setSelectedCartItems }) => {
               onClick={() => clearCartHandler()}
             >
               <div className="sidebarBg">
-                <Image
-                  src={Images.Cancelproduct}
-                  alt="image"
-                  className="img-fluid rightSidebarIcons"
-                />
+                {clearCartLoader ? (
+                  <span className="spinner-border spinner-border-sm mx-1"></span>
+                ) : (
+                  <Image
+                    src={Images.Cancelproduct}
+                    alt="image"
+                    className="img-fluid rightSidebarIcons"
+                  />
+                )}
               </div>
             </ListGroupItem>
-            {retailData?.holdCartLoad || retailData?.getHoldProductCartLoad ? (
+            {holdLoader ? (
               <div
                 className="rightSidebarItems mt-4"
                 style={{ borderWidth: "1px" }}
@@ -462,7 +458,7 @@ const RightSideBar = ({ props, bulkCartFunction, setSelectedCartItems }) => {
                     ? "rightSidebarItems active "
                     : "rightSidebarItems"
                 }
-                onClick={() => cartStatusHandler()}
+                onClick={() => productHoldCartHandler()}
               >
                 <>
                   <div className="sidebarBg">
@@ -534,7 +530,11 @@ const RightSideBar = ({ props, bulkCartFunction, setSelectedCartItems }) => {
                 className="sidebarBg"
                 onClick={() => {
                   productCarts?.length > 0
-                    ? setCartAlert(true)
+                    ? (setModalDetail({
+                        show: true,
+                        flag: "CartAlert",
+                      }),
+                      setKey(Math.random()))
                     : //  setCustomServiceAdd(true);
                       setModalDetail({
                         show: true,
@@ -571,7 +571,7 @@ const RightSideBar = ({ props, bulkCartFunction, setSelectedCartItems }) => {
               </div>
             </ListGroupItem>
 
-            {retailData?.holdCartLoad || retailData?.getHoldProductCartLoad ? (
+            {holdLoader ? (
               <div
                 className="rightSidebarItems mt-4"
                 style={{ borderWidth: "1px" }}
@@ -809,9 +809,9 @@ const RightSideBar = ({ props, bulkCartFunction, setSelectedCartItems }) => {
       )}
 
       {/* cart alert popup */}
-      <Modal show={cartAlert} centered keyboard={false}>
+      {/* <Modal show={cartAlert} centered keyboard={false}>
         <CartAlert crossHandler={() => setCartAlert(false)} />
-      </Modal>
+      </Modal> */}
 
       <CustomModal
         key={key}
@@ -825,6 +825,8 @@ const RightSideBar = ({ props, bulkCartFunction, setSelectedCartItems }) => {
             ? "AddProduct"
             : "ServiceProductAdd"
             ? "ServiceProductAdd"
+            : "CartAlert"
+            ? "CartAlert"
             : ""
         }
         child={
@@ -832,6 +834,8 @@ const RightSideBar = ({ props, bulkCartFunction, setSelectedCartItems }) => {
             <CustomProductAdd crosshandler={() => handleOnCloseModal()} />
           ) : modalDetail.flag === "ServiceProductAdd" ? (
             <CustomServiceAdd crosshandler={() => handleOnCloseModal()} />
+          ) : modalDetail.flag === "CartAlert" ? (
+            <CartAlert crossHandler={() => handleOnCloseModal()} />
           ) : (
             " "
           )
@@ -884,6 +888,11 @@ const RightSideBar = ({ props, bulkCartFunction, setSelectedCartItems }) => {
                   />
                 </button>
               </>
+            ) : modalDetail.flag === "CartAlert" ? (
+              <h5 className="font-28 text-center">
+                Please clear {productCarts?.length > 0 ? "product" : "service"}{" "}
+                cart
+              </h5>
             ) : (
               ""
             )}

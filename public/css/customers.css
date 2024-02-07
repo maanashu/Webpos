@@ -609,3 +609,6 @@
   background-color: #fff;
   border-radius: 12px;
 }
+#ServiceProductAdd .modal-header {
+  justify-content: center !important;
+}

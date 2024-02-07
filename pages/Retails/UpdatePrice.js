@@ -69,6 +69,7 @@ const UpdatePrice = ({ cartProduct, crossHandler }) => {
             // onChange={(e) => setProductName(e.target.value)}
           />
         </div> */}
+        <h6 className="my-2">New Price</h6>
         <div className="phoneIcon mb-3">
           <input
             className="form-control verifyControl"

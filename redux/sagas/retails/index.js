@@ -172,6 +172,7 @@ function* createBulkCart(action) {
     console.log("responseee", JSON.stringify(resp));
     if (resp.status) {
       yield call(productCart);
+      yield call(action.payload.cb, (action.res = resp));
     } else {
       throw resp;
     }
@@ -865,6 +866,7 @@ function* getHoldProductCart(action) {
 
   try {
     const resp = yield call(ApiClient.get, `${ORDER_API_URL_V1}poscarts/`);
+    console.log("HODLDLDLLLDLDLD", JSON.stringify(resp));
     if (resp.status) {
       yield put(setHoldProductCart(resp.data));
       yield call(action.payload.cb, (action.res = resp?.data));
