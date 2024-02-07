@@ -97,11 +97,11 @@ const productrefunds = () => {
     const { title, deliveryCharges } = deliveryShippingCharges();
 
     let refundData = {
-      subtotal: refundSubTotal?.toFixed(2),
+      subtotal: parseFloat(refundSubTotal).toFixed(2),
       order_id: orderDetails?.order?.id,
       products: products,
-      total_taxes: refundTaxAmount?.toFixed(2),
-      total_refund_amount: refundAmount?.toFixed(2), //totalRefundableAmount().toFixed(2), //subtotal,
+      total_taxes: parseFloat(refundTaxAmount).toFixed(2),
+      total_refund_amount: parseFloat(refundAmount).toFixed(2),
       delivery_charge: orderDetails?.order?.delivery_charge,
       return_reason: "testing reason",
       drawer_id: orderDetails?.order?.drawer_id || 0,
