@@ -372,7 +372,7 @@ const CartAmountByPay = () => {
                           }}
                         >
                           <div
-                            className="debitCreditBox pointHand"
+                            className="debitCreditBox active pointHand"
                             style={{
                               background:
                                 selectedPaymentIndex == index
@@ -448,7 +448,7 @@ const CartAmountByPay = () => {
                     {selectedPaymentIndex !== null &&
                       selectedPaymentId === 1 &&
                       selectedRecipeIndex !== null && (
-                        <div className="text-center mb-4 mt-4 ">
+                        <div className="text-center mb-4 mt-4 d-flex justify-content-center">
                           <button
                             className="nextverifyBtn"
                             type="submit"
@@ -505,7 +505,7 @@ const CartAmountByPay = () => {
                         )}
                       </span>
                     </div>
-                    <div className="text-center mb-4 mt-4 ">
+                    <div className="text-center mb-4 mt-4 d-flex justify-content-center">
                       <button
                         disabled={
                           retailData?.merchantWalletCheckLoad ? true : false

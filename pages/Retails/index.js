@@ -485,7 +485,7 @@ const Retails = () => {
                               <Image
                                 src={services?.image}
                                 alt="image"
-                                // className="img-fluid ProductIcon"
+                                className="img-fluid ProductIcon"
                                 width="100"
                                 height="100"
                               />

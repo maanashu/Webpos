@@ -1279,3 +1279,6 @@ input:checked+.switch-slider:before {
 .authHeaderSub{
   padding: 0 100px;
 }
+ .accordion-button:not(.collapsed) {
+  box-shadow: none !important;
+}
