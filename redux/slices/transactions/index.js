@@ -5,6 +5,7 @@ const initialState = {
   totalTraDetail: {},
   totalTraType: [],
   totalTra: {},
+  notifications: [],
   loading: false,
 };
 
@@ -34,6 +35,13 @@ export const transactionsSlice = createSlice({
       state.loading = false;
       state.totalTra = action?.payload;
     },
+    getNotifications: (state) => {
+      state.loading = true;
+    },
+    setNotifications: (state, action) => {
+      state.loading = false;
+      state.notifications = action?.payload;
+    },
     onErrorStopLoad: (state) => {
       state.loading = false;
     },
@@ -49,6 +57,8 @@ export const {
   setTotalTraType,
   getTotalTra,
   setTotalTra,
+  getNotifications,
+  setNotifications,
 } = transactionsSlice.actions;
 
 export const selectTransactionData = (state) => state.transactions;

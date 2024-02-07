@@ -21,7 +21,10 @@ import {
 } from "../../../../redux/slices/customers";
 import moment from "moment-timezone";
 import { DELIVERY_MODE } from "../../../../constants/commonConstants";
-import { createFullAddress } from "../../../../utilities/globalMethods";
+import {
+  createFullAddress,
+  formattedPrice,
+} from "../../../../utilities/globalMethods";
 
 const UserProfile = () => {
   const router = useRouter();
@@ -118,7 +121,11 @@ const UserProfile = () => {
         profilePic={
           userDetails?.profile_photo ? userDetails?.profile_photo : defaultUser
         }
-        name={userDetails?.firstname && userDetails?.lastname ? `${userDetails?.firstname} ${userDetails?.lastname}` : "Unknown"}
+        name={
+          userDetails?.firstname && userDetails?.lastname
+            ? `${userDetails?.firstname} ${userDetails?.lastname}`
+            : "Unknown"
+        }
         address={createFullAddress(userDetails)}
         contactNo={userDetails?.phone_number}
         email={userDetails?.email}
@@ -149,7 +156,7 @@ const UserProfile = () => {
                 className="customers-table-data"
                 style={{ border: "none", color: "#7E8AC1" }}
               >
-                Order ID
+                Invoice Number
               </th>
               <th
                 className="customers-table-data"
@@ -203,7 +210,9 @@ const UserProfile = () => {
                   onClick={() => handleNavigateToTrackStatus(item)}
                   className="customers-table-data"
                 >
-                  {item?.id}
+                  {item?.is_returned_order
+                    ? item?.return_detail?.invoices?.invoice_number
+                    : item?.invoices?.invoice_number}
                 </td>
                 <td
                   onClick={() => handleNavigateToTrackStatus(item)}
@@ -271,7 +280,7 @@ const UserProfile = () => {
                   onClick={() => handleNavigateToTrackStatus(item)}
                   className="customers-table-data"
                 >
-                  ${item?.payable_amount}
+                  {formattedPrice(item?.payable_amount)}
                 </td>
                 <td
                   onClick={() => handleNavigateToTrackStatus(item)}

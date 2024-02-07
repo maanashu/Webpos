@@ -1,15 +1,17 @@
 import { toast } from "react-toastify";
 import { ApiClient } from "../../../utilities/api";
-import { ORDER_API_URL } from "../../../utilities/config";
+import { ORDER_API_URL, AUTH_API_URL } from "../../../utilities/config";
 import { all, call, put, takeLatest } from "redux-saga/effects";
 import {
   onErrorStopLoad,
+  setNotifications,
   setTotalTra,
   setTotalTraDetail,
   setTotalTraType,
 } from "../../slices/transactions";
 
 const ORDER_API_URL_V1 = ORDER_API_URL + "/api/v1/";
+const USER_API_URL_V1 = AUTH_API_URL + "/api/v1/";
 
 function* getTotalTra(action) {
   const dataToSend = { ...action.payload };
@@ -164,10 +166,25 @@ function* getTotalTraType(action) {
   }
 }
 
+function* getNotifications() {
+  try {
+    const resp = yield call(ApiClient.get, `${USER_API_URL_V1}notifications`);
+    if (resp.status) {
+      yield put(setNotifications(resp.data?.payload?.data));
+    } else {
+      throw resp;
+    }
+  } catch (e) {
+    yield put(onErrorStopLoad());
+    toast.error(e?.error?.response?.data?.msg);
+  }
+}
+
 function* transactionsSaga() {
   yield all([takeLatest("transactions/getTotalTraDetail", getTotalTraDetail)]);
   yield all([takeLatest("transactions/getTotalTraType", getTotalTraType)]);
   yield all([takeLatest("transactions/getTotalTra", getTotalTra)]);
+  yield all([takeLatest("transactions/getNotifications", getNotifications)]);
 }
 
 export default transactionsSaga;
