@@ -37,6 +37,7 @@ const RightSideBar = ({ props }) => {
   const [customProductAdd, setCustomProductAdd] = useState(false);
   const [customServiceAdd, setCustomServiceAdd] = useState(false);
   const holdCartArray = retailData?.holdProductData || [];
+  const [holdLoader, setHoldLoader] = useState(false);
   const holdProductArray = holdCartArray?.filter(
     (item) => item.is_on_hold === true
   );
@@ -73,6 +74,7 @@ const RightSideBar = ({ props }) => {
 
   // hold Cart function
   const serviceCartStatusHandler = () => {
+    setHoldLoader(true);
     const params =
       holdProductArray?.length > 0
         ? {
@@ -89,6 +91,7 @@ const RightSideBar = ({ props }) => {
         cb: () => {
           dispatch(getHoldProductCart());
           dispatch(productCart());
+          setHoldLoader(false);
         },
       })
     );
@@ -134,7 +137,11 @@ const RightSideBar = ({ props }) => {
                 className="sidebarBg"
                 onClick={() => {
                   serviceCart?.length > 0
-                    ? setCartAlert(true)
+                    ? (setModalDetail({
+                        show: true,
+                        flag: "CartAlert",
+                      }),
+                      setKey(Math.random()))
                     : setModalDetail({
                         show: true,
                         flag: "AddProduct",
@@ -170,7 +177,7 @@ const RightSideBar = ({ props }) => {
                 />
               </div>
             </ListGroupItem>
-            {retailData?.holdCartLoad || retailData?.getHoldProductCartLoad ? (
+            {holdLoader ? (
               <div
                 className="rightSidebarItems mt-4"
                 style={{ borderWidth: "1px" }}
@@ -256,7 +263,11 @@ const RightSideBar = ({ props }) => {
                 className="sidebarBg"
                 onClick={() => {
                   productCarts?.length > 0
-                    ? setCartAlert(true)
+                    ? (setModalDetail({
+                        show: true,
+                        flag: "CartAlert",
+                      }),
+                      setKey(Math.random()))
                     : //  setCustomServiceAdd(true);
                       setModalDetail({
                         show: true,
@@ -293,7 +304,7 @@ const RightSideBar = ({ props }) => {
               </div>
             </ListGroupItem>
 
-            {retailData?.holdCartLoad || retailData?.getHoldProductCartLoad ? (
+            {holdLoader ? (
               <div
                 className="rightSidebarItems mt-4"
                 style={{ borderWidth: "1px" }}
@@ -489,9 +500,9 @@ const RightSideBar = ({ props }) => {
       )}
 
       {/* cart alert popup */}
-      <Modal show={cartAlert} centered keyboard={false}>
+      {/* <Modal show={cartAlert} centered keyboard={false}>
         <CartAlert crossHandler={() => setCartAlert(false)} />
-      </Modal>
+      </Modal> */}
 
       <CustomModal
         key={key}
@@ -505,6 +516,8 @@ const RightSideBar = ({ props }) => {
             ? "AddProduct"
             : "ServiceProductAdd"
             ? "ServiceProductAdd"
+            : "CartAlert"
+            ? "CartAlert"
             : ""
         }
         child={
@@ -512,6 +525,8 @@ const RightSideBar = ({ props }) => {
             <CustomProductAdd crosshandler={() => handleOnCloseModal()} />
           ) : modalDetail.flag === "ServiceProductAdd" ? (
             <CustomServiceAdd crosshandler={() => handleOnCloseModal()} />
+          ) : modalDetail.flag === "CartAlert" ? (
+            <CartAlert crossHandler={() => handleOnCloseModal()} />
           ) : (
             " "
           )
@@ -564,6 +579,11 @@ const RightSideBar = ({ props }) => {
                   />
                 </button>
               </>
+            ) : modalDetail.flag === "CartAlert" ? (
+              <h5 className="font-28 text-center">
+                Please clear {productCarts?.length > 0 ? "product" : "service"}{" "}
+                cart
+              </h5>
             ) : (
               ""
             )}

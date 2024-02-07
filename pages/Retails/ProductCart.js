@@ -613,7 +613,13 @@ const ProductCart = () => {
                   className="addproductCart"
                   onClick={() =>
                     cartLength > 0
-                      ? (setAttachCustomerModal(true), cartUpdate())
+                      ? // setAttachCustomerModal(true),
+                        (setModalDetail({
+                          show: true,
+                          flag: "AttachCustomer",
+                        }),
+                        setKey(Math.random()),
+                        cartUpdate())
                       : noCartFun()
                   }
                 >
@@ -833,9 +839,9 @@ const ProductCart = () => {
       </Modal> */}
 
       {/* custom product add */}
-      <Modal show={attachCustomerModal} centered keyboard={false}>
+      {/* <Modal show={attachCustomerModal} centered keyboard={false}>
         <AttachCustomer crosshandler={() => setAttachCustomerModal(false)} />
-      </Modal>
+      </Modal> */}
 
       <CustomModal
         key={key}
@@ -854,6 +860,8 @@ const ProductCart = () => {
             : "UpdatePrice"
             ? "AddProduct"
             : "AddProduct"
+            ? "AttachCustomer"
+            : "AttachCustomer"
         }
         child={
           modalDetail.flag === "AddDiscount" ? (
@@ -870,6 +878,9 @@ const ProductCart = () => {
             />
           ) : modalDetail.flag === "AddProduct" ? (
             <CustomProductAdd crosshandler={() => handleOnCloseModal()} />
+          ) : modalDetail.flag === "AttachCustomer" ? (
+            // <CustomProductAdd crosshandler={() => handleOnCloseModal()} />
+            <AttachCustomer crosshandler={() => handleOnCloseModal()} />
           ) : (
             ""
           )
@@ -896,8 +907,32 @@ const ProductCart = () => {
                   </p>
                 </h2>
               </>
+            ) : modalDetail.flag === "AttachCustomer" ? (
+              <>
+                <div className="trackingSub headerModal">
+                  <figure className="profileImage ">
+                    <Image
+                      src={Images.addCutomer}
+                      alt="trackingImage"
+                      className="img-fluid "
+                    />
+                  </figure>
+                  <h4 className="loginheading mt-2">Add a customer</h4>
+                  <h4 className="trackingHeading">
+                    Search a costumer or{" "}
+                    <span className="fw-bold">create a new one. </span>
+                  </h4>
+                  <div onClick={handleOnCloseModal} className="crossModal">
+                    <Image
+                      src={Images.modalCross}
+                      alt="modalCross"
+                      className="img-fluid"
+                    />
+                  </div>
+                </div>
+              </>
             ) : (
-              ""
+              " "
             )}
           </>
         }

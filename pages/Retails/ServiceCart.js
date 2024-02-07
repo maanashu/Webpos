@@ -537,7 +537,12 @@ const ServiceCart = () => {
                   className="addproductCart"
                   onClick={() =>
                     cartLength > 0
-                      ? (cartUpdate(), setAttachCustomerModal(true))
+                      ? (cartUpdate(),
+                        setModalDetail({
+                          show: true,
+                          flag: "AttachCustomer",
+                        }),
+                        setKey(Math.random()))
                       : noCartFun()
                   }
                 >
@@ -725,7 +730,12 @@ const ServiceCart = () => {
                   onClick={() => {
                     cartUpdate();
                     if (Object.keys(cartData?.user_details)?.length == 0) {
-                      setAttachCustomerModal(true);
+                      // setAttachCustomerModal(true);
+                      setModalDetail({
+                        show: true,
+                        flag: "AttachCustomer",
+                      }),
+                        setKey(Math.random());
                     } else {
                       router.push({ pathname: "/Retails/CartAmountByPay" });
                       let params = {
@@ -753,9 +763,9 @@ const ServiceCart = () => {
       </Modal> */}
 
       {/* custom product add */}
-      <Modal show={attachCustomerModal} centered keyboard={false}>
+      {/* <Modal show={attachCustomerModal} centered keyboard={false}>
         <AttachCustomer crosshandler={() => setAttachCustomerModal(false)} />
-      </Modal>
+      </Modal> */}
 
       <CustomModal
         key={key}
@@ -775,6 +785,8 @@ const ServiceCart = () => {
             ? "UpdatePrice"
             : "AddService"
             ? "AddService"
+            : "AttachCustomer"
+            ? "AttachCustomer"
             : ""
         }
         child={
@@ -792,6 +804,9 @@ const ServiceCart = () => {
             />
           ) : modalDetail.flag === "AddService" ? (
             <CustomServiceAdd crosshandler={() => handleOnCloseModal()} />
+          ) : modalDetail.flag === "AttachCustomer" ? (
+            // <CustomProductAdd crosshandler={() => handleOnCloseModal()} />
+            <AttachCustomer crosshandler={() => handleOnCloseModal()} />
           ) : (
             ""
           )
@@ -829,8 +844,32 @@ const ServiceCart = () => {
                   />
                 </button>
               </>
+            ) : modalDetail.flag === "AttachCustomer" ? (
+              <>
+                <div className="trackingSub headerModal">
+                  <figure className="profileImage ">
+                    <Image
+                      src={Images.addCutomer}
+                      alt="trackingImage"
+                      className="img-fluid "
+                    />
+                  </figure>
+                  <h4 className="loginheading mt-2">Add a customer</h4>
+                  <h4 className="trackingHeading">
+                    Search a costumer or{" "}
+                    <span className="fw-bold">create a new one. </span>
+                  </h4>
+                  <div onClick={handleOnCloseModal} className="crossModal">
+                    <Image
+                      src={Images.modalCross}
+                      alt="modalCross"
+                      className="img-fluid"
+                    />
+                  </div>
+                </div>
+              </>
             ) : (
-              ""
+              " "
             )}
           </>
         }
