@@ -71,11 +71,11 @@ const RightSideBar = ({ props, bulkCartFunction, setSelectedCartItems }) => {
   const serviceCart = cartData?.poscart_products?.filter(
     (item) => item?.product_type == "service"
   );
-  // useEffect(() => {
-  //   if (Object.keys(cartData)?.length == 0) {
-  //     setFilterShow(false);
-  //   }
-  // }, [cartData]);
+  useEffect(() => {
+    if (Object.keys(cartData)?.length == 0) {
+      setFilterShow(false);
+    }
+  }, [cartData]);
 
   const [key, setKey] = useState(Math.random());
   const [modalDetail, setModalDetail] = useState({
@@ -475,11 +475,12 @@ const RightSideBar = ({ props, bulkCartFunction, setSelectedCartItems }) => {
             )}
             <ListGroupItem
               className="rightSidebarItems"
-              onClick={() =>
-                productCarts?.length > 0
+              onClick={() => {
+                bulkCartFunction();
+                cartLength > 0
                   ? router.push({ pathname: "/Retails/ProductCart" })
-                  : void 0
-              }
+                  : void 0;
+              }}
             >
               <Image
                 src={Images.RightArrow}

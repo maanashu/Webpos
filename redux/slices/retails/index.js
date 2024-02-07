@@ -140,6 +140,8 @@ export const retailsSlice = createSlice({
     },
     setClearCart: (state) => {
       state.clearCartLoad = false;
+      state.localCartArray = [];
+      state.cartLength = 0;
     },
     checkSuppliedVariant: (state) => {
       state.checkSuppliedVariantLoad = true;
@@ -169,9 +171,9 @@ export const retailsSlice = createSlice({
       state.createOrderLoad = false;
       state.createOrderData = action?.payload?.payload;
     },
-    clearCart: (state) => {
-      state.loading = true;
-    },
+    // clearCart: (state) => {
+    //   state.loading = true;
+    // },
     getDrawerSession: (state) => {
       state.loading = true;
       state.drawerSessionLoad = true;
