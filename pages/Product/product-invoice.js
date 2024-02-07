@@ -141,6 +141,22 @@ const ProductInvoice = () => {
     }
   };
 
+  const deliveryShippingCharges = () => {
+    let deliveryCharges;
+    let title;
+    if (returnData?.delivery_charge !== "0") {
+      deliveryCharges = returnData?.delivery_charge;
+      title = "Delivery Charges";
+    } else if (returnData?.shipping_charge !== "0") {
+      deliveryCharges = returnData?.shipping_charge;
+      title = "Shipping Charges";
+    } else {
+      title = "";
+      deliveryCharges = "0";
+    }
+    return { title, deliveryCharges };
+  };
+
   useEffect(() => {
     if (checkeddata) {
       const updatedProductDetails = productDetails?.map((item) =>
@@ -418,8 +434,14 @@ const ProductInvoice = () => {
                   <div className="flexBox maplePriceBox">
                     <article>
                       <p className="productName">Subtotal</p>
-                      <p className="productName">Tax</p>
+                      {(returnData?.delivery_charge != "0" ||
+                        returnData?.shipping_charge != "0") && (
+                        <p className="productName">
+                          {deliveryShippingCharges().title}
+                        </p>
+                      )}
 
+                      <p className="productName">Tax</p>
                       <p className="productName fw-bold">Total</p>
                     </article>
                     <article>
@@ -428,6 +450,15 @@ const ProductInvoice = () => {
                           returnData?.products_refunded_amount
                         )}
                       </p>
+                      {(returnData?.delivery_charge != "0" ||
+                        returnData?.shipping_charge != "0") && (
+                        <p className="productName">
+                          {formattedReturnPrice(
+                            deliveryShippingCharges().deliveryCharges
+                          )}
+                        </p>
+                      )}
+
                       <p className="productName">
                         {formattedReturnPrice(returnData?.tax)}
                       </p>

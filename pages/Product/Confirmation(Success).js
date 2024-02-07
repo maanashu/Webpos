@@ -14,7 +14,7 @@ const ConfirmationSuccess = () => {
       <div className="ConfirmationSuccess">
         <div className="commanOuter">
           <div className="flexBox">
-            <button
+            {/* <button
               type="button"
               className="backButton"
               onClick={() => {
@@ -27,7 +27,7 @@ const ConfirmationSuccess = () => {
                 className="img-fluid backBtnIcon"
               />
               Back
-            </button>
+            </button> */}
             <button
               type="button"
               className="backButton ms-4"
@@ -50,7 +50,8 @@ const ConfirmationSuccess = () => {
               />
               <h5 className="returnConfirmedHeading">Return Confirmed</h5>
               <p className="userPosition">
-                Invoice No. # {invoiceNumber?.invoice_number} return successfully Completed!
+                Invoice No. # {invoiceNumber?.invoice_number} return
+                successfully Completed!
               </p>
             </div>
           </div>

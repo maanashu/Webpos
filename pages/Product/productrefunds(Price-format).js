@@ -54,7 +54,12 @@ const productrefunds = () => {
       (item) => Number(refundAmount) > Number(item.price)
     );
     // if (isGreater == false) {
-    setModalDetail({ show: true, flag: "ReturnInventory" });
+    if (orderDetails?.order?.order_type === "service") {
+      handlereturnToInventory();
+    } else {
+      setModalDetail({ show: true, flag: "ReturnInventory" });
+    }
+
     setKey(Math.random());
 
     const shareData = {
@@ -76,17 +81,24 @@ const productrefunds = () => {
     // }
   };
 
-  let products = refundedItems?.map((item, index) => ({
-    id: item?.product_id,
-    qty: item?.qty,
-    add_to_inventory_qty: newQty?.find((val) => val?.id == item?.id)?.qty || 0,
-    write_off_qty:
-      item?.qty - newQty?.find((val) => val?.id == item?.id)?.qty || 0,
-    refund_value:
-      Number(inputValues?.find((val) => val?.index == index)?.value) ||
-      refundAmount ||
-      0,
-  }));
+  let products = refundedItems?.map((item, index) => {
+    const newItem = {
+      id: item?.product_id,
+      qty: item?.qty,
+      add_to_inventory_qty:
+        (newQty?.find((val) => val?.id === item?.id) || {}).qty || 0,
+      write_off_qty:
+        item?.qty - (newQty?.find((val) => val?.id === item?.id) || {}).qty ||
+        0,
+      refund_value:
+        Number(
+          (inputValues?.find((val) => val?.index === index) || {}).value
+        ) ||
+        item?.price ||
+        0,
+    };
+    return newItem;
+  });
 
   // Return API should not hit here
   const handlereturnToInventory = () => {
@@ -97,12 +109,11 @@ const productrefunds = () => {
     const { title, deliveryCharges } = deliveryShippingCharges();
 
     let refundData = {
-      subtotal: refundSubTotal?.toFixed(2),
+      subtotal: parseFloat(refundSubTotal).toFixed(2),
       order_id: orderDetails?.order?.id,
       products: products,
-      total_taxes: refundTaxAmount?.toFixed(2),
-      total_refund_amount: refundAmount?.toFixed(2), //totalRefundableAmount().toFixed(2), //subtotal,
-      delivery_charge: orderDetails?.order?.delivery_charge,
+      total_taxes: parseFloat(refundTaxAmount).toFixed(2),
+      total_refund_amount: parseFloat(refundAmount).toFixed(2),
       return_reason: "testing reason",
       drawer_id: orderDetails?.order?.drawer_id || 0,
       deliveryShippingTitle: title,
@@ -297,7 +308,11 @@ const productrefunds = () => {
     );
 
     if (!isNaN(enteredValue)) {
-      setRefundAmount(enteredValue > maxPrice ? maxPrice : enteredValue);
+      if (enableTextFordoller) {
+        setRefundAmount(enteredValue > maxPrice ? maxPrice : enteredValue);
+      } else {
+        setRefundAmount(enteredValue <= 100 ? enteredValue : maxPrice);
+      }
     } else {
       if (!toast.isActive(toastId.current)) {
         toastId.current = toast.error(
