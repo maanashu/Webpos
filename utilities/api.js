@@ -40,18 +40,19 @@ axiosInstance.interceptors.response.use(
     if (error.response.status === 401) {
       // handle 401 errors here
 
+      console.log("+==========here 0");
       dispatch(restAllData());
-
+      console.log("+==========here 1");
       setTimeout(() => {
         toast.warning("Session expired");
       }, 200);
-
-      Router.push("/auth/verification");
-
+      console.log("+==========here 2");
+      Router.push("/");
+      console.log("+==========here 3");
       localStorage.removeItem("merchantAuthToken");
       localStorage.removeItem("authToken");
       localStorage.removeItem("persist:root");
-
+      console.log("+==========here 4");
       // localStorage.clear();
       // Router.push("/");
       // toast.dismiss()
