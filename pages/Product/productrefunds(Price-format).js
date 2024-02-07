@@ -54,7 +54,12 @@ const productrefunds = () => {
       (item) => Number(refundAmount) > Number(item.price)
     );
     // if (isGreater == false) {
-    setModalDetail({ show: true, flag: "ReturnInventory" });
+    if (orderDetails?.order?.order_type === "service") {
+      handlereturnToInventory();
+    } else {
+      setModalDetail({ show: true, flag: "ReturnInventory" });
+    }
+
     setKey(Math.random());
 
     const shareData = {
