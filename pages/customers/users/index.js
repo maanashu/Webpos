@@ -259,14 +259,16 @@ const Users = () => {
                     {item?.user_details?.lastname}
                   </p>
                   <div>
-                    <Image width={12} height={12} src={OrderLocation} />
+                    {item?.user_details?.current_address ? (
+                      <Image width={12} height={12} src={OrderLocation} />
+                    ) : (
+                      <></>
+                    )}
                     <span className="user-stats-row-name-address">
-                      {item?.user_details?.current_address?.custom_address}
-                      {", "}
-                      {item?.user_details?.current_address?.city}
-                      {", "}
-                      {item?.user_details?.current_address?.state}(
-                      {item?.user_details?.current_address?.state_code}){", "}
+                      {item?.user_details?.current_address?.custom_address}{" "}
+                      {item?.user_details?.current_address?.city}{" "}
+                      {item?.user_details?.current_address?.state}
+                      {item?.user_details?.current_address?.state_code}{" "}
                       {item?.user_details?.current_address?.country}{" "}
                       {item?.user_details?.zipcode}
                     </span>

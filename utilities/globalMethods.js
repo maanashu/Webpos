@@ -4,13 +4,15 @@ import { toast } from "react-toastify";
 var pSBCr = null;
 
 export const createFullAddress = (address) => {
-  return `${address?.current_address?.street_address || " "}, ${
-    address?.current_address?.city || " "
-  }(${
-    address?.current_address?.state_code ||
-    address?.current_address?.state ||
-    " "
-  }), ${address?.current_address?.zipcode || " "}`;
+  if (address) {
+    return `${address?.current_address?.street_address || " "} ${
+      address?.current_address?.city || " "
+    }${
+      address?.current_address?.state_code ||
+      address?.current_address?.state ||
+      " "
+    } ${address?.current_address?.zipcode || " "}`;
+  }
 };
 
 export const getCurrentTimeZone = () => {
@@ -305,14 +307,13 @@ export function replaceDeliveryStatus(str) {
     "Orders Prepared": "orderPrepareDeliver",
     "Assign to Driver": "orderAssignDeliver",
     "Picked up": "orderPickupDeliver",
-    "Delivered": "deliverOrderTable",
+    Delivered: "deliverOrderTable",
     "Rejected/Cancelled": "cancelDeliver",
-    "Returned": "returnDeliver",
+    Returned: "returnDeliver",
   };
 
   return replacements[str] || str;
 }
-
 
 export const getDateLabel = (dateString) => {
   const days = [

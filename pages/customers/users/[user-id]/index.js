@@ -68,7 +68,7 @@ const UserProfile = () => {
   const handleNavigateToTrackStatus = (item) => {
     router.push(
       "/customers/users/[user-id]/[order-id]",
-      `/customers/users/${userUid}/${item?.user_details?.id}`
+      `/customers/users/${userUid}/${item?.id}`
     );
   };
 
@@ -78,7 +78,13 @@ const UserProfile = () => {
         style={{ padding: "24px 24px 0px 24px" }}
         className="flex-row-space-between"
       >
-        <div style={{ gap: "12px" }} className="flex-row-space-between">
+        <div
+          style={{ gap: "12px" }}
+          className="flex-row-space-between"
+          onClick={() => {
+            router.back();
+          }}
+        >
           <Image
             style={{
               transform: "rotate(270deg)",
@@ -88,7 +94,7 @@ const UserProfile = () => {
           />
           <p className="user-profile-title">User Profile</p>
         </div>
-        <div
+        {/* <div
           style={{
             gap: "4px",
             padding: "8px 10px",
@@ -105,16 +111,16 @@ const UserProfile = () => {
             Edit Profile
           </p>
           <Image width={16} height={16} src={editProfile} />
-        </div>
+        </div> */}
       </div>
 
       <UserProfileBanner
         profilePic={
           userDetails?.profile_photo ? userDetails?.profile_photo : defaultUser
         }
-        name={`${userDetails?.firstname} ${userDetails?.lastname}`}
+        name={userDetails?.firstname && userDetails?.lastname ? `${userDetails?.firstname} ${userDetails?.lastname}` : "Unknown"}
         address={createFullAddress(userDetails)}
-        contactNo={userDetails?.phone_number || "N/A"}
+        contactNo={userDetails?.phone_number}
         email={userDetails?.email}
         points={2}
         isAcceptingMarketing={true}

@@ -373,7 +373,11 @@ const Sidebar = (props) => {
             <ListGroupItem className="sidebarItems">
               <Link
                 href="/cashDrawer"
-                className={`sidebarLinks ${"" ? "active" : ""}`}
+                className={`sidebarLinks ${
+                  router?.pathname?.split("/")[1] == "cashDrawer"
+                    ? "active"
+                    : ""
+                }`}
               >
                 <Image
                   src={Images.CashDrawer}
