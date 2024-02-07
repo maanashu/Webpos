@@ -136,7 +136,7 @@ const TransactionsList = () => {
       case 3:
         return "Ready Pickup";
       case 4:
-        return "Walkin";
+        return "Pickup";
       case 5:
         return "Delivered";
       case 6:
