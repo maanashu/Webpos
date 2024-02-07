@@ -68,10 +68,22 @@ const RefundsConfirmation = () => {
       products: refundDataObj.products,
       total_taxes: refundDataObj.total_taxes,
       total_refund_amount: refundDataObj.total_refund_amount,
-      delivery_charge: refundDataObj.delivery_charge,
       return_reason: refundDataObj.return_reason,
       drawer_id: refundDataObj.drawer_id,
     };
+
+    let deliveryShippingParamKey;
+    let deliveryShippingTitle = refundDataObj.deliveryShippingTitle;
+
+    if (deliveryShippingTitle === "Delivery Charges") {
+      deliveryShippingParamKey = "delivery_charge";
+    } else if (deliveryShippingTitle == "Shipping Charges") {
+      deliveryShippingParamKey = "shipping_charge";
+    }
+
+    if (deliveryShippingParamKey) {
+      params[deliveryShippingParamKey] = refundDataObj.deliveryShippingCharges;
+    }
 
     if (selectedMethod == "sms") {
       params["full_phone_number"] = selectedPhoneNumber;
@@ -293,24 +305,26 @@ const RefundsConfirmation = () => {
                   </div>
                 </div>
               </div>
-              <div
-                className="text-center"
-                onClick={(e) => handleConfirmReturnButton(e)}
-              >
-                <button type="button" className="ConfirmReturn active">
-                  Confirm Return
-                  <Image
-                    src={Images.ShoppingReturnLite}
-                    alt="ShoppingReturnLite"
-                    className="img-fluid ShoppingReturnLite"
-                  />
-                  <Image
-                    src={Images.ShoppingReturn}
-                    alt="ShoppingReturnLite"
-                    className="img-fluid ShoppingReturnLite d-none showImg"
-                  />
-                </button>
-              </div>
+              {(activeMsz || activeSms || activeEmail) && (
+                <div
+                  className="text-center"
+                  onClick={(e) => handleConfirmReturnButton(e)}
+                >
+                  <button type="button" className="ConfirmReturn active">
+                    Confirm Return
+                    <Image
+                      src={Images.ShoppingReturnLite}
+                      alt="ShoppingReturnLite"
+                      className="img-fluid ShoppingReturnLite"
+                    />
+                    <Image
+                      src={Images.ShoppingReturn}
+                      alt="ShoppingReturnLite"
+                      className="img-fluid ShoppingReturnLite d-none showImg"
+                    />
+                  </button>
+                </div>
+              )}
             </div>
           </div>
           <div className="col-lg-5">

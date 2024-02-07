@@ -76,17 +76,24 @@ const productrefunds = () => {
     // }
   };
 
-  let products = refundedItems?.map((item, index) => ({
-    id: item?.product_id,
-    qty: item?.qty,
-    add_to_inventory_qty: newQty?.find((val) => val?.id == item?.id)?.qty || 0,
-    write_off_qty:
-      item?.qty - newQty?.find((val) => val?.id == item?.id)?.qty || 0,
-    refund_value:
-      Number(inputValues?.find((val) => val?.index == index)?.value) ||
-      refundAmount ||
-      0,
-  }));
+  let products = refundedItems?.map((item, index) => {
+    const newItem = {
+      id: item?.product_id,
+      qty: item?.qty,
+      add_to_inventory_qty:
+        (newQty?.find((val) => val?.id === item?.id) || {}).qty || 0,
+      write_off_qty:
+        item?.qty - (newQty?.find((val) => val?.id === item?.id) || {}).qty ||
+        0,
+      refund_value:
+        Number(
+          (inputValues?.find((val) => val?.index === index) || {}).value
+        ) ||
+        item?.price ||
+        0,
+    };
+    return newItem;
+  });
 
   // Return API should not hit here
   const handlereturnToInventory = () => {
@@ -102,7 +109,6 @@ const productrefunds = () => {
       products: products,
       total_taxes: parseFloat(refundTaxAmount).toFixed(2),
       total_refund_amount: parseFloat(refundAmount).toFixed(2),
-      delivery_charge: orderDetails?.order?.delivery_charge,
       return_reason: "testing reason",
       drawer_id: orderDetails?.order?.drawer_id || 0,
       deliveryShippingTitle: title,
