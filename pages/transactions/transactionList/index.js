@@ -111,12 +111,15 @@ const TransactionsList = () => {
   ];
 
   const handleNavigateToTrackStatus = (item) => {
-    router.push(
-      "/transactions/transactionList/invoice",
-      `/transactions/transactionList/invoice/${item?.id}`
-    );
-  };
+    router.push({
+      pathname: "/transactions/transactionList/invoice",
 
+      query: {
+        item: JSON.stringify(item),
+        order_id: item?.id,
+      },
+    });
+  };
 
   const statusFun = (status) => {
     switch (status) {
