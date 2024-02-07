@@ -72,7 +72,7 @@ const EndSession = () => {
                 }
               >
                 <p className="closeBatchText">Close Batch</p>
-                <Image src={Cross} className="crossStyle" />
+                <Image src={Cross} className="crossStyle" width={100} height={100}/>
               </div>
             </div>
           </div>
@@ -89,6 +89,8 @@ const EndSession = () => {
                       : Images.defaultUser
                   }
                   className="userImage"
+                  width={100}
+                  height={100}
                 />
                 <div className="profileNameView">
                   <p className="profileNameStyle">

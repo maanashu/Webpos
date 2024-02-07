@@ -225,7 +225,7 @@ const MapleOrder = ({
               <div className="flexBox mapleProductDetailsBox">
                 <div className="flexbase">
                   <p className="mapleProductcount">× 1</p>
-                  <article className="ms-3">
+                  <article className="ms-2">
                     <p className="mapleProductHeading">
                       {item?.product_name ?? "-"}
                     </p>

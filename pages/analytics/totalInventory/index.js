@@ -264,20 +264,20 @@ const index = () => {
                               <td
                                 className="customers-table-data"
                               >
-                                {row?.supplies[0]?.total_quantity}
+                                {row?.supplies[0]?.rest_quantity}
                               </td>
                               <td
                                 className="customers-table-data"
                               >
                                 {moment(row?.last_sold_date).format('MM/DD/YYYY')}
                               </td>
-                              <td
+                              {/* <td
                                 className="customers-table-data"
                               >
                                 <button className="secondaryOuterbtn_" type="button" onClick={() =>
                                   handleGoReviewPage(row?.last_sold_date)
                                 }>Review</button>
-                              </td>
+                              </td> */}
                             </tr>
                           ))}
                         </tbody> :

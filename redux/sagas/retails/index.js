@@ -44,6 +44,7 @@ import {
   setUpdateCart,
   setHoldProductCart,
   setHoldCart,
+  setUpdatePrice,
 } from "../../slices/retails";
 import { all, call, put, takeLatest } from "redux-saga/effects";
 import { store, wrapper } from "../..";
@@ -56,11 +57,13 @@ const WALLET_API_URL_V1 = WALLET_API_URL + "/api/v1/";
 
 function* getMainProduct(action) {
   const dataToSend = { ...action.payload };
+  delete dataToSend.cb;
+  // const dataToSend = { ...action.payload };
   const params = new URLSearchParams(dataToSend).toString();
   try {
     const resp = yield call(
       ApiClient.get,
-      `${PRODUCT_API_URL_V1}products?app_name=pos&delivery_options=3&service_type=product&page=1&limit=25&${params}`
+      `${PRODUCT_API_URL_V1}products?app_name=pos&delivery_options=3&service_type=product&page=${dataToSend?.page}&limit=${dataToSend?.limit}&${params}`
     );
 
     if (resp.status) {
@@ -97,11 +100,12 @@ function* getOneProductById(action) {
 
 function* getMainServices(action) {
   const dataToSend = { ...action.payload };
+  delete dataToSend.cb;
   const params = new URLSearchParams(dataToSend).toString();
   try {
     const resp = yield call(
       ApiClient.get,
-      `${PRODUCT_API_URL_V1}products?app_name=pos&delivery_options=2&service_type=service&need_pos_users=true&check_stock_out=true&need_next_available_slot=true&page=1&limit=25&${params}`
+      `${PRODUCT_API_URL_V1}products?app_name=pos&delivery_options=2&service_type=service&need_pos_users=true&check_stock_out=true&need_next_available_slot=true&page=${dataToSend?.page}&limit=${dataToSend?.limit}&${params}`
     );
     if (resp.status) {
       yield put(setMainServices(resp.data));
@@ -317,9 +321,15 @@ function* updateCartByTip(action) {
 }
 
 function* createOrder(action) {
-  const body = { ...action.payload };
+  const attachWithPhone = store?.getState()?.retails?.attachWithPhone;
+  const attachWithEmail = store?.getState()?.retails?.attachWithEmail;
+  const body = {
+    ...action.payload,
+    reciept_on_phone: attachWithPhone,
+    reciept_on_email: attachWithEmail,
+  };
   delete body.tips;
-  // delete body.mode_of_payment;
+
   try {
     const resp = yield call(
       ApiClient.post,
@@ -862,6 +872,31 @@ function* holdCart(action) {
   }
 }
 
+function* updatePrice(action) {
+  const cartId = action?.payload?.cartid;
+  const productId = action?.payload?.cartProductId;
+  const body = action?.payload;
+  delete body.cartid;
+  delete body.cartProductId;
+
+  try {
+    const resp = yield call(
+      ApiClient.put,
+      `${ORDER_API_URL_V1}poscarts/update-price/${cartId}/${productId}`,
+      body
+    );
+    if (resp.status) {
+      yield put(setUpdatePrice(resp.data));
+      yield call(action.payload.cb, (action.res = resp?.data));
+    } else {
+      throw resp;
+    }
+  } catch (e) {
+    yield put(onErrorStopLoad());
+    toast.error(e?.error?.response?.data?.msg);
+  }
+}
+
 function* retailsSaga() {
   yield all([
     takeLatest("retails/getMainProduct", getMainProduct),
@@ -907,6 +942,7 @@ function* retailsSaga() {
     takeLatest("retails/paymentRequestCancel", paymentRequestCancel),
     takeLatest("retails/getHoldProductCart", getHoldProductCart),
     takeLatest("retails/holdCart", holdCart),
+    takeLatest("retails/updatePrice", updatePrice),
   ]);
 }
 

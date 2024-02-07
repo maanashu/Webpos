@@ -59,21 +59,7 @@ const CustomProductAdd = ({ crosshandler }) => {
   };
 
   return (
-    <div className="p-2">
-      <div className="" style={{ borderWidth: 1 }}>
-        <div className="modalHeading mb-0">
-          <figure className="text-center">
-            <Image src={Images.plusRound} alt="img" />
-          </figure>
-          <p className="addProductHeading">
-            Add New Product<br></br> Manually
-          </p>
-        </div>
-        <button className="closeButton" onClick={() => crosshandler()}>
-          <Image src={Images.modalCross} alt="img" />
-        </button>
-      </div>
-
+    <div>
       <div className="form-group mb-3">
         <input
           className="form-control customInput mb-3"

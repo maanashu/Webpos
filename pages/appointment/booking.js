@@ -47,6 +47,7 @@ import {
   updateAppointmentStatus,
   getStaffUsers,
 } from "../../redux/slices/bookings";
+import { getPendingOrderCount } from "../../redux/slices/delivery";
 import {
   getSecuritySettingInfo,
   settingInfo,
@@ -247,9 +248,26 @@ const Booking = () => {
         cb(res) {
           if (res.status) {
             getAllBookings();
-            // dispatch(getStaffUsersList());
+
+            if (
+              status == APPOINTMENT_STATUS.ACCEPTED_BY_SELLER ||
+              status == APPOINTMENT_STATUS.REJECTED_BY_SELLER
+            ) {
+              getPendingAppointmentCount();
+            }
           }
         },
+      })
+    );
+  };
+
+  const getPendingAppointmentCount = () => {
+    let orderListParam = {
+      seller_id: UniqueId,
+    };
+    dispatch(
+      getPendingOrderCount({
+        ...orderListParam,
       })
     );
   };
@@ -691,7 +709,7 @@ const Booking = () => {
     // };
     return (
       <>
-        <div className="sidebarRightBooking">
+        <div className="sidebarRightBooking ms-0">
           <ListGroup>
             <ListGroupItem className="SidebarRightItems">
               <Link className="sideBarUser" href="#">
@@ -718,39 +736,40 @@ const Booking = () => {
                 </span>
               </div>
             </ListGroupItem>
-            {staffUsersList?.map((item, index) => {
-              const userProfile = item?.user?.user_profiles;
-              const posUserId = item?.user?.unique_uuid;
-              const imageUrl = item?.user?.user_profiles?.profile_photo;
-              return (
-                <ListGroupItem
-                  onClick={() => {
-                    setCalendarViewMode(CALENDAR_VIEW_MODES.CALENDAR_VIEW);
-                    setSelectedStaffEmployeeId((prev) => {
-                      if (prev === posUserId) {
-                        setSelectedStaffEmployeeId(null);
-                        setshowEmployeeHeader(false);
-                      } else {
-                        setshowEmployeeHeader(true);
-                        setSelectedStaffEmployeeId(posUserId);
-                      }
-                    });
-                    setSelectedStaffData(item);
-                  }}
-                  className="SidebarRightItems mt-2"
-                >
-                  <Image
-                    src={imageUrl ?? Images.defaultUser}
-                    alt="image"
-                    width={50}
-                    height={50}
-                    className="img-fluid userImg40"
-                  />
-                  <span className="bottomdot">{item?.appointment_counts}</span>
-                </ListGroupItem>
-              );
-            })}
-
+            <div className="bookingUsers mt-3">
+              {staffUsersList?.map((item, index) => {
+                const userProfile = item?.user?.user_profiles;
+                const posUserId = item?.user?.unique_uuid;
+                const imageUrl = item?.user?.user_profiles?.profile_photo;
+                return (
+                  <ListGroupItem
+                    onClick={() => {
+                      setCalendarViewMode(CALENDAR_VIEW_MODES.CALENDAR_VIEW);
+                      setSelectedStaffEmployeeId((prev) => {
+                        if (prev === posUserId) {
+                          setSelectedStaffEmployeeId(null);
+                          setshowEmployeeHeader(false);
+                        } else {
+                          setshowEmployeeHeader(true);
+                          setSelectedStaffEmployeeId(posUserId);
+                        }
+                      });
+                      setSelectedStaffData(item);
+                    }}
+                    className="SidebarRightItems"
+                  >
+                    <Image
+                      src={imageUrl ?? Images.defaultUser}
+                      alt="image"
+                      width={50}
+                      height={50}
+                      className="img-fluid bookUserImg"
+                    />
+                    <span className="bookUserDot">{item?.appointment_counts}</span>
+                  </ListGroupItem>
+                );
+              })}
+            </div>
             {/* <ListGroupItem className="SidebarRightItems mt-2">
               <Image
                 src={Images.userAvtar}
@@ -809,40 +828,39 @@ const Booking = () => {
               />
               <span className="bottomdot">3</span>
             </ListGroupItem> */}
-
-            <ListGroupItem className="SidebarRightItems">
-              <div
-                className="userSideBar"
-                onClick={() => {
-                  setCalendarViewMode(CALENDAR_VIEW_MODES.CALENDAR_VIEW);
-                  setshouldShowCalendarModeOptions(true);
-                  setSelectedStaffEmployeeId(null);
-                  if (selectedStaffEmployeeId) {
-                    setshowEmployeeHeader(true);
-                  } else {
-                    setshowEmployeeHeader(!showEmployeeHeader);
-                  }
-                }}
-              >
-                <Link className="userBook" href="#">
-                  <Image
-                    src={Images.usersImages}
-                    alt="image"
-                    className="img-fluid userImage  sidebarIcons  "
-                  />
-                  <span className="bottomdot">
-                    {staffUsersList?.length || "0"}
-                  </span>
-                </Link>
-              </div>
-              <Image
-                onClick={() => setisCalendarSettingModalVisible(true)}
-                src={Images.settingBlue}
-                alt="image"
-                className="img-fluid  sidebarIcons  settingImgs"
-              />
-            </ListGroupItem>
           </ListGroup>
+          <div className="bookSideDown">
+            <div
+              className="userSideBar"
+              onClick={() => {
+                setCalendarViewMode(CALENDAR_VIEW_MODES.CALENDAR_VIEW);
+                setshouldShowCalendarModeOptions(true);
+                setSelectedStaffEmployeeId(null);
+                if (selectedStaffEmployeeId) {
+                  setshowEmployeeHeader(true);
+                } else {
+                  setshowEmployeeHeader(!showEmployeeHeader);
+                }
+              }}
+            >
+              <Link className="userBook" href="#">
+                <Image
+                  src={Images.usersImages}
+                  alt="image"
+                  className="img-fluid  smallImg"
+                />
+                <span className="bookingDot">
+                  {staffUsersList?.length || "0"}
+                </span>
+              </Link>
+            </div>
+            <Image
+              onClick={() => setisCalendarSettingModalVisible(true)}
+              src={Images.settingBlue}
+              alt="image"
+              className="img-fluid "
+            />
+          </div>
         </div>
         {showRequestsView ? (
           <div className="addBucket AddtoCart">
@@ -873,162 +891,162 @@ const Booking = () => {
               {selectedStaffEmployeeId
                 ? getAppointmentByStaffIdList
                 : appointmentListArr?.map((item, index) => {
-                    const userDetails = item?.user_details;
-                    const invitedUserDetails = item?.invitation_details;
-                    const userId = item?.user_id;
-                    const customerDetails =
-                      userId != null ? userDetails : invitedUserDetails;
-                    const userAddress = userDetails?.current_address;
-                    const posUserDetails =
-                      item?.pos_user_details?.user?.user_profiles;
-                    const appointmentID = item?.id;
-                    return (
-                      <div
-                        className={
-                          item?.mode_of_payment == "cash"
-                            ? "bg-skygrey border-lightpurple" +
-                              " bookingRequest"
-                            : "bg-green-50 border-green" + " bookingRequest"
-                        }
-                      >
-                        <div className="checkUser">
-                          <div className="userCheckin unpaidDetails">
-                            <h6 className="userText">Customer:</h6>
+                  const userDetails = item?.user_details;
+                  const invitedUserDetails = item?.invitation_details;
+                  const userId = item?.user_id;
+                  const customerDetails =
+                    userId != null ? userDetails : invitedUserDetails;
+                  const userAddress = userDetails?.current_address;
+                  const posUserDetails =
+                    item?.pos_user_details?.user?.user_profiles;
+                  const appointmentID = item?.id;
+                  return (
+                    <div
+                      className={
+                        item?.mode_of_payment == "cash"
+                          ? "bg-skygrey border-lightpurple" +
+                          " bookingRequest"
+                          : "bg-green-50 border-green" + " bookingRequest"
+                      }
+                    >
+                      <div className="checkUser">
+                        <div className="userCheckin unpaidDetails">
+                          <h6 className="userText">Customer:</h6>
 
-                            <div className="checkinBg">
-                              <div className="paymentMode">
-                                <span
-                                  className={
-                                    "textPaymentMode " +
-                                      item?.mode_of_payment ==
+                          <div className="checkinBg">
+                            <div className="paymentMode">
+                              <span
+                                className={
+                                  "textPaymentMode " +
+                                    item?.mode_of_payment ==
                                     "cash"
-                                      ? "textNeavyBlue"
-                                      : "textWhite" + " mr-6"
-                                  }
-                                >
-                                  {item?.mode_of_payment == "cash"
-                                    ? "Unpaid"
-                                    : "Paid"}
-                                </span>
-                                <Image
-                                  src={Images.complete}
-                                  alt="complete"
-                                  className="completeimg"
-                                />
-                              </div>
-                            </div>
-                          </div>
-
-                          <div className="customerCheck d-flex mt-2">
-                            <figure className="profileImage">
-                              <Image
-                                src={
-                                  customerDetails?.profile_photo ??
-                                  Images.defaultUser
+                                    ? "textNeavyBlue"
+                                    : "textWhite" + " mr-6"
                                 }
-                                alt="customerImg"
-                                width={50}
-                                height={50}
-                                className="img-fluid userImg40"
+                              >
+                                {item?.mode_of_payment == "cash"
+                                  ? "Unpaid"
+                                  : "Paid"}
+                              </span>
+                              <Image
+                                src={Images.complete}
+                                alt="complete"
+                                className="completeimg"
                               />
-                            </figure>
+                            </div>
+                          </div>
+                        </div>
+
+                        <div className="customerCheck d-flex mt-2">
+                          <figure className="profileImage">
+                            <Image
+                              src={
+                                customerDetails?.profile_photo ??
+                                Images.defaultUser
+                              }
+                              alt="customerImg"
+                              width={50}
+                              height={50}
+                              className="img-fluid userImg40"
+                            />
+                          </figure>
+                          <div className="">
+                            <span className="innerHeading">
+                              {customerDetails?.firstname +
+                                " " +
+                                customerDetails?.lastname}
+                            </span>
                             <div className="">
-                              <span className="innerHeading">
-                                {customerDetails?.firstname +
-                                  " " +
-                                  customerDetails?.lastname}
+                              <Image
+                                src={Images.locatePurple}
+                                alt="locate"
+                                className="locate me-2"
+                              />
+                              <span className="purpleText">
+                                {userAddress?.street_address ?? "-"}
                               </span>
-                              <div className="">
-                                <Image
-                                  src={Images.locatePurple}
-                                  alt="locate"
-                                  className="locate me-2"
-                                />
-                                <span className="purpleText">
-                                  {userAddress?.street_address ?? "-"}
-                                </span>
-                              </div>
                             </div>
                           </div>
-                          <div className="userCheckin  mt-4">
-                            <h6 className="textSmall fw-600">
-                              Services requested:
-                            </h6>
-                            <div className="userService">
-                              <span className="subHeadText me-2">
-                                {item?.product_name}
+                        </div>
+                        <div className="userCheckin  mt-4">
+                          <h6 className="textSmall fw-600">
+                            Services requested:
+                          </h6>
+                          <div className="userService">
+                            <span className="subHeadText me-2">
+                              {item?.product_name}
+                            </span>
+                            {/* <span className="subHeadText">Pet Bathing</span> */}
+                          </div>
+                        </div>
+                        <div className="ServiceText mt-4 mb-4">
+                          <h6 className="textSmall">Service Time</h6>
+                          <div className="d-flex mt-3">
+                            <div className="serviceDate">
+                              <Image
+                                src={Images.calendarDark}
+                                alt="calendarImg"
+                                className="calendaerImg me-2"
+                              />
+                              <span className="purpleText fw-600">
+                                {moment
+                                  .utc(item?.start_date_time)
+                                  .format("dddd, DD/MM/YYYY")}
                               </span>
-                              {/* <span className="subHeadText">Pet Bathing</span> */}
+                            </div>
+                            <div className="serviceDate">
+                              <Image
+                                src={Images.timeImg}
+                                alt="timeIcon"
+                                className="timeImage me-2"
+                              />
+                              <span className="purpleText fw-600">
+                                {calculateTimeDuration(item)}
+                              </span>
                             </div>
                           </div>
-                          <div className="ServiceText mt-4 mb-4">
-                            <h6 className="textSmall">Service Time</h6>
-                            <div className="d-flex mt-3">
-                              <div className="serviceDate">
-                                <Image
-                                  src={Images.calendarDark}
-                                  alt="calendarImg"
-                                  className="calendaerImg me-2"
-                                />
-                                <span className="purpleText fw-600">
-                                  {moment
-                                    .utc(item?.start_date_time)
-                                    .format("dddd, DD/MM/YYYY")}
-                                </span>
-                              </div>
-                              <div className="serviceDate">
-                                <Image
-                                  src={Images.timeImg}
-                                  alt="timeIcon"
-                                  className="timeImage me-2"
-                                />
-                                <span className="purpleText fw-600">
-                                  {calculateTimeDuration(item)}
-                                </span>
-                              </div>
-                            </div>
-                          </div>
-                          <div className="borderDashed"></div>
-                          <div className="bookingsAmountView mt-4 mb-2">
-                            <h6 className="textBookingAmount fw-700 mr-6">
-                              Total
-                            </h6>
-                            <h6 className="textBookingAmount fw-700">
-                              {item?.mode_of_payment?.toUpperCase() === "JBR"
-                                ? item?.mode_of_payment?.toUpperCase() + " "
-                                : "$"}
+                        </div>
+                        <div className="borderDashed"></div>
+                        <div className="bookingsAmountView mt-4 mb-2">
+                          <h6 className="textBookingAmount fw-700 mr-6">
+                            Total
+                          </h6>
+                          <h6 className="textBookingAmount fw-700">
+                            {item?.mode_of_payment?.toUpperCase() === "JBR"
+                              ? item?.mode_of_payment?.toUpperCase() + " "
+                              : "$"}
 
-                              {`${parseFloat(item?.price).toFixed(2)}`}
-                            </h6>
+                            {`${parseFloat(item?.price).toFixed(2)}`}
+                          </h6>
 
-                            <div className="checkinBg ml-16">
-                              <button
-                                className="rejectBtn mr-6"
-                                type="submit"
-                                onClick={async () => {
-                                  setshowRequestsView((prev) => !prev);
-                                  updateBookingStatus(
-                                    appointmentID,
-                                    APPOINTMENT_STATUS.REJECTED_BY_SELLER
-                                  );
-                                }}
-                              >
-                                Decline
-                              </button>
-                              <button
-                                className="acceptBtn"
-                                type="submit"
-                                onClick={async () => {
-                                  setshowRequestsView((prev) => !prev);
-                                  updateBookingStatus(
-                                    appointmentID,
-                                    APPOINTMENT_STATUS.ACCEPTED_BY_SELLER
-                                  );
-                                }}
-                              >
-                                Confirm
-                              </button>
-                              {/* <div className="confirmbtn">
+                          <div className="checkinBg ml-16">
+                            <button
+                              className="rejectBtn mr-6"
+                              type="submit"
+                              onClick={async () => {
+                                setshowRequestsView((prev) => !prev);
+                                updateBookingStatus(
+                                  appointmentID,
+                                  APPOINTMENT_STATUS.REJECTED_BY_SELLER
+                                );
+                              }}
+                            >
+                              Decline
+                            </button>
+                            <button
+                              className="acceptBtn"
+                              type="submit"
+                              onClick={async () => {
+                                setshowRequestsView((prev) => !prev);
+                                updateBookingStatus(
+                                  appointmentID,
+                                  APPOINTMENT_STATUS.ACCEPTED_BY_SELLER
+                                );
+                              }}
+                            >
+                              Confirm
+                            </button>
+                            {/* <div className="confirmbtn">
                               Confirm
                               <Image
                                 src={Images.ArrowRight}
@@ -1036,12 +1054,12 @@ const Booking = () => {
                                 className="img-fluid "
                               />
                             </div> */}
-                            </div>
                           </div>
                         </div>
                       </div>
-                    );
-                  })}
+                    </div>
+                  );
+                })}
             </ScrollView>
           </div>
         ) : (
@@ -1111,7 +1129,7 @@ const Booking = () => {
                                   {userId !== null
                                     ? customerDetails?.phone_number
                                     : customerDetails?.phone_code +
-                                      customerDetails?.phone_no}
+                                    customerDetails?.phone_no}
                                 </span>
                               </div>
                             </div>
@@ -1248,9 +1266,9 @@ const Booking = () => {
                     height={windowHeight * 0.91}
                     {...(showEmployeeHeader
                       ? {
-                          renderHeader: () => employeeHeader(),
-                          renderHeaderForMonthView: () => employeeHeader(),
-                        }
+                        renderHeader: () => employeeHeader(),
+                        renderHeaderForMonthView: () => employeeHeader(),
+                      }
                       : {})}
                     isEventOrderingEnabled={false}
                     headerContainerStyle={{

@@ -169,7 +169,7 @@
   height: calc(100vh - 129px);
 }
 .sidebarRightBooking {
-  width: 100px;
+  width: 71px;
   border-radius: 50px;
   margin: 0 10px;
   background: #fff;
@@ -255,11 +255,11 @@
     height: 30px;
 } */
 
-.SidebarRightItems:last-child {
+/* .SidebarRightItems:last-child {
   position: fixed;
   bottom: 32px;
   right: 30px;
-}
+} */
 
 /* .sidebarIcons.calendarIcon {
     margin: 23px 0px 28px 7px;
@@ -274,10 +274,11 @@
 .userSideBar {
   border-radius: 30px;
   padding: 6px 6px;
-  position: fixed;
+  /* position: fixed;
   bottom: 84px;
-  right: 19px;
+  right: 19px; */
   border: 1px solid #d7deff;
+  position: relative;
 }
 .tabsappointment {
   margin-right: 24px;

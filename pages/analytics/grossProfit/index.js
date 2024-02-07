@@ -26,7 +26,7 @@ const index = () => {
   const sellerId = auth?.usersInfo?.payload?.uniqe_id
 
   const dispatch = useDispatch()
-  console.log(analyticsProfitData, "analytics data")
+  console.log(analyticsProfitData?.orderData?.data, "analytics data")
 
   function addThousandSeparator(number) {
     return number?.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
@@ -48,7 +48,7 @@ const index = () => {
     {
       icon: total_volume,
       title: "Total Volume",
-      count: `${addThousandSeparator(analyticsProfitData?.overView?.transaction ? (analyticsProfitData?.overView?.transaction).toFixed(2) : 0)}`,
+      count: `$${addThousandSeparator(analyticsProfitData?.overView?.transaction ? (analyticsProfitData?.overView?.transaction).toFixed(2) : 0)}`,
       bgColor: "#D1FADF",
       textColor: "#003921",
     },
@@ -62,7 +62,7 @@ const index = () => {
     {
       icon: gross_profit,
       title: "Gross Profit",
-      count: `${addThousandSeparator(analyticsProfitData?.overView?.profit_sum ? analyticsProfitData?.overView?.profit_sum : 0)}`,
+      count: `$${addThousandSeparator(analyticsProfitData?.overView?.profit_sum ? analyticsProfitData?.overView?.profit_sum : 0)}`,
       bgColor: "#D1FADF",
       textColor: "#003921",
     },
@@ -199,6 +199,12 @@ const index = () => {
                   className="customers-table-data"
                   style={{ border: "none", color: "#7E8AC1", textAlign: "center" }}
                 >
+                  Tax
+                </th>
+                <th
+                  className="customers-table-data"
+                  style={{ border: "none", color: "#7E8AC1", textAlign: "center" }}
+                >
                   Total cost
                 </th>
                 <th
@@ -251,17 +257,22 @@ const index = () => {
                               <td
                                 className="customers-table-data"
                               >
-                                {`$${(row?.transaction).toFixed(2)}`}
+                                {`$${addThousandSeparator((row?.transaction).toFixed(2))}`}
                               </td>
                               <td
                                 className="customers-table-data"
                               >
-                                {`$${(row?.average_value).toFixed(2)}`}
+                                {`$${addThousandSeparator((row?.average_value).toFixed(2))}`}
                               </td>
                               <td
                                 className="customers-table-data"
                               >
-                                {`$${(row?.cost_sum).toFixed(2)}`}
+                                {`$${addThousandSeparator((row?.total_tax).toFixed(2))}`}
+                              </td>
+                              <td
+                                className="customers-table-data"
+                              >
+                                {`$${addThousandSeparator((row?.cost_sum).toFixed(2))}`}
                               </td>
                               <td
                                 className="customers-table-data"

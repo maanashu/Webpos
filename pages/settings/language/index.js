@@ -149,8 +149,8 @@ const Language = (props) => {
                 >
                   <>
                     {settingData?.loading &&
-                    isLoading === data?.id &&
-                    listLoader ? (
+                      isLoading === data?.id &&
+                      listLoader ? (
                       <div className="spinner-grow loaderSpinner text-center"></div>
                     ) : (
                       <>
@@ -166,7 +166,9 @@ const Language = (props) => {
                             <h4 className="cancelOrderText">
                               {data?.language} ({data?.country})
                             </h4>
-                            <h4 className="settingText mt-1">Default</h4>
+                            {data?.language === "English" &&
+                              data?.country === "United States" &&
+                              data?.lang_code === "en" && <h4 className="settingText mt-1">Default</h4>}
                           </div>
                         </div>
                         <div className="roundCheck mb-0">

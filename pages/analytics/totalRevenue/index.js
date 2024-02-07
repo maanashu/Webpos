@@ -37,6 +37,8 @@ const index = () => {
     setEndDate(end);
   }
 
+  console.log(analyticsProfitData?.orderData?.data, "dtataaaaaaaaaaaaaa")
+
   const STATS = [
     {
       icon: total_order,
@@ -47,8 +49,8 @@ const index = () => {
     },
     {
       icon: total_volume,
-      title: "Total Volume",
-      count: `${addThousandSeparator(analyticsProfitData?.overView?.transaction ? (analyticsProfitData?.overView?.transaction).toFixed(2) : 0)}`,
+      title: "Total Revenue",
+      count: `${addThousandSeparator(analyticsProfitData?.overView?.total_revenue ? (analyticsProfitData?.overView?.total_revenue).toFixed(2) : 0)}`,
       bgColor: "#D1FADF",
       textColor: "#003921",
     },
@@ -61,8 +63,8 @@ const index = () => {
     },
     {
       icon: gross_profit,
-      title: "Gross Profit",
-      count: `${addThousandSeparator(analyticsProfitData?.overView?.profit_sum ? analyticsProfitData?.overView?.profit_sum : 0)}`,
+      title: "Volume",
+      count: `${addThousandSeparator(analyticsProfitData?.overView?.profit_sum ? (analyticsProfitData?.overView?.profit_sum)?.toFixed(2) : 0)}`,
       bgColor: "#D1FADF",
       textColor: "#003921",
     },
@@ -205,7 +207,7 @@ const index = () => {
                   className="customers-table-data"
                   style={{ border: "none", color: "#7E8AC1", textAlign: "center" }}
                 >
-                  Gross Profit
+                  Volume
                 </th>
               </tr>
             </thead>
@@ -240,7 +242,7 @@ const index = () => {
                                 className="customers-table-data"
                               // style={{ display: "flex", gap: "12px" }}
                               >
-                                {row.total_items}
+                                {row.total_orders}
                               </td>
                               <td
                                 className="customers-table-data"

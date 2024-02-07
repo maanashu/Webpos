@@ -218,6 +218,7 @@ import timeImg from "../public/images/timeImg.svg";
 import pickupStep from "../public/images/pickupStep.svg";
 import deliverTime from "../public/images/deliverTime.svg";
 import deliverDot from "../public/images/deliverDot.svg";
+import Edit_line from "../public/images/Edit_line.svg";
 import cancelUser from "../public/images/cancelUser.svg";
 import cancelPackage from "../public/images/cancelPackage.svg";
 import mapleCard from "../public/images/mapleCard.svg";
@@ -243,6 +244,7 @@ import printer from "../public/images/printer.svg";
 import checkedImages from "../public/images/checkedImages.svg";
 import arrowLeftPos from "../public/images/arrowLeftPos.svg";
 import rightArrowPos from "../public/images/rightArrowPos.svg";
+import rightArrow from "../public/images/rightarrow.png";
 import crossBlue from "../public/images/crossBlue.svg";
 import cashDraw from "../public/images/cashDraw.svg";
 import cardReader from "../public/images/cardReader.svg";
@@ -413,6 +415,7 @@ export {
   securityTick,
   crossBlue,
   rightArrowPos,
+  rightArrow,
   arrowLeftPos,
   checkedImages,
   trackOrder,
@@ -697,5 +700,6 @@ export {
   enablesec,
   downloadimagee,
   qrcodeimg,
+  Edit_line,
   selectedCalendar,
 };

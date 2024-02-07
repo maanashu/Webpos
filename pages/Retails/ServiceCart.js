@@ -36,6 +36,7 @@ import AttachCustomer from "./AttachCustomer";
 import moment from "moment-timezone";
 import CustomServiceAdd from "./CustomServiceAdd";
 import { debounce } from "lodash";
+import UpdatePrice from "./UpdatePrice";
 
 const ServiceCart = () => {
   const router = useRouter();
@@ -63,6 +64,8 @@ const ServiceCart = () => {
   const [cartDetails, setCartDetails] = useState(onlyServiceCartArray || []);
 
   const cartLength = onlyServiceCartArray?.length;
+
+  const [cartProduct, setCartProduct] = useState("");
 
   const [modalDetail, setModalDetail] = useState({
     show: false,
@@ -399,28 +402,26 @@ const ServiceCart = () => {
                           <h4 className="invoice_subhead p-0">
                             {amountFormat(getProductFinalPrice(data))}
                           </h4>
-                          {/* {retailData?.clearOneProductLoad ||
-                          retailData?.productCartLoad ? (
-                            productById == index && (
-                              <span className="spinner-border spinner-border-sm mx-1"></span>
-                            )
-                          ) : ( */}
+
                           <div
-                            // onClick={() => {
-                            //   let params = {
-                            //     cartId: cartData?.id,
-                            //     productId: data?.id,
-                            //   };
-                            //   setProductById(index);
-                            //   dispatch(
-                            //     clearOneProduct({
-                            //       ...params,
-                            //       cb() {
-                            //         dispatch(productCart());
-                            //       },
-                            //     })
-                            //   );
-                            // }}
+                            className="mx-3"
+                            onClick={() => {
+                              setModalDetail({
+                                show: true,
+                                flag: "UpdatePrice",
+                              });
+                              setKey(Math.random());
+                              setCartProduct(data);
+                              cartUpdate();
+                            }}
+                          >
+                            <Image
+                              src={Images.Edit_line}
+                              alt="crossImage"
+                              className="img-fluid ms-2"
+                            />
+                          </div>
+                          <div
                             onClick={() => removeOneCartHandler(data, index)}
                           >
                             <Image
@@ -482,7 +483,12 @@ const ServiceCart = () => {
                   className="addproductCart"
                   onClick={() => {
                     cartUpdate();
-                    setCustomServiceAdd(true);
+                    // setCustomServiceAdd(true);
+                    setModalDetail({
+                      show: true,
+                      flag: "AddService",
+                    });
+                    setKey(Math.random());
                   }}
                 >
                   <Image
@@ -742,9 +748,9 @@ const ServiceCart = () => {
         </div>
       </div>
       {/* custom service add popup */}
-      <Modal show={customServiceAdd} centered keyboard={false}>
+      {/* <Modal show={customServiceAdd} centered keyboard={false}>
         <CustomServiceAdd crosshandler={() => setCustomServiceAdd(false)} />
-      </Modal>
+      </Modal> */}
 
       {/* custom product add */}
       <Modal show={attachCustomerModal} centered keyboard={false}>
@@ -764,6 +770,12 @@ const ServiceCart = () => {
             : "AddNotes"
             ? "AddNotes"
             : "DeleteCarts"
+            ? "DeleteCarts"
+            : "UpdatePrice"
+            ? "UpdatePrice"
+            : "AddService"
+            ? "AddService"
+            : ""
         }
         child={
           modalDetail.flag === "AddDiscount" ? (
@@ -772,6 +784,14 @@ const ServiceCart = () => {
             <AddNotes close={() => handleOnCloseModal()} />
           ) : modalDetail.flag === "DeleteCarts" ? (
             <DeleteCarts close={() => handleOnCloseModal()} />
+          ) : modalDetail.flag === "UpdatePrice" ? (
+            <UpdatePrice
+              close={() => handleOnCloseModal()}
+              {...{ cartProduct }}
+              crossHandler={() => handleOnCloseModal()}
+            />
+          ) : modalDetail.flag === "AddService" ? (
+            <CustomServiceAdd crosshandler={() => handleOnCloseModal()} />
           ) : (
             ""
           )
@@ -784,6 +804,31 @@ const ServiceCart = () => {
               <h4 className="appointMain mb-0">Add Notes</h4>
             ) : modalDetail.flag === "DeleteCarts" ? (
               <h4 className="appointMain mb-0">Delete Product</h4>
+            ) : modalDetail.flag === "UpdatePrice" ? (
+              <h4 className="appointMain mb-0">Price Changing</h4>
+            ) : modalDetail.flag === "AddService" ? (
+              <>
+                <h2 className="modalHeading mb-0">
+                  <figure className="text-center">
+                    <Image
+                      src={Images.plusRound}
+                      alt="img"
+                      onClick={() => handleOnCloseModal()}
+                    />
+                  </figure>
+                  <p className="addProductHeading">
+                    Add New Service
+                    <br></br> Manually
+                  </p>
+                </h2>
+                <button className="closeButton d-none">
+                  <Image
+                    src={Images.crossIcon}
+                    alt="img"
+                    onClick={() => handleOnCloseModal()}
+                  />
+                </button>
+              </>
             ) : (
               ""
             )}
