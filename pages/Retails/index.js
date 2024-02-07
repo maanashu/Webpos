@@ -32,6 +32,7 @@ import {
 import { Modal } from "react-bootstrap";
 import CartAlert from "./CartAlert";
 import { set } from "react-ga";
+import PaginationFooter from "../../components/commanComonets/customers/PaginationFooter";
 
 const Retails = () => {
   const dispatch = useDispatch();
@@ -57,12 +58,75 @@ const Retails = () => {
   console.log("LOADTTDTDT--reatil", retailData?.productCartLoad);
   const listInnerRef = useRef();
 
-  const [page, setPage] = useState(1);
+  // product pagination
+  const [pageNumber, setPageNumber] = useState(1);
+  const [recordsPerPage, setRecordsPerPage] = useState(18);
+  const [totalItems, setTotalItems] = useState(
+    retailData?.mainProductData?.total || 0
+  );
 
   const [isFocus, setIsFocus] = useState(false);
   useEffect(() => {
     setLocalCartArray(LOCAL_CART_ARRAY);
   }, [LOCAL_CART_ARRAY]);
+  useEffect(() => {
+    setTotalItems(retailData?.mainProductData?.total || 0);
+  }, [totalItems]);
+
+  // service pagination
+  const [serPageNumber, setSerPageNumber] = useState(1);
+  const [recordsSerPerPage, setRecordSerPerPage] = useState(18);
+  const [serTotalItems, setSerTotalItems] = useState(
+    retailData?.mainServicesData?.total || 0
+  );
+
+  const productData = () => {
+    let params = {
+      seller_id: sellerId,
+      page: pageNumber,
+      limit: recordsPerPage,
+    };
+    dispatch(
+      getMainProduct({
+        ...params,
+        cb(res) {
+          if (res.status && res?.data?.payload?.data?.length) {
+            setTotalItems(res?.data?.payload?.total);
+          } else {
+            setTotalItems(0);
+          }
+        },
+      })
+    );
+  };
+
+  const servicesData = () => {
+    let params = {
+      seller_id: sellerId,
+      page: serPageNumber,
+      limit: recordsSerPerPage,
+    };
+    dispatch(
+      getMainServices({
+        ...params,
+        cb(res) {
+          if (res.status && res?.data?.payload?.data?.length) {
+            setSerTotalItems(res?.data?.payload?.total);
+          } else {
+            setSerTotalItems(0);
+          }
+        },
+      })
+    );
+  };
+
+  useEffect(() => {
+    if (sellerId) {
+      productData();
+      servicesData();
+    }
+  }, [sellerId, pageNumber]);
+
   useEffect(() => {
     dispatch(getHoldProductCart());
   }, []);
@@ -133,50 +197,11 @@ const Retails = () => {
       })
     );
   };
-  const productData = () => {
-    let params = {
-      seller_id: sellerId,
-    };
-    dispatch(
-      getMainProduct({
-        ...params,
-        cb(res) {},
-      })
-    );
-  };
-  const servicesData = () => {
-    let params = {
-      seller_id: sellerId,
-    };
-    dispatch(
-      getMainServices({
-        ...params,
-        cb(res) {},
-      })
-    );
-  };
 
   useEffect(() => {
-    // if (completePathName === "/Retails" || "/Retails?parameter=product") {
-    //   productData();
-    // } else if (completePathName === "/Retails?parameter=services") {
-    //   servicesData();
-    // }
-    productData();
-    servicesData();
-
-    /**
-     * Product Filter APIS
-     * Add {search:''} param if needed for searched results
-     */
     dispatch(getProductFilterCategory());
     dispatch(getProductFilterSubCategory());
     dispatch(getProductFilterBrands());
-
-    /**
-     * Service Filter APIS
-     * Add {search:''} param if needed for searched results
-     */
     dispatch(getServiceFilterCategory());
     dispatch(getServiceFilterSubCategory());
     dispatch(getAllPosUser({ seller_id: sellerId }));
@@ -261,123 +286,139 @@ const Retails = () => {
   return (
     <>
       <div className="flexBox">
-        <div className="commanOuter w-100">
+        <div className="commanOuter w-100  position-relative">
           <ProductInnerNav
             productCount={productPagination?.total}
             ServicesCount={servicesCount?.total}
           />
+
           <div className="commanscrollBar productScrollBar">
             {parameter == "product" ? (
-              <div className="row">
-                {/* {retailData?.getMainProductLoad ? (
-                  <div className="loaderOuter">
-                    <span className="spinner-border spinner-border-sm mx-1"></span>
-                  </div>
-                ) : */}
-                {mainProductArray?.length == 0 ? (
-                  <div className="text-center mt-5">
-                    <h3>No Product Found!</h3>
-                  </div>
-                ) : (
-                  mainProductArray?.map((item, index) => {
-                    const cartMatchProduct = cartPosCart?.find(
-                      (data) => data?.product_id == item?.id
-                    );
-                    const isProductMatchArray = localCartArray?.find(
-                      (data) => data.product_id === item.id
-                    );
-                    const cartAddQty = isProductMatchArray?.qty;
+              <>
+                <div className="row">
+                  {retailData?.getMainProductLoad &&
+                  mainProductArray?.length == 0 ? (
+                    // <div className="loaderOuter">
+                    //   <span className="spinner-border spinner-border-sm mx-1"></span>
+                    // </div>
+                    <div className="text-center mt-5">
+                      <h3>Loading...</h3>
+                    </div>
+                  ) : mainProductArray?.length == 0 ? (
+                    <div className="text-center mt-5">
+                      <h3>No Product Found!</h3>
+                    </div>
+                  ) : (
+                    mainProductArray?.map((item, index) => {
+                      const cartMatchProduct = cartPosCart?.find(
+                        (data) => data?.product_id == item?.id
+                      );
+                      const isProductMatchArray = localCartArray?.find(
+                        (data) => data.product_id === item.id
+                      );
+                      const cartAddQty = isProductMatchArray?.qty;
 
-                    const updatedItem = { ...item };
-                    if (cartAddQty !== undefined) {
-                      updatedItem.cart_qty = cartAddQty;
-                    }
-                    return (
-                      <div
-                        className="col-xl-2 col-lg-3 col-md-4 mb-3"
-                        key={index}
-                      >
-                        {/* <Link href='/Retails/AddProduct'> */}
+                      const updatedItem = { ...item };
+                      if (cartAddQty !== undefined) {
+                        updatedItem.cart_qty = cartAddQty;
+                      }
+                      return (
                         <div
-                          className={
-                            updatedItem?.cart_qty > 0
-                              ? "productsCard active"
-                              : "productsCard"
-                          }
-                          onClick={(e) => {
-                            e.stopPropagation();
-                            onlyServiceCartArray?.length > 0
-                              ? setCartAlert(true)
-                              : productFun(item.id, index, item);
-                          }}
+                          className="col-xl-2 col-lg-3 col-md-4 mb-3"
+                          key={index}
                         >
-                          <figure className="productImageBox">
-                            <Image
-                              src={item.image}
-                              alt="image"
-                              className="img-fluid ProductIcon"
-                              width="100"
-                              height="100"
-                            />
-                            <div className="overlay ">
+                          {/* <Link href='/Retails/AddProduct'>  */}
+                          <div
+                            // className={
+                            //   cartMatchProduct?.qty > 0
+                            //     ? "productsCard active"
+                            //     : "productsCard"
+                            // }
+                            // onClick={() => {
+                            //   onlyServiceCartArray?.length > 0
+                            //     ? setCartAlert(true)
+                            //     : productFun(item.id, index, item);
+                            // }}
+                            className={
+                              updatedItem?.cart_qty > 0
+                                ? "productsCard active"
+                                : "productsCard"
+                            }
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              onlyServiceCartArray?.length > 0
+                                ? setCartAlert(true)
+                                : productFun(item.id, index, item);
+                            }}
+                          >
+                            <figure className="productImageBox">
                               <Image
-                                src={Images.Add}
+                                src={item.image}
                                 alt="image"
-                                className="img-fluid addIcon"
+                                className="img-fluid ProductIcon"
+                                width="100"
+                                height="100"
                               />
-                            </div>
-                          </figure>
-                          <article className="productDetails">
-                            <p className="productName">{item.name}</p>
-                            <p className="productGender">
-                              {item.sub_category?.name}
-                            </p>
-                            <div className="productCartPrice">
-                              {item?.supplies?.[0]?.supply_prices?.[0]
-                                ?.offer_price &&
-                              item?.supplies?.[0]?.supply_prices?.[0]
-                                ?.actual_price ? (
-                                <p className="productPrice">
-                                  {amountFormat(
-                                    item?.supplies?.[0]?.supply_prices?.[0]
-                                      ?.offer_price
-                                  )}
-                                </p>
-                              ) : (
-                                <p className="productPrice">
-                                  {amountFormat(
-                                    item?.supplies?.[0]?.supply_prices?.[0]
-                                      ?.selling_price
-                                  )}
-                                </p>
-                              )}
-                              <div
-                                onClick={(e) => {
-                                  e.stopPropagation();
-                                  checkAttributes(item, index, cartAddQty);
-                                }}
-                                className="cartProductImg"
-                              >
+                              <div className="overlay ">
                                 <Image
-                                  src={Images.ShoppingOutline}
+                                  src={Images.Add}
                                   alt="image"
-                                  className="imgSize"
+                                  className="img-fluid addIcon"
                                 />
-                                {updatedItem?.cart_qty > 0 && (
-                                  <span className="productNum">
-                                    {updatedItem?.cart_qty}
-                                  </span>
-                                )}
                               </div>
-                            </div>
-                          </article>
+                            </figure>
+                            <article className="productDetails">
+                              <p className="productName">{item.name}</p>
+                              <p className="productGender">
+                                {item.sub_category?.name}
+                              </p>
+                              <div className="productCartPrice">
+                                {item?.supplies?.[0]?.supply_prices?.[0]
+                                  ?.offer_price &&
+                                item?.supplies?.[0]?.supply_prices?.[0]
+                                  ?.actual_price ? (
+                                  <p className="productPrice">
+                                    {amountFormat(
+                                      item?.supplies?.[0]?.supply_prices?.[0]
+                                        ?.offer_price
+                                    )}
+                                  </p>
+                                ) : (
+                                  <p className="productPrice">
+                                    {amountFormat(
+                                      item?.supplies?.[0]?.supply_prices?.[0]
+                                        ?.selling_price
+                                    )}
+                                  </p>
+                                )}
+                                <div
+                                  onClick={(e) => {
+                                    e.stopPropagation();
+                                    checkAttributes(item, index, cartAddQty);
+                                  }}
+                                  className="cartProductImg"
+                                >
+                                  <Image
+                                    src={Images.ShoppingOutline}
+                                    alt="image"
+                                    className="imgSize"
+                                  />
+                                  {updatedItem?.cart_qty > 0 && (
+                                    <span className="productNum">
+                                      {updatedItem?.cart_qty}
+                                    </span>
+                                  )}
+                                </div>
+                              </div>
+                            </article>
+                          </div>
+                          {/* {/ </Link> /} */}
                         </div>
-                        {/* </Link> */}
-                      </div>
-                    );
-                  })
-                )}
-              </div>
+                      );
+                    })
+                  )}
+                </div>
+              </>
             ) : (
               <>
                 <div className="row">
@@ -549,6 +590,29 @@ const Retails = () => {
                 </div>
               </>
             )}
+            <div className="productPagination">
+              {parameter == "product"
+                ? totalItems > recordsPerPage &&
+                  mainProductArray?.length > 0 && (
+                    <PaginationFooter
+                      page={pageNumber}
+                      limit={recordsPerPage}
+                      setPage={(newPageNumber) => setPageNumber(newPageNumber)}
+                      totalItems={totalItems}
+                    />
+                  )
+                : serTotalItems > recordsSerPerPage &&
+                  mainServicesArray?.length > 0 && (
+                    <PaginationFooter
+                      page={serPageNumber}
+                      limit={recordsSerPerPage}
+                      setPage={(newPageNumber) =>
+                        setSerPageNumber(newPageNumber)
+                      }
+                      totalItems={serTotalItems}
+                    />
+                  )}
+            </div>
           </div>
         </div>
 

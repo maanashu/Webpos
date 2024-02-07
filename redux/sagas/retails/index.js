@@ -58,11 +58,13 @@ const WALLET_API_URL_V1 = WALLET_API_URL + "/api/v1/";
 
 function* getMainProduct(action) {
   const dataToSend = { ...action.payload };
+  delete dataToSend.cb;
+  // const dataToSend = { ...action.payload };
   const params = new URLSearchParams(dataToSend).toString();
   try {
     const resp = yield call(
       ApiClient.get,
-      `${PRODUCT_API_URL_V1}products?app_name=pos&delivery_options=3&service_type=product&page=1&limit=25&${params}`
+      `${PRODUCT_API_URL_V1}products?app_name=pos&delivery_options=3&service_type=product&page=${dataToSend?.page}&limit=${dataToSend?.limit}&${params}`
     );
 
     if (resp.status) {
@@ -99,11 +101,12 @@ function* getOneProductById(action) {
 
 function* getMainServices(action) {
   const dataToSend = { ...action.payload };
+  delete dataToSend.cb;
   const params = new URLSearchParams(dataToSend).toString();
   try {
     const resp = yield call(
       ApiClient.get,
-      `${PRODUCT_API_URL_V1}products?app_name=pos&delivery_options=2&service_type=service&need_pos_users=true&check_stock_out=true&need_next_available_slot=true&page=1&limit=25&${params}`
+      `${PRODUCT_API_URL_V1}products?app_name=pos&delivery_options=2&service_type=service&need_pos_users=true&check_stock_out=true&need_next_available_slot=true&page=${dataToSend?.page}&limit=${dataToSend?.limit}&${params}`
     );
     if (resp.status) {
       yield put(setMainServices(resp.data));

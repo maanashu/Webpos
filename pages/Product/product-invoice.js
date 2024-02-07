@@ -8,7 +8,7 @@ import {
   searchInvoiceByInvoiceId,
   selectReturnData,
   setInvoiceData,
-  setSearchInvoiceByInvoiceId
+  setSearchInvoiceByInvoiceId,
 } from "../../redux/slices/productReturn";
 import { selectLoginAuth } from "../../redux/slices/auth";
 import moment from "moment-timezone";
@@ -16,6 +16,7 @@ import { useRouter } from "next/router";
 import { toast } from "react-toastify";
 import CustomModal from "../../components/customModal/CustomModal";
 import Manualinvoice from "./manual-entry(search)";
+import { formattedReturnPrice } from "../../utilities/globalMethods";
 
 const ProductInvoice = () => {
   const dispatch = useDispatch();
@@ -29,6 +30,8 @@ const ProductInvoice = () => {
   const [searchInvoiceViaBarcode, setSearchInvoiceViaBarcode] = useState("");
   const invoiceData = useSelector(selectReturnData);
   const SearchInvoiceRespones = invoiceData?.invoiceByInvoiceId;
+  const isReturnOrder =
+    !!SearchInvoiceRespones?.order_id && !!SearchInvoiceRespones.return;
   const returnData = SearchInvoiceRespones?.return;
   const returnProductArray = returnData?.return_details;
   const orderDetails = SearchInvoiceRespones?.order;
@@ -39,7 +42,7 @@ const ProductInvoice = () => {
   const [modalDetail, setModalDetail] = useState({
     show: false,
     title: "",
-    flag: "", 
+    flag: "",
   });
 
   const handleOnCloseModal = () => {
@@ -150,11 +153,13 @@ const ProductInvoice = () => {
   }, [checkeddata]);
 
   useEffect(() => {
-    if(!(showInvoiceData && showInvoiceData == 'true') && SearchInvoiceRespones){
+    if (
+      !(showInvoiceData && showInvoiceData == "true") &&
+      SearchInvoiceRespones
+    ) {
       dispatch(setSearchInvoiceByInvoiceId(null));
-    }
-    else if(SearchInvoiceRespones?.invoice_number){
-      setSearchInvoice(SearchInvoiceRespones.invoice_number)
+    } else if (SearchInvoiceRespones?.invoice_number) {
+      setSearchInvoice(SearchInvoiceRespones.invoice_number);
     }
   }, []);
 
@@ -192,7 +197,10 @@ const ProductInvoice = () => {
                   class="form-control searchControl"
                   placeholder="Search here the # of invoice"
                   value={searchInvoice}
-                  onChange={(e) => {handleSearchInvoice(e); setSearchInvoice(e.target.value)}}
+                  onChange={(e) => {
+                    handleSearchInvoice(e);
+                    setSearchInvoice(e.target.value);
+                  }}
                 />
                 <figure className="scanBox">
                   <Image
@@ -276,7 +284,10 @@ const ProductInvoice = () => {
                             </figure>
                           </td>
                           <td className="invoice_subhead">
-                            {SearchInvoiceRespones?.order?.total_items}
+                            {isReturnOrder
+                              ? SearchInvoiceRespones?.return?.return_details
+                                  ?.length
+                              : SearchInvoiceRespones?.order?.total_items}
                           </td>
 
                           <td className="invoice_subhead">
@@ -287,7 +298,12 @@ const ProductInvoice = () => {
                                 className="moneyImg"
                               />
                               <span>
-                                ${SearchInvoiceRespones?.order?.actual_amount}
+                                $
+                                {isReturnOrder
+                                  ? SearchInvoiceRespones?.return
+                                      ?.refunded_amount
+                                  : SearchInvoiceRespones?.order
+                                      ?.payable_amount}
                               </span>
                             </figure>
                           </td>
@@ -361,14 +377,9 @@ const ProductInvoice = () => {
                           </div>
                           <article>
                             <p className="mapleProductPrice">
-                              $
-                              {/* {Number(data?.refunded_amount)
-                                ? Number(data?.refunded_amount).toFixed(2)
-                                : Number(data?.order_details?.price) *
-                                  Number(data?.order_details?.qty)} */}
-                              {Number(data?.refunded_amount) *
-                                Number(data?.returned_qty)?Number(data?.refunded_amount) *
-                                Number(data?.returned_qty):Number(data?.product_price)*Number(data?.returned_qty)}
+                              {formattedReturnPrice(
+                                data?.refunded_amount * data?.order_details?.qty
+                              )}
                             </p>
                           </article>
                         </div>
@@ -413,25 +424,16 @@ const ProductInvoice = () => {
                     </article>
                     <article>
                       <p className="productName">
-                        -$
-                        {Number(returnData?.refunded_amount)
-                          ? Number(returnData?.refunded_amount)
-                          : Number(sumQtyPrice)}
+                        {formattedReturnPrice(
+                          returnData?.products_refunded_amount
+                        )}
                       </p>
                       <p className="productName">
-                        +$
-                        {Number(returnData?.tax)
-                          ? Number(returnData?.tax)
-                          : Number(sumTax).toFixed(2)}
+                        {formattedReturnPrice(returnData?.tax)}
                       </p>
 
                       <p className="totalBtn">
-                        +$
-                        {Number(returnData?.refunded_amount) +
-                        Number(returnData?.tax)
-                          ? Number(returnData?.refunded_amount) +
-                            Number(returnData?.tax)
-                          : totalAmount.toFixed(2)}
+                        {formattedReturnPrice(returnData?.refunded_amount)}
                       </p>
                     </article>
                   </div>
@@ -482,7 +484,7 @@ const ProductInvoice = () => {
                     </span>
                     <button className="inStoreBtn">
                       {" "}
-                      {moment(orderDetails?.date).format("DD/MM/YYYY")}
+                      {moment.utc(orderDetails?.date).format("DD/MM/YYYY")}
                     </button>
                   </figure>
                 </div>
@@ -590,12 +592,14 @@ const ProductInvoice = () => {
                       <div className="OrderCheckoutBox">
                         <p className="orderHeading">Order Date</p>
                         <p className="orderSubHeading">
-                          {moment(orderDetails?.date).format("DD/MM/YYYY")}
+                          {moment.utc(orderDetails?.date).format("DD/MM/YYYY")}
                         </p>
                       </div>
                       <div className="OrderCheckoutBox">
                         <p className="orderHeading">Order ID#</p>
-                        <p className="orderSubHeading">{SearchInvoiceRespones?.invoice_number}</p>
+                        <p className="orderSubHeading">
+                          {SearchInvoiceRespones?.invoice_number}
+                        </p>
                       </div>
                       <div className="OrderCheckoutBox">
                         <p className="orderHeading">Payment Method</p>

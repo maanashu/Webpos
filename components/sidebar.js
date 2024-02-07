@@ -36,6 +36,7 @@ const Sidebar = (props) => {
 
   const router = useRouter();
   const pathname = router?.pathname
+  const [orderData, setOrderData] = useState([]);
   console.log(router?.pathname?.split("/")[1], "router");
   props?.sidebarToggle(activeSidebar);
   const { orderList, pendingOrderCountData } = useSelector(deliveryData);
@@ -56,16 +57,20 @@ const Sidebar = (props) => {
       endTrackingSession({
         ...params,
         async cb(res) {
-          if(res.status){
-         await dispatch(logout());
-          await dispatch(dashboardLogout());
+          // if (res.status) {
+            await dispatch(logout());
+            await dispatch(dashboardLogout());
+
+            setTimeout(() => {
+              toast.success("Logout successfully");
+            }, 200);
 
             router.push("/auth/verification");
-          
-          localStorage.removeItem("merchantAuthToken");
-          localStorage.removeItem("authToken");
-          localStorage.removeItem("persist:root");
-          }
+
+            localStorage.removeItem("merchantAuthToken");
+            localStorage.removeItem("authToken");
+            localStorage.removeItem("persist:root");
+          // }
         },
       })
     );
@@ -300,6 +305,11 @@ const Sidebar = (props) => {
                   className="img-fluid hideImg"
                 />
                 <span className="sidebarTxt">Appointments</span>
+                <span className=" shipNum">
+                  {pendingOrderCountData?.appointment_count
+                    ? pendingOrderCountData?.appointment_count
+                    : 0}
+                </span>
               </Link>
             </ListGroupItem>
             <ListGroupItem className="sidebarItems">
@@ -447,8 +457,9 @@ const Sidebar = (props) => {
         <div className=" ">
           <Link
             href="#"
-            className={`logoutLink ${isLinkActive("/appointment/booking") ? "active" : ""
-              }`}
+            className={`logoutLink ${
+              isLinkActive("/appointment/booking") ? "active" : ""
+            }`}
           >
             <button
               className="logOut"

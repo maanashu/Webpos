@@ -4,7 +4,6 @@ import Image from "next/image";
 import moment from "moment-timezone";
 import { useRouter } from "next/router";
 import { toast } from "react-toastify";
-import GlobalLanguage from "../pages/settings/language/globalLanguage";
 
 const Navbar = () => {
   const router = useRouter();
@@ -39,6 +38,7 @@ const Navbar = () => {
 
   return (
     <>
+    
       <div className="headerSection">
         {/* <div {...(!token && {className: 'container'})}> */}
         <div className={!token ? "authHeader mainAuthHead" : "otherHead"}>
@@ -64,7 +64,7 @@ const Navbar = () => {
               </div>
             </div>
             <div className="col-lg-6 col-md-6 select-language-drop">
-            <GlobalLanguage />
+            
               <div className="rightMainHeader">
                 <div className="rightheader">
                   {/* <h4 className='timeHeading'>POS Ni. <span>#Front-CC01</span></h4> */}

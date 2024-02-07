@@ -28,6 +28,7 @@ import CartAlert from "./CartAlert";
 import CustomServiceAdd from "./CustomServiceAdd";
 import moment from "moment";
 import { selectLoginAuth } from "../../redux/slices/auth";
+import CustomModal from "../../components/customModal/CustomModal";
 // import CustomModal from '../../customModal/CustomModal';
 // import AddProduct from '../../../components/';
 
@@ -324,7 +325,12 @@ const RightSideBar = ({ props, bulkCartFunction }) => {
                   bulkCartFunction(),
                     serviceCart?.length > 0
                       ? setCartAlert(true)
-                      : setCustomProductAdd(true);
+                      : setModalDetail({
+                          show: true,
+                          flag: "AddProduct",
+                        });
+                  setKey(Math.random());
+                  // setCustomProductAdd(true);
                 }}
               >
                 <Image
@@ -452,7 +458,12 @@ const RightSideBar = ({ props, bulkCartFunction }) => {
                 onClick={() => {
                   productCarts?.length > 0
                     ? setCartAlert(true)
-                    : setCustomServiceAdd(true);
+                    : //  setCustomServiceAdd(true);
+                      setModalDetail({
+                        show: true,
+                        flag: "ServiceProductAdd",
+                      });
+                  setKey(Math.random());
                 }}
               >
                 <Image
@@ -705,60 +716,109 @@ const RightSideBar = ({ props, bulkCartFunction }) => {
         <></>
       )}
 
-      {/* custom product add popup */}
-      <Modal show={customProductAdd} centered keyboard={false}>
-        <CustomProductAdd crosshandler={() => setCustomProductAdd(false)} />
-      </Modal>
       {/* cart alert popup */}
       <Modal show={cartAlert} centered keyboard={false}>
         <CartAlert crossHandler={() => setCartAlert(false)} />
       </Modal>
 
-      {/* custom service add popup */}
-      <Modal show={customServiceAdd} centered keyboard={false}>
-        <CustomServiceAdd crosshandler={() => setCustomServiceAdd(false)} />
-      </Modal>
-      {/* <CustomModal
-                key={key}
-                show={modalDetail.show}
-                backdrop="static"
-                showCloseBtn={false}
-                isRightSideModal={false}
-                mediumWidth={false}
-                ids={modalDetail.flag === "AddProduct" ? "AddProduct" : "AddProduct"}
-
-                child={
-                    modalDetail.flag === "AddProduct" ? (
-                        <AddProduct close={() => handleOnCloseModal()} />
-                    ) :
-                        ""
-                }
-                header={
-                    <>
-                        <h2 className="modalHeading mb-0">
-                            <figure className='text-center'>
-                                <Image src={Images.plusRound} alt="img" onClick={() => handleOnCloseModal()} />
-                            </figure>
-                            <p className='addProductHeading'>Add New Product<br></br> Manually</p>
-                        </h2>
-                        <button className="closeButton d-none">
-                            <Image src={Images.crossIcon} alt="img" onClick={() => handleOnCloseModal()} />
-                        </button>
-                    </>
-                }
-
-                onCloseModal={() => handleOnCloseModal()}
-                footer={
-                    <>
-                        <div className='modal-footer'>
-                            <button className='cancelBtn' onClick={() => handleOnCloseModal()}>Cancel</button>
-                            <button className='ModalBlue'>Add to the cart
-                                <Image src={Images.plusRound} alt="image" className="img-fluid BtnIcon" />
-                            </button>
-                        </div>
-                    </>
-                }
-            /> */}
+      <CustomModal
+        key={key}
+        show={modalDetail.show}
+        backdrop="static"
+        showCloseBtn={false}
+        isRightSideModal={false}
+        mediumWidth={false}
+        ids={
+          modalDetail.flag === "AddProduct"
+            ? "AddProduct"
+            : "ServiceProductAdd"
+            ? "ServiceProductAdd"
+            : ""
+        }
+        child={
+          modalDetail.flag === "AddProduct" ? (
+            <CustomProductAdd crosshandler={() => handleOnCloseModal()} />
+          ) : modalDetail.flag === "ServiceProductAdd" ? (
+            <CustomServiceAdd crosshandler={() => handleOnCloseModal()} />
+          ) : (
+            " "
+          )
+        }
+        header={
+          <>
+            {modalDetail.flag === "AddProduct" ? (
+              <>
+                <h2 className="modalHeading mb-0">
+                  <figure className="text-center">
+                    <Image
+                      src={Images.plusRound}
+                      alt="img"
+                      onClick={() => handleOnCloseModal()}
+                    />
+                  </figure>
+                  <p className="addProductHeading">
+                    Add New Product
+                    <br></br> Manually
+                  </p>
+                </h2>
+                <button className="closeButton d-none">
+                  <Image
+                    src={Images.crossIcon}
+                    alt="img"
+                    onClick={() => handleOnCloseModal()}
+                  />
+                </button>
+              </>
+            ) : modalDetail.flag === "ServiceProductAdd" ? (
+              <>
+                <h2 className="modalHeading mb-0">
+                  <figure className="text-center">
+                    <Image
+                      src={Images.plusRound}
+                      alt="img"
+                      onClick={() => handleOnCloseModal()}
+                    />
+                  </figure>
+                  <p className="addProductHeading">
+                    Add New Service
+                    <br></br> Manually
+                  </p>
+                </h2>
+                <button className="closeButton d-none">
+                  <Image
+                    src={Images.crossIcon}
+                    alt="img"
+                    onClick={() => handleOnCloseModal()}
+                  />
+                </button>
+              </>
+            ) : (
+              ""
+            )}
+          </>
+        }
+        onCloseModal={() => handleOnCloseModal()}
+        // footer={
+        //   <>
+        //     <div className="modal-footer">
+        //       <button
+        //         className="cancelBtn"
+        //         onClick={() => handleOnCloseModal()}
+        //       >
+        //         Cancel
+        //       </button>
+        //       <button className="ModalBlue">
+        //         Add to the cart
+        //         <Image
+        //           src={Images.plusRound}
+        //           alt="image"
+        //           className="img-fluid BtnIcon"
+        //         />
+        //       </button>
+        //     </div>
+        //   </>
+        // }
+      />
     </>
   );
 };

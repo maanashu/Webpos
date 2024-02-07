@@ -6,6 +6,7 @@ import Sidebar from "../sidebar.js";
 // import { Navbar } from "react-bootstrap";
 import Navbar from "../navbar.js";
 import { useState } from "react";
+import GlobalLanguage from "../../pages/settings/language/globalLanguage.js";
 export default function Layout({ children, isLoggedIn, userType }) {
   const router = useRouter();
   const [activeSidebar, setActiveSidebar] = useState(true);
@@ -54,6 +55,9 @@ export default function Layout({ children, isLoggedIn, userType }) {
       {/* <div className= {`rightWrapper ${activeSidebar ? 'show' : 'hide'}`}> */}
       <div className="rightWrapper">
         <main>
+          {/* <div className="languageBox_">
+            <GlobalLanguage />
+          </div> */}
           {navbarPaths.includes(router.pathname) ? (
             ""
           ) : (

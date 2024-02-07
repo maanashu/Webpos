@@ -210,14 +210,14 @@ const index = () => {
             </thead>
 
             {
-              analyticsData?.loading ? <tbody>
-                <tr>
-                  <td colSpan="6" style={{ textAlign: "center" }}>
-                    Loading...
-                  </td>
-                </tr>
-
-              </tbody>
+              analyticsData?.loading ?
+                <tbody>
+                  <tr>
+                    <td colSpan="6" style={{ textAlign: "center" }}>
+                      Loading...
+                    </td>
+                  </tr>
+                </tbody>
                 : <>
                   {
                     <>
@@ -275,7 +275,6 @@ const index = () => {
                           </tbody>
                       }
                     </>
-
                   }
                 </>
             }
