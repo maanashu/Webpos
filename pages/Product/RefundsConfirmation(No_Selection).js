@@ -17,8 +17,7 @@ import { formattedReturnPrice } from "../../utilities/globalMethods";
 const RefundsConfirmation = () => {
   const dispatch = useDispatch();
   const router = useRouter();
-  const { refundData } = router.query;
-  const refundDataObj = JSON.parse(refundData);
+  const refundDataObj = JSON.parse(router?.query?.refundData ?? "{}");
   const invoiceData = useSelector(selectReturnData);
   const selectedData = invoiceData?.invoiceData;
   const itemsList = JSON.parse(selectedData?.selectedItems || "[]");
@@ -33,6 +32,9 @@ const RefundsConfirmation = () => {
   const [activeEmail, setActiveEmail] = useState(false);
   const [activeMsz, setActiveMsz] = useState(false);
   const [key, setKey] = useState(Math.random());
+  const [selectedMethod, setSelectedMethod] = useState("");
+  const [selectedPhoneNumber, setSelectedPhoneNumber] = useState("");
+  const [selectedEmail, setSelectedEmail] = useState("");
   const [modalDetail, setModalDetail] = useState({
     show: false,
     title: "",
@@ -61,7 +63,7 @@ const RefundsConfirmation = () => {
   }
 
   const handleConfirmReturnButton = () => {
-    const params = {
+    let params = {
       order_id: refundDataObj.order_id,
       products: refundDataObj.products,
       total_taxes: refundDataObj.total_taxes,
@@ -70,6 +72,13 @@ const RefundsConfirmation = () => {
       return_reason: refundDataObj.return_reason,
       drawer_id: refundDataObj.drawer_id,
     };
+
+    if (selectedMethod == "sms") {
+      params["full_phone_number"] = selectedPhoneNumber;
+    }
+    if (selectedMethod == "email") {
+      params["email"] = selectedEmail;
+    }
 
     dispatch(
       returnToInventory({
@@ -89,14 +98,14 @@ const RefundsConfirmation = () => {
       setActiveSms(true);
       setActiveEmail(false);
       setActiveMsz(false);
-      // setModalDetail({ show: true, flag: "sms" });
-      // setKey(Math.random());
+      setModalDetail({ show: true, flag: "sms" });
+      setKey(Math.random());
     } else if (flag == "email") {
       setActiveEmail(true);
       setActiveMsz(false);
       setActiveSms(false);
-      // setModalDetail({ show: true, flag: "email" });
-      // setKey(Math.random());
+      setModalDetail({ show: true, flag: "email" });
+      setKey(Math.random());
     } else if (flag == "noThnks") {
       setActiveMsz(true);
       setActiveSms(false);
@@ -218,7 +227,9 @@ const RefundsConfirmation = () => {
                 <div className="row justify-content-center">
                   <div
                     className="col-lg-3"
-                    onClick={() => handleActiveButton("sms")}
+                    onClick={() => {
+                      handleActiveButton("sms");
+                    }}
                   >
                     <div
                       className={
@@ -237,7 +248,9 @@ const RefundsConfirmation = () => {
                   </div>
                   <div
                     className="col-lg-3"
-                    onClick={() => handleActiveButton("email")}
+                    onClick={() => {
+                      handleActiveButton("email");
+                    }}
                   >
                     <div
                       className={
@@ -424,17 +437,86 @@ const RefundsConfirmation = () => {
         showCloseBtn={false}
         isRightSideModal={false}
         mediumWidth={false}
-        ids={modalDetail.flag === "email" ? "email" : ""}
+        ids={
+          modalDetail.flag === "email"
+            ? "email"
+            : modalDetail.flag === "sms"
+            ? "sms"
+            : ""
+        }
         child={
           modalDetail.flag === "email" ? (
-            <EmailReceiptModal closeManulModal={() => handleOnCloseModal()} />
+            <EmailReceiptModal
+              onCancel={() => handleOnCloseModal()}
+              onSend={(email) => {
+                setSelectedMethod("email");
+                setSelectedEmail(email);
+                handleOnCloseModal();
+              }}
+            />
           ) : modalDetail.flag === "sms" ? (
-            <PhoneReceiptModal closeManulModal={() => handleOnCloseModal()} />
+            <PhoneReceiptModal
+              onCancel={() => handleOnCloseModal()}
+              onSend={(data) => {
+                setSelectedMethod("sms");
+                const fullPhoneNumber = data.phoneCode + data.phoneNumber;
+                setSelectedPhoneNumber(fullPhoneNumber);
+                handleOnCloseModal();
+              }}
+            />
           ) : (
             ""
           )
         }
-        onCloseModal={() => handleOnCloseModal()}
+        header={
+          modalDetail.flag === "sms" ? (
+            <>
+              <div className="trackingSub headerModal">
+                <figure className="profileImage ">
+                  <Image
+                    src={Images.phoneMessage}
+                    alt="phoneMessage Image"
+                    className="img-fluid "
+                  />
+                </figure>
+                <h4 className="loginheading mt-2">
+                  What phone number do we send the e-receipt to?
+                </h4>
+                <p onClick={handleOnCloseModal} className="crossModal">
+                  <Image
+                    src={Images.modalCross}
+                    alt="modalCross"
+                    className="img-fluid"
+                  />
+                </p>
+              </div>
+            </>
+          ) : modalDetail.flag === "email" ? (
+            <>
+              <div className="trackingSub headerModal">
+                <figure className="profileImage ">
+                  <Image
+                    src={Images.emailSms}
+                    alt="emailSms Image"
+                    className="img-fluid "
+                  />
+                </figure>
+                <h4 className="loginheading mt-2">
+                  What e-mail address do we send the e-receipt to?
+                </h4>
+                <p onClick={handleOnCloseModal} className="crossModal">
+                  <Image
+                    src={Images.modalCross}
+                    alt="modalCross"
+                    className="img-fluid"
+                  />
+                </p>
+              </div>
+            </>
+          ) : (
+            ""
+          )
+        }
       />
     </>
   );
