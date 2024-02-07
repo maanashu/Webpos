@@ -439,7 +439,6 @@
     .navbar-expand-lg .navbar-nav {
         margin-top: 0;
     }
-
 }
 
 @media (max-width: 992px) {
@@ -509,7 +508,7 @@
     .leftHeader {
         display: flex;
         align-items: center;
-        gap: 12px;
+        gap: 0px;
     }
 
     .timeHeading {
@@ -522,6 +521,10 @@
     }
 
     .authHeader {
+        padding: 0 80px;
+    }
+
+    .authHeaderSub {
         padding: 0 80px;
     }
 
@@ -618,6 +621,10 @@
         padding: 0 50px 0 70px;
     }
 
+    .authHeaderSub {
+        padding: 0 50px 0 70px;
+    }
+
     .loginLogo {
         padding: 8px 12px;
         top: 24px;
@@ -638,8 +645,9 @@
 
     .navBtn {
         margin-left: 0;
-        padding: 8px;
-        font-size: 14px;
+        padding: 5px 8px;
+        font-size: 12px;
+        font-weight: 500;
     }
 
     .rightheader {
@@ -1038,6 +1046,10 @@
         font-weight: 500;
         padding: 6px 11px;
     }
+
+    .authHeaderSub {
+        padding: 0 20px 0 30px;
+    }
 }
 
 @media (max-width: 546px) {
@@ -1260,6 +1272,7 @@
     .mapleProductHeading {
         font-weight: 600;
     }
+
     .loginPasswordOtp .verifyBox {
         margin-top: 11px;
         padding: 16px 8px;
@@ -1384,8 +1397,8 @@
         padding: 35px 15px;
     }
 
-    .timeNav::before {
+    /* .timeNav::before {
         right: -7px;
         display: block;
-    }
+    } */
 }

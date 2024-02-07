@@ -74,7 +74,7 @@ const Navbar = () => {
                   {router?.pathname == "/auth/login" ? (
                     <button
                       type="button"
-                      className="navBtn"
+                      className="navBtn ms-2"
                       onClick={(e) => merchantLogout(e)}
                     >
                       Logout

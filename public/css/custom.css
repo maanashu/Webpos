@@ -1260,7 +1260,7 @@ input:checked+.switch-slider:before {
 
 .bookingUsers {
   height: calc(80vh - 300px);
-  overflow-y: scroll;
+  overflow-y: scroll; 
 }
 
 .bookingUsers::-webkit-scrollbar {
@@ -1275,4 +1275,7 @@ input:checked+.switch-slider:before {
 .loginOtpSub {
   width: 100%;
   max-width: 375px;
+}
+.authHeaderSub{
+  padding: 0 100px;
 }
