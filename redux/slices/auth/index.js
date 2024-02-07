@@ -13,7 +13,12 @@ const initialState = {
 export const authSlice = createSlice({
   name: "auth",
   initialState,
-  extraReducers: (builder) => builder.addCase(restAllData, () => initialState),
+  extraReducers: (builder) => builder.addCase(restAllData, (state, action) => {
+    if(!action?.payload?.skipAuth){
+      return initialState;
+    }
+    return state;
+  }),
   reducers: {
     userMerchantLogin: (state) => {
       state.loading = true;
