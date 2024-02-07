@@ -10,6 +10,8 @@ import {
   createOrder,
   productCart,
   selectRetailData,
+  setCartLength,
+  setLocalCart,
 } from "../../redux/slices/retails";
 import { useDispatch, useSelector } from "react-redux";
 import {
