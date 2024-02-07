@@ -42,22 +42,24 @@ const UserProfileBanner = ({
         />
         <div>
           <p className="user-profile-title">{name}</p>
-          <div>
-            <Image
-              width={16}
-              height={16}
-              src={customerLocationDark}
-            />{" "}
-            <span
-              style={{
-                color: "#263682",
-                fontSize: "14px",
-              }}
-              className="user-stats-row-name-address"
-            >
-              {address}
-            </span>
-          </div>
+          {
+            <div>
+              {address ? (
+                <Image width={16} height={16} src={customerLocationDark} />
+              ) : (
+                ""
+              )}
+              <span
+                style={{
+                  color: "#263682",
+                  fontSize: "14px",
+                }}
+                className="user-stats-row-name-address"
+              >
+                {address}
+              </span>
+            </div>
+          }
         </div>
       </div>
 
@@ -77,11 +79,7 @@ const UserProfileBanner = ({
             className="flex-row-space-between user-profile-title"
             key={idx + text}
           >
-            <Image
-              src={icon}
-              width={16}
-              height={16}
-            />
+            {text ? <Image src={icon} width={16} height={16} /> : <></>}
             <p>{text}</p>
           </div>
         ))}
@@ -96,11 +94,7 @@ const UserProfileBanner = ({
         className="flex-row-space-between"
       >
         <div className="flex-row-space-between gift-card-cnt">
-          <Image
-            src={giftCard}
-            width={24}
-            height={24}
-          />
+          <Image src={giftCard} width={24} height={24} />
           <p className="gift-card-points-text">{points} Points</p>
         </div>
         <SwitchToggle

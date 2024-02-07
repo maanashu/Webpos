@@ -2,6 +2,7 @@ import React from "react";
 import Image from "next/image";
 import moment from "moment-timezone";
 import { jobrFullIcon } from "../../utilities/images";
+import { formattedReturnPrice } from "../../utilities/globalMethods";
 
 const Invoice = ({
   tax,
@@ -11,7 +12,7 @@ const Invoice = ({
   subtotal,
   discount,
   shipping,
-  posUserId="",
+  posUserId = "",
   isLoading,
   sellerName,
   barcodeImg,
@@ -24,7 +25,7 @@ const Invoice = ({
   const strUserId = userId?.toString();
 
   const hr = <div className="invoice-dotted-hr" />;
-console.log(posUserId, "pos user id");
+  console.log(posUserId, "pos user id");
   return (
     <div className="flex-row-space-between invoice-container">
       {isLoading ? (
@@ -246,18 +247,14 @@ console.log(posUserId, "pos user id");
                 }}
                 className="main-text-color-styles-customers"
               >
-                {posUserId ?`#${posUserId}` : ""}
+                {posUserId ? `${posUserId}` : ""}
                 {/* {posUserId && posUserId?.insert(0, "#") || "N/A"} */}
               </td>
               <td
                 style={{ fontSize: "10px", fontWeight: "600" }}
                 className="main-text-color-styles-customers"
               >
-                {strUserId
-                  ? "***" +
-                    strUserId[strUserId.length - 2] +
-                    strUserId[strUserId.length - 1]
-                  : "N/A"}
+                {strUserId ? strUserId : "N/A"}
               </td>
             </tr>
           </table>
@@ -270,10 +267,10 @@ console.log(posUserId, "pos user id");
             }}
           >
             {[
-              { text: "Subtotal", amount: `$${subtotal}` },
+              { text: "Subtotal", amount: `${formattedReturnPrice(subtotal)}` },
               {
                 text: "Discount",
-                amount: `${(100 * discount) / subtotal}% ($ ${discount})`,
+                amount: `${formattedReturnPrice(discount)}`,
               },
               { text: "Shipping", amount: `$${shipping}` },
               { text: "Tax", amount: `${tax}` },
@@ -323,16 +320,8 @@ console.log(posUserId, "pos user id");
               padding: "0 24px",
             }}
           >
-            <Image
-              src={jobrFullIcon}
-              width={58.55}
-              height={16.38}
-            />
-            <Image
-              src={barcodeImg}
-              width={240}
-              height={22}
-            />
+            <Image src={jobrFullIcon} width={58.55} height={16.38} />
+            <Image src={barcodeImg} width={240} height={22} />
           </div>
         </>
       )}
