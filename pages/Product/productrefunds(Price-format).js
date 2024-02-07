@@ -303,7 +303,11 @@ const productrefunds = () => {
     );
 
     if (!isNaN(enteredValue)) {
-      setRefundAmount(enteredValue > maxPrice ? maxPrice : enteredValue);
+      if (enableTextFordoller) {
+        setRefundAmount(enteredValue > maxPrice ? maxPrice : enteredValue);
+      } else {
+        setRefundAmount(enteredValue <= 100 ? enteredValue : maxPrice);
+      }
     } else {
       if (!toast.isActive(toastId.current)) {
         toastId.current = toast.error(
