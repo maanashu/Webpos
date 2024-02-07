@@ -370,7 +370,7 @@ const AttachCustomer = ({ crosshandler }) => {
                         </h4>
                       </div>
                     </div>
-                    <div className="payDetail">
+                    {/* <div className="payDetail">
                       <label className="loginSub text-start">
                         Payment Methods
                       </label>
@@ -382,7 +382,7 @@ const AttachCustomer = ({ crosshandler }) => {
                         />
                         <h4 className="trackingHeading">●●●● ●●●● ●●●● 7552</h4>
                       </div>
-                    </div>
+                    </div> */}
                   </div>
                 </div>
               </div>

@@ -720,7 +720,10 @@ const ServiceCart = () => {
                 </div>
                 <button
                   disabled={
-                    cartData?.poscart_products?.length > 0 ? false : true
+                    cartData?.poscart_products?.length > 0 ||
+                    !retailData?.productCartLoad
+                      ? false
+                      : true
                   }
                   style={{
                     opacity: cartData?.poscart_products?.length > 0 ? 1 : 0.7,
@@ -746,11 +749,15 @@ const ServiceCart = () => {
                   }}
                 >
                   Proceed to checkout
-                  <Image
-                    src={Images.ArrowRight}
-                    alt="rightArrow"
-                    className="img-fluid rightImg"
-                  />
+                  {retailData?.productCartLoad ? (
+                    <span className="spinner-border spinner-border-sm mx-1"></span>
+                  ) : (
+                    <Image
+                      src={Images.ArrowRight}
+                      alt="rightArrow"
+                      className="img-fluid rightImg"
+                    />
+                  )}
                 </button>
               </div>
             </div>

@@ -31,6 +31,7 @@ import { Modal } from "react-bootstrap";
 import CartAlert from "./CartAlert";
 import { set } from "react-ga";
 import PaginationFooter from "../../components/commanComonets/customers/PaginationFooter";
+import CustomModal from "../../components/customModal/CustomModal";
 
 const Retails = () => {
   const dispatch = useDispatch();
@@ -67,6 +68,24 @@ const Retails = () => {
   const [serTotalItems, setSerTotalItems] = useState(
     retailData?.mainServicesData?.total || 0
   );
+  const productCarts = cartData?.poscart_products?.filter(
+    (item) => item?.product_type == "product"
+  );
+
+  const [key, setKey] = useState(Math.random());
+  const [modalDetail, setModalDetail] = useState({
+    show: false,
+    title: "",
+    flag: "",
+  });
+  const handleOnCloseModal = () => {
+    setModalDetail({
+      show: false,
+      title: "",
+      flag: "",
+    });
+    setKey(Math.random());
+  };
 
   const productData = () => {
     let params = {
@@ -298,7 +317,11 @@ const Retails = () => {
                             }
                             onClick={() => {
                               onlyServiceCartArray?.length > 0
-                                ? setCartAlert(true)
+                                ? (setModalDetail({
+                                    show: true,
+                                    flag: "ClearCart",
+                                  }),
+                                  setKey(Math.random()))
                                 : productFun(item.id, index, item);
                             }}
                           >
@@ -391,7 +414,11 @@ const Retails = () => {
                             }
                             onClick={() => {
                               onlyProductCartArray?.length > 0
-                                ? setCartAlert(true)
+                                ? (setModalDetail({
+                                    show: true,
+                                    flag: "ClearCart",
+                                  }),
+                                  setKey(Math.random()))
                                 : getOneService(services?.id, index);
                             }}
                           >
@@ -559,9 +586,40 @@ const Retails = () => {
 
         <RightSideBar showSidebar={showSidebar} parameter={parameter} />
       </div>
-      <Modal show={cartAlert} centered keyboard={false}>
+      {/* <Modal show={cartAlert} centered keyboard={false}>
         <CartAlert crossHandler={() => setCartAlert(false)} />
-      </Modal>
+      </Modal> */}
+
+      <CustomModal
+        key={key}
+        show={modalDetail.show}
+        backdrop="static"
+        showCloseBtn={false}
+        isRightSideModal={false}
+        mediumWidth={false}
+        ids={modalDetail.flag === "ClearCart" ? "ClearCart" : ""}
+        child={
+          modalDetail.flag === "ClearCart" ? (
+            // <CustomProductAdd crosshandler={() => handleOnCloseModal()} />
+            <CartAlert crossHandler={() => handleOnCloseModal()} />
+          ) : (
+            " "
+          )
+        }
+        header={
+          <>
+            {modalDetail.flag === "ClearCart" ? (
+              <h5 className="font-28 text-center">
+                Please clear {productCarts?.length > 0 ? "product" : "service"}{" "}
+                cart
+              </h5>
+            ) : (
+              ""
+            )}
+          </>
+        }
+        onCloseModal={() => handleOnCloseModal()}
+      />
     </>
   );
 };
