@@ -163,7 +163,7 @@ const Invoice = () => {
                         <p className="mapleProductHeading">Walk-In</p>
                         <p className="mapleProductPrice">User ID</p>
                         <p className="mapleProductHeading">
-                          {orderDetails?.pos_user_details?.id ?? "-"}
+                          {orderDetails?.user_details?.id ?? "-"}
                         </p>
                       </article>
                     </div>

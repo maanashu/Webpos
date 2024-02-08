@@ -86,8 +86,8 @@ const Invoices = () => {
                   : item?.product_name;
 
                 const amonut = orderDetails?.is_returned_order
-                  ? item?.order_details?.actual_price
-                  : item?.actual_price;
+                  ? item?.order_details?.price * item?.order_details?.qty
+                  : item?.price * item?.qty ?? "0.00";
 
                 return (
                   <li
@@ -149,8 +149,18 @@ const Invoices = () => {
               <article>
                 <p className="productName">Subtotal</p>
                 <p className="productName">Discount</p>
-                <p className="productName">Tips</p>
+                {orderDetails?.delivery_charge > 0 ? (
+                  <p className="productName">Delivery Charges</p>
+                ) : (
+                  <></>
+                )}
+                {orderDetails?.shipping_charge > 0 ? (
+                  <p className="productName">Shipping Charges</p>
+                ) : (
+                  <></>
+                )}
                 <p className="productName">Taxes</p>
+                <p className="productName">Tips</p>
                 <p className="productName fw-bold">Total</p>
               </article>
               <article>
@@ -160,6 +170,20 @@ const Invoices = () => {
                 <p className="productName">
                   {formattedPrice(orderDetails?.discount)}
                 </p>
+                {orderDetails?.delivery_charge > 0 ? (
+                  <p className="productName">
+                    {formattedPrice(orderDetails?.delivery_charge)}
+                  </p>
+                ) : (
+                  <></>
+                )}
+                {orderDetails?.shipping_charge > 0 ? (
+                  <p className="productName">
+                    {formattedPrice(orderDetails?.shipping_charge)}
+                  </p>
+                ) : (
+                  <></>
+                )}
                 <p className="productName">
                   {formattedPrice(orderDetails?.tax)}
                 </p>
