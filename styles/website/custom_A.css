@@ -735,7 +735,7 @@
 
 #AddProduct .modal-body {
   padding: 0 !important;
-  padding-bottom: 30px !important;
+  /* padding-bottom: 30px !important; */
 }
 
 #AddProduct .modal-header {
@@ -1490,14 +1490,17 @@
 .refundPricebox {
   border-radius: 12px;
   border: 1px solid #d7deff;
-  box-shadow: -1.908px 3.783px 25.481px 0px rgba(50, 80, 127, 0.02),
-    -4.954px 9.821px 80px 0px rgba(50, 80, 127, 0.04);
-  padding: 6px 8px 6px 14px;
+  box-shadow: -2px 4px 25px 0px rgba(50, 80, 127, 0.02),
+    -5px 10px 80px 0px rgba(50, 80, 127, 0.04);
+  padding: 6px 8px 6px 8px;
   justify-content: space-between;
 }
 
 .refundproduct_table .recent_head {
   width: auto;
+  color: #7E8AC1;
+  font-size: 12px;
+  font-weight: 500;
 }
 
 .refundproduct_table .recent_subhead {
@@ -1531,12 +1534,23 @@
 
 .enableInput {
   border-radius: 6px;
-  text-align: center;
   font-size: 12px;
-  font-style: normal;
   font-weight: 400;
-
   padding: 8px 16px;
+  border: 1px solid #263682;
+  background: #f5f6fc;
+  color: #263682 !important;
+}
+
+.enableInput:focus {
+  outline: none;
+}
+
+.enableInput::placeholder {
+  font-size: 12px;
+  font-weight: 400;
+  color: #263682 !important;
+
 }
 
 .tablecustomInput::placeholder {
@@ -1926,8 +1940,9 @@ button.comfirmatiopnBtn {
   /* z-index: 0; */
   padding: 0px 4px;
 }
+
 /* Devendra custom css */
-.custom-search-dropdown{
+.custom-search-dropdown {
   height: auto;
   background: #ffffff;
   z-index: 1;
@@ -1935,27 +1950,32 @@ button.comfirmatiopnBtn {
   padding: 15px 30px;
   border-radius: 10px;
 }
-.custom-search-dropdown tr td{
+
+.custom-search-dropdown tr td {
   border-bottom: 1px solid #263682;
   border-top: 1px solid #263682;
   padding: 14px;
 }
-.custom-search-dropdown tr td:first-child{
+
+.custom-search-dropdown tr td:first-child {
   border-radius: 10px 0 0 10px;
   border-left: 1px solid #263682;
   vertical-align: middle;
 }
-.custom-search-dropdown tr td:last-child{
+
+.custom-search-dropdown tr td:last-child {
   border-right: 1px solid #263682;
   border-radius: 0 10px 10px 0px;
 }
-.custom-search-dropdown .cross-icon{
+
+.custom-search-dropdown .cross-icon {
   position: absolute;
   top: 4px;
   right: 25px;
   cursor: pointer;
 }
-.custom-search-box{
+
+.custom-search-box {
   position: absolute;
   width: 100%;
   top: 87px;
