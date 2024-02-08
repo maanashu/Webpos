@@ -19,6 +19,7 @@ import { useDispatch, useSelector } from "react-redux";
 import {
   getDrawerHistory,
   getDrawerSession,
+  getSessionHistory,
   selectCashDrawerData,
 } from "../../../redux/slices/cashDrawer";
 import { amountFormat } from '../../../utilities/globalMethods';
@@ -33,6 +34,9 @@ const ViewSession = () => {
   const dispatch = useDispatch();
   const sessionData = useSelector(selectCashDrawerData);
   const drawerSessionDetail = sessionData?.drawerSession?.payload;
+  console.log(drawerSessionDetail,'drawerSessionDetail');
+  const [drawerSessionData,setDrawerSessionData] = useState("")
+  // console.log(drawerSessionData,'drawerSessionData');
   const [netAmount, setNetAmount] = useState("")
   const [cashIn, setCashIn] = useState("")
   const [cashOut, setCashOut] = useState("")
@@ -70,7 +74,11 @@ const ViewSession = () => {
     };
     dispatch(
       getDrawerSession({
-        ...sellerId
+        ...sellerId,
+        cb(res) {
+          console.log(res, 'resssssssssss');
+          setDrawerSessionData(res?.data?.payload)
+        }
       })
     );
   };
@@ -90,8 +98,26 @@ const ViewSession = () => {
       })
     );
   }
+  // const getSessionHistoryHandle = () => {
+  //   const data = {
+  //     page: 1,
+  //     limit: 10,
+  //     // calenderDate: formatedDate,
+  //     staffId: "none",
+  //   };
+  //   dispatch(getSessionHistory({
+  //     ...data,
+  //     cb(res) {
+  //       console.log(res,'sssssssssssssssssssss');
+  //       // setCashIn(res?.data?.payload?.cash_in)
+  //       // setCashOut(res?.data?.payload?.cash_out)
+  //       // setNetAmount(res?.data?.payload?.net_amount)
+  //     }
+  //   }));
+  // }
 
   useEffect(() => {
+    // getSessionHistoryHandle()
     getDrawerHistoryHandle()
     drawerSessionInfo()
   }, []);
@@ -372,6 +398,7 @@ const ViewSession = () => {
               handleDrawerSessionChange={drawerSessionInfo}
               handleDrawerHistoryChange={getDrawerHistoryHandle}
               close={() => handleOnCloseModal()}
+              drawerSessionDetail={drawerSessionData}
             />
           ) : (
             ""

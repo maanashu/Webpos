@@ -41,7 +41,7 @@ function* getSessionHistory(action) {
     );
     if (resp) {
       yield put(setSessionHistory(resp.data));
-      // yield call(action.payload.cb, (action.res = resp));
+      yield call(action.payload.cb, (action.res = resp));
     } else {
       throw resp;
     }
@@ -61,7 +61,7 @@ function* getDrawerSession(action) {
     );
     if (resp.status) {
       yield put(setGetDrawerSession(resp.data));
-      // yield call(action.payload.cb, (action.res = resp));
+      yield call(action.payload.cb, (action.res = resp));
       // toast.success(resp?.data?.msg);
     } else {
       throw resp;
@@ -75,10 +75,11 @@ function* getDrawerSession(action) {
 function* getDrawerHistory(action) {
   const body = { ...action?.payload };
   delete body.cb
+  const stringifiedQueryParams = new URLSearchParams(body).toString();
   try {
     const reswithId = yield call(
       ApiClient.get,
-      `${USER_API_URL_V1}drawer_management/payment/history`,
+      `${USER_API_URL_V1}drawer_management/payment/history/?${stringifiedQueryParams}`,
       body
     );
     const resWithoutId = yield call(
@@ -102,6 +103,7 @@ function* getDrawerHistory(action) {
 
 function* trackSessionSave(action) {
   const body = { ...action?.payload };
+  delete body?.cb
   try {
     const resp = yield call(
       ApiClient.post,
@@ -110,6 +112,7 @@ function* trackSessionSave(action) {
     );
     if (resp.status) {
       yield put(setTrackSessionSave(resp.data));
+      yield call(action.payload.cb, (action.res = resp));
     } else {
       throw resp;
     }
