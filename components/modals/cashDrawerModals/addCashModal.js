@@ -28,7 +28,7 @@ const AddCashModal = ({ drawerSessionDetail, handleDrawerSessionChange, handleDr
         modalType == "add"
           ? {
             drawer_id: drawerSessionDetail?.id,
-            amount: drawerSessionDetail?.drawer_activites?.length == 0 || (drawerSessionDetail?.drawer_activites?.length > 0 && drawerSessionDetail?.drawer_activites?.length <= 1 && drawerSessionDetail?.drawer_activites[0]?.mode_of_cash === 'cash_out') ? (Number(drawerSessionDetail?.opening_balance) + Number(addCashInput)) : parseFloat(addCashInput),
+            amount:  parseFloat(addCashInput),
             transaction_type: "manual_cash_in",
             mode_of_cash: "cash_in",
           }
