@@ -53,10 +53,6 @@ const AddCashModal = ({ drawerSessionDetail, handleDrawerSessionChange, handleDr
           }
         })
       );
-      // const res = dispatch(trackSessionSave(data));
-      // if (res) {
-
-      // }
     }
   };
 
