@@ -323,7 +323,7 @@ const productrefunds = () => {
       if (enableTextFordoller) {
         setRefundAmount(enteredValue > maxPrice ? maxPrice : enteredValue);
       } else {
-        setRefundAmount(enteredValue <= 100 ? enteredValue : maxPrice);
+        setRefundAmount(enteredValue <= 100 ? enteredValue : `100`);
       }
     } else {
       if (!toast.isActive(toastId.current)) {
