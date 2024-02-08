@@ -83,7 +83,7 @@ const ReScheduleDetailModal = ({
   const [providerDetail, setProviderDetail] = useState(null);
   const [selectedTimeSlotData, setSelectedTimeSlotData] = useState("");
   const [selectedDate, setselectedDate] = useState(
-    moment(appointmentData?.date).format("YYYY-MM-DD")
+    moment(appointmentData?.date).utc().format("YYYY-MM-DD")
   );
 
   const [preSelectedStartTime, setpreSelectedStartTime] = useState(
@@ -352,10 +352,9 @@ const ReScheduleDetailModal = ({
         <Spacer horizontal space={5} />
 
         <View>
-          <Text
-            numberOfLines={1}
-            style={styles.staffNameText}
-          >{`${item?.user?.user_profiles?.firstname} ${item?.user?.user_profiles?.lastname}`}</Text>
+          <Text numberOfLines={1} style={styles.staffNameText}>{`${
+            item?.user?.user_profiles?.firstname ?? ""
+          } ${item?.user?.user_profiles?.lastname ?? ""}`}</Text>
           <Text numberOfLines={1} style={styles.occupationText}>
             {""}
           </Text>
@@ -410,11 +409,14 @@ const ReScheduleDetailModal = ({
                       .utc(appointmentData?.start_date_time)
                       .format("DD/MM/YYYY. ")}
                   </Text>
-                  <Text style={styles.bookedDate}>{`${moment
+                  <Text style={styles.bookedDate}>
+                    {calculateTimeDuration(appointmentData)}
+                    {/* {`${moment
                     .utc(appointmentData?.start_date_time)
                     .format("h:mm A")}-${moment
                     .utc(appointmentData?.end_date_time)
-                    .format("h:mm A")}`}</Text>
+                    .format("h:mm A")}`} */}
+                  </Text>
                 </View>
               </View>
 
@@ -433,7 +435,9 @@ const ReScheduleDetailModal = ({
                 />
                 <View style={{ marginLeft: 6, flex: 1 }}>
                   <Text style={styles.customerName}>
-                    {userDetails?.firstname + " " + userDetails?.lastname}
+                    {(userDetails?.firstname ?? "") +
+                      " " +
+                      (userDetails?.lastname ?? "")}
                   </Text>
                   <View style={{ flexDirection: "row", alignItems: "center" }}>
                     <Image
