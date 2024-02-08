@@ -112,7 +112,8 @@ const EventDetailModal = ({
                   },
                 ]}
               >
-                {completeData?.mode_of_payment == "cash" ? "Unpaid" : "Paid"}
+                {"Paid"}
+                {/* {completeData?.mode_of_payment == "cash" ? "Unpaid" : "Paid"} */}
               </Text>
               {completeData?.mode_of_payment != "cash" && (
                 <>
@@ -136,7 +137,9 @@ const EventDetailModal = ({
 
             <View style={{ marginLeft: 6, flex: 1, justifyContent: "center" }}>
               <Text style={styles.customerName}>
-                {customerDetails?.firstname + " " + customerDetails?.lastname}
+                {(customerDetails?.firstname ?? "") +
+                  " " +
+                  (customerDetails?.lastname ?? "")}
               </Text>
               {userId !== null && (
                 <View style={{ flexDirection: "row", alignItems: "center" }}>
@@ -163,7 +166,9 @@ const EventDetailModal = ({
           >
             <View style={{ marginRight: 8 }}>
               <Text style={styles.customerName}>
-                {posUserDetails?.firstname + " " + posUserDetails?.lastname}
+                {(posUserDetails?.firstname ?? "") +
+                  " " +
+                  (posUserDetails?.lastname ?? "")}
               </Text>
               <Text style={styles.eventAddress}>{posUserRole}</Text>
             </View>

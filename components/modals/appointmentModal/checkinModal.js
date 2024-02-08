@@ -68,7 +68,9 @@ const CheckinModal = ({
               </figure>
               <div className="">
                 <span className="innerHeading">
-                  {`${customerDetails?.firstname} ${customerDetails?.lastname}`}{" "}
+                  {`${customerDetails?.firstname ?? ""} ${
+                    customerDetails?.lastname ?? ""
+                  }`}{" "}
                 </span>
                 <div className="">
                   <Image
