@@ -410,6 +410,9 @@ const RefundsConfirmation = () => {
                 <div className="flexBox maplePriceBox">
                   <article>
                     <p className="productName">Subtotal</p>
+                    <p className="productName">
+                      {refundDataObj?.deliveryShippingTitle}
+                    </p>
                     <p className="productName">Discount</p>
                     <p className="productName">Taxes</p>
                     <p className="userName">Total</p>
@@ -417,6 +420,11 @@ const RefundsConfirmation = () => {
                   <article>
                     <p className="productName">
                       {formattedReturnPrice(refundDataObj?.subtotal)}
+                    </p>
+                    <p className="productName">
+                      {formattedReturnPrice(
+                        refundDataObj?.deliveryShippingCharges
+                      )}
                     </p>
                     <p className="productName">$0.00</p>
                     <p className="productName">
