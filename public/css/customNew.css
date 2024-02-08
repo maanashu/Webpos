@@ -5583,3 +5583,9 @@ figure {
 .analyticsSection::-webkit-scrollbar {
   display: none;
 }
+#AddProduct .modal-footer{
+justify-content: space-between !important;
+}
+#AddProduct .productIncrement {
+  margin: 24px 0 !important;
+}
