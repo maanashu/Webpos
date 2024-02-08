@@ -122,8 +122,8 @@ const TransactionsList = () => {
   };
 
   const handleNotification = () => {
-    router.push("/transactions/notification")
-  }
+    router.push("/transactions/notification");
+  };
 
   const statusFun = (status) => {
     switch (status) {
@@ -149,6 +149,8 @@ const TransactionsList = () => {
         return "Refunded";
     }
   };
+
+  const startIndex = (page - 1) * limit + 1;
 
   return (
     <div
@@ -176,54 +178,60 @@ const TransactionsList = () => {
         endDate={endDate}
         notificationHandler={handleNotification}
       />
-
-      <PaginationHeader
-        page={page}
-        limit={limit}
-        setPage={setPage}
-        setLimit={setLimit}
-        totalItems={getWalletData?.totalTraDetail?.payload?.total}
-        onDateChange={handleDateChange}
-        date={date}
-      />
-
-      {/*  TABS*/}
-      <div className="users-tabs flex-row-space-between">
-        {TABS.map(({ modeOfPayment, count, type }, idx) => (
-          <div
-            key={idx + "tabs"}
-            onClick={() => {
-              setSelectedTab(type);
-              setTransaction(modeOfPayment);
-            }}
-            className="users-tab flex-row-space-between"
-            style={{
-              backgroundColor: transaction == modeOfPayment ? "#263682" : "",
-              cursor: "pointer",
-            }}
-          >
-            <p
-              className="users-tab-text"
-              style={{
-                color: transaction == modeOfPayment ? "#F5F6FC" : "#263682",
-              }}
-            >
-              {type}
-            </p>
-            <p className="users-tab-count">({count})</p>
-            {transaction == modeOfPayment && (
+      <div className="row">
+        <div className="col-lg-6">
+          <div className="users-tabs flex-row-space-between">
+            {TABS.map(({ modeOfPayment, count, type }, idx) => (
               <div
+                key={idx + "tabs"}
                 onClick={() => {
-                  setSelectedTab(null);
+                  setSelectedTab(type);
+                  setTransaction(modeOfPayment);
+                }}
+                className="users-tab flex-row-space-between"
+                style={{
+                  backgroundColor:
+                    transaction == modeOfPayment ? "#263682" : "",
+                  cursor: "pointer",
                 }}
               >
-                <Image width={16} height={16} src={customersCross} />
+                <p
+                  className="users-tab-text"
+                  style={{
+                    color: transaction == modeOfPayment ? "#F5F6FC" : "#263682",
+                  }}
+                >
+                  {type}
+                </p>
+                <p className="users-tab-count">({count})</p>
+                {transaction == modeOfPayment && (
+                  <div
+                    onClick={() => {
+                      setSelectedTab(null);
+                    }}
+                  >
+                    <Image width={16} height={16} src={customersCross} />
+                  </div>
+                )}
               </div>
-            )}
+            ))}
           </div>
-        ))}
+        </div>
+        {/*  TABS*/}
+        <div className="col-lg-6 d-flex align-items-center justify-content-end">
+          <div className="">
+            <PaginationHeader
+              page={page}
+              limit={limit}
+              setPage={setPage}
+              setLimit={setLimit}
+              totalItems={getWalletData?.totalTraDetail?.payload?.total}
+              onDateChange={handleDateChange}
+              date={date}
+            />
+          </div>
+        </div>
       </div>
-
       {/* table stats */}
 
       <table className="customers-stats-table">
@@ -300,8 +308,7 @@ const TransactionsList = () => {
                         onClick={() => handleNavigateToTrackStatus(item)}
                         className="customers-table-data"
                       >
-                        {(idx + Number(page > 1 ? limit : 0) > 8 ? "" : "0") +
-                          (idx + 1 + Number(page > 1 ? limit : 0))}
+                        {startIndex + idx}
                       </td>
                       <td
                         onClick={() => handleNavigateToTrackStatus(item)}

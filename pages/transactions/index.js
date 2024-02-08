@@ -149,6 +149,7 @@ const Transactions = () => {
 
   return (
     <div className="main-container-customers">
+      <br />
       <TCRHeader
         timeSpan={timeSpan}
         onTimeSpanSelect={setTimeSpan}

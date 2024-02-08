@@ -41,7 +41,7 @@ function* getSessionHistory(action) {
     );
     if (resp) {
       yield put(setSessionHistory(resp.data));
-      // yield call(action.payload.cb, (action.res = resp));
+      yield call(action.payload.cb, (action.res = resp));
     } else {
       throw resp;
     }
@@ -123,22 +123,28 @@ function* getDrawerSession(action) {
 function* getDrawerHistory(action) {
   const body = { ...action?.payload };
   delete body.cb
+  const stringifiedQueryParams = new URLSearchParams(body).toString();
+  // const drawerId = {
+  //   drawer_id: drawerSessionDetail?.id,
+  // };
+
+  console.log(body,"bodyyyyyyyyyyyyyyyyy")
   try {
-    const reswithId = yield call(
+    const resp = yield call(
       ApiClient.get,
-      `${USER_API_URL_V1}drawer_management/payment/history`,
-      body
-    );
-    const resWithoutId = yield call(
-      ApiClient.get,
-      `${USER_API_URL_V1}drawer_management/payment/history`
+      body?.drawer_id ?`${USER_API_URL_V1}drawer_management/payment/history?drawer_id=${body?.drawer_id}`: `${USER_API_URL_V1}drawer_management/payment/history`
     );
 
-    const resp = body ? reswithId : resWithoutId;
+    // const resWithoutId = yield call(
+    //   ApiClient.get,
+    //   `${USER_API_URL_V1}drawer_management/payment/history`
+    // );
+
+    // const resp = body ? reswithId : resWithoutId;
 
     if (resp.status) {
       yield put(setGetDrawerHistory(resp.data));
-      yield call(action.payload.cb, (action.res = resWithoutId));
+      yield call(action.payload.cb, (action.res = resp));
     } else {
       throw resp;
     }
@@ -150,6 +156,7 @@ function* getDrawerHistory(action) {
 
 function* trackSessionSave(action) {
   const body = { ...action?.payload };
+  delete body?.cb
   try {
     const resp = yield call(
       ApiClient.post,
@@ -158,6 +165,7 @@ function* trackSessionSave(action) {
     );
     if (resp.status) {
       yield put(setTrackSessionSave(resp.data));
+      yield call(action.payload.cb, (action.res = resp));
     } else {
       throw resp;
     }

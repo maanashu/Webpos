@@ -371,6 +371,10 @@
     .assignMapRight {
         margin-top: 20px !important;
     }
+    .staffProfileInfo {
+    
+        width: 60%;
+    }
 }
 
 @media (max-width: 1080px) {
@@ -1338,7 +1342,7 @@
     }
 
     .FilterMultiSelect {
-        max-width: 180px;
+        max-width: 196px;
     }
 
     .deliverPercent::before {
@@ -1390,6 +1394,13 @@
         max-width: 213px;
     }
 
+}
+
+@media (max-width: 395px) {
+    .FilterMultiSelect {
+        right: 0 !important;
+        left: auto;
+    }
 }
 
 @media (max-width: 375px) {

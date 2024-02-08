@@ -489,7 +489,7 @@ const Analytics = () => {
                                     {" "}
                                     $
                                     {addThousandSeparator(
-                                        analyticsProfitData?.cost?.total_count
+                                        (analyticsProfitData?.cost?.total_count)?.toFixed(2)
                                     )}
                                 </h4>
                             </div>

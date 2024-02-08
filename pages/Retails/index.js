@@ -309,6 +309,7 @@ const Retails = () => {
           <ProductInnerNav
             productCount={productPagination?.total}
             ServicesCount={servicesCount?.total}
+            bulkCartFunction={bulkCart}
           />
 
           <div className="commanscrollBar productScrollBar">
@@ -472,7 +473,8 @@ const Retails = () => {
                                 : "productsCard"
                             }
                             onClick={() => {
-                              onlyProductCartArray?.length > 0
+                              onlyProductCartArray?.length > 0 ||
+                              LOCAL_CART_ARRAY.length > 0
                                 ? (setModalDetail({
                                     show: true,
                                     flag: "ClearCart",

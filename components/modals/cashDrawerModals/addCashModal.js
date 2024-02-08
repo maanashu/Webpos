@@ -7,15 +7,16 @@ import {
   trackSessionSave,
 } from "../../../redux/slices/cashDrawer";
 
-const AddCashModal = ({ handleDrawerSessionChange, handleDrawerHistoryChange, title, modalType, close }) => {
+const AddCashModal = ({ drawerSessionDetail, handleDrawerSessionChange, handleDrawerHistoryChange, title, modalType, close }) => {
   const dispatch = useDispatch();
   const [addCashInput, setAddCashInput] = useState("");
   const [notes, setNotes] = useState("");
-  const sessionData = useSelector(selectCashDrawerData);
-  const drawerSessionDetail = sessionData?.drawerSession?.payload;
+  // const sessionData = useSelector(selectCashDrawerData);
+  // const drawerSessionDetail = sessionData?.drawerSession?.payload;
+  console.log(drawerSessionDetail, 'oooooooooooooooooooo');
   const digits = /^[0-9]+$/;
 
-  const addCashHandler = () => {
+  const addCashHandler = async () => {
     if (!addCashInput) {
       alert("Please Enter Amount");
     } else if (addCashInput && digits.test(addCashInput) === false) {
@@ -40,15 +41,25 @@ const AddCashModal = ({ handleDrawerSessionChange, handleDrawerHistoryChange, ti
       if (notes) {
         data.note = notes;
       }
+      await dispatch(
+        trackSessionSave({
+          ...data,
+          cb(res) {
+            console.log(res?.data?.payload, "responseeeeeeeeeeeeeeeeeeeeeeeeeee")
+            if(res?.data?.payload){
+              handleDrawerSessionChange()
+              handleDrawerHistoryChange()
+              close();
+              setNotes("");
+              setAddCashInput("");
+            }
+          }
+        })
+      );
+      // const res = dispatch(trackSessionSave(data));
+      // if (res) {
 
-      const res = dispatch(trackSessionSave(data));
-      if (res) {
-        handleDrawerSessionChange()
-        handleDrawerHistoryChange()
-        close();
-        setNotes("");
-        setAddCashInput("");
-      }
+      // }
     }
   };
 

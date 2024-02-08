@@ -69,10 +69,18 @@ const UserProfile = () => {
   }, [userDetails?.id, sellerUid]);
 
   const handleNavigateToTrackStatus = (item) => {
-    router.push(
-      "/customers/users/[user-id]/[order-id]",
-      `/customers/users/${userUid}/${item?.id}`
-    );
+    router.push({
+      pathname: "/transactions/transactionList/invoice",
+
+      query: {
+        item: JSON.stringify(item),
+        order_id: item?.id,
+      },
+    });
+    // router.push(
+    //   "/customers/users/[user-id]/[order-id]",
+    //   `/customers/users/${userUid}/${item?.id}`
+    // );
   };
 
   return (
@@ -156,7 +164,7 @@ const UserProfile = () => {
                 className="customers-table-data"
                 style={{ border: "none", color: "#7E8AC1" }}
               >
-                Invoice Number
+                Invoice ID
               </th>
               <th
                 className="customers-table-data"

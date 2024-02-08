@@ -840,22 +840,24 @@ const ProductCart = () => {
         key={key}
         show={modalDetail.show}
         backdrop="static"
-        showCloseBtn={true}
+        showCloseBtn={false}
         isRightSideModal={false}
         mediumWidth={false}
         ids={
           modalDetail.flag === "AddDiscount"
             ? "AddDiscount"
-            : "AddNotes"
+            : modalDetail.flag === "AddNotes"
             ? "AddNotes"
-            : "DeleteCarts"
+            : modalDetail.flag === "DeleteCarts"
             ? "DeleteCarts"
-            : "UpdatePrice"
+            : modalDetail.flag === "UpdatePrice"
+            ? "UpdatePrice"
+            : modalDetail.flag === "AddProduct"
             ? "AddProduct"
-            : "AddProduct"
+            : modalDetail.flag === "AttachCustomer"
             ? "AttachCustomer"
             : "AttachCustomer"
-        }
+        } 
         child={
           modalDetail.flag === "AddDiscount" ? (
             <AddDiscount close={() => handleOnCloseModal()} />
