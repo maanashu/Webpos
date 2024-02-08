@@ -103,7 +103,6 @@ function* getDrawerHistory(action) {
 
 function* trackSessionSave(action) {
   const body = { ...action?.payload };
-  delete body?.cb
   try {
     const resp = yield call(
       ApiClient.post,
@@ -112,7 +111,6 @@ function* trackSessionSave(action) {
     );
     if (resp.status) {
       yield put(setTrackSessionSave(resp.data));
-      yield call(action.payload.cb, (action.res = resp));
     } else {
       throw resp;
     }
