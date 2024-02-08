@@ -91,7 +91,7 @@ function* getDrawerHistory(action) {
 
     if (resp.status) {
       yield put(setGetDrawerHistory(resp.data));
-      yield call(action.payload.cb, (action.res = resWithoutId));
+      yield call(action.payload.cb, (action.res = resp));
     } else {
       throw resp;
     }
