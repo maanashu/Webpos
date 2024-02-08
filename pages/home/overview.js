@@ -23,6 +23,7 @@ import {
   endTrackingSession,
   fetchInvoiceDetail,
 } from "../../redux/slices/dashboard";
+import { selectCashDrawerData } from "../../redux/slices/cashDrawer";
 import PaginationFooter from "../../components/commanComonets/customers/PaginationFooter";
 import Login from "../auth/login";
 import moment from "moment-timezone";
@@ -34,7 +35,9 @@ const Overview = () => {
   const currentTimeZone = getCurrentTimeZone();
   const authData = useSelector(selectLoginAuth);
   const dashboardData = useSelector(dashboardDetails);
-  const trackingSession = dashboardData?.drawerSession?.payload;
+  // const trackingSession = dashboardData?.drawerSession?.payload;
+  const sessionData = useSelector(selectCashDrawerData);
+  const trackingSession = sessionData?.drawerSession?.payload;
   const UniqueId = authData?.usersInfo?.payload?.uniqe_id
     ? authData?.usersInfo?.payload?.uniqe_id
     : "";
@@ -157,7 +160,7 @@ const Overview = () => {
     let params = {
       // pos_user_id: posUserUniqueId,
       drawer_id: trackingSession?.id,
-      amount: parseInt(trackingSession?.cash_balance),
+      amount: Number(trackingSession?.cash_balance),
       transaction_type: "end_tracking_session",
       mode_of_cash: "cash_out",
     };

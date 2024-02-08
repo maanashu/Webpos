@@ -51,6 +51,52 @@ function* getSessionHistory(action) {
   }
 }
 
+function* sendPaymentHistory(action) {
+  const dataToSend = { ...action.payload };
+
+  const queryParams = {};
+
+  if (dataToSend?.drawer_id) {
+    queryParams.drawer_id = dataToSend.drawer_id;
+  }
+
+  const stringifiedQueryParams = new URLSearchParams(queryParams).toString();
+  try {
+    const resp = yield call(
+      ApiClient.get,
+      `${USER_API_URL_V1}drawer_management/payment/history/send/?${stringifiedQueryParams}`
+    );
+    if (resp) {
+      // yield put(setSessionHistory(resp.data));
+      yield call(action.payload.cb, (action.res = resp));
+    } else {
+      throw resp;
+    }
+  } catch (e) {
+    yield put(onErrorStopLoad());
+    toast.error(e?.error?.response?.data?.msg);
+  }
+}
+
+function* getSessionSummary(action) {
+  try {
+    const resp = yield call(
+      ApiClient.get,
+      `${USER_API_URL_V1}drawer_management/payment/history`
+    );
+    
+    if (resp) {
+      // yield put(setSessionHistory(resp.data));
+      yield call(action.payload.cb, (action.res = resp));
+    } else {
+      throw resp;
+    }
+  } catch (e) {
+    yield put(onErrorStopLoad());
+    toast.error(e?.error?.response?.data?.msg);
+  }
+}
+
 function* getDrawerSession(action) {
   const body = { ...action?.payload };
   try {
@@ -60,7 +106,9 @@ function* getDrawerSession(action) {
       body
     );
     if (resp.status) {
-      yield put(setGetDrawerSession(resp.data));
+      // yield put(setGetDrawerSession(resp.data));
+      yield put(setGetDrawerSession({...resp.data, payload: {...resp.data.payload, cash_balance: Number(resp.data.payload.opening_balance)}}));
+      yield call(action.payload.cb, (action.res = resp));
       // yield call(action.payload.cb, (action.res = resp));
       // toast.success(resp?.data?.msg);
     } else {
@@ -123,11 +171,12 @@ function* getExpectedCashByDrawerId(action) {
   try {
     const resp = yield call(
       ApiClient.get,
-      `${USER_API_URL_V1}drawer_management/drawer-session/cash-expected/${action?.payload}`
+      `${USER_API_URL_V1}drawer_management/drawer-session/cash-expected/${action?.payload?.drawer_session_id}`
     );
 
     if (resp.status) {
       yield put(setExpectedCashByDrawerId(resp.data));
+      yield call(action.payload.cb, (action.res = resp));
     } else {
       throw resp;
     }
@@ -142,6 +191,8 @@ function* cashDrawerSaga() {
   yield all([takeLatest("cashDrawer/getDrawerSession", getDrawerSession)]);
   yield all([takeLatest("cashDrawer/getDrawerHistory", getDrawerHistory)]);
   yield all([takeLatest("cashDrawer/trackSessionSave", trackSessionSave)]);
+  yield all([takeLatest("cashDrawer/getSessionSummary", getSessionSummary)]);
+  yield all([takeLatest("cashDrawer/sendPaymentHistory", sendPaymentHistory)]);
   yield all([
     takeLatest(
       "cashDrawer/getExpectedCashByDrawerId",

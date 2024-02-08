@@ -6,13 +6,34 @@ import { getDrawerSessionInfo } from "../../../redux/slices/dashboard";
 import { toast } from "react-toastify";
 import { selectLoginAuth } from "../../../redux/slices/auth";
 import { selectCashDrawerData } from "../../../redux/slices/cashDrawer";
+import { amountFormat } from '../../../utilities/globalMethods';
+import CustomModal from "../../customModal/CustomModal";
+import EndCashOutModal from "./endCashOutModal";
 
 const CashSummary = ({ props, title, amount }) => {
   const dispatch = useDispatch();
 
+  const [key, setKey] = useState(Math.random());
+  const [modalDetail, setModalDetail] = useState({
+    show: false,
+    title: "End Cash Tracking Session",
+    type: "add",
+    flag: "trackingmodal",
+  });
+
   const sessionData = useSelector(selectCashDrawerData);
   const expectedCash = sessionData?.expectedCashByDrawerId?.payload;
   const discrepancy = expectedCash?.remainingCash - amount;
+
+
+  const handleOnCloseModal = () => {
+    setModalDetail({
+      show: false,
+      title: "",
+      flag: "",
+    });
+    setKey(Math.random());
+  };
 
   return (
     <>
@@ -20,59 +41,36 @@ const CashSummary = ({ props, title, amount }) => {
         <div className="trackingSub">
           <figure className="profileImage ">
             <Image
-              src={Images.AddCashPlus}
+              src={Images.salesTracking}
               alt="trackingImage"
-              className="img-fluid "
+              className="img-fluid"
+              height={50}
+              width={50}
             />
           </figure>
-          <h4 className="loginheading">{title}</h4>
-          <h4 className="trackingHeading">Enter amount </h4>
+          <h6 className="loginheading px-5">{title}</h6>
         </div>
         <form className="trackingForm">
-          {/* <h4 className="amountText">Enter Amount</h4>
-          <div className="inputSelect mt-2">
-            <input className="form-control trackingInput" type="text" placeholder=" $  500.00" />
-            <input
-              type="number"
-              className="form-control trackingInput"
-              name={generateRandomName}
-              autoComplete="new-password"
-              placeholder=" $  500.00"
-              value={amount}
-              onChange={(e) => setAmount(e.target.value)}
-            />
-            <select name="cars" id="cars" className="trackingSelect">
-              <option value="volvo">USD</option>
-              <option value="saab">Saab</option>
-              <option value="mercedes">Mercedes</option>
-              <option value="audi">Audi</option>
-            </select>
-          </div> */}
-          {/* setExpectedCashValue(res?.payload?.remainingCash);
-          setCashInValue(res?.payload?.cashIn);
-          setCashOutValue(res?.payload?.cashOut);
-          setJobrSummaryValue(res?.payload?.remainingJbrCoin);
-          setCardSummaryValue(res?.payload?.remainingCardAmount); */}
           <div className="summaryDetail">
-            <h4 className="cashText">Cash Summary</h4>
+            <h4 className="cashText">Cash summary</h4>
             <hr className="dottedDivide" />
             <div className="flexDiv">
-              <h4 className="cancelOrderText">Amount Expected</h4>
+              <h4 className="cancelOrderText">Amount expected</h4>
               <h4 className="cancelOrderText">
-                ${expectedCash?.remainingCash}
+                USD {amountFormat(expectedCash?.remainingCash)}
               </h4>
             </div>
             <hr className="dottedDivide" />
             <div className="flexDiv">
-              <h4 className="cancelOrderText">Amount Counted</h4>
-              <h4 className="cancelOrderText">${amount}</h4>
+              <h4 className="cancelOrderText">Amount counted</h4>
+              <h4 className="cancelOrderText">USD {amountFormat(amount)}</h4>
             </div>
             <hr className="dottedDivide" />
             <div className="flexDiv">
               <h4
                 className="endCashText"
                 style={{
-                  color: discrepancy < 0 ? "red" : "blue",
+                  color: discrepancy < 0 ? "red" : "#263682",
                 }}
               >
                 Discrepancy
@@ -80,11 +78,11 @@ const CashSummary = ({ props, title, amount }) => {
               <h4
                 className="endCashText"
                 style={{
-                  color: discrepancy < 0 ? "red" : "blue",
+                  color: discrepancy < 0 ? "red" : "#263682",
                 }}
               >
-                {discrepancy < 0 ? "-" : null} $
-                {discrepancy < 0 ? Math.abs(discrepancy).toFixed(2) : discrepancy?.toFixed(2)}
+                {discrepancy < 0 ? "-" : null}
+                USD {discrepancy < 0 ? amountFormat(Math.abs(discrepancy).toFixed(2)) : amountFormat(discrepancy?.toFixed(2))}
               </h4>
             </div>
           </div>
@@ -92,11 +90,18 @@ const CashSummary = ({ props, title, amount }) => {
             <button
               className="nextverifyBtn w-100"
               type="button"
-              //   onClick={() => {
-              //     drawerSessionInfo();
-              //   }}
+              onClick={() => {
+                console.log("here");
+                setModalDetail({
+                  show: true,
+                  title: "End Cash Tracking Session",
+                  type: "remove",
+                  flag: "trackingmodal",
+                });
+                setKey(Math.random());
+              }}
             >
-              Confirm
+              Next
               <Image
                 src={Images.ArrowRight}
                 alt="rightArrow"
@@ -106,6 +111,33 @@ const CashSummary = ({ props, title, amount }) => {
           </div>
         </form>
       </div>
+
+      <CustomModal
+        key={key}
+        show={modalDetail.show}
+        backdrop="static"
+        showCloseBtn={false}
+        isRightSideModal={true}
+        mediumWidth={false}
+        ids={"trackingModal"}
+        child={
+          <EndCashOutModal
+            title={modalDetail.title}
+            expectedAmount={expectedCash?.remainingCash}
+            close={() => handleOnCloseModal()}
+          />
+        }
+        header={
+          <p onClick={handleOnCloseModal} className="modal_cancel">
+            <Image
+              src={Images.modalCross}
+              alt="modalCross"
+              className="img-fluid"
+            />
+          </p>
+        }
+        onCloseModal={() => handleOnCloseModal()}
+      />
     </>
   );
 };

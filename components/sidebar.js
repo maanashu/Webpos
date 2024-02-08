@@ -81,19 +81,6 @@ const Sidebar = (props) => {
         },
       })
     );
-
-    // await dispatch(logout());
-    // await dispatch(dashboardLogout());
-
-    // setTimeout(() => {
-    //   toast.success("Logout successfully");
-    // }, 200);
-
-    // localStorage.removeItem("merchantAuthToken");
-    // localStorage.removeItem("authToken");
-    // localStorage.removeItem("persist:root");
-
-    // router.push("/auth/verification");
   };
 
   const isLinkActive = (href) => {
