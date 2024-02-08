@@ -833,7 +833,7 @@
 }
 
 .modal-footer {
-  justify-content: center;
+  justify-content: space-between;
 }
 
 .cancelBtn {
