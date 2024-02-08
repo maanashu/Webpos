@@ -1,4 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { restAllData } from "../commonActions";
 
 const initialState = {
   loading: false,
@@ -11,6 +12,7 @@ const initialState = {
 export const settingSlice = createSlice({
   name: "setting",
   initialState,
+  extraReducers: (builder) => builder.addCase(restAllData, () => initialState),
   reducers: {
     // start security slices..........................................
 
@@ -186,7 +188,7 @@ export const {
   setGetActivePlan,
   getLanguageList,
   setGetLanguageList,
-  onStopSuccess
+  onStopSuccess,
 } = settingSlice.actions;
 
 export const settingInfo = (state) => state.setting;

@@ -2,35 +2,20 @@ import React, { useState } from "react";
 import * as Images from "../../../utilities/images";
 import Image from "next/image";
 import { useDispatch, useSelector } from "react-redux";
-import { getDrawerSessionInfo } from "../../../redux/slices/dashboard";
-import { toast } from "react-toastify";
-import { selectLoginAuth } from "../../../redux/slices/auth";
 import {
-  getDrawerHistory,
-  getDrawerSession,
   selectCashDrawerData,
   trackSessionSave,
 } from "../../../redux/slices/cashDrawer";
 
-const AddCashModal = ({ props, title, modalType, close }) => {
+const AddCashModal = ({ handleDrawerSessionChange, handleDrawerHistoryChange, title, modalType, close }) => {
   const dispatch = useDispatch();
-
   const [addCashInput, setAddCashInput] = useState("");
   const [notes, setNotes] = useState("");
-
   const sessionData = useSelector(selectCashDrawerData);
   const drawerSessionDetail = sessionData?.drawerSession?.payload;
-  const authData = useSelector(selectLoginAuth);
-
-  const UniqueId = authData?.usersInfo?.payload?.uniqe_id
-    ? authData?.usersInfo?.payload?.uniqe_id
-    : "";
   const digits = /^[0-9]+$/;
-  const sellerId = {
-    seller_id: UniqueId,
-  };
 
-  const addCashHandler = async () => {
+  const addCashHandler = () => {
     if (!addCashInput) {
       alert("Please Enter Amount");
     } else if (addCashInput && digits.test(addCashInput) === false) {
@@ -41,25 +26,25 @@ const AddCashModal = ({ props, title, modalType, close }) => {
       const data =
         modalType == "add"
           ? {
-              drawer_id: drawerSessionDetail?.id,
-              amount: parseFloat(addCashInput),
-              transaction_type: "manual_cash_in",
-              mode_of_cash: "cash_in",
-            }
+            drawer_id: drawerSessionDetail?.id,
+            amount: parseFloat(addCashInput),
+            transaction_type: "manual_cash_in",
+            mode_of_cash: "cash_in",
+          }
           : {
-              drawer_id: drawerSessionDetail?.id,
-              amount: parseFloat(addCashInput),
-              transaction_type: "manual_cash_out",
-              mode_of_cash: "cash_out",
-            };
+            drawer_id: drawerSessionDetail?.id,
+            amount: parseFloat(addCashInput),
+            transaction_type: "manual_cash_out",
+            mode_of_cash: "cash_out",
+          };
       if (notes) {
         data.note = notes;
       }
 
-      const res = await dispatch(trackSessionSave(data));
+      const res = dispatch(trackSessionSave(data));
       if (res) {
-        dispatch(getDrawerSession(sellerId));
-        dispatch(getDrawerHistory());
+        handleDrawerSessionChange()
+        handleDrawerHistoryChange()
         close();
         setNotes("");
         setAddCashInput("");
@@ -121,7 +106,7 @@ const AddCashModal = ({ props, title, modalType, close }) => {
               className="nextverifyBtn w-100"
               type="button"
               onClick={() => {
-                addCashHandler();
+                addCashHandler()
               }}
             >
               Confirm

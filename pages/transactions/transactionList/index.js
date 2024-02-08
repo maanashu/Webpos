@@ -111,8 +111,19 @@ const TransactionsList = () => {
   ];
 
   const handleNavigateToTrackStatus = (item) => {
-    router.push(`transactionList/invoice`);
+    router.push({
+      pathname: "/transactions/transactionList/invoice",
+
+      query: {
+        item: JSON.stringify(item),
+        order_id: item?.id,
+      },
+    });
   };
+
+  const handleNotification = () => {
+    router.push("/transactions/notification")
+  }
 
   const statusFun = (status) => {
     switch (status) {
@@ -125,7 +136,7 @@ const TransactionsList = () => {
       case 3:
         return "Ready Pickup";
       case 4:
-        return "Walkin";
+        return "Pickup";
       case 5:
         return "Delivered";
       case 6:
@@ -163,6 +174,7 @@ const TransactionsList = () => {
         onDateChange={handleDateRangeChange}
         startDate={startDate}
         endDate={endDate}
+        notificationHandler={handleNotification}
       />
 
       <PaginationHeader

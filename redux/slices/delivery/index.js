@@ -1,4 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { restAllData } from "../commonActions";
 
 const initialState = {
   loading: false,
@@ -16,6 +17,7 @@ const initialState = {
 export const deliverySlice = createSlice({
   name: "delivery",
   initialState,
+  extraReducers: (builder) => builder.addCase(restAllData, () => initialState),
   reducers: {
     getTodayOrderCount: (state) => {
       state.loading = true;

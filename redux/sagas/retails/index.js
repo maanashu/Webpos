@@ -44,6 +44,7 @@ import {
   setUpdateCart,
   setHoldProductCart,
   setHoldCart,
+  setCartLength,
   setUpdatePrice,
 } from "../../slices/retails";
 import { all, call, put, takeLatest } from "redux-saga/effects";
@@ -158,11 +159,37 @@ function* availableOffers(action) {
     toast.error(e?.error?.response?.data?.msg);
   }
 }
+function* createBulkCart(action) {
+  const dataToSend = { ...action.payload };
+  // const params = new URLSearchParams(dataToSend).toString();
+
+  try {
+    const resp = yield call(
+      ApiClient.post,
+      `${ORDER_API_URL_V1}poscarts/bulk-create`,
+      dataToSend
+    );
+    if (resp.status) {
+      yield call(productCart);
+      yield call(action.payload.cb, (action.res = resp));
+    } else {
+      throw resp;
+    }
+  } catch (e) {
+    yield put(onErrorStopLoad());
+    toast.error(e?.error?.response?.data?.msg);
+  }
+}
 function* productCart(action) {
   try {
     const resp = yield call(ApiClient.get, `${ORDER_API_URL_V1}poscarts/user`);
     if (resp.status) {
       yield put(setProductCart(resp.data));
+      if (resp?.data !== "") {
+        yield put(setCartLength(resp?.data?.payload?.poscart_products?.length));
+      } else {
+      }
+      // yield put(setCartLength(resp.data));
       yield call(action.payload.cb, (action.res = resp));
     } else {
       throw resp;
@@ -837,6 +864,7 @@ function* getHoldProductCart(action) {
 
   try {
     const resp = yield call(ApiClient.get, `${ORDER_API_URL_V1}poscarts/`);
+
     if (resp.status) {
       yield put(setHoldProductCart(resp.data));
       yield call(action.payload.cb, (action.res = resp?.data));
@@ -942,6 +970,7 @@ function* retailsSaga() {
     takeLatest("retails/paymentRequestCancel", paymentRequestCancel),
     takeLatest("retails/getHoldProductCart", getHoldProductCart),
     takeLatest("retails/holdCart", holdCart),
+    takeLatest("retails/createBulkCart", createBulkCart),
     takeLatest("retails/updatePrice", updatePrice),
   ]);
 }

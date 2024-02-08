@@ -6,31 +6,10 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { toast } from "react-toastify";
 
-const EmailReceiptModal = () => {
+const EmailReceiptModal = ({ onCancel = () => {}, onSend = () => {} }) => {
   const emailReg = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
-  const router = useRouter();
-  const dispatch = useDispatch();
   const [email, setEmail] = useState("");
 
-  const attachWithEmailHandler = () => {
-    if (!email) {
-      toast.error("Please Enter email");
-    } else if (email && emailReg.test(email) === false) {
-      toast.error("Please Enter Valid email");
-    } else {
-      let params = {
-        email: email,
-      };
-    //   dispatch(
-    //     attachCustomer({
-    //       ...params,
-    //       cb() {
-    //         setEmail("");
-    //       },
-    //     })
-    //   );
-    }
-  };
   return (
     <>
       <div className="emailReceiptSection">
@@ -53,24 +32,32 @@ const EmailReceiptModal = () => {
             </div>
           </div>
           <div className="addCustomerBtn mt-4 phoneReceiptBtn">
-            <button className="serviceCancel " type="submit">
+            <button className="serviceCancel " type="submit" onClick={onCancel}>
               Cancel
             </button>
             <button
               className="nextverifyBtn "
               type="button"
-              onClick={() => attachWithEmailHandler()}
+              onClick={() => {
+                if (!email) {
+                  toast.error("Please Enter email");
+                } else if (email && emailReg.test(email) === false) {
+                  toast.error("Please Enter Valid email");
+                } else {
+                  onSend(email);
+                }
+              }}
             >
               Send E-receipt
             </button>
-            <button className="eReciptBtn d-none" type="submit">
+            {/* <button className="eReciptBtn d-none" type="submit">
               E-receipt sent
               <Image
                 src={Images.btnTick}
                 alt="btnTick image"
                 className="img-fluid ms-2"
               />
-            </button>
+            </button> */}
           </div>
         </form>
       </div>
