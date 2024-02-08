@@ -62,10 +62,11 @@ const index = () => {
     {
       icon: orderFrequency,
       title: "Order Frequency",
-      count: `${analyticsOrderData?.delivery_graph?.ordersOverView?.order_frequency
-        ? analyticsOrderData?.delivery_graph?.ordersOverView?.order_frequency
-        : 0
-        }/Hour`,
+      count: `${
+        analyticsOrderData?.delivery_graph?.ordersOverView?.order_frequency
+          ? analyticsOrderData?.delivery_graph?.ordersOverView?.order_frequency
+          : 0
+      }/Hour`,
       bgColor: "#D1FADF",
       textColor: "#003921",
     },
@@ -74,10 +75,10 @@ const index = () => {
       title: "Average Order Value",
       count:
         analyticsOrderData?.delivery_graph?.ordersOverView?.averageValue ||
-          analyticsOrderData?.delivery_graph?.ordersOverView?.averageValue == 0
+        analyticsOrderData?.delivery_graph?.ordersOverView?.averageValue == 0
           ? `$${(analyticsOrderData?.delivery_graph?.ordersOverView?.averageValue).toFixed(
-            2
-          )}`
+              2
+            )}`
           : "",
       bgColor: "#D1FADF",
       textColor: "#003921",
@@ -180,7 +181,11 @@ const index = () => {
                   {title}
                 </h4>
                 <p className="stat-box-count" style={{ color: textColor }}>
-                  {count}
+                  {analyticsData?.loading ? (
+                    <span className="spinner-border spinner-border-sm"></span>
+                  ) : (
+                    count
+                  )}
                 </p>
               </div>
             </div>
@@ -188,13 +193,17 @@ const index = () => {
         </div>
 
         {/* table stats */}
-        <div className='table-responsive analyticTable'>
+        <div className="table-responsive analyticTable">
           <table className="customers-stats-table">
             <thead>
               <tr>
                 <th
                   className="customers-table-data"
-                  style={{ border: "none", color: "#7E8AC1", textAlign: "center" }}
+                  style={{
+                    border: "none",
+                    color: "#7E8AC1",
+                    textAlign: "center",
+                  }}
                 >
                   Sr.No.
                 </th>
@@ -263,15 +272,13 @@ const index = () => {
               <>
                 {
                   <>
-                    {analyticsOrderData?.delivery_graph?.ordersListData?.length >
-                      0 ? (
+                    {analyticsOrderData?.delivery_graph?.ordersListData
+                      ?.length > 0 ? (
                       <tbody>
                         {analyticsOrderData?.delivery_graph?.ordersListData?.map(
                           (row, idx) => (
                             <tr className="customers-table-row" key={idx}>
-                              <td
-                                className="customers-table-data"
-                              >
+                              <td className="customers-table-data">
                                 {idx + 1}
                               </td>
                               <td className="customers-table-data">
@@ -282,7 +289,7 @@ const index = () => {
                               </td>
                               <td
                                 className="customers-table-data"
-                              // style={{ display: "flex", gap: "12px" }}
+                                // style={{ display: "flex", gap: "12px" }}
                               >
                                 {`$${addThousandSeparator(
                                   row?.averageValue?.toFixed(2)
@@ -293,7 +300,10 @@ const index = () => {
                               </td>
                               <td className="customers-table-data">
                                 <b>
-                                  ${addThousandSeparator(row?.amount?.toFixed(2))}
+                                  $
+                                  {addThousandSeparator(
+                                    row?.amount?.toFixed(2)
+                                  )}
                                 </b>
                               </td>
                               <td className="customers-table-data">
@@ -326,9 +336,7 @@ const index = () => {
             )}
           </table>
         </div>
-        <div className="paginatePosition">
-          {/* <PaginationFooter /> */}
-        </div>
+        <div className="paginatePosition">{/* <PaginationFooter /> */}</div>
       </div>
       <AnalyticsRightsidebar />
     </div>
