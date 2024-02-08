@@ -71,11 +71,11 @@ const RightSideBar = ({ props, bulkCartFunction, setSelectedCartItems }) => {
   const serviceCart = cartData?.poscart_products?.filter(
     (item) => item?.product_type == "service"
   );
-  useEffect(() => {
-    if (Object.keys(cartData)?.length == 0) {
-      setFilterShow(false);
-    }
-  }, [cartData]);
+  // useEffect(() => {
+  //   if (Object.keys(cartData)?.length == 0) {
+  //     setFilterShow(false);
+  //   }
+  // }, [cartData]);
 
   const [key, setKey] = useState(Math.random());
   const [modalDetail, setModalDetail] = useState({
@@ -150,6 +150,7 @@ const RightSideBar = ({ props, bulkCartFunction, setSelectedCartItems }) => {
           dispatch(getHoldProductCart());
           dispatch(productCart());
           setHoldLoader(false);
+          setFilterShow(false);
         },
       })
     );

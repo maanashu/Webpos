@@ -12,7 +12,7 @@ import {
   selectRetailData,
 } from "../../../redux/slices/retails";
 
-const ProductInnerNav = ({ productCount, ServicesCount }) => {
+const ProductInnerNav = ({ productCount, ServicesCount, bulkCartFunction }) => {
   const dispatch = useDispatch();
   const authData = useSelector(selectLoginAuth);
   const retailData = useSelector(selectRetailData);
@@ -224,7 +224,10 @@ const ProductInnerNav = ({ productCount, ServicesCount }) => {
             </button>
             <button
               className={activeTab == "services" ? "BlueBtn" : "GreyBtn"}
-              onClick={() => handleTabs("services")}
+              onClick={() => {
+                bulkCartFunction();
+                handleTabs("services");
+              }}
             >
               Services
               <Image

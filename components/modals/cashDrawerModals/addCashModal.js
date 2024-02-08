@@ -16,7 +16,7 @@ const AddCashModal = ({ drawerSessionDetail, handleDrawerSessionChange, handleDr
   console.log(drawerSessionDetail, 'oooooooooooooooooooo');
   const digits = /^[0-9]+$/;
 
-  const addCashHandler = () => {
+  const addCashHandler = async () => {
     if (!addCashInput) {
       alert("Please Enter Amount");
     } else if (addCashInput && digits.test(addCashInput) === false) {
@@ -28,7 +28,7 @@ const AddCashModal = ({ drawerSessionDetail, handleDrawerSessionChange, handleDr
         modalType == "add"
           ? {
             drawer_id: drawerSessionDetail?.id,
-            amount:  parseFloat(addCashInput),
+            amount: parseFloat(addCashInput),
             transaction_type: "manual_cash_in",
             mode_of_cash: "cash_in",
           }
@@ -41,15 +41,18 @@ const AddCashModal = ({ drawerSessionDetail, handleDrawerSessionChange, handleDr
       if (notes) {
         data.note = notes;
       }
-      dispatch(
+      await dispatch(
         trackSessionSave({
           ...data,
           cb(res) {
-            handleDrawerSessionChange()
-            handleDrawerHistoryChange()
-            close();
-            setNotes("");
-            setAddCashInput("");
+            console.log(res?.data?.payload, "responseeeeeeeeeeeeeeeeeeeeeeeeeee")
+            if(res?.data?.payload){
+              handleDrawerSessionChange()
+              handleDrawerHistoryChange()
+              close();
+              setNotes("");
+              setAddCashInput("");
+            }
           }
         })
       );

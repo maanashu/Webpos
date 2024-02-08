@@ -56,7 +56,7 @@ function* getAllCustomersList(action) {
     queryParams.search = dataToSend?.search;
   }
 
-  if (dataToSend?.calenderDate !== undefined) {
+  if (dataToSend?.calenderDate) {
     queryParams.date = dataToSend?.calenderDate;
   }
 
@@ -83,6 +83,7 @@ function* getAllCustomersList(action) {
   }
 
   const params = new URLSearchParams(queryParams).toString();
+  console.log("fsdfsdgjfsd", params);
 
   try {
     const resp = yield call(
