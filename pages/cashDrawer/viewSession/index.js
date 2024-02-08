@@ -91,9 +91,12 @@ const ViewSession = () => {
       getDrawerHistory({
         ...drawerId,
         cb(res) {
-          setCashIn(res?.data?.payload?.cash_in)
-          setCashOut(res?.data?.payload?.cash_out)
-          setNetAmount(res?.data?.payload?.net_amount)
+          console.log(res, "responseeeeeeeeeeeeeeeeeeeeeeeeeee history")
+          if(res?.data?.payload){
+            setCashIn(res?.data?.payload?.cash_in)
+            setCashOut(res?.data?.payload?.cash_out)
+            setNetAmount(res?.data?.payload?.net_amount)
+          }
         }
       })
     );
