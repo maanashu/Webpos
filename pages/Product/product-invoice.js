@@ -157,6 +157,22 @@ const ProductInvoice = () => {
     return { title, deliveryCharges };
   };
 
+  const deliveryShippingChargesForNormalSearch = () => {
+    let deliveryCharges;
+    let title;
+    if (orderDetails?.delivery_charge !== "0") {
+      deliveryCharges = orderDetails?.delivery_charge;
+      title = "Delivery Charges";
+    } else if (orderDetails?.shipping_charge !== "0") {
+      deliveryCharges = orderDetails?.shipping_charge;
+      title = "Shipping Charges";
+    } else {
+      title = "";
+      deliveryCharges = "0";
+    }
+    return { title, deliveryCharges };
+  };
+
   useEffect(() => {
     if (checkeddata) {
       const updatedProductDetails = productDetails?.map((item) =>
@@ -654,8 +670,22 @@ const ProductInvoice = () => {
                             ${orderDetails?.actual_amount}
                           </p>
                         </div>
+                        {deliveryShippingChargesForNormalSearch().title !=
+                          "" && (
+                          <div className="flexBox">
+                            <p className="orderHeading">
+                              {deliveryShippingChargesForNormalSearch().title}
+                            </p>
+                            <p className="orderSubHeading">
+                              $
+                              {deliveryShippingChargesForNormalSearch()
+                                .deliveryCharges ?? "0"}
+                            </p>
+                          </div>
+                        )}
+
                         <div className="flexBox">
-                          <p className="orderHeading">Discount</p>
+                          <p className="orderHeading">{"Discount"}</p>
                           <p className="orderSubHeading">
                             -$
                             {orderDetails?.discount
@@ -664,7 +694,7 @@ const ProductInvoice = () => {
                           </p>
                         </div>
                         <div className="flexBox">
-                          <p className="orderHeading">Other Fees</p>
+                          <p className="orderHeading">Other Fees (Tips)</p>
                           <p className="orderSubHeading">
                             ${orderDetails?.tips ? orderDetails?.tips : "0.00"}
                           </p>
