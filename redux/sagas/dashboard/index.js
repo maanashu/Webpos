@@ -20,7 +20,7 @@ function* getAllOrderDeliveries(action) {
   const dataToSend = { ...action.payload }
   delete dataToSend.cb
   try {
-    const resp = yield call(ApiClient.get, (`${ORDER_API_URL}/api/v1/orders?seller_id=${action.payload.seller_id}&delivery_option=${action.payload.delivery_option}&page=${action.payload.page}&limit=${action.payload.limit}&app_name=${action.payload.app_name}`));
+    const resp = yield call(ApiClient.get, (`${ORDER_API_URL}/api/v1/orders?seller_id=${action.payload.seller_id}&delivery_option=${action.payload.delivery_option}&page=${action.payload.page}&limit=${action.payload.limit}&app_name=${action.payload.app_name}&app_name=${action.payload.need_returned}`));
     if (resp.status) {
       yield put(setGetAllOrderDeliveries(resp.data));
       yield call(action.payload.cb, (action.res = resp));
