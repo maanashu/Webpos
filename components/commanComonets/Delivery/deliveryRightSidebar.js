@@ -33,6 +33,7 @@ const DeliveryRightSidebar = ({ setOrderListType, setShowCustomLoader }) => {
       seller_id: uniqueId,
       delivery_option: "1,3",
       need_walkin: false,
+      need_returned: false,
     };
     dispatch(
       getOrdersList({

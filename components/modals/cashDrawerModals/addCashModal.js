@@ -7,12 +7,13 @@ import {
   trackSessionSave,
 } from "../../../redux/slices/cashDrawer";
 
-const AddCashModal = ({ handleDrawerSessionChange, handleDrawerHistoryChange, title, modalType, close }) => {
+const AddCashModal = ({ drawerSessionDetail, handleDrawerSessionChange, handleDrawerHistoryChange, title, modalType, close }) => {
   const dispatch = useDispatch();
   const [addCashInput, setAddCashInput] = useState("");
   const [notes, setNotes] = useState("");
-  const sessionData = useSelector(selectCashDrawerData);
-  const drawerSessionDetail = sessionData?.drawerSession?.payload;
+  // const sessionData = useSelector(selectCashDrawerData);
+  // const drawerSessionDetail = sessionData?.drawerSession?.payload;
+  console.log(drawerSessionDetail, 'oooooooooooooooooooo');
   const digits = /^[0-9]+$/;
 
   const addCashHandler = () => {
@@ -27,7 +28,7 @@ const AddCashModal = ({ handleDrawerSessionChange, handleDrawerHistoryChange, ti
         modalType == "add"
           ? {
             drawer_id: drawerSessionDetail?.id,
-            amount: parseFloat(addCashInput),
+            amount: drawerSessionDetail?.drawer_activites?.length == 0 || (drawerSessionDetail?.drawer_activites?.length > 0 && drawerSessionDetail?.drawer_activites?.length <= 1 && drawerSessionDetail?.drawer_activites[0]?.mode_of_cash === 'cash_out') ? (Number(drawerSessionDetail?.opening_balance) + Number(addCashInput)) : parseFloat(addCashInput),
             transaction_type: "manual_cash_in",
             mode_of_cash: "cash_in",
           }
@@ -40,15 +41,22 @@ const AddCashModal = ({ handleDrawerSessionChange, handleDrawerHistoryChange, ti
       if (notes) {
         data.note = notes;
       }
+      dispatch(
+        trackSessionSave({
+          ...data,
+          cb(res) {
+            handleDrawerSessionChange()
+            handleDrawerHistoryChange()
+            close();
+            setNotes("");
+            setAddCashInput("");
+          }
+        })
+      );
+      // const res = dispatch(trackSessionSave(data));
+      // if (res) {
 
-      const res = dispatch(trackSessionSave(data));
-      if (res) {
-        handleDrawerSessionChange()
-        handleDrawerHistoryChange()
-        close();
-        setNotes("");
-        setAddCashInput("");
-      }
+      // }
     }
   };
 
