@@ -273,17 +273,23 @@ const CustomServiceAdd = ({ crosshandler }) => {
                       setselectedTimeSlotIndex(index);
                       setSelectedTimeSlotData(item);
                     }}
-                    style={{
-                      backgroundColor:
-                        selectedTimeSlotIndex == index
-                          ? " #D1FADF"
-                          : "transparent",
-                      borderColor:
-                        selectedTimeSlotIndex == index ? "#027547" : "#D7DEFF",
-                      borderWidth: "1px",
-                    }}
+                    // style={{
+                    //   backgroundColor:
+                    //     selectedTimeSlotIndex == index
+                    //       ? " #D1FADF"
+                    //       : "transparent",
+                    //   borderColor:
+                    //     selectedTimeSlotIndex == index ? "#027547" : "#D7DEFF",
+                    //   borderWidth: "1px",
+                    // }}
                   >
-                    <div className="scheduleTime">
+                    <div
+                      className={
+                        selectedTimeSlotIndex == index
+                          ? "scheduleTime active"
+                          : "scheduleTime"
+                      }
+                    >
                       <h4 className="addServicePara m-0">
                         {item?.start_time + " - " + item?.end_time}
                       </h4>

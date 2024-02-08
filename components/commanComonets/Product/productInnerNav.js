@@ -265,7 +265,7 @@ const ProductInnerNav = ({ productCount, ServicesCount }) => {
                           </h2>
                           <div
                             id="CategoryBox"
-                            className="accordion-collapse collapse show"
+                            className="accordion-collapse collapse "
                             aria-labelledby="Category"
                             data-bs-parent="#accordionExample"
                           >
@@ -317,7 +317,7 @@ const ProductInnerNav = ({ productCount, ServicesCount }) => {
                           </h2>
                           <div
                             id="AvailabilityBox"
-                            className="accordion-collapse collapse show"
+                            className="accordion-collapse collapse "
                             aria-labelledby="Availability"
                             data-bs-parent="#accordionExample"
                           >
@@ -447,7 +447,7 @@ const ProductInnerNav = ({ productCount, ServicesCount }) => {
                           </h2>
                           <div
                             id="CategoryBox"
-                            className="accordion-collapse collapse show"
+                            className="accordion-collapse collapse "
                             aria-labelledby="Category"
                             data-bs-parent="#accordionExample"
                           >
@@ -499,7 +499,7 @@ const ProductInnerNav = ({ productCount, ServicesCount }) => {
                           </h2>
                           <div
                             id="AvailabilityBox"
-                            className="accordion-collapse collapse show"
+                            className="accordion-collapse collapse "
                             aria-labelledby="Availability"
                             data-bs-parent="#accordionExample"
                           >

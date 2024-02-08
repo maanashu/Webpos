@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import * as Images from "../../../utilities/images";
+import { calculateTimeDuration } from "../../../utilities/globalMethods";
 import Image from "next/image";
 import CustomModal from "../../customModal/CustomModal";
 import CheckedInModal from "../../../components/modals/appointmentModal/checkedInModal";
@@ -50,7 +51,8 @@ const CheckinModal = ({
             <div className="userCheckin">
               <h6 className="textSmall">Customer</h6>
               <span className="textSmall mt-4">
-                {bookingDetails?.mode_of_payment == "cash" ? "Unpaid" : "Paid"}
+                {"Paid"}
+                {/* {bookingDetails?.mode_of_payment == "cash" ? "Unpaid" : "Paid"} */}
               </span>
             </div>
 
@@ -86,7 +88,7 @@ const CheckinModal = ({
               </div>
             </div>
             <div className="userCheckin mt-4">
-              <h6 className="textSmall fw-600">Service Time:</h6>
+              <h6 className="textSmall fw-600">Services Requested:</h6>
               <div className="userService">
                 <span className="subHeadText me-2">
                   {" "}
@@ -115,7 +117,10 @@ const CheckinModal = ({
                     alt="timeIcon"
                     className="timeImage me-2"
                   />
-                  <span className="purpleText fw-600">{formattedTime}</span>
+                  <span className="purpleText fw-600">
+                    {" "}
+                    {calculateTimeDuration(bookingDetails)}
+                  </span>
                 </div>
               </div>
             </div>

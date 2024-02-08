@@ -57,7 +57,7 @@ const Login = () => {
                 <div className='loginSection'>
                     <h2 className='loginheading'>Welcome to <span className='loginTextBold'>JOBR POS</span></h2>
                     <div className='authLoginSection'>
-                        <div className='authHeader'>
+                        <div className='authHeaderSub'>
                             <div className='row'>
                                 {authData?.loading ? (
                                     <>

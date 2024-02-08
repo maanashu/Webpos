@@ -42,6 +42,7 @@ const DeliverDashboard = () => {
     title: "Orders to review",
     status: "0",
   });
+  console.log("Selellele", JSON.stringify(uniqueId));
 
   useEffect(() => {
     let params = {
@@ -57,6 +58,7 @@ const DeliverDashboard = () => {
       seller_id: uniqueId,
       delivery_option: "1,3",
       need_walkin: false,
+      need_returned: false,
     };
 
     let orderCountparams = {
@@ -66,7 +68,7 @@ const DeliverDashboard = () => {
     let graphParams = {
       seller_id: uniqueId,
       filter: "year",
-      delivery_option: "3",
+      delivery_option: "1,3",
     };
     dispatch(
       getTodayOrderCount({
@@ -99,7 +101,7 @@ const DeliverDashboard = () => {
         },
       })
     );
-    console.log("statata", JSON.stringify(orderStatData));
+
     dispatch(
       getShippingGraphData({
         ...graphParams,
@@ -128,7 +130,7 @@ const DeliverDashboard = () => {
               },
               {
                 fill: false,
-                label: "Returned Orders",
+                label: "Ready for pickup",
                 data: res?.data?.payload?.datasets
                   ? res?.data?.payload?.datasets[2]?.data
                   : "",
@@ -211,7 +213,6 @@ const DeliverDashboard = () => {
     });
   };
   const handelDataSetChange = (e, value, num, color) => {
-    console.log(value, e.target.checked);
     if (e.target.checked) {
       setDataSets([
         ...dataSets,
@@ -222,7 +223,6 @@ const DeliverDashboard = () => {
           borderColor: color,
         },
       ]);
-      console.log(dataSets);
     } else {
       setDataSets(dataSets.filter((item) => item.label !== value));
     }
@@ -520,7 +520,7 @@ const DeliverDashboard = () => {
                         }}
                       />
                       <label for="Returned Orders" className="appointSub  m-0">
-                        Returned Orders
+                        Ready for pickup
                       </label>
                     </div>
                     <div className="form-group checkBlue checkRed">

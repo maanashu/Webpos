@@ -21,6 +21,7 @@ import {
 import { selectLoginAuth } from "../../../redux/slices/auth";
 import { useRouter } from "next/router";
 import moment from "moment-timezone";
+import { formattedPrice } from "../../../utilities/globalMethods";
 
 const Users = () => {
   const { query } = useRouter();
@@ -123,6 +124,10 @@ const Users = () => {
     router.push(`users/[user-id]`, `users/${item.user_id}`);
   };
 
+  const handleNotification = () => {
+    router.push("/transactions/notification", `/customers/users/notification`);
+  };
+
   return (
     <div
       style={{
@@ -143,6 +148,7 @@ const Users = () => {
         onDateChange={handleDateChange}
         startDate={startDate}
         endDate={endDate}
+        notificationHandler={handleNotification}
       />
 
       <PaginationHeader
@@ -259,14 +265,16 @@ const Users = () => {
                     {item?.user_details?.lastname}
                   </p>
                   <div>
-                    <Image width={12} height={12} src={OrderLocation} />
+                    {item?.user_details?.current_address ? (
+                      <Image width={12} height={12} src={OrderLocation} />
+                    ) : (
+                      <></>
+                    )}
                     <span className="user-stats-row-name-address">
-                      {item?.user_details?.current_address?.custom_address}
-                      {", "}
-                      {item?.user_details?.current_address?.city}
-                      {", "}
-                      {item?.user_details?.current_address?.state}(
-                      {item?.user_details?.current_address?.state_code}){", "}
+                      {item?.user_details?.current_address?.custom_address}{" "}
+                      {item?.user_details?.current_address?.city}{" "}
+                      {item?.user_details?.current_address?.state}
+                      {item?.user_details?.current_address?.state_code}{" "}
                       {item?.user_details?.current_address?.country}{" "}
                       {item?.user_details?.zipcode}
                     </span>
@@ -292,7 +300,7 @@ const Users = () => {
                 className="customers-table-data"
                 style={{ textAlign: "left" }}
               >
-                ${Number(item?.life_time_spent).toFixed(2)}
+                {formattedPrice(item?.life_time_spent)}
               </td>
             </tr>
           ))}

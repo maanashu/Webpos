@@ -79,7 +79,7 @@ function* getDrawerHistory(action) {
   try {
     const reswithId = yield call(
       ApiClient.get,
-      `${USER_API_URL_V1}drawer_management/payment/history/?${stringifiedQueryParams}`,
+      `${USER_API_URL_V1}drawer_management/payment/history`,
       body
     );
     const resWithoutId = yield call(

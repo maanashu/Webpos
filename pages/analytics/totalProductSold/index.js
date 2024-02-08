@@ -98,7 +98,6 @@ const index = () => {
   };
 
   const handleGoReviewPage = (orderDate) => {
-
     // return
     router.push({
       pathname: "/transactions/transactionList",

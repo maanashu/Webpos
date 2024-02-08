@@ -661,5 +661,17 @@
   z-index: 9999;
   backdrop-filter: blur(0.2px); /* Adjust the blur amount as needed */
 }
-
+.mapleGap {
+  gap: 12px;
+  width: 100%;
+}
 /* policies */
+
+.TransectionOuter {
+  margin-top: 36px;
+}
+.TransectionOuter .deliveryOuter {
+  height: calc(100vh - 56px);
+  overflow-y: scroll;
+  margin: 0 16px;
+}

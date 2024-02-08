@@ -9,6 +9,7 @@ import {
   selectLoginAuth,
   posUserLogout,
 } from "../../redux/slices/auth";
+import { restAllData } from "../../redux/slices/commonActions";
 import { useDispatch, useSelector } from "react-redux";
 import { useRouter } from "next/router";
 import withAuth from "../../components/withAuth";
@@ -26,9 +27,11 @@ import PaginationFooter from "../../components/commanComonets/customers/Paginati
 import Login from "../auth/login";
 import moment from "moment-timezone";
 import { toast } from "react-toastify";
+import { amountFormat, getCurrentTimeZone } from '../../utilities/globalMethods';
 
 const Overview = () => {
   const moment = require("moment");
+  const currentTimeZone = getCurrentTimeZone();
   const authData = useSelector(selectLoginAuth);
   const dashboardData = useSelector(dashboardDetails);
   const trackingSession = dashboardData?.drawerSession?.payload;
@@ -162,12 +165,13 @@ const Overview = () => {
       endTrackingSession({
         ...params,
         async cb(res) {
-          // if (res.status) {
-            await dispatch(posUserLogout());
-            await dispatch(dashboardLogout());
+          if (res.status) {
+            await dispatch(restAllData({skipAuth: true}));
+            // await dispatch(posUserLogout());
+            // await dispatch(dashboardLogout());
             localStorage.removeItem("authToken");
             router.push("/auth/login");
-          // }
+          }
         },
       })
     );
@@ -222,8 +226,12 @@ const Overview = () => {
   };
 
   const closeModal = async () => {
-    await dispatch(logout());
-    await dispatch(dashboardLogout());
+
+    await dispatch(restAllData({skipAuth: true}));
+
+    // await dispatch(logout());
+    // await dispatch(dashboardLogout());
+
     setTimeout(() => {
       toast.success("Logout successfully");
     }, 200);
@@ -236,8 +244,8 @@ const Overview = () => {
   const currentTime = new Date();
 
   // Parse the input strings into moment objects
-  const currentMoment = moment(currentTime);
-  const loginMoment = moment(posLoginDetail?.updated_at);
+  const currentMoment = currentTimeZone ? moment(currentTime).tz(currentTimeZone) : moment(currentTime);
+  const loginMoment = currentTimeZone ? moment(posLoginDetail?.updated_at).tz(currentTimeZone) : moment(posLoginDetail?.updated_at);
 
   // Calculate the difference in milliseconds
   const timeDifference = currentMoment.diff(loginMoment);
@@ -395,13 +403,15 @@ const Overview = () => {
                     <div className="flexHeading mt-4">
                       <h4 className="saleHeading">Opening Balance</h4>
                       <h4 className="saleHeading">
-                        ${trackingSession?.opening_balance}
+                        {amountFormat(trackingSession?.opening_balance)}
+                        {/* ${trackingSession?.opening_balance} */}
                       </h4>
                     </div>
                     <div className="flexHeading mt-2">
                       <h4 className="saleHeading">Closing Balance</h4>
                       <h4 className="saleHeading">
-                        ${trackingSession?.cash_balance}
+                        {amountFormat(trackingSession?.cash_balance)}
+                        {/* ${trackingSession?.cash_balance} */}
                       </h4>
                     </div>
                   </div>
@@ -417,9 +427,7 @@ const Overview = () => {
                     <div className="flexHeading mt-2">
                       <h4 className="dayTimeText">Log in Time:</h4>
                       <h4 className="dayTimeText">
-                        {moment(posLoginDetail?.updated_at).format(
-                          "hh:mm:ss A"
-                        )}
+                        {currentTimeZone ? moment(posLoginDetail?.updated_at).tz(currentTimeZone).format("hh:mm:ss A") : moment(posLoginDetail?.updated_at).format("hh:mm:ss A")}
                       </h4>
                     </div>
                     <div className="flexHeading mt-2">

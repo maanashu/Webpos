@@ -35,6 +35,8 @@ const rootReducer = (state, action) => {
         ...state, // Keep any existing state
         // Merge in the rehydrated state
       };
+    // case "auth/logout": // Handle the HYDRATE action
+    //   return {};
     default:
       return mainReducer(state, action);
   }

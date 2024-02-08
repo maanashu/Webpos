@@ -1,14 +1,16 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { restAllData } from "../commonActions";
 
 const initialState = {
   sidebarCountData: {},
-  orderList:[],
+  orderList: [],
   loading: false,
 };
 
 export const shippingSlice = createSlice({
   name: "shipping",
   initialState,
+  extraReducers: (builder) => builder.addCase(restAllData, () => initialState),
   reducers: {
     getShippingsSidebarCount: (state) => {
       state.loading = true;
@@ -35,7 +37,7 @@ export const shippingSlice = createSlice({
     getOrdersList: (state) => {
       state.loading = true;
     },
-    setOrdersList: (state,action) => {
+    setOrdersList: (state, action) => {
       state.loading = true;
       state.orderList = action?.payload;
     },
@@ -52,7 +54,7 @@ export const {
   getShippingGraphData,
   getOrderStat,
   getOrdersList,
-  setOrdersList
+  setOrdersList,
 } = shippingSlice.actions;
 
 export const selectsShippingData = (state) => state.shipping;

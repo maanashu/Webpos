@@ -25,6 +25,7 @@ import CustomModal from "../../components/customModal/CustomModal";
 import DeleteCarts from "./DeleteCarts";
 import {
   amountFormat,
+  calculatePercentageValue,
   formattedReturnPrice,
   getProductFinalPrice,
   getProductPrice,
@@ -150,13 +151,6 @@ const ProductCart = () => {
       })
     );
   };
-  function calculatePercentageValue(value, percentage) {
-    if (percentage == "") {
-      return "";
-    }
-    const percentageValue = (percentage / 100) * parseFloat(value);
-    return percentageValue.toFixed(2) ?? 0.0;
-  }
 
   const clearCartHandler = () => {
     dispatch(
@@ -405,13 +399,12 @@ const ProductCart = () => {
                   <h4 className="providerSubText ">Line Total</h4>
                 </div>
               </div>
-              {/* 
+
               {retailData?.productCartLoad ? (
                 <div className="loaderOuter">
                   <span className="spinner-border spinner-border-sm mx-1"></span>
                 </div>
-              ) :  */}
-              {cartDetails?.length == 0 ? (
+              ) : cartDetails?.length == 0 ? (
                 <div className="mt-5">
                   <h6 className="mt-2 mb-2 text-center">No Carts Found!</h6>
                 </div>
@@ -613,7 +606,13 @@ const ProductCart = () => {
                   className="addproductCart"
                   onClick={() =>
                     cartLength > 0
-                      ? (setAttachCustomerModal(true), cartUpdate())
+                      ? // setAttachCustomerModal(true),
+                        (setModalDetail({
+                          show: true,
+                          flag: "AttachCustomer",
+                        }),
+                        setKey(Math.random()),
+                        cartUpdate())
                       : noCartFun()
                   }
                 >
@@ -833,15 +832,15 @@ const ProductCart = () => {
       </Modal> */}
 
       {/* custom product add */}
-      <Modal show={attachCustomerModal} centered keyboard={false}>
+      {/* <Modal show={attachCustomerModal} centered keyboard={false}>
         <AttachCustomer crosshandler={() => setAttachCustomerModal(false)} />
-      </Modal>
+      </Modal> */}
 
       <CustomModal
         key={key}
         show={modalDetail.show}
         backdrop="static"
-        showCloseBtn={true}
+        showCloseBtn={false}
         isRightSideModal={false}
         mediumWidth={false}
         ids={
@@ -854,6 +853,8 @@ const ProductCart = () => {
             : "UpdatePrice"
             ? "AddProduct"
             : "AddProduct"
+            ? "AttachCustomer"
+            : "AttachCustomer"
         }
         child={
           modalDetail.flag === "AddDiscount" ? (
@@ -870,6 +871,9 @@ const ProductCart = () => {
             />
           ) : modalDetail.flag === "AddProduct" ? (
             <CustomProductAdd crosshandler={() => handleOnCloseModal()} />
+          ) : modalDetail.flag === "AttachCustomer" ? (
+            // <CustomProductAdd crosshandler={() => handleOnCloseModal()} />
+            <AttachCustomer crosshandler={() => handleOnCloseModal()} />
           ) : (
             ""
           )
@@ -896,8 +900,32 @@ const ProductCart = () => {
                   </p>
                 </h2>
               </>
+            ) : modalDetail.flag === "AttachCustomer" ? (
+              <>
+                <div className="trackingSub headerModal">
+                  <figure className="profileImage ">
+                    <Image
+                      src={Images.addCutomer}
+                      alt="trackingImage"
+                      className="img-fluid "
+                    />
+                  </figure>
+                  <h4 className="loginheading mt-2">Add a customer</h4>
+                  <h4 className="trackingHeading">
+                    Search a costumer or{" "}
+                    <span className="fw-bold">create a new one. </span>
+                  </h4>
+                  <div onClick={handleOnCloseModal} className="crossModal">
+                    <Image
+                      src={Images.modalCross}
+                      alt="modalCross"
+                      className="img-fluid"
+                    />
+                  </div>
+                </div>
+              </>
             ) : (
-              ""
+              " "
             )}
           </>
         }

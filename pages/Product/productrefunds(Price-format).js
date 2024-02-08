@@ -54,7 +54,12 @@ const productrefunds = () => {
       (item) => Number(refundAmount) > Number(item.price)
     );
     // if (isGreater == false) {
-    setModalDetail({ show: true, flag: "ReturnInventory" });
+    if (orderDetails?.order?.order_type === "service") {
+      handlereturnToInventory();
+    } else {
+      setModalDetail({ show: true, flag: "ReturnInventory" });
+    }
+
     setKey(Math.random());
 
     const shareData = {
@@ -76,17 +81,24 @@ const productrefunds = () => {
     // }
   };
 
-  let products = refundedItems?.map((item, index) => ({
-    id: item?.product_id,
-    qty: item?.qty,
-    add_to_inventory_qty: newQty?.find((val) => val?.id == item?.id)?.qty || 0,
-    write_off_qty:
-      item?.qty - newQty?.find((val) => val?.id == item?.id)?.qty || 0,
-    refund_value:
-      Number(inputValues?.find((val) => val?.index == index)?.value) ||
-      refundAmount ||
-      0,
-  }));
+  let products = refundedItems?.map((item, index) => {
+    const newItem = {
+      id: item?.product_id,
+      qty: item?.qty,
+      add_to_inventory_qty:
+        (newQty?.find((val) => val?.id === item?.id) || {}).qty || 0,
+      write_off_qty:
+        item?.qty - (newQty?.find((val) => val?.id === item?.id) || {}).qty ||
+        0,
+      refund_value:
+        Number(
+          (inputValues?.find((val) => val?.index === index) || {}).value
+        ) ||
+        item?.price ||
+        0,
+    };
+    return newItem;
+  });
 
   // Return API should not hit here
   const handlereturnToInventory = () => {
@@ -97,12 +109,11 @@ const productrefunds = () => {
     const { title, deliveryCharges } = deliveryShippingCharges();
 
     let refundData = {
-      subtotal: refundSubTotal?.toFixed(2),
+      subtotal: parseFloat(refundSubTotal).toFixed(2),
       order_id: orderDetails?.order?.id,
       products: products,
-      total_taxes: refundTaxAmount?.toFixed(2),
-      total_refund_amount: refundAmount?.toFixed(2), //totalRefundableAmount().toFixed(2), //subtotal,
-      delivery_charge: orderDetails?.order?.delivery_charge,
+      total_taxes: parseFloat(refundTaxAmount).toFixed(2),
+      total_refund_amount: parseFloat(refundAmount).toFixed(2),
       return_reason: "testing reason",
       drawer_id: orderDetails?.order?.drawer_id || 0,
       deliveryShippingTitle: title,
@@ -297,7 +308,11 @@ const productrefunds = () => {
     );
 
     if (!isNaN(enteredValue)) {
-      setRefundAmount(enteredValue > maxPrice ? maxPrice : enteredValue);
+      if (enableTextFordoller) {
+        setRefundAmount(enteredValue > maxPrice ? maxPrice : enteredValue);
+      } else {
+        setRefundAmount(enteredValue <= 100 ? enteredValue : maxPrice);
+      }
     } else {
       if (!toast.isActive(toastId.current)) {
         toastId.current = toast.error(
@@ -328,22 +343,25 @@ const productrefunds = () => {
                 </h3>
                 <p className="priceHeading">Select the items to refund.</p>
               </article>
-              <div className="flexBox">
-                <input
-                  onChange={(e) =>
-                    inputCheck(
-                      e.target.checked,
-                      refundAmount,
-                      enableTextFordoller,
-                      enableTextForPercent
-                    )
-                  }
-                  type="checkbox"
-                  className="me-2"
-                  checked={allApplicable}
-                  disabled={enableText === true}
-                />
-                <h5 className="priceHeading pe-3">Applicable for all items.</h5>
+              <div className="flexBox refundHeadRight">
+                <div className="form-group checkBlue">
+                  <input
+                    onChange={(e) =>
+                      inputCheck(
+                        e.target.checked,
+                        refundAmount,
+                        enableTextFordoller,
+                        enableTextForPercent
+                      )
+                    }
+                    type="checkbox"
+                    id="Incoming Orders"
+                    className="me-1"
+                    checked={allApplicable}
+                    disabled={enableText === true}
+                  />
+                  <label for="Incoming Orders" className='appointSub  m-0'>Applicable for all items.</label>
+                </div>
                 <div className="flexBox refundPricebox">
                   {enableTextFordoller === true ? (
                     <input
@@ -364,12 +382,12 @@ const productrefunds = () => {
                       onChange={(e) => handleRefund(e)}
                     />
                   )}
-                  <article>
+                  <article className="refundButtons">
                     <button
                       className={
                         enableTextFordoller === true
-                          ? "priceFilterBtn active"
-                          : "priceFilterBtn "
+                          ? "refundPriceBtn active"
+                          : "refundPriceBtn "
                       }
                       onClick={() => handleActiveText("flagPrice")}
                     >
@@ -379,49 +397,48 @@ const productrefunds = () => {
                     <button
                       className={
                         enableTextForPercent === true
-                          ? "priceFilterBtn active"
-                          : "priceFilterBtn "
+                          ? "percentBtn active"
+                          : "percentBtn "
                       }
                       onClick={() => handleActiveText("flagPercent")}
                     >
                       %
                     </button>
                   </article>
-
-                  <div className="flexBox">
+                </div>
+                <div className="flexBox">
+                  <div className="form-group checkBlue">
                     <input
                       onChange={(e) => handleCheckeachItems(e)}
                       type="checkbox"
-                      className="me-2"
+                      className="me-1"
+                      id="accept Orders"
                       checked={enableText}
                       disabled={allApplicable === true}
                     />
-                    <h5 className="priceHeading pe-3">
-                      Applicable for each items.
-                    </h5>
-
-                    {applyRefund == true ? (
-                      <button className="ConfirmReturn active">Applied</button>
-                    ) : (
-                      <button
-                        className={
-                          allApplicable === false && enableText === false
-                            ? "ConfirmReturn"
-                            : "ConfirmReturn active"
-                        }
-                        onClick={(e) => handleApplyRefund(e)}
-                        disabled={
-                          allApplicable === false && enableText === false
-                        }
-                      >
-                        Apply Refund
-                      </button>
-                    )}
+                    <label for="accept Orders" className='appointSub  m-0'> Applicable for each items.</label>
                   </div>
                 </div>
+                {applyRefund == true ? (
+                  <button className="ConfirmReturn active">Applied <i class="fa-solid fa-check ms-2"></i></button>
+                ) : (
+                  <button
+                    className={
+                      allApplicable === false && enableText === false
+                        ? "ConfirmReturn"
+                        : "ConfirmReturn active"
+                    }
+                    onClick={(e) => handleApplyRefund(e)}
+                    disabled={
+                      allApplicable === false && enableText === false
+                    }
+                  >
+                    Apply Refund 
+                  </button>
+                )}
               </div>
             </div>
-            <div className="table-responsive">
+            <div className="table-responsive refundTable">
               <table id="tableProduct" className="refundproduct_table">
                 <thead>
                   <tr>
@@ -494,12 +511,12 @@ const productrefunds = () => {
                         <td className="recent_subhead text-center">
                           ${" "}
                           {!isNaN(parseFloat(inputValues[idx]?.value)) &&
-                          !isNaN(parseFloat(data?.qty))
+                            !isNaN(parseFloat(data?.qty))
                             ? (parseFloat(inputValues[idx]?.value) >
                               parseFloat(data?.price)
-                                ? parseFloat(data?.price)
-                                : parseFloat(inputValues[idx]?.value)) *
-                              parseFloat(data?.qty)
+                              ? parseFloat(data?.price)
+                              : parseFloat(inputValues[idx]?.value)) *
+                            parseFloat(data?.qty)
                             : parseFloat(data?.qty) * parseFloat(data?.price)}
                         </td>
                       </tr>

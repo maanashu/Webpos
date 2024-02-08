@@ -21,7 +21,10 @@ import {
 } from "../../../../redux/slices/customers";
 import moment from "moment-timezone";
 import { DELIVERY_MODE } from "../../../../constants/commonConstants";
-import { createFullAddress } from "../../../../utilities/globalMethods";
+import {
+  createFullAddress,
+  formattedPrice,
+} from "../../../../utilities/globalMethods";
 
 const UserProfile = () => {
   const router = useRouter();
@@ -66,10 +69,18 @@ const UserProfile = () => {
   }, [userDetails?.id, sellerUid]);
 
   const handleNavigateToTrackStatus = (item) => {
-    router.push(
-      "/customers/users/[user-id]/[order-id]",
-      `/customers/users/${userUid}/${item?.user_details?.id}`
-    );
+    router.push({
+      pathname: "/transactions/transactionList/invoice",
+
+      query: {
+        item: JSON.stringify(item),
+        order_id: item?.id,
+      },
+    });
+    // router.push(
+    //   "/customers/users/[user-id]/[order-id]",
+    //   `/customers/users/${userUid}/${item?.id}`
+    // );
   };
 
   return (
@@ -78,7 +89,13 @@ const UserProfile = () => {
         style={{ padding: "24px 24px 0px 24px" }}
         className="flex-row-space-between"
       >
-        <div style={{ gap: "12px" }} className="flex-row-space-between">
+        <div
+          style={{ gap: "12px" }}
+          className="flex-row-space-between"
+          onClick={() => {
+            router.back();
+          }}
+        >
           <Image
             style={{
               transform: "rotate(270deg)",
@@ -88,7 +105,7 @@ const UserProfile = () => {
           />
           <p className="user-profile-title">User Profile</p>
         </div>
-        <div
+        {/* <div
           style={{
             gap: "4px",
             padding: "8px 10px",
@@ -105,16 +122,20 @@ const UserProfile = () => {
             Edit Profile
           </p>
           <Image width={16} height={16} src={editProfile} />
-        </div>
+        </div> */}
       </div>
 
       <UserProfileBanner
         profilePic={
           userDetails?.profile_photo ? userDetails?.profile_photo : defaultUser
         }
-        name={`${userDetails?.firstname} ${userDetails?.lastname}`}
+        name={
+          userDetails?.firstname && userDetails?.lastname
+            ? `${userDetails?.firstname} ${userDetails?.lastname}`
+            : "Unknown"
+        }
         address={createFullAddress(userDetails)}
-        contactNo={userDetails?.phone_number || "N/A"}
+        contactNo={userDetails?.phone_number}
         email={userDetails?.email}
         points={2}
         isAcceptingMarketing={true}
@@ -143,7 +164,7 @@ const UserProfile = () => {
                 className="customers-table-data"
                 style={{ border: "none", color: "#7E8AC1" }}
               >
-                Order ID
+                Invoice ID
               </th>
               <th
                 className="customers-table-data"
@@ -197,7 +218,9 @@ const UserProfile = () => {
                   onClick={() => handleNavigateToTrackStatus(item)}
                   className="customers-table-data"
                 >
-                  {item?.id}
+                  {item?.is_returned_order
+                    ? item?.return_detail?.invoices?.invoice_number
+                    : item?.invoices?.invoice_number}
                 </td>
                 <td
                   onClick={() => handleNavigateToTrackStatus(item)}
@@ -265,7 +288,7 @@ const UserProfile = () => {
                   onClick={() => handleNavigateToTrackStatus(item)}
                   className="customers-table-data"
                 >
-                  ${item?.payable_amount}
+                  {formattedPrice(item?.payable_amount)}
                 </td>
                 <td
                   onClick={() => handleNavigateToTrackStatus(item)}

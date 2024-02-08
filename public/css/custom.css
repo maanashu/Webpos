@@ -853,11 +853,11 @@ input:checked+.switch-slider:before {
   display: none;
 }
 
-.loginScroll .loginCard:hover {
+.passwordLogin .loginCard:hover {
   box-shadow: none;
 }
 
-.loginScroll .loginCard {
+.passwordLogin .loginCard {
   padding: 0;
   margin-bottom: 16px;
 }
@@ -1260,9 +1260,25 @@ input:checked+.switch-slider:before {
 
 .bookingUsers {
   height: calc(80vh - 300px);
-  overflow-y: scroll;
+  overflow-y: scroll; 
 }
 
 .bookingUsers::-webkit-scrollbar {
   display: none;
+}
+
+.passwordLogin .verifyBox {
+  padding: 24px 32px;
+  margin-top: 30px;
+}
+
+.loginOtpSub {
+  width: 100%;
+  max-width: 375px;
+}
+.authHeaderSub{
+  padding: 0 100px;
+}
+ .accordion-button:not(.collapsed) {
+  box-shadow: none !important;
 }

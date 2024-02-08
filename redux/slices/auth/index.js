@@ -1,4 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { restAllData } from "../commonActions";
 
 const initialState = {
   usersInfo: "",
@@ -12,6 +13,12 @@ const initialState = {
 export const authSlice = createSlice({
   name: "auth",
   initialState,
+  extraReducers: (builder) => builder.addCase(restAllData, (state, action) => {
+    if(!action?.payload?.skipAuth){
+      return initialState;
+    }
+    return state;
+  }),
   reducers: {
     userMerchantLogin: (state) => {
       state.loading = true;
@@ -40,10 +47,10 @@ export const authSlice = createSlice({
     },
 
     logout: (state) => {
-      state.isLoggedIn = false;
-      state.usersInfo = "";
-      state.posUserLoginDetails = "";
-      state.loading = false;
+      // state.isLoggedIn = false;
+      // state.usersInfo = "";
+      // state.posUserLoginDetails = "";
+      // state.loading = false;
     },
 
     posUserLogout: (state) => {
@@ -69,7 +76,7 @@ export const {
   selectedPosUser,
   logout,
   posUserLogout,
-  onErrorStopLoad
+  onErrorStopLoad,
 } = authSlice.actions;
 
 export const selectLoginAuth = (state) => state.auth;

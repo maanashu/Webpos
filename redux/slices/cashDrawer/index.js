@@ -1,4 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { restAllData } from "../commonActions";
 
 const initialState = {
   sessionHistory: {},
@@ -12,6 +13,7 @@ const initialState = {
 export const cashDrawerSlice = createSlice({
   name: "cashDrawer",
   initialState,
+  extraReducers: (builder) => builder.addCase(restAllData, () => initialState),
   reducers: {
     getSessionHistory: (state) => {
       state.loading = true;

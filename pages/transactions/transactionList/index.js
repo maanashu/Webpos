@@ -111,7 +111,18 @@ const TransactionsList = () => {
   ];
 
   const handleNavigateToTrackStatus = (item) => {
-    router.push(`transactionList/invoice`);
+    router.push({
+      pathname: "/transactions/transactionList/invoice",
+
+      query: {
+        item: JSON.stringify(item),
+        order_id: item?.id,
+      },
+    });
+  };
+
+  const handleNotification = () => {
+    router.push("/transactions/notification");
   };
 
   const statusFun = (status) => {
@@ -125,7 +136,7 @@ const TransactionsList = () => {
       case 3:
         return "Ready Pickup";
       case 4:
-        return "Walkin";
+        return "Pickup";
       case 5:
         return "Delivered";
       case 6:
@@ -138,6 +149,8 @@ const TransactionsList = () => {
         return "Refunded";
     }
   };
+
+  const startIndex = (page - 1) * limit + 1;
 
   return (
     <div
@@ -163,6 +176,7 @@ const TransactionsList = () => {
         onDateChange={handleDateRangeChange}
         startDate={startDate}
         endDate={endDate}
+        notificationHandler={handleNotification}
       />
 
       <PaginationHeader
@@ -288,8 +302,7 @@ const TransactionsList = () => {
                         onClick={() => handleNavigateToTrackStatus(item)}
                         className="customers-table-data"
                       >
-                        {(idx + Number(page > 1 ? limit : 0) > 8 ? "" : "0") +
-                          (idx + 1 + Number(page > 1 ? limit : 0))}
+                        {startIndex + idx}
                       </td>
                       <td
                         onClick={() => handleNavigateToTrackStatus(item)}
