@@ -520,7 +520,7 @@ const DeliverDashboard = () => {
                         }}
                       />
                       <label for="Returned Orders" className="appointSub  m-0">
-                        Returned Orders
+                        Ready for pickup
                       </label>
                     </div>
                     <div className="form-group checkBlue checkRed">
