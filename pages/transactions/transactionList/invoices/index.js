@@ -75,7 +75,7 @@ const Invoices = () => {
                 {orderDetails?.seller_details?.phone_number}
               </h4>
             </div>
-            <div style={{ height: "25vh" }} className="confirmRightSub ">
+            <div className="confirmRightSub ">
               {orderProductData?.map((item, idx) => {
                 const quantity = orderDetails?.is_returned_order
                   ? item?.order_details?.qty

@@ -40,6 +40,7 @@ const Users = () => {
     setStartDate(start);
     setEndDate(end);
     setTimeSpan("");
+    setDate("");
   };
 
   const dispatch = useDispatch();
@@ -50,7 +51,17 @@ const Users = () => {
   const uniqueId = authData?.usersInfo?.payload?.uniqe_id;
 
   const paginatedCustomersList = customersData?.allCustomersList?.payload;
-  const sellerAreaList = customersData?.sellerAreaList?.payload?.data;
+  const sellerAreaList = customersData?.sellerAreaList?.payload;
+
+  const [date, setDate] = useState("");
+  const [selected, setSelected] = useState("none");
+
+  const areaSelector = [
+    sellerAreaList?.map((item, index) => ({
+      label: item?.state,
+      value: item?.state,
+    })),
+  ];
 
   const filterHandler = () => {
     if (startDate && endDate) {
@@ -62,9 +73,21 @@ const Users = () => {
       return {
         filter: timeSpan,
       };
+    } else if (date) {
+      return {
+        start_date: moment(date).format("YYYY-MM-DD"),
+        end_date: moment(date).format("YYYY-MM-DD"),
+      };
     }
   };
   const data = filterHandler();
+
+  const handleSpecificDateChange = (dates) => {
+    setDate(moment(dates).format("YYYY-MM-DD"));
+    setTimeSpan("");
+    setStartDate("");
+    setEndDate("");
+  };
 
   useEffect(() => {
     if (uniqueId && data) {
@@ -74,7 +97,7 @@ const Users = () => {
       };
       dispatch(getAllCustomers(params));
     }
-  }, [uniqueId, timeSpan, startDate, endDate]);
+  }, [uniqueId, timeSpan, startDate, endDate, date, selected]);
 
   useEffect(() => {
     if (uniqueId) {
@@ -86,11 +109,23 @@ const Users = () => {
         sellerID: uniqueId,
         start_date: moment(startDate).format("YYYY-MM-DD"),
         end_date: moment(endDate).format("YYYY-MM-DD"),
+        calenderDate: date,
+        area: selected?.label,
       };
       dispatch(getAllCustomersList(params));
       dispatch(getSellerAreaList({ seller_id: params.sellerID }));
     }
-  }, [uniqueId, selectedTab, timeSpan, limit, page, startDate, endDate]);
+  }, [
+    uniqueId,
+    selectedTab,
+    timeSpan,
+    limit,
+    page,
+    startDate,
+    endDate,
+    date,
+    selected,
+  ]);
 
   const TABS = [
     {
@@ -141,7 +176,10 @@ const Users = () => {
         title="Users"
         descrip={" "}
         timeSpan={timeSpan}
-        onTimeSpanSelect={setTimeSpan}
+        onTimeSpanSelect={(data) => {
+          setTimeSpan(data);
+          setDate("");
+        }}
         mainIcon={customerUsers}
         setStartDate={setStartDate}
         setEndDate={setEndDate}
@@ -157,6 +195,10 @@ const Users = () => {
         setPage={setPage}
         setLimit={setLimit}
         totalItems={paginatedCustomersList?.total}
+        onDateChange={handleSpecificDateChange}
+        date={date}
+        options={areaSelector[0]}
+        setSelected={setSelected}
       />
 
       {/*  TABS*/}
@@ -228,82 +270,113 @@ const Users = () => {
             </th>
           </tr>
         </thead>
+        {console.log("agjasgfas", customersData)}
         <tbody>
-          {paginatedCustomersList?.data?.map((item, idx) => (
-            <tr className="customers-table-row">
-              <td
-                onClick={() => handleNavigateToTrackStatus(item)}
-                className="customers-table-data"
-                style={{ textAlign: "left" }}
-              >
-                {(idx + Number(page > 1 ? limit : 0) > 8 ? "" : "0") +
-                  (idx + 1 + Number(page > 1 ? limit : 0))}
-              </td>
-              <td
-                onClick={() => handleNavigateToTrackStatus(item)}
-                className="customers-table-data"
-                style={{ display: "flex", gap: "12px", textAlign: "left" }}
-              >
-                <Image
-                  width={36}
-                  height={36}
-                  style={{
-                    borderRadius: 50,
-                  }}
-                  alt="User's profile picture"
-                  src={item?.user_details?.profile_photo || userSale}
-                />
-                <div
-                  style={{
-                    gap: "6px",
-                    display: "flex",
-                    flexDirection: "column",
-                  }}
-                >
-                  <p className="user-stats-row-name-text">
-                    {item?.user_details?.firstname || "Unknown"}{" "}
-                    {item?.user_details?.lastname}
-                  </p>
-                  <div>
-                    {item?.user_details?.current_address ? (
-                      <Image width={12} height={12} src={OrderLocation} />
-                    ) : (
-                      <></>
-                    )}
-                    <span className="user-stats-row-name-address">
-                      {item?.user_details?.current_address?.custom_address}{" "}
-                      {item?.user_details?.current_address?.city}{" "}
-                      {item?.user_details?.current_address?.state}
-                      {item?.user_details?.current_address?.state_code}{" "}
-                      {item?.user_details?.current_address?.country}{" "}
-                      {item?.user_details?.zipcode}
-                    </span>
-                  </div>
-                </div>
-              </td>
-              <td
-                onClick={() => handleNavigateToTrackStatus(item)}
-                className="customers-table-data"
-                style={{ textAlign: "left" }}
-              >
-                {item?.total_orders}
-              </td>
-              <td
-                onClick={() => handleNavigateToTrackStatus(item)}
-                className="customers-table-data"
-                style={{ textAlign: "left" }}
-              >
-                {item?.total_products}
-              </td>
-              <td
-                onClick={() => handleNavigateToTrackStatus(item)}
-                className="customers-table-data"
-                style={{ textAlign: "left" }}
-              >
-                {formattedPrice(item?.life_time_spent)}
-              </td>
-            </tr>
-          ))}
+          {customersData?.loading ? (
+            <td className="text-center" colSpan={12}>
+              Loading...
+            </td>
+          ) : (
+            <>
+              {paginatedCustomersList?.data &&
+              paginatedCustomersList?.data?.length > 0 ? (
+                <>
+                  {paginatedCustomersList?.data?.map((item, idx) => (
+                    <tr className="customers-table-row">
+                      <td
+                        onClick={() => handleNavigateToTrackStatus(item)}
+                        className="customers-table-data"
+                        style={{ textAlign: "left" }}
+                      >
+                        {(idx + Number(page > 1 ? limit : 0) > 8 ? "" : "0") +
+                          (idx + 1 + Number(page > 1 ? limit : 0))}
+                      </td>
+                      <td
+                        onClick={() => handleNavigateToTrackStatus(item)}
+                        className="customers-table-data"
+                        style={{
+                          display: "flex",
+                          gap: "12px",
+                          textAlign: "left",
+                        }}
+                      >
+                        <Image
+                          width={36}
+                          height={36}
+                          style={{
+                            borderRadius: 50,
+                          }}
+                          alt="User's profile picture"
+                          src={item?.user_details?.profile_photo || userSale}
+                        />
+                        <div
+                          style={{
+                            gap: "6px",
+                            display: "flex",
+                            flexDirection: "column",
+                          }}
+                        >
+                          <p className="user-stats-row-name-text">
+                            {item?.user_details?.firstname || "Unknown"}{" "}
+                            {item?.user_details?.lastname}
+                          </p>
+                          <div>
+                            {item?.user_details?.current_address ? (
+                              <Image
+                                width={12}
+                                height={12}
+                                src={OrderLocation}
+                              />
+                            ) : (
+                              <></>
+                            )}
+                            <span className="user-stats-row-name-address">
+                              {
+                                item?.user_details?.current_address
+                                  ?.custom_address
+                              }{" "}
+                              {item?.user_details?.current_address?.city}{" "}
+                              {item?.user_details?.current_address?.state}
+                              {
+                                item?.user_details?.current_address?.state_code
+                              }{" "}
+                              {item?.user_details?.current_address?.country}{" "}
+                              {item?.user_details?.zipcode}
+                            </span>
+                          </div>
+                        </div>
+                      </td>
+                      <td
+                        onClick={() => handleNavigateToTrackStatus(item)}
+                        className="customers-table-data"
+                        style={{ textAlign: "left" }}
+                      >
+                        {item?.total_orders}
+                      </td>
+                      <td
+                        onClick={() => handleNavigateToTrackStatus(item)}
+                        className="customers-table-data"
+                        style={{ textAlign: "left" }}
+                      >
+                        {item?.total_products}
+                      </td>
+                      <td
+                        onClick={() => handleNavigateToTrackStatus(item)}
+                        className="customers-table-data"
+                        style={{ textAlign: "left" }}
+                      >
+                        {formattedPrice(item?.life_time_spent)}
+                      </td>
+                    </tr>
+                  ))}
+                </>
+              ) : (
+                <td className="text-center" colSpan={12}>
+                  No data found
+                </td>
+              )}
+            </>
+          )}
         </tbody>
       </table>
 
