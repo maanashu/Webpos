@@ -122,8 +122,8 @@ const TransactionsList = () => {
   };
 
   const handleNotification = () => {
-    router.push("/transactions/notification")
-  }
+    router.push("/transactions/notification");
+  };
 
   const statusFun = (status) => {
     switch (status) {
@@ -149,6 +149,8 @@ const TransactionsList = () => {
         return "Refunded";
     }
   };
+
+  const startIndex = (page - 1) * limit + 1;
 
   return (
     <div
@@ -300,8 +302,7 @@ const TransactionsList = () => {
                         onClick={() => handleNavigateToTrackStatus(item)}
                         className="customers-table-data"
                       >
-                        {(idx + Number(page > 1 ? limit : 0) > 8 ? "" : "0") +
-                          (idx + 1 + Number(page > 1 ? limit : 0))}
+                        {startIndex + idx}
                       </td>
                       <td
                         onClick={() => handleNavigateToTrackStatus(item)}
