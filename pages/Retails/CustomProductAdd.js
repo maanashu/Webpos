@@ -129,7 +129,7 @@ const CustomProductAdd = ({ crosshandler }) => {
             <Image
               src={Images.plusRound}
               alt="image"
-              className="img-fluid BtnIcon"
+              className="img-fluid ms-1"
             />
           )}
         </button>
