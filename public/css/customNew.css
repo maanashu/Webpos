@@ -5397,6 +5397,7 @@ figure {
   font-weight: 400;
   line-height: normal;
 }
+
 .shadowBox {
   border-radius: 20px;
   border: 1px solid var(--Neutrals-N-100, #d7deff);
@@ -5405,6 +5406,7 @@ figure {
   flex-direction: row;
   box-shadow: "20 100px 16px 0 rgba(0, 0, 0, 0.15)";
 }
+
 .boxTopTitleTextStyle {
   color: var(--Primary-P-600-Main, #263682);
   font-family: Roobert;
@@ -5417,6 +5419,7 @@ figure {
   display: flex;
   justify-content: space-between;
 }
+
 .boxbottomTextStyle {
   margin-top: 20px;
   color: var(--Neutrals-N-600, #7e8ac1);
@@ -5426,6 +5429,7 @@ figure {
   font-weight: 400;
   line-height: normal;
 }
+
 .modalTitleStyle {
   align-items: center;
   justify-content: center;
@@ -5557,7 +5561,8 @@ figure {
   overflow-y: scroll;
   height: 50vh;
 }
-.select-language-drop{
+
+.select-language-drop {
   display: flex;
   justify-content: end;
   align-items: center;
@@ -5572,10 +5577,12 @@ figure {
   margin-left: 20px;
   margin-top: 17px;
 }
+
 .languageBox_ .goog-te-gadget-simple {
   background: transparent;
   border: none;
 }
+
 /* .headerSection {
   padding: 7px 10px 14px 16px!important;
 } */
@@ -5583,9 +5590,74 @@ figure {
 .analyticsSection::-webkit-scrollbar {
   display: none;
 }
-#AddProduct .modal-footer{
-justify-content: space-between !important;
+
+#AddProduct .modal-footer {
+  justify-content: space-between !important;
 }
+
 #AddProduct .productIncrement {
   margin: 24px 0 !important;
+}
+
+.refundButtons {
+  /* border-radius: 6px;
+  border: 1px solid #e4e6f2;
+  background: #f5f6fc;
+  text-align: center;
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 400;
+  color: #263682;
+  padding: 8px 16px; */
+}
+
+.refundPricebox .tablecustomInput {
+  background-color: #fff;
+  border: none;
+  padding: 8px;
+  text-align: start;
+  width: 100%;
+  max-width: 80px;
+}
+
+.refundPriceBtn {
+  border-radius: 8px 0px 0 8px;
+  padding: 3px 10px;
+  border: none;
+  background-color: #E4E6F2;
+  color: #263682;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.percentBtn {
+  border-radius: 0px 8px 8px 0px;
+  padding: 3px 10px;
+  border: none;
+  background-color: #E4E6F2;
+  color: #263682;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.refundPriceBtn.active {
+  background-color: #263682;
+  color: #fff;
+}
+
+.percentBtn.active {
+  background-color: #263682;
+  color: #fff;
+}
+
+.refundHeadRight {
+  gap: 12px;
+}
+
+.refundHeadRight .ConfirmReturn {
+  padding: 10px 16px;
+}
+.refundTable{
+  height: calc(58vh - 200px);
+  overflow-y: scroll;
 }
