@@ -778,7 +778,7 @@ const ServiceCart = () => {
         key={key}
         show={modalDetail.show}
         backdrop="static"
-        showCloseBtn={true}
+        showCloseBtn={false}
         isRightSideModal={false}
         mediumWidth={false}
         ids={
