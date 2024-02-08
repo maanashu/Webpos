@@ -25,7 +25,7 @@ const MapleOrder = ({
     selectedOrderIndex !== null && selectedOrderIndex !== undefined
       ? (orderList?.data && orderList?.data[selectedOrderIndex]) || null
       : (orderList?.data && orderList?.data[0]) || null;
-  console.log("miekkekeee-==--=", JSON.stringify(orderData));
+  console.log("Orders=--d=sad", JSON.stringify(orderData));
   return (
     <>
       {/* <div className='mapleOrderSection deliverySection'>
@@ -253,8 +253,8 @@ const MapleOrder = ({
             <p className="mapleProductPrice">Invoice</p>
             <p className="mapleProductHeading">
               #{" "}
-              {orderData?.status === 9
-                ? orderData?.returns?.invoices?.invoice_number
+              {orderData?.is_returned_order
+                ? orderData?.return_detail?.invoices?.invoice_number
                 : orderData?.invoices?.invoice_number ?? "-"}
             </p>
           </article>
