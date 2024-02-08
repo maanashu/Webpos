@@ -74,6 +74,7 @@ function* getDrawerSession(action) {
 
 function* getDrawerHistory(action) {
   const body = { ...action?.payload };
+  delete body.cb
   try {
     const reswithId = yield call(
       ApiClient.get,
@@ -89,6 +90,7 @@ function* getDrawerHistory(action) {
 
     if (resp.status) {
       yield put(setGetDrawerHistory(resp.data));
+      yield call(action.payload.cb, (action.res = resWithoutId));
     } else {
       throw resp;
     }

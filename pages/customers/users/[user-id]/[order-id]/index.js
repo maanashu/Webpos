@@ -7,10 +7,14 @@ import { ApiClient } from "../../../../../utilities/api";
 import { ORDER_API_URL } from "../../../../../utilities/config";
 import { useRouter } from "next/router";
 import ExpandOrderFlowBtn from "../../../../../components/commanComonets/ExpandOrderFlowBtn";
+import { selectLoginAuth } from "../../../../../redux/slices/auth";
+import { useSelector } from "react-redux";
 
 const TrackStatus = () => {
   const router = useRouter();
   const userId = router?.query?.["order-id"];
+
+  const authData = useSelector(selectLoginAuth);
 
   const [orderDetails, setOrderDetails] = useState(null);
   const [isExpanded, setIsExpanded] = useState(true);
@@ -21,10 +25,9 @@ const TrackStatus = () => {
         .then((res) => {
           setOrderDetails(res?.data?.payload);
         })
-        .catch((err) => {
-        });
+        .catch((err) => {});
   }, [userId]);
-
+  console.log("khkfshsd", orderDetails);
   return (
     <>
       <GoogleMap></GoogleMap>
@@ -35,19 +38,36 @@ const TrackStatus = () => {
           date={orderDetails?.date}
           discount={orderDetails?.discount}
           total={orderDetails?.payable_amount}
-          subtotal={orderDetails?.actual_amount}
+          subtotal={orderDetails?.total_sale_price}
           shipping={
             orderDetails?.delivery_charge || orderDetails?.shipping_charge
           }
-          posUserId={orderDetails?.pos_user_id}
-          userId={orderDetails?.user_details?.id}
-          ordersList={orderDetails?.order_details}
+          posUserId={authData?.posUserLoginDetails?.payload?.pos_number}
+          userId={
+            orderDetails?.is_returned_order
+              ? orderDetails?.return_detail?.id
+              : orderDetails?.user_details?.id
+          }
+          ordersList={
+            orderDetails?.is_returned_order
+              ? orderDetails?.return_detail?.return_details
+              : orderDetails?.order_details
+          }
           paymentMode={orderDetails?.mode_of_payment}
-          barcodeImg={orderDetails?.invoices?.barcode}
-          invoiceNumber={orderDetails?.invoices?.invoice_number}
+          barcodeImg={
+            orderDetails?.is_returned_order
+              ? orderDetails?.return_detail?.invoices?.barcode
+              : orderDetails?.invoices?.barcode
+          }
+          invoiceNumber={
+            orderDetails?.is_returned_order
+              ? orderDetails?.return_detail?.invoices?.invoice_number
+              : orderDetails?.invoices?.invoice_number
+          }
           phoneNumber={orderDetails?.seller_details?.phone_number}
           sellerName={orderDetails?.seller_details?.organization_name}
           sellerAddress={createFullAddress(orderDetails?.seller_details)}
+          orderDetails={orderDetails}
         />
       </div>
       <div

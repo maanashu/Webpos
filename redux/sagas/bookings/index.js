@@ -38,8 +38,6 @@ function* getAppointments(action) {
       ApiClient.get,
       `${ORDER_API_URL}/api/v1/appointments?${params}`
     );
-
-    // console.log("BOOKINGS----" + JSON.stringify(resp));
     if (resp.status) {
       if (!dataToSend?.search) {
         yield put(setGetAppointments(resp.data));

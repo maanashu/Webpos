@@ -271,17 +271,30 @@ const AddProduct = () => {
                       {colorArray?.[0]?.values?.map((item, index) => (
                         <div
                           key={index}
-                          onClick={() => setColorId(item?.id)}
-                          className=""
                           style={{
-                            width: colorId == item?.id ? "70px" : "30px",
-                            height: "25px",
-                            borderRadius: "35%",
-                            backgroundColor: item?.name,
-                            border: "1px solid black",
+                            width: "35px",
+                            height: "35px",
+                            borderRadius: "100%",
+                            ...(colorId == item?.id && {
+                              border: "1px solid black",
+                            }),
                             marginRight: "10px",
+                            display: "flex",
+                            justifyContent: "center",
+                            alignItems: "center",
                           }}
-                        ></div>
+                        >
+                          <div
+                            onClick={() => setColorId(item?.id)}
+                            className="border border-dark"
+                            style={{
+                              width: "25px",
+                              height: "25px",
+                              borderRadius: "100%",
+                              backgroundColor: item?.name,
+                            }}
+                          ></div>
+                        </div>
                       ))}
                     </div>
                   </article>

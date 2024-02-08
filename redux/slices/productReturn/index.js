@@ -1,4 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { restAllData } from "../commonActions";
 
 const initialState = {
   loading: false,
@@ -11,6 +12,7 @@ const initialState = {
 export const returnSlice = createSlice({
   name: "return",
   initialState,
+  extraReducers: (builder) => builder.addCase(restAllData, () => initialState),
   reducers: {
     searchInvoiceByInvoiceId: (state) => {
       state.loading = true;

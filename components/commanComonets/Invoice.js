@@ -2,6 +2,10 @@ import React from "react";
 import Image from "next/image";
 import moment from "moment-timezone";
 import { jobrFullIcon } from "../../utilities/images";
+import {
+  formattedPrice,
+  formattedReturnPrice,
+} from "../../utilities/globalMethods";
 
 const Invoice = ({
   tax,
@@ -11,7 +15,7 @@ const Invoice = ({
   subtotal,
   discount,
   shipping,
-  posUserId="",
+  posUserId = "",
   isLoading,
   sellerName,
   barcodeImg,
@@ -20,11 +24,12 @@ const Invoice = ({
   paymentMode,
   invoiceNumber,
   sellerAddress,
+  orderDetails
 }) => {
   const strUserId = userId?.toString();
 
   const hr = <div className="invoice-dotted-hr" />;
-console.log(posUserId, "pos user id");
+
   return (
     <div className="flex-row-space-between invoice-container">
       {isLoading ? (
@@ -76,32 +81,44 @@ console.log(posUserId, "pos user id");
               alignSelf: "stretch",
             }}
           >
-            {ordersList?.map((item, idx) => (
-              <li
-                key={item?.id + idx}
-                className="invoice-list-item-customer flex-row-space-between"
-              >
-                <p
-                  className="main-text-color-styles-customers"
-                  style={{
-                    fontSize: "10px",
-                    fontWeight: "400",
-                    width: "40px",
-                  }}
+            {ordersList?.map((item, idx) => {
+              const quantity = orderDetails?.is_returned_order
+                ? item?.order_details?.qty
+                : item?.qty;
+
+              const productName = orderDetails?.is_returned_order
+                ? item?.order_details?.product_name
+                : item?.product_name;
+
+              const amonut = orderDetails?.is_returned_order
+                ? item?.order_details?.actual_price
+                : item?.actual_price;
+              return (
+                <li
+                  key={item?.id + idx}
+                  className="invoice-list-item-customer flex-row-space-between"
                 >
-                  {item?.qty} X
-                </p>
-                <div>
                   <p
                     className="main-text-color-styles-customers"
                     style={{
                       fontSize: "10px",
-                      fontWeight: "600",
+                      fontWeight: "400",
+                      width: "40px",
                     }}
                   >
-                    {item?.product_name}
+                    {quantity} X
                   </p>
-                  <p
+                  <div>
+                    <p
+                      className="main-text-color-styles-customers"
+                      style={{
+                        fontSize: "10px",
+                        fontWeight: "600",
+                      }}
+                    >
+                      {productName}
+                    </p>
+                    {/* <p
                     className="main-text-color-styles-customers"
                     style={{
                       fontSize: "10px",
@@ -109,19 +126,20 @@ console.log(posUserId, "pos user id");
                     }}
                   >
                     Yellow / M
+                  </p> */}
+                  </div>
+                  <p
+                    className="main-text-color-styles-customers"
+                    style={{
+                      fontSize: "10px",
+                      fontWeight: "400",
+                    }}
+                  >
+                    {formattedPrice(amonut)}
                   </p>
-                </div>
-                <p
-                  className="main-text-color-styles-customers"
-                  style={{
-                    fontSize: "10px",
-                    fontWeight: "400",
-                  }}
-                >
-                  ${item?.actual_price}
-                </p>
-              </li>
-            ))}
+                </li>
+              );
+            })}
           </ul>
 
           {hr}
@@ -183,7 +201,7 @@ console.log(posUserId, "pos user id");
                 }}
                 className="main-text-color-styles-customers"
               >
-                {moment(date).format("ddd, DD/MM/YYYY")}
+                {moment.utc(date).format("ddd, DD/MM/YYYY")}
               </td>
               <td
                 style={{
@@ -246,18 +264,14 @@ console.log(posUserId, "pos user id");
                 }}
                 className="main-text-color-styles-customers"
               >
-                {posUserId ?`#${posUserId}` : ""}
+                {posUserId ? `${posUserId}` : ""}
                 {/* {posUserId && posUserId?.insert(0, "#") || "N/A"} */}
               </td>
               <td
                 style={{ fontSize: "10px", fontWeight: "600" }}
                 className="main-text-color-styles-customers"
               >
-                {strUserId
-                  ? "***" +
-                    strUserId[strUserId.length - 2] +
-                    strUserId[strUserId.length - 1]
-                  : "N/A"}
+                {strUserId ? strUserId : "N/A"}
               </td>
             </tr>
           </table>
@@ -270,14 +284,14 @@ console.log(posUserId, "pos user id");
             }}
           >
             {[
-              { text: "Subtotal", amount: `$${subtotal}` },
+              { text: "Subtotal", amount: `${subtotal}` },
               {
                 text: "Discount",
-                amount: `${(100 * discount) / subtotal}% ($ ${discount})`,
+                amount: `${discount}`,
               },
-              { text: "Shipping", amount: `$${shipping}` },
+              { text: "Shipping", amount: `${shipping}` },
               { text: "Tax", amount: `${tax}` },
-              { text: "Total", amount: `$${total}` },
+              { text: "Total", amount: `${total}` },
             ].map(({ text, amount }) => (
               <div
                 style={{
@@ -308,7 +322,7 @@ console.log(posUserId, "pos user id");
                   }}
                   className="main-text-color-styles-customers"
                 >
-                  {amount}
+                  {formattedPrice(amount)}
                 </p>
               </div>
             ))}
@@ -323,16 +337,8 @@ console.log(posUserId, "pos user id");
               padding: "0 24px",
             }}
           >
-            <Image
-              src={jobrFullIcon}
-              width={58.55}
-              height={16.38}
-            />
-            <Image
-              src={barcodeImg}
-              width={240}
-              height={22}
-            />
+            <Image src={jobrFullIcon} width={58.55} height={16.38} />
+            <Image src={barcodeImg} width={240} height={22} />
           </div>
         </>
       )}
