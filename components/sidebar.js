@@ -236,8 +236,8 @@ const Sidebar = (props) => {
 
                 <span className=" shipNum">
                   {parseInt(
-                    pendingOrderCountData?.delivery_count +
-                      pendingOrderCountData?.pickup_count
+                    (pendingOrderCountData?.delivery_count ?? 0) +
+                      (pendingOrderCountData?.pickup_count ?? 0)
                   )}
                 </span>
               </Link>
