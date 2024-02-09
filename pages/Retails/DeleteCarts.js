@@ -18,35 +18,31 @@ const DeleteCarts = (props) => {
     );
   };
   return (
-    <div className="py-3">
-      <h5 className="font-28 text-center">
+    <div className="deleteModal">
+      <h5 className="customerLink">
         Are you Sure you want to delete the Product?
       </h5>
 
-      <div className="row justify-content-center mt-4">
-        <div className="d-grid gap-1 col-lg-3 col-md-6">
-          {retailData?.loading ? (
-            <button className="addnotesBtn" type="button" disabled>
-              <span className="spinner-border spinner-border-sm"></span>
-            </button>
-          ) : (
-            <button
-              className="addnotesBtn"
-              type="button"
-              onClick={(e) => handleDeleteCarts(e)}
-            >
-              <span>Yes, Delete</span>
-            </button>
-          )}
-        </div>
-        <div className="d-grid gap-1 col-lg-3 col-md-6">
-          <button
-            className="primaryBtn cancelBtn m-0"
-            onClick={(e) => props.close()}
-          >
-            <span>No, Cancel</span>
+      <div className="addCustomerBtn mt-4 ">
+        {retailData?.loading ? (
+          <button className="serviceCancel" type="button" disabled>
+            <span className="spinner-border spinner-border-sm"></span>
           </button>
-        </div>
+        ) : (
+          <button
+            className="serviceCancel"
+            type="button"
+            onClick={(e) => handleDeleteCarts(e)}
+          >
+            <span>Yes, Delete</span>
+          </button>
+        )}
+        <button
+          className="nextverifyBtn"
+          onClick={(e) => props.close()}
+        >
+          <span>No, Cancel</span>
+        </button>
       </div>
     </div>
   );

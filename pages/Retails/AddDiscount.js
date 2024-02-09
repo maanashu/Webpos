@@ -85,100 +85,102 @@ const AddDiscount = (props) => {
   };
 
   return (
-    <form onSubmit={(e) => handleAddDiscount(e)}>
-      <div className="discountMain">
-        <div className="discountAmountBox">
-          <label
-            htmlFor="amount"
-            onClick={() => handleselectLabel("amount")}
-            className={
-              disCountFlag == "amount"
-                ? "customform-control selectedFlagDiscount"
-                : "customform-control customInputDiscount"
-            }
-          >
-            {" "}
-            Amount
-          </label>
+    <div className="addDiscountSection mt-3">
+      <form onSubmit={(e) => handleAddDiscount(e)}>
+        <div className="discountMain">
+          <div className="discountAmountBox">
+            <label
+              htmlFor="amount"
+              onClick={() => handleselectLabel("amount")}
+              className={
+                disCountFlag == "amount"
+                  ? "customform-control selectedFlagDiscount"
+                  : "customform-control customInputDiscount"
+              }
+            >
+              {" "}
+              Amount
+            </label>
 
-          <input
-            className="customdiscount_"
-            type="number"
-            placeholder="$0.00"
-            onChange={handleInputChange}
-            value={amount}
-            disabled={disCountFlag != "amount"}
-          />
+            <input
+              className="customdiscount_"
+              type="number"
+              placeholder="$0.00"
+              onChange={handleInputChange}
+              value={amount}
+              disabled={disCountFlag != "amount"}
+            />
+          </div>
+          <div className="discountAmountBox">
+            <label
+              htmlFor="percentage"
+              className={
+                disCountFlag == "percentage"
+                  ? "customform-control selectedFlagDiscount"
+                  : "customform-control customInputDiscount"
+              }
+              onClick={() => handleselectLabel("percentage")}
+            >
+              Percent
+            </label>
+            <input
+              className="customdiscount_"
+              type="number"
+              placeholder="0.00     % "
+              onChange={handleInputChange}
+              value={percent}
+              disabled={disCountFlag != "percentage"}
+            />
+          </div>
+          <div className="discountAmountBox">
+            <label
+              htmlFor="discountCode"
+              className={
+                disCountFlag == "code"
+                  ? "customform-control selectedFlagDiscount"
+                  : "customform-control customInputDiscount"
+              }
+              onClick={() => handleselectLabel("code")}
+            >
+              Discount Code
+            </label>
+            <input
+              className="customdiscount_"
+              type="text"
+              placeholder="CODE"
+              onChange={handleInputChange}
+              value={code}
+              disabled={disCountFlag != "code"}
+            />
+          </div>
+          <div>
+            <label className="form-label fw-500">Discount Title</label>
+            <input
+              className="customform-control discountInput_"
+              placeholder="Discount"
+              type="text"
+              value={discountTitle}
+              onChange={(e) => setDiscountTitle(e.target.value)}
+            />
+          </div>
         </div>
-        <div className="discountAmountBox">
-          <label
-            htmlFor="percentage"
-            className={
-              disCountFlag == "percentage"
-                ? "customform-control selectedFlagDiscount"
-                : "customform-control customInputDiscount"
-            }
-            onClick={() => handleselectLabel("percentage")}
-          >
-            Percent
-          </label>
-          <input
-            className="customdiscount_"
-            type="number"
-            placeholder="0.00     % "
-            onChange={handleInputChange}
-            value={percent}
-            disabled={disCountFlag != "percentage"}
-          />
-        </div>
-        <div className="discountAmountBox">
-          <label
-            htmlFor="discountCode"
-            className={
-              disCountFlag == "code"
-                ? "customform-control selectedFlagDiscount"
-                : "customform-control customInputDiscount"
-            }
-            onClick={() => handleselectLabel("code")}
-          >
-            Discount Code
-          </label>
-          <input
-            className="customdiscount_"
-            type="text"
-            placeholder="CODE"
-            onChange={handleInputChange}
-            value={code}
-            disabled={disCountFlag != "code"}
-          />
-        </div>
-        <div>
-          <label className="form-label fw-500">Discount Title</label>
-          <input
-            className="customform-control discountInput_"
-            placeholder="Discount"
-            type="text"
-            value={discountTitle}
-            onChange={(e) => setDiscountTitle(e.target.value)}
-          />
-        </div>
-      </div>
 
-      <div className="noteButton mt-3">
-        {/* <button className="addnotesBtn" type="submit">
+        <div className="noteButton mt-3">
+          {/* <button className="addnotesBtn" type="submit">
           Add Discount
         </button> */}
-        {retailData?.loading ? (
-          <button className="addnotesBtn" type="submit" disabled>
-            <span className="spinner-border spinner-border-sm"></span>
-          </button>
-        ) : (
-          <button className="addnotesBtn" type="submit">
-            Add Discount
-          </button>
-        )}
-      </div>
-    </form>
+          {retailData?.loading ? (
+            <button className="addnotesBtn" type="submit" disabled>
+              <span className="spinner-border spinner-border-sm"></span>
+            </button>
+          ) : (
+            <button className="addnotesBtn" type="submit">
+              Add Discount
+            </button>
+          )}
+        </div>
+      </form>
+    </div>
   );
 };
 export default AddDiscount;

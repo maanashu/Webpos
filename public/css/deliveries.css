@@ -131,31 +131,37 @@
   padding: 10px;
   cursor: pointer;
 }
+
 .bookiImg {
   width: 50px;
 }
+
 .customTabDays .textSmall {
   color: #263682;
   margin-right: 12px;
 }
+
 .customTabDays {
   background: #f5f6fc;
   padding: 14px 14px 14px 14px;
   border-radius: 30px;
   margin-left: 10px;
 }
+
 .tabListing.active {
   background: #263682;
   color: #fff;
   padding: 10px 24px;
   border-radius: 30px;
 }
+
 .tabListing {
   font-size: 14px;
   font-weight: 400;
   color: #263682;
   margin-right: 12px;
 }
+
 /* Booking Nav bar */
 /* RightDide Bar Booking */
 
@@ -168,6 +174,7 @@
     -4.95391px 9.82135px 80px 0px rgba(50, 80, 127, 0.04);
   height: calc(100vh - 129px);
 }
+
 .sidebarRightBooking {
   width: 71px;
   border-radius: 50px;
@@ -196,6 +203,7 @@
 .sidebarIcons {
   width: 36px;
 }
+
 /* .sideBarImg {
     width: 24px;
     height: 24px;
@@ -210,6 +218,7 @@
   background: #f5f6fc;
   padding: 9px 12px 17px 4px;
 }
+
 .bottomDots {
   position: absolute;
   border-radius: 20px;
@@ -224,6 +233,7 @@
   height: 18px;
   width: 18px;
 }
+
 .bottomdot {
   position: absolute;
   border-radius: 20px;
@@ -271,6 +281,7 @@
   margin-bottom: 0;
   border-radius: 0.25rem;
 }
+
 .userSideBar {
   border-radius: 30px;
   padding: 6px 6px;
@@ -280,6 +291,7 @@
   border: 1px solid #d7deff;
   position: relative;
 }
+
 .tabsappointment {
   margin-right: 24px;
 }
@@ -353,17 +365,21 @@
   border-spacing: 0 6px;
   padding: 0 1px;
 }
+
 #bookingTable .product_invoice {
   border-radius: 30px;
   outline: 1px solid #f5f6fc;
   background: #fff;
 }
+
 #bookingTable .product_invoice.active {
   outline: 1px solid #d7deff;
 }
+
 .bookCheck .invoice_subhead {
   width: 25%;
 }
+
 .editBtn {
   width: 40px;
   height: 40px;
@@ -374,6 +390,7 @@
   background: var(--Primary-P-50-Main, #f5f6fc);
   border: none;
 }
+
 .checkinBox {
   padding: 12px;
   border-radius: 30px;
@@ -398,12 +415,14 @@
   font-size: 12px;
   font-weight: 500;
 }
+
 .checkinBg {
   display: flex;
   align-items: center;
   text-align: center;
   justify-content: end;
 }
+
 .completed {
   width: 164px;
   padding: 12px;
@@ -411,9 +430,11 @@
   border: #263682;
   background: #12b76a;
 }
+
 .completed .textSmall {
   color: #fff;
 }
+
 .userBook .bottomdot {
   position: absolute;
   border-radius: 20px;
@@ -428,22 +449,27 @@
   height: 18px;
   width: 18px;
 }
+
 .settingImgs {
   position: fixed;
   bottom: 33px;
   right: 24px;
 }
+
 .arrowBack {
   width: 50px;
   height: 50px;
   margin-top: -16px;
 }
+
 .leftIcon {
   margin-right: 10px;
 }
+
 .rightIcon {
   margin-left: 10px;
 }
+
 /* CheckIn Modal  */
 #checkIn .modal-content {
   width: 100%;
@@ -455,24 +481,29 @@
     -31.035px 73.735px 80px 0px rgba(52, 79, 117, 0.07);
   padding: 12px;
 }
+
 .checkinDetails {
   padding: 15px 17px 17px 17px;
   margin: 20px;
   border-radius: 16px;
   border: 1px solid #d7deff;
 }
+
 #checkIn .modal-header {
   border-bottom: none;
 }
+
 .userCheckin .textSmall {
   color: #263682;
   font-weight: 600;
 }
+
 .userCheckin {
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
+
 .userService .subHeadText {
   color: #fff;
   font-size: 12px;
@@ -482,30 +513,37 @@
   border-radius: 16px;
   border: 1px solid #d7deff;
 }
+
 .serviceDate .purpleText {
   color: #263682;
 }
+
 .ServiceText .textSmall {
   color: #263682;
 }
+
 .borderDashed {
   border-bottom: dashed;
   color: #d7deff;
 }
+
 .serviceAmount {
   align-items: center;
   display: flex;
   justify-content: space-between;
 }
+
 .serviceAmount .textSmall {
   color: #263682;
 }
+
 .CustomerBtn.mt-4 {
   display: flex;
   align-items: center;
   justify-content: space-between;
   padding: 13px 29px 12px 29px;
 }
+
 .declineBtn {
   color: #263682;
   font-size: 16px;
@@ -516,6 +554,7 @@
   background: #fff;
   width: 45%;
 }
+
 .confirmbtn {
   color: #fff;
   font-size: 16px;
@@ -526,14 +565,17 @@
   background: #263682;
   width: 45%;
 }
+
 /* CheckIn Modal */
 /* Checked In Modal */
 #checkedIn .modal-header {
   border: none;
 }
+
 #checkedIn .modal-content {
   border: none;
 }
+
 /* Checked In Modal */
 /* BucketFilter */
 .countNumber {
@@ -548,36 +590,44 @@
   text-align: center;
   color: #fff;
 }
+
 .bucket_ {
   display: flex;
   justify-content: space-between;
 }
+
 .no_order_found {
   color: #172461;
 
   text-align: center;
 }
+
 .addBucket .checkinDetails {
   margin: 0;
   margin-top: 12px;
 }
+
 .addBucket .checkinDetails {
   background: #d7deff;
 }
+
 .unpaidDetails .textSmall {
   font-weight: 500;
   background: #fff;
   padding: 8px;
   border-radius: 30px;
 }
+
 .userText {
   font-size: 14px;
   color: #263682;
   font-weight: 500;
 }
+
 .addBucket .serviceDate {
   border: none;
 }
+
 /* BucketFilter */
 /** End Booking Module **/
 
@@ -588,12 +638,14 @@
   font-weight: 400;
   font-family: "Rubik";
 }
+
 .refundDetails .innerHeading {
   color: #636e9f;
   font-size: 16px;
   font-weight: 300;
   font-family: "Rubik";
 }
+
 .listitems {
   color: #636e9f;
   font-size: 16px;
@@ -609,12 +661,14 @@
   box-shadow: -2px 4px 25px 0px rgba(50, 80, 127, 0.02),
     -5px 10px 80px 0px rgba(50, 80, 127, 0.04);
 }
+
 .refundDetails .innerHeading {
   color: #636e9f;
   font-size: 16px;
   font-weight: 300;
   font-family: "Rubik";
 }
+
 .listitems {
   color: #636e9f;
   font-size: 16px;
@@ -645,7 +699,8 @@
   width: 2rem;
   height: 2rem;
   /* border-width: 0.5em; */
-  color: #263682; /* Replace with your preferred color */
+  color: #263682;
+  /* Replace with your preferred color */
 }
 
 .overlaySpinner {
@@ -654,24 +709,82 @@
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(255, 255, 255, 0.5); /* Semi-transparent background */
+  background: rgba(255, 255, 255, 0.5);
+  /* Semi-transparent background */
   display: flex;
   justify-content: center;
   align-items: center;
   z-index: 9999;
-  backdrop-filter: blur(0.2px); /* Adjust the blur amount as needed */
+  backdrop-filter: blur(0.2px);
+  /* Adjust the blur amount as needed */
 }
+
 .mapleGap {
   gap: 12px;
   width: 100%;
 }
+
 /* policies */
 
 .TransectionOuter {
   margin-top: 36px;
 }
+
 .TransectionOuter .deliveryOuter {
   height: calc(100vh - 56px);
   overflow-y: scroll;
   margin: 0 16px;
+}
+
+/*product module*/
+.fullCartLeft .cartSubInfo,
+.fullCartLeft .cartDetails {
+  min-width: 350px;
+  overflow-x: scroll;
+}
+
+.fullCartLeft .cartItemDetail,
+.fullCartLeft .cartDetails .flexTable {
+  min-width: 268px;
+}
+
+.fullCartLeft .fullCartInfo,
+.fullCartLeft .cartDetails .fullCartInfo {
+  min-width: 320px;
+}
+
+#DeleteCarts {
+  width: 100%;
+  max-width: 450px;
+}
+
+#DeleteCarts .modal-content {
+  border-radius: 30px !important;
+  background: #fff !important;
+  box-shadow: -3px 6px 7px 0px rgba(52, 79, 117, 0.03),
+    -12px 28px 25px 0px rgba(52, 79, 117, 0.04),
+    -31px 74px 80px 0px rgba(52, 79, 117, 0.07) !important;
+  padding: 24px !important;
+  border: none !important;
+}
+
+#DeleteCarts .modal-header,
+#AddDiscount .modal-header {
+  border: none;
+  justify-content: center;
+  padding: 0;
+}
+
+.deleteModal {
+  margin-top: 24px;
+}
+
+.deleteModal .serviceCancel,
+.deleteModal .nextverifyBtn {
+  font-size: 16px;
+  padding: 14px 28px;
+}
+
+#addCustomerModal .modal-content {
+  border: none;
 }
