@@ -9,6 +9,7 @@ import Image from "next/image";
 import ReactDatePicker from "react-datepicker";
 import ReactSelect from "react-select";
 import moment from "moment-timezone";
+import { months } from "../../utilities/dateUtils";
 
 const DatePickerCustomComponent = forwardRef(({ value, onClick }, ref) => (
   <p onClick={onClick} className="users-selected-date">
@@ -25,17 +26,35 @@ const PaginationHeader = ({
   totalItems,
   onDateChange,
   date,
+  data,
+  option,
   options,
   setSelected,
-  selected,
+  month,
+  setMonthSelect,
+  setStoreSelected,
+  storeLocationsData,
 }) => {
+
+  const startIndex = (page - 1) * parseInt(limit, 10) + 1;
+  const endIdx = data
+    ? Math.min(startIndex + parseInt(data?.length, 10) - 1, totalItems)
+    : 0;
+
+  const monthSelection = (value) => setMonthSelect(value);
+
   const handleChange = (selectedOption) => {
     setSelected(selectedOption);
+  };
+  const handleLocationChange = (selectedOption) => {
+    setStoreSelected(selectedOption);
   };
 
   const paginationBts = (icon, imgClass, increment, isDisabled) => (
     <div
-      className={`pagination-btn ${isDisabled ? "disable-element" : ""}`}
+      className={`pagination-btn ${
+        isDisabled || data?.length == 0 ? "disable-element" : ""
+      }`}
       onClick={() => {
         if (increment) {
           setPage(page + 1);
@@ -66,7 +85,7 @@ const PaginationHeader = ({
   return (
     <div className="users-pagination-header">
       <div className="flex-row-space-between paginateTop">
-        {options ? (
+        {option ? (
           <>
             <div style={{ gap: "16px" }} className="flex-row-space-between">
               <div className="customer-calendar-cnt">
@@ -93,6 +112,49 @@ const PaginationHeader = ({
                   ),
                 }}
                 onChange={handleChange}
+              />
+            </div>
+          </>
+        ) : (
+          <></>
+        )}
+
+        {month ? (
+          <>
+            <div style={{ gap: "16px" }} className="flex-row-space-between">
+              {/* <div className="customer-calendar-cnt"> */}
+              <ReactSelect
+                options={months}
+                placeholder="Month"
+                classNamePrefix="react-select"
+                className="react-select-container"
+                styles={{
+                  option: reactSelectCustomStyles,
+                  placeholder: reactSelectCustomStyles,
+                }}
+                components={{
+                  DropdownIndicator: () => (
+                    <Image src={arrowDown} width={24} height={24} />
+                  ),
+                }}
+                onChange={monthSelection}
+              />
+              {/* </div> */}
+              <ReactSelect
+                options={storeLocationsData}
+                placeholder="Store Location"
+                classNamePrefix="react-select"
+                className="react-select-container"
+                styles={{
+                  option: reactSelectCustomStyles,
+                  placeholder: reactSelectCustomStyles,
+                }}
+                components={{
+                  DropdownIndicator: () => (
+                    <Image src={arrowDown} width={24} height={24} />
+                  ),
+                }}
+                onChange={handleLocationChange}
               />
             </div>
           </>
@@ -143,11 +205,12 @@ const PaginationHeader = ({
             {paginationBts(arrowRightDouble, "roate-180deg", null, page <= 1)}
             {paginationBts(arrowIcon, "roate-180deg", null, page <= 1)}
             <p className="pagination-numbers">
-              1-{totalItems < Number(limit) ? totalItems : limit * page} of{" "}
-              {totalItems}
+              {endIdx > 0
+                ? `${startIndex}-${endIdx} of ${totalItems}`
+                : "0 of 0"}
             </p>
-            {paginationBts(arrowIcon, null, true, totalItems <= limit)}
-            {paginationBts(arrowRightDouble, null, true, totalItems <= limit)}
+            {paginationBts(arrowIcon, null, true, totalItems <= endIdx)}
+            {paginationBts(arrowRightDouble, null, true, totalItems <= endIdx)}
           </div>
         </div>
       </div>
