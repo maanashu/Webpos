@@ -772,7 +772,9 @@ const ProductCart = () => {
                   <div className="flexDiv mt-2">
                     <h4 className="lightOfferText fw-bold">
                       {`Discount ${
-                        cartData?.discount_flag === "percentage" ? "(%)" : ""
+                        cartData?.discount_flag === "percentage"
+                          ? "(" + cartData?.discount_value + "%)"
+                          : ""
                       } `}
                     </h4>
                     <h4 className="appointSub m-0 fw-bold">
@@ -857,7 +859,7 @@ const ProductCart = () => {
             : modalDetail.flag === "AttachCustomer"
             ? "AttachCustomer"
             : "AttachCustomer"
-        } 
+        }
         child={
           modalDetail.flag === "AddDiscount" ? (
             <AddDiscount close={() => handleOnCloseModal()} />

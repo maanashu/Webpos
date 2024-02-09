@@ -207,11 +207,11 @@ a {
   border-radius: 50%;
 }
 
-input:checked+.switch-slider {
+input:checked + .switch-slider {
   background-color: #4659b5;
 }
 
-input:checked+.switch-slider:before {
+input:checked + .switch-slider:before {
   -webkit-transform: translateX(14px);
   -ms-transform: translateX(14px);
   transform: translateX(14px);
@@ -333,8 +333,9 @@ input:checked+.switch-slider:before {
 
 .languageRight {
   border-radius: 20px;
-  background: #FFF;
-  box-shadow: -2px 4px 25px 0px rgb(50 80 127 / 2%), -5px 10px 80px 0px rgb(50 80 127 / 4%);
+  background: #fff;
+  box-shadow: -2px 4px 25px 0px rgb(50 80 127 / 2%),
+    -5px 10px 80px 0px rgb(50 80 127 / 4%);
   padding: 24px 30px;
 }
 
@@ -364,7 +365,7 @@ input:checked+.switch-slider:before {
   padding: 12px;
   display: flex;
   align-items: center;
-  border: 1px solid #D7DEFF;
+  border: 1px solid #d7deff;
   cursor: pointer;
   margin-bottom: 10px;
 }
@@ -376,8 +377,8 @@ input:checked+.switch-slider:before {
 }
 
 .activelang {
-  border: 1px solid #4659B5;
-  background: #F5F6FC;
+  border: 1px solid #4659b5;
+  background: #f5f6fc;
 }
 
 .addlanguagebox_ {
@@ -393,8 +394,9 @@ input:checked+.switch-slider:before {
 
 .addnotesMain .notesBox {
   border-radius: 16px;
-  border: 1px solid #D7DEFF;
-  box-shadow: -1.908px 3.783px 25.481px 0px rgb(50 80 127 / 2%), -4.954px 9.821px 80px 0px rgb(50 80 127 / 4%);
+  border: 1px solid #d7deff;
+  box-shadow: -1.908px 3.783px 25.481px 0px rgb(50 80 127 / 2%),
+    -4.954px 9.821px 80px 0px rgb(50 80 127 / 4%);
   background: #fdfdfe;
   font-size: 17px;
   font-weight: 500;
@@ -403,7 +405,7 @@ input:checked+.switch-slider:before {
 }
 
 .addnotesMain .notesBox::placeholder {
-  color: #9BA8E3 !important;
+  color: #9ba8e3 !important;
 }
 
 #AddNotes .modal-header {
@@ -464,8 +466,9 @@ input:checked+.switch-slider:before {
 
 .analytics_box .chartsOuter {
   border-radius: 20px;
-  background: #FFF;
-  box-shadow: -1.908px 3.783px 25.481px 0px rgb(50 80 127 / 2%), -4.954px 9.821px 80px 0px rgb(50 80 127 / 4%);
+  background: #fff;
+  box-shadow: -1.908px 3.783px 25.481px 0px rgb(50 80 127 / 2%),
+    -4.954px 9.821px 80px 0px rgb(50 80 127 / 4%);
   padding: 15px;
   height: 100%;
 }
@@ -488,7 +491,7 @@ input:checked+.switch-slider:before {
 }
 
 .rightcontainBox_ .customer-calendar-cnt i {
-  color: #8D99D2;
+  color: #8d99d2;
   font-size: 13px;
 }
 
@@ -501,8 +504,8 @@ input:checked+.switch-slider:before {
 
 .deliveredStatus {
   border-radius: 20px;
-  background: #F5EDFF;
-  color: #7233C2;
+  background: #f5edff;
+  color: #7233c2;
   font-size: 12px;
   font-weight: 500;
   padding: 5px 12px;
@@ -513,45 +516,45 @@ input:checked+.switch-slider:before {
   display: inline-block;
   width: 7px;
   height: 7px;
-  background: #B985FD;
+  background: #b985fd;
   border-radius: 10px;
   margin-right: 5px;
 }
 
 .returnstatus {
-  background: #FFF7D7 !important;
-  color: #DC6803;
+  background: #fff7d7 !important;
+  color: #dc6803;
 }
 
 .returnstatus .statusDot_ {
-  background: #FDB022 !important;
+  background: #fdb022 !important;
 }
 
 .cancelstatus {
-  background: #FEF3F2;
-  color: #D92D20;
+  background: #fef3f2;
+  color: #d92d20;
 }
 
 .cancelstatus .statusDot_ {
-  background: #F97066 !important;
+  background: #f97066 !important;
 }
 
 .posorder_ {
-  background: #F5F6FC;
+  background: #f5f6fc;
   color: #263682;
 }
 
 .posorder_ .statusDot_ {
-  background: #B6C2FF !important;
+  background: #b6c2ff !important;
 }
 
 .onlineorder {
-  background: #EFFBFF;
-  color: #308CAD;
+  background: #effbff;
+  color: #308cad;
 }
 
 .onlineorder .statusDot_ {
-  background: #58C2E8 !important;
+  background: #58c2e8 !important;
 }
 
 .bgtransparent_ {
@@ -587,12 +590,12 @@ input:checked+.switch-slider:before {
 }
 
 .mainanalyticsside_ .deliverPercent {
-  background: #D1FADF !important;
+  background: #d1fadf !important;
   color: #027547 !important;
 }
 
 .mainanalyticsside_ .deliverPercent::before {
-  background-color: #32D583 !important;
+  background-color: #32d583 !important;
 }
 
 .mainanalyticsside_ .loginSub {
@@ -602,7 +605,7 @@ input:checked+.switch-slider:before {
 .secondaryOuterbtn_ {
   border-radius: 30px;
   border: 0px solid #263682;
-  background: #F5F6FC;
+  background: #f5f6fc;
   color: #263682;
   font-size: 14px;
   font-weight: 400;
@@ -612,11 +615,11 @@ input:checked+.switch-slider:before {
 }
 
 .sku {
-  color: var(--Neutrals-N-800, #636E9F);
+  color: var(--Neutrals-N-800, #636e9f);
   font-size: 12px;
   font-style: normal;
   font-weight: 400;
-  line-height: normal
+  line-height: normal;
 }
 
 .twofaBox_ {
@@ -662,7 +665,9 @@ input:checked+.switch-slider:before {
   background: #fff !important;
   padding: 20px 0px !important;
   border: none !important;
-  box-shadow: 4px -3px 6.519px 0px rgb(52 79 117 / 3%), -11.954px 28.402px 25.481px 0px rgb(52 79 117 / 4%), -9px -5px 80px 5px rgb(52 79 117 / 7%);
+  box-shadow: 4px -3px 6.519px 0px rgb(52 79 117 / 3%),
+    -11.954px 28.402px 25.481px 0px rgb(52 79 117 / 4%),
+    -9px -5px 80px 5px rgb(52 79 117 / 7%);
 }
 
 #ActivateSecurity .modal-header,
@@ -697,11 +702,11 @@ input:checked+.switch-slider:before {
 }
 
 .applinktext {
-  color: #47B0D6 !important;
+  color: #47b0d6 !important;
 }
 
 .smallblueHeading_ {
-  color: #4659B5;
+  color: #4659b5;
   text-align: center;
   font-size: 16px;
   font-weight: 500;
@@ -770,10 +775,10 @@ input:checked+.switch-slider:before {
 
 .checkGreen label:before {
   border: 1px solid #039855 !important;
-  background-color: #D1FADF !important;
+  background-color: #d1fadf !important;
 }
 
-.checkGreen input:checked+label:after {
+.checkGreen input:checked + label:after {
   border: solid #027547 !important;
   border-width: 0 2px 2px 0 !important;
 }
@@ -783,17 +788,17 @@ input:checked+.switch-slider:before {
 }
 
 .checkSky label:before {
-  border: 1px solid #47B0D6 !important;
-  background-color: #EFFBFF !important;
+  border: 1px solid #47b0d6 !important;
+  background-color: #effbff !important;
 }
 
-.checkSky input:checked+label:after {
-  border: solid #47B0D6 !important;
+.checkSky input:checked + label:after {
+  border: solid #47b0d6 !important;
   border-width: 0 2px 2px 0 !important;
 }
 
 .checkSky .appointSub {
-  color: #47B0D6;
+  color: #47b0d6;
 }
 
 .paginateTop {
@@ -806,8 +811,9 @@ input:checked+.switch-slider:before {
 /*notification css start*/
 .notifySection {
   border-radius: 20px;
-  background: #FFF;
-  box-shadow: -2px 4px 25px 0px rgba(50, 80, 127, 0.02), -5px 10px 80px 0px rgba(50, 80, 127, 0.04);
+  background: #fff;
+  box-shadow: -2px 4px 25px 0px rgba(50, 80, 127, 0.02),
+    -5px 10px 80px 0px rgba(50, 80, 127, 0.04);
   margin: 16px;
   height: calc(100vh - 50px);
   overflow-y: scroll;
@@ -997,7 +1003,6 @@ input:checked+.switch-slider:before {
   overflow: hidden;
   width: 100%;
   max-width: 15ch;
-
 }
 
 .productCartPrice {
@@ -1048,7 +1053,7 @@ input:checked+.switch-slider:before {
 
 .stockImageBox {
   border-radius: 10px;
-  border: 1px solid #D7DEFF;
+  border: 1px solid #d7deff;
   padding: 8px;
   display: inline-block;
   min-width: 60px;
@@ -1057,7 +1062,7 @@ input:checked+.switch-slider:before {
 
 .stockColor {
   border-radius: 10px;
-  border: 1px solid #D7DEFF;
+  border: 1px solid #d7deff;
   padding: 8px;
   display: flex;
   align-items: start;
@@ -1260,7 +1265,7 @@ input:checked+.switch-slider:before {
 
 .bookingUsers {
   height: calc(80vh - 300px);
-  overflow-y: scroll; 
+  overflow-y: scroll;
 }
 
 .bookingUsers::-webkit-scrollbar {
@@ -1276,15 +1281,21 @@ input:checked+.switch-slider:before {
   width: 100%;
   max-width: 375px;
 }
-.authHeaderSub{
+.authHeaderSub {
   padding: 0 100px;
 }
- .accordion-button:not(.collapsed) {
+.accordion-button:not(.collapsed) {
   box-shadow: none !important;
 }
 .staffProfileSub .appointMain {
   margin-bottom: 10px;
 }
 .settingOuter {
-  height: calc(100vh - 33px)!important;
+  height: calc(100vh - 33px) !important;
+}
+.description-container {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
+  overflow: hidden;
 }
