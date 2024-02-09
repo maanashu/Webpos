@@ -228,13 +228,16 @@ const CustomServiceAdd = ({ crosshandler }) => {
             >
               {monthDays?.map((item, index) => (
                 <div
-                  className="serviceDate mx-3"
-                  style={{
-                    backgroundColor:
-                      item?.completeDate === selectedDate
-                        ? "#12B76A"
-                        : "transparent",
-                  }}
+                  // className="serviceDate mx-3"
+                  className={`serviceDate mx-3 ${
+                    item.completeDate === selectedDate ? "active" : ""
+                  }`}
+                  // style={{
+                  //   backgroundColor:
+                  //     item?.completeDate === selectedDate
+                  //       ? "#12B76A"
+                  //       : "transparent",
+                  // }}
                   onClick={() => {
                     setselectedDate(item?.completeDate);
                     //Clear previous day selected time slot values
@@ -245,7 +248,8 @@ const CustomServiceAdd = ({ crosshandler }) => {
                   <h4 className="productName"> {item?.day}</h4>
                   <h4 className="dateText">
                     {" "}
-                    {item?.completeDate === moment(new Date()).format("YYYY-MM-DD")
+                    {item?.completeDate ===
+                    moment(new Date()).format("YYYY-MM-DD")
                       ? "Today"
                       : item?.date}
                   </h4>
@@ -275,15 +279,15 @@ const CustomServiceAdd = ({ crosshandler }) => {
                           setselectedTimeSlotIndex(index);
                           setSelectedTimeSlotData(item);
                         }}
-                      // style={{
-                      //   backgroundColor:
-                      //     selectedTimeSlotIndex == index
-                      //       ? " #D1FADF"
-                      //       : "transparent",
-                      //   borderColor:
-                      //     selectedTimeSlotIndex == index ? "#027547" : "#D7DEFF",
-                      //   borderWidth: "1px",
-                      // }}
+                        // style={{
+                        //   backgroundColor:
+                        //     selectedTimeSlotIndex == index
+                        //       ? " #D1FADF"
+                        //       : "transparent",
+                        //   borderColor:
+                        //     selectedTimeSlotIndex == index ? "#027547" : "#D7DEFF",
+                        //   borderWidth: "1px",
+                        // }}
                       >
                         <div
                           className={

@@ -21,7 +21,7 @@ import {
 import { selectLoginAuth } from "../../../redux/slices/auth";
 import { useRouter } from "next/router";
 import moment from "moment-timezone";
-import { formattedPrice } from "../../../utilities/globalMethods";
+import { amountFormat, formattedPrice } from "../../../utilities/globalMethods";
 
 const Users = () => {
   const { query } = useRouter();
@@ -55,9 +55,12 @@ const Users = () => {
 
   const [date, setDate] = useState("");
   const [selected, setSelected] = useState("none");
+  const [customersList, setCustomersList] = useState([]);
+  const startIndex = (page - 1) * limit + 1;
 
   const areaSelector = [
-    sellerAreaList?.map((item, index) => ({
+    { label: "None", value: "none" },
+    ...sellerAreaList?.map((item, index) => ({
       label: item?.state,
       value: item?.state,
     })),
@@ -97,7 +100,7 @@ const Users = () => {
       };
       dispatch(getAllCustomers(params));
     }
-  }, [uniqueId, timeSpan, startDate, endDate, date, selected]);
+  }, [uniqueId, timeSpan, startDate, endDate, date]);
 
   useEffect(() => {
     if (uniqueId) {
@@ -110,9 +113,21 @@ const Users = () => {
         start_date: moment(startDate).format("YYYY-MM-DD"),
         end_date: moment(endDate).format("YYYY-MM-DD"),
         calenderDate: date,
-        area: selected?.label,
+        area: selected?.value,
       };
-      dispatch(getAllCustomersList(params));
+      dispatch(
+        getAllCustomersList({
+          ...params,
+          cb(res) {
+            if (res.statusCode == 200) {
+              setCustomersList(res?.data?.payload?.data);
+            } else {
+              setCustomersList([]);
+            }
+          },
+        })
+      );
+      // dispatch(getAllCustomersList(params));
       dispatch(getSellerAreaList({ seller_id: params.sellerID }));
     }
   }, [
@@ -196,8 +211,10 @@ const Users = () => {
         setLimit={setLimit}
         totalItems={paginatedCustomersList?.total}
         onDateChange={handleSpecificDateChange}
+        data={customersList}
         date={date}
-        options={areaSelector[0]}
+        option
+        options={areaSelector}
         setSelected={setSelected}
       />
 
@@ -270,7 +287,7 @@ const Users = () => {
             </th>
           </tr>
         </thead>
-        {console.log("agjasgfas", customersData)}
+
         <tbody>
           {customersData?.loading ? (
             <td className="text-center" colSpan={12}>
@@ -278,18 +295,20 @@ const Users = () => {
             </td>
           ) : (
             <>
-              {paginatedCustomersList?.data &&
-              paginatedCustomersList?.data?.length > 0 ? (
+              {customersList?.length == 0 ? (
+                <td className="text-center" colSpan={12}>
+                  No data found
+                </td>
+              ) : (
                 <>
-                  {paginatedCustomersList?.data?.map((item, idx) => (
+                  {customersList?.map((item, idx) => (
                     <tr className="customers-table-row">
                       <td
                         onClick={() => handleNavigateToTrackStatus(item)}
                         className="customers-table-data"
                         style={{ textAlign: "left" }}
                       >
-                        {(idx + Number(page > 1 ? limit : 0) > 8 ? "" : "0") +
-                          (idx + 1 + Number(page > 1 ? limit : 0))}
+                        {startIndex + idx}
                       </td>
                       <td
                         onClick={() => handleNavigateToTrackStatus(item)}
@@ -365,15 +384,19 @@ const Users = () => {
                         className="customers-table-data"
                         style={{ textAlign: "left" }}
                       >
-                        {formattedPrice(item?.life_time_spent)}
+                        {item?.life_time_spent
+                          ? item?.life_time_spent < 0
+                            ? "-$" +
+                              amountFormat(
+                                Math.abs(item?.life_time_spent),
+                                "notSign"
+                              )
+                            : amountFormat(item?.life_time_spent)
+                          : "$0"}
                       </td>
                     </tr>
                   ))}
                 </>
-              ) : (
-                <td className="text-center" colSpan={12}>
-                  No data found
-                </td>
               )}
             </>
           )}

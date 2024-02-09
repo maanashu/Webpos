@@ -580,8 +580,9 @@ input:checked + .switch-slider:before {
   min-width: calc(100% - 107px) !important;
   margin-right: 95px !important;
   position: relative;
-  height: calc(100vh - 84px);
-  overflow-y: scroll;
+  /* height: calc(100vh - 84px); */
+  /* overflow-y: scroll; */
+  padding-bottom: 0!important;
 }
 
 .analyticsSection .deliverRightBar {
@@ -648,7 +649,7 @@ input:checked + .switch-slider:before {
 }
 
 .fullheightBox_ {
-  height: calc(100vh - 85px);
+  height: calc(100vh - 34px);
   min-height: 100% !important;
   overflow-y: auto;
 }
@@ -744,7 +745,7 @@ input:checked + .switch-slider:before {
 /*analytic css end*/
 /*customer css start*/
 .customerHeader {
-  margin: 24px;
+  margin: 20px 20px 24px;
 }
 
 .custmrInnrLeft {
@@ -1291,8 +1292,20 @@ input:checked + .switch-slider:before {
   margin-bottom: 10px;
 }
 .settingOuter {
-  height: calc(100vh - 33px) !important;
+  height: calc(100vh - 33px)!important;
 }
+.transBox_ .graphContainer {
+  padding: 0 15px;
+}
+.productserviceName {
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  margin: 7px 0;
+  padding: 0!important;
+}
+
 .description-container {
   display: -webkit-box;
   -webkit-box-orient: vertical;
