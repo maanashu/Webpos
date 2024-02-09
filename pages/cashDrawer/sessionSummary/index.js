@@ -67,20 +67,13 @@ const SessionSummary = () => {
   }
 
   useEffect(() => {
-    // console.log(drawerData?.drawerSession?.amount_to_remove);
-    // if(drawerData?.drawerSession?.amount_to_remove != undefined){
-      dispatch(
-        getSessionSummary({
-          cb(res) {
-            setSessionSummary(res?.data?.payload);
-          }
-        })
-      );
-    // }
-    // else{
-    //   router.push("/cashDrawer");
-    // }
-      
+    dispatch(
+      getSessionSummary({
+        cb(res) {
+          setSessionSummary(res?.data?.payload);
+        }
+      })
+    );
   }, []);
 
   return (

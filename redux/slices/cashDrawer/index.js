@@ -4,8 +4,6 @@ import { restAllData } from "../commonActions";
 const initialState = {
   sessionHistory: {},
   drawerSession: {},
-  drawerHistory: {},
-  trackSession: {},
   expectedCashByDrawerId: {},
   loading: false,
 };
@@ -29,19 +27,8 @@ export const cashDrawerSlice = createSlice({
       state.loading = false;
       state.drawerSession = action?.payload;
     },
-    getDrawerHistory: (state) => {
+    updateDrawerSession: (state) => {
       state.loading = true;
-    },
-    setGetDrawerHistory: (state, action) => {
-      state.loading = false;
-      state.drawerHistory = action?.payload;
-    },
-    trackSessionSave: (state) => {
-      state.loading = true;
-    },
-    setTrackSessionSave: (state, action) => {
-      state.loading = false;
-      state.trackSession = action?.payload;
     },
     getExpectedCashByDrawerId: (state, action) => {
       state.loading = true;
@@ -66,10 +53,7 @@ export const {
   setSessionHistory,
   getDrawerSession,
   setGetDrawerSession,
-  getDrawerHistory,
-  setGetDrawerHistory,
-  trackSessionSave,
-  setTrackSessionSave,
+  updateDrawerSession,
   getExpectedCashByDrawerId,
   setExpectedCashByDrawerId,
   sendPaymentHistory

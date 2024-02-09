@@ -5,10 +5,8 @@ import { all, call, put, takeLatest } from "redux-saga/effects";
 import {
   onErrorStopLoad,
   setExpectedCashByDrawerId,
-  setGetDrawerHistory,
   setGetDrawerSession,
-  setSessionHistory,
-  setTrackSessionSave,
+  setSessionHistory
 } from "../../slices/cashDrawer";
 
 const USER_API_URL_V1 = AUTH_API_URL + "/api/v1/";
@@ -80,13 +78,17 @@ function* sendPaymentHistory(action) {
 
 function* getSessionSummary(action) {
   try {
+    const body = { ...action?.payload };
+    delete body.cb
+    const stringifiedQueryParams = new URLSearchParams(body).toString();
+
     const resp = yield call(
       ApiClient.get,
-      `${USER_API_URL_V1}drawer_management/payment/history`
+      `${USER_API_URL_V1}drawer_management/payment/history?${stringifiedQueryParams}`
     );
     
     if (resp) {
-      // yield put(setSessionHistory(resp.data));
+      yield put(setSessionHistory(resp.data));
       yield call(action.payload.cb, (action.res = resp));
     } else {
       throw resp;
@@ -107,7 +109,7 @@ function* getDrawerSession(action) {
     );
     if (resp.status) {
       // yield put(setGetDrawerSession(resp.data));
-      yield put(setGetDrawerSession({...resp.data, payload: {...resp.data.payload, cash_balance: Number(resp.data.payload.opening_balance)}}));
+      yield put(setGetDrawerSession(resp.data));
       yield call(action.payload.cb, (action.res = resp));
       // yield call(action.payload.cb, (action.res = resp));
       // toast.success(resp?.data?.msg);
@@ -120,41 +122,7 @@ function* getDrawerSession(action) {
   }
 }
 
-function* getDrawerHistory(action) {
-  const body = { ...action?.payload };
-  delete body.cb
-  const stringifiedQueryParams = new URLSearchParams(body).toString();
-  // const drawerId = {
-  //   drawer_id: drawerSessionDetail?.id,
-  // };
-
-  console.log(body,"bodyyyyyyyyyyyyyyyyy")
-  try {
-    const resp = yield call(
-      ApiClient.get,
-      body?.drawer_id ?`${USER_API_URL_V1}drawer_management/payment/history?drawer_id=${body?.drawer_id}`: `${USER_API_URL_V1}drawer_management/payment/history`
-    );
-
-    // const resWithoutId = yield call(
-    //   ApiClient.get,
-    //   `${USER_API_URL_V1}drawer_management/payment/history`
-    // );
-
-    // const resp = body ? reswithId : resWithoutId;
-
-    if (resp.status) {
-      yield put(setGetDrawerHistory(resp.data));
-      yield call(action.payload.cb, (action.res = resp));
-    } else {
-      throw resp;
-    }
-  } catch (e) {
-    yield put(onErrorStopLoad());
-    toast.error(e?.error?.response?.data?.msg);
-  }
-}
-
-function* trackSessionSave(action) {
+function* updateDrawerSession(action) {
   const body = { ...action?.payload };
   delete body?.cb
   try {
@@ -164,7 +132,6 @@ function* trackSessionSave(action) {
       body
     );
     if (resp.status) {
-      yield put(setTrackSessionSave(resp.data));
       yield call(action.payload.cb, (action.res = resp));
     } else {
       throw resp;
@@ -197,8 +164,7 @@ function* getExpectedCashByDrawerId(action) {
 function* cashDrawerSaga() {
   yield all([takeLatest("cashDrawer/getSessionHistory", getSessionHistory)]);
   yield all([takeLatest("cashDrawer/getDrawerSession", getDrawerSession)]);
-  yield all([takeLatest("cashDrawer/getDrawerHistory", getDrawerHistory)]);
-  yield all([takeLatest("cashDrawer/trackSessionSave", trackSessionSave)]);
+  yield all([takeLatest("cashDrawer/updateDrawerSession", updateDrawerSession)]);
   yield all([takeLatest("cashDrawer/getSessionSummary", getSessionSummary)]);
   yield all([takeLatest("cashDrawer/sendPaymentHistory", sendPaymentHistory)]);
   yield all([
