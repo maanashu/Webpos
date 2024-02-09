@@ -21,7 +21,7 @@ import {
 import { selectLoginAuth } from "../../../redux/slices/auth";
 import { useRouter } from "next/router";
 import moment from "moment-timezone";
-import { formattedPrice } from "../../../utilities/globalMethods";
+import { amountFormat, formattedPrice } from "../../../utilities/globalMethods";
 
 const Users = () => {
   const { query } = useRouter();
@@ -55,6 +55,7 @@ const Users = () => {
 
   const [date, setDate] = useState("");
   const [selected, setSelected] = useState("none");
+  const startIndex = (page - 1) * limit + 1;
 
   const areaSelector = [
     sellerAreaList?.map((item, index) => ({
@@ -97,7 +98,7 @@ const Users = () => {
       };
       dispatch(getAllCustomers(params));
     }
-  }, [uniqueId, timeSpan, startDate, endDate, date, selected]);
+  }, [uniqueId, timeSpan, startDate, endDate, date]);
 
   useEffect(() => {
     if (uniqueId) {
@@ -278,8 +279,11 @@ const Users = () => {
             </td>
           ) : (
             <>
-              {paginatedCustomersList?.data &&
-              paginatedCustomersList?.data?.length > 0 ? (
+              {customersData?.allCustomersList == "" ? (
+                <td className="text-center" colSpan={12}>
+                  No data found
+                </td>
+              ) : (
                 <>
                   {paginatedCustomersList?.data?.map((item, idx) => (
                     <tr className="customers-table-row">
@@ -288,8 +292,7 @@ const Users = () => {
                         className="customers-table-data"
                         style={{ textAlign: "left" }}
                       >
-                        {(idx + Number(page > 1 ? limit : 0) > 8 ? "" : "0") +
-                          (idx + 1 + Number(page > 1 ? limit : 0))}
+                        {startIndex + idx}
                       </td>
                       <td
                         onClick={() => handleNavigateToTrackStatus(item)}
@@ -365,15 +368,19 @@ const Users = () => {
                         className="customers-table-data"
                         style={{ textAlign: "left" }}
                       >
-                        {formattedPrice(item?.life_time_spent)}
+                        {item?.life_time_spent
+                          ? item?.life_time_spent < 0
+                            ? "-$" +
+                              amountFormat(
+                                Math.abs(item?.life_time_spent),
+                                "notSign"
+                              )
+                            : amountFormat(item?.life_time_spent)
+                          : "$0"}
                       </td>
                     </tr>
                   ))}
                 </>
-              ) : (
-                <td className="text-center" colSpan={12}>
-                  No data found
-                </td>
               )}
             </>
           )}

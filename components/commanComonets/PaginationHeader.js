@@ -27,11 +27,12 @@ const PaginationHeader = ({
   date,
   options,
   setSelected,
-  selected,
 }) => {
   const handleChange = (selectedOption) => {
     setSelected(selectedOption);
   };
+  const startIndex = (page - 1) * parseInt(limit, 10) + 1;
+  const endIdx = Math.min(startIndex + parseInt(limit, 10) - 1, totalItems);
 
   const paginationBts = (icon, imgClass, increment, isDisabled) => (
     <div
@@ -143,11 +144,10 @@ const PaginationHeader = ({
             {paginationBts(arrowRightDouble, "roate-180deg", null, page <= 1)}
             {paginationBts(arrowIcon, "roate-180deg", null, page <= 1)}
             <p className="pagination-numbers">
-              1-{totalItems < Number(limit) ? totalItems : limit * page} of{" "}
-              {totalItems}
+              {startIndex}-{endIdx} of {totalItems}
             </p>
-            {paginationBts(arrowIcon, null, true, totalItems <= limit)}
-            {paginationBts(arrowRightDouble, null, true, totalItems <= limit)}
+            {paginationBts(arrowIcon, null, true, totalItems <= endIdx)}
+            {paginationBts(arrowRightDouble, null, true, totalItems <= endIdx)}
           </div>
         </div>
       </div>
