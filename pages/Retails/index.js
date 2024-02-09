@@ -502,14 +502,21 @@ const Retails = () => {
                             <article className="productDetails">
                               <p className="productName">{services?.name}</p>
                               <p className="productserviceName">
-                                <div
+                                {/* <div
                                   dangerouslySetInnerHTML={{
                                     __html: services?.description?.slice(
                                       0,
                                       200
                                     ),
                                   }}
-                                />
+                                /> */}
+                                <div className="description-container">
+                                  <div
+                                    dangerouslySetInnerHTML={{
+                                      __html: services?.description,
+                                    }}
+                                  />
+                                </div>
                               </p>
 
                               {services?.supplies?.[0]?.supply_prices?.[0]

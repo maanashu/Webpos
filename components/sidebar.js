@@ -234,9 +234,10 @@ const Sidebar = (props) => {
                 <span className="sidebarTxt">Delivery Orders</span>
 
                 <span className=" shipNum">
-                  {pendingOrderCountData?.delivery_count
-                    ? pendingOrderCountData?.delivery_count
-                    : 0}
+                  {parseInt(
+                    pendingOrderCountData?.delivery_count +
+                      pendingOrderCountData?.pickup_count
+                  )}
                 </span>
               </Link>
             </ListGroupItem>
