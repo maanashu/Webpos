@@ -15,6 +15,7 @@ import { useRouter } from "next/router";
 import { useDispatch, useSelector } from "react-redux";
 import { selectLoginAuth } from "../../../../redux/slices/auth";
 import {
+  getStoreLocation,
   getUserDetailsAndOrders,
   getUserMarketingStatus,
   selectCustomersData,
@@ -37,6 +38,7 @@ const UserProfile = () => {
 
   const [page, setPage] = useState(1);
   const [limit, setLimit] = useState("10");
+  const [orderData, setOrderData] = useState([]);
 
   const sellerUid = authData?.usersInfo?.payload?.uniqe_id;
 
@@ -44,6 +46,18 @@ const UserProfile = () => {
     customersData?.userDetailsAndOrder?.payload?.data?.[0]?.user_details;
 
   const userOrderList = customersData?.userDetailsAndOrder?.payload;
+  const storeLocationList = customersData?.storeLocation?.payload?.data;
+
+  const [monthSelect, setMonthSelect] = useState("none");
+  const [storeSelected, setStoreSelected] = useState("none");
+
+  const storeLocationSelector = [
+    { label: "None", value: "none" },
+    ...storeLocationList?.map((item, index) => ({
+      label: item?.city,
+      value: item?.city,
+    })),
+  ];
 
   useEffect(() => {
     if (sellerUid && userUid) {
@@ -52,10 +66,25 @@ const UserProfile = () => {
         user_uid: userUid,
         limit: Number(limit),
         seller_id: sellerUid,
+        month: monthSelect?.value,
+        store_location: storeSelected?.value,
       };
-      dispatch(getUserDetailsAndOrders(params));
+      dispatch(
+        getUserDetailsAndOrders({
+          ...params,
+          cb(res) {
+            if (res.statusCode == 200) {
+              setOrderData(res?.data?.payload?.data);
+            } else {
+              setOrderData([]);
+            }
+          },
+        })
+      );
+      // dispatch(getUserDetailsAndOrders(params));
+      dispatch(getStoreLocation({ seller_id: params.seller_id }));
     }
-  }, [sellerUid, userUid, page, limit]);
+  }, [sellerUid, userUid, page, limit, monthSelect, storeSelected]);
 
   useEffect(() => {
     if (userDetails?.id) {
@@ -148,6 +177,11 @@ const UserProfile = () => {
         setPage={setPage}
         setLimit={setLimit}
         totalItems={userOrderList?.total}
+        data={orderData}
+        month
+        storeLocationsData={storeLocationSelector}
+        setMonthSelect={setMonthSelect}
+        setStoreSelected={setStoreSelected}
       />
 
       <div style={{ margin: "16px" }}>
@@ -205,119 +239,143 @@ const UserProfile = () => {
             </tr>
           </thead>
           <tbody>
-            {userOrderList?.data?.map((item, idx) => (
-              <tr className="customers-table-row">
-                <td
-                  onClick={() => handleNavigateToTrackStatus(item)}
-                  className="customers-table-data"
-                >
-                  {(idx + Number(page > 1 ? limit : 0) > 8 ? "" : "0") +
-                    (idx + 1 + Number(page > 1 ? limit : 0))}
-                </td>
-                <td
-                  onClick={() => handleNavigateToTrackStatus(item)}
-                  className="customers-table-data"
-                >
-                  {item?.is_returned_order
-                    ? item?.return_detail?.invoices?.invoice_number
-                    : item?.invoices?.invoice_number}
-                </td>
-                <td
-                  onClick={() => handleNavigateToTrackStatus(item)}
-                  className="customers-table-data"
-                >
-                  {moment(item?.created_at).format("l")}
-                </td>
-                <td
-                  onClick={() => handleNavigateToTrackStatus(item)}
-                  className="customers-table-data"
-                >
-                  {item?.seller_details?.current_address?.city}
-                </td>
-                <td
-                  onClick={() => handleNavigateToTrackStatus(item)}
-                  className="customers-table-data"
-                  style={{ display: "flex", gap: "12px", alignItems: "center" }}
-                >
-                  <Image
-                    width={36}
-                    height={36}
-                    style={{
-                      borderRadius: 50,
-                    }}
-                    src={
-                      item?.delivery_option == 4 &&
-                      item?.shipping_details?.image
-                        ? item?.shipping_details?.image
-                        : (item?.delivery_option == 3 ||
-                            item?.delivery_option == 2) &&
-                          item?.pos_user_details?.profile_photo
-                        ? item?.pos_user_details?.profile_photo
-                        : item?.delivery_option == 1 &&
-                          item?.driver_details?.profile_photo
-                        ? item?.driver_details?.profile_photo
-                        : defaultUser
-                    }
-                  />
-                  <div
-                    style={{
-                      gap: "4px",
-                      display: "flex",
-                      flexDirection: "column",
-                      // alignItems: "flex-start",
-                    }}
-                  >
-                    <p className="user-stats-row-name-text">
-                      {item?.delivery_option == 4
-                        ? item?.shipping_details?.title
-                        : item?.delivery_option == 3 ||
-                          item?.delivery_option == 2
-                        ? item?.pos_user_details?.firstname
-                        : item?.driver_details?.firstname}
-                    </p>
-                    {/* <p className="user-stats-row-responsible-tag">Shipping</p> */}
-                  </div>
-                </td>
-                <td
-                  onClick={() => handleNavigateToTrackStatus(item)}
-                  className="customers-table-data"
-                >
-                  {item?.total_items}
-                </td>
-                <td
-                  onClick={() => handleNavigateToTrackStatus(item)}
-                  className="customers-table-data"
-                >
-                  {formattedPrice(item?.payable_amount)}
-                </td>
-                <td
-                  onClick={() => handleNavigateToTrackStatus(item)}
-                  className="customers-table-data"
-                >
-                  <div
-                    style={{
-                      display: "inline-block",
-                      padding: "5px 10px",
-                      borderRadius: "30px",
-                      color:
-                        DELIVERY_MODE[item?.delivery_option] === "Delivery"
-                          ? "#7233C2"
-                          : DELIVERY_MODE[item?.delivery_option] === "Shipping"
-                          ? "#308CAD"
-                          : "#4659B5",
-                      backgroundColor:
-                        DELIVERY_MODE[item?.delivery_option] === "Delivery"
-                          ? "#F5EDFF"
-                          : DELIVERY_MODE[item?.delivery_option] === "Shipping"
-                          ? "#BFEEFF99"
-                          : "#E4E6F299",
-                    }}
-                  >
-                    {DELIVERY_MODE[item?.delivery_option]}
-                  </div>
-                </td>
-              </tr>
-            ))}
+            {customersData?.loading ? (
+              <td className="text-center" colSpan={12}>
+                Loading...
+              </td>
+            ) : (
+              <>
+                {orderData?.length == 0 ? (
+                  <td className="text-center" colSpan={12}>
+                    No data found
+                  </td>
+                ) : (
+                  <>
+                    {orderData?.map((item, idx) => (
+                      <tr className="customers-table-row">
+                        <td
+                          onClick={() => handleNavigateToTrackStatus(item)}
+                          className="customers-table-data"
+                        >
+                          {(idx + Number(page > 1 ? limit : 0) > 8 ? "" : "0") +
+                            (idx + 1 + Number(page > 1 ? limit : 0))}
+                        </td>
+                        <td
+                          onClick={() => handleNavigateToTrackStatus(item)}
+                          className="customers-table-data"
+                        >
+                          {item?.is_returned_order
+                            ? item?.return_detail?.invoices?.invoice_number
+                            : item?.invoices?.invoice_number}
+                        </td>
+                        <td
+                          onClick={() => handleNavigateToTrackStatus(item)}
+                          className="customers-table-data"
+                        >
+                          {moment(item?.created_at).format("l")}
+                        </td>
+                        <td
+                          onClick={() => handleNavigateToTrackStatus(item)}
+                          className="customers-table-data"
+                        >
+                          {item?.seller_details?.current_address?.city}
+                        </td>
+                        <td
+                          onClick={() => handleNavigateToTrackStatus(item)}
+                          className="customers-table-data"
+                          style={{
+                            display: "flex",
+                            gap: "12px",
+                            alignItems: "center",
+                          }}
+                        >
+                          <Image
+                            width={36}
+                            height={36}
+                            style={{
+                              borderRadius: 50,
+                            }}
+                            src={
+                              item?.delivery_option == 4 &&
+                              item?.shipping_details?.image
+                                ? item?.shipping_details?.image
+                                : (item?.delivery_option == 3 ||
+                                    item?.delivery_option == 2) &&
+                                  item?.pos_user_details?.profile_photo
+                                ? item?.pos_user_details?.profile_photo
+                                : item?.delivery_option == 1 &&
+                                  item?.driver_details?.profile_photo
+                                ? item?.driver_details?.profile_photo
+                                : defaultUser
+                            }
+                          />
+                          <div
+                            style={{
+                              gap: "4px",
+                              display: "flex",
+                              flexDirection: "column",
+                              // alignItems: "flex-start",
+                            }}
+                          >
+                            <p className="user-stats-row-name-text">
+                              {item?.delivery_option == 4
+                                ? item?.shipping_details?.title
+                                : item?.delivery_option == 3 ||
+                                  item?.delivery_option == 2
+                                ? item?.pos_user_details?.firstname
+                                : item?.driver_details?.firstname}
+                            </p>
+                            {/* <p className="user-stats-row-responsible-tag">Shipping</p> */}
+                          </div>
+                        </td>
+                        <td
+                          onClick={() => handleNavigateToTrackStatus(item)}
+                          className="customers-table-data"
+                        >
+                          {item?.total_items}
+                        </td>
+                        <td
+                          onClick={() => handleNavigateToTrackStatus(item)}
+                          className="customers-table-data"
+                        >
+                          {formattedPrice(item?.payable_amount)}
+                        </td>
+                        <td
+                          onClick={() => handleNavigateToTrackStatus(item)}
+                          className="customers-table-data"
+                        >
+                          <div
+                            style={{
+                              display: "inline-block",
+                              padding: "5px 10px",
+                              borderRadius: "30px",
+                              color:
+                                DELIVERY_MODE[item?.delivery_option] ===
+                                "Delivery"
+                                  ? "#7233C2"
+                                  : DELIVERY_MODE[item?.delivery_option] ===
+                                    "Shipping"
+                                  ? "#308CAD"
+                                  : "#4659B5",
+                              backgroundColor:
+                                DELIVERY_MODE[item?.delivery_option] ===
+                                "Delivery"
+                                  ? "#F5EDFF"
+                                  : DELIVERY_MODE[item?.delivery_option] ===
+                                    "Shipping"
+                                  ? "#BFEEFF99"
+                                  : "#E4E6F299",
+                            }}
+                          >
+                            {DELIVERY_MODE[item?.delivery_option]}
+                          </div>
+                        </td>
+                      </tr>
+                    ))}
+                  </>
+                )}
+              </>
+            )}
           </tbody>
         </table>
       </div>

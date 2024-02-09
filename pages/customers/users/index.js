@@ -55,10 +55,12 @@ const Users = () => {
 
   const [date, setDate] = useState("");
   const [selected, setSelected] = useState("none");
+  const [customersList, setCustomersList] = useState([]);
   const startIndex = (page - 1) * limit + 1;
 
   const areaSelector = [
-    sellerAreaList?.map((item, index) => ({
+    { label: "None", value: "none" },
+    ...sellerAreaList?.map((item, index) => ({
       label: item?.state,
       value: item?.state,
     })),
@@ -111,9 +113,21 @@ const Users = () => {
         start_date: moment(startDate).format("YYYY-MM-DD"),
         end_date: moment(endDate).format("YYYY-MM-DD"),
         calenderDate: date,
-        area: selected?.label,
+        area: selected?.value,
       };
-      dispatch(getAllCustomersList(params));
+      dispatch(
+        getAllCustomersList({
+          ...params,
+          cb(res) {
+            if (res.statusCode == 200) {
+              setCustomersList(res?.data?.payload?.data);
+            } else {
+              setCustomersList([]);
+            }
+          },
+        })
+      );
+      // dispatch(getAllCustomersList(params));
       dispatch(getSellerAreaList({ seller_id: params.sellerID }));
     }
   }, [
@@ -197,8 +211,10 @@ const Users = () => {
         setLimit={setLimit}
         totalItems={paginatedCustomersList?.total}
         onDateChange={handleSpecificDateChange}
+        data={customersList}
         date={date}
-        options={areaSelector[0]}
+        option
+        options={areaSelector}
         setSelected={setSelected}
       />
 
@@ -271,7 +287,7 @@ const Users = () => {
             </th>
           </tr>
         </thead>
-        {console.log("agjasgfas", customersData)}
+
         <tbody>
           {customersData?.loading ? (
             <td className="text-center" colSpan={12}>
@@ -279,13 +295,13 @@ const Users = () => {
             </td>
           ) : (
             <>
-              {customersData?.allCustomersList == "" ? (
+              {customersList?.length == 0 ? (
                 <td className="text-center" colSpan={12}>
                   No data found
                 </td>
               ) : (
                 <>
-                  {paginatedCustomersList?.data?.map((item, idx) => (
+                  {customersList?.map((item, idx) => (
                     <tr className="customers-table-row">
                       <td
                         onClick={() => handleNavigateToTrackStatus(item)}

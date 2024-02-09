@@ -41,6 +41,7 @@ const getCurrentMonthDetails = () => {
 export default getCurrentMonthDetails;
 
 export const months = [
+  { label: "None", value: "none" },
   { label: "January", value: "january" },
   { label: "February", value: "february" },
   { label: "March", value: "march" },
