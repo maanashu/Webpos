@@ -159,8 +159,9 @@ const TransactionsList = () => {
         flexDirection: "column",
         paddingBottom: "15px",
       }}
-      className="main-container-customers"
+      className="main-container-customers fullheightBox_"
     >
+      <br />
       <TCRHeader
         title="Transactions"
         descrip={" "}
