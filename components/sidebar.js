@@ -6,10 +6,9 @@ import { ListGroup, ListGroupItem } from "react-bootstrap";
 import { useRouter } from "next/router";
 import { logout, selectLoginAuth } from "../redux/slices/auth";
 import {
-  dashboardLogout,
-  dashboardDetails,
   endTrackingSession,
 } from "../redux/slices/dashboard";
+import { selectCashDrawerData } from "../redux/slices/cashDrawer";
 import { restAllData } from "../redux/slices/commonActions";
 import { useDispatch, useSelector } from "react-redux";
 import { toast } from "react-toastify";
@@ -27,8 +26,8 @@ const Sidebar = (props) => {
   const dispatch = useDispatch();
   const [activeSidebar, setActiveSidebar] = useState(true);
   const authData = useSelector(selectLoginAuth);
-  const dashboardData = useSelector(dashboardDetails);
-  const trackingSession = dashboardData?.drawerSession?.payload;
+  const sessionData = useSelector(selectCashDrawerData);
+  const trackingSession = sessionData?.drawerSession?.payload;
   const sellerUid = authData?.usersInfo?.payload?.uniqe_id;
 
   const ADMIN = () => {
