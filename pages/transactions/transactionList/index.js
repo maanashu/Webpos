@@ -226,6 +226,7 @@ const TransactionsList = () => {
               limit={limit}
               setPage={setPage}
               setLimit={setLimit}
+              data={getTotalTraDetails}
               totalItems={getWalletData?.totalTraDetail?.payload?.total}
               onDateChange={handleDateChange}
               date={date}
@@ -262,12 +263,12 @@ const TransactionsList = () => {
             >
               Starts
             </th>
-            <th
+            {/* <th
               className="customers-table-data"
               style={{ border: "none", color: "#7E8AC1" }}
             >
               Transaction Id
-            </th>
+            </th> */}
             <th
               className="customers-table-data"
               style={{ border: "none", color: "#7E8AC1" }}
@@ -336,12 +337,12 @@ const TransactionsList = () => {
                           ? moment(item.created_at).format("h:mm A")
                           : "date not found"}
                       </td>
-                      <td
+                      {/* <td
                         onClick={() => handleNavigateToTrackStatus(item)}
                         className="customers-table-data"
                       >
                         {item?.transaction_id}
-                      </td>
+                      </td> */}
                       <td
                         onClick={() => handleNavigateToTrackStatus(item)}
                         className="customers-table-data"
