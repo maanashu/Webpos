@@ -154,7 +154,7 @@ const AddDiscount = (props) => {
             />
           </div>
           <div>
-            <label className="form-label fw-500">Discount Title</label>
+            <label className="form-label fw-500 trackingHeading">Discount Title</label>
             <input
               className="customform-control discountInput_"
               placeholder="Discount"
