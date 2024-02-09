@@ -1,12 +1,7 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import * as Images from "../../utilities/images";
 import Image from "next/image";
-import ReturnInventory from "../../components/commanComonets/Product/ProductModal/returnInventory";
-import CustomModal from "../../components/customModal/CustomModal";
-import {
-  searchBySKU,
-  selectReturnData,
-} from "../../redux/slices/productReturn";
+import { searchBySKU } from "../../redux/slices/productReturn";
 import { selectLoginAuth } from "../../redux/slices/auth";
 import { useDispatch, useSelector } from "react-redux";
 import { toast } from "react-toastify";
@@ -16,33 +11,43 @@ const Manualinvoice = (props) => {
   const [loading, setLoading] = useState(false);
   const authData = useSelector(selectLoginAuth);
   const sellerId = authData?.usersInfo?.payload?.uniqe_id;
-  const [productsSearchBySku, setProductsSearchBySku] = useState("");
   const productDetails = props?.productDetails;
+
+  const [searchKeyword, setSearchKeyword] = useState();
+  const [productsSearchBySku, setProductsSearchBySku] = useState("");
 
   const isProductIdMatched = productDetails?.some(
     (product) => product?.product_id === productsSearchBySku?.id
   );
-  
-  const handleSearchSku = (e) => {
-    let inputValue = e.target.value;
-    if (inputValue.length >= 4) {
-      let params = {
-        search: inputValue,
-        seller_id: sellerId,
-      };
-      setLoading(true);
-      dispatch(
-        searchBySKU({
-          ...params,
-          cb(resp) {
-            setLoading(false);
-            setProductsSearchBySku(resp?.data?.payload?.product_detail);
-          },
-        })
-      );
-    } 
+
+  const handleSearchSku = (skuNumber) => {
+    let params = {
+      search: skuNumber,
+      seller_id: sellerId,
+    };
+    setLoading(true);
+    dispatch(
+      searchBySKU({
+        ...params,
+        cb(resp) {
+          setLoading(false);
+          setProductsSearchBySku(resp?.data?.payload?.product_detail);
+        },
+      })
+    );
   };
-  
+
+  useEffect(() => {
+    if (searchKeyword && typeof searchKeyword != "undefined") {
+      const search = setTimeout(() => {
+        var keyword = searchKeyword.toLowerCase();
+        handleSearchSku(keyword);
+      }, 2000);
+      return () => clearTimeout(search);
+    } else {
+    }
+  }, [searchKeyword]);
+
   const handleManulEntry = () => {
     if (!productsSearchBySku) {
       toast.error("Please add Product by search SKU!");
@@ -60,7 +65,7 @@ const Manualinvoice = (props) => {
       toast.error("Product Not found in order!");
     }
   };
-  
+
   return (
     <>
       <div className="manualInvoice">
@@ -70,7 +75,10 @@ const Manualinvoice = (props) => {
               type="text"
               className="form-control searchControl"
               placeholder="search sku here..."
-              onChange={(e) => handleSearchSku(e)}
+              value={searchKeyword}
+              onChange={(e) => {
+                setSearchKeyword(e.target.value);
+              }}
             />
             <Image
               src={Images.SearchIcon}
@@ -89,7 +97,11 @@ const Manualinvoice = (props) => {
             <div className="manualSelectedProduct">
               {productsSearchBySku ? (
                 <div
-                  className= {isProductIdMatched === true ? "afterCheckedProduct" :"selectedProductDetails"}
+                  className={
+                    isProductIdMatched === true
+                      ? "afterCheckedProduct"
+                      : "selectedProductDetails"
+                  }
                   onClick={handleCheckProduct}
                 >
                   <div className="d-flex">
