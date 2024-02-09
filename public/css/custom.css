@@ -207,11 +207,11 @@ a {
   border-radius: 50%;
 }
 
-input:checked + .switch-slider {
+input:checked+.switch-slider {
   background-color: #4659b5;
 }
 
-input:checked + .switch-slider:before {
+input:checked+.switch-slider:before {
   -webkit-transform: translateX(14px);
   -ms-transform: translateX(14px);
   transform: translateX(14px);
@@ -582,7 +582,7 @@ input:checked + .switch-slider:before {
   position: relative;
   /* height: calc(100vh - 84px); */
   /* overflow-y: scroll; */
-  padding-bottom: 0!important;
+  padding-bottom: 0 !important;
 }
 
 .analyticsSection .deliverRightBar {
@@ -779,7 +779,7 @@ input:checked + .switch-slider:before {
   background-color: #d1fadf !important;
 }
 
-.checkGreen input:checked + label:after {
+.checkGreen input:checked+label:after {
   border: solid #027547 !important;
   border-width: 0 2px 2px 0 !important;
 }
@@ -793,7 +793,7 @@ input:checked + .switch-slider:before {
   background-color: #effbff !important;
 }
 
-.checkSky input:checked + label:after {
+.checkSky input:checked+label:after {
   border: solid #47b0d6 !important;
   border-width: 0 2px 2px 0 !important;
 }
@@ -1282,28 +1282,34 @@ input:checked + .switch-slider:before {
   width: 100%;
   max-width: 375px;
 }
+
 .authHeaderSub {
   padding: 0 100px;
 }
+
 .accordion-button:not(.collapsed) {
   box-shadow: none !important;
 }
+
 .staffProfileSub .appointMain {
   margin-bottom: 10px;
 }
+
 .settingOuter {
-  height: calc(100vh - 33px)!important;
+  height: calc(100vh - 33px) !important;
 }
+
 .transBox_ .graphContainer {
   padding: 0 15px;
 }
+
 .productserviceName {
   display: -webkit-box;
   -webkit-line-clamp: 3;
   -webkit-box-orient: vertical;
   overflow: hidden;
   margin: 7px 0;
-  padding: 0!important;
+  padding: 0 !important;
 }
 
 .description-container {
@@ -1311,4 +1317,5 @@ input:checked + .switch-slider:before {
   -webkit-box-orient: vertical;
   -webkit-line-clamp: 3;
   overflow: hidden;
-}
+  min-height: 55px;
+} 

@@ -737,7 +737,7 @@
 }
 
 /*product module*/
-.fullCartLeft .cartSubInfo,
+/* .fullCartLeft .cartSubInfo,
 .fullCartLeft .cartDetails {
   min-width: 350px;
   overflow-x: scroll;
@@ -746,12 +746,12 @@
 .fullCartLeft .cartItemDetail,
 .fullCartLeft .cartDetails .flexTable {
   min-width: 268px;
-}
+} */
 
-.fullCartLeft .fullCartInfo,
+/* .fullCartLeft .fullCartInfo,
 .fullCartLeft .cartDetails .fullCartInfo {
   min-width: 320px;
-}
+} */
 
 #DeleteCarts {
   width: 100%;
@@ -779,8 +779,8 @@
   margin-top: 24px;
 }
 
-.deleteModal .serviceCancel,
-.deleteModal .nextverifyBtn {
+.clearBtns .serviceCancel,
+.clearBtns .nextverifyBtn {
   font-size: 16px;
   padding: 14px 28px;
 }
