@@ -857,15 +857,9 @@ const ProductCart = () => {
             : modalDetail.flag === "AddProduct"
             ? "AddProduct"
             : modalDetail.flag === "AttachCustomer"
-<<<<<<< HEAD
             ? "addCustomerModal"
             : "addCustomerModal"
         } 
-=======
-            ? "AttachCustomer"
-            : "AttachCustomer"
-        }
->>>>>>> 15cf06f14ed77073ea73089a332ddb830b4e689b
         child={
           modalDetail.flag === "AddDiscount" ? (
             <AddDiscount close={() => handleOnCloseModal()} />

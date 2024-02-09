@@ -344,7 +344,7 @@ const Retails = () => {
                       }
                       return (
                         <div
-                          className="col-xl-2 col-lg-3 col-md-4 mb-3"
+                          className="col-xxl-2 col-xl-3 col-lg-4 col-md-6 mb-3"
                           key={index}
                         >
                           {/* <Link href='/Retails/AddProduct'>  */}
@@ -464,7 +464,7 @@ const Retails = () => {
                       return (
                         <div
                           key={index}
-                          className="col-xl-2 col-lg-3 col-md-4 mb-3"
+                          className="col-xxl-2 col-xl-3 col-lg-4 col-md-6 mb-3"
                         >
                           <div
                             className={
