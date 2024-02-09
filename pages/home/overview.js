@@ -586,11 +586,9 @@ const Overview = () => {
                                             className="img-fluid ms-1"
                                           />
                                           <span className="locateDistance">
-                                            {invoiceDetail?.order
-                                              ?.payable_amount
-                                              ? invoiceDetail?.order
-                                                  ?.payable_amount
-                                              : 0}
+                                            {invoiceDetail?.order?.payable_amount
+                                              ? amountFormat(invoiceDetail.order.payable_amount)
+                                              : "$0.00"}
                                           </span>
                                         </div>
                                       </div>
@@ -728,6 +726,7 @@ const Overview = () => {
                                     <td className="deliverSubdata" key={index}>
                                       <div className="orderFirstId">
                                         <h4 className="orderId">
+                                          <i className="fa-sharp fa-solid fa-chevron-right"></i>&nbsp;&nbsp;&nbsp;
                                           #{data?.invoices?.invoice_number}
                                         </h4>
                                       </div>
@@ -766,8 +765,8 @@ const Overview = () => {
                                           />
                                           <span className="locateDistance">
                                             {data?.payable_amount
-                                              ? data?.payable_amount
-                                              : 0}
+                                              ? amountFormat(data.payable_amount)
+                                              : "$0.00"}
                                           </span>
                                         </div>
                                       </div>
@@ -775,9 +774,13 @@ const Overview = () => {
                                     <td className="deliverSubdata">
                                       <div className="itemTime">
                                         <h4 className="orderId">
-                                          {data?.delivery_details?.title}
+                                          {data?.delivery_details?.title ? data.delivery_details.title :
+                                            data.delivery_option == "1" ? "Delivery" :
+                                            data.delivery_option == "3" ? "Customer Pickup" :
+                                            data.delivery_option == "4" ? "Shipping" : ""
+                                          }
                                         </h4>
-                                        {data?.preffered_delivery_start_time ? (
+                                        {data?.preffered_delivery_start_time &&
                                           <div className="flexTable">
                                             <Image
                                               src={Images.Time}
@@ -794,14 +797,11 @@ const Overview = () => {
                                               }
                                             </span>
                                           </div>
-                                        ) : (
-                                          ""
-                                        )}
+                                        }
                                       </div>
                                     </td>
                                     <td className="deliverSubdata">
                                       <div className="deliveryTime">
-                                        <i className="fa-sharp fa-solid fa-chevron-right"></i>
                                         <span className="orderId">
                                           {data?.estimated_preparation_time ===
                                           null
