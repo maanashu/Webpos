@@ -699,7 +699,7 @@ const Overview = () => {
                 </div>
                 <div className="profileMainTable">
                   <h4 className="loginMain">Orders</h4>
-                  <div className="table-responsive deliverTable">
+                  <div className="table-responsive deliverTable pb-4">
                     <table id="tableProduct" className="product_table">
                       {loadingOrders ? (
                         <tbody>
@@ -726,7 +726,6 @@ const Overview = () => {
                                     <td className="deliverSubdata" key={index}>
                                       <div className="orderFirstId">
                                         <h4 className="orderId">
-                                          <i className="fa-sharp fa-solid fa-chevron-right"></i>&nbsp;&nbsp;&nbsp;
                                           #{data?.invoices?.invoice_number}
                                         </h4>
                                       </div>
@@ -777,7 +776,7 @@ const Overview = () => {
                                           {data?.delivery_details?.title ? data.delivery_details.title :
                                             data.delivery_option == "1" ? "Delivery" :
                                             data.delivery_option == "3" ? "Customer Pickup" :
-                                            data.delivery_option == "4" ? "Shipping" : ""
+                                            data?.shipping_details?.title ? data.shipping_details.title : ""
                                           }
                                         </h4>
                                         {data?.preffered_delivery_start_time &&
@@ -810,6 +809,7 @@ const Overview = () => {
                                                 data?.estimated_preparation_time
                                               ).format("LTS")}
                                         </span>
+                                        &nbsp;&nbsp;&nbsp;&nbsp;<i className="fa-sharp fa-solid fa-chevron-right"></i>
                                       </div>
                                     </td>
                                   </tr>
@@ -830,14 +830,16 @@ const Overview = () => {
                       )}
                     </table>
                     {totalItems > recordsPerPage && (
-                      <PaginationFooter
-                        page={pageNumber}
-                        limit={recordsPerPage}
-                        setPage={(newPageNumber) =>
-                          setPageNumber(newPageNumber)
-                        }
-                        totalItems={totalItems}
-                      />
+                      <div className="p-3 d-flex justify-content-center">
+                        <PaginationFooter
+                          page={pageNumber}
+                          limit={recordsPerPage}
+                          setPage={(newPageNumber) =>
+                            setPageNumber(newPageNumber)
+                          }
+                          totalItems={totalItems}
+                        />
+                      </div>
                     )}
                   </div>
                 </div>
