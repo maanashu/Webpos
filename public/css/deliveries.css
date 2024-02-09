@@ -779,8 +779,8 @@
   margin-top: 24px;
 }
 
-.deleteModal .serviceCancel,
-.deleteModal .nextverifyBtn {
+.clearBtns .serviceCancel,
+.clearBtns .nextverifyBtn {
   font-size: 16px;
   padding: 14px 28px;
 }

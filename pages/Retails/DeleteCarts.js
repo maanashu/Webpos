@@ -23,7 +23,7 @@ const DeleteCarts = (props) => {
         Are you Sure you want to delete the Product?
       </h5>
 
-      <div className="addCustomerBtn mt-4 ">
+      <div className="addCustomerBtn mt-4 clearBtns ">
         {retailData?.loading ? (
           <button className="serviceCancel" type="button" disabled>
             <span className="spinner-border spinner-border-sm"></span>

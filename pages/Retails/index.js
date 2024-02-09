@@ -393,10 +393,10 @@ const Retails = () => {
                             </figure>
                             <article className="productDetails">
                               <p className="productName">{item.name}</p>
-                              <p className="productGender">
+                              <p className="productGender description-container">
                                 {item.sub_category?.name}
                               </p>
-                              <div className="productCartPrice">
+                              <div className="productCartPrice mt-2">
                                 {item?.supplies?.[0]?.supply_prices?.[0]
                                   ?.offer_price &&
                                 item?.supplies?.[0]?.supply_prices?.[0]
