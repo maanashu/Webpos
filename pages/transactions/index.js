@@ -148,7 +148,7 @@ const Transactions = () => {
   };
 
   return (
-    <div className="main-container-customers">
+    <div className="main-container-customers fullheightBox_ transBox_">
       <br />
       <TCRHeader
         timeSpan={timeSpan}

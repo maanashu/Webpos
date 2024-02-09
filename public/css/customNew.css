@@ -4640,7 +4640,7 @@ figure {
 
 .cashDrawSub {
   padding: 16px;
-  height: calc(100vh - 270px);
+  /* height: calc(100vh - 270px); */
   overflow-y: scroll;
 }
 
@@ -5362,7 +5362,7 @@ figure {
 }
 
 .analyticOuter {
-  height: calc(100vh - 110px);
+  height: calc(100vh - 86px);
   overflow-y: scroll;
 }
 
