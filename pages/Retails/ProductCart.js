@@ -590,7 +590,7 @@ const ProductCart = () => {
                   </div>
                 ) : (
                   <div
-                    className="addproductCart "
+                    className="addproductCart position-relative"
                     onClick={() => serviceCartStatusHandler()}
                   >
                     <Image
@@ -598,7 +598,7 @@ const ProductCart = () => {
                       alt="pauseproductImage"
                       className="img-fluid"
                     />
-                    <p>{holdProductArray?.length}</p>
+                    <p className="shipNum">{holdProductArray?.length}</p>
                     {/* <h4 className="monthText">Pause Product</h4> */}
                   </div>
                 )}
@@ -855,8 +855,8 @@ const ProductCart = () => {
             : modalDetail.flag === "AddProduct"
             ? "AddProduct"
             : modalDetail.flag === "AttachCustomer"
-            ? "AttachCustomer"
-            : "AttachCustomer"
+            ? "addCustomerModal"
+            : "addCustomerModal"
         } 
         child={
           modalDetail.flag === "AddDiscount" ? (
