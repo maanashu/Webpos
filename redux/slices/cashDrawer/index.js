@@ -43,7 +43,7 @@ export const cashDrawerSlice = createSlice({
       state.loading = false;
       state.trackSession = action?.payload;
     },
-    getExpectedCashByDrawerId: (state) => {
+    getExpectedCashByDrawerId: (state, action) => {
       state.loading = true;
     },
     setExpectedCashByDrawerId: (state, action) => {
@@ -53,6 +53,8 @@ export const cashDrawerSlice = createSlice({
     onErrorStopLoad: (state) => {
       state.loading = false;
     },
+    getSessionSummary: (state, action) => {},
+    sendPaymentHistory: (state, action) => {}
   },
 });
 
@@ -60,6 +62,7 @@ export const cashDrawerSlice = createSlice({
 export const {
   onErrorStopLoad,
   getSessionHistory,
+  getSessionSummary,
   setSessionHistory,
   getDrawerSession,
   setGetDrawerSession,
@@ -69,6 +72,7 @@ export const {
   setTrackSessionSave,
   getExpectedCashByDrawerId,
   setExpectedCashByDrawerId,
+  sendPaymentHistory
 } = cashDrawerSlice.actions;
 
 export const selectCashDrawerData = (state) => state.cashDrawer;

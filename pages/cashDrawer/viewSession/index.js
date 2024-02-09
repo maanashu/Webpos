@@ -379,6 +379,12 @@ const ViewSession = () => {
             <Link href="viewSession/endSession" className="closeView">
               <div>
                 <h6 className="closeText">{"Close Batch"}</h6>
+                {/* <Image
+                  // width={20}
+                  // height={20}
+                  // className="clockStyle"
+                  src={Images.plusRound}
+                /> */}
               </div>
             </Link>
           </div>

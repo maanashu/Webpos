@@ -2,7 +2,8 @@ import React, { useState } from 'react'
 import * as Images from "../../../utilities/images";
 import Image from "next/image";
 import { useDispatch, useSelector } from 'react-redux';
-import { getDrawerSessionInfo } from '../../../redux/slices/dashboard';
+// import { getDrawerSessionInfo } from '../../../redux/slices/dashboard';
+import { getDrawerSession } from "../../../redux/slices/cashDrawer";
 import { toast } from 'react-toastify';
 import { selectLoginAuth } from '../../../redux/slices/auth';
 
@@ -35,7 +36,7 @@ const SessionModal = (props) => {
             amount: amount,
             notes: notes
         };
-        dispatch(getDrawerSessionInfo({
+        dispatch(getDrawerSession({
             ...params,
             cb(res) {
                 if (res.status) {
