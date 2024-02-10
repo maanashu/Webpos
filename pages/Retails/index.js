@@ -679,10 +679,10 @@ const Retails = () => {
             " "
           )
         }
-        header={
+        header={ 
           <>
             {modalDetail.flag === "ClearCart" ? (
-              <h5 className="font-28 text-center">
+              <h5 className="appointMain mb-0">
                 Please clear {productCarts?.length > 0 ? "product" : "service"}{" "}
                 cart
               </h5>

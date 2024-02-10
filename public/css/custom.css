@@ -810,7 +810,7 @@ input:checked+.switch-slider:before {
 /*customer css end*/
 
 /*notification css start*/
-.notifySection {
+.transectionCommon {
   border-radius: 20px;
   background: #fff;
   box-shadow: -2px 4px 25px 0px rgba(50, 80, 127, 0.02),
@@ -844,7 +844,7 @@ input:checked+.switch-slider:before {
   font-weight: 500;
 }
 
-.notifySection::-webkit-scrollbar {
+.transectionCommon::-webkit-scrollbar {
   display: none;
 }
 

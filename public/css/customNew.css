@@ -976,8 +976,8 @@ figure {
   border-radius: 6px;
   border: 1px solid #e4e6f2;
   background: #f5f6fc;
-  padding: 8px !important;
-  width: 70px !important;
+  padding: 4px 8px !important;
+  /* width: 70px !important; */
   margin: 0 !important;
   color: #263682 !important;
   font-size: 12px !important;
@@ -5700,12 +5700,14 @@ figure {
   color: #263682;
 }
 
-#AddNotes .modal-header ,#CartAlert .modal-header{
+#AddNotes .modal-header,
+#CartAlert .modal-header,
+#ClearCart .modal-header {
   border: 0 !important;
   justify-content: center !important;
 }
 
-#CartAlert .modal-content {
+#CartAlert .modal-content ,#ClearCart .modal-content{
   border-radius: 30px !important;
   background: #fff !important;
   box-shadow: -3px 6px 7px 0px rgba(52, 79, 117, 0.03),
@@ -5713,4 +5715,31 @@ figure {
     -31px 74px 80px 0px rgba(52, 79, 117, 0.07) !important;
   padding: 24px !important;
   border: none !important;
+}
+
+.searchSection .mapleLeft {
+  background: #f5f6fc;
+}
+
+.searchSection .totalBtn {
+  background: #fff;
+}
+
+.searchSection .deliveryOuter {
+  height: calc(100vh - 100px);
+  overflow-y: scroll;
+  margin: 0 16px;
+}
+
+.tableOuter {
+  height: calc(100vh - 176px);
+  overflow-y: scroll;
+}
+
+.tableOuter::-webkit-scrollbar {
+  display: none;
+}
+
+.fullCartLeft .addBtnControl {
+  padding: 5px 10px !important;
 }
