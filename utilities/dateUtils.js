@@ -55,3 +55,18 @@ export const months = [
   { label: "November", value: "november" },
   { label: "December", value: "december" },
 ];
+
+export const orderTypeArray = [
+  {
+    label: "None",
+    value: "none",
+  },
+  {
+    label: "Product",
+    value: "product",
+  },
+  {
+    label: "Service",
+    value: "service",
+  },
+];
