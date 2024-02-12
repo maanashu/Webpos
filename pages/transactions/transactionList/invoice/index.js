@@ -41,6 +41,22 @@ const Invoice = () => {
     ? orderDetails?.return_detail?.return_details
     : orderDetails?.order_details;
 
+  const [appointments, setAppointments] = useState(
+    orderDetails?.appointments ?? []
+  );
+  useEffect(() => {
+    if (orderDetails?.appointments) {
+      const appointmentDate = orderDetails?.appointments?.map((item) => {
+        return {
+          date: moment.utc(item.date).format("DD/MM/YYYY"),
+          startTime: item.start_time,
+          endTime: item.end_time,
+        };
+      });
+      setAppointments(appointmentDate);
+    }
+  }, [orderDetails?.appointments]);
+
   return (
     <div className=" orderDeliverSection TransectionOuter ">
       <div className="deliverMain w-100">
@@ -106,6 +122,16 @@ const Invoice = () => {
                             item?.order_details?.qty
                           : item?.price * item?.qty ?? "0.00";
 
+                        const appointment = appointments[index];
+                        const isBookingDateAvailable =
+                          appointment &&
+                          appointment.date &&
+                          appointment.startTime &&
+                          appointment.endTime;
+                        const bookingDateTime = isBookingDateAvailable
+                          ? `${appointment.date} @ ${appointment.startTime}-${appointment.endTime}`
+                          : "Booking date not available";
+
                         return (
                           <div className="flexBox mapleProductDetailsBox">
                             <div className="flexbase">
@@ -114,9 +140,11 @@ const Invoice = () => {
                                 <p className="mapleProductHeading">
                                   {productName ?? "-"}
                                 </p>
-                                <span className="mapleProductcount">
-                                  {`QTY : ${quantity}`}
-                                </span>
+                                {isBookingDateAvailable && (
+                                  <span className="mapleDate">
+                                    {bookingDateTime}
+                                  </span>
+                                )}
                               </article>
                             </div>
                             <article>

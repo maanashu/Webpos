@@ -33,6 +33,22 @@ const Invoices = () => {
     ? orderDetails?.return_detail?.return_details
     : orderDetails?.order_details;
 
+  const [appointments, setAppointments] = useState(
+    orderDetails?.appointments ?? []
+  );
+  useEffect(() => {
+    if (orderDetails?.appointments) {
+      const appointmentDate = orderDetails?.appointments?.map((item) => {
+        return {
+          date: moment.utc(item.date).format("DD/MM/YYYY"),
+          startTime: item.start_time,
+          endTime: item.end_time,
+        };
+      });
+      setAppointments(appointmentDate);
+    }
+  }, [orderDetails?.appointments]);
+
   return (
     <div className="invoiceMain">
       <div
@@ -89,6 +105,16 @@ const Invoices = () => {
                   ? item?.order_details?.price * item?.order_details?.qty
                   : item?.price * item?.qty ?? "0.00";
 
+                const appointment = appointments[idx];
+                const isBookingDateAvailable =
+                  appointment &&
+                  appointment.date &&
+                  appointment.startTime &&
+                  appointment.endTime;
+                const bookingDateTime = isBookingDateAvailable
+                  ? `${appointment.date} @ ${appointment.startTime}-${appointment.endTime}`
+                  : "Booking date not available";
+
                 return (
                   <li
                     key={item?.id + idx}
@@ -99,7 +125,9 @@ const Invoices = () => {
                         <p className="mapleProductcount"> {quantity} X</p>
                         <article className="ms-2">
                           <p className="mapleProductHeading">{productName}</p>
-                          {/* <span className="mapleProductcount">Yellow / M</span> */}
+                          {isBookingDateAvailable && (
+                            <span className="mapleDate">{bookingDateTime}</span>
+                          )}
                         </article>
                       </div>
                       <article>
