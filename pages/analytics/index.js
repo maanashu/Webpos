@@ -489,7 +489,7 @@ const Analytics = () => {
                                     {" "}
                                     $
                                     {addThousandSeparator(
-                                        analyticsProfitData?.cost?.total_count
+                                        (analyticsProfitData?.cost?.total_count)?.toFixed(2)
                                     )}
                                 </h4>
                             </div>
@@ -630,13 +630,13 @@ const Analytics = () => {
                                 </h4>
                             </div>
                             <ChartCommon
-                            style={{ cursor: "pointer" }}
-                            className="col-md-12"
-                            header=""
-                            options={options}
-                            data={TotalInventoryAnalytics}
-                            chartType="Bar"
-                        />
+                                style={{ cursor: "pointer" }}
+                                className="col-md-12"
+                                header=""
+                                options={options}
+                                data={TotalInventoryAnalytics}
+                                chartType="Bar"
+                            />
                         </div>
                     </div>
 

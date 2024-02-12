@@ -590,7 +590,7 @@ const ProductCart = () => {
                   </div>
                 ) : (
                   <div
-                    className="addproductCart "
+                    className="addproductCart position-relative"
                     onClick={() => serviceCartStatusHandler()}
                   >
                     <Image
@@ -598,7 +598,7 @@ const ProductCart = () => {
                       alt="pauseproductImage"
                       className="img-fluid"
                     />
-                    <p>{holdProductArray?.length}</p>
+                    <p className="shipNum">{holdProductArray?.length}</p>
                     {/* <h4 className="monthText">Pause Product</h4> */}
                   </div>
                 )}
@@ -772,7 +772,9 @@ const ProductCart = () => {
                   <div className="flexDiv mt-2">
                     <h4 className="lightOfferText fw-bold">
                       {`Discount ${
-                        cartData?.discount_flag === "percentage" ? "(%)" : ""
+                        cartData?.discount_flag === "percentage"
+                          ? "(" + cartData?.discount_value + "%)"
+                          : ""
                       } `}
                     </h4>
                     <h4 className="appointSub m-0 fw-bold">
@@ -846,16 +848,18 @@ const ProductCart = () => {
         ids={
           modalDetail.flag === "AddDiscount"
             ? "AddDiscount"
-            : "AddNotes"
+            : modalDetail.flag === "AddNotes"
             ? "AddNotes"
-            : "DeleteCarts"
+            : modalDetail.flag === "DeleteCarts"
             ? "DeleteCarts"
-            : "UpdatePrice"
+            : modalDetail.flag === "UpdatePrice"
+            ? "UpdatePrice"
+            : modalDetail.flag === "AddProduct"
             ? "AddProduct"
-            : "AddProduct"
-            ? "AttachCustomer"
-            : "AttachCustomer"
-        }
+            : modalDetail.flag === "AttachCustomer"
+            ? "addCustomerModal"
+            : "addCustomerModal"
+        } 
         child={
           modalDetail.flag === "AddDiscount" ? (
             <AddDiscount close={() => handleOnCloseModal()} />

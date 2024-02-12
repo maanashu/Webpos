@@ -483,11 +483,8 @@
 
 .ProductIcon {
   width: 100%;
-  height: 150px;
+  height: 100%;
   border-radius: 12px;
-  /* mix-blend-mode: multiply; */
-  /* max-width: 250px; */
-  max-height: 150px;
   object-fit: fill;
 }
 
@@ -556,6 +553,8 @@
 
 .productImageBox {
   position: relative;
+  width: 100%;
+  height: 200px;
 }
 
 .productImageBox .overlay {
@@ -833,7 +832,7 @@
 }
 
 .modal-footer {
-  justify-content: center;
+  justify-content: space-between;
 }
 
 .cancelBtn {

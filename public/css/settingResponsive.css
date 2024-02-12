@@ -41,8 +41,14 @@
         padding: 24px 15px 24px 15px;
     }
     .staffProfileData {
-        width: 51%;
+        width: 100%;
+        margin-top: 27px;
     }
+    .staffProfileInfo {
+        width: 100%;
+    }
+    
+    
 }
 
 @media (max-width: 575px) {

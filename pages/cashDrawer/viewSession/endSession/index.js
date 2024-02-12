@@ -4,27 +4,30 @@ import React, { useState } from "react";
 import { Chart as ChartJS, registerables } from "chart.js";
 import Header from "../../../../components/commanComonets/cashdrawer/Header";
 import {
-  calendarDark,
   Cross,
-  CrossCircle,
-  DrawerBlue,
-  DrawerIcon,
-  DrawerID,
   Lock,
-  LogOut,
-  LogOutSky,
-  userSale,
+  LogOutSky
 } from "../../../../utilities/images";
 import CustomModal from "../../../../components/customModal/CustomModal";
 import EndCashModal from "../../../../components/modals/cashDrawerModals/endCashModal";
 import * as Images from "../../../../utilities/images";
 import { useSelector } from "react-redux";
 import { selectLoginAuth } from "../../../../redux/slices/auth";
+import { endTrackingSession } from "../../../../redux/slices/dashboard";
+import { restAllData } from "../../../../redux/slices/commonActions";
+import { getDrawerSession, selectCashDrawerData } from "../../../../redux/slices/cashDrawer";
+import { useRouter } from "next/router";
+import { useDispatch } from "react-redux";
+import { toast } from "react-toastify";
 
 const EndSession = () => {
   ChartJS.register(...registerables);
 
+  const router = useRouter();
+  const dispatch = useDispatch();
   const getUserData = useSelector(selectLoginAuth);
+  const sessionData = useSelector(selectCashDrawerData);
+  const drawerSessionDetail = sessionData?.drawerSession?.payload;
   const getPosUser = getUserData?.posUserLoginDetails?.payload;
   const [key, setKey] = useState(Math.random());
 
@@ -34,6 +37,13 @@ const EndSession = () => {
     type: "add",
     flag: "trackingmodal",
   });
+
+  const ADMIN = () => {
+    const admin = getUserData?.posUserLoginDetails?.payload?.user_roles?.filter(
+      (item) => item?.role?.slug == "pos_admin"
+    );
+    return admin;
+  };
 
   const handleShowModal = (title, type) => {
     setModalDetail({
@@ -54,14 +64,92 @@ const EndSession = () => {
     setKey(Math.random());
   };
 
+  // API for lock screen...............................
+  const lockScreen = () => {
+    let params = {
+      // pos_user_id: posUserUniqueId,
+      drawer_id: drawerSessionDetail?.id,
+      amount: Number(drawerSessionDetail?.cash_balance),
+      transaction_type: "end_tracking_session",
+      mode_of_cash: "cash_out",
+    };
+    dispatch(
+      endTrackingSession({
+        ...params,
+        async cb(res) {
+          if (res.status) {
+            await dispatch(restAllData({skipAuth: true}));
+            // await dispatch(posUserLogout());
+            // await dispatch(dashboardLogout());
+            localStorage.removeItem("authToken");
+            router.push("/auth/login");
+          }
+        },
+      })
+    );
+  };
+
+  const userLogout = async (e) => {
+    e.preventDefault();
+
+    let params = {
+      // pos_user_id: posUserUniqueId,
+      drawer_id: drawerSessionDetail?.id,
+      amount: Number(drawerSessionDetail?.cash_balance),
+      transaction_type: "end_tracking_session",
+      mode_of_cash: "cash_out",
+    };
+
+    dispatch(
+      endTrackingSession({
+        ...params,
+        async cb(res) {
+          console.log("RESET_CALL_CALLED1");
+          if (res.status) {
+            await dispatch(restAllData());
+            // await dispatch(logout());
+            // await dispatch(dashboardLogout());
+            console.log("RESET_CALL_CALLED");
+
+            setTimeout(() => {
+              toast.success("Logout successfully");
+            }, 200);
+
+            router.push("/auth/verification");
+
+            localStorage.removeItem("merchantAuthToken");
+            localStorage.removeItem("authToken");
+            localStorage.removeItem("persist:root");
+          }
+        },
+      })
+    );
+  };
+
   return (
     <>
       <div className="main-container-customers ">
-        <Header mainIcon={CrossCircle} title={"Back"} />
+        {/* <Header mainIcon={CrossCircle} title={"Back"} /> */}
         <div className="innerContainer">
+          <button
+            type="button"
+            className="backButton px-3 py-2"
+            onClick={() => {
+              router.push("/cashDrawer/viewSession");
+            }}
+            style={{ background: "#f2f3f9", borderRadius: "35px", fontWeight: 600 }}
+          >
+            <Image
+              src={Images.arrowLeftPos}
+              alt="backBtnIcon"
+              className="img-fluid backBtnIcon"
+            />
+            Back
+          </button>
           <div className="closeBatchView">
-            <div className="batchView">
-              <h4 className="appointMain">Batch</h4>
+            <div className="batchView m-0">
+              {/* <h4 className="appointMain">Batch</h4> */}
+              <h5 className="textNeavyBlue">Batch</h5>
             </div>
 
             <div className="closeButtonView">
@@ -80,7 +168,7 @@ const EndSession = () => {
             <div className="loggedTextView">
               <p className="loggedInTextStyle">Logged in as</p>
             </div>
-            <div className="logoutView">
+            <div className="logoutView mt-4">
               <div className="profileView">
                 <Image
                   src={
@@ -112,15 +200,17 @@ const EndSession = () => {
               </div>
 
               <div className="logView">
-                <div className="lockButton">
+                <div className="lockButton" onClick={() => lockScreen()}>
                   <p className="lockTextStyle">Lock Screen</p>
                   <Image src={Lock} width={" 24px"} height={" 24px"} />
                 </div>
-
-                <div className="logOutButton">
-                  <p className="logoutTextStyle">Log Out</p>
-                  <Image src={LogOutSky} width={" 24px"} height={" 24px"} />
-                </div>
+                
+                {ADMIN()?.length > 0 && (
+                  <div className="logOutButton" onClick={(e) => userLogout(e)}>
+                    <p className="logoutTextStyle">Log Out</p>
+                    <Image src={LogOutSky} width={" 24px"} height={" 24px"} />
+                  </div>
+                )}
               </div>
             </div>
           </div>

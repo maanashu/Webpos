@@ -12,11 +12,12 @@ import {
   selectCashDrawerData,
 } from "../../../redux/slices/cashDrawer";
 
+
 const EndCashModal = ({ props, title, modalType }) => {
   const dispatch = useDispatch();
   const sessionData = useSelector(selectCashDrawerData);
   const drawerSessionDetail = sessionData?.drawerSession?.payload;
-  const expectedCash = sessionData?.expectedCashByDrawerId;
+  // const expectedCash = sessionData?.expectedCashByDrawerId;
 
   const digits = /^[0-9]+$/;
   const [key, setKey] = useState(Math.random());
@@ -50,14 +51,21 @@ const EndCashModal = ({ props, title, modalType }) => {
 
   const countCashFirst = async () => {
     if (amount && digits.test(amount) === false) {
-      alert("Please enter valid amount");
+      toast.error("Please enter amount");
     } else if (amount <= 0) {
-      alert("Please enter valid amount");
+      toast.error("Please enter valid amount");
     } else {
-      await dispatch(getExpectedCashByDrawerId(drawerSessionDetail?.id));
-      if (expectedCash?.status_code == 200) {
-        handleShowModal("End Cash Tracking Session", "remove");
-      }
+      // await dispatch(getExpectedCashByDrawerId(drawerSessionDetail?.id));
+      dispatch(
+        getExpectedCashByDrawerId({
+          drawer_session_id: drawerSessionDetail?.id,
+          cb(res) {
+            if (res.status) {
+              handleShowModal("End Cash Tracking Session", "remove");
+            }
+          },
+        })
+      );
     }
   };
 
@@ -70,13 +78,15 @@ const EndCashModal = ({ props, title, modalType }) => {
               src={Images.salesTracking}
               alt="trackingImage"
               className="img-fluid"
+              height={50}
+              width={50}
             />
           </figure>
-          <h4 className="loginheading">{title}</h4>
+          <h6 className="loginheading px-5">{title}</h6>
           {/* <h4 className="trackingHeading">Enter amount </h4> */}
         </div>
         <form className="trackingForm">
-          <h4 className="amountText">Enter Amount</h4>
+          <h3 className="amountText">Enter Amount</h3>
           <div className="inputSelect mt-2">
             <input
               type="number"
@@ -95,7 +105,7 @@ const EndCashModal = ({ props, title, modalType }) => {
               type="button"
               onClick={() => countCashFirst()}
             >
-              Confirm
+              Next
               <Image
                 src={Images.ArrowRight}
                 alt="rightArrow"

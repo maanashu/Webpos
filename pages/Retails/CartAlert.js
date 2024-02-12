@@ -29,25 +29,16 @@ const CartAlert = ({ crossHandler }) => {
     );
   };
   return (
-    <div
-      className="mt-5"
-      style={{
-        display: "flex",
-        flexDirection: "row",
-        alignSelf: "center",
-        borderWidth: "1px",
-      }}
-    >
+    <div className="clearBtns addCustomerBtn mt-4 ">
       <button
-        className="primaryBtn cancelBtn m-0"
+        className="serviceCancel"
         // onClick={(e) => props.close()}
         onClick={() => crossHandler()}
       >
         <span>Cancel</span>
       </button>
-
       <button
-        className="addnotesBtn"
+        className="nextverifyBtn" 
         type="button"
         onClick={(e) => handleDeleteCarts(e)}
         disabled={retailData?.clearCartLoad ? true : false}

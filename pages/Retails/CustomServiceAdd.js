@@ -165,168 +165,175 @@ const CustomServiceAdd = ({ crosshandler }) => {
   };
 
   return (
-    <div>
-      <div className="form-group mb-3">
-        <input
-          className="form-control customInput mb-3"
-          type="text"
-          placeholder="Service Name"
-          value={productName}
-          onChange={(e) => setProductName(e.target.value)}
-        />
-      </div>
-      <div className="form-group mb-3">
-        <input
-          className="form-control customInput mb-3"
-          type="text"
-          placeholder="$0.00USD"
-          value={amount}
-          onChange={(e) => setAmount(e.target.value)}
-        />
-      </div>
+    <div className="ServiceAddSection">
+      <form>
+        <div className="serviceModalScroll">
+          <div className="form-group mb-3">
+            <input
+              className="form-control customInput mb-3"
+              type="text"
+              placeholder="Service Name"
+              value={productName}
+              onChange={(e) => setProductName(e.target.value)}
+            />
+          </div>
+          <div className="form-group mb-3">
+            <input
+              className="form-control customInput mb-3"
+              type="text"
+              placeholder="$0.00USD"
+              value={amount}
+              onChange={(e) => setAmount(e.target.value)}
+            />
+          </div>
 
-      <div className="form-group mb-3">
-        <Image src={Images.commentText} alt="img" className="InputIcon" />
-        <textarea
-          className="customTextarea"
-          placeholder="Add Notes"
-          value={notes}
-          onChange={(e) => setNotes(e.target.value)}
-        ></textarea>
-      </div>
+          <div className="form-group mb-3">
+            <Image src={Images.commentText} alt="img" className="InputIcon" />
+            <textarea
+              className="customTextarea"
+              placeholder="Add Notes"
+              value={notes}
+              onChange={(e) => setNotes(e.target.value)}
+            ></textarea>
+          </div>
 
-      <div style={{ display: "flex", flexDirection: "row" }}>
-        <div>
-          <ReactSelect
-            options={yearOptions}
-            value={selectedYear}
-            onChange={handleYearChange}
-            placeholder="Select a year"
-            isSearchable={false}
-          />
-        </div>
-        <div className="mx-3">
-          <ReactSelect
-            options={monthOptions}
-            value={selectedMonth}
-            onChange={handleMonthChange}
-            placeholder="Select a month"
-            isSearchable={false}
-          />
-        </div>
-      </div>
+          <div style={{ display: "flex", flexDirection: "row" }}>
+            <div className="serviceYear ms-2">
+              <ReactSelect
+                options={yearOptions}
+                value={selectedYear}
+                onChange={handleYearChange}
+                placeholder="Select a year"
+                isSearchable={false}
+              />
+            </div>
+            <div className="serviceYear mx-3">
+              <ReactSelect
+                options={monthOptions}
+                value={selectedMonth}
+                onChange={handleMonthChange}
+                placeholder="Select a month"
+                isSearchable={false}
+              />
+            </div>
+          </div>
 
-      <div className="daycalendar">
-        <div
-          style={{
-            display: "flex",
-            overflowX: "scroll",
-            whiteSpace: "wrap",
-          }}
-        >
-          {monthDays?.map((item, index) => (
+          <div className="daycalendar">
             <div
-              className="serviceDate mx-3"
               style={{
-                backgroundColor:
-                  item?.completeDate === selectedDate
-                    ? "#12B76A"
-                    : "transparent",
-              }}
-              onClick={() => {
-                setselectedDate(item?.completeDate);
-                //Clear previous day selected time slot values
-                setselectedTimeSlotIndex(null);
-                setSelectedTimeSlotData("");
+                display: "flex",
+                overflowX: "scroll",
+                whiteSpace: "wrap",
               }}
             >
-              <h4 className="productName"> {item?.day}</h4>
-              <h4 className="dateText">
-                {" "}
-                {item?.completeDate === moment(new Date()).format("YYYY-MM-DD")
-                  ? "Today"
-                  : item?.date}
-              </h4>
+              {monthDays?.map((item, index) => (
+                <div
+                  // className="serviceDate mx-3"
+                  className={`serviceDate mx-3 ${
+                    item.completeDate === selectedDate ? "active" : ""
+                  }`}
+                  // style={{
+                  //   backgroundColor:
+                  //     item?.completeDate === selectedDate
+                  //       ? "#12B76A"
+                  //       : "transparent",
+                  // }}
+                  onClick={() => {
+                    setselectedDate(item?.completeDate);
+                    //Clear previous day selected time slot values
+                    setselectedTimeSlotIndex(null);
+                    setSelectedTimeSlotData("");
+                  }}
+                >
+                  <h4 className="productName"> {item?.day}</h4>
+                  <h4 className="dateText">
+                    {" "}
+                    {item?.completeDate ===
+                    moment(new Date()).format("YYYY-MM-DD")
+                      ? "Today"
+                      : item?.date}
+                  </h4>
+                </div>
+              ))}
             </div>
-          ))}
-        </div>
-      </div>
+          </div>
 
-      <div className="serviceDayTime">
-        {retailData?.getTimeSlotsLoad ? (
-          <div className="mx-1 text-center mt-5">
-            <span className="spinner-border spinner-border-sm "></span>
-          </div>
-        ) : timeSlotsData?.length == 0 ? (
-          <div className="mx-1 text-center mt-5">
-            <p>There are no slots available for this day</p>
-          </div>
-        ) : (
-          <>
-            {selectedDate !== null ? (
-              <div className="row" style={{ borderColor: "#027547" }}>
-                {timeSlotsData?.map((item, index) => (
-                  <div
-                    className=" col-lg-3 col-md-6 mt-2"
-                    key={index}
-                    onClick={() => {
-                      setselectedTimeSlotIndex(index);
-                      setSelectedTimeSlotData(item);
-                    }}
-                    // style={{
-                    //   backgroundColor:
-                    //     selectedTimeSlotIndex == index
-                    //       ? " #D1FADF"
-                    //       : "transparent",
-                    //   borderColor:
-                    //     selectedTimeSlotIndex == index ? "#027547" : "#D7DEFF",
-                    //   borderWidth: "1px",
-                    // }}
-                  >
-                    <div
-                      className={
-                        selectedTimeSlotIndex == index
-                          ? "scheduleTime active"
-                          : "scheduleTime"
-                      }
-                    >
-                      <h4 className="addServicePara m-0">
-                        {item?.start_time + " - " + item?.end_time}
-                      </h4>
-                    </div>
-                  </div>
-                ))}
+          <div className="">
+            {retailData?.getTimeSlotsLoad ? (
+              <div className="mx-1 text-center mt-5">
+                <span className="spinner-border spinner-border-sm "></span>
+              </div>
+            ) : timeSlotsData?.length == 0 ? (
+              <div className="mx-1 text-center mt-5">
+                <p>There are no slots available for this day</p>
               </div>
             ) : (
-              <div className="mx-1 text-center mt-5">
-                <p>Please select any day to load time slots</p>
-              </div>
+              <>
+                {selectedDate !== null ? (
+                  <div className="row" style={{ borderColor: "#027547" }}>
+                    {timeSlotsData?.map((item, index) => (
+                      <div
+                        className=" col-lg-4 col-md-6 mt-2"
+                        key={index}
+                        onClick={() => {
+                          setselectedTimeSlotIndex(index);
+                          setSelectedTimeSlotData(item);
+                        }}
+                        // style={{
+                        //   backgroundColor:
+                        //     selectedTimeSlotIndex == index
+                        //       ? " #D1FADF"
+                        //       : "transparent",
+                        //   borderColor:
+                        //     selectedTimeSlotIndex == index ? "#027547" : "#D7DEFF",
+                        //   borderWidth: "1px",
+                        // }}
+                      >
+                        <div
+                          className={
+                            selectedTimeSlotIndex == index
+                              ? "scheduleTime active"
+                              : "scheduleTime"
+                          }
+                        >
+                          <h4 className="addServicePara m-0">
+                            {item?.start_time + " - " + item?.end_time}
+                          </h4>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                ) : (
+                  <div className="mx-1 text-center mt-5">
+                    <p>Please select any day to load time slots</p>
+                  </div>
+                )}
+              </>
             )}
-          </>
-        )}
-      </div>
-
-      <div className="modal-footer">
-        <button className="cancelBtn" onClick={() => crosshandler()}>
-          Cancel
-        </button>
-        <button
-          className="ModalBlue"
-          onClick={() => customProductHandler()}
-          disabled={retailData?.customProuductAddLoad ? true : false}
-        >
-          Add to the cart
-          {retailData?.customProuductAddLoad ? (
-            <span className="spinner-border spinner-border-sm mx-1"></span>
-          ) : (
-            <Image
-              src={Images.plusRound}
-              alt="image"
-              className="img-fluid BtnIcon"
-            />
-          )}
-        </button>
-      </div>
+          </div>
+        </div>
+        <div className="modal-footer">
+          <button className="cancelBtn" onClick={() => crosshandler()}>
+            Cancel
+          </button>
+          <button
+            className="ModalBlue"
+            onClick={() => customProductHandler()}
+            disabled={retailData?.customProuductAddLoad ? true : false}
+          >
+            Add to the cart
+            {retailData?.customProuductAddLoad ? (
+              <span className="spinner-border spinner-border-sm mx-1"></span>
+            ) : (
+              <Image
+                src={Images.plusRound}
+                alt="image"
+                className="img-fluid BtnIcon"
+              />
+            )}
+          </button>
+        </div>
+      </form>
     </div>
   );
 };

@@ -51,6 +51,8 @@ const index = () => {
     setEndDate(end);
   };
 
+  console.log(analyticsProfitData?.overView,"datttaaaaaaaaaa");
+
   const STATS = [
     {
       icon: total_order,
@@ -62,7 +64,7 @@ const index = () => {
     {
       icon: total_volume,
       title: "Total Revenue",
-      count: `${addThousandSeparator(
+      count: `$${addThousandSeparator(
         analyticsProfitData?.overView?.total_revenue
           ? (analyticsProfitData?.overView?.total_revenue).toFixed(2)
           : 0
@@ -84,9 +86,9 @@ const index = () => {
     {
       icon: gross_profit,
       title: "Volume",
-      count: `${addThousandSeparator(
-        analyticsProfitData?.overView?.profit_sum
-          ? analyticsProfitData?.overView?.profit_sum?.toFixed(2)
+      count: `$${addThousandSeparator(
+        analyticsProfitData?.overView?.transaction
+          ? analyticsProfitData?.overView?.transaction?.toFixed(2)
           : 0
       )}`,
       bgColor: "#D1FADF",
@@ -307,7 +309,7 @@ const index = () => {
                                 <b>
                                   $
                                   {addThousandSeparator(
-                                    (row?.profit_sum).toFixed(2)
+                                    (row?.transaction).toFixed(2)
                                   )}
                                 </b>
                               </td>

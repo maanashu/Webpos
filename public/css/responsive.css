@@ -371,6 +371,10 @@
     .assignMapRight {
         margin-top: 20px !important;
     }
+    .staffProfileInfo {
+    
+        width: 60%;
+    }
 }
 
 @media (max-width: 1080px) {

@@ -2,64 +2,54 @@ import React, { useState } from "react";
 import * as Images from "../../../utilities/images";
 import Image from "next/image";
 import { useDispatch, useSelector } from "react-redux";
+import { toast } from "react-toastify";
 import {
   selectCashDrawerData,
-  trackSessionSave,
+  updateDrawerSession,
 } from "../../../redux/slices/cashDrawer";
 
-const AddCashModal = ({ drawerSessionDetail, handleDrawerSessionChange, handleDrawerHistoryChange, title, modalType, close }) => {
+const addRemoveCashModal = (props) => {
   const dispatch = useDispatch();
-  const [addCashInput, setAddCashInput] = useState("");
+  const [amount, setAmount] = useState("");
   const [notes, setNotes] = useState("");
-  // const sessionData = useSelector(selectCashDrawerData);
-  // const drawerSessionDetail = sessionData?.drawerSession?.payload;
-  console.log(drawerSessionDetail, 'oooooooooooooooooooo');
   const digits = /^[0-9]+$/;
 
   const addCashHandler = async () => {
-    if (!addCashInput) {
-      alert("Please Enter Amount");
-    } else if (addCashInput && digits.test(addCashInput) === false) {
-      alert("Please enter valid amount");
-    } else if (addCashInput <= 0) {
-      alert("Please enter valid amount");
+    if (!amount) {
+      toast.error("Please enter amount");
+    } else if (amount && digits.test(amount) === false) {
+      toast.error("Please enter valid amount");
+    } else if (amount <= 0) {
+      toast.error("Please enter valid amount");
     } else {
       const data =
-        modalType == "add"
+        props.modalType == "add"
           ? {
-            drawer_id: drawerSessionDetail?.id,
-            amount: parseFloat(addCashInput),
+            drawer_id: props.drawerSessionId,
+            amount: Number(amount),
             transaction_type: "manual_cash_in",
             mode_of_cash: "cash_in",
           }
           : {
-            drawer_id: drawerSessionDetail?.id,
-            amount: parseFloat(addCashInput),
+            drawer_id: props.drawerSessionId,
+            amount: Number(amount),
             transaction_type: "manual_cash_out",
             mode_of_cash: "cash_out",
           };
       if (notes) {
         data.note = notes;
       }
+
       await dispatch(
-        trackSessionSave({
+        updateDrawerSession({
           ...data,
           cb(res) {
-            console.log(res?.data?.payload, "responseeeeeeeeeeeeeeeeeeeeeeeeeee")
-            if(res?.data?.payload){
-              handleDrawerSessionChange()
-              handleDrawerHistoryChange()
-              close();
-              setNotes("");
-              setAddCashInput("");
+            if(res.status){
+              props.close();
             }
           }
         })
       );
-      // const res = dispatch(trackSessionSave(data));
-      // if (res) {
-
-      // }
     }
   };
 
@@ -69,12 +59,12 @@ const AddCashModal = ({ drawerSessionDetail, handleDrawerSessionChange, handleDr
         <div className="trackingSub">
           <figure className="profileImage ">
             <Image
-              src={modalType == "add" ? Images.AddCashPlus : Images.RemoveCash}
+              src={props.modalType == "add" ? Images.AddCashPlus : Images.RemoveCash}
               alt="trackingImage"
               className="img-fluid "
             />
           </figure>
-          <h4 className="loginheading">{title}</h4>
+          <h4 className="loginheading">{props.modalType == "add" ? "Add" : "Remove"} Cash</h4>
           <h4 className="trackingHeading">Enter amount </h4>
         </div>
         <form className="trackingForm">
@@ -86,25 +76,21 @@ const AddCashModal = ({ drawerSessionDetail, handleDrawerSessionChange, handleDr
               className="form-control trackingInput"
               // name={generateRandomName}
               // autoComplete="new-password"
-              placeholder=" $ 500.00"
-              value={addCashInput}
-              onChange={(e) => setAddCashInput(e.target.value)}
+              placeholder="0.00"
+              value={amount}
+              onChange={(e) => setAmount(e.target.value)}
             />
-            <select name="cars" id="cars" className="trackingSelect">
-              <option value="volvo">USD</option>
-              <option value="saab">Saab</option>
-              <option value="mercedes">Mercedes</option>
-              <option value="audi">Audi</option>
-            </select>
           </div>
-          <p className="loginSub">This is a hint text to help user.</p>
-          <div className="textAreaSection">
+          
+          <p className="loginSub mb-0 ms-0 mt-4">This is a hint text to help user.</p>
+          <div className="textAreaSection mt-2">
             <textarea
               class="form-control textControl"
               id="exampleFormControlTextarea1"
               rows="2"
-              placeholder="Please enter note"
+              placeholder="Note"
               onChange={(e) => setNotes(e.target.value)}
+              style={{boxShadow: "unset"}}
             ></textarea>
             <Image
               src={Images.commentText}
@@ -120,12 +106,12 @@ const AddCashModal = ({ drawerSessionDetail, handleDrawerSessionChange, handleDr
                 addCashHandler()
               }}
             >
-              Confirm
-              <Image
+              Save
+              {/* <Image
                 src={Images.ArrowRight}
                 alt="rightArrow"
                 className="img-fluid rightImg"
-              />
+              /> */}
             </button>
           </div>
         </form>
@@ -134,4 +120,4 @@ const AddCashModal = ({ drawerSessionDetail, handleDrawerSessionChange, handleDr
   );
 };
 
-export default AddCashModal;
+export default addRemoveCashModal;
