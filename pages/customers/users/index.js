@@ -52,20 +52,24 @@ const Users = () => {
 
   const paginatedCustomersList = customersData?.allCustomersList?.payload;
   const sellerAreaList = customersData?.sellerAreaList?.payload;
-
+  
   const [date, setDate] = useState("");
   const [selected, setSelected] = useState("none");
   const [customersList, setCustomersList] = useState([]);
   const startIndex = (page - 1) * limit + 1;
 
+  // const areaSelector = [
+  //   { label: "None", value: "none" },
+  //   sellerAreaList?.length >0 ? [...sellerAreaList]?.map((item, index) => ({
+  //     label: item?.state,
+  //     value: item?.state,
+  //   })),
+  // ];
   const areaSelector = [
     { label: "None", value: "none" },
-    ...sellerAreaList?.map((item, index) => ({
-      label: item?.state,
-      value: item?.state,
-    })),
+    ...(sellerAreaList?.length > 0 ? sellerAreaList.map(item => ({ label: item.state, value: item.state })) : [])
   ];
-
+  
   const filterHandler = () => {
     if (startDate && endDate) {
       return {
