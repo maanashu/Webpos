@@ -83,12 +83,12 @@ const index = () => {
       icon: profitMargin,
       title: "Profit Margin",
       count: totalProductSoldAnalyticsData?.productOverview?.totalMargin
-        ? `$${addThousandSeparator(
+        ? `${addThousandSeparator(
             totalProductSoldAnalyticsData?.productOverview?.totalMargin?.toFixed(
               2
             )
-          )}`
-        : "$0",
+          )}%`
+        : "0%",
       bgColor: "#D1FADF",
       textColor: "#003921",
     },

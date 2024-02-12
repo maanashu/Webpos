@@ -612,3 +612,8 @@
 #ServiceProductAdd .modal-header {
   justify-content: center !important;
 }
+.mapleDate{
+  color: #263682;
+  font-size: 12px;
+  font-weight: 400;
+}

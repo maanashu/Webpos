@@ -7,6 +7,7 @@ import {
   setAllCustomersList,
   setSearchedCustomerList,
   setSellerAreaList,
+  setStoreLocation,
   setUserDetailsAndOrders,
   setUserMarketingStatus,
 } from "../../slices/customers";
@@ -83,7 +84,6 @@ function* getAllCustomersList(action) {
   }
 
   const params = new URLSearchParams(queryParams).toString();
-  console.log("fsdfsdgjfsd", params);
 
   try {
     const resp = yield call(
@@ -93,7 +93,6 @@ function* getAllCustomersList(action) {
     if (resp.status) {
       yield put(setAllCustomersList(resp.data));
       yield call(action.payload.cb, (action.res = resp));
-      // yield call(action.payload.cb, (action.res = resp));
     } else {
       throw resp;
     }
@@ -126,7 +125,38 @@ function* getSellerAreaList(action) {
 
 function* getUserDetailsAndOrders(action) {
   const dataToSend = { ...action.payload };
-  const params = new URLSearchParams(dataToSend).toString();
+  delete dataToSend.cb;
+
+  const defaultParams = {
+    seller_id: dataToSend?.seller_id,
+  };
+
+  const queryParams = {
+    ...defaultParams,
+  };
+  if (dataToSend?.page) {
+    queryParams.page = dataToSend?.page;
+  }
+  if (dataToSend?.limit) {
+    queryParams.limit = dataToSend?.limit;
+  }
+
+  if (dataToSend?.user_uid) {
+    queryParams.user_uid = dataToSend?.user_uid;
+  }
+
+  if (dataToSend?.month !== "none" && dataToSend?.month !== undefined) {
+    queryParams.month = dataToSend?.month;
+  }
+
+  if (
+    dataToSend?.store_location !== "none" &&
+    dataToSend?.store_location !== undefined
+  ) {
+    queryParams.store_location = dataToSend?.store_location;
+  }
+
+  const params = new URLSearchParams(queryParams).toString();
 
   try {
     const resp = yield call(
@@ -135,7 +165,7 @@ function* getUserDetailsAndOrders(action) {
     );
     if (resp.status) {
       yield put(setUserDetailsAndOrders(resp.data));
-      // yield call(action.payload.cb, (action.res = resp));
+      yield call(action.payload.cb, (action.res = resp));
     } else {
       throw resp;
     }
@@ -166,6 +196,27 @@ function* getUserMarketingStatus(action) {
   }
 }
 
+function* getStoreLocation(action) {
+  const dataToSend = { ...action.payload };
+  const params = new URLSearchParams(dataToSend).toString();
+
+  try {
+    const resp = yield call(
+      ApiClient.get,
+      `${ORDER_API_URL_V1}orders/customers/city?${params}`
+    );
+    if (resp.status) {
+      yield put(setStoreLocation(resp.data));
+      // yield call(action.payload.cb, (action.res = resp));
+    } else {
+      throw resp;
+    }
+  } catch (e) {
+    yield put(onErrorStopLoad());
+    toast.error(e?.error?.response?.data?.msg);
+  }
+}
+
 function* customersSaga() {
   yield all([
     takeLatest("customers/getAllCustomers", getAllCustomers),
@@ -173,6 +224,7 @@ function* customersSaga() {
     takeLatest("customers/getSellerAreaList", getSellerAreaList),
     takeLatest("customers/getUserDetailsAndOrders", getUserDetailsAndOrders),
     takeLatest("customers/getUserMarketingStatus", getUserMarketingStatus),
+    takeLatest("customers/getStoreLocation", getStoreLocation),
   ]);
 }
 

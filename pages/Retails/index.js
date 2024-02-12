@@ -344,7 +344,7 @@ const Retails = () => {
                       }
                       return (
                         <div
-                          className="col-xl-2 col-lg-3 col-md-4 mb-3"
+                          className="col-xxl-2 col-xl-3 col-lg-4 col-md-6 mb-3"
                           key={index}
                         >
                           {/* <Link href='/Retails/AddProduct'>  */}
@@ -393,10 +393,10 @@ const Retails = () => {
                             </figure>
                             <article className="productDetails">
                               <p className="productName">{item.name}</p>
-                              <p className="productGender">
+                              <p className="productGender description-container">
                                 {item.sub_category?.name}
                               </p>
-                              <div className="productCartPrice">
+                              <div className="productCartPrice mt-2">
                                 {item?.supplies?.[0]?.supply_prices?.[0]
                                   ?.offer_price &&
                                 item?.supplies?.[0]?.supply_prices?.[0]
@@ -464,7 +464,7 @@ const Retails = () => {
                       return (
                         <div
                           key={index}
-                          className="col-xl-2 col-lg-3 col-md-4 mb-3"
+                          className="col-xxl-2 col-xl-3 col-lg-4 col-md-6 mb-3"
                         >
                           <div
                             className={
@@ -502,14 +502,21 @@ const Retails = () => {
                             <article className="productDetails">
                               <p className="productName">{services?.name}</p>
                               <p className="productserviceName">
-                                <div
+                                {/* <div
                                   dangerouslySetInnerHTML={{
                                     __html: services?.description?.slice(
                                       0,
                                       200
                                     ),
                                   }}
-                                />
+                                /> */}
+                                <div className="description-container">
+                                  <div
+                                    dangerouslySetInnerHTML={{
+                                      __html: services?.description,
+                                    }}
+                                  />
+                                </div>
                               </p>
 
                               {services?.supplies?.[0]?.supply_prices?.[0]
@@ -672,10 +679,10 @@ const Retails = () => {
             " "
           )
         }
-        header={
+        header={ 
           <>
             {modalDetail.flag === "ClearCart" ? (
-              <h5 className="font-28 text-center">
+              <h5 className="appointMain mb-0">
                 Please clear {productCarts?.length > 0 ? "product" : "service"}{" "}
                 cart
               </h5>

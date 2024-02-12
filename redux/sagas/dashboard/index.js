@@ -20,7 +20,7 @@ function* getAllOrderDeliveries(action) {
   const dataToSend = { ...action.payload }
   delete dataToSend.cb
   try {
-    const resp = yield call(ApiClient.get, (`${ORDER_API_URL}/api/v1/orders?seller_id=${action.payload.seller_id}&delivery_option=${action.payload.delivery_option}&page=${action.payload.page}&limit=${action.payload.limit}&app_name=${action.payload.app_name}`));
+    const resp = yield call(ApiClient.get, (`${ORDER_API_URL}/api/v1/orders?seller_id=${action.payload.seller_id}&delivery_option=${action.payload.delivery_option}&page=${action.payload.page}&limit=${action.payload.limit}&app_name=${action.payload.app_name}&need_returned=${action.payload.need_returned}`));
     if (resp.status) {
       yield put(setGetAllOrderDeliveries(resp.data));
       yield call(action.payload.cb, (action.res = resp));
@@ -77,7 +77,7 @@ function* getDrawerSessionInfo(action) {
   try {
     const resp = yield call(ApiClient.post, (`${AUTH_API_URL}/api/v1/drawer_management/drawer-session`), (action.payload = action.payload))
     if (resp.status) {
-      yield put(setGetDrawerSessionInfo({...resp.data, payload: {...resp.data.payload, cash_balance: parseInt(resp.data.payload.opening_balance)}}));
+      yield put(setGetDrawerSessionInfo(resp.data));
       yield call(action.payload.cb, (action.res = resp));
       // toast.success(resp?.data?.msg);
     }

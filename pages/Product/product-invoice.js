@@ -35,10 +35,11 @@ const ProductInvoice = () => {
   const returnData = SearchInvoiceRespones?.return;
   const returnProductArray = returnData?.return_details;
   const orderDetails = SearchInvoiceRespones?.order;
+  const [searchKeyword, setSearchKeyword] = useState();
+  const [isSearching, setIsSearching] = useState(false);
   const [checkeddata, setCheckedData] = useState("");
   const [productDetails, setProductDetails] = useState([]);
   const [key, setKey] = useState(Math.random());
-  const [searchInvoice, setSearchInvoice] = useState();
   const [modalDetail, setModalDetail] = useState({
     show: false,
     title: "",
@@ -65,12 +66,11 @@ const ProductInvoice = () => {
     }
   }, [SearchInvoiceRespones?.order?.order_details, checkeddata]);
 
-  const handleSearchInvoice = (e) => {
+  const handleSearchInvoice = (invoiceNumber) => {
     let params = {
-      invoiceId: e?.target?.value ? e.target.value : e,
+      invoiceId: invoiceNumber,
       seller_id: sellerId,
     };
-
     dispatch(
       searchInvoiceByInvoiceId({
         ...params,
@@ -81,6 +81,18 @@ const ProductInvoice = () => {
       })
     );
   };
+  useEffect(() => {
+    if (searchKeyword && typeof searchKeyword != "undefined") {
+      setIsSearching(true);
+      const search = setTimeout(() => {
+        //Your search query and it will run the function after 3secs from user stops typing
+        var keyword = searchKeyword.toLowerCase();
+        handleSearchInvoice(keyword);
+      }, 2000);
+      return () => clearTimeout(search);
+    } else {
+    }
+  }, [searchKeyword]);
 
   const handleGoToNext = () => {
     const selectedProductItems = productDetails?.filter(
@@ -191,7 +203,7 @@ const ProductInvoice = () => {
     ) {
       dispatch(setSearchInvoiceByInvoiceId(null));
     } else if (SearchInvoiceRespones?.invoice_number) {
-      setSearchInvoice(SearchInvoiceRespones.invoice_number);
+      setSearchKeyword(SearchInvoiceRespones.invoice_number);
     }
   }, []);
 
@@ -228,10 +240,9 @@ const ProductInvoice = () => {
                   type="text"
                   class="form-control searchControl"
                   placeholder="Search here the # of invoice"
-                  value={searchInvoice}
+                  value={searchKeyword}
                   onChange={(e) => {
-                    handleSearchInvoice(e);
-                    setSearchInvoice(e.target.value);
+                    setSearchKeyword(e.target.value);
                   }}
                 />
                 <figure className="scanBox">

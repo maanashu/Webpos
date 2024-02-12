@@ -23,6 +23,7 @@ import {
   endTrackingSession,
   fetchInvoiceDetail,
 } from "../../redux/slices/dashboard";
+import { selectCashDrawerData } from "../../redux/slices/cashDrawer";
 import PaginationFooter from "../../components/commanComonets/customers/PaginationFooter";
 import Login from "../auth/login";
 import moment from "moment-timezone";
@@ -34,7 +35,9 @@ const Overview = () => {
   const currentTimeZone = getCurrentTimeZone();
   const authData = useSelector(selectLoginAuth);
   const dashboardData = useSelector(dashboardDetails);
-  const trackingSession = dashboardData?.drawerSession?.payload;
+  // const trackingSession = dashboardData?.drawerSession?.payload;
+  const sessionData = useSelector(selectCashDrawerData);
+  const trackingSession = sessionData?.drawerSession?.payload;
   const UniqueId = authData?.usersInfo?.payload?.uniqe_id
     ? authData?.usersInfo?.payload?.uniqe_id
     : "";
@@ -70,6 +73,7 @@ const Overview = () => {
       page: pageNumber,
       limit: recordsPerPage,
       app_name: "b2c",
+      need_returned: "false"
     };
     setLoadingOrders(true);
     dispatch(
@@ -157,7 +161,7 @@ const Overview = () => {
     let params = {
       // pos_user_id: posUserUniqueId,
       drawer_id: trackingSession?.id,
-      amount: parseInt(trackingSession?.cash_balance),
+      amount: Number(trackingSession?.cash_balance),
       transaction_type: "end_tracking_session",
       mode_of_cash: "cash_out",
     };
@@ -297,6 +301,7 @@ const Overview = () => {
       setDisplaySearchBox(false);
     }
   }, [searchKeyword]);
+
 
   return (
     <>
@@ -581,11 +586,9 @@ const Overview = () => {
                                             className="img-fluid ms-1"
                                           />
                                           <span className="locateDistance">
-                                            {invoiceDetail?.order
-                                              ?.payable_amount
-                                              ? invoiceDetail?.order
-                                                  ?.payable_amount
-                                              : 0}
+                                            {invoiceDetail?.order?.payable_amount
+                                              ? amountFormat(invoiceDetail.order.payable_amount)
+                                              : "$0.00"}
                                           </span>
                                         </div>
                                       </div>
@@ -696,7 +699,7 @@ const Overview = () => {
                 </div>
                 <div className="profileMainTable">
                   <h4 className="loginMain">Orders</h4>
-                  <div className="table-responsive deliverTable">
+                  <div className="table-responsive deliverTable pb-4">
                     <table id="tableProduct" className="product_table">
                       {loadingOrders ? (
                         <tbody>
@@ -761,8 +764,8 @@ const Overview = () => {
                                           />
                                           <span className="locateDistance">
                                             {data?.payable_amount
-                                              ? data?.payable_amount
-                                              : 0}
+                                              ? amountFormat(data.payable_amount)
+                                              : "$0.00"}
                                           </span>
                                         </div>
                                       </div>
@@ -770,9 +773,13 @@ const Overview = () => {
                                     <td className="deliverSubdata">
                                       <div className="itemTime">
                                         <h4 className="orderId">
-                                          {data?.delivery_details?.title}
+                                          {data?.delivery_details?.title ? data.delivery_details.title :
+                                            data.delivery_option == "1" ? "Delivery" :
+                                            data.delivery_option == "3" ? "Customer Pickup" :
+                                            data?.shipping_details?.title ? data.shipping_details.title : ""
+                                          }
                                         </h4>
-                                        {data?.preffered_delivery_start_time ? (
+                                        {data?.preffered_delivery_start_time &&
                                           <div className="flexTable">
                                             <Image
                                               src={Images.Time}
@@ -789,14 +796,11 @@ const Overview = () => {
                                               }
                                             </span>
                                           </div>
-                                        ) : (
-                                          ""
-                                        )}
+                                        }
                                       </div>
                                     </td>
                                     <td className="deliverSubdata">
                                       <div className="deliveryTime">
-                                        <i className="fa-sharp fa-solid fa-chevron-right"></i>
                                         <span className="orderId">
                                           {data?.estimated_preparation_time ===
                                           null
@@ -805,6 +809,7 @@ const Overview = () => {
                                                 data?.estimated_preparation_time
                                               ).format("LTS")}
                                         </span>
+                                        &nbsp;&nbsp;&nbsp;&nbsp;<i className="fa-sharp fa-solid fa-chevron-right"></i>
                                       </div>
                                     </td>
                                   </tr>
@@ -825,14 +830,16 @@ const Overview = () => {
                       )}
                     </table>
                     {totalItems > recordsPerPage && (
-                      <PaginationFooter
-                        page={pageNumber}
-                        limit={recordsPerPage}
-                        setPage={(newPageNumber) =>
-                          setPageNumber(newPageNumber)
-                        }
-                        totalItems={totalItems}
-                      />
+                      <div className="p-3 d-flex justify-content-center">
+                        <PaginationFooter
+                          page={pageNumber}
+                          limit={recordsPerPage}
+                          setPage={(newPageNumber) =>
+                            setPageNumber(newPageNumber)
+                          }
+                          totalItems={totalItems}
+                        />
+                      </div>
                     )}
                   </div>
                 </div>

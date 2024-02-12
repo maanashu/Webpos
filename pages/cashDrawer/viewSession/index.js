@@ -4,125 +4,54 @@ import Accordion from "react-bootstrap/Accordion";
 import { Chart as ChartJS, registerables } from "chart.js";
 import * as Images from "../../../utilities/images";
 import { useRouter } from "next/router";
-import Header from "../../../components/commanComonets/cashdrawer/Header";
-import {
-  arrowDown,
-  Clock,
-  DrawerID,
-  plusCircleOutline,
-  salesTracking,
-} from "../../../utilities/images";
 import CustomModal from "../../../components/customModal/CustomModal";
-import AddCashModal from "../../../components/modals/cashDrawerModals/addCashModal";
+import AddRemoveCashModal from "../../../components/modals/cashDrawerModals/addRemoveCashModal";
 import Link from "next/link";
 import { useDispatch, useSelector } from "react-redux";
 import {
-  getDrawerHistory,
-  getDrawerSession,
-  getSessionHistory,
+  getSessionSummary,
   selectCashDrawerData,
 } from "../../../redux/slices/cashDrawer";
 import { amountFormat } from '../../../utilities/globalMethods';
 import moment from "moment-timezone";
 import { selectLoginAuth } from "../../../redux/slices/auth";
-// import AccordionBody from "react-bootstrap/esm/AccordionBody";
 
 const ViewSession = () => {
   const router = useRouter();
   ChartJS.register(...registerables);
-  const authData = useSelector(selectLoginAuth);
   const dispatch = useDispatch();
   const sessionData = useSelector(selectCashDrawerData);
   const drawerSessionDetail = sessionData?.drawerSession?.payload;
-  console.log(drawerSessionDetail,'drawerSessionDetail');
-  const [drawerSessionData,setDrawerSessionData] = useState("")
-  // console.log(drawerSessionData,'drawerSessionData');
-  const [netAmount, setNetAmount] = useState("")
-  const [cashIn, setCashIn] = useState("")
-  const [cashOut, setCashOut] = useState("")
-
+  const [sessionHistory, setSessionHistory] = useState({});
   const [key, setKey] = useState(Math.random());
-
   const [modalDetail, setModalDetail] = useState({
     show: false,
-    title: "Add Cash",
-    type: "add",
-    flag: "trackingmodal",
+    type: ""
   });
 
-  const handleShowModal = (title, type) => {
-    setModalDetail({
-      show: true,
-      title: title,
-      type: type,
-      flag: "trackingmodal",
-    });
-    setKey(Math.random());
-  };
   const handleOnCloseModal = () => {
-    setModalDetail({
-      show: false,
-      title: "",
-      flag: "",
-    });
+    setModalDetail({show: false, type: ""});
     setKey(Math.random());
   };
 
-  const drawerSessionInfo = () => {
-    const sellerId = {
-      seller_id: authData?.usersInfo?.payload?.uniqe_id,
-    };
+  const fetchSessionSummary = () => {
+    let params = {
+      drawer_id: drawerSessionDetail.id
+    }
     dispatch(
-      getDrawerSession({
-        ...sellerId,
+      getSessionSummary({
+        ...params,
         cb(res) {
-          console.log(res, 'resssssssssss');
-          setDrawerSessionData(res?.data?.payload)
-        }
-      })
-    );
-  };
-
-  const getDrawerHistoryHandle = () => {
-    const drawerId = {
-      drawer_id: drawerSessionDetail?.id,
-    };
-    dispatch(
-      getDrawerHistory({
-        ...drawerId,
-        cb(res) {
-          console.log(res, "responseeeeeeeeeeeeeeeeeeeeeeeeeee history")
-          if(res?.data?.payload){
-            setCashIn(res?.data?.payload?.cash_in)
-            setCashOut(res?.data?.payload?.cash_out)
-            setNetAmount(res?.data?.payload?.net_amount)
+          if(res.status){
+            setSessionHistory(res?.data?.payload);
           }
         }
       })
     );
   }
-  // const getSessionHistoryHandle = () => {
-  //   const data = {
-  //     page: 1,
-  //     limit: 10,
-  //     // calenderDate: formatedDate,
-  //     staffId: "none",
-  //   };
-  //   dispatch(getSessionHistory({
-  //     ...data,
-  //     cb(res) {
-  //       console.log(res,'sssssssssssssssssssss');
-  //       // setCashIn(res?.data?.payload?.cash_in)
-  //       // setCashOut(res?.data?.payload?.cash_out)
-  //       // setNetAmount(res?.data?.payload?.net_amount)
-  //     }
-  //   }));
-  // }
 
   useEffect(() => {
-    // getSessionHistoryHandle()
-    getDrawerHistoryHandle()
-    drawerSessionInfo()
+    fetchSessionSummary();
   }, []);
 
   return (
@@ -156,7 +85,7 @@ const ViewSession = () => {
                 </div>
                 <div className="dateContainer">
                   <div className="dateBox">
-                    <Image className="clockStyle" src={Clock} />
+                    <Image className="clockStyle" src={Images.Clock} />
                     <h6 className="dateStyle">
                       {moment.utc().format("dddd, Do MMMM YYYY")}
                     </h6>
@@ -167,20 +96,20 @@ const ViewSession = () => {
                 <div className="cashInnerContainer">
                   <div className="cashbox">
                     <p className="cashTextStyle">
-                      USD {amountFormat(Number(netAmount)?.toFixed(2))}
+                      USD {sessionHistory?.net_amount ? amountFormat(sessionHistory.net_amount) : "$0.00"}
                     </p>
                     <p className="expectedCash">Expected cash balance</p>
                   </div>
                   <div className="buttonBox">
                     <div
-                      onClick={() => handleShowModal("Remove Cash", "remove")}
+                      onClick={() => {setModalDetail({show: true, type: "remove"}); setKey(Math.random());}}
                       className="removeCashButton"
                       style={{ cursor: "pointer" }}
                     >
                       <p className="removeTextStyle"><b>Remove Cash</b></p>
                     </div>
                     <div
-                      onClick={() => handleShowModal("Add Cash", "add")}
+                      onClick={() => {setModalDetail({show: true, type: "add"}); setKey(Math.random());}}
                       className="addCashButton"
                       style={{ cursor: "pointer" }}
                     >
@@ -207,7 +136,7 @@ const ViewSession = () => {
                     <div className="flexDiv w-100 mainAccordn">
                       <h4 className="accordnText">Total Cash In</h4>
                       <h4 className="accordnText">
-                        ${cashIn?.total ? cashIn?.total?.toFixed(2) : '0.00'}
+                        USD {sessionHistory?.cash_in?.total ? amountFormat(sessionHistory.cash_in.total) : '$0.00'}
                       </h4>
                     </div>
                   </Accordion.Header>
@@ -219,7 +148,7 @@ const ViewSession = () => {
                             <div className="flexDiv w-100 subAccordn">
                               <h4 className="appointSub m-0">Sales</h4>
                               <h4 className="appointSub m-0">
-                                ${cashIn?.sales?.total ? cashIn?.sales?.total?.toFixed(2) : "0.00"}
+                                USD {sessionHistory?.cash_in?.sales?.total ? amountFormat(sessionHistory.cash_in.sales.total) : '$0.00'}
                               </h4>
                             </div>
                           </Accordion.Header>
@@ -227,19 +156,19 @@ const ViewSession = () => {
                             <div className="flexDiv mt-2 py-1">
                               <h4 className="appointSub m-0 ps-3">Cash</h4>
                               <h4 className="appointSub m-0">
-                                ${cashIn?.sales?.cash ? cashIn?.sales?.cash?.toFixed(2) : "0.00"}
+                                USD {sessionHistory?.cash_in?.sales?.cash ? amountFormat(sessionHistory.cash_in.sales.cash) : '$0.00'}
                               </h4>
                             </div>
                             <div className="flexDiv mt-2 py-1">
                               <h4 className="appointSub m-0 ps-3">Card</h4>
                               <h4 className="appointSub m-0">
-                                ${cashIn?.sales?.card ? cashIn?.sales?.card?.toFixed(2) : "0.00"}
+                                USD {sessionHistory?.cash_in?.sales?.card ? amountFormat(sessionHistory.cash_in.sales.card) : '$0.00'}
                               </h4>
                             </div>
                             <div className="flexDiv mt-2 py-1">
                               <h4 className="appointSub m-0 ps-3">Jobr Coin</h4>
                               <h4 className="appointSub m-0">
-                                ${cashIn?.sales?.jobr_coin ? cashIn?.sales?.jobr_coin?.toFixed(2) : "0.00"}
+                                {sessionHistory?.cash_in?.sales?.jobr_coin ? sessionHistory.cash_in.sales.jobr_coin : '0'}
                               </h4>
                             </div>
                           </Accordion.Body>
@@ -253,7 +182,7 @@ const ViewSession = () => {
                             <div className="flexDiv w-100 subAccordn">
                               <h4 className="appointSub m-0">Manual</h4>
                               <h4 className="appointSub m-0">
-                                ${cashIn?.manual?.total ? cashIn?.manual?.total?.toFixed(2) : "0.00"}
+                                USD {sessionHistory?.cash_in?.manual?.total ? amountFormat(sessionHistory.cash_in.manual.total) : '$0.00'}
                               </h4>
                             </div>
                           </Accordion.Header>
@@ -261,19 +190,19 @@ const ViewSession = () => {
                             <div className="flexDiv mt-2 py-1">
                               <h4 className="appointSub m-0 ps-3">Cash</h4>
                               <h4 className="appointSub m-0">
-                                ${cashIn?.manual?.cash ? cashIn?.manual?.cash?.toFixed(2) : "0.00"}
+                                USD {sessionHistory?.cash_in?.manual?.cash ? amountFormat(sessionHistory.cash_in.manual.cash) : "$0.00"}
                               </h4>
                             </div>
                             <div className="flexDiv mt-2 py-1">
                               <h4 className="appointSub m-0 ps-3">Card</h4>
                               <h4 className="appointSub m-0">
-                                ${cashIn?.manual?.card ? cashIn?.manual?.card?.toFixed(2) : "0.00"}
+                                USD {sessionHistory?.cash_in?.manual?.card ? amountFormat(sessionHistory.cash_in.manual.card) : "$0.00"}
                               </h4>
                             </div>
                             <div className="flexDiv mt-2 py-1">
                               <h4 className="appointSub m-0 ps-3">Jobr Coin</h4>
                               <h4 className="appointSub m-0">
-                                ${cashIn?.manual?.jobr_coin ? cashIn?.manual?.jobr_coin?.toFixed(2) : "0.00"}
+                                {sessionHistory?.cash_in?.manual?.jobr_coin ? sessionHistory.cash_in.manual.jobr_coin : "0"}
                               </h4>
                             </div>
                           </Accordion.Body>
@@ -292,7 +221,7 @@ const ViewSession = () => {
                     <div className="flexDiv w-100 mainAccordn">
                       <h4 className="accordnText">Total Cash Out</h4>
                       <h4 className="accordnText">
-                        ${cashOut?.total ? cashOut?.total?.toFixed(2) : "0.00"}
+                        USD {sessionHistory?.cash_out?.total ? amountFormat(sessionHistory.cash_out.total) : "$0.00"}
                       </h4>
                     </div>
                   </Accordion.Header>
@@ -304,7 +233,7 @@ const ViewSession = () => {
                             <div className="flexDiv w-100 subAccordn">
                               <h4 className="appointSub m-0">Refund</h4>
                               <h4 className="appointSub m-0">
-                                ${cashOut?.refund?.total ? cashOut?.refund?.total?.toFixed(2) : "0.00"}
+                                USD {sessionHistory?.cash_out?.refund?.total ? amountFormat(sessionHistory.cash_out.refund.total) : "$0.00"}
                               </h4>
                             </div>
                           </Accordion.Header>
@@ -312,19 +241,19 @@ const ViewSession = () => {
                             <div className="flexDiv mt-2 py-1">
                               <h4 className="appointSub m-0 ps-3">Cash</h4>
                               <h4 className="appointSub m-0">
-                                ${cashOut?.refund?.cash ? cashOut?.refund?.cash?.toFixed(2) : "0.00"}
+                                USD {sessionHistory?.cash_out?.refund?.cash ? amountFormat(sessionHistory.cash_out.refund.cash) : "$0.00"}
                               </h4>
                             </div>
                             <div className="flexDiv mt-2 py-1">
                               <h4 className="appointSub m-0 ps-3">Card</h4>
                               <h4 className="appointSub m-0">
-                                ${cashOut?.refund?.card ? cashOut?.refund?.card?.toFixed(2) : "0.00"}
+                                USD {sessionHistory?.cash_out?.refund?.card ? amountFormat(sessionHistory.cash_out.refund.card) : "$0.00"}
                               </h4>
                             </div>
                             <div className="flexDiv mt-2 py-1">
                               <h4 className="appointSub m-0 ps-3">Jobr Coin</h4>
                               <h4 className="appointSub m-0">
-                                ${cashOut?.refund?.jobr_coin ? cashOut?.refund?.jobr_coin?.toFixed(2) : "0.00"}
+                                {sessionHistory?.cash_out?.refund?.jobr_coin ? sessionHistory.cash_out.refund.jobr_coin : "0"}
                               </h4>
                             </div>
                           </Accordion.Body>
@@ -339,7 +268,7 @@ const ViewSession = () => {
                             <div className="flexDiv w-100 subAccordn">
                               <h4 className="appointSub m-0">Manual</h4>
                               <h4 className="appointSub m-0">
-                                ${cashOut?.manual?.total ? cashOut?.manual?.total?.toFixed(2) : "0.00"}
+                                USD {sessionHistory?.cash_out?.manual?.total ? amountFormat(sessionHistory.cash_out.manual.total) : "$0.00"}
                               </h4>
                             </div>
                           </Accordion.Header>
@@ -347,19 +276,19 @@ const ViewSession = () => {
                             <div className="flexDiv mt-2 py-1">
                               <h4 className="appointSub m-0 ps-3">Cash</h4>
                               <h4 className="appointSub m-0">
-                                ${cashOut?.manual?.cash ? cashOut?.manual?.cash?.toFixed(2) : "0.00"}
+                                USD {sessionHistory?.cash_out?.manual?.cash ? amountFormat(sessionHistory.cash_out.manual.cash) : "$0.00"}
                               </h4>
                             </div>
                             <div className="flexDiv mt-2 py-1">
                               <h4 className="appointSub m-0 ps-3">Card</h4>
                               <h4 className="appointSub m-0">
-                                ${cashOut?.manual?.card ? cashOut?.manual?.card?.toFixed(2) : "0.00"}
+                                USD {sessionHistory?.cash_out?.manual?.card ? amountFormat(sessionHistory.cash_out.manual.card) : "$0.00"}
                               </h4>
                             </div>
                             <div className="flexDiv mt-2 py-1">
                               <h4 className="appointSub m-0 ps-3">Jobr Coin</h4>
                               <h4 className="appointSub m-0">
-                                ${cashOut?.manual?.jobr_coin ? cashOut?.manual?.jobr_coin?.toFixed(2) : "0.00"}
+                                {sessionHistory?.cash_out?.manual?.jobr_coin ? sessionHistory.cash_out.manual.jobr_coin : "0"}
                               </h4>
                             </div>
                           </Accordion.Body>
@@ -372,13 +301,19 @@ const ViewSession = () => {
             </div>
             <div className="netPaymentView">
               <h2 className="netPaymentText">Net Payment</h2>
-              <h1 className="totalAmmount">
-                ${netAmount ? Number(netAmount)?.toFixed(2) : "0.00"}
+              <h1 className="totalAmmount w-100 text-right" style={{textAlign: "right"}}>
+                USD {sessionHistory?.net_amount ? amountFormat(sessionHistory.net_amount) : "$0.00"}
               </h1>
             </div>
             <Link href="viewSession/endSession" className="closeView">
               <div>
                 <h6 className="closeText">{"Close Batch"}</h6>
+                {/* <Image
+                  // width={20}
+                  // height={20}
+                  // className="clockStyle"
+                  src={Images.plusRound}
+                /> */}
               </div>
             </Link>
           </div>
@@ -392,35 +327,25 @@ const ViewSession = () => {
         showCloseBtn={false}
         isRightSideModal={true}
         mediumWidth={false}
-        ids={modalDetail.flag === "trackingmodal" ? "trackingModal" : ""}
+        ids={"trackingModal"}
         child={
-          modalDetail.flag === "trackingmodal" ? (
-            <AddCashModal
-              title={modalDetail.title}
-              modalType={modalDetail.type}
-              handleDrawerSessionChange={drawerSessionInfo}
-              handleDrawerHistoryChange={getDrawerHistoryHandle}
-              close={() => handleOnCloseModal()}
-              drawerSessionDetail={drawerSessionData}
-            />
-          ) : (
-            ""
-          )
+          <AddRemoveCashModal
+            modalType={modalDetail.type}
+            close={() => {
+              fetchSessionSummary(); 
+              handleOnCloseModal();
+            }}
+            drawerSessionId={drawerSessionDetail.id}
+          />
         }
         header={
-          modalDetail.flag === "trackingmodal" ? (
-            <>
-              <p onClick={handleOnCloseModal} className="modal_cancel">
-                <Image
-                  src={Images.modalCross}
-                  alt="modalCross"
-                  className="img-fluid"
-                />
-              </p>
-            </>
-          ) : (
-            ""
-          )
+          <p onClick={() => handleOnCloseModal()} className="modal_cancel">
+            <Image
+              src={Images.modalCross}
+              alt="modalCross"
+              className="img-fluid"
+            />
+          </p>
         }
         onCloseModal={() => handleOnCloseModal()}
       />

@@ -2,7 +2,8 @@ import React, { useState } from 'react'
 import * as Images from "../../../utilities/images";
 import Image from "next/image";
 import { useDispatch, useSelector } from 'react-redux';
-import { getDrawerSessionInfo } from '../../../redux/slices/dashboard';
+// import { getDrawerSessionInfo } from '../../../redux/slices/dashboard';
+import { getDrawerSession, updateDrawerSession } from "../../../redux/slices/cashDrawer";
 import { toast } from 'react-toastify';
 import { selectLoginAuth } from '../../../redux/slices/auth';
 
@@ -16,6 +17,31 @@ const SessionModal = (props) => {
     const [drawerSessionDetails, setDrawerSessionDetails] = useState("");
 
     const UniqueId = authData?.usersInfo?.payload?.uniqe_id ? authData?.usersInfo?.payload?.uniqe_id : ""
+
+    const startTrackingSession = (drawerId) => {
+        let params = {
+            drawer_id: drawerId,
+            amount: Number(amount),
+            transaction_type: "start_tracking_session",
+            mode_of_cash: "cash_in"
+        };
+
+        dispatch(
+            updateDrawerSession({
+              ...params,
+              cb(res) {
+                if(res.status){
+                    dispatch(getDrawerSession({seller_id: UniqueId}))
+
+                    setAmount("")
+                    setNotes("")
+                    props.close()
+                }
+              }
+            })
+        );
+    }
+
     // API for get Drawer Session Info...............................
     const drawerSessionInfo = () => {
         if (!amount) {
@@ -35,17 +61,15 @@ const SessionModal = (props) => {
             amount: amount,
             notes: notes
         };
-        dispatch(getDrawerSessionInfo({
+        
+        dispatch(getDrawerSession({
             ...params,
             cb(res) {
-                if (res.status) {
-                    setAmount("")
-                    setNotes("")
-                    props.close()
+                if (res.status && res?.data?.payload?.id) {
+                    startTrackingSession(res.data.payload.id);
                 }
             },
-        })
-        );
+        }))
     };
 
     return (
@@ -67,7 +91,7 @@ const SessionModal = (props) => {
                             className="form-control trackingInput"
                             // name={generateRandomName}
                             // autoComplete="new-password"
-                            placeholder=" $ 500.00"
+                            placeholder="0.00"
                             // value={amount}
                             onChange={(e) => setAmount(e.target.value)}
                             onKeyDown={blockInvalidChar}

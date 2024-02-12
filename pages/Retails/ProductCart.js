@@ -94,7 +94,7 @@ const ProductCart = () => {
     dispatch(
       availableOffers({
         ...params,
-        cb(res) {},
+        cb(res) { },
       })
     );
   };
@@ -324,13 +324,13 @@ const ProductCart = () => {
     const params =
       holdProductArray?.length > 0
         ? {
-            status: !holdProductArray?.[0]?.is_on_hold,
-            cartId: holdProductArray?.[0]?.id,
-          }
+          status: !holdProductArray?.[0]?.is_on_hold,
+          cartId: holdProductArray?.[0]?.id,
+        }
         : {
-            status: !retailData?.productCart?.is_on_hold,
-            cartId: retailData?.productCart?.id,
-          };
+          status: !retailData?.productCart?.is_on_hold,
+          cartId: retailData?.productCart?.id,
+        };
     dispatch(
       holdCart({
         ...params,
@@ -436,14 +436,16 @@ const ProductCart = () => {
                         </div>
                       </div>
                       <div className="fullCartInfo w-50">
-                        {amountFormat(
-                          getProductPrice(
-                            data.product_details?.supply?.supply_offers,
-                            data.product_details?.supply?.supply_prices
-                              ?.selling_price,
-                            data.qty
-                          )
-                        )}
+                        <div className="unitPriceControl">
+                          {amountFormat(
+                            getProductPrice(
+                              data.product_details?.supply?.supply_offers,
+                              data.product_details?.supply?.supply_prices
+                                ?.selling_price,
+                              data.qty
+                            )
+                          )}
+                        </div>
                         <div className="incrementBtn ">
                           <i
                             className="fa-solid fa-minus plusMinus"
@@ -453,8 +455,9 @@ const ProductCart = () => {
                                 : updateQuantity("-", index);
                             }}
                           ></i>
-
-                          {data?.qty}
+                          <h4 className="addBtnControl">
+                            {data?.qty}
+                          </h4>
                           <i
                             className="fa-solid fa-plus plusMinus"
                             onClick={() => updateQuantity("+", index)}
@@ -582,7 +585,7 @@ const ProductCart = () => {
                   {/* <h4 className="monthText">Delete Product</h4> */}
                 </div>
                 {retailData?.holdCartLoad ||
-                retailData?.getHoldProductCartLoad ? (
+                  retailData?.getHoldProductCartLoad ? (
                   <div className="addproductCart ">
                     <>
                       <span className="spinner-border spinner-border-sm mx-1"></span>
@@ -590,7 +593,7 @@ const ProductCart = () => {
                   </div>
                 ) : (
                   <div
-                    className="addproductCart "
+                    className="addproductCart position-relative"
                     onClick={() => serviceCartStatusHandler()}
                   >
                     <Image
@@ -598,7 +601,7 @@ const ProductCart = () => {
                       alt="pauseproductImage"
                       className="img-fluid"
                     />
-                    <p>{holdProductArray?.length}</p>
+                    <p className="shipNum">{holdProductArray?.length}</p>
                     {/* <h4 className="monthText">Pause Product</h4> */}
                   </div>
                 )}
@@ -607,10 +610,10 @@ const ProductCart = () => {
                   onClick={() =>
                     cartLength > 0
                       ? // setAttachCustomerModal(true),
-                        (setModalDetail({
-                          show: true,
-                          flag: "AttachCustomer",
-                        }),
+                      (setModalDetail({
+                        show: true,
+                        flag: "AttachCustomer",
+                      }),
                         setKey(Math.random()),
                         cartUpdate())
                       : noCartFun()
@@ -690,8 +693,8 @@ const ProductCart = () => {
                               {/* <div className="availablePrice"> */}
                               {offers?.supplies?.[0]?.supply_prices?.[0]
                                 ?.actual_price &&
-                              offers?.supplies?.[0]?.supply_prices?.[0]
-                                ?.offer_price ? (
+                                offers?.supplies?.[0]?.supply_prices?.[0]
+                                  ?.offer_price ? (
                                 <div className="availablePrice">
                                   <del>
                                     $
@@ -771,9 +774,10 @@ const ProductCart = () => {
                   </div>
                   <div className="flexDiv mt-2">
                     <h4 className="lightOfferText fw-bold">
-                      {`Discount ${
-                        cartData?.discount_flag === "percentage" ? "(%)" : ""
-                      } `}
+                      {`Discount ${cartData?.discount_flag === "percentage"
+                          ? "(" + cartData?.discount_value + "%)"
+                          : ""
+                        } `}
                     </h4>
                     <h4 className="appointSub m-0 fw-bold">
                       {formattedReturnPrice(cartAmount?.discount || "0.00")}
@@ -846,15 +850,17 @@ const ProductCart = () => {
         ids={
           modalDetail.flag === "AddDiscount"
             ? "AddDiscount"
-            : "AddNotes"
-            ? "AddNotes"
-            : "DeleteCarts"
-            ? "DeleteCarts"
-            : "UpdatePrice"
-            ? "AddProduct"
-            : "AddProduct"
-            ? "AttachCustomer"
-            : "AttachCustomer"
+            : modalDetail.flag === "AddNotes"
+              ? "AddNotes"
+              : modalDetail.flag === "DeleteCarts"
+                ? "DeleteCarts"
+                : modalDetail.flag === "UpdatePrice"
+                  ? "UpdatePrice"
+                  : modalDetail.flag === "AddProduct"
+                    ? "AddProduct"
+                    : modalDetail.flag === "AttachCustomer"
+                      ? "addCustomerModal"
+                      : "addCustomerModal"
         }
         child={
           modalDetail.flag === "AddDiscount" ? (
