@@ -1318,3 +1318,32 @@ input:checked+.switch-slider:before {
   overflow: hidden;
   min-height: 55px;
 } 
+
+#transactionSearchModal {
+  right: 19px;
+  -webkit-transition: opacity 0.3s linear, right 0.3s ease-out;
+  -moz-transition: opacity 0.3s linear, right 0.3s ease-out;
+  -o-transition: opacity 0.3s linear, right 0.3s ease-out;
+  transition: opacity 0.3s linear, right 0.3s ease-out;
+  top: 119px;
+  position: fixed;
+  margin: 0;
+  width: 100%;
+  min-height: auto;
+}
+#transactionSearchModal .modal-content {
+  border-radius: 30px;
+  background: var(--surfaces-s-top, #fff);
+  box-shadow: -2.52875px 6.00803px 6.51852px 0 rgb(52 79 117 / 3%), -11.95411px 28.40162px 25.48148px 0 rgb(52 79 117 / 4%), -31.03472px 73.73497px 179px 0 rgb(52 79 117 / 7%);
+  border: none;
+  padding: 52px 20px 30px;
+}
+#transactionSearchModal .modal-header {
+  border: none;
+  padding: 0;
+}
+#transactionSearchModal .modal_cancel {
+  position: absolute;
+  top: 9px;
+  right: 12px;
+}

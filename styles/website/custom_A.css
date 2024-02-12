@@ -4,7 +4,7 @@
   height: calc(100vh - 129px);
   overflow: hidden;
   border-radius: 20px;
-  margin: 0 6px 0 16px;
+  margin: 0 16px;
   padding: 20px;
   width: 100%;
 }
