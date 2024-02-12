@@ -41,12 +41,12 @@ export default function Layout({ children, isLoggedIn, userType }) {
     "/settings/polices",
     "/settings/bussinessLocation",
     "/settings/walletConfig",
-    '/transactions',
-    '/transactions/transactionList',
-    '/transactions/transactionList/invoice',
-    '/settings/plans/planFit',
-    "/transactions/notification"
-
+    "/transactions",
+    "/transactions/transactionList",
+    "/transactions/transactionList/invoice",
+    "/settings/plans/planFit",
+    "/transactions/notification",
+    "/transactions/search",
   ];
 
   return (

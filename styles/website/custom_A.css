@@ -933,7 +933,8 @@
   cursor: pointer;
 }
 
-.product_invoice.active {
+.product_invoice.active ,
+.product_invoice:hover{
   outline: 1.5px solid #d7deff;
 }
 

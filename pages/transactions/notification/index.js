@@ -50,7 +50,7 @@ const Notifications = () => {
   );
   return (
     <>
-      <div className="notifySection">
+      <div className="notifySection transectionCommon">
         <div className="flexTable mb-4">
           <Image
             src={Images.boldLeftArrow}
