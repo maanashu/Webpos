@@ -1,5 +1,5 @@
 import Image from "next/image";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 import { Chart as ChartJS, registerables } from "chart.js";
 import Header from "../../../../components/commanComonets/cashdrawer/Header";
@@ -93,9 +93,6 @@ const EndSession = () => {
           console.log("RESET_CALL_CALLED1");
           if (res.status) {
             await dispatch(restAllData());
-            // await dispatch(logout());
-            // await dispatch(dashboardLogout());
-            console.log("RESET_CALL_CALLED");
 
             setTimeout(() => {
               toast.success("Logout successfully");
@@ -111,6 +108,23 @@ const EndSession = () => {
       })
     );
   };
+
+  const closeSession = async () => {
+    await dispatch(restAllData({skipAuth: true}));
+    localStorage.removeItem("authToken");
+
+    setTimeout(() => {
+      toast.warning("Batch has been closed");
+    }, 200);
+
+    router.push("/auth/login");
+  }
+
+  useEffect(() => {
+    if(sessionData?.drawerSession?.has_session_closed){
+      closeSession();
+    }
+  }, []);
 
   return (
     <>

@@ -3,6 +3,7 @@ import * as Images from "../../../utilities/images";
 import Image from "next/image";
 import { useDispatch, useSelector } from "react-redux";
 import { useRouter } from "next/router";
+import { toast } from "react-toastify";
 import { selectCashDrawerData, setGetDrawerSession } from "../../../redux/slices/cashDrawer";
 import { endTrackingSession } from "../../../redux/slices/dashboard";
 import { amountFormat } from '../../../utilities/globalMethods';
@@ -32,6 +33,12 @@ const CloseBatch = ({amountToRemove, leftAmount, expectedAmount }) => {
         async cb(res) {
           if (res.status) {
             await dispatch(restAllData({skipAuth: true, skipCashDrawer: true}));
+            await dispatch(setGetDrawerSession({...sessionData.drawerSession, has_session_closed: true}));
+
+            setTimeout(() => {
+              toast.success("Batch closed successfully");
+            }, 200);
+            
             router.push("/cashDrawer/sessionSummary");
           }
           else {

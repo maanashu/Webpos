@@ -286,7 +286,7 @@ const SessionSummary = () => {
           <button
             type="button"
             className="sendToEmailBtn px-5 py-2"
-            onClick={() => {sendSessionSummary()}}
+            onClick={() => {!sendingEmail ? sendSessionSummary() : false}}
           >
             {sendingEmail && <span className="spinner-border spinner-border-sm"></span>}&nbsp;Send to email before lock screen
           </button>

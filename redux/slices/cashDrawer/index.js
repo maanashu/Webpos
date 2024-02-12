@@ -6,6 +6,7 @@ const initialState = {
   drawerSession: {},
   expectedCashByDrawerId: {},
   loading: false,
+  has_session_closed: false
 };
 
 export const cashDrawerSlice = createSlice({
