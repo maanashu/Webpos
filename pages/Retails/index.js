@@ -380,10 +380,11 @@ const Retails = () => {
                                 src={item.image}
                                 alt="image"
                                 className="img-fluid ProductIcon"
-                                width="100"
-                                height="100"
+                                width="500"
+                                height="500"
                               />
-                              <div className="overlay ">
+                     
+                            <div className="overlay ">
                                 <Image
                                   src={Images.Add}
                                   alt="image"
@@ -488,9 +489,10 @@ const Retails = () => {
                                 src={services?.image}
                                 alt="image"
                                 className="img-fluid ProductIcon"
-                                width="100"
-                                height="100"
+                                width="500"
+                                height="500"
                               />
+                                      {console.log(services.image,'imageeeeeeeeeeeeeeeeeeee')}
                               <div className="overlay ">
                                 <Image
                                   src={Images.Add}
