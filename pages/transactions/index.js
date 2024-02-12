@@ -13,6 +13,9 @@ import Link from "next/link";
 import moment from "moment-timezone";
 import { useRouter } from "next/router";
 import { amountFormat } from "../../utilities/globalMethods";
+import CustomModal from "../../components/customModal/CustomModal";
+import CustomerSearchModal from "../../components/modals/searchModal/customerSearchModal";
+import TransactionSearchModal from "../../components/modals/searchModal/transactionSearchModal";
 
 const Transactions = () => {
   const router = useRouter();
@@ -31,6 +34,27 @@ const Transactions = () => {
   const getTotalTraData = getWalletData?.totalTra?.payload;
   const graphData = getWalletData?.totalTra?.payload?.graphData;
 
+  const [key, setKey] = useState(Math.random());
+  const [modalDetail, setModalDetail] = useState({
+    show: false,
+    flag: "transactionSearchModal",
+  });
+
+  const handleShowModal = () => {
+    setModalDetail({
+      show: true,
+      flag: "transactionSearchModal",
+    });
+    setKey(Math.random());
+  };
+
+  const handleOnCloseModal = () => {
+    setModalDetail({
+      show: false,
+      flag: "",
+    });
+    setKey(Math.random());
+  };
   const handleDateChange = (dates) => {
     const [start, end] = dates;
     setStartDate(start);
@@ -161,6 +185,7 @@ const Transactions = () => {
         startDate={startDate}
         endDate={endDate}
         notificationHandler={handleNotification}
+        searchHandler={() => handleShowModal()}
       />
 
       {/* stats */}
@@ -294,6 +319,43 @@ const Transactions = () => {
           chartType="Bar"
         />
       )}
+
+      <CustomModal
+        key={key}
+        show={modalDetail.show}
+        backdrop="static"
+        showCloseBtn={false}
+        isRightSideModal={true}
+        mediumWidth={false}
+        ids={
+          modalDetail.flag === "transactionSearchModal"
+            ? "transactionSearchModal"
+            : ""
+        }
+        child={
+          modalDetail.flag === "transactionSearchModal" ? (
+            <TransactionSearchModal />
+          ) : (
+            ""
+          )
+        }
+        header={
+          modalDetail.flag === "transactionSearchModal" ? (
+            <>
+              <p onClick={handleOnCloseModal} className="modal_cancel">
+                <Image
+                  src={Images.modalCross}
+                  alt="modalCross"
+                  className="img-fluid"
+                />
+              </p>
+            </>
+          ) : (
+            ""
+          )
+        }
+        onCloseModal={() => handleOnCloseModal()}
+      />
     </div>
   );
 };
