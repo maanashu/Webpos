@@ -2,9 +2,7 @@ import React, { useState } from "react";
 import * as Images from "../../../utilities/images";
 import Image from "next/image";
 import { useDispatch, useSelector } from "react-redux";
-import { getDrawerSessionInfo } from "../../../redux/slices/dashboard";
 import { toast } from "react-toastify";
-import { getAllPosUser, selectLoginAuth } from "../../../redux/slices/auth";
 import CustomModal from "../../customModal/CustomModal";
 import CashSummary from "./cashSummary";
 import {
@@ -13,7 +11,7 @@ import {
 } from "../../../redux/slices/cashDrawer";
 
 
-const EndCashModal = ({ props, title, modalType }) => {
+const EndCashModal = ({  }) => {
   const dispatch = useDispatch();
   const sessionData = useSelector(selectCashDrawerData);
   const drawerSessionDetail = sessionData?.drawerSession?.payload;
@@ -21,31 +19,18 @@ const EndCashModal = ({ props, title, modalType }) => {
 
   const digits = /^[0-9]+$/;
   const [key, setKey] = useState(Math.random());
+  const [isLoading, setIsLoading] = useState(false);
   const [amount, setAmount] = useState("");
 
-  const [modalDetail, setModalDetail] = useState({
-    show: false,
-    title: "End Cash Tracking Session",
-    type: "add",
-    flag: "trackingmodal",
-  });
+  const [modalDetail, setModalDetail] = useState({show: false});
 
-  const handleShowModal = (title, type) => {
-    setModalDetail({
-      show: true,
-      title: title,
-      type: type,
-      flag: "trackingmodal",
-    });
+  const handleShowModal = () => {
+    setModalDetail({show: true});
     setKey(Math.random());
   };
 
   const handleOnCloseModal = () => {
-    setModalDetail({
-      show: false,
-      title: "",
-      flag: "",
-    });
+    setModalDetail({show: false});
     setKey(Math.random());
   };
 
@@ -56,12 +41,19 @@ const EndCashModal = ({ props, title, modalType }) => {
       toast.error("Please enter valid amount");
     } else {
       // await dispatch(getExpectedCashByDrawerId(drawerSessionDetail?.id));
+      setIsLoading(true);
       dispatch(
         getExpectedCashByDrawerId({
           drawer_session_id: drawerSessionDetail?.id,
           cb(res) {
             if (res.status) {
-              handleShowModal("End Cash Tracking Session", "remove");
+              handleShowModal();
+              setTimeout(() => {
+                setIsLoading(false);
+              }, 200);
+            }
+            else {
+              setIsLoading(false);
             }
           },
         })
@@ -82,7 +74,7 @@ const EndCashModal = ({ props, title, modalType }) => {
               width={50}
             />
           </figure>
-          <h6 className="loginheading px-5">{title}</h6>
+          <h6 className="loginheading px-5">End Cash Tracking Session</h6>
           {/* <h4 className="trackingHeading">Enter amount </h4> */}
         </div>
         <form className="trackingForm">
@@ -103,18 +95,23 @@ const EndCashModal = ({ props, title, modalType }) => {
             <button
               className="nextverifyBtn w-100"
               type="button"
-              onClick={() => countCashFirst()}
+              onClick={() => {!isLoading ? countCashFirst() : false} }
             >
-              Next
-              <Image
-                src={Images.ArrowRight}
-                alt="rightArrow"
-                className="img-fluid rightImg"
-              />
+              {isLoading ? <span className="spinner-border spinner-border-sm"></span> : 
+                <>
+                  Next
+                  <Image
+                    src={Images.ArrowRight}
+                    alt="rightArrow"
+                    className="img-fluid rightImg"
+                  />
+                </>
+              }
             </button>
           </div>
         </form>
       </div>
+
       <CustomModal
         key={key}
         show={modalDetail.show}
@@ -122,32 +119,21 @@ const EndCashModal = ({ props, title, modalType }) => {
         showCloseBtn={false}
         isRightSideModal={true}
         mediumWidth={false}
-        ids={modalDetail.flag === "trackingmodal" ? "trackingModal" : ""}
+        ids={"trackingModal"}
         child={
-          modalDetail.flag === "trackingmodal" ? (
-            <CashSummary
-              title={modalDetail.title}
-              amount={amount}
-              close={() => handleOnCloseModal()}
-            />
-          ) : (
-            ""
-          )
+          <CashSummary
+            amount={amount}
+            close={() => handleOnCloseModal()}
+          />
         }
         header={
-          modalDetail.flag === "trackingmodal" ? (
-            <>
-              <p onClick={handleOnCloseModal} className="modal_cancel">
-                <Image
-                  src={Images.modalCross}
-                  alt="modalCross"
-                  className="img-fluid"
-                />
-              </p>
-            </>
-          ) : (
-            ""
-          )
+          <p onClick={handleOnCloseModal} className="modal_cancel">
+            <Image
+              src={Images.modalCross}
+              alt="modalCross"
+              className="img-fluid"
+            />
+          </p>
         }
         onCloseModal={() => handleOnCloseModal()}
       />

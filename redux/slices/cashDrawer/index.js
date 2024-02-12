@@ -11,7 +11,12 @@ const initialState = {
 export const cashDrawerSlice = createSlice({
   name: "cashDrawer",
   initialState,
-  extraReducers: (builder) => builder.addCase(restAllData, () => initialState),
+  extraReducers: (builder) => builder.addCase(restAllData, (state, action) => {
+    if(!action?.payload?.skipCashDrawer){
+      return initialState;
+    }
+    return state;
+  }),
   reducers: {
     getSessionHistory: (state) => {
       state.loading = true;

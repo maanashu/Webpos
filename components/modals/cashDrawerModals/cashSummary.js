@@ -2,24 +2,15 @@ import React, { useState } from "react";
 import * as Images from "../../../utilities/images";
 import Image from "next/image";
 import { useDispatch, useSelector } from "react-redux";
-import { getDrawerSessionInfo } from "../../../redux/slices/dashboard";
-import { toast } from "react-toastify";
-import { selectLoginAuth } from "../../../redux/slices/auth";
 import { selectCashDrawerData } from "../../../redux/slices/cashDrawer";
 import { amountFormat } from '../../../utilities/globalMethods';
 import CustomModal from "../../customModal/CustomModal";
 import EndCashOutModal from "./endCashOutModal";
 
-const CashSummary = ({ props, title, amount }) => {
-  const dispatch = useDispatch();
+const CashSummary = ({ amount }) => {
 
   const [key, setKey] = useState(Math.random());
-  const [modalDetail, setModalDetail] = useState({
-    show: false,
-    title: "End Cash Tracking Session",
-    type: "add",
-    flag: "trackingmodal",
-  });
+  const [modalDetail, setModalDetail] = useState({show: false});
 
   const sessionData = useSelector(selectCashDrawerData);
   const expectedCash = sessionData?.expectedCashByDrawerId?.payload;
@@ -27,11 +18,7 @@ const CashSummary = ({ props, title, amount }) => {
 
 
   const handleOnCloseModal = () => {
-    setModalDetail({
-      show: false,
-      title: "",
-      flag: "",
-    });
+    setModalDetail({show: false});
     setKey(Math.random());
   };
 
@@ -48,7 +35,7 @@ const CashSummary = ({ props, title, amount }) => {
               width={50}
             />
           </figure>
-          <h6 className="loginheading px-5">{title}</h6>
+          <h6 className="loginheading px-5">End Cash Tracking Session</h6>
         </div>
         <form className="trackingForm">
           <div className="summaryDetail">
@@ -92,12 +79,7 @@ const CashSummary = ({ props, title, amount }) => {
               type="button"
               onClick={() => {
                 console.log("here");
-                setModalDetail({
-                  show: true,
-                  title: "End Cash Tracking Session",
-                  type: "remove",
-                  flag: "trackingmodal",
-                });
+                setModalDetail({show: true});
                 setKey(Math.random());
               }}
             >

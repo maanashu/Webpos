@@ -31,7 +31,7 @@ function* getAllOrderDeliveries(action) {
     }
   } catch (e) {
     yield put(onErrorStopLoad())
-    toast.error(e?.error?.response?.data?.msg);
+    // toast.error(e?.error?.response?.data?.msg);
   }
 }
 
@@ -50,7 +50,7 @@ function* getTodaySales(action) {
     }
   } catch (e) {
     yield put(onErrorStopLoad())
-    toast.error(e?.error?.response?.data?.msg);
+    // toast.error(e?.error?.response?.data?.msg);
   }
 }
 
@@ -67,7 +67,7 @@ function* getOnlineOrdersCount(action) {
     }
   } catch (e) {
     yield put(onErrorStopLoad())
-    toast.error(e?.error?.response?.data?.msg);
+    // toast.error(e?.error?.response?.data?.msg);
   }
 }
 
@@ -86,7 +86,7 @@ function* getDrawerSessionInfo(action) {
     }
   } catch (e) {
     yield put(onErrorStopLoad())
-    toast.error(e?.error?.response?.data?.msg);
+    // toast.error(e?.error?.response?.data?.msg);
   }
 }
 
@@ -105,7 +105,7 @@ function* getPosLoginDetails(action) {
     }
   } catch (e) {
     yield put(onErrorStopLoad())
-    toast.error(e?.error?.response?.data?.msg);
+    // toast.error(e?.error?.response?.data?.msg);
   }
 }
 
@@ -124,7 +124,7 @@ function* getProfile(action) {
     }
   } catch (e) {
     yield put(onErrorStopLoad())
-    toast.error(e?.error?.response?.data?.msg);
+    // toast.error(e?.error?.response?.data?.msg);
   }
 }
 
@@ -144,7 +144,7 @@ function* getOrderDetailsById(action) {
     }
   } catch (e) {
     yield put(onErrorStopLoad())
-    toast.error(e?.error?.response?.data?.msg);
+    // toast.error(e?.error?.response?.data?.msg);
   }
 }
 
@@ -161,7 +161,7 @@ function* endTrackingSession(action) {
     }
   } catch (e) {
     // yield put(onErrorStopLoad())
-    toast.error(e?.error?.response?.data?.msg);
+    // toast.error(e?.error?.response?.data?.msg);
   }
 }
 
@@ -180,7 +180,7 @@ function* fetchInvoiceDetail(action) {
     }
   } catch (e) {
     yield put(onErrorStopLoad())
-    toast.error(e?.error?.response?.data?.msg);
+    // toast.error(e?.error?.response?.data?.msg);
   }
 }
 

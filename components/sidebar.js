@@ -110,11 +110,11 @@ const Sidebar = (props) => {
     dispatch(
       getShippingsSidebarCount({
         ...orderParam,
-        // cb(res) {
-        //     if (res) {
-        //         setOrderCount(res?.data?.payload);
-        //     }
-        // },
+        cb(res) {
+            // if (res) {
+            //     setOrderCount(res?.data?.payload);
+            // }
+        },
       })
     );
   };

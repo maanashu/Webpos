@@ -8,6 +8,7 @@ import { getCurrentTimeZone } from "./globalMethods";
 import { restAllData } from "../redux/slices/commonActions";
 import { store } from "../redux";
 
+var hasSessionExpired = false;
 const getTimeZone = getCurrentTimeZone();
 
 const axiosInstance = axios.create({
@@ -41,23 +42,31 @@ axiosInstance.interceptors.response.use(
     if (error.response.status === 401) {
       // handle 401 errors here
 
-      store.dispatch(restAllData());
+      // Prevent to show multiple warning messages
+      if(!hasSessionExpired){
 
-      setTimeout(() => {
         toast.warning("Session expired");
-      }, 200);
 
-      Router.push("/auth/verification");
+        store.dispatch(restAllData());
+        localStorage.removeItem("merchantAuthToken");
+        localStorage.removeItem("authToken");
+        localStorage.removeItem("persist:root");
 
-      localStorage.removeItem("merchantAuthToken");
-      localStorage.removeItem("authToken");
-      localStorage.removeItem("persist:root");
+        const pathName = typeof window !== "undefined" ? window?.location?.pathname : false;
+        if(pathName != "/"){
+          Router.push("/auth/verification");
+        }
 
-      // localStorage.clear();
-      // Router.push("/");
-      // toast.dismiss()
-      // toast.warning("Session expired");
+        hasSessionExpired = true;
+        setTimeout(() => {
+          hasSessionExpired = false;
+        }, 3000);
+      }
     }
+    else if(error?.response?.data?.msg){
+      toast.error(error?.response?.data?.msg);
+    }
+
     return Promise.reject(error);
   }
 );
