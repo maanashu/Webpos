@@ -45,7 +45,9 @@ axiosInstance.interceptors.response.use(
       // Prevent to show multiple warning messages
       if(!hasSessionExpired){
 
-        toast.warning("Session expired");
+        setTimeout(() => {
+          toast.warning("Session expired");
+        }, 200);
 
         store.dispatch(restAllData());
         localStorage.removeItem("merchantAuthToken");
@@ -60,7 +62,7 @@ axiosInstance.interceptors.response.use(
         hasSessionExpired = true;
         setTimeout(() => {
           hasSessionExpired = false;
-        }, 3000);
+        }, 2000);
       }
     }
     else if(error?.response?.data?.msg){
