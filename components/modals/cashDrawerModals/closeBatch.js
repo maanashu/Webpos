@@ -37,7 +37,7 @@ const CloseBatch = ({amountToRemove, leftAmount, expectedAmount }) => {
 
             setTimeout(() => {
               toast.success("Batch closed successfully");
-            }, 200);
+            }, 500);
             
             router.push("/cashDrawer/sessionSummary");
           }
