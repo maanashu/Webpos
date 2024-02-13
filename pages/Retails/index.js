@@ -342,6 +342,7 @@ const Retails = () => {
                       if (cartAddQty !== undefined) {
                         updatedItem.cart_qty = cartAddQty;
                       }
+                      console.log("oppoop", JSON.stringify(item));
                       return (
                         <div
                           className="col-xxl-2 col-xl-3 col-lg-4 col-md-6 mb-3"
@@ -383,8 +384,8 @@ const Retails = () => {
                                 width="500"
                                 height="500"
                               />
-                     
-                            <div className="overlay ">
+
+                              <div className="overlay ">
                                 <Image
                                   src={Images.Add}
                                   alt="image"
@@ -492,7 +493,10 @@ const Retails = () => {
                                 width="500"
                                 height="500"
                               />
-                                      {console.log(services.image,'imageeeeeeeeeeeeeeeeeeee')}
+                              {console.log(
+                                services.image,
+                                "imageeeeeeeeeeeeeeeeeeee"
+                              )}
                               <div className="overlay ">
                                 <Image
                                   src={Images.Add}
@@ -681,7 +685,7 @@ const Retails = () => {
             " "
           )
         }
-        header={ 
+        header={
           <>
             {modalDetail.flag === "ClearCart" ? (
               <h5 className="appointMain mb-0">

@@ -20,8 +20,10 @@ const GoogleMap = ({ children }) => {
     return {
       panControl: false,
       mapTypeControl: false,
-      scrollwheel: false,
+      scrollwheel: true,
       styles,
+      zoomControl: false,
+      fullscreenControl: false,
     };
   }
 
