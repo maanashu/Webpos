@@ -3,14 +3,51 @@ import * as Images from "../../../utilities/images";
 import Image from "next/image";
 import { useDispatch, useSelector } from "react-redux";
 import { useRouter } from "next/router";
+import { toast } from "react-toastify";
 import { selectCashDrawerData, setGetDrawerSession } from "../../../redux/slices/cashDrawer";
+import { endTrackingSession } from "../../../redux/slices/dashboard";
 import { amountFormat } from '../../../utilities/globalMethods';
+import { restAllData } from "../../../redux/slices/commonActions";
 
 const CloseBatch = ({amountToRemove, leftAmount, expectedAmount }) => {
   const router = useRouter();
   const dispatch = useDispatch();
   const sessionData = useSelector(selectCashDrawerData);
+  const drawerSessionDetail = sessionData?.drawerSession?.payload;
   const drawerExpectedCash = sessionData?.expectedCashByDrawerId?.payload;
+
+  const [isLoading, setIsLoading] = useState(false);
+
+  const closeSession = () => {
+    let params = {
+      drawer_id: drawerSessionDetail?.id,
+      amount: Number(amountToRemove),
+      transaction_type: "end_tracking_session",
+      mode_of_cash: "cash_out",
+    };
+
+    setIsLoading(true);
+    dispatch(
+      endTrackingSession({
+        ...params,
+        async cb(res) {
+          if (res.status) {
+            await dispatch(restAllData({skipAuth: true, skipCashDrawer: true}));
+            await dispatch(setGetDrawerSession({...sessionData.drawerSession, has_session_closed: true}));
+
+            setTimeout(() => {
+              toast.success("Batch closed successfully");
+            }, 500);
+            
+            router.push("/cashDrawer/sessionSummary");
+          }
+          else {
+            setIsLoading(false);
+          }
+        },
+      })
+    );
+  };
 
   return (
     <>
@@ -52,18 +89,21 @@ const CloseBatch = ({amountToRemove, leftAmount, expectedAmount }) => {
               type="button"
               style={{background: "red"}}
               onClick={() => {
-                dispatch(setGetDrawerSession({...sessionData.drawerSession, amount_to_remove: Number(amountToRemove)}));
-                router.push("/cashDrawer/sessionSummary")
+                !isLoading ? closeSession() : false
               }}
-            >
-              Close Batch&nbsp;&nbsp;&nbsp;
-              <Image
-                src={Images.CrossWhite}
-                alt="rightArrow"
-                className="img-fluid rightImg"
-                width={20}
-                height={20}
-              />
+            > 
+              {isLoading ? <span className="spinner-border spinner-border-sm"></span> : 
+                <>
+                  Close Batch
+                  <Image
+                    src={Images.CrossWhite}
+                    alt="rightArrow"
+                    className="img-fluid rightImg"
+                    width={20}
+                    height={20}
+                  />
+                </>
+              }
             </button>
           </div>
         </form>

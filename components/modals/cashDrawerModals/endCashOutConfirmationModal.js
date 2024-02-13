@@ -14,11 +14,7 @@ const EndCashOutConfirmationModal = ({ enteredAmount, selectedAmount, expectedAm
   const leftAmount = expectedAmount - amountToRemove;
 
   const handleOnCloseModal = () => {
-    setModalDetail({
-      show: false,
-      title: "",
-      flag: "",
-    });
+    setModalDetail({show: false});
     setKey(Math.random());
   };
 

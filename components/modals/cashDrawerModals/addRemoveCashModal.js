@@ -12,9 +12,10 @@ const addRemoveCashModal = (props) => {
   const dispatch = useDispatch();
   const [amount, setAmount] = useState("");
   const [notes, setNotes] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
   const digits = /^[0-9]+$/;
 
-  const addCashHandler = async () => {
+  const addRemoveCashHandler = async () => {
     if (!amount) {
       toast.error("Please enter amount");
     } else if (amount && digits.test(amount) === false) {
@@ -40,6 +41,7 @@ const addRemoveCashModal = (props) => {
         data.note = notes;
       }
 
+      setIsLoading(true);
       await dispatch(
         updateDrawerSession({
           ...data,
@@ -47,6 +49,7 @@ const addRemoveCashModal = (props) => {
             if(res.status){
               props.close();
             }
+            setIsLoading(false);
           }
         })
       );
@@ -102,16 +105,9 @@ const addRemoveCashModal = (props) => {
             <button
               className="nextverifyBtn w-100"
               type="button"
-              onClick={() => {
-                addCashHandler()
-              }}
+              onClick={() => { !isLoading ? addRemoveCashHandler() : false}}
             >
-              Save
-              {/* <Image
-                src={Images.ArrowRight}
-                alt="rightArrow"
-                className="img-fluid rightImg"
-              /> */}
+              {isLoading ? <span className="spinner-border spinner-border-sm"></span> : "Save"}
             </button>
           </div>
         </form>

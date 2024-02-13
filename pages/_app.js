@@ -21,6 +21,8 @@ import { useEffect, useState } from "react";
 import { wrapper } from "../redux";
 
 function App({ Component, pageProps }) {
+
+  const pathName = typeof window !== "undefined" ? window?.location?.pathname : false;
   const [loading, setLoading] = useState(true);
   const [activeSidebar, setActiveSidebar] = useState(true);
   const toggleSidebar = () => {
@@ -60,18 +62,18 @@ function App({ Component, pageProps }) {
   
   return (
     <>
-      {Token ? (
+      {Token && pathName != '/cashDrawer/sessionSummary' ? (
         <>
           <Layout activeSidebar={activeSidebar} toggleSidebar={toggleSidebar}>
             <Component {...pageProps} />
-            <ToastContainer autoClose={800} />
+            <ToastContainer autoClose={1000} />
           </Layout>
         </>
       ) : (
         <>
           <AuthLayout>
             <Component {...pageProps} />
-            <ToastContainer autoClose={800} />
+            <ToastContainer autoClose={1000} />
           </AuthLayout>
         </>
       )}
