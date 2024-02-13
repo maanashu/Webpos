@@ -545,17 +545,11 @@ const Retails = () => {
                                   className="img-fluid appointmentCalender"
                                 />
                                 <span className="Ontime">
-                                  {getWeeklyDateLabel(
-                                    services?.supplies?.[0]?.next_available_slot
-                                      ?.date
-                                  ) +
-                                    " " +
+                                  {getWeeklyDateLabel(services?.supplies?.[0]?.next_available_slot?.date) +
+                                    " - " +
+                                    services?.supplies?.[0]?.next_available_slot?.start_time +
                                     "-" +
-                                    services?.supplies?.[0]?.next_available_slot
-                                      ?.start_time +
-                                    "-" +
-                                    services?.supplies?.[0]?.next_available_slot
-                                      ?.end_time}
+                                    services?.supplies?.[0]?.next_available_slot?.end_time}
                                 </span>
                               </figure>
                               <figure className="Timezone">
