@@ -79,6 +79,7 @@ const OrderDetailsItem = ({ id, item, onPressHandler }) => {
                     className="img-fluid ms-1"
                   />
                   <span className="locateDistance">
+                    {"$"}
                     {item?.payable_amount || "00"}
                   </span>
                 </div>
