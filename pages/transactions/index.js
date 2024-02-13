@@ -318,27 +318,9 @@ const Transactions = () => {
         showCloseBtn={false}
         isRightSideModal={true}
         mediumWidth={false}
-<<<<<<< HEAD
-        className={
-          modalDetail.flag === "transactionSearchModal" ? "right" : ""
-        }
-        ids={
-          modalDetail.flag === "transactionSearchModal"
-            ? "transactionSearchModal"
-            : ""
-        }
-        child={
-          modalDetail.flag === "transactionSearchModal" ? (
-            <TransactionSearchModal />
-          ) : (
-            ""
-          )
-        }
-=======
         className={"right"}
         ids={"transactionSearchModal"}
         child={<TransactionSearchModal />}
->>>>>>> 2f55a8089f2339bad9f43350256cc93f591c4930
         header={
           <>
             <p onClick={handleOnCloseModal} className="modal_cancel">
