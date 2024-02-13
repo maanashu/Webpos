@@ -219,6 +219,7 @@ const OrderDetail = ({
                   <div className="flexBox">
                     <p className="orderHeading">Discount</p>
                     <p className="orderSubHeading">
+                      {"$"}
                       {orderData?.discount
                         ? Number(orderData?.discount).toFixed(2)
                         : "0"}
@@ -227,6 +228,7 @@ const OrderDetail = ({
                   <div className="flexBox">
                     <p className="orderHeading">Tip</p>
                     <p className="orderSubHeading">
+                      {"$"}
                       {orderData?.discount
                         ? Number(orderData?.tips).toFixed(2)
                         : "0"}
@@ -239,7 +241,7 @@ const OrderDetail = ({
                   <div className="flexBox">
                     <p className="orderHeading">Tax</p>
                     <p className="orderSubHeading">
-                      {" "}
+                      {"$"}
                       {orderData?.discount
                         ? Number(orderData?.tax).toFixed(2)
                         : "0"}
@@ -248,7 +250,7 @@ const OrderDetail = ({
                   <div className="flexBox">
                     <p className="orderHeading">Delivery Charges</p>
                     <p className="orderSubHeading">
-                      {" "}
+                      {"$"}
                       {orderData?.discount
                         ? Number(orderData?.delivery_charge).toFixed(2)
                         : "0"}
@@ -259,6 +261,7 @@ const OrderDetail = ({
                   <div className="flexBox">
                     <p className="priceHeading">Total</p>
                     <p className="priceHeading">
+                      {"$"}
                       {orderData?.discount
                         ? Number(orderData?.payable_amount).toFixed(2)
                         : "0"}
