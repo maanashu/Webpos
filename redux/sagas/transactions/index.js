@@ -64,7 +64,7 @@ function* getTotalTraDetail(action) {
     queryParams.status = dataToSend?.status;
   }
 
-  if (dataToSend?.orderType !== "none") {
+  if (dataToSend?.orderType !== "none" && dataToSend?.orderType !== undefined) {
     queryParams.order_type = dataToSend?.orderType;
   }
 
@@ -122,7 +122,7 @@ function* getTotalTraType(action) {
     ...defaultParams,
   };
 
-  if (dataToSend?.orderType !== "none") {
+  if (dataToSend?.orderType !== "none" && dataToSend?.orderType !== undefined) {
     queryParams.order_type = dataToSend?.orderType;
   }
 

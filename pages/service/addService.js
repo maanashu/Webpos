@@ -18,7 +18,7 @@ const AddService = () => {
               </div>
               <div className='consultInfo'>
                 <div className="serviceProfile" >
-                  <Image src={Images.addServiceImg} alt="service profile image" className="addSeviceImg" />
+                  <Image src={Images.addServiceImg} alt="service profile image" className="addSeviceImg" height="500" width="500" />
                   <figure className='rotateImage'>
                     <Image src={Images.rotateArrow} alt="rotateImage" className="img-fluid" />
                   </figure>

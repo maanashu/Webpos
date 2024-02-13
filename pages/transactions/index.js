@@ -327,6 +327,9 @@ const Transactions = () => {
         showCloseBtn={false}
         isRightSideModal={true}
         mediumWidth={false}
+        className={
+          modalDetail.flag === "transactionSearchModal" ? "right" : ""
+        }
         ids={
           modalDetail.flag === "transactionSearchModal"
             ? "transactionSearchModal"
