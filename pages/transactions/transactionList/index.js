@@ -46,10 +46,11 @@ const TransactionsList = () => {
   const getTotalTraDetails = getWalletData?.totalTraDetail?.payload?.data ?? [];
   const transactionTypeArray = getWalletData?.totalTraType?.payload;
   const sellerID = authData?.usersInfo?.payload?.uniqe_id;
-  const [startDate, setStartDate] = useState(null);
-  const [endDate, setEndDate] = useState(null);
+  const [startDate, setStartDate] = useState(query?.from === 'analytics' ? moment(query?.date)?.toDate() : null);
+  const [endDate, setEndDate] = useState(query?.from === 'analytics' ? moment(query?.date)?.toDate() : null);
+  const [deliveryOption, setDeliveryOption] = useState(query?.from === 'analytics' ? query?.deliveryOption : "")
   const [orderTypeData, setOrderTypeData] = useState("none");
-
+  console.log(deliveryOption, 'delivery optionssssssssssss');
   const handleDateRangeChange = (dates) => {
     const [start, end] = dates;
     setStartDate(start);
@@ -58,13 +59,18 @@ const TransactionsList = () => {
   };
 
   useEffect(() => {
-    const data = {
+    let data = {
       dayWiseFilter: timeSpan,
       sellerID: sellerID,
-      orderType: orderTypeData?.value,
-      start_date: moment(startDate).format("YYYY-MM-DD"),
-      end_date: moment(endDate).format("YYYY-MM-DD"),
+      // orderType: orderTypeData?.value
     };
+    if (startDate != null && endDate != null) {
+      data = {
+        ...data,
+        start_date: moment(startDate).format('YYYY-MM-DD'),
+        end_date: moment(endDate).format('YYYY-MM-DD'),
+      }
+    }
     dispatch(getTotalTraType(data));
   }, [timeSpan, startDate, endDate]);
 
@@ -76,10 +82,30 @@ const TransactionsList = () => {
       sellerId: sellerID,
       transactionType: transaction,
       orderType: orderTypeData?.value,
-      status: "none",
-      start_date: moment(startDate).format("YYYY-MM-DD"),
-      end_date: moment(endDate).format("YYYY-MM-DD"),
+      status: "none"
     };
+    if (startDate != null && endDate != null) {
+      data = {
+        ...data,
+        start_date: moment(startDate).format('YYYY-MM-DD'),
+        end_date: moment(endDate).format('YYYY-MM-DD'),
+      }
+    }
+    if (deliveryOption == 3 && deliveryOption) {
+      console.log("need walking111111111111");
+      data = {
+        ...data,
+        need_walkin: true
+      }
+    }
+    if (deliveryOption != 3 && deliveryOption) {
+      console.log("without need walking1111111111");
+      data = {
+        ...data,
+        delivery_option: deliveryOption
+      }
+    }
+    console.log(data,'params1111111111');
     dispatch(getTotalTraDetail(data));
   }, [limit, page, timeSpan, transaction, endDate, startDate, orderTypeData]);
 
@@ -369,7 +395,7 @@ const TransactionsList = () => {
                         className="customers-table-data"
                       >
                         {item?.is_returned_order &&
-                        statusFun(item.status) === "Delivered"
+                          statusFun(item.status) === "Delivered"
                           ? "Returned"
                           : statusFun(item.status)}
                       </td>

@@ -134,7 +134,7 @@ const index = () => {
           // transaction_type: "all",
           "from": "analytics",
           'deliveryOption': 3,
-          'date': moment(`${orderDate}T00:00:00`)?.toDate(),
+          'date': `${orderDate}T00:00:00`,
         },
       });
     }
