@@ -11,13 +11,13 @@ export default function LoadingSpinner() {
         {" "}
         <div className="loading-spinner">
           {" "}
-          <Image
+          {/* <Image
             className="loader-svg"
             src={Images.loadingimg}
             alt="loading-image"
             width="65"
             height={100}
-          />
+          /> */}
 
           {" "}
         </div>

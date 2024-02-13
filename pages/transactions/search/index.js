@@ -71,8 +71,10 @@ const Search = () => {
     : orderDetail?.order?.mode_of_payment?.toUpperCase();
 
   const date = orderDetail?.return
-    ? moment.utc(orderDetail?.return?.order?.date).format("ddd MM/DD/YYYY")
-    : moment.utc(orderDetail?.order?.date).format("ddd MM/DD/YYYY");
+    ? moment
+        .utc(orderDetail?.return?.order?.created_at)
+        .format("ddd DD/MM/YYYY")
+    : moment.utc(orderDetail?.order?.created_at).format("ddd DD/MM/YYYY");
 
   const userID = orderDetail?.return
     ? orderDetail?.return?.user_details?.id

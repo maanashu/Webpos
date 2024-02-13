@@ -35,24 +35,15 @@ const Transactions = () => {
   const graphData = getWalletData?.totalTra?.payload?.graphData;
 
   const [key, setKey] = useState(Math.random());
-  const [modalDetail, setModalDetail] = useState({
-    show: false,
-    flag: "transactionSearchModal",
-  });
+  const [modalDetail, setModalDetail] = useState(false);
 
   const handleShowModal = () => {
-    setModalDetail({
-      show: true,
-      flag: "transactionSearchModal",
-    });
+    setModalDetail(true);
     setKey(Math.random());
   };
 
   const handleOnCloseModal = () => {
-    setModalDetail({
-      show: false,
-      flag: "",
-    });
+    setModalDetail(false);
     setKey(Math.random());
   };
   const handleDateChange = (dates) => {
@@ -322,40 +313,24 @@ const Transactions = () => {
 
       <CustomModal
         key={key}
-        show={modalDetail.show}
+        show={modalDetail}
         backdrop="static"
         showCloseBtn={false}
         isRightSideModal={true}
         mediumWidth={false}
-        className={
-          modalDetail.flag === "transactionSearchModal" ? "right" : ""
-        }
-        ids={
-          modalDetail.flag === "transactionSearchModal"
-            ? "transactionSearchModal"
-            : ""
-        }
-        child={
-          modalDetail.flag === "transactionSearchModal" ? (
-            <TransactionSearchModal />
-          ) : (
-            ""
-          )
-        }
+        className={"right"}
+        ids={"transactionSearchModal"}
+        child={<TransactionSearchModal />}
         header={
-          modalDetail.flag === "transactionSearchModal" ? (
-            <>
-              <p onClick={handleOnCloseModal} className="modal_cancel">
-                <Image
-                  src={Images.modalCross}
-                  alt="modalCross"
-                  className="img-fluid"
-                />
-              </p>
-            </>
-          ) : (
-            ""
-          )
+          <>
+            <p onClick={handleOnCloseModal} className="modal_cancel">
+              <Image
+                src={Images.modalCross}
+                alt="modalCross"
+                className="img-fluid"
+              />
+            </p>
+          </>
         }
         onCloseModal={() => handleOnCloseModal()}
       />

@@ -60,12 +60,13 @@ const Users = () => {
 
   const areaSelector = [
     { label: "None", value: "none" },
-    ...sellerAreaList?.map((item, index) => ({
-      label: item?.state,
-      value: item?.state,
-    })),
+    ...(sellerAreaList
+      ? sellerAreaList.map((item, index) => ({
+          label: item?.state,
+          value: item?.state,
+        }))
+      : []),
   ];
-
   const filterHandler = () => {
     if (startDate && endDate) {
       return {

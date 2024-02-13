@@ -26,6 +26,12 @@ const AnalyticsRightsidebar = ({ setOrderListType }) => {
     const uniqueId = authData?.usersInfo?.payload?.uniqe_id;
     const { drawerOrderCount } = useSelector(deliveryData);
     const statusDrawer = drawerOrderCount?.status_count ?? [];
+    const ADMIN = () => {
+        const admin = authData?.posUserLoginDetails?.payload?.user_roles?.filter(
+            (item) => item?.role?.slug == "pos_admin"
+        );
+        return admin;
+    };
 
     const getOrderList = (status) => {
         let orderListParam = {
@@ -80,60 +86,67 @@ const AnalyticsRightsidebar = ({ setOrderListType }) => {
                         </div>
                     </div>
                     <ListGroup>
-                        <ListGroupItem className="deliverRightItem p-0">
-                            <Link
-                                href="/analytics/grossProfit"
-                                className="rightLinkBar"
-                            >
-                                <Image
-                                    src={Images.grossprofit}
-                                    alt="ordersReview image"
-                                    className="img-fluid"
-                                />
-                                <div className="orderReview">
-                                    <h4 className="loginSub text-start">Gross Profits</h4>
-                                    <div className="deliverPercent ">
-                                        $20,990
-                                    </div>
-                                </div>
-                            </Link>
-                        </ListGroupItem>
-                        <ListGroupItem className="deliverRightItem p-0">
-                            <Link
-                                href="/analytics/totalRevenue"
-                                className="rightLinkBar"
-                            >
-                                <Image
-                                    src={Images.totalrevenue}
-                                    alt="deliveryCheckimage"
-                                    className="img-fluid"
-                                />
-                                <div className="orderReview">
-                                    <h4 className="loginSub text-start">Total Revenue</h4>
-                                    <div className="deliverPercent ">
-                                    $20,990
-                                    </div>
-                                </div>
-                            </Link>
-                        </ListGroupItem>
-                        <ListGroupItem className="deliverRightItem p-0">
-                            <Link
-                                href="/analytics/totalCosts"
-                                className="rightLinkBar"
-                            >
-                                <Image
-                                    src={Images.totalsale}
-                                    alt="deliverClock image"
-                                    className="img-fluid"
-                                />
-                                <div className="orderReview">
-                                    <h4 className="loginSub text-start">Total Sale</h4>
-                                    <div className="deliverPercent ">
-                                    $20,990
-                                    </div>
-                                </div>
-                            </Link>
-                        </ListGroupItem>
+                        {
+                            ADMIN()?.length > 0 &&
+                            <>
+                                <ListGroupItem className="deliverRightItem p-0">
+                                    <Link
+                                        href="/analytics/grossProfit"
+                                        className="rightLinkBar"
+                                    >
+                                        <Image
+                                            src={Images.grossprofit}
+                                            alt="ordersReview image"
+                                            className="img-fluid"
+                                        />
+                                        <div className="orderReview">
+                                            <h4 className="loginSub text-start">Gross Profits</h4>
+                                            <div className="deliverPercent ">
+                                                $20,990
+                                            </div>
+                                        </div>
+                                    </Link>
+                                </ListGroupItem>
+                                <ListGroupItem className="deliverRightItem p-0">
+                                    <Link
+                                        href="/analytics/totalRevenue"
+                                        className="rightLinkBar"
+                                    >
+                                        <Image
+                                            src={Images.totalrevenue}
+                                            alt="deliveryCheckimage"
+                                            className="img-fluid"
+                                        />
+                                        <div className="orderReview">
+                                            <h4 className="loginSub text-start">Total Revenue</h4>
+                                            <div className="deliverPercent ">
+                                                $20,990
+                                            </div>
+                                        </div>
+                                    </Link>
+                                </ListGroupItem>
+                                <ListGroupItem className="deliverRightItem p-0">
+                                    <Link
+                                        href="/analytics/totalCosts"
+                                        className="rightLinkBar"
+                                    >
+                                        <Image
+                                            src={Images.totalsale}
+                                            alt="deliverClock image"
+                                            className="img-fluid"
+                                        />
+                                        <div className="orderReview">
+                                            <h4 className="loginSub text-start">Total Cost</h4>
+                                            <div className="deliverPercent ">
+                                                $20,990
+                                            </div>
+                                        </div>
+                                    </Link>
+                                </ListGroupItem>
+                            </>
+                        }
+
+
                         <ListGroupItem className="deliverRightItem p-0">
                             <Link
                                 href="/analytics/totalPosOrder"
@@ -147,7 +160,7 @@ const AnalyticsRightsidebar = ({ setOrderListType }) => {
                                 <div className="orderReview">
                                     <h4 className="loginSub text-start">Sales by channel</h4>
                                     <div className="deliverPercent ">
-                                    $20,990
+                                        $20,990
                                     </div>
                                 </div>
                             </Link>
@@ -165,7 +178,7 @@ const AnalyticsRightsidebar = ({ setOrderListType }) => {
                                 <div className="orderReview">
                                     <h4 className="loginSub text-start">Average Order Value</h4>
                                     <div className="deliverPercent ">
-                                    $20,990
+                                        $20,990
                                     </div>
                                 </div>
                             </Link>
@@ -183,7 +196,7 @@ const AnalyticsRightsidebar = ({ setOrderListType }) => {
                                 <div className="orderReview">
                                     <h4 className="loginSub text-start">Top Selling Products</h4>
                                     <div className="deliverPercent ">
-                                    $20,990
+                                        $20,990
                                     </div>
                                 </div>
                             </Link>
@@ -201,14 +214,14 @@ const AnalyticsRightsidebar = ({ setOrderListType }) => {
                                 <div className="orderReview ">
                                     <h4 className="loginSub text-start">Sales by Location</h4>
                                     <div className="deliverPercent ">
-                                    $20,990
+                                        $20,990
                                     </div>
                                 </div>
                             </Link>
                         </ListGroupItem>
                         <ListGroupItem className="deliverRightItem p-0">
                             <Link
-                              
+
                                 href="/analytics/totalInventory"
                                 className="rightLinkBar"
                             >
@@ -220,14 +233,14 @@ const AnalyticsRightsidebar = ({ setOrderListType }) => {
                                 <div className="orderReview ">
                                     <h4 className="loginSub text-start">Total Orders</h4>
                                     <div className="deliverPercent ">
-                                    $20,990
+                                        $20,990
                                     </div>
                                 </div>
                             </Link>
                         </ListGroupItem>
                         <ListGroupItem className="deliverRightItem p-0">
                             <Link
-                              
+
                                 href="/analytics/totalProductSold"
                                 className="rightLinkBar"
                             >
@@ -239,7 +252,7 @@ const AnalyticsRightsidebar = ({ setOrderListType }) => {
                                 <div className="orderReview ">
                                     <h4 className="loginSub text-start">Total Cost</h4>
                                     <div className="deliverPercent ">
-                                    $20,990
+                                        $20,990
                                     </div>
                                 </div>
                             </Link>

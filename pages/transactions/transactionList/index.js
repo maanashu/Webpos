@@ -3,22 +3,21 @@ import TCRHeader from "../../../components/commanComonets/TCRHeader";
 import PaginationHeader from "../../../components/commanComonets/PaginationHeader";
 import { useRouter } from "next/router";
 import {
-  OrderLocation,
-  customerUsers,
   customerWallet,
   customersCross,
-  userSale,
+  modalCross,
 } from "../../../utilities/images";
 import { useDispatch, useSelector } from "react-redux";
 import { selectLoginAuth } from "../../../redux/slices/auth";
 import {
-  getTotalTra,
   getTotalTraDetail,
   getTotalTraType,
   selectTransactionData,
 } from "../../../redux/slices/transactions";
 import Image from "next/image";
 import moment from "moment-timezone";
+import CustomModal from "../../../components/customModal/CustomModal";
+import TransactionSearchModal from "../../../components/modals/searchModal/transactionSearchModal";
 
 export const DELIVERY_MODE = {
   1: "Delivery",
@@ -46,9 +45,24 @@ const TransactionsList = () => {
   const getTotalTraDetails = getWalletData?.totalTraDetail?.payload?.data ?? [];
   const transactionTypeArray = getWalletData?.totalTraType?.payload;
   const sellerID = authData?.usersInfo?.payload?.uniqe_id;
-  const [startDate, setStartDate] = useState(null);
-  const [endDate, setEndDate] = useState(null);
+  const [startDate, setStartDate] = useState(query?.from === 'analytics' ? moment(query?.date)?.toDate() : null);
+  const [endDate, setEndDate] = useState(query?.from === 'analytics' ? moment(query?.date)?.toDate() : null);
+  const [deliveryOption, setDeliveryOption] = useState(query?.from === 'analytics' ? query?.deliveryOption : "")
   const [orderTypeData, setOrderTypeData] = useState("none");
+  console.log(deliveryOption, 'delivery optionssssssssssss');
+
+  const [key, setKey] = useState(Math.random());
+  const [modalDetail, setModalDetail] = useState(false);
+
+  const handleShowModal = () => {
+    setModalDetail(true);
+    setKey(Math.random());
+  };
+
+  const handleOnCloseModal = () => {
+    setModalDetail(false);
+    setKey(Math.random());
+  };
 
   const handleDateRangeChange = (dates) => {
     const [start, end] = dates;
@@ -58,13 +72,18 @@ const TransactionsList = () => {
   };
 
   useEffect(() => {
-    const data = {
+    let data = {
       dayWiseFilter: timeSpan,
       sellerID: sellerID,
-      orderType: orderTypeData?.value,
-      start_date: moment(startDate).format("YYYY-MM-DD"),
-      end_date: moment(endDate).format("YYYY-MM-DD"),
+      // orderType: orderTypeData?.value
     };
+    if (startDate != null && endDate != null) {
+      data = {
+        ...data,
+        start_date: moment(startDate).format('YYYY-MM-DD'),
+        end_date: moment(endDate).format('YYYY-MM-DD'),
+      }
+    }
     dispatch(getTotalTraType(data));
   }, [timeSpan, startDate, endDate]);
 
@@ -76,10 +95,30 @@ const TransactionsList = () => {
       sellerId: sellerID,
       transactionType: transaction,
       orderType: orderTypeData?.value,
-      status: "none",
-      start_date: moment(startDate).format("YYYY-MM-DD"),
-      end_date: moment(endDate).format("YYYY-MM-DD"),
+      status: "none"
     };
+    if (startDate != null && endDate != null) {
+      data = {
+        ...data,
+        start_date: moment(startDate).format('YYYY-MM-DD'),
+        end_date: moment(endDate).format('YYYY-MM-DD'),
+      }
+    }
+    if (deliveryOption == 3 && deliveryOption) {
+      console.log("need walking111111111111");
+      data = {
+        ...data,
+        need_walkin: true
+      }
+    }
+    if (deliveryOption != 3 && deliveryOption) {
+      console.log("without need walking1111111111");
+      data = {
+        ...data,
+        delivery_option: deliveryOption
+      }
+    }
+    console.log(data,'params1111111111');
     dispatch(getTotalTraDetail(data));
   }, [limit, page, timeSpan, transaction, endDate, startDate, orderTypeData]);
 
@@ -179,6 +218,7 @@ const TransactionsList = () => {
         startDate={startDate}
         endDate={endDate}
         notificationHandler={handleNotification}
+        searchHandler={() => handleShowModal()}
       />
       <div className="row">
         <div className="col-lg-6">
@@ -369,7 +409,7 @@ const TransactionsList = () => {
                         className="customers-table-data"
                       >
                         {item?.is_returned_order &&
-                        statusFun(item.status) === "Delivered"
+                          statusFun(item.status) === "Delivered"
                           ? "Returned"
                           : statusFun(item.status)}
                       </td>
@@ -382,9 +422,29 @@ const TransactionsList = () => {
                 </td>
               )}
             </>
-          )}{" "}
+          )}
         </tbody>
       </table>
+
+      <CustomModal
+        key={key}
+        show={modalDetail}
+        backdrop="static"
+        showCloseBtn={false}
+        isRightSideModal={true}
+        mediumWidth={false}
+        className={"right"}
+        ids={"transactionSearchModal"}
+        child={<TransactionSearchModal />}
+        header={
+          <>
+            <p onClick={handleOnCloseModal} className="modal_cancel">
+              <Image src={modalCross} alt="modalCross" className="img-fluid" />
+            </p>
+          </>
+        }
+        onCloseModal={() => handleOnCloseModal()}
+      />
     </div>
   );
 };

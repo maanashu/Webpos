@@ -18,6 +18,7 @@ const UserProfileBanner = ({
   profilePic,
   bannerImage,
   isAcceptingMarketing,
+  handleToggle,
 }) => {
   return (
     <div
@@ -101,6 +102,7 @@ const UserProfileBanner = ({
           labelTextClass="label-text-style"
           value={isAcceptingMarketing}
           label={"Accept Marketing"}
+          handleToggle={handleToggle}
         />
       </div>
     </div>

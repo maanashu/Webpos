@@ -7,8 +7,9 @@ const initialState = {
   searchCustomerList: {},
   sellerAreaList: {},
   userDetailsAndOrder: {},
-  userMarketingStatus: { userId: null, status: false },
+  userMarketingStatus: {},
   storeLocation: {},
+  updateMarketingStatus: {},
   loading: false,
 };
 
@@ -63,6 +64,13 @@ export const customersSlice = createSlice({
       state.loading = false;
       state.storeLocation = action.payload;
     },
+    updateUserMarketingStatus: (state) => {
+      state.loading = true;
+    },
+    setUpdateMarketingStatus: (state, action) => {
+      state.loading = false;
+      state.updateMarketingStatus = action.payload;
+    },
     onErrorStopLoad: (state) => {
       state.loading = false;
     },
@@ -85,6 +93,8 @@ export const {
   setSearchedCustomerList,
   getStoreLocation,
   setStoreLocation,
+  updateUserMarketingStatus,
+  setUpdateMarketingStatus,
 } = customersSlice.actions;
 
 export const selectCustomersData = (state) => state.customers;

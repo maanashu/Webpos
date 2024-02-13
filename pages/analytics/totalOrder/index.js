@@ -128,14 +128,17 @@ const index = () => {
   };
 
   const handleGoReviewPage = (orderDate) => {
-    // return
-    router.push({
-      pathname: "/transactions/transactionList",
-      query: {
-        transaction_type: "all",
-        date: orderDate,
-      },
-    });
+    if (orderDate) {
+      router.push({
+        pathname: "/transactions/transactionList",
+        query: {
+          // transaction_type: "all",
+          "from": "analytics",
+          'deliveryOption': 3,
+          'date': `${orderDate}T00:00:00`,
+        },
+      });
+    }
   };
 
   useEffect(() => {
