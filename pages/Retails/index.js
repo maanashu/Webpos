@@ -492,7 +492,7 @@ const Retails = () => {
                                 width="500"
                                 height="500"
                               />
-                                      {console.log(services.image,'imageeeeeeeeeeeeeeeeeeee')}
+                              
                               <div className="overlay ">
                                 <Image
                                   src={Images.Add}
@@ -585,19 +585,18 @@ const Retails = () => {
                                       whiteSpace: "wrap",
                                     }}
                                   >
-                                    {services?.pos_staff?.map((item, index) => (
-                                      <Image
-                                        key={index}
-                                        src={
-                                          item?.user?.user_profiles
-                                            ?.profile_photo
-                                        }
-                                        alt="image"
-                                        className="img-fluid CardIcons"
-                                        width="100"
-                                        height="100"
-                                      />
-                                    ))}
+                                    {services?.pos_staff?.map((item, index) => {
+                                      return (
+                                        <Image
+                                          key={index}
+                                          src={item?.user?.user_profiles?.profile_photo ? item?.user?.user_profiles?.profile_photo : Images.defaultUser}
+                                          alt="image"
+                                          className="img-fluid CardIcons"
+                                          width="100"
+                                          height="100"
+                                        />
+                                      )
+                                    })}
                                   </div>
                                 }
 
