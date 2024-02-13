@@ -301,7 +301,7 @@ const AddService = () => {
                           }}
                         >
                           <Image
-                            src={item?.user?.user_profiles?.profile_photo}
+                            src={item?.user?.user_profiles?.profile_photo ? item?.user?.user_profiles?.profile_photo : Images.defaultUser}
                             alt="providerProfileImage"
                             className="providerImage"
                             height={100}
