@@ -49,9 +49,7 @@ const TransactionsList = () => {
   const [endDate, setEndDate] = useState(query?.from === 'analytics' ? moment(query?.date)?.toDate() : null);
   const [deliveryOption, setDeliveryOption] = useState(query?.from === 'analytics' ? query?.deliveryOption : "")
   const [orderTypeData, setOrderTypeData] = useState("none");
-<<<<<<< HEAD
   console.log(deliveryOption, 'delivery optionssssssssssss');
-=======
 
   const [key, setKey] = useState(Math.random());
   const [modalDetail, setModalDetail] = useState(false);
@@ -66,7 +64,6 @@ const TransactionsList = () => {
     setKey(Math.random());
   };
 
->>>>>>> 2f55a8089f2339bad9f43350256cc93f591c4930
   const handleDateRangeChange = (dates) => {
     const [start, end] = dates;
     setStartDate(start);
