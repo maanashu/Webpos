@@ -49,7 +49,7 @@ function* getAppointments(action) {
     }
   } catch (e) {
     yield put(onErrorStopLoad());
-    toast.error(e?.error?.response?.data?.msg);
+    // toast.error(e?.error?.response?.data?.msg);
   }
 }
 
@@ -74,7 +74,7 @@ function* updateAppointmentStatus(action) {
     }
   } catch (e) {
     yield put(onErrorStopLoad());
-    toast.error(e?.error?.response?.data?.msg);
+    // toast.error(e?.error?.response?.data?.msg);
   }
 }
 
@@ -95,7 +95,7 @@ function* getStaffUsers(action) {
     }
   } catch (e) {
     yield put(onErrorStopLoad());
-    toast.error(e?.error?.response?.data?.msg);
+    // toast.error(e?.error?.response?.data?.msg);
   }
 }
 
@@ -116,7 +116,7 @@ function* getServiceTimeSlots(action) {
     }
   } catch (e) {
     yield put(onErrorStopLoad());
-    toast.error(e?.error?.response?.data?.msg);
+    // toast.error(e?.error?.response?.data?.msg);
   }
 }
 
@@ -138,7 +138,7 @@ function* reScheduleAppointment(action) {
     }
   } catch (e) {
     yield put(onErrorStopLoad());
-    toast.error(e?.error?.response?.data?.msg);
+    // toast.error(e?.error?.response?.data?.msg);
   }
 }
 

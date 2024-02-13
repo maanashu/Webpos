@@ -2,33 +2,19 @@ import React, { useState } from "react";
 import * as Images from "../../../utilities/images";
 import Image from "next/image";
 import CustomModal from "../../customModal/CustomModal";
-import CashSummary from "./cashSummary";
 import { amountFormat } from '../../../utilities/globalMethods';
 import EndCashOutConfirmationModal from "./endCashOutConfirmationModal";
 
-const EndCashOutModal = ({ expectedAmount, title }) => {
-  // const dispatch = useDispatch();
-  // const sessionData = useSelector(selectCashDrawerData);
-  // const drawerSessionDetail = sessionData?.drawerSession?.payload;
-  // const expectedCash = sessionData?.expectedCashByDrawerId;
+const EndCashOutModal = ({ expectedAmount }) => {
 
   const [key, setKey] = useState(Math.random());
   const [enteredAmount, setEnteredAmount] = useState("");
   const [selectedAmount, setSelectedAmount] = useState(0);
 
-  const [modalDetail, setModalDetail] = useState({
-    show: false,
-    // title: "End Cash Tracking Session",
-    // type: "add",
-    // flag: "trackingmodal",
-  });
+  const [modalDetail, setModalDetail] = useState({show: false});
 
   const handleOnCloseModal = () => {
-    setModalDetail({
-      show: false,
-      // title: "",
-      // flag: "",
-    });
+    setModalDetail({show: false});
     setKey(Math.random());
   };
 
@@ -45,7 +31,7 @@ const EndCashOutModal = ({ expectedAmount, title }) => {
               width={50}
             />
           </figure>
-          <h6 className="loginheading px-5 mt-3 mb-5">{title}</h6>
+          <h6 className="loginheading px-5 mt-3 mb-5">End Cash Tracking Session</h6>
           {/* <h4 className="trackingHeading">Enter amount </h4> */}
         </div>
         <div className="buttonBox">
@@ -82,12 +68,7 @@ const EndCashOutModal = ({ expectedAmount, title }) => {
               type="button"
               onClick={() => {
                 console.log("here");
-                setModalDetail({
-                  show: true,
-                  // title: "End Cash Tracking Session",
-                  // type: "remove",
-                  // flag: "trackingmodal",
-                });
+                setModalDetail({show: true});
                 setKey(Math.random());
               }}
             >

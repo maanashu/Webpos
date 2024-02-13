@@ -31,7 +31,7 @@ function* getAllCustomers(action) {
     }
   } catch (e) {
     yield put(onErrorStopLoad());
-    toast.error(e?.error?.response?.data?.msg);
+    // toast.error(e?.error?.response?.data?.msg);
   }
 }
 
@@ -98,7 +98,7 @@ function* getAllCustomersList(action) {
     }
   } catch (e) {
     yield put(onErrorStopLoad());
-    toast.error(e?.error?.response?.data?.msg);
+    // toast.error(e?.error?.response?.data?.msg);
   }
 }
 
@@ -119,7 +119,7 @@ function* getSellerAreaList(action) {
     }
   } catch (e) {
     yield put(onErrorStopLoad());
-    toast.error(e?.error?.response?.data?.msg);
+    // toast.error(e?.error?.response?.data?.msg);
   }
 }
 
@@ -171,7 +171,7 @@ function* getUserDetailsAndOrders(action) {
     }
   } catch (e) {
     yield put(onErrorStopLoad());
-    toast.error(e?.error?.response?.data?.msg);
+    // toast.error(e?.error?.response?.data?.msg);
   }
 }
 
@@ -192,7 +192,7 @@ function* getUserMarketingStatus(action) {
     }
   } catch (e) {
     yield put(onErrorStopLoad());
-    toast.error(e?.error?.response?.data?.msg);
+    // toast.error(e?.error?.response?.data?.msg);
   }
 }
 
@@ -213,7 +213,7 @@ function* getStoreLocation(action) {
     }
   } catch (e) {
     yield put(onErrorStopLoad());
-    toast.error(e?.error?.response?.data?.msg);
+    // toast.error(e?.error?.response?.data?.msg);
   }
 }
 

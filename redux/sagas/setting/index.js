@@ -49,7 +49,7 @@ function* getActivePlan(action) {
     }
   } catch (e) {
     yield put(onErrorStopLoad());
-    toast.error(e?.error?.response?.data?.msg);
+    // toast.error(e?.error?.response?.data?.msg);
   }
 }
 
@@ -71,7 +71,7 @@ function* subScribePlan(action) {
     }
   } catch (e) {
     yield put(onErrorStopLoad());
-    toast.error(e?.error?.response?.data?.msg);
+    // toast.error(e?.error?.response?.data?.msg);
   }
 }
 
@@ -92,7 +92,7 @@ function* getAllPlans(action) {
     }
   } catch (e) {
     yield put(onErrorStopLoad());
-    toast.error(e?.error?.response?.data?.msg);
+    // toast.error(e?.error?.response?.data?.msg);
   }
 }
 
@@ -113,7 +113,7 @@ function* getSecuritySettingInfo(action) {
     }
   } catch (e) {
     yield put(onErrorStopLoad());
-    toast.error(e?.error?.response?.data?.msg);
+    // toast.error(e?.error?.response?.data?.msg);
   }
 }
 
@@ -134,7 +134,7 @@ function* getSecurityScanerCode(action) {
     }
   } catch (e) {
     yield put(onErrorStopLoad());
-    toast.error(e?.error?.response?.data?.msg);
+    // toast.error(e?.error?.response?.data?.msg);
   }
 }
 
@@ -156,7 +156,7 @@ function* configureGoogleAuthenticator(action) {
     }
   } catch (e) {
     yield put(onErrorStopLoad());
-    toast.error(e?.error?.response?.data?.msg);
+    // toast.error(e?.error?.response?.data?.msg);
   }
 }
 
@@ -178,7 +178,7 @@ function* verifyGoogleAuthenticator(action) {
     }
   } catch (e) {
     yield put(onErrorStopLoad());
-    toast.error(e?.error?.response?.data?.msg);
+    // toast.error(e?.error?.response?.data?.msg);
   }
 }
 function* forgetGoogleAuthenticator(action) {
@@ -198,7 +198,7 @@ function* forgetGoogleAuthenticator(action) {
     }
   } catch (e) {
     yield put(onErrorStopLoad());
-    toast.error(e?.error?.response?.data?.msg);
+    // toast.error(e?.error?.response?.data?.msg);
   }
 }
 function* resetGoogleAuthenticator(action) {
@@ -219,7 +219,7 @@ function* resetGoogleAuthenticator(action) {
     }
   } catch (e) {
     yield put(onErrorStopLoad());
-    toast.error(e?.error?.response?.data?.msg);
+    // toast.error(e?.error?.response?.data?.msg);
   }
 }
 // security module generator function end///////////////////////////////////////////
@@ -244,7 +244,7 @@ function* addNewStaff(action) {
     }
   } catch (e) {
     yield put(onErrorStopLoad());
-    toast.error(e?.error?.response?.data?.msg);
+    // toast.error(e?.error?.response?.data?.msg);
   }
 }
 
@@ -265,7 +265,7 @@ function* getStaffRoles(action) {
     }
   } catch (e) {
     yield put(onErrorStopLoad());
-    toast.error(e?.error?.response?.data?.msg);
+    // toast.error(e?.error?.response?.data?.msg);
   }
 }
 
@@ -286,7 +286,7 @@ function* getStaffDetails(action) {
     }
   } catch (e) {
     yield put(onErrorStopLoad());
-    toast.error(e?.error?.response?.data?.msg);
+    // toast.error(e?.error?.response?.data?.msg);
   }
 }
 // staff module generator function end///////////////////////////////////////////
@@ -309,7 +309,7 @@ function* getLocationDetails(action) {
     }
   } catch (e) {
     yield put(onErrorStopLoad());
-    toast.error(e?.error?.response?.data?.msg);
+    // toast.error(e?.error?.response?.data?.msg);
   }
 }
 
@@ -331,7 +331,7 @@ function* updateLocationSetting(action) {
     }
   } catch (e) {
     yield put(onErrorStopLoad());
-    toast.error(e?.error?.response?.data?.msg);
+    // toast.error(e?.error?.response?.data?.msg);
   }
 }
 
@@ -354,7 +354,7 @@ function* updateSettings(action) {
     }
   } catch (e) {
     yield put(onErrorStopLoad());
-    toast.error(e?.error?.response?.data?.msg);
+    // toast.error(e?.error?.response?.data?.msg);
   }
 }
 // Receipt module generator function end///////////////////////////////////////////
@@ -376,7 +376,7 @@ function* requestPayment(action) {
     }
   } catch (e) {
     yield put(onErrorStopLoad());
-    toast.error(e?.error?.response?.data?.msg);
+    // toast.error(e?.error?.response?.data?.msg);
   }
 }
 
@@ -399,7 +399,7 @@ function* viewPayment(action) {
     }
   } catch (e) {
     yield put(onErrorStopLoad());
-    toast.error(e?.error?.response?.data?.msg);
+    // toast.error(e?.error?.response?.data?.msg);
   }
 }
 
@@ -417,7 +417,7 @@ function* getLanguageList(action) {
     }
   } catch (e) {
     yield put(onErrorStopLoad());
-    toast.error(e?.error?.response?.data?.msg);
+    // toast.error(e?.error?.response?.data?.msg);
   }
 }
 

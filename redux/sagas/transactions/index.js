@@ -32,7 +32,7 @@ function* getTotalTra(action) {
     }
   } catch (e) {
     yield put(onErrorStopLoad());
-    toast.error(e?.error?.response?.data?.msg);
+    // toast.error(e?.error?.response?.data?.msg);
   }
 }
 
@@ -64,7 +64,7 @@ function* getTotalTraDetail(action) {
     queryParams.status = dataToSend?.status;
   }
 
-  if (dataToSend?.orderType !== "none") {
+  if (dataToSend?.orderType !== "none" && dataToSend?.orderType !== undefined) {
     queryParams.order_type = dataToSend?.orderType;
   }
 
@@ -107,7 +107,7 @@ function* getTotalTraDetail(action) {
     }
   } catch (e) {
     yield put(onErrorStopLoad());
-    toast.error(e?.error?.response?.data?.msg);
+    // toast.error(e?.error?.response?.data?.msg);
   }
 }
 
@@ -122,7 +122,7 @@ function* getTotalTraType(action) {
     ...defaultParams,
   };
 
-  if (dataToSend?.orderType !== "none") {
+  if (dataToSend?.orderType !== "none" && dataToSend?.orderType !== undefined) {
     queryParams.order_type = dataToSend?.orderType;
   }
 
@@ -162,7 +162,7 @@ function* getTotalTraType(action) {
     }
   } catch (e) {
     yield put(onErrorStopLoad());
-    toast.error(e?.error?.response?.data?.msg);
+    // toast.error(e?.error?.response?.data?.msg);
   }
 }
 
@@ -176,7 +176,7 @@ function* getNotifications() {
     }
   } catch (e) {
     yield put(onErrorStopLoad());
-    toast.error(e?.error?.response?.data?.msg);
+    // toast.error(e?.error?.response?.data?.msg);
   }
 }
 

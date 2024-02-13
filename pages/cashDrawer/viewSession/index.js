@@ -168,7 +168,7 @@ const ViewSession = () => {
                             <div className="flexDiv mt-2 py-1">
                               <h4 className="appointSub m-0 ps-3">Jobr Coin</h4>
                               <h4 className="appointSub m-0">
-                                {sessionHistory?.cash_in?.sales?.jobr_coin ? sessionHistory.cash_in.sales.jobr_coin : '0'}
+                                USD {sessionHistory?.cash_in?.sales?.jobr_coin ? amountFormat(sessionHistory.cash_in.sales.jobr_coin) : '$0.00'}
                               </h4>
                             </div>
                           </Accordion.Body>
@@ -202,7 +202,7 @@ const ViewSession = () => {
                             <div className="flexDiv mt-2 py-1">
                               <h4 className="appointSub m-0 ps-3">Jobr Coin</h4>
                               <h4 className="appointSub m-0">
-                                {sessionHistory?.cash_in?.manual?.jobr_coin ? sessionHistory.cash_in.manual.jobr_coin : "0"}
+                                USD {sessionHistory?.cash_in?.manual?.jobr_coin ? amountFormat(sessionHistory.cash_in.manual.jobr_coin) : "$0.00"}
                               </h4>
                             </div>
                           </Accordion.Body>
@@ -253,7 +253,7 @@ const ViewSession = () => {
                             <div className="flexDiv mt-2 py-1">
                               <h4 className="appointSub m-0 ps-3">Jobr Coin</h4>
                               <h4 className="appointSub m-0">
-                                {sessionHistory?.cash_out?.refund?.jobr_coin ? sessionHistory.cash_out.refund.jobr_coin : "0"}
+                                USD {sessionHistory?.cash_out?.refund?.jobr_coin ? amountFormat(sessionHistory.cash_out.refund.jobr_coin) : "$0.00"}
                               </h4>
                             </div>
                           </Accordion.Body>
@@ -288,7 +288,7 @@ const ViewSession = () => {
                             <div className="flexDiv mt-2 py-1">
                               <h4 className="appointSub m-0 ps-3">Jobr Coin</h4>
                               <h4 className="appointSub m-0">
-                                {sessionHistory?.cash_out?.manual?.jobr_coin ? sessionHistory.cash_out.manual.jobr_coin : "0"}
+                                USD {sessionHistory?.cash_out?.manual?.jobr_coin ? amountFormat(sessionHistory.cash_out.manual.jobr_coin) : "$0.00"}
                               </h4>
                             </div>
                           </Accordion.Body>
@@ -301,7 +301,7 @@ const ViewSession = () => {
             </div>
             <div className="netPaymentView">
               <h2 className="netPaymentText">Net Payment</h2>
-              <h1 className="totalAmmount w-100 text-right" style={{textAlign: "right"}}>
+              <h1 className="totalAmmount w-100" style={{textAlign: "right"}}>
                 USD {sessionHistory?.net_amount ? amountFormat(sessionHistory.net_amount) : "$0.00"}
               </h1>
             </div>

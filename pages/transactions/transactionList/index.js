@@ -48,6 +48,7 @@ const TransactionsList = () => {
   const sellerID = authData?.usersInfo?.payload?.uniqe_id;
   const [startDate, setStartDate] = useState(null);
   const [endDate, setEndDate] = useState(null);
+  const [orderTypeData, setOrderTypeData] = useState("none");
 
   const handleDateRangeChange = (dates) => {
     const [start, end] = dates;
@@ -60,7 +61,7 @@ const TransactionsList = () => {
     const data = {
       dayWiseFilter: timeSpan,
       sellerID: sellerID,
-      orderType: "none",
+      orderType: orderTypeData?.value,
       start_date: moment(startDate).format("YYYY-MM-DD"),
       end_date: moment(endDate).format("YYYY-MM-DD"),
     };
@@ -74,13 +75,13 @@ const TransactionsList = () => {
       limit: limit,
       sellerId: sellerID,
       transactionType: transaction,
-      orderType: "none",
+      orderType: orderTypeData?.value,
       status: "none",
       start_date: moment(startDate).format("YYYY-MM-DD"),
       end_date: moment(endDate).format("YYYY-MM-DD"),
     };
     dispatch(getTotalTraDetail(data));
-  }, [limit, page, timeSpan, transaction, endDate, startDate]);
+  }, [limit, page, timeSpan, transaction, endDate, startDate, orderTypeData]);
 
   const handleDateChange = (dates) => {
     setDate(moment(dates).format("YYYY-MM-DD"));
@@ -230,6 +231,8 @@ const TransactionsList = () => {
               totalItems={getWalletData?.totalTraDetail?.payload?.total}
               onDateChange={handleDateChange}
               date={date}
+              orderType
+              setOrderTypeData={setOrderTypeData}
             />
           </div>
         </div>

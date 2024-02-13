@@ -45,7 +45,7 @@ function* getSessionHistory(action) {
     }
   } catch (e) {
     yield put(onErrorStopLoad());
-    toast.error(e?.error?.response?.data?.msg);
+    // toast.error(e?.error?.response?.data?.msg);
   }
 }
 
@@ -72,7 +72,7 @@ function* sendPaymentHistory(action) {
     }
   } catch (e) {
     yield put(onErrorStopLoad());
-    toast.error(e?.error?.response?.data?.msg);
+    // toast.error(e?.error?.response?.data?.msg);
   }
 }
 
@@ -95,7 +95,7 @@ function* getSessionSummary(action) {
     }
   } catch (e) {
     yield put(onErrorStopLoad());
-    toast.error(e?.error?.response?.data?.msg);
+    // toast.error(e?.error?.response?.data?.msg);
   }
 }
 
@@ -118,7 +118,7 @@ function* getDrawerSession(action) {
     }
   } catch (e) {
     yield put(onErrorStopLoad());
-    toast.error(e?.error?.response?.data?.msg);
+    // toast.error(e?.error?.response?.data?.msg);
   }
 }
 
@@ -138,7 +138,7 @@ function* updateDrawerSession(action) {
     }
   } catch (e) {
     yield put(onErrorStopLoad());
-    toast.error(e?.error?.response?.data?.msg);
+    // toast.error(e?.error?.response?.data?.msg);
   }
 }
 
@@ -157,7 +157,7 @@ function* getExpectedCashByDrawerId(action) {
     }
   } catch (e) {
     yield put(onErrorStopLoad());
-    toast.error(e?.error?.response?.data?.msg);
+    // toast.error(e?.error?.response?.data?.msg);
   }
 }
 
