@@ -19,6 +19,7 @@ import {
   getUserDetailsAndOrders,
   getUserMarketingStatus,
   selectCustomersData,
+  updateUserMarketingStatus,
 } from "../../../../redux/slices/customers";
 import moment from "moment-timezone";
 import { DELIVERY_MODE } from "../../../../constants/commonConstants";
@@ -47,17 +48,50 @@ const UserProfile = () => {
 
   const userOrderList = customersData?.userDetailsAndOrder?.payload;
   const storeLocationList = customersData?.storeLocation?.payload?.data;
+  const userMarketingStatus = customersData?.userMarketingStatus?.payload?.data;
+  const [isToggled, setIsToggled] = useState(false);
 
   const [monthSelect, setMonthSelect] = useState("none");
   const [storeSelected, setStoreSelected] = useState("none");
 
   const storeLocationSelector = [
     { label: "None", value: "none" },
-    ...storeLocationList?.map((item, index) => ({
-      label: item?.city,
-      value: item?.city,
-    })),
+    ...(storeLocationList
+      ? storeLocationList?.map((item, index) => ({
+          label: item?.city,
+          value: item?.city,
+        }))
+      : []),
   ];
+
+  useEffect(() => {
+    const data = {
+      user_id: userDetails?.id,
+      seller_id: sellerUid,
+    };
+    dispatch(getUserMarketingStatus(data));
+  }, []);
+  console.log("khaskfhksajfh", customersData?.userMarketingStatus);
+  console.log("sgfjdsgfjsgfjgds", customersData?.updateMarketingStatus);
+
+  const toggleHandler = async () => {
+
+    setIsToggled((prev) => !prev);
+    // const data = {
+    //   seller_id: sellerUid.toString(),
+    //   user_id: userDetails?.id,
+    //   accept: !isToggled,
+    // };
+    // const res = await dispatch(updateUserMarketingStatus(data));
+    // if (res) {
+    //   const data = {
+    //     user_id: userDetails?.id,
+    //     seller_id: sellerUid,
+    //   };
+    //   dispatch(getUserMarketingStatus(data));
+    //   setIsToggled((prev) => !prev);
+    // }
+  };
 
   useEffect(() => {
     if (sellerUid && userUid) {
@@ -167,8 +201,9 @@ const UserProfile = () => {
         contactNo={userDetails?.phone_number}
         email={userDetails?.email}
         points={2}
-        isAcceptingMarketing={true}
+        isAcceptingMarketing={isToggled}
         bannerImage={userDetails?.banner_image}
+        handleToggle={() => toggleHandler()}
       />
 
       <PaginationHeader

@@ -3,22 +3,21 @@ import TCRHeader from "../../../components/commanComonets/TCRHeader";
 import PaginationHeader from "../../../components/commanComonets/PaginationHeader";
 import { useRouter } from "next/router";
 import {
-  OrderLocation,
-  customerUsers,
   customerWallet,
   customersCross,
-  userSale,
+  modalCross,
 } from "../../../utilities/images";
 import { useDispatch, useSelector } from "react-redux";
 import { selectLoginAuth } from "../../../redux/slices/auth";
 import {
-  getTotalTra,
   getTotalTraDetail,
   getTotalTraType,
   selectTransactionData,
 } from "../../../redux/slices/transactions";
 import Image from "next/image";
 import moment from "moment-timezone";
+import CustomModal from "../../../components/customModal/CustomModal";
+import TransactionSearchModal from "../../../components/modals/searchModal/transactionSearchModal";
 
 export const DELIVERY_MODE = {
   1: "Delivery",
@@ -50,7 +49,24 @@ const TransactionsList = () => {
   const [endDate, setEndDate] = useState(query?.from === 'analytics' ? moment(query?.date)?.toDate() : null);
   const [deliveryOption, setDeliveryOption] = useState(query?.from === 'analytics' ? query?.deliveryOption : "")
   const [orderTypeData, setOrderTypeData] = useState("none");
+<<<<<<< HEAD
   console.log(deliveryOption, 'delivery optionssssssssssss');
+=======
+
+  const [key, setKey] = useState(Math.random());
+  const [modalDetail, setModalDetail] = useState(false);
+
+  const handleShowModal = () => {
+    setModalDetail(true);
+    setKey(Math.random());
+  };
+
+  const handleOnCloseModal = () => {
+    setModalDetail(false);
+    setKey(Math.random());
+  };
+
+>>>>>>> 2f55a8089f2339bad9f43350256cc93f591c4930
   const handleDateRangeChange = (dates) => {
     const [start, end] = dates;
     setStartDate(start);
@@ -205,6 +221,7 @@ const TransactionsList = () => {
         startDate={startDate}
         endDate={endDate}
         notificationHandler={handleNotification}
+        searchHandler={() => handleShowModal()}
       />
       <div className="row">
         <div className="col-lg-6">
@@ -408,9 +425,29 @@ const TransactionsList = () => {
                 </td>
               )}
             </>
-          )}{" "}
+          )}
         </tbody>
       </table>
+
+      <CustomModal
+        key={key}
+        show={modalDetail}
+        backdrop="static"
+        showCloseBtn={false}
+        isRightSideModal={true}
+        mediumWidth={false}
+        className={"right"}
+        ids={"transactionSearchModal"}
+        child={<TransactionSearchModal />}
+        header={
+          <>
+            <p onClick={handleOnCloseModal} className="modal_cancel">
+              <Image src={modalCross} alt="modalCross" className="img-fluid" />
+            </p>
+          </>
+        }
+        onCloseModal={() => handleOnCloseModal()}
+      />
     </div>
   );
 };

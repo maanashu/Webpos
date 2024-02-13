@@ -35,24 +35,15 @@ const Transactions = () => {
   const graphData = getWalletData?.totalTra?.payload?.graphData;
 
   const [key, setKey] = useState(Math.random());
-  const [modalDetail, setModalDetail] = useState({
-    show: false,
-    flag: "transactionSearchModal",
-  });
+  const [modalDetail, setModalDetail] = useState(false);
 
   const handleShowModal = () => {
-    setModalDetail({
-      show: true,
-      flag: "transactionSearchModal",
-    });
+    setModalDetail(true);
     setKey(Math.random());
   };
 
   const handleOnCloseModal = () => {
-    setModalDetail({
-      show: false,
-      flag: "",
-    });
+    setModalDetail(false);
     setKey(Math.random());
   };
   const handleDateChange = (dates) => {
@@ -322,11 +313,12 @@ const Transactions = () => {
 
       <CustomModal
         key={key}
-        show={modalDetail.show}
+        show={modalDetail}
         backdrop="static"
         showCloseBtn={false}
         isRightSideModal={true}
         mediumWidth={false}
+<<<<<<< HEAD
         className={
           modalDetail.flag === "transactionSearchModal" ? "right" : ""
         }
@@ -342,20 +334,21 @@ const Transactions = () => {
             ""
           )
         }
+=======
+        className={"right"}
+        ids={"transactionSearchModal"}
+        child={<TransactionSearchModal />}
+>>>>>>> 2f55a8089f2339bad9f43350256cc93f591c4930
         header={
-          modalDetail.flag === "transactionSearchModal" ? (
-            <>
-              <p onClick={handleOnCloseModal} className="modal_cancel">
-                <Image
-                  src={Images.modalCross}
-                  alt="modalCross"
-                  className="img-fluid"
-                />
-              </p>
-            </>
-          ) : (
-            ""
-          )
+          <>
+            <p onClick={handleOnCloseModal} className="modal_cancel">
+              <Image
+                src={Images.modalCross}
+                alt="modalCross"
+                className="img-fluid"
+              />
+            </p>
+          </>
         }
         onCloseModal={() => handleOnCloseModal()}
       />
