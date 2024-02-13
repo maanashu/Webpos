@@ -313,7 +313,7 @@ const productrefunds = () => {
         setRefundAmount(_refundAmount);
       } else {
         _refundAmount = enteredValue <= 100 ? enteredValue : 100;
-        setRefundAmount();
+        setRefundAmount(_refundAmount);
       }
     } else {
       if (!toast.isActive(toastId.current)) {
