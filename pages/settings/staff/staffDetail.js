@@ -85,6 +85,9 @@ const StaffDetail = (props) => {
     props?.setShowSideBar(false)
   },[])
 
+
+  console.log(getStaffInfo?.pos_staff_detail?.user?.user_profiles, "address");
+
   return (
     <>
       {/* <div className='settingMain staffDetailSection'>
