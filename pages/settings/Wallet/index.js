@@ -3,7 +3,7 @@ import * as Images from "../../../utilities/images";
 import Image from "next/image";
 import { useDispatch, useSelector } from "react-redux";
 import { settingInfo, updateSettings } from "../../../redux/slices/setting";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 const Wallet = (props) => {
   const dispatch = useDispatch();
@@ -30,9 +30,19 @@ const Wallet = (props) => {
     dispatch(updateSettings(data));
   };
 
+  const getSettingData = () => {
+    dispatch(
+      updateSettings({
+        cb(res) {
+        },
+      })
+    );
+  };
+
   useEffect(() => {
-    props?.setShowSideBar(false)
-  },[])
+    props?.setShowSideBar(false);
+    getSettingData();
+  }, []);
 
   return (
     <>

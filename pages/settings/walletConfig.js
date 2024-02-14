@@ -8,7 +8,6 @@ const WalletConfig = () => {
   const dispatch = useDispatch();
   const receiptSettings = useSelector(settingInfo);
   const userSettings = receiptSettings?.getSettings;
-
   const isCoin = userSettings?.accept_jbr_coin_payment;
   const isCash = userSettings?.accept_cash_payment;
   const isCard = userSettings?.accept_card_payment;
