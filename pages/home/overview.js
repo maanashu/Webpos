@@ -318,7 +318,7 @@ const Overview = () => {
                           ?.profile_photo
                           ? authData?.posUserLoginDetails?.payload
                               ?.user_profiles?.profile_photo
-                          : Images.LoginFirst
+                          : Images.userDummy
                       }
                       alt="HomeProfileImage"
                       width={100}

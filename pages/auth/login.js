@@ -74,7 +74,7 @@ const Login = () => {
                                                         <div className='loginCard' onClick={() => selectedUserInfo(data)}
                                                             >
                                                             <figure className='loginIds'>
-                                                                <Image src={data?.user?.user_profiles?.profile_photo ? data?.user?.user_profiles?.profile_photo : Images.LoginFirst} alt="LoginIdImage" width="100" height="100" className="img-fluid loginIdImg" />
+                                                                <Image src={data?.user?.user_profiles?.profile_photo ? data?.user?.user_profiles?.profile_photo : Images.userDummy} alt="LoginIdImage" width="100" height="100" className="img-fluid loginIdImg" />
                                                             </figure>
                                                             <div className='loginMainHead'>
                                                                 <h2 className='loginMain'>{data?.user?.user_profiles?.firstname} {data?.user?.user_profiles?.lastname}</h2>
