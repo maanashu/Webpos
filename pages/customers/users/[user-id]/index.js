@@ -54,16 +54,20 @@ const UserProfile = () => {
   const [monthSelect, setMonthSelect] = useState("none");
   const [storeSelected, setStoreSelected] = useState("none");
 
+
   const storeLocationSelector = [
     { label: "None", value: "none" },
+<<<<<<< HEAD
+    ...(storeLocationList?.length > 0 ? storeLocationList.map(item => ({ label: item.city, value: item.city })) : [])
+=======
     ...(storeLocationList
       ? storeLocationList?.map((item, index) => ({
           label: item?.city,
           value: item?.city,
         }))
       : []),
+>>>>>>> a6ea7fd0dd15c9bc12ed0aaf2f30cab65edf401f
   ];
-
   useEffect(() => {
     const data = {
       user_id: userDetails?.id,

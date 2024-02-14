@@ -31,9 +31,17 @@ const Receipts = (props) => {
     }
     dispatch(updateSettings(data));
   };
-
+  const getSettingData = () => {
+    dispatch(
+      updateSettings({
+        cb(res) {
+        },
+      })
+    );
+  };
   useEffect(() => {
     props?.setShowSideBar(false)
+    getSettingData();
   },[])
 
   return (
