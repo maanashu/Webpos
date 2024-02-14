@@ -161,7 +161,7 @@ const Sidebar = (props) => {
                   ?.profile_photo
                   ? authData?.posUserLoginDetails?.payload?.user_profiles
                       ?.profile_photo
-                  : Images.HomeProfileImg
+                  : Images.LoginFirst
               }
               alt="image"
               width={100}
