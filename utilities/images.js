@@ -346,7 +346,6 @@ import topsales from "../public/images/topsales.svg";
 import saleLocation from "../public/images/saleLocation.svg";
 import totalOrders from "../public/images/totalOrders.svg";
 import totalCost from "../public/images/totalCost.svg";
-
 import darkPlus from "../public/images/darkPlus.svg";
 import defaultUser from "../public/images/defaultUser.png";
 import enablesec from "../public/images/enablesec.svg";
@@ -354,6 +353,7 @@ import downloadimagee from "../public/images/downloadimagee.svg";
 import qrcodeimg from "../public/images/qrcodeimg.svg";
 import warning from "../public/images/warning.png";
 import CrossWhite from "../public/images/crossWhite.png";
+import userDummy from "../public/images/userDummy.png"
 
 export {
   darkPlus,
@@ -705,5 +705,6 @@ export {
   Edit_line,
   selectedCalendar,
   warning,
-  CrossWhite
+  CrossWhite,
+  userDummy
 };

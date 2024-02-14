@@ -8,6 +8,7 @@ import {
   setSearchedCustomerList,
   setSellerAreaList,
   setStoreLocation,
+  setUpdateMarketingStatus,
   setUserDetailsAndOrders,
   setUserMarketingStatus,
 } from "../../slices/customers";
@@ -31,7 +32,7 @@ function* getAllCustomers(action) {
     }
   } catch (e) {
     yield put(onErrorStopLoad());
-    toast.error(e?.error?.response?.data?.msg);
+    // toast.error(e?.error?.response?.data?.msg);
   }
 }
 
@@ -98,7 +99,7 @@ function* getAllCustomersList(action) {
     }
   } catch (e) {
     yield put(onErrorStopLoad());
-    toast.error(e?.error?.response?.data?.msg);
+    // toast.error(e?.error?.response?.data?.msg);
   }
 }
 
@@ -119,7 +120,7 @@ function* getSellerAreaList(action) {
     }
   } catch (e) {
     yield put(onErrorStopLoad());
-    toast.error(e?.error?.response?.data?.msg);
+    // toast.error(e?.error?.response?.data?.msg);
   }
 }
 
@@ -171,7 +172,29 @@ function* getUserDetailsAndOrders(action) {
     }
   } catch (e) {
     yield put(onErrorStopLoad());
-    toast.error(e?.error?.response?.data?.msg);
+    // toast.error(e?.error?.response?.data?.msg);
+  }
+}
+
+function* updateUserMarketingStatus(action) {
+  const dataToSend = { ...action.payload };
+  console.log("fgagasjfgsa", dataToSend)
+  const params = new URLSearchParams(dataToSend).toString();
+
+  try {
+    const resp = yield call(
+      ApiClient.post,
+      `${AUTH_API_URL}/api/v1/marketings?${params}`
+    );
+    if (resp.status) {
+      yield put(setUpdateMarketingStatus(resp.data));
+      // yield call(action.payload.cb, (action.res = resp));
+    } else {
+      throw resp;
+    }
+  } catch (e) {
+    yield put(onErrorStopLoad());
+    // toast.error(e?.error?.response?.data?.msg);
   }
 }
 
@@ -192,7 +215,7 @@ function* getUserMarketingStatus(action) {
     }
   } catch (e) {
     yield put(onErrorStopLoad());
-    toast.error(e?.error?.response?.data?.msg);
+    // toast.error(e?.error?.response?.data?.msg);
   }
 }
 
@@ -213,7 +236,7 @@ function* getStoreLocation(action) {
     }
   } catch (e) {
     yield put(onErrorStopLoad());
-    toast.error(e?.error?.response?.data?.msg);
+    // toast.error(e?.error?.response?.data?.msg);
   }
 }
 
@@ -225,6 +248,10 @@ function* customersSaga() {
     takeLatest("customers/getUserDetailsAndOrders", getUserDetailsAndOrders),
     takeLatest("customers/getUserMarketingStatus", getUserMarketingStatus),
     takeLatest("customers/getStoreLocation", getStoreLocation),
+    takeLatest(
+      "customers/updateUserMarketingStatus",
+      updateUserMarketingStatus
+    ),
   ]);
 }
 

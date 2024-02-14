@@ -41,7 +41,7 @@ function* getTodayOrderCount(action) {
     }
   } catch (e) {
     // yield put(onErrorStopLoad());
-    toast.error(e?.error?.response?.data?.msg);
+    // toast.error(e?.error?.response?.data?.msg);
   }
 }
 
@@ -63,7 +63,7 @@ function* getCurrentOrderStatus(action) {
     }
   } catch (e) {
     // yield put(onErrorStopLoad());
-    toast.error(e?.error?.response?.data?.msg);
+    // toast.error(e?.error?.response?.data?.msg);
   }
 }
 
@@ -84,7 +84,7 @@ function* getOrderStat(action) {
     }
   } catch (e) {
     // yield put(onErrorStopLoad());
-    toast.error(e?.error?.response?.data?.msg);
+    // toast.error(e?.error?.response?.data?.msg);
   }
 }
 
@@ -106,7 +106,7 @@ function* getOrdersList(action) {
   } catch (e) {
     console.log("error", e);
     // yield put(onErrorStopLoad());
-    toast.error(e?.error?.response?.data?.msg);
+    // toast.error(e?.error?.response?.data?.msg);
   }
 }
 function* getPendingOrderCount(action) {
@@ -128,7 +128,7 @@ function* getPendingOrderCount(action) {
   } catch (e) {
     console.log("error", e);
     // yield put(onErrorStopLoad());
-    toast.error(e?.error?.response?.data?.msg);
+    // toast.error(e?.error?.response?.data?.msg);
   }
 }
 function* getDrawerOrdersCount(action) {
@@ -151,7 +151,7 @@ function* getDrawerOrdersCount(action) {
     }
   } catch (e) {
     // yield put(onErrorStopLoad());
-    toast.error(e?.error?.response?.data?.msg);
+    // toast.error(e?.error?.response?.data?.msg);
   }
 }
 
@@ -176,7 +176,7 @@ function* getOrderDetailById(action, callbackFn) {
     }
   } catch (e) {
     // yield put(onErrorStopLoad());
-    toast.error(e?.error?.response?.data?.msg);
+    // toast.error(e?.error?.response?.data?.msg);
   }
 }
 function* acceptOrder(action, callbackFn) {
@@ -206,7 +206,7 @@ function* acceptOrder(action, callbackFn) {
   } catch (e) {
     console.log("Errorr0", e);
     // yield put(onErrorStopLoad());
-    toast.error(e?.error?.response?.data?.msg);
+    // toast.error(e?.error?.response?.data?.msg);
   }
 }
 function* verifyPickupOtp(action, callbackFn) {
@@ -229,7 +229,7 @@ function* verifyPickupOtp(action, callbackFn) {
     }
   } catch (e) {
     // yield put(onErrorStopLoad());
-    toast.error(e?.error?.response?.data?.msg);
+    // toast.error(e?.error?.response?.data?.msg);
   }
 }
 

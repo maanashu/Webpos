@@ -116,7 +116,7 @@ const StaffDetail = (props) => {
                     ?.profile_photo
                     ? getStaffInfo?.pos_staff_detail?.user?.user_profiles
                         ?.profile_photo
-                    : Images.LoginFirst
+                    : Images.userDummy
                 }
                 alt="staffProfile image "
                 className="staffProfileImg"

@@ -131,7 +131,7 @@ const Verify = () => {
             <div className='verifyBox'>
               <div className='loginCard'>
                 <figure className='loginIds'>
-                  <Image src={selectedposusernfo?.user?.user_profiles?.profile_photo ? selectedposusernfo?.user?.user_profiles?.profile_photo : Images.LoginFirst} alt="LoginIdImage" width="100" height="100" className="img-fluid loginIdImg" />
+                  <Image src={selectedposusernfo?.user?.user_profiles?.profile_photo ? selectedposusernfo?.user?.user_profiles?.profile_photo : Images.userDummy} alt="LoginIdImage" width="100" height="100" className="img-fluid loginIdImg" />
                 </figure>
                 <div className='loginMainHead'>
                   <h2 className='loginMain'>{selectedposusernfo?.user?.user_profiles?.firstname} {selectedposusernfo?.user?.user_profiles?.lastname}</h2>

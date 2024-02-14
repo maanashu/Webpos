@@ -222,8 +222,8 @@ const AddService = () => {
                     src={itemData?.image}
                     alt="service profile image"
                     className="addSeviceImg"
-                    height={100}
-                    width={100}
+                    height={500}
+                    width={500}
                   />
                   <figure className="rotateImage">
                     <Image
@@ -301,7 +301,7 @@ const AddService = () => {
                           }}
                         >
                           <Image
-                            src={item?.user?.user_profiles?.profile_photo}
+                            src={item?.user?.user_profiles?.profile_photo ? item?.user?.user_profiles?.profile_photo : Images.defaultUser}
                             alt="providerProfileImage"
                             className="providerImage"
                             height={100}

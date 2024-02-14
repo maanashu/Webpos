@@ -342,6 +342,7 @@ const Retails = () => {
                       if (cartAddQty !== undefined) {
                         updatedItem.cart_qty = cartAddQty;
                       }
+                      console.log("oppoop", JSON.stringify(item));
                       return (
                         <div
                           className="col-xxl-2 col-xl-3 col-lg-4 col-md-6 mb-3"
@@ -380,9 +381,10 @@ const Retails = () => {
                                 src={item.image}
                                 alt="image"
                                 className="img-fluid ProductIcon"
-                                width="100"
-                                height="100"
+                                width="500"
+                                height="500"
                               />
+
                               <div className="overlay ">
                                 <Image
                                   src={Images.Add}
@@ -488,9 +490,10 @@ const Retails = () => {
                                 src={services?.image}
                                 alt="image"
                                 className="img-fluid ProductIcon"
-                                width="100"
-                                height="100"
+                                width="500"
+                                height="500"
                               />
+                              
                               <div className="overlay ">
                                 <Image
                                   src={Images.Add}
@@ -545,17 +548,11 @@ const Retails = () => {
                                   className="img-fluid appointmentCalender"
                                 />
                                 <span className="Ontime">
-                                  {getWeeklyDateLabel(
-                                    services?.supplies?.[0]?.next_available_slot
-                                      ?.date
-                                  ) +
-                                    " " +
+                                  {getWeeklyDateLabel(services?.supplies?.[0]?.next_available_slot?.date) +
+                                    " - " +
+                                    services?.supplies?.[0]?.next_available_slot?.start_time +
                                     "-" +
-                                    services?.supplies?.[0]?.next_available_slot
-                                      ?.start_time +
-                                    "-" +
-                                    services?.supplies?.[0]?.next_available_slot
-                                      ?.end_time}
+                                    services?.supplies?.[0]?.next_available_slot?.end_time}
                                 </span>
                               </figure>
                               <figure className="Timezone">
@@ -589,19 +586,18 @@ const Retails = () => {
                                       whiteSpace: "wrap",
                                     }}
                                   >
-                                    {services?.pos_staff?.map((item, index) => (
-                                      <Image
-                                        key={index}
-                                        src={
-                                          item?.user?.user_profiles
-                                            ?.profile_photo
-                                        }
-                                        alt="image"
-                                        className="img-fluid CardIcons"
-                                        width="100"
-                                        height="100"
-                                      />
-                                    ))}
+                                    {services?.pos_staff?.map((item, index) => {
+                                      return (
+                                        <Image
+                                          key={index}
+                                          src={item?.user?.user_profiles?.profile_photo ? item?.user?.user_profiles?.profile_photo : Images.defaultUser}
+                                          alt="image"
+                                          className="img-fluid CardIcons"
+                                          width="100"
+                                          height="100"
+                                        />
+                                      )
+                                    })}
                                   </div>
                                 }
 
@@ -679,7 +675,7 @@ const Retails = () => {
             " "
           )
         }
-        header={ 
+        header={
           <>
             {modalDetail.flag === "ClearCart" ? (
               <h5 className="appointMain mb-0">

@@ -285,7 +285,7 @@ const OrderReview = () => {
                                                                                                     alt="MoneyItemImage "
                                                                                                     className="img-fluid m-0"
                                                                                                 />
-                                                                                                <span className="locateDistance">${item?.payable_amount || "00"}
+                                                                                                <span className="locateDistance">${Number(item?.payable_amount)?.toFixed(2) || "0.00"}
                                                                                                 </span>
                                                                                             </div>
                                                                                         </div>
@@ -301,7 +301,7 @@ const OrderReview = () => {
                                                                                                     alt="MoneyItemImage "
                                                                                                     className="img-fluid m-0"
                                                                                                 />
-                                                                                                <span className="locateDistance">${item?.payable_amount || "00"}
+                                                                                                <span className="locateDistance">${Number(item?.payable_amount)?.toFixed(2) || "0.00"}
                                                                                                 </span>
                                                                                             </div>
                                                                                         </div>
@@ -456,9 +456,9 @@ const OrderReview = () => {
                                                                         </div>
                                                                     </div>
                                                                 </div>
-                                                                <p className='productPriceinvoice dataSpace'>${v?.order_details?.price}</p>
+                                                                <p className='productPriceinvoice dataSpace'>${Number(v?.order_details?.price)?.toFixed(2)}</p>
                                                                 <p className='productPriceinvoice dataSpace'>{v?.order_details?.qty}</p>
-                                                                <p className='productPriceinvoice dataSpace'>${(v?.order_details?.qty) * (v?.order_details?.price)}</p>
+                                                                <p className='productPriceinvoice dataSpace'>${Number((v?.order_details?.qty) * (v?.order_details?.price))?.toFixed(2)}</p>
                                                                 {/* <article>
                                                         <label className="custom-checkbox">
                                                             <input type="checkbox" />
@@ -499,11 +499,11 @@ const OrderReview = () => {
                                                     <div className='OrderDiscountBox'>
                                                         <div className='flexBox '>
                                                             <p className='orderHeading'>Sub Total</p>
-                                                            <p className='orderSubHeading'>${singleOrderData?.actual_amount}</p>
+                                                            <p className='orderSubHeading'>${Number(singleOrderData?.actual_amount)?.toFixed(2)}</p>
                                                         </div>
                                                         <div className='flexBox'>
                                                             <p className='orderHeading'>Discount</p>
-                                                            <p className='orderSubHeading'>-${singleOrderData?.discount}</p>
+                                                            <p className='orderSubHeading'>-${Number(singleOrderData?.discount)?.toFixed(2)}</p>
                                                         </div>
                                                         {/* <div className='flexBox'>
                                                     <p className='orderHeading'>Other Fees</p>
@@ -511,21 +511,21 @@ const OrderReview = () => {
                                                 </div> */}
                                                         <div className='flexBox'>
                                                             <p className='orderHeading'>Shipping Charge</p>
-                                                            <p className='orderSubHeading'>${singleOrderData?.shipping_charge}</p>
+                                                            <p className='orderSubHeading'>${Number(singleOrderData?.shipping_charge)?.toFixed(2)}</p>
                                                         </div>
                                                         <div className='flexBox'>
                                                             <p className='orderHeading'>Tax</p>
-                                                            <p className='orderSubHeading'>${singleOrderData?.tax}</p>
+                                                            <p className='orderSubHeading'>${Number(singleOrderData?.tax)?.toFixed(2)}</p>
                                                         </div>
                                                         <div className='flexBox'>
                                                             <p className='orderHeading'>Tips</p>
-                                                            <p className='orderSubHeading'>${singleOrderData?.tips}</p>
+                                                            <p className='orderSubHeading'>${Number(singleOrderData?.tips)?.toFixed(2)}</p>
                                                         </div>
                                                     </div>
                                                     <div className='OrderTotal'>
                                                         <div className='flexBox'>
                                                             <p className='priceHeading'>Total</p>
-                                                            <p className='priceHeading'>${singleOrderData?.payable_amount}</p>
+                                                            <p className='priceHeading'>${Number(singleOrderData?.payable_amount)?.toFixed(2)}</p>
                                                         </div>
                                                         {
                                                             singleOrderData?.status === 0 ?

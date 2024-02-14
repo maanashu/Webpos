@@ -74,10 +74,10 @@ const index = () => {
       title: "Average Order Value",
       count:
         analyticsOrderData?.delivery_graph?.ordersOverView?.averageValue ||
-        analyticsOrderData?.delivery_graph?.ordersOverView?.averageValue == 0
+          analyticsOrderData?.delivery_graph?.ordersOverView?.averageValue == 0
           ? `$${(analyticsOrderData?.pos_graph?.ordersOverView?.averageValue).toFixed(
-              2
-            )}`
+            2
+          )}`
           : "",
       bgColor: "#D1FADF",
       textColor: "#003921",
@@ -125,14 +125,19 @@ const index = () => {
   };
 
   const handleGoReviewPage = (orderDate) => {
+    console.log(orderDate, 'order dateeeee');
     // return
-    router.push({
-      pathname: "/transactions/transactionList",
-      query: {
-        transaction_type: "all",
-        date: orderDate,
-      },
-    });
+    if (orderDate) {
+      router.push({
+        pathname: "/transactions/transactionList",
+        query: {
+          // transaction_type: "all",
+          "from": "analytics",
+          'deliveryOption': 3,
+          'date': `${orderDate}T00:00:00`,
+        },
+      });
+    }
   };
 
   useEffect(() => {
@@ -271,7 +276,7 @@ const index = () => {
                 {
                   <>
                     {analyticsOrderData?.pos_graph?.ordersListData?.length >
-                    0 ? (
+                      0 ? (
                       <tbody>
                         {analyticsOrderData?.pos_graph?.ordersListData?.map(
                           (row, idx) => (
@@ -287,7 +292,7 @@ const index = () => {
                               </td>
                               <td
                                 className="customers-table-data"
-                                // style={{ display: "flex", gap: "12px" }}
+                              // style={{ display: "flex", gap: "12px" }}
                               >
                                 {`$${addThousandSeparator(
                                   row?.averageValue?.toFixed(2)
@@ -308,9 +313,7 @@ const index = () => {
                                 <button
                                   className="secondaryOuterbtn_"
                                   type="button"
-                                  onClick={() =>
-                                    handleGoReviewPage(row?.order_date)
-                                  }
+                                  onClick={() => handleGoReviewPage(row?.order_date)}
                                 >
                                   Review
                                 </button>

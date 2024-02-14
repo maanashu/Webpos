@@ -19,6 +19,7 @@ const Invoices = () => {
   const authData = useSelector(selectLoginAuth);
 
   const [orderDetails, setOrderDetails] = useState(null);
+  const userID = orderDetails?.user_details?.id ?? "-";
 
   useEffect(() => {
     if (userId)
@@ -157,7 +158,9 @@ const Invoices = () => {
               <article>
                 <p className="mapleProductPrice">Date</p>
                 <p className="mapleProductHeading">
-                  {moment.utc(orderDetails?.date).format("ddd DD/MM/YYYY")}
+                  {moment
+                    .utc(orderDetails?.created_at)
+                    .format("ddd DD/MM/YYYY")}
                 </p>
                 <p className="mapleProductPrice">POS No.</p>
                 <p className="mapleProductHeading">
@@ -168,9 +171,7 @@ const Invoices = () => {
                 <p className="mapleProductPrice">Mode</p>
                 <p className="mapleProductHeading">Walk-In</p>
                 <p className="mapleProductPrice">User ID</p>
-                <p className="mapleProductHeading">
-                  {orderDetails?.pos_user_details?.id}
-                </p>
+                <p className="mapleProductHeading">{userID}</p>
               </article>
             </div>
             <div className="flexBox maplePriceBox">

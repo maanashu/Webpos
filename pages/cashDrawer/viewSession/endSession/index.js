@@ -1,5 +1,5 @@
 import Image from "next/image";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 import { Chart as ChartJS, registerables } from "chart.js";
 import Header from "../../../../components/commanComonets/cashdrawer/Header";
@@ -31,12 +31,7 @@ const EndSession = () => {
   const getPosUser = getUserData?.posUserLoginDetails?.payload;
   const [key, setKey] = useState(Math.random());
 
-  const [modalDetail, setModalDetail] = useState({
-    show: false,
-    title: "End Cash Tracking Session",
-    type: "add",
-    flag: "trackingmodal",
-  });
+  const [modalDetail, setModalDetail] = useState({show: false});
 
   const ADMIN = () => {
     const admin = getUserData?.posUserLoginDetails?.payload?.user_roles?.filter(
@@ -45,22 +40,13 @@ const EndSession = () => {
     return admin;
   };
 
-  const handleShowModal = (title, type) => {
-    setModalDetail({
-      show: true,
-      title: title,
-      type: type,
-      flag: "trackingmodal",
-    });
+  const handleShowModal = () => {
+    setModalDetail({show: true});
     setKey(Math.random());
   };
 
   const handleOnCloseModal = () => {
-    setModalDetail({
-      show: false,
-      title: "",
-      flag: "",
-    });
+    setModalDetail({show: false});
     setKey(Math.random());
   };
 
@@ -107,9 +93,6 @@ const EndSession = () => {
           console.log("RESET_CALL_CALLED1");
           if (res.status) {
             await dispatch(restAllData());
-            // await dispatch(logout());
-            // await dispatch(dashboardLogout());
-            console.log("RESET_CALL_CALLED");
 
             setTimeout(() => {
               toast.success("Logout successfully");
@@ -125,6 +108,23 @@ const EndSession = () => {
       })
     );
   };
+
+  const closeSession = async () => {
+    await dispatch(restAllData({skipAuth: true}));
+    localStorage.removeItem("authToken");
+
+    setTimeout(() => {
+      toast.warning("Batch has been closed");
+    }, 200);
+
+    router.push("/auth/login");
+  }
+
+  useEffect(() => {
+    if(sessionData?.drawerSession?.has_session_closed){
+      closeSession();
+    }
+  }, []);
 
   return (
     <>
@@ -156,7 +156,7 @@ const EndSession = () => {
               <div
                 className="closeBatchButton"
                 onClick={() =>
-                  handleShowModal("End Cash Tracking Session", "remove")
+                  handleShowModal()
                 }
               >
                 <p className="closeBatchText">Close Batch</p>
@@ -224,32 +224,22 @@ const EndSession = () => {
         showCloseBtn={false}
         isRightSideModal={true}
         mediumWidth={false}
-        ids={modalDetail.flag === "trackingmodal" ? "trackingModal" : ""}
+        ids={"trackingModal"}
         child={
-          modalDetail.flag === "trackingmodal" ? (
-            <EndCashModal
-              title={modalDetail.title}
-              modalType={modalDetail.type}
-              close={() => handleOnCloseModal()}
-            />
-          ) : (
-            ""
-          )
+          <EndCashModal
+            title={modalDetail.title}
+            modalType={modalDetail.type}
+            close={() => handleOnCloseModal()}
+          />
         }
         header={
-          modalDetail.flag === "trackingmodal" ? (
-            <>
-              <p onClick={handleOnCloseModal} className="modal_cancel">
-                <Image
-                  src={Images.modalCross}
-                  alt="modalCross"
-                  className="img-fluid"
-                />
-              </p>
-            </>
-          ) : (
-            ""
-          )
+          <p onClick={handleOnCloseModal} className="modal_cancel">
+            <Image
+              src={Images.modalCross}
+              alt="modalCross"
+              className="img-fluid"
+            />
+          </p>
         }
         onCloseModal={() => handleOnCloseModal()}
       />

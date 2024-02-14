@@ -22,11 +22,19 @@ const Analytics = () => {
     const [analyticsOrderData, setAnalyticsOrderData] = useState("");
     const [totalOrderAnalyticsData, setTotalOrderAnalyticsData] = useState("");
     const [totalProductSoldAnalyticsData, setTotalProductSoldAnalyticsData] = useState("");
+    const authData = useSelector(selectLoginAuth);
     const handleDateChange = (dates) => {
         const [start, end] = dates;
         setStartDate(start);
         setEndDate(end);
     }
+
+    const ADMIN = () => {
+        const admin = authData?.posUserLoginDetails?.payload?.user_roles?.filter(
+            (item) => item?.role?.slug == "pos_admin"
+        );
+        return admin;
+    };
     const auth = useSelector(selectLoginAuth)
     const sellerId = auth?.usersInfo?.payload?.uniqe_id
     const handleChange = (selectedOption) => {
@@ -428,80 +436,86 @@ const Analytics = () => {
             />
             <div className='analyticOuter'>
                 <div className="row">
-                    <div className="col-lg-4 col-md-6 col-12 mt-4">
-                        <div
-                            className="chartsOuter"
-                            onClick={() => router.push("/analytics/grossProfit")}
-                        >
-                            <div className='topheadanalytics_'>
-                                <h4 className="expectedHeading ">Gross Profits</h4>
-                                <h4 className="expectedHeading">
-                                    {" "}
-                                    $
-                                    {addThousandSeparator(
-                                        analyticsProfitData?.profit?.total_count
-                                    )}
-                                </h4>
+                    {
+                        ADMIN()?.length > 0 &&
+                        <>
+                            <div className="col-lg-4 col-md-6 col-12 mt-4">
+                                <div
+                                    className="chartsOuter"
+                                    onClick={() => router.push("/analytics/grossProfit")}
+                                >
+                                    <div className='topheadanalytics_'>
+                                        <h4 className="expectedHeading ">Gross Profits</h4>
+                                        <h4 className="expectedHeading">
+                                            {" "}
+                                            $
+                                            {addThousandSeparator(
+                                                analyticsProfitData?.profit?.total_count?.toFixed(2)
+                                            )}
+                                        </h4>
+                                    </div>
+                                    <ChartCommon
+                                        className="col-md-12"
+                                        header=""
+                                        options={options}
+                                        data={GrossProfitAnalytics}
+                                        chartType="Line"
+                                    />
+                                </div>
                             </div>
-                            <ChartCommon
-                                className="col-md-12"
-                                header=""
-                                options={options}
-                                data={GrossProfitAnalytics}
-                                chartType="Line"
-                            />
-                        </div>
-                    </div>
 
-                    <div className="col-lg-4 col-md-6 col-12 mt-4">
-                        <div
-                            className="chartsOuter"
-                            onClick={() => router.push("/analytics/totalRevenue")}
-                        >
-                            <div className='topheadanalytics_'>
-                                <h4 className="expectedHeading ">Total Revenue</h4>
-                                <h4 className="expectedHeading">
-                                    {" "}
-                                    $
-                                    {addThousandSeparator(
-                                        analyticsProfitData?.revenue?.total_count
-                                    )}
-                                </h4>
+                            <div className="col-lg-4 col-md-6 col-12 mt-4">
+                                <div
+                                    className="chartsOuter"
+                                    onClick={() => router.push("/analytics/totalRevenue")}
+                                >
+                                    <div className='topheadanalytics_'>
+                                        <h4 className="expectedHeading ">Total Revenue</h4>
+                                        <h4 className="expectedHeading">
+                                            {" "}
+                                            $
+                                            {addThousandSeparator(
+                                                analyticsProfitData?.revenue?.total_count?.toFixed(2)
+                                            )}
+                                        </h4>
+                                    </div>
+                                    <ChartCommon
+                                        className="col-md-12"
+                                        header=""
+                                        options={options}
+                                        data={RevenueProfitAnalytics}
+                                        chartType="Line"
+                                    />
+                                </div>
                             </div>
-                            <ChartCommon
-                                className="col-md-12"
-                                header=""
-                                options={options}
-                                data={RevenueProfitAnalytics}
-                                chartType="Line"
-                            />
-                        </div>
-                    </div>
 
-                    <div className="col-lg-4 col-md-6 col-12 mt-4">
-                        <div
-                            className="chartsOuter"
-                            onClick={() => router.push("/analytics/totalCosts")}
-                        >
-                            <div className='topheadanalytics_'>
-                                <h4 className="expectedHeading ">Total Costs</h4>
-                                <h4 className="expectedHeading">
-                                    {" "}
-                                    $
-                                    {addThousandSeparator(
-                                        (analyticsProfitData?.cost?.total_count)?.toFixed(2)
-                                    )}
-                                </h4>
+                            <div className="col-lg-4 col-md-6 col-12 mt-4">
+                                <div
+                                    className="chartsOuter"
+                                    onClick={() => router.push("/analytics/totalCosts")}
+                                >
+                                    <div className='topheadanalytics_'>
+                                        <h4 className="expectedHeading ">Total Costs</h4>
+                                        <h4 className="expectedHeading">
+                                            {" "}
+                                            $
+                                            {addThousandSeparator(
+                                                (analyticsProfitData?.cost?.total_count)?.toFixed(2)
+                                            )}
+                                        </h4>
+                                    </div>
+                                    <ChartCommon
+                                        className="col-md-12"
+                                        header=""
+                                        options={options}
+                                        data={CostProfitAnalytics}
+                                        chartType="Line"
+                                    />
+                                </div>
                             </div>
-                            <ChartCommon
-                                className="col-md-12"
-                                header=""
-                                options={options}
-                                data={CostProfitAnalytics}
-                                chartType="Line"
-                            />
-                        </div>
-                    </div>
+                        </>
+                    }
+
 
                     <div className="col-lg-4 col-md-6 col-12 mt-4">
                         <div className="chartsOuter"

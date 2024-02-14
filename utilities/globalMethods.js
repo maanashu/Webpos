@@ -364,33 +364,58 @@ export const getDateLabel = (dateString) => {
 };
 
 export const getWeeklyDateLabel = (dateString) => {
-  const daysOfWeek = [
-    "Sunday",
-    "Monday",
-    "Tuesday",
-    "Wednesday",
-    "Thursday",
-    "Friday",
-    "Saturday",
-  ];
-  const date = new Date(dateString);
-  const today = new Date();
-  const oneWeekLater = new Date(today.getTime() + 7 * 24 * 60 * 60 * 1000); // Add 7 days to current date
 
-  if (date.getTime() >= oneWeekLater.getTime()) {
-    // After one week, show the date in regular format
-    return `${date.getDate()}/${date.getMonth() + 1}/${date.getFullYear()}`;
+  if(!dateString)
+    return false;
+  
+  const timezone = getCurrentTimeZone();
+
+  const givenDate = moment(dateString).tz(timezone);
+  const today = moment(moment().format("YYYY-MM-DD")).tz(timezone);
+  const oneWeekLater = today.add(7, 'days'); // Add 7 days to current date
+
+  if (givenDate.isSameOrAfter(oneWeekLater)) {
+    // After one week, show the givenDate in regular format
+    return givenDate.format('L');
   }
 
-  const diff = Math.floor(
-    (date.getTime() - today.getTime()) / (1000 * 60 * 60 * 24)
-  );
+  const diff = givenDate.diff(today, 'days');
 
   if (diff === 0) return "Today";
   if (diff === 1) return "Tomorrow";
 
-  return daysOfWeek[date.getDay()];
+  return givenDate.format('dddd');
 };
+
+// export const getWeeklyDateLabel = (dateString) => {
+//   const daysOfWeek = [
+//     "Sunday",
+//     "Monday",
+//     "Tuesday",
+//     "Wednesday",
+//     "Thursday",
+//     "Friday",
+//     "Saturday",
+//   ];
+//   const date = new Date(dateString);
+//   const today = new Date();
+//   const oneWeekLater = new Date(today.getTime() + 7 * 24 * 60 * 60 * 1000); // Add 7 days to current date
+
+//   if (date.getTime() >= oneWeekLater.getTime()) {
+//     // After one week, show the date in regular format
+//     return `${date.getDate()}/${date.getMonth() + 1}/${date.getFullYear()}`;
+//   }
+
+//   const diff = Math.floor(
+//     (date.getTime() - today.getTime()) / (1000 * 60 * 60 * 24)
+//   );
+
+//   if (diff === 0) return "Today";
+//   if (diff === 1) return "Tomorrow";
+
+//   return daysOfWeek[date.getDay()];
+// };
+
 export function calculatePercentageValue(value, percentage) {
   if (percentage == "") {
     return "";

@@ -198,20 +198,7 @@ const productrefunds = () => {
       setInputValues([]);
       return;
     }
-    // if (inputValues && inputValues.length > 0) {
-    //   if (e.target.checked) {
-    //     updateValue = inputValues?.map(
-    //       (item) => Number(item) + Number(refundAmount)
-    //     );
-    //   } else {
-    //     setRefundAmount("");
-    //     updateValue = inputValues?.map(
-    //       (item) => Number(item) - Number(refundAmount)
-    //     );
-    // setInputValues(updateValue);
-    // }
-    // setInputValues(updateValue);
-    // } else {
+
     const newValues = [];
     for (let i = 0; i < refundedItems?.length; i++) {
       if (hasDollar == true) {
@@ -319,11 +306,14 @@ const productrefunds = () => {
       ...refundedItems?.map((item) => parseFloat(item?.price))
     );
 
+    let _refundAmount = 0;
     if (!isNaN(enteredValue)) {
       if (enableTextFordoller) {
-        setRefundAmount(enteredValue > maxPrice ? maxPrice : enteredValue);
+        _refundAmount = enteredValue > maxPrice ? maxPrice : enteredValue;
+        setRefundAmount(_refundAmount);
       } else {
-        setRefundAmount(enteredValue <= 100 ? enteredValue : `100`);
+        _refundAmount = enteredValue <= 100 ? enteredValue : 100;
+        setRefundAmount(_refundAmount);
       }
     } else {
       if (!toast.isActive(toastId.current)) {
@@ -336,7 +326,7 @@ const productrefunds = () => {
 
     inputCheck(
       allApplicable,
-      enteredValue,
+      _refundAmount,
       enableTextFordoller,
       enableTextForPercent
     );
@@ -372,7 +362,9 @@ const productrefunds = () => {
                     checked={allApplicable}
                     disabled={enableText === true}
                   />
-                  <label for="Incoming Orders" className='appointSub  m-0'>Applicable for all items.</label>
+                  <label for="Incoming Orders" className="appointSub  m-0">
+                    Applicable for all items.
+                  </label>
                 </div>
                 <div className="flexBox refundPricebox">
                   {enableTextFordoller === true ? (
@@ -428,11 +420,16 @@ const productrefunds = () => {
                       checked={enableText}
                       disabled={allApplicable === true}
                     />
-                    <label for="accept Orders" className='appointSub  m-0'> Applicable for each items.</label>
+                    <label for="accept Orders" className="appointSub  m-0">
+                      {" "}
+                      Applicable for each items.
+                    </label>
                   </div>
                 </div>
                 {applyRefund == true ? (
-                  <button className="ConfirmReturn active">Applied <i class="fa-solid fa-check ms-2"></i></button>
+                  <button className="ConfirmReturn active">
+                    Applied <i class="fa-solid fa-check ms-2"></i>
+                  </button>
                 ) : (
                   <button
                     className={
@@ -441,11 +438,9 @@ const productrefunds = () => {
                         : "ConfirmReturn active"
                     }
                     onClick={(e) => handleApplyRefund(e)}
-                    disabled={
-                      allApplicable === false && enableText === false
-                    }
+                    disabled={allApplicable === false && enableText === false}
                   >
-                    Apply Refund 
+                    Apply Refund
                   </button>
                 )}
               </div>
@@ -523,12 +518,12 @@ const productrefunds = () => {
                         <td className="recent_subhead text-center">
                           ${" "}
                           {!isNaN(parseFloat(inputValues[idx]?.value)) &&
-                            !isNaN(parseFloat(data?.qty))
+                          !isNaN(parseFloat(data?.qty))
                             ? (parseFloat(inputValues[idx]?.value) >
                               parseFloat(data?.price)
-                              ? parseFloat(data?.price)
-                              : parseFloat(inputValues[idx]?.value)) *
-                            parseFloat(data?.qty)
+                                ? parseFloat(data?.price)
+                                : parseFloat(inputValues[idx]?.value)) *
+                              parseFloat(data?.qty)
                             : parseFloat(data?.qty) * parseFloat(data?.price)}
                         </td>
                       </tr>

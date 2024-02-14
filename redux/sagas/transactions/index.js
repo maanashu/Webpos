@@ -32,12 +32,13 @@ function* getTotalTra(action) {
     }
   } catch (e) {
     yield put(onErrorStopLoad());
-    toast.error(e?.error?.response?.data?.msg);
+    // toast.error(e?.error?.response?.data?.msg);
   }
 }
 
 function* getTotalTraDetail(action) {
   const dataToSend = { ...action.payload };
+  console.log(dataToSend,'ddddddddddddddddddddddddddddddd');
   // delete dataToSend.cb;
   const params = new URLSearchParams(dataToSend).toString();
 
@@ -55,6 +56,9 @@ function* getTotalTraDetail(action) {
   // if (data?.search) {
   //   queryParams.search = data?.search;
   // }
+  if (dataToSend?.need_walkin) {
+    queryParams.need_walkin = dataToSend?.need_walkin;
+  }
 
   if (dataToSend?.calendarDate !== undefined) {
     queryParams.date = dataToSend?.calendarDate;
@@ -64,7 +68,7 @@ function* getTotalTraDetail(action) {
     queryParams.status = dataToSend?.status;
   }
 
-  if (dataToSend?.orderType !== "none") {
+  if (dataToSend?.orderType !== "none" && dataToSend?.orderType !== undefined) {
     queryParams.order_type = dataToSend?.orderType;
   }
 
@@ -107,7 +111,7 @@ function* getTotalTraDetail(action) {
     }
   } catch (e) {
     yield put(onErrorStopLoad());
-    toast.error(e?.error?.response?.data?.msg);
+    // toast.error(e?.error?.response?.data?.msg);
   }
 }
 
@@ -122,7 +126,7 @@ function* getTotalTraType(action) {
     ...defaultParams,
   };
 
-  if (dataToSend?.orderType !== "none") {
+  if (dataToSend?.orderType !== "none" && dataToSend?.orderType !== undefined) {
     queryParams.order_type = dataToSend?.orderType;
   }
 
@@ -162,7 +166,7 @@ function* getTotalTraType(action) {
     }
   } catch (e) {
     yield put(onErrorStopLoad());
-    toast.error(e?.error?.response?.data?.msg);
+    // toast.error(e?.error?.response?.data?.msg);
   }
 }
 
@@ -176,7 +180,7 @@ function* getNotifications() {
     }
   } catch (e) {
     yield put(onErrorStopLoad());
-    toast.error(e?.error?.response?.data?.msg);
+    // toast.error(e?.error?.response?.data?.msg);
   }
 }
 

@@ -67,9 +67,19 @@ const Users = () => {
   // ];
   const areaSelector = [
     { label: "None", value: "none" },
+<<<<<<< HEAD
     ...(sellerAreaList?.length > 0 ? sellerAreaList.map(item => ({ label: item.state, value: item.state })) : [])
   ];
   
+=======
+    ...(sellerAreaList
+      ? sellerAreaList.map((item, index) => ({
+          label: item?.state,
+          value: item?.state,
+        }))
+      : []),
+  ];
+>>>>>>> a6ea7fd0dd15c9bc12ed0aaf2f30cab65edf401f
   const filterHandler = () => {
     if (startDate && endDate) {
       return {

@@ -486,7 +486,7 @@ const Shipping = () => {
                                                                                     alt="MoneyItemImage "
                                                                                     className="img-fluid ms-1"
                                                                                 />
-                                                                                <span className="locateDistance">${item?.payable_amount || "00"}
+                                                                                <span className="locateDistance">${Number(item?.payable_amount)?.toFixed(2) || "0.00"}
                                                                                 </span>
                                                                             </div>
                                                                         </div>

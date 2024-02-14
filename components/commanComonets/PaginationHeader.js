@@ -9,7 +9,7 @@ import Image from "next/image";
 import ReactDatePicker from "react-datepicker";
 import ReactSelect from "react-select";
 import moment from "moment-timezone";
-import { months } from "../../utilities/dateUtils";
+import { months, orderTypeArray } from "../../utilities/dateUtils";
 
 const DatePickerCustomComponent = forwardRef(({ value, onClick }, ref) => (
   <p onClick={onClick} className="users-selected-date">
@@ -34,12 +34,15 @@ const PaginationHeader = ({
   setMonthSelect,
   setStoreSelected,
   storeLocationsData,
+  orderType,
+  setOrderTypeData,
 }) => {
-
   const startIndex = (page - 1) * parseInt(limit, 10) + 1;
   const endIdx = data
     ? Math.min(startIndex + parseInt(data?.length, 10) - 1, totalItems)
     : 0;
+
+  const ordertypeSelection = (value) => setOrderTypeData(value);
 
   const monthSelection = (value) => setMonthSelect(value);
 
@@ -167,6 +170,26 @@ const PaginationHeader = ({
           }}
           className="flex-row-space-between paginateTop"
         >
+          {orderType ? (
+            <ReactSelect
+              options={orderTypeArray}
+              placeholder="Order Type"
+              classNamePrefix="react-select"
+              className="react-select-container"
+              styles={{
+                option: reactSelectCustomStyles,
+                placeholder: reactSelectCustomStyles,
+              }}
+              components={{
+                DropdownIndicator: () => (
+                  <Image src={arrowDown} width={24} height={24} />
+                ),
+              }}
+              onChange={ordertypeSelection}
+            />
+          ) : (
+            <></>
+          )}
           <div
             style={{
               alignItems: "center",

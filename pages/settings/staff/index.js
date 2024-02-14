@@ -100,7 +100,7 @@ const StaffList = (props) => {
                         src={
                           data?.user?.user_profiles?.profile_photo
                             ? data?.user?.user_profiles?.profile_photo
-                            : Images.LoginFirst
+                            : Images.userDummy
                         }
                         alt="staffUser image"
                         className="staffUserImg"

@@ -72,7 +72,7 @@ const Wallet = (props) => {
                 </div>
               </div>
 
-              <div className="roundCheck  mb-0">
+              {/* <div className="roundCheck  mb-0">
                 <input
                   className="form-check-input"
                   type="checkbox"
@@ -86,7 +86,7 @@ const Wallet = (props) => {
                   className="form-check-label d-none"
                   for="flexSwitchCheckChecked"
                 ></label>
-              </div>
+              </div> */}
             </div>
           </div>
           {/*  */}

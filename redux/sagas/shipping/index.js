@@ -26,7 +26,7 @@ function* getShippingsSidebarCount(action) {
   } catch (e) {
     yield put(onErrorStopLoad());
     console.log(e, "error");
-    toast.error(e?.error?.response?.data?.msg);
+    // toast.error(e?.error?.response?.data?.msg);
   }
 }
 function* changeStatusOfOrder(action) {
@@ -53,7 +53,7 @@ function* changeStatusOfOrder(action) {
   } catch (e) {
     yield put(onErrorStopLoad());
     console.log(e, "error");
-    toast.error(e?.error?.response?.data?.msg);
+    // toast.error(e?.error?.response?.data?.msg);
   }
 }
 function* getShippingsStatus(action) {
@@ -74,7 +74,7 @@ function* getShippingsStatus(action) {
   } catch (e) {
     yield put(onErrorStopLoad());
     console.log(e, "error");
-    toast.error(e?.error?.response?.data?.msg);
+    // toast.error(e?.error?.response?.data?.msg);
   }
 }
 function* getShippingGraphData(action) {
@@ -95,7 +95,7 @@ function* getShippingGraphData(action) {
   } catch (e) {
     yield put(onErrorStopLoad());
     console.log(e, "error");
-    toast.error(e?.error?.response?.data?.msg);
+    // toast.error(e?.error?.response?.data?.msg);
   }
 }
 function* getOrderStat(action) {
@@ -115,7 +115,7 @@ function* getOrderStat(action) {
     }
   } catch (e) {
     // yield put(onErrorStopLoad());
-    toast.error(e?.error?.response?.data?.msg);
+    // toast.error(e?.error?.response?.data?.msg);
   }
 }
 function* getOrdersList(action) {
@@ -137,7 +137,7 @@ function* getOrdersList(action) {
   } catch (e) {
     console.log("error", e);
     // yield put(onErrorStopLoad());
-    toast.error(e?.error?.response?.data?.msg);
+    // toast.error(e?.error?.response?.data?.msg);
   }
 }
 function* shippingSaga() {
