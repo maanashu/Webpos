@@ -1,8 +1,8 @@
 import styles from "./styles.module.css";
-import * as Images from "../../../utilities/images";
+import * as Images from "../../utilities/images"
 import Image from "next/image";
 import { useDispatch, useSelector } from "react-redux";
-import { settingInfo, updateSettings } from "../../../redux/slices/setting";
+import { settingInfo, updateSettings } from "../../redux/slices/setting"
 
 const WalletConfig = () => {
   const dispatch = useDispatch();
