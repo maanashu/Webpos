@@ -1,8 +1,10 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
+import { useTimer } from 'react-timer-hook';
 import * as Images from "../../utilities/images";
 import Image from "next/image";
 import CustomModal from "../../components/customModal/CustomModal";
 import SessionModal from "../../components/modals/homeModals/sessionModal";
+import MyTimer from "../../components/commanComonets/MyTimer";
 import { DELIVERY_MODE } from "../../constants/commonConstants";
 import {
   logout,
@@ -31,7 +33,7 @@ import { toast } from "react-toastify";
 import { amountFormat, getCurrentTimeZone } from '../../utilities/globalMethods';
 
 const Overview = () => {
-  const moment = require("moment");
+  const searchInputRef = useRef(null);
   const currentTimeZone = getCurrentTimeZone();
   const authData = useSelector(selectLoginAuth);
   const dashboardData = useSelector(dashboardDetails);
@@ -56,6 +58,7 @@ const Overview = () => {
   const [posLoginDetail, setPosLoginDetail] = useState("");
   const [onlineOrdersCount, setOnlineOrdersCount] = useState(0);
   const [searchKeyword, setSearchKeyword] = useState();
+  const [searchedInput, setSearchedInput] = useState();
   const [isSearching, setIsSearching] = useState(false);
   const [invoiceDetail, setInvoiceDetail] = useState({});
   const [displaySearchBox, setDisplaySearchBox] = useState(false);
@@ -64,6 +67,8 @@ const Overview = () => {
     title: "",
     flag: "",
   });
+
+  var scannerInputTimeout = null;
 
   // API for get all oder deliveries...............................
   const allOrderDeliveriesInfo = () => {
@@ -242,6 +247,23 @@ const Overview = () => {
     router.push("/auth/verification");
     localStorage.removeItem("authToken");
     localStorage.removeItem("persist:root");
+  };
+
+
+  const handleInputChange = (event) => {
+    var keyword = event.target.value.toLowerCase();
+
+    const keywordArr = keyword.split("_");
+    if(keywordArr?.length && keywordArr.length > 0){
+      keyword = keywordArr[keywordArr.length-1]
+    }
+    else {
+      keyword = keywordArr[0];
+    }
+
+    if (!(/[a-zA-Z]/.test(keyword))){
+      setSearchKeyword(keyword);
+    }
   };
 
   // Get the current time as a moment object
@@ -469,180 +491,182 @@ const Overview = () => {
             </div>
             <div className="col-lg-8 col-md-12">
               <div className="homeRight position-relative">
-                <form className="homeRightForm">
-                  <div className="searchControlBox">
-                    <input
-                      type="text"
-                      className="form-control searchControl"
-                      placeholder="Search here"
-                      value={searchKeyword}
-                      onChange={(e) => {
-                        setSearchKeyword(e.target.value);
-                      }}
-                    />
-                    <Image
-                      src={Images.Scan}
-                      alt="ScanImage"
-                      className="img-fluid scanSearch"
-                    />
-                    <Image
-                      src={Images.SearchIcon}
-                      alt="SearchImageIcon"
-                      className="img-fluid searchImg"
-                    />
-                  </div>
+                <div className="searchControlBox">
+                  <input
+                    ref={searchInputRef}
+                    type="text"
+                    className="form-control searchControl"
+                    placeholder="Search here"
+                    value={searchKeyword}
+                    onChange={(e) => {
+                      e.preventDefault();
+                      handleInputChange(e);
+                    }}
+                  />
+                  <Image
+                    src={Images.Scan}
+                    alt="ScanImage"
+                    className="img-fluid scanSearch"
+                    style={{cursor: "pointer"}}
+                    onClick={(e) => {searchInputRef.current.focus()}}
+                  />
+                  <Image
+                    src={Images.SearchIcon}
+                    alt="SearchImageIcon"
+                    className="img-fluid searchImg"
+                  />
+                </div>
 
-                  {displaySearchBox && (
-                    <div className="custom-search-box">
-                      <div className="custom-search-dropdown">
-                        <div
-                          className="cross-icon"
-                          onClick={() => {
-                            setDisplaySearchBox(false);
-                            setSearchKeyword("");
-                            setIsSearching(false);
-                          }}
+                {displaySearchBox && (
+                  <div className="custom-search-box">
+                    <div className="custom-search-dropdown">
+                      <div
+                        className="cross-icon"
+                        onClick={() => {
+                          setDisplaySearchBox(false);
+                          setSearchKeyword("");
+                          setIsSearching(false);
+                        }}
+                      >
+                        <Image
+                          src={Images.crossBlue}
+                          alt="SearchImageIcon"
+                          className="img-fluid "
+                        />
+                      </div>
+                      <div className="table-responsive">
+                        <table
+                          id="tableProduct"
+                          className="product_table mt-2 homeTable"
                         >
-                          <Image
-                            src={Images.crossBlue}
-                            alt="SearchImageIcon"
-                            className="img-fluid "
-                          />
-                        </div>
-                        <div className="table-responsive">
-                          <table
-                            id="tableProduct"
-                            className="product_table mt-2 homeTable"
-                          >
-                            {isSearching ? (
-                              <tbody>
-                                <div className="text-center">
-                                  <div className="spinner-grow loaderSpinner text-center my-2"></div>
-                                </div>
-                              </tbody>
-                            ) : (
-                              <tbody>
-                                {invoiceDetail &&
-                                Object.keys(invoiceDetail).length > 0 ? (
-                                  <tr
-                                    onClick={() => {
-                                      router.push(
-                                        "/invoices/invoices?showInvoiceData=true"
-                                      );
-                                    }}
-                                    style={{ cursor: "pointer" }}
-                                  >
-                                    <td className="homeSubtable">
-                                      <div className="orderFirstId">
-                                        <h4 className="orderId">
-                                          #{invoiceDetail?.invoice_number}
-                                        </h4>
-                                      </div>
-                                    </td>
-                                    <td className="homeSubtable">
-                                      <div className="nameLocation">
-                                        <h4 className="orderId">
-                                          {invoiceDetail?.order?.user_details
-                                            ?.user_profiles
-                                            ? invoiceDetail.order.user_details
-                                                .user_profiles.firstname +
-                                              " " +
-                                              invoiceDetail.order.user_details
-                                                .user_profiles.lastname
-                                            : ""}
-                                        </h4>
-                                        {invoiceDetail?.order?.order_delivery
-                                          ?.distance && (
-                                          <div className="flexTable">
-                                            <Image
-                                              src={Images.OrderLocation}
-                                              alt="location Image"
-                                              className="img-fluid ms-1"
-                                            />
-                                            <span className="locateDistance">
-                                              {
-                                                invoiceDetail?.order
-                                                  ?.order_delivery?.distance
-                                              }{" "}
-                                              miles
-                                            </span>
-                                          </div>
-                                        )}
-                                      </div>
-                                    </td>
-                                    <td className="homeSubtable">
-                                      <div className="itemMoney">
-                                        <h4 className="orderId">
-                                          {
-                                            invoiceDetail?.order?.order_details
-                                              ?.length
-                                          }{" "}
-                                          items
-                                        </h4>
+                          {isSearching ? (
+                            <tbody>
+                              <div className="text-center">
+                                <div className="spinner-grow loaderSpinner text-center my-2"></div>
+                              </div>
+                            </tbody>
+                          ) : (
+                            <tbody>
+                              {invoiceDetail &&
+                              Object.keys(invoiceDetail).length > 0 ? (
+                                <tr
+                                  onClick={() => {
+                                    router.push(
+                                      "/invoices/invoices?showInvoiceData=true"
+                                    );
+                                  }}
+                                  style={{ cursor: "pointer" }}
+                                >
+                                  <td className="homeSubtable">
+                                    <div className="orderFirstId">
+                                      <h4 className="orderId">
+                                        #{invoiceDetail?.invoice_number}
+                                      </h4>
+                                    </div>
+                                  </td>
+                                  <td className="homeSubtable">
+                                    <div className="nameLocation">
+                                      <h4 className="orderId">
+                                        {invoiceDetail?.order?.user_details
+                                          ?.user_profiles
+                                          ? invoiceDetail.order.user_details
+                                              .user_profiles.firstname +
+                                            " " +
+                                            invoiceDetail.order.user_details
+                                              .user_profiles.lastname
+                                          : ""}
+                                      </h4>
+                                      {invoiceDetail?.order?.order_delivery
+                                        ?.distance && (
                                         <div className="flexTable">
                                           <Image
-                                            src={Images.MoneyItem}
+                                            src={Images.OrderLocation}
+                                            alt="location Image"
+                                            className="img-fluid ms-1"
+                                          />
+                                          <span className="locateDistance">
+                                            {
+                                              invoiceDetail?.order
+                                                ?.order_delivery?.distance
+                                            }{" "}
+                                            miles
+                                          </span>
+                                        </div>
+                                      )}
+                                    </div>
+                                  </td>
+                                  <td className="homeSubtable">
+                                    <div className="itemMoney">
+                                      <h4 className="orderId">
+                                        {
+                                          invoiceDetail?.order?.order_details
+                                            ?.length
+                                        }{" "}
+                                        items
+                                      </h4>
+                                      <div className="flexTable">
+                                        <Image
+                                          src={Images.MoneyItem}
+                                          alt="MoneyItemImage "
+                                          className="img-fluid ms-1"
+                                        />
+                                        <span className="locateDistance">
+                                          {invoiceDetail?.order?.payable_amount
+                                            ? amountFormat(invoiceDetail.order.payable_amount)
+                                            : "$0.00"}
+                                        </span>
+                                      </div>
+                                    </div>
+                                  </td>
+                                  <td className="homeSubtable">
+                                    <div className="itemTime">
+                                      {/* <h4 className="orderId">Customer:</h4> */}
+                                      {invoiceDetail?.order
+                                        ?.delivery_option ? (
+                                        <div className="flexTable">
+                                          <Image
+                                            src={Images.Time}
                                             alt="MoneyItemImage "
                                             className="img-fluid ms-1"
                                           />
                                           <span className="locateDistance">
-                                            {invoiceDetail?.order?.payable_amount
-                                              ? amountFormat(invoiceDetail.order.payable_amount)
-                                              : "$0.00"}
+                                            {
+                                              DELIVERY_MODE[
+                                                Number(
+                                                  invoiceDetail.order
+                                                    .delivery_option
+                                                )
+                                              ]
+                                            }
                                           </span>
                                         </div>
-                                      </div>
-                                    </td>
-                                    <td className="homeSubtable">
-                                      <div className="itemTime">
-                                        {/* <h4 className="orderId">Customer:</h4> */}
-                                        {invoiceDetail?.order
-                                          ?.delivery_option ? (
-                                          <div className="flexTable">
-                                            <Image
-                                              src={Images.Time}
-                                              alt="MoneyItemImage "
-                                              className="img-fluid ms-1"
-                                            />
-                                            <span className="locateDistance">
-                                              {
-                                                DELIVERY_MODE[
-                                                  Number(
-                                                    invoiceDetail.order
-                                                      .delivery_option
-                                                  )
-                                                ]
-                                              }
-                                            </span>
-                                          </div>
-                                        ) : (
-                                          ""
-                                        )}
-                                      </div>
-                                    </td>
-                                  </tr>
-                                ) : (
-                                  <tr>
-                                    <td
-                                      style={{ width: 0, padding: "5px" }}
-                                    ></td>
-                                    <td
-                                      className="colorBlue text text-center py-3"
-                                      colSpan={8}
-                                      style={{ color: "#263682" }}
-                                    >
-                                      <h5>No Data</h5>
-                                    </td>
-                                  </tr>
-                                )}
-                              </tbody>
-                            )}
-                          </table>
-                        </div>
+                                      ) : (
+                                        ""
+                                      )}
+                                    </div>
+                                  </td>
+                                </tr>
+                              ) : (
+                                <tr>
+                                  <td
+                                    style={{ width: 0, padding: "5px" }}
+                                  ></td>
+                                  <td
+                                    className="colorBlue text text-center py-3"
+                                    colSpan={8}
+                                    style={{ color: "#263682" }}
+                                  >
+                                    <h5>No Data</h5>
+                                  </td>
+                                </tr>
+                              )}
+                            </tbody>
+                          )}
+                        </table>
                       </div>
                     </div>
-                  )}
-                </form>
+                  </div>
+                )}
                 <div className="sellingOrder">
                   <div
                     className="startSelling"
@@ -801,14 +825,15 @@ const Overview = () => {
                                     </td>
                                     <td className="deliverSubdata">
                                       <div className="deliveryTime">
-                                        <span className="orderId">
+                                        {/* <span className="orderId">
                                           {data?.estimated_preparation_time ===
                                           null
                                             ? "00:00:00"
                                             : moment(
                                                 data?.estimated_preparation_time
                                               ).format("LTS")}
-                                        </span>
+                                        </span> */}
+                                        <MyTimer expiryTimestamp={moment(data.estimated_preparation_time).local().valueOf()} />
                                         &nbsp;&nbsp;&nbsp;&nbsp;<i className="fa-sharp fa-solid fa-chevron-right"></i>
                                       </div>
                                     </td>
