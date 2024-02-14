@@ -221,6 +221,7 @@ const MapleOrder = ({
         </div>
         <div className="mapleProductDetails confirmRightSub">
           {orderData?.order_details.map((item, index) => {
+            console.log("opopop", JSON.stringify(orderData));
             return (
               <div className="flexBox mapleProductDetailsBox">
                 <div className="flexbase">
@@ -285,6 +286,7 @@ const MapleOrder = ({
             <p className="productName">Subtotal</p>
             <p className="productName">Discount</p>
             <p className="productName">Delivery</p>
+            <p className="productName">Tip</p>
             <p className="productName">Tax</p>
             <p className="productName fw-bold">Total</p>
           </article>
@@ -301,6 +303,7 @@ const MapleOrder = ({
             </p>
             <p className="productName">${orderData?.discount}</p>
             <p className="productName">${orderData?.delivery_charge}</p>
+            <p className="productName">${orderData?.tips}</p>
             <p className="productName">${orderData?.tax}</p>
             <p className="totalBtn">
               {" "}
