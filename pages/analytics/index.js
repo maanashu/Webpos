@@ -450,7 +450,7 @@ const Analytics = () => {
                                             {" "}
                                             $
                                             {addThousandSeparator(
-                                                analyticsProfitData?.profit?.total_count
+                                                analyticsProfitData?.profit?.total_count?.toFixed(2)
                                             )}
                                         </h4>
                                     </div>
@@ -475,7 +475,7 @@ const Analytics = () => {
                                             {" "}
                                             $
                                             {addThousandSeparator(
-                                                analyticsProfitData?.revenue?.total_count
+                                                analyticsProfitData?.revenue?.total_count?.toFixed(2)
                                             )}
                                         </h4>
                                     </div>
