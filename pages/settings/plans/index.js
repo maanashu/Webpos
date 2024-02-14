@@ -167,11 +167,11 @@ function Plan(props) {
                       <div className="planMethod">
                         <h4 className="amountText m-0">Payment Method</h4>
                         <div className="scannerBx mt-2">
-                          <Image
+                          {/* <Image
                             src={Images.mastercardImg}
                             alt="mastercard image"
                             className="img-fluid masterImg"
-                          />
+                          /> */}
                           <h4 className="orderPara m-0">JBR coin</h4>
                         </div>
                       </div>

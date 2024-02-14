@@ -13,6 +13,8 @@ const Receipts = (props) => {
   const emailStatus = userSettings?.invoice_email_send_status;
   const invoiceStatus = userSettings?.print_invoice_status;
 
+  console.log(userSettings,"user setiing response")
+
   const handleSettings = (id) => {
     let data = {};
     switch (id) {
@@ -44,8 +46,6 @@ const Receipts = (props) => {
             style={{ marginRight: "7px" }}
           />
           <div style={{ flex: 1 }}>
-
-
             <h4 className="appointMain">My receipts</h4>
             <p className="lightOfferText mt-2">
               Add a curbside, drive-through, or in-store pickup. Specify your
