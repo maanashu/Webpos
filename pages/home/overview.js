@@ -253,6 +253,7 @@ const Overview = () => {
   const handleInputChange = (event) => {
     var keyword = event.target.value.toLowerCase();
 
+    // To handle return/order invoices
     const keywordArr = keyword.split("_");
     if(keywordArr?.length && keywordArr.length > 0){
       keyword = keywordArr[keywordArr.length-1]
