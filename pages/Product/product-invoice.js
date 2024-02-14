@@ -112,6 +112,75 @@ const ProductInvoice = () => {
     }
   };
 
+  const deliveryShippingChargesForNormalSearch = () => {
+    let deliveryCharges;
+    let title;
+    if (orderDetails?.delivery_charge !== "0") {
+      deliveryCharges = orderDetails?.delivery_charge;
+      title = "Delivery Charges";
+    } else if (orderDetails?.shipping_charge !== "0") {
+      deliveryCharges = orderDetails?.shipping_charge;
+      title = "Shipping Charges";
+    } else {
+      title = "";
+      deliveryCharges = "0";
+    }
+    return { title, deliveryCharges };
+  };
+
+  const getCalculatedAmount = productDetails?.reduce(
+    (accu, item) => {
+      const TAX_PERCENTAGE = 0.08;
+      const otherCharges =
+        parseFloat(orderDetails?.tips) +
+        parseFloat(deliveryShippingChargesForNormalSearch().deliveryCharges);
+      const subTotal = accu.subTotal + parseFloat(item.price * item.qty);
+      const totalTax =
+        accu.totalTax + parseFloat(item.price * item.qty * TAX_PERCENTAGE);
+      const totalAmount = subTotal + totalTax + otherCharges;
+      return { subTotal, totalTax, totalAmount };
+    },
+    { subTotal: 0, totalTax: 0, totalAmount: 0 }
+  );
+
+  const updateQuantity = (operation, index) => {
+    const orderData = orderDetails?.order_details[index];
+
+    if (operation == "-" && productDetails[index].qty > 1) {
+      setProductDetails((products) => {
+        // Clone the product at the specified index
+        let updatedProducts = [...products];
+
+        // Clone the product object at the specified index
+        let productToUpdate = { ...updatedProducts[index] };
+
+        // Update the quantity
+        productToUpdate.qty -= 1;
+
+        // Update the product at the specified index
+        updatedProducts[index] = productToUpdate;
+        return updatedProducts;
+      });
+    }
+
+    if (operation === "+" && productDetails[index].qty < orderData?.qty) {
+      setProductDetails((products) => {
+        // Clone the product at the specified index
+        let updatedProducts = [...products];
+
+        // Clone the product object at the specified index
+        let productToUpdate = { ...updatedProducts[index] };
+
+        // Update the quantity
+        productToUpdate.qty += 1;
+
+        // Update the product at the specified index
+        updatedProducts[index] = productToUpdate;
+        return updatedProducts;
+      });
+    }
+  };
+
   const handleCheckboxChange = (data) => {
     const updatedProductDetails = productDetails?.map((item) =>
       data?.product_id === item?.product_id
@@ -169,22 +238,6 @@ const ProductInvoice = () => {
     return { title, deliveryCharges };
   };
 
-  const deliveryShippingChargesForNormalSearch = () => {
-    let deliveryCharges;
-    let title;
-    if (orderDetails?.delivery_charge !== "0") {
-      deliveryCharges = orderDetails?.delivery_charge;
-      title = "Delivery Charges";
-    } else if (orderDetails?.shipping_charge !== "0") {
-      deliveryCharges = orderDetails?.shipping_charge;
-      title = "Shipping Charges";
-    } else {
-      title = "";
-      deliveryCharges = "0";
-    }
-    return { title, deliveryCharges };
-  };
-
   useEffect(() => {
     if (checkeddata) {
       const updatedProductDetails = productDetails?.map((item) =>
@@ -229,6 +282,13 @@ const ProductInvoice = () => {
 
   const totalAmount = sumQtyPrice + sumTax;
 
+  const refundAmountSubTotal = returnData?.return_details?.reduce(
+    (acc, item) => {
+      const totalAmount = acc + item.refunded_amount * item.returned_qty;
+      return totalAmount;
+    },
+    0
+  );
   return (
     <>
       <div className="productInvoice">
@@ -409,7 +469,7 @@ const ProductInvoice = () => {
                         >
                           <div className="flexbase">
                             <p className="mapleProductcount">
-                              × {data?.order_details?.qty}
+                              × {data?.returned_qty}
                             </p>
                             <article className="ms-3">
                               <p className="mapleProductHeading">
@@ -421,7 +481,7 @@ const ProductInvoice = () => {
                           <article>
                             <p className="mapleProductPrice">
                               {formattedReturnPrice(
-                                data?.refunded_amount * data?.order_details?.qty
+                                data?.refunded_amount * data?.returned_qty
                               )}
                             </p>
                           </article>
@@ -473,9 +533,7 @@ const ProductInvoice = () => {
                     </article>
                     <article>
                       <p className="productName">
-                        {formattedReturnPrice(
-                          returnData?.products_refunded_amount
-                        )}
+                        {formattedReturnPrice(refundAmountSubTotal)}
                       </p>
                       {(returnData?.delivery_charge != "0" ||
                         returnData?.shipping_charge != "0") && (
@@ -610,7 +668,24 @@ const ProductInvoice = () => {
                           </div>
                         </div>
                         <p className="productPriceinvoice">${data?.price}</p>
-                        <p className="productPriceinvoice">{data?.qty}</p>
+                        <div className="incrementBtn ">
+                          <i
+                            onClick={() => updateQuantity("-", idx)}
+                            className="fa-solid fa-minus plusMinus"
+                          ></i>
+                          <input
+                            className="form-control addBtnControl"
+                            type="number"
+                            placeholder="1"
+                            value={data?.qty}
+                          />
+
+                          <i
+                            onClick={() => updateQuantity("+", idx)}
+                            className="fa-solid fa-plus plusMinus"
+                          ></i>
+                        </div>
+                        {/* <p className="productPriceinvoice">{data?.qty}</p> */}
                         <p className="productPriceinvoice">
                           ${data?.price * data?.qty}
                         </p>
@@ -678,7 +753,7 @@ const ProductInvoice = () => {
                         <div className="flexBox ">
                           <p className="orderHeading">Sub Total</p>
                           <p className="orderSubHeading">
-                            ${orderDetails?.actual_amount}
+                            ${getCalculatedAmount.subTotal}
                           </p>
                         </div>
                         {deliveryShippingChargesForNormalSearch().title !=
@@ -713,7 +788,7 @@ const ProductInvoice = () => {
                         <div className="flexBox">
                           <p className="orderHeading">Tax</p>
                           <p className="orderSubHeading">
-                            ${orderDetails?.tax ? orderDetails?.tax : "0.00"}
+                            ${getCalculatedAmount.totalTax}
                           </p>
                         </div>
                       </div>
@@ -721,7 +796,8 @@ const ProductInvoice = () => {
                         <div className="flexBox">
                           <p className="priceHeading">Total</p>
                           <p className="priceHeading">
-                            ${orderDetails?.payable_amount}
+                            ${getCalculatedAmount.totalAmount}
+                            {/* ${orderDetails?.payable_amount} */}
                           </p>
                         </div>
                         <button
