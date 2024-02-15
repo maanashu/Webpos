@@ -87,7 +87,7 @@ const Wallet = (props) => {
                   className="form-check-input"
                   type="checkbox"
                   id="flexSwitchCheckChecked"
-                  checked={isCoin}
+                  defaultChecked={isCoin}
                   onChange={() => {
                     !isCoin && handleSettings(1);
                   }}
@@ -125,7 +125,7 @@ const Wallet = (props) => {
                   className="form-check-input"
                   type="checkbox"
                   id="flexSwitchCheckChecked"
-                  checked={isCash}
+                  defaultChecked={isCash}
                   onChange={() => {
                     handleSettings(2);
                   }}
@@ -166,7 +166,7 @@ const Wallet = (props) => {
                   className="form-check-input"
                   type="checkbox"
                   id="flexSwitchCheckChecked"
-                  checked={isCard}
+                  defaultChecked={isCard}
                   onChange={() => {
                     handleSettings(3);
                   }}
