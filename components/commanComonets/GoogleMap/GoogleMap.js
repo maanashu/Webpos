@@ -132,7 +132,7 @@ const GoogleMap1 = ({ latitude, longitude, destination, children }) => {
 
   return (
     <LoadScript googleMapsApiKey="AIzaSyBbytCk92gm3MK3Mrs_374RDKf4bz0X1ck">
-      <div className="google-map-container">
+      {/* <div className="google-map-container"> */}
         <GoogleMap
           center={center}
           zoom={15}
@@ -155,7 +155,7 @@ const GoogleMap1 = ({ latitude, longitude, destination, children }) => {
 
           {children}
         </GoogleMap>
-      </div>
+      {/* </div> */}
     </LoadScript>
   );
 };
