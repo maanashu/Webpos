@@ -9,9 +9,9 @@ const Wallet = (props) => {
   const dispatch = useDispatch();
   const receiptSettings = useSelector(settingInfo);
   const userSettings = receiptSettings?.getSettings;
-  const isCoin = userSettings?.accept_jbr_coin_payment;
-  const isCash = userSettings?.accept_cash_payment;
-  const isCard = userSettings?.accept_card_payment;
+  const isCoin = userSettings?.accept_jbr_coin_payment ? userSettings.accept_jbr_coin_payment : false;
+  const isCash = userSettings?.accept_cash_payment ? userSettings.accept_cash_payment : false;
+  const isCard = userSettings?.accept_card_payment ? userSettings.accept_card_payment : false;
 
   const handleSettings = (id) => {
     let data = {};
