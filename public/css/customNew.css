@@ -695,9 +695,8 @@ figure {
 .dividesection {
   padding: 0 30px;
 }
-
 .cartTotalsection {
-  padding: 25px;
+  padding: 0 25px 25px;
 }
 
 .cartTotal {
@@ -714,20 +713,19 @@ figure {
 .divideBorder {
   background-color: #e4e6f2;
 }
-
 .subFooter {
   position: fixed;
   margin: 0 auto;
   width: 100%;
   max-width: 455px;
   bottom: 32px;
+  background: #fff;
 }
 
 .cartInfo {
-  height: 295px;
+  height: 381px;
   overflow-y: scroll;
 }
-
 .addServiceSection {
   padding: 0 24px 0 0;
 }
