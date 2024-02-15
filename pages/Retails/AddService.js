@@ -172,7 +172,6 @@ const AddService = () => {
         item?.pos_user_details?.user?.unique_uuid === params?.pos_user_id
       );
     });
-
     if (!exists) {
       dispatch(
         addTocart({
@@ -301,7 +300,11 @@ const AddService = () => {
                           }}
                         >
                           <Image
-                            src={item?.user?.user_profiles?.profile_photo ? item?.user?.user_profiles?.profile_photo : Images.defaultUser}
+                            src={
+                              item?.user?.user_profiles?.profile_photo
+                                ? item?.user?.user_profiles?.profile_photo
+                                : Images.defaultUser
+                            }
                             alt="providerProfileImage"
                             className="providerImage"
                             height={100}

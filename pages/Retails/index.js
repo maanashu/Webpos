@@ -20,6 +20,7 @@ import {
   setMainProduct,
   setCartLength,
   createBulkCart,
+  setProductCart,
 } from "../../redux/slices/retails";
 import { useDispatch, useSelector } from "react-redux";
 import { getAllPosUser, selectLoginAuth } from "../../redux/slices/auth";
@@ -56,7 +57,7 @@ const Retails = () => {
   const cartLength = CART_LENGTH;
   const LOCAL_CART_ARRAY = retailData?.localCartArray;
   const [localCartArray, setLocalCartArray] = useState(LOCAL_CART_ARRAY);
-  console.log("LOADTTDTDT--reatil", retailData?.productCartLoad);
+  console.log("LOADTTDTDT--reatil", JSON.stringify(LOCAL_CART_ARRAY));
   const listInnerRef = useRef();
 
   // product pagination
@@ -292,6 +293,7 @@ const Retails = () => {
     const data = {
       payload: mainProductArray,
     };
+
     dispatch(setMainProduct(data));
   };
 
@@ -342,7 +344,6 @@ const Retails = () => {
                       if (cartAddQty !== undefined) {
                         updatedItem.cart_qty = cartAddQty;
                       }
-                      console.log("oppoop", JSON.stringify(item));
                       return (
                         <div
                           className="col-xxl-2 col-xl-3 col-lg-4 col-md-6 mb-3"
@@ -475,9 +476,10 @@ const Retails = () => {
                                 : "productsCard"
                             }
                             onClick={() => {
-                              onlyProductCartArray?.length > 0 ||
-                              LOCAL_CART_ARRAY.length > 0
-                                ? (setModalDetail({
+                              onlyProductCartArray?.length > 0
+                                ? // ||
+                                  // LOCAL_CART_ARRAY.length > 0
+                                  (setModalDetail({
                                     show: true,
                                     flag: "ClearCart",
                                   }),
@@ -493,7 +495,7 @@ const Retails = () => {
                                 width="500"
                                 height="500"
                               />
-                              
+
                               <div className="overlay ">
                                 <Image
                                   src={Images.Add}
@@ -548,11 +550,16 @@ const Retails = () => {
                                   className="img-fluid appointmentCalender"
                                 />
                                 <span className="Ontime">
-                                  {getWeeklyDateLabel(services?.supplies?.[0]?.next_available_slot?.date) +
+                                  {getWeeklyDateLabel(
+                                    services?.supplies?.[0]?.next_available_slot
+                                      ?.date
+                                  ) +
                                     " - " +
-                                    services?.supplies?.[0]?.next_available_slot?.start_time +
+                                    services?.supplies?.[0]?.next_available_slot
+                                      ?.start_time +
                                     "-" +
-                                    services?.supplies?.[0]?.next_available_slot?.end_time}
+                                    services?.supplies?.[0]?.next_available_slot
+                                      ?.end_time}
                                 </span>
                               </figure>
                               <figure className="Timezone">
@@ -590,13 +597,19 @@ const Retails = () => {
                                       return (
                                         <Image
                                           key={index}
-                                          src={item?.user?.user_profiles?.profile_photo ? item?.user?.user_profiles?.profile_photo : Images.defaultUser}
+                                          src={
+                                            item?.user?.user_profiles
+                                              ?.profile_photo
+                                              ? item?.user?.user_profiles
+                                                  ?.profile_photo
+                                              : Images.defaultUser
+                                          }
                                           alt="image"
                                           className="img-fluid CardIcons"
                                           width="100"
                                           height="100"
                                         />
-                                      )
+                                      );
                                     })}
                                   </div>
                                 }
