@@ -45,8 +45,7 @@ const OrderDeliver = ({ orderDetail }) => {
 
   const dispatch = useDispatch();
   const authData = useSelector(selectLoginAuth);
-  const { orderListLoading, orderList, drawerOrderCount } =
-    useSelector(deliveryData);
+  const { orderListLoading, orderList, drawerOrderCount } = useSelector(deliveryData);
   const uniqueId = authData?.usersInfo?.payload?.uniqe_id;
   const [orderListType, setOrderListType] = useState({
     status: listType !== undefined ? listType?.status : "0",

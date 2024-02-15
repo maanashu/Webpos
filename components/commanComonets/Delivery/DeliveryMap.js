@@ -53,7 +53,7 @@ const MapWithDirections = () => {
           fullscreenControl: true,
         }}
         onLoad={onLoad}
-        bootstrapURLKeys={{ key: "AIzaSyBrCmIsXxbG76U0Jz7rA75Wg-Hc0kW-8Ww" }}
+        // bootstrapURLKeys={{ key: "AIzaSyBrCmIsXxbG76U0Jz7rA75Wg-Hc0kW-8Ww" }}
       >
         {directionsResponse && (
           <DirectionsRenderer

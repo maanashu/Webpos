@@ -9,7 +9,7 @@ import { useSelector } from "react-redux";
 import ButtonComponent from "./ButtonComponent";
 import MapleOrder from "../mapleOrder";
 import OrderDeliver from "../orderDeliver";
-import GoogleMap from "../../../components/commanComonets/GoogleMap/GoogleMap";
+import GoogleMap1 from "../../../components/commanComonets/GoogleMap/GoogleMap";
 
 const OrderDetail = ({
   orderDetails,
@@ -319,7 +319,7 @@ const OrderDetail = ({
               {showInvoice ? "Close" : "Expand"}
             </button>
           </div>
-          <GoogleMap />
+          <GoogleMap1 />
           {/* <Image src={Images.map} alt="map Image" className="mapImg" /> */}
           <div className="orderStatusBox">
             <div className="orderFlex">
