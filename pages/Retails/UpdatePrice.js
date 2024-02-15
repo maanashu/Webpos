@@ -46,12 +46,12 @@ const UpdatePrice = ({ cartProduct, crossHandler }) => {
   };
 
   return (
-    <div className="py-3">
+    <div className="updateprice">
       <div className="row justify-content-center mt-4">
         <div className="form-group mb-3">
           <h6 className="my-2">Old Price</h6>
           <input
-            className="form-control customInput mb-3"
+            className="form-control customInput"
             type="text"
             placeholder="Product Name"
             value={oldPrice}
@@ -86,7 +86,7 @@ const UpdatePrice = ({ cartProduct, crossHandler }) => {
           /> */}
         </div>
         <button
-          className="ModalBlue"
+          className="ModalBlue mt-3"
           onClick={() => priceChangeHandler()}
           disabled={retailData?.updatePriceLoad ? true : false}
         >

@@ -5743,3 +5743,11 @@ figure {
 .fullCartLeft .addBtnControl {
   padding: 5px 10px !important;
 }
+.updateprice .verifyControl {
+  padding-left: 41px;
+  position: relative;
+}
+.updateprice .lockImg {
+  left: 41px;
+  color: #263682;
+}
