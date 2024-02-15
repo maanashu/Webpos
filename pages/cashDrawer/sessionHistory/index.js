@@ -159,7 +159,7 @@ const SessionHistory = () => {
                   // style={{ display: "flex", gap: "12px" }}
                 >
                   {item?.created_at
-                    ? moment(item?.created_at).format("YYYY/MM/DD")
+                    ? moment(item?.created_at).local().format("YYYY/MM/DD")
                     : "date not found"}
                 </td>
                 <td
@@ -168,7 +168,7 @@ const SessionHistory = () => {
                 >
                   {item?.start_session == null
                     ? ""
-                    : moment(item?.start_session).format("hh:mm A") ?? ""}
+                    : moment(item?.start_session).local().format("hh:mm A") ?? ""}
                 </td>
                 <td
                   // onClick={() => handleNavigateToTrackStatus(item)}
@@ -176,7 +176,7 @@ const SessionHistory = () => {
                 >
                   {item?.end_session == null
                     ? ""
-                    : moment(item?.end_session).format("hh:mm A") ?? ""}
+                    : moment(item?.end_session).local().format("hh:mm A") ?? ""}
                 </td>
                 <td
                   // onClick={() => handleNavigateToTrackStatus(item)}
