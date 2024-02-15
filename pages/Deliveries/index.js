@@ -229,6 +229,9 @@ const DeliverDashboard = () => {
   };
 
   const options = {
+    ticks: {
+      stepSize: 1, // This ensures ticks are displayed at intervals of 1
+    },
     responsive: true,
     plugins: {
       legend: {
