@@ -1548,17 +1548,19 @@ const Booking = () => {
 
       {showEventDetailModal && (
         <div className="addBucket AddtoCart">
-          <EventDetailModal
-            {...{ eventData, showEventDetailModal, setshowEventDetailModal }}
-            onAppointmentStatusUpdate={(appointmentId, appointmentStatus) => {
-              updateBookingStatus(appointmentId, appointmentStatus);
-            }}
-            onModifyAppointmentPress={(selectedBooking) => {
-              setSelectedBooking(selectedBooking);
-              setKey1(Math.random());
-              setshowRescheduleTimeModal(true);
-            }}
-          />
+          <ScrollView style={{ height: "100%" }}>
+            <EventDetailModal
+              {...{ eventData, showEventDetailModal, setshowEventDetailModal }}
+              onAppointmentStatusUpdate={(appointmentId, appointmentStatus) => {
+                updateBookingStatus(appointmentId, appointmentStatus);
+              }}
+              onModifyAppointmentPress={(selectedBooking) => {
+                setSelectedBooking(selectedBooking);
+                setKey1(Math.random());
+                setshowRescheduleTimeModal(true);
+              }}
+            />
+          </ScrollView>
         </div>
       )}
       {isCalendarSettingModalVisible && (
