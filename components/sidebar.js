@@ -64,13 +64,14 @@ const Sidebar = (props) => {
 
             setTimeout(() => {
               toast.success("Logout successfully");
-            }, 200);
+            }, 800);
 
             router.push("/auth/verification");
 
-            localStorage.removeItem("merchantAuthToken");
-            localStorage.removeItem("authToken");
+            // localStorage.removeItem("merchantAuthToken");
+            // localStorage.removeItem("authToken");
             localStorage.removeItem("persist:root");
+            localStorage.clear();
 
             dispatch(restAllData());
           }
