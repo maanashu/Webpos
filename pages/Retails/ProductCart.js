@@ -853,7 +853,7 @@ const ProductCart = () => {
       <CustomModal
         key={key}
         show={modalDetail.show}
-        backdrop="static"
+        backdrop
         showCloseBtn={false}
         isRightSideModal={false}
         mediumWidth={false}
