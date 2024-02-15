@@ -22,8 +22,8 @@ export default function Document() {
       <body>
         <Main />
         <NextScript />
-        <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBbytCk92gm3MK3Mrs_374RDKf4bz0X1ck&libraries=places"
-          async defer></script>
+        {/* <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBbytCk92gm3MK3Mrs_374RDKf4bz0X1ck&libraries=places"
+          async defer></script> */}
         <Script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js" />
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
         <Script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.1.1/js/fontawesome.min.js" integrity="sha512-UtDq4PkcIa4+JFzeH6jzQbqbGoeUw+L0tX62xiixM0cajUZArxeG1AyPyTbcTRet8BzDyLaLhoKqWCpv+auMvg==" crossOrigin="anonymous" referrerPolicy="no-referrer" />
