@@ -77,6 +77,7 @@ const Shipping = () => {
           label: value,
           data: graphData?.datasets ? graphData.datasets[num]?.data : "",
           borderColor: color,
+          cubicInterpolationMode: "monotone"
         },
       ]);
       console.log(dataSets);
@@ -256,7 +257,7 @@ const Shipping = () => {
               },
               {
                 fill: false,
-                label: "Delivery Orders",
+                label: "Order Processing",
                 data: res?.data?.payload?.datasets
                   ? res?.data?.payload?.datasets[1]?.data
                   : "",
@@ -455,18 +456,18 @@ const Shipping = () => {
                   <div className="form-group checkBlue checkPurple">
                     <input
                       type="checkbox"
-                      id="Delivery Orders"
+                      id="Order Processing"
                       checked={checked.Delivery}
                       onChange={(e) => {
-                        handelDataSetChange(e, "Delivery Orders", 1, "#7233C2");
+                        handelDataSetChange(e, "Order Processing", 1, "#7233C2");
                         setChecked({
                           ...checked,
                           Delivery: checked.Delivery === true ? false : true,
                         });
                       }}
                     />
-                    <label for="Delivery Orders" className="appointSub  m-0">
-                      Delivery Orders
+                    <label for="Order Processing" className="appointSub  m-0">
+                      Order Processing
                     </label>
                   </div>
                   <div className="form-group checkBlue checkYellow">
