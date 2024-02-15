@@ -5751,3 +5751,23 @@ figure {
   left: 41px;
   color: #263682;
 }
+.transBox_ .checkbox-cnt input[type="checkbox"]:checked::before {
+  top: 10px;
+  left: 8px;
+}
+.ProductAddCart .cartInfo {
+  height: auto;
+  display: flex;
+  flex-direction: column;
+  height: calc(100vh - 265px);
+  align-items: center;
+  justify-content: space-between;
+  overflow: initial;
+}
+.topcartListting {
+  height: 391px;
+  overflow-y: scroll;
+}
+.ProductAddCart .subFooter {
+  position: initial;
+}
