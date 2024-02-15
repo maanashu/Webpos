@@ -1,8 +1,11 @@
 import React, { useState } from "react";
 import Image from "next/image";
+import { useRouter } from "next/router";
 import { customerNotification ,customerSearch } from "../../../utilities/images";
 //Cash Drawer Header
 const Header = ({ mainIcon, title }) => {
+  const router = useRouter();
+
   return (
     <div className="cashDrawHead">
       <div className="row">
@@ -14,7 +17,7 @@ const Header = ({ mainIcon, title }) => {
         </div>
         <div className="col-lg-6">
           <div className="rightCashHead">
-            <Image src={customerNotification} className="img-fluid" alt="customerNotification Image" />
+            <Image src={customerNotification} className="img-fluid" alt="customerNotification Image" style={{cursor: "pointer"}} onClick={() => {router.push("/transactions/notification", `/customers/notification`)}}/>
             <form className="cashHeadForm w-100">
               <div className="cashSearch">
                 <input type="text" className="cashSearchBX form-control" placeholder="Search here" />

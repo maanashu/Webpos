@@ -31,7 +31,7 @@ import CustomHoursCell from "../../components/CustomHoursCell";
 import CustomEventCell from "../../components/CustomEventCell";
 import ReScheduleDetailModal from "../../components/ReScheduleDetailModal";
 import CalendarSettingModal from "../../components/modals/CalendarSettingModal";
-
+import { useRouter } from "next/router";
 import {
   CALENDAR_MODES,
   CALENDAR_VIEW_MODES,
@@ -60,6 +60,7 @@ import {
 } from "../../utilities/globalMethods";
 
 const Booking = () => {
+  const router = useRouter();
   const [key, setKey] = useState(Math.random());
   const [key1, setKey1] = useState(Math.random());
   const [key2, setKey2] = useState(Math.random());
@@ -1249,6 +1250,7 @@ const Booking = () => {
               setshowMiniCalendar(!showMiniCalendar);
             }}
             onPressNotification={() => {
+              router.push("/transactions/notification", `/customers/notification`)
               // navigate(NAVIGATION.notificationsList, {
               //   screen: NAVIGATION.calender,
               // });
