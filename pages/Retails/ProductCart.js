@@ -14,6 +14,8 @@ import {
   holdCart,
   productCart,
   selectRetailData,
+  setCartLength,
+  setLocalCart,
   setProductCart,
   updateCart,
 } from "../../redux/slices/retails";
@@ -335,6 +337,8 @@ const ProductCart = () => {
       holdCart({
         ...params,
         cb: () => {
+          dispatch(setCartLength(0));
+          dispatch(setLocalCart([]));
           dispatch(getHoldProductCart());
           dispatch(productCart());
         },
