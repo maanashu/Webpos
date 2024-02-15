@@ -721,7 +721,7 @@
 /*End Custom Checkbox css */
 
 /*Start Add Product modal */
-#AddProduct .modal-content {
+#AddProduct .modal-content, #UpdatePrice .modal-content {
   border-radius: 30px;
   background: var(--surfaces-s-top, #fff);
   box-shadow: -2.52875px 6.00803px 6.51852px 0px rgba(52, 79, 117, 0.03),
@@ -736,13 +736,15 @@
   /* padding-bottom: 30px !important; */
 }
 
-#AddProduct .modal-header {
+#AddProduct .modal-header, #UpdatePrice .modal-header {
   justify-content: center;
   border: none !important;
   padding: 0 !important;
   padding-bottom: 30px !important;
 }
-
+#UpdatePrice .modal-header {
+  padding-bottom: 0!important;
+}
 #AddProduct .plusMinus {
   padding: 0;
 }
