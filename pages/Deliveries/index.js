@@ -121,7 +121,7 @@ const DeliverDashboard = () => {
               },
               {
                 fill: false,
-                label: "Delivery Orders",
+                label: "Order Processing",
                 data: res?.data?.payload?.datasets
                   ? res?.data?.payload?.datasets[1]?.data
                   : "",
@@ -139,7 +139,7 @@ const DeliverDashboard = () => {
               },
               {
                 fill: false,
-                label: "Cancelled Orders",
+                label: "Completed",
                 data: res?.data?.payload?.datasets
                   ? res?.data?.payload?.datasets[3]?.data
                   : "",
@@ -221,6 +221,7 @@ const DeliverDashboard = () => {
           label: value,
           data: graphData?.datasets ? graphData.datasets[num]?.data : "",
           borderColor: color,
+          cubicInterpolationMode: "monotone",
         },
       ]);
     } else {
@@ -490,7 +491,7 @@ const DeliverDashboard = () => {
                         onChange={(e) => {
                           handelDataSetChange(
                             e,
-                            "Delivery Orders",
+                            "Order Processing",
                             1,
                             "#7233C2"
                           );
@@ -501,7 +502,7 @@ const DeliverDashboard = () => {
                         }}
                       />
                       <label for="Delivery Orders" className="appointSub  m-0">
-                        Delivery Orders
+                        Order Processing
                       </label>
                     </div>
                     <div className="form-group checkBlue checkYellow">
@@ -512,7 +513,7 @@ const DeliverDashboard = () => {
                         onChange={(e) => {
                           handelDataSetChange(
                             e,
-                            "Returned Orders",
+                            "Ready for pickup",
                             2,
                             "#F0C01A"
                           );
@@ -532,12 +533,7 @@ const DeliverDashboard = () => {
                         id="Cancelled Orders"
                         checked={checked.Cancelled}
                         onChange={(e) => {
-                          handelDataSetChange(
-                            e,
-                            "Cancelled Orders",
-                            3,
-                            "#F04438"
-                          );
+                          handelDataSetChange(e, "Completed", 3, "#F04438");
                           setChecked({
                             ...checked,
                             Cancelled:
@@ -546,7 +542,7 @@ const DeliverDashboard = () => {
                         }}
                       />
                       <label for="Cancelled Orders" className="appointSub  m-0">
-                        Cancelled Orders
+                        Completed
                       </label>
                     </div>
                   </form>
