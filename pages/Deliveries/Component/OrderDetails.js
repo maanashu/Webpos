@@ -10,6 +10,7 @@ import ButtonComponent from "./ButtonComponent";
 import MapleOrder from "../mapleOrder";
 import OrderDeliver from "../orderDeliver";
 import GoogleMap1 from "../../../components/commanComonets/GoogleMap/GoogleMap";
+import { selectLoginAuth } from "../../../redux/slices/auth";
 
 const OrderDetail = ({
   orderDetails,
@@ -30,7 +31,13 @@ const OrderDetail = ({
       ? (orderList?.data && orderList?.data[selectedOrderIndex]) || null
       : (orderList?.data && orderList?.data[0]) || null;
   const [isMaximize, setIsMaximize] = useState(true);
-  console.log("OrderDatata", JSON.stringify(orderData));
+
+  const authData = useSelector(selectLoginAuth);
+  const location =
+    authData?.usersInfo?.payload?.user?.user_profiles?.current_address;
+  const latitude = parseFloat(location?.latitude ?? 0.0);
+  const longitude = parseFloat(location?.longitude ?? 0.0);
+
   const detailView = () => {
     if (
       orderData?.status === 0 ||
@@ -319,7 +326,14 @@ const OrderDetail = ({
               {showInvoice ? "Close" : "Expand"}
             </button>
           </div>
-          <GoogleMap1 />
+          <GoogleMap1
+            latitude={latitude}
+            longitude={longitude}
+            destination={{
+              lat: orderData?.coordinates?.[0] ?? 0.0,
+              lng: orderData?.coordinates?.[1] ?? 0.0,
+            }}
+          />
           {/* <Image src={Images.map} alt="map Image" className="mapImg" /> */}
           <div className="orderStatusBox">
             <div className="orderFlex">

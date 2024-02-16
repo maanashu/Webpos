@@ -27,10 +27,22 @@ const TrackStatus = () => {
         })
         .catch((err) => {});
   }, [userId]);
-  console.log("khkfshsd", orderDetails);
+
+  const location =
+    authData?.usersInfo?.payload?.user?.user_profiles?.current_address;
+  const latitude = parseFloat(location?.latitude ?? 0.0);
+  const longitude = parseFloat(location?.longitude ?? 0.0);
+
   return (
     <>
-      <GoogleMap></GoogleMap>
+      <GoogleMap
+        latitude={latitude}
+        longitude={longitude}
+        destination={{
+          lat: orderDetails?.coordinates?.[0] ?? 0.0,
+          lng: orderDetails?.coordinates?.[1] ?? 0.0,
+        }}
+      ></GoogleMap>
       <div style={{ position: "absolute", bottom: "15px" }}>
         <Invoice
           isLoading={!orderDetails}
