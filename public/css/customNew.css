@@ -695,6 +695,7 @@ figure {
 .dividesection {
   padding: 0 30px;
 }
+
 .cartTotalsection {
   padding: 0 25px 25px;
 }
@@ -713,6 +714,7 @@ figure {
 .divideBorder {
   background-color: #e4e6f2;
 }
+
 .subFooter {
   position: fixed;
   margin: 0 auto;
@@ -726,6 +728,7 @@ figure {
   height: 381px;
   overflow-y: scroll;
 }
+
 .addServiceSection {
   padding: 0 24px 0 0;
 }
@@ -1582,8 +1585,8 @@ figure {
 
 .confirmStep {
   padding: 0 30px;
-  height: calc(80vh - 110px);
-  overflow-y: scroll;
+  /* height: calc(80vh - 110px);
+  overflow-y: scroll; */
 }
 
 .confirmFirst {
@@ -5707,7 +5710,8 @@ figure {
   justify-content: center !important;
 }
 
-#CartAlert .modal-content ,#ClearCart .modal-content{
+#CartAlert .modal-content,
+#ClearCart .modal-content {
   border-radius: 30px !important;
   background: #fff !important;
   box-shadow: -3px 6px 7px 0px rgba(52, 79, 117, 0.03),
@@ -5743,31 +5747,71 @@ figure {
 .fullCartLeft .addBtnControl {
   padding: 5px 10px !important;
 }
+
 .updateprice .verifyControl {
   padding-left: 41px;
   position: relative;
 }
+
 .updateprice .lockImg {
   left: 41px;
   color: #263682;
 }
+
 .transBox_ .checkbox-cnt input[type="checkbox"]:checked::before {
   top: 10px;
   left: 8px;
 }
+
 .ProductAddCart .cartInfo {
   height: auto;
   display: flex;
   flex-direction: column;
   height: calc(100vh - 265px);
-  align-items: center;
+  /* align-items: center; */
   justify-content: space-between;
   overflow: initial;
 }
+
 .topcartListting {
   height: 391px;
   overflow-y: scroll;
 }
+
 .ProductAddCart .subFooter {
   position: initial;
+}
+
+.serviceYear .css-1u9des2-indicatorSeparator {
+  background-color: hsl(214.23deg 73.31% 88.75%) !important;
+}
+
+.fullCartLeft .cartProfileImg {
+  width: 30px;
+  height: 30px;
+}
+
+.quantityText {
+  color: #636e9f;
+  font-size: 14px;
+  font-weight: 400;
+}
+
+.serviceCartSub {
+  min-width: 280px;
+  overflow-x: scroll;
+}
+
+.serviceCartDetail {
+  min-width: 325px;
+}
+
+.serviceCartInfo {
+  min-width: 280px;
+}
+.productFullLeft .serviceCartDetail{
+  min-width: 300px;
+}
+.productFullLeft .serviceCartInfo {
+  min-width: 325px;
 }

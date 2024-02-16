@@ -282,12 +282,12 @@ const ServiceCart = () => {
           <div className="col-lg-7 col-md-7">
             <div className="commanOuter me-0 commonSubOuter fullCartLeft">
               <div className="fullCartInfo">
-                <div className="appointmentHeading">
                   <div
                     onClick={() => {
                       cartUpdate();
                       router.push("/Retails?parameter=services");
                     }}
+                    className="appointmentHeading"
                   >
                     <Image
                       src={Images.boldLeftArrow}
@@ -296,7 +296,6 @@ const ServiceCart = () => {
                     />
                     <h4 className="appointMain ms-2">Full Cart</h4>
                   </div>
-                </div>
                 <div className="ProductSearch w-50">
                   <ProductSearch
                     value={cartSearch}
@@ -308,12 +307,12 @@ const ServiceCart = () => {
                 </div>
               </div>
               <hr className="cartDivide" />
-              <div className="cartDetails">
-                <div className="flexTable w-50">
+              <div className="cartDetails serviceCartSub">
+                <div className="flexTable w-50 serviceCartDetail">
                   <h4 className="providerSubText ">#</h4>
                   <h4 className="providerSubText ms-2">Item</h4>
                 </div>
-                <div className="fullCartInfo w-50">
+                <div className="fullCartInfo w-50 serviceCartInfo">
                   <h4 className="providerSubText ">Unit Price</h4>
                   <h4 className="providerSubText ">Quantity</h4>
                   <h4 className="providerSubText ">Line Total</h4>
@@ -332,8 +331,8 @@ const ServiceCart = () => {
               ) : (
                 cartDetails?.map((data, index) => {
                   return (
-                    <div className="cartSubInfo active " key={index}>
-                      <div className="cartItemDetail w-50">
+                    <div className="cartSubInfo active serviceCartSub" key={index}>
+                      <div className="cartItemDetail w-50 serviceCartDetail">
                         <h4 className="invoice_subhead p-0 ">{index + 1}</h4>
                         <div className="orderTime ms-2">
                           <Image
@@ -361,11 +360,11 @@ const ServiceCart = () => {
                                     ?.profile_photo
                                 }
                                 alt="cartFoodImg"
-                                className="img-fluid cartFoodImg"
+                                className="img-fluid cartProfileImg"
                                 width="100"
                                 height="100"
                               />
-                              <h6 className="loginPara ms-1">
+                              <h6 className="userIdText">
                                 {data?.pos_user_details?.user?.user_profiles
                                   ?.firstname +
                                   " " +
@@ -376,7 +375,8 @@ const ServiceCart = () => {
                           </div>
                         </div>
                       </div>
-                      <div className="fullCartInfo w-50">
+                      <div className="fullCartInfo w-50 serviceCartInfo">
+                      <div className="unitPriceControl">
                         {amountFormat(
                           getProductPrice(
                             data.product_details?.supply?.supply_offers,
@@ -385,7 +385,8 @@ const ServiceCart = () => {
                             data.qty
                           )
                         )}
-                        <p>{data?.qty}</p>
+                        </div>
+                        <p className="quantityText">{data?.qty}</p>
                         {/* <div className="incrementBtn ">
                           <i
                             className="fa-solid fa-minus plusMinus"
