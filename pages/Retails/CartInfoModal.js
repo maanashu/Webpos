@@ -74,6 +74,7 @@ const CartInfoModal = ({
         </div>
       ) : (
         <div className="cartInfo">
+          <div className="topcartListting">
           {cartData?.poscart_products?.map((data, index) => {
             const productSize =
               data?.product_details?.supply?.attributes?.filter(
@@ -176,6 +177,7 @@ const CartInfoModal = ({
               </div>
             );
           })}
+          </div>
 
           <div className="subFooter">
             <div className="dividesection">
