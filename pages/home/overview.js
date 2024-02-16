@@ -61,7 +61,6 @@ const Overview = () => {
   const [posLoginDetail, setPosLoginDetail] = useState("");
   const [onlineOrdersCount, setOnlineOrdersCount] = useState(0);
   const [searchKeyword, setSearchKeyword] = useState();
-  const [searchedInput, setSearchedInput] = useState();
   const [isSearching, setIsSearching] = useState(false);
   const [invoiceDetail, setInvoiceDetail] = useState({});
   const [selectedProduct, setSelectedProduct] = useState("")
@@ -71,8 +70,6 @@ const Overview = () => {
     title: "",
     flag: "",
   });
-
-  var scannerInputTimeout = null;
 
   // API for get all oder deliveries...............................
   const allOrderDeliveriesInfo = () => {
@@ -191,35 +188,32 @@ const Overview = () => {
   };
 
   // API for search invoice ...............................
-  const searchInvoice = (invoiceNumber) => {
+  const searchInvoice = (enteredKeyword) => {
     let params = {
-      invoice_number: invoiceNumber,
+      invoice_number: enteredKeyword,
       seller_id: UniqueId,
     };
     dispatch(
       fetchInvoiceDetail({
         ...params,
         cb(res) {
-          if (
-            res.status &&
-            res?.data?.payload &&
-            Object.keys(res.data.payload).length > 0
-          ) {
+          if (res.status && res?.data?.payload && Object.keys(res.data.payload).length > 0) {
             setInvoiceDetail(res.data.payload);
+            setIsSearching(false);
           } else {
             setInvoiceDetail({});
+            searchProduct(enteredKeyword);
           }
-          setIsSearching(false);
         },
       })
     );
   };
 
 
-  const searchProduct = (skuId) => {
+  const searchProduct = (enteredKeyword) => {
     let params = {
       seller_id: UniqueId,
-      search: skuId,
+      search: enteredKeyword,
       // need_invoice_search:true,
       page: 1,
       limit: 10
@@ -231,13 +225,14 @@ const Overview = () => {
           if (res.status && res?.data?.payload?.data?.length) {
             setProductResponse(res?.data?.payload?.data)
           }
+          else {
+            setProductResponse([]);
+          }
           setIsSearching(false);
         },
       })
     );
   }
-
-  console.log(selectedProduct, "productResponse");
 
   // API for get user Pos Login Info...............................
   const userLoginDetails = () => {
@@ -355,8 +350,8 @@ const Overview = () => {
       const search = setTimeout(() => {
         //Your search query and it will run the function after 3secs from user stops typing
         var keyword = searchKeyword.toLowerCase();
-        // searchInvoice(keyword);
-        searchProduct(keyword)
+        searchInvoice(keyword);
+        // searchProduct(keyword)
       }, 3000);
       return () => clearTimeout(search);
     } else {
@@ -577,50 +572,191 @@ const Overview = () => {
                           className="product_table mt-2 homeTable"
                         >
                           {isSearching ? (
-                            <tbody>
-                              <div className="text-center">
-                                <div className="spinner-grow loaderSpinner text-center my-2"></div>
-                              </div>
-                            </tbody>
-                          ) :
-
-                            <>
-
-                            {
-                              productResponse?.length > 0 ?
-                              <>
-                              {
-                                productResponse?.map((val, index) => {
-                                  return(
-                                    <div key={index} style={{cursor:"pointer"}} className="d-flex justify-content-between" onClick={() => handleProductSelect(val)}>
-                                    <div>
-                                      <Image
-                                        src={val?.image}
-                                        alt="SearchImageIcon"
-                                        className="img-fluid "
-                                        width="100"
-                                        height="100"
-                                      />
+                              <tbody>
+                                <div className="text-center">
+                                  <div className="spinner-grow loaderSpinner text-center my-2"></div>
+                                </div>
+                              </tbody>
+                            )
+                          :
+                            (invoiceDetail && Object.keys(invoiceDetail).length > 0 ? (
+                              <tbody>
+                                <tr
+                                  onClick={() => {
+                                    router.push(
+                                      "/invoices/invoices?showInvoiceData=true"
+                                    );
+                                  }}
+                                  style={{ cursor: "pointer" }}
+                                >
+                                  <td className="homeSubtable">
+                                    <div className="orderFirstId">
+                                      <h4 className="orderId">
+                                        #{invoiceDetail?.invoice_number}
+                                      </h4>
                                     </div>
-                                    <div>
-                                      <h5>{val?.name}</h5>
+                                  </td>
+                                  <td className="homeSubtable">
+                                    <div className="nameLocation">
+                                      <h4 className="orderId">
+                                        {invoiceDetail?.order?.user_details
+                                          ?.user_profiles
+                                          ? invoiceDetail.order.user_details
+                                              .user_profiles.firstname +
+                                            " " +
+                                            invoiceDetail.order.user_details
+                                              .user_profiles.lastname
+                                          : ""}
+                                      </h4>
+                                      {invoiceDetail?.order?.order_delivery
+                                        ?.distance && (
+                                        <div className="flexTable">
+                                          <Image
+                                            src={Images.OrderLocation}
+                                            alt="location Image"
+                                            className="img-fluid ms-1"
+                                          />
+                                          <span className="locateDistance">
+                                            {
+                                              invoiceDetail?.order
+                                                ?.order_delivery?.distance
+                                            }{" "}
+                                            miles
+                                          </span>
+                                        </div>
+                                      )}
                                     </div>
-                                    <div>
-                                      <h5>${val?.supplies[0]?.cost_price}</h5>
+                                  </td>
+                                  <td className="homeSubtable">
+                                    <div className="itemMoney">
+                                      <h4 className="orderId">
+                                        {
+                                          invoiceDetail?.order?.order_details
+                                            ?.length
+                                        }{" "}
+                                        items
+                                      </h4>
+                                      <div className="flexTable">
+                                        <Image
+                                          src={Images.MoneyItem}
+                                          alt="MoneyItemImage "
+                                          className="img-fluid ms-1"
+                                        />
+                                        <span className="locateDistance">
+                                          {invoiceDetail?.order?.payable_amount
+                                            ? amountFormat(invoiceDetail.order.payable_amount)
+                                            : "$0.00"}
+                                        </span>
+                                      </div>
                                     </div>
-                                  </div>
+                                  </td>
+                                  <td className="homeSubtable">
+                                    <div className="itemTime">
+                                      {/* <h4 className="orderId">Customer:</h4> */}
+                                      {invoiceDetail?.order
+                                        ?.delivery_option ? (
+                                        <div className="flexTable">
+                                          <Image
+                                            src={Images.Time}
+                                            alt="MoneyItemImage "
+                                            className="img-fluid ms-1"
+                                          />
+                                          <span className="locateDistance">
+                                            {
+                                              DELIVERY_MODE[
+                                                Number(
+                                                  invoiceDetail.order
+                                                    .delivery_option
+                                                )
+                                              ]
+                                            }
+                                          </span>
+                                        </div>
+                                      ) : (
+                                        ""
+                                      )}
+                                    </div>
+                                  </td>
+                                </tr>
+                              </tbody>
+                            )
+                          :
+                              (productResponse?.length > 0 ? (
+                                  productResponse?.map((val, index) => {
+                                    return(
+                                      <div key={index} style={{cursor:"pointer"}} className="d-flex justify-content-between" onClick={() => handleProductSelect(val)}>
+                                        <div>
+                                          <Image
+                                            src={val?.image}
+                                            alt="SearchImageIcon"
+                                            className="img-fluid "
+                                            width="100"
+                                            height="100"
+                                          />
+                                        </div>
+                                        <div>
+                                          <h5>{val?.name}</h5>
+                                        </div>
+                                        <div>
+                                          <h5>${val?.supplies[0]?.cost_price}</h5>
+                                        </div>
+                                      </div>
+                                    )
+                                  })
+                                )
+                                :
+                                  (
+                                    <tbody>
+                                      <tr>
+                                        <td style={{ width: 0, padding: "5px" }}></td>
+                                        <td
+                                          className="colorBlue text text-center py-3"
+                                          colSpan={8}
+                                          style={{ color: "#263682" }}
+                                        >
+                                          <h5>No Data</h5>
+                                        </td>
+                                      </tr>
+                                    </tbody>
                                   )
-                                })                                           
-                              }
-                              </>:
-                              <div>No Product Found</div>
-                            }
+                              )
+                            )
+                            // <>
+
+                            //   {
+                            //     productResponse?.length > 0 ?
+                            //     <>
+                            //     {
+                            //       productResponse?.map((val, index) => {
+                            //         return(
+                            //           <div key={index} style={{cursor:"pointer"}} className="d-flex justify-content-between" onClick={() => handleProductSelect(val)}>
+                            //           <div>
+                            //             <Image
+                            //               src={val?.image}
+                            //               alt="SearchImageIcon"
+                            //               className="img-fluid "
+                            //               width="100"
+                            //               height="100"
+                            //             />
+                            //           </div>
+                            //           <div>
+                            //             <h5>{val?.name}</h5>
+                            //           </div>
+                            //           <div>
+                            //             <h5>${val?.supplies[0]?.cost_price}</h5>
+                            //           </div>
+                            //         </div>
+                            //         )
+                            //       })                                           
+                            //     }
+                            //     </>:
+                            //     <div>No Product Found</div>
+                            //   }
               
-                            </>
+                            // </>
                             // (
                             //   <tbody>
-                            //     {invoiceDetail &&
-                            //     Object.keys(invoiceDetail).length > 0 ? (
+                            //     {invoiceDetail && Object.keys(invoiceDetail).length > 0 ? (
                             //       <tr
                             //         onClick={() => {
                             //           router.push(
