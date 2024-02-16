@@ -758,8 +758,8 @@ figure {
   max-height: 260px;
   width: 100%;
   border-radius: 16px;
-  object-fit: cover;
-  object-position: center;
+  object-fit: fill;
+  /* object-position: center; */
 }
 
 .serviceProfile {
@@ -1224,7 +1224,7 @@ figure {
 }
 
 .serviceDayTime {
-  height: calc(50vh - 80px);
+  height: calc(40vh - 80px);
   overflow-y: scroll;
 }
 
