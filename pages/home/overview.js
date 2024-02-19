@@ -602,29 +602,29 @@ const Overview = () => {
                                         {invoiceDetail?.order?.user_details
                                           ?.user_profiles
                                           ? invoiceDetail.order.user_details
-                                              .user_profiles.firstname +
-                                            " " +
-                                            invoiceDetail.order.user_details
-                                              .user_profiles.lastname
+                                            .user_profiles.firstname +
+                                          " " +
+                                          invoiceDetail.order.user_details
+                                            .user_profiles.lastname
                                           : ""}
                                       </h4>
                                       {invoiceDetail?.order?.order_delivery
                                         ?.distance && (
-                                        <div className="flexTable">
-                                          <Image
-                                            src={Images.OrderLocation}
-                                            alt="location Image"
-                                            className="img-fluid ms-1"
-                                          />
-                                          <span className="locateDistance">
-                                            {
-                                              invoiceDetail?.order
-                                                ?.order_delivery?.distance
-                                            }{" "}
-                                            miles
-                                          </span>
-                                        </div>
-                                      )}
+                                          <div className="flexTable">
+                                            <Image
+                                              src={Images.OrderLocation}
+                                              alt="location Image"
+                                              className="img-fluid ms-1"
+                                            />
+                                            <span className="locateDistance">
+                                              {
+                                                invoiceDetail?.order
+                                                  ?.order_delivery?.distance
+                                              }{" "}
+                                              miles
+                                            </span>
+                                          </div>
+                                        )}
                                     </div>
                                   </td>
                                   <td className="homeSubtable">
@@ -664,10 +664,10 @@ const Overview = () => {
                                           <span className="locateDistance">
                                             {
                                               DELIVERY_MODE[
-                                                Number(
-                                                  invoiceDetail.order
-                                                    .delivery_option
-                                                )
+                                              Number(
+                                                invoiceDetail.order
+                                                  .delivery_option
+                                              )
                                               ]
                                             }
                                           </span>
@@ -680,7 +680,7 @@ const Overview = () => {
                                 </tr>
                               </tbody>
                             )
-                          :
+                            :
                               (productResponse?.length > 0 ? (
                                   productResponse?.map((val, index) => {
                                     return(
