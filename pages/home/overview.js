@@ -1159,7 +1159,7 @@ const Overview = () => {
               </>
             ) : modalDetail.flag === "detailModal" ? (
               <>
-              <h5 className="loginMain m-0 text-start">vitamin bottle </h5>
+              <h5 className="appointMain m-0 text-start">vitamin bottle </h5>
                 <div className="addCustomerBtn  filterBtn productAddHeader">
                   <button
                     className="serviceCancel "
