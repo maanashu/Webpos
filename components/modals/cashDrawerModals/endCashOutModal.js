@@ -4,6 +4,7 @@ import Image from "next/image";
 import CustomModal from "../../customModal/CustomModal";
 import { amountFormat } from '../../../utilities/globalMethods';
 import EndCashOutConfirmationModal from "./endCashOutConfirmationModal";
+import { toast } from "react-toastify";
 
 const EndCashOutModal = ({ expectedAmount }) => {
 
@@ -67,7 +68,11 @@ const EndCashOutModal = ({ expectedAmount }) => {
               className="nextverifyBtn w-100"
               type="button"
               onClick={() => {
-                console.log("here");
+                if(enteredAmount && Number(enteredAmount) < 0) {
+                  toast.error("Other amount should not be less then $0.00");
+                  return false;
+                }
+
                 setModalDetail({show: true});
                 setKey(Math.random());
               }}

@@ -35,10 +35,8 @@ const EndCashModal = ({  }) => {
   };
 
   const countCashFirst = async () => {
-    if (amount && digits.test(amount) === false) {
-      toast.error("Please enter amount");
-    } else if (amount <= 0) {
-      toast.error("Please enter valid amount");
+    if (amount && amount < 0) {
+      toast.error("Amount should not be less then $0.00");
     } else {
       // await dispatch(getExpectedCashByDrawerId(drawerSessionDetail?.id));
       setIsLoading(true);
