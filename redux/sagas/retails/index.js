@@ -530,6 +530,7 @@ function* getProductFilterCategory(action) {
     seller_id: sellerId,
     main_category: true,
     service_type: "product",
+    check_product_existance: true
   };
 
   // If needs searched category
@@ -563,7 +564,7 @@ function* getProductFilterSubCategory(action) {
     seller_id: sellerId,
     need_subcategory: true,
     service_type: "product",
-    check_product_existance: false,
+    check_product_existance: true
   };
 
   // If needs searched subcategory
@@ -595,6 +596,7 @@ function* getProductFilterBrands(action) {
 
   const params = {
     seller_id: sellerId,
+    check_product_existance: true
   };
 
   // If needs searched subcategory
@@ -628,6 +630,7 @@ function* getServiceFilterCategory(action) {
     seller_id: sellerId,
     main_category: true,
     service_type: "service",
+    check_product_existance: true
   };
 
   // If needs searched category
@@ -661,7 +664,7 @@ function* getServiceFilterSubCategory(action) {
     seller_id: sellerId,
     need_subcategory: true,
     service_type: "service",
-    check_product_existance: false,
+    check_product_existance: true
   };
 
   // If needs searched subcategory
