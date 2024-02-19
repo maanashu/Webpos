@@ -9,6 +9,7 @@ const Wallet = (props) => {
   const dispatch = useDispatch();
   const receiptSettings = useSelector(settingInfo);
   const userSettings = receiptSettings?.getSettings;
+  console.log(userSettings,"userSettings");
   const isCoin = userSettings?.accept_jbr_coin_payment ? userSettings.accept_jbr_coin_payment : false;
   const isCash = userSettings?.accept_cash_payment ? userSettings.accept_cash_payment : false;
   const isCard = userSettings?.accept_card_payment ? userSettings.accept_card_payment : false;
@@ -125,7 +126,7 @@ const Wallet = (props) => {
                   className="form-check-input"
                   type="checkbox"
                   id="flexSwitchCheckChecked"
-                  defaultChecked={isCash}
+                  checked={isCash}
                   onChange={() => {
                     handleSettings(2);
                   }}
@@ -166,7 +167,7 @@ const Wallet = (props) => {
                   className="form-check-input"
                   type="checkbox"
                   id="flexSwitchCheckChecked"
-                  defaultChecked={isCard}
+                  checked={isCard}
                   onChange={() => {
                     handleSettings(3);
                   }}
