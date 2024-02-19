@@ -226,9 +226,9 @@ const AttachCustomer = ({ crosshandler }) => {
           />
         </div>
         {retailData?.getUserDetailLoad ? null : userLength > 0 && detailArea ? (
-          <p>Already in system</p>
+          <p className="quantityText my-2">Already in system</p>
         ) : userLength == 0 && !detailArea ? null : (
-          <p>This phone is not registered in the database</p>
+          <p className="quantityText my-2">This phone is not registered in the database</p>
         )}
       </div>
       {retailData?.getUserDetailLoad ? (
