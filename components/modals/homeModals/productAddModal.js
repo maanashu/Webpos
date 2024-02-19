@@ -118,30 +118,30 @@ const ProductAddModal = (props) => {
     };
     return (
         <>
-            <div className="productDetailSection" style={{ border: 1 }}>
+            {/* <div className="productDetailSection" style={{ border: 1 }}>
                 <div className="row">
                     <div className="col-xl-12 col-lg-12">
                         <div className="commanOuter me-0 commonSubOuter productDetailLeft">
                             <div className="newServiceDetail">
-                                {/* <div
-                  onClick={() => {
-                    router.back();
-                  }}
-                >
-                  <Image
-                    src={Images.boldLeftArrow}
-                    alt="leftarrow image"
-                    className="img-fluid"
-                  />
-                </div> */}
+                                <div
+                                    onClick={() => {
+                                        router.back();
+                                    }}
+                                >
+                                    <Image
+                                        src={Images.boldLeftArrow}
+                                        alt="leftarrow image"
+                                        className="img-fluid"
+                                    />
+                                </div>
 
                                 <div className="addserviceInfo ms-3">
                                     <h4 className="loginMain m-0 text-start">
                                         Add a new product
                                     </h4>
-                                    {/* <p className="addServicePara">
-                    Configure the service to add it to the cart
-                  </p> */}
+                                    <p className="addServicePara">
+                                        Configure the service to add it to the cart
+                                    </p>
                                 </div>
                             </div>
                             <div className="productInfo">
@@ -266,9 +266,9 @@ const ProductAddModal = (props) => {
                                             </div>
                                         ))}
                                     </div>
-                                    {/* <article className="productSizeBtnBox"> */}
+                                    <article className="productSizeBtnBox">
 
-                                    {/* </article> */}
+                                    </article>
                                 </div>
                             )}
                             <div className="incrementBtn productIncrement">
@@ -277,48 +277,62 @@ const ProductAddModal = (props) => {
                                     onClick={() => (count == 1 ? void 0 : setCount(count - 1))}
                                     isclickEnabled={false}
                                 ></i>
-                                {/* <input
-                  className="form-control addBtnControl"
-                  type="number"
-                  placeholder="1"
-                /> */}
+                                <input
+                                    className="form-control addBtnControl"
+                                    type="number"
+                                    placeholder="1"
+                                />
                                 <h1 className="form-control addBtnControl">{count}</h1>
                                 <i
                                     className="fa-solid fa-plus plusMinus"
                                     onClick={() => setCount(count + 1)}
                                 ></i>
                             </div>
-                            {/* {retailData?.checkSuppliedVariantLoad ||
-              retailData?.addTocartLoad ? ( */}
+                            {retailData?.checkSuppliedVariantLoad ||
+                                retailData?.addTocartLoad ? (
 
-                            {retailData?.addTocartLoad ||
-                                retailData?.productCartLoad ||
-                                retailData?.checkSuppliedVariantLoad ? (
-                                <button
-                                    className="nextverifyBtn w-100 mt-3"
-                                    type="submit"
-                                    onClick={() => addToCartHandler()}
-                                    disabled={true}
-                                >
-                                    Add Item
-                                    <span className="spinner-border spinner-border-sm mx-1"></span>
-                                </button>
-                            ) : (
-                                <button
-                                    className="nextverifyBtn w-100 mt-3"
-                                    type="submit"
-                                    onClick={() => addToCartHandler()}
-                                >
-                                    Add Item
-                                    <Image
-                                        src={Images.serviceCart}
-                                        alt="rightArrow"
-                                        className="img-fluid rightImg ms-2"
-                                    />
-                                </button>
-                            )}
+                                { retailData?.addTocartLoad ||
+                                    retailData?.productCartLoad ||
+                                    retailData?.checkSuppliedVariantLoad ? (
+                                    <button
+                                        className="nextverifyBtn w-100 mt-3"
+                                        type="submit"
+                                        onClick={() => addToCartHandler()}
+                                        disabled={true}
+                                    >
+                                        Add Item
+                                        <span className="spinner-border spinner-border-sm mx-1"></span>
+                                    </button>
+                                ) : (
+                                    <button
+                                        className="nextverifyBtn w-100 mt-3"
+                                        type="submit"
+                                        onClick={() => addToCartHandler()}
+                                    >
+                                        Add Item
+                                        <Image
+                                            src={Images.serviceCart}
+                                            alt="rightArrow"
+                                            className="img-fluid rightImg ms-2"
+                                        />
+                                    </button>
+                                )}
                         </div>
                     </div>
+                </div>
+            </div> */}
+            <div className="productViewDetail">
+                <div className="flexContent productViewBx">
+                    <div>
+                        <h5 className="loginMain m-0 text-start">vitamin products</h5>
+                        <h5 className="loginSub text-start ">vitamin Product Descriptions value </h5>
+                    </div>
+                    <h5 className="cancelOrderText" >54</h5>
+                </div>
+                <div className='incrementBtn productIncrement'>
+                    <i className="fa-solid fa-minus plusMinus"></i>
+                    <input className="form-control addBtnControl" type="number" placeholder="1" />
+                    <i className="fa-solid fa-plus plusMinus"></i>
                 </div>
             </div>
         </>

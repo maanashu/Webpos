@@ -5809,9 +5809,84 @@ figure {
 .serviceCartInfo {
   min-width: 280px;
 }
-.productFullLeft .serviceCartDetail{
+
+.productFullLeft .serviceCartDetail {
   min-width: 300px;
 }
+
 .productFullLeft .serviceCartInfo {
   min-width: 325px;
+}
+
+.productOver {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.productOverImg {
+  width: 50px;
+  height: 50px;
+  border-radius: 6px;
+  object-fit: fill;
+}
+
+#productOverview,
+#detailModal {
+  width: 100%;
+  max-width: 600px;
+}
+
+#productOverview .modal-content,
+#detailModal .modal-content {
+  border-radius: 30px !important;
+  background: #fff !important;
+  box-shadow: -3px 6px 7px 0px rgba(52, 79, 117, 0.03),
+    -12px 28px 25px 0px rgba(52, 79, 117, 0.04),
+    -31px 74px 80px 0px rgba(52, 79, 117, 0.07) !important;
+  padding: 24px !important;
+  border: none !important;
+}
+
+#productOverview .modal-header,
+#detailModal .modal-header {
+  border: none;
+}
+
+#productOverview .modal-body,
+#detailModal .modal-body {
+  padding: 0;
+}
+
+.addBtnCart {
+  font-size: 14px;
+  padding: 7px 18px;
+  background: #e4e6f2;
+  border-radius: 30px;
+  font-weight: 400;
+  color: #263682;
+  border: 1px solid #263682;
+}
+
+.productAddHeader {
+  gap: 8px;
+}
+
+.productViewBx {
+  margin: 24px 0;
+}
+
+.productViewBx .loginSub {
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+  width: 100%;
+  max-width: 50ch;
+  margin-top: 6px;
+}
+
+.detailSubBox {
+  display: flex;
+  align-items: center;
+  gap: 8px;
 }

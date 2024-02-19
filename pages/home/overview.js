@@ -4,6 +4,7 @@ import * as Images from "../../utilities/images";
 import Image from "next/image";
 import CustomModal from "../../components/customModal/CustomModal";
 import SessionModal from "../../components/modals/homeModals/sessionModal";
+import DetailModal from "../../components/modals/homeModals/service/detailModal";
 import MyTimer from "../../components/commanComonets/MyTimer";
 import { DELIVERY_MODE } from "../../constants/commonConstants";
 import {
@@ -70,7 +71,15 @@ const Overview = () => {
     title: "",
     flag: "",
   });
+  const handleUserProfile = (flag) => {
 
+    setModalDetail({
+      show: true,
+      flag: flag,
+      type: flag,
+    });
+    setKey(Math.random());
+  };
   // API for get all oder deliveries...............................
   const allOrderDeliveriesInfo = () => {
     let params = {
@@ -389,7 +398,7 @@ const Overview = () => {
                       ?.lastname
                   )}
                   <h2 className="loginheading mt-2">{`${authData?.posUserLoginDetails?.payload?.user_profiles
-                      ?.firstname
+                    ?.firstname
                     } ${authData?.posUserLoginDetails?.payload?.user_profiles
                       ?.lastname === null
                       ? ""
@@ -572,13 +581,13 @@ const Overview = () => {
                           className="product_table mt-2 homeTable"
                         >
                           {isSearching ? (
-                              <tbody>
-                                <div className="text-center">
-                                  <div className="spinner-grow loaderSpinner text-center my-2"></div>
-                                </div>
-                              </tbody>
-                            )
-                          :
+                            <tbody>
+                              <div className="text-center">
+                                <div className="spinner-grow loaderSpinner text-center my-2"></div>
+                              </div>
+                            </tbody>
+                          )
+                            :
                             (invoiceDetail && Object.keys(invoiceDetail).length > 0 ? (
                               <tbody>
                                 <tr
@@ -602,29 +611,29 @@ const Overview = () => {
                                         {invoiceDetail?.order?.user_details
                                           ?.user_profiles
                                           ? invoiceDetail.order.user_details
-                                              .user_profiles.firstname +
-                                            " " +
-                                            invoiceDetail.order.user_details
-                                              .user_profiles.lastname
+                                            .user_profiles.firstname +
+                                          " " +
+                                          invoiceDetail.order.user_details
+                                            .user_profiles.lastname
                                           : ""}
                                       </h4>
                                       {invoiceDetail?.order?.order_delivery
                                         ?.distance && (
-                                        <div className="flexTable">
-                                          <Image
-                                            src={Images.OrderLocation}
-                                            alt="location Image"
-                                            className="img-fluid ms-1"
-                                          />
-                                          <span className="locateDistance">
-                                            {
-                                              invoiceDetail?.order
-                                                ?.order_delivery?.distance
-                                            }{" "}
-                                            miles
-                                          </span>
-                                        </div>
-                                      )}
+                                          <div className="flexTable">
+                                            <Image
+                                              src={Images.OrderLocation}
+                                              alt="location Image"
+                                              className="img-fluid ms-1"
+                                            />
+                                            <span className="locateDistance">
+                                              {
+                                                invoiceDetail?.order
+                                                  ?.order_delivery?.distance
+                                              }{" "}
+                                              miles
+                                            </span>
+                                          </div>
+                                        )}
                                     </div>
                                   </td>
                                   <td className="homeSubtable">
@@ -664,10 +673,10 @@ const Overview = () => {
                                           <span className="locateDistance">
                                             {
                                               DELIVERY_MODE[
-                                                Number(
-                                                  invoiceDetail.order
-                                                    .delivery_option
-                                                )
+                                              Number(
+                                                invoiceDetail.order
+                                                  .delivery_option
+                                              )
                                               ]
                                             }
                                           </span>
@@ -680,45 +689,43 @@ const Overview = () => {
                                 </tr>
                               </tbody>
                             )
-                          :
+                              :
                               (productResponse?.length > 0 ? (
-                                  productResponse?.map((val, index) => {
-                                    return(
-                                      <div key={index} style={{cursor:"pointer"}} className="d-flex justify-content-between" onClick={() => handleProductSelect(val)}>
-                                        <div>
-                                          <Image
-                                            src={val?.image}
-                                            alt="SearchImageIcon"
-                                            className="img-fluid "
-                                            width="100"
-                                            height="100"
-                                          />
-                                        </div>
-                                        <div>
-                                          <h5>{val?.name}</h5>
-                                        </div>
-                                        <div>
-                                          <h5>${val?.supplies[0]?.cost_price}</h5>
-                                        </div>
+                                productResponse?.map((val, index) => {
+                                  return (
+                                    <div key={index} style={{ cursor: "pointer" }} className="d-flex justify-content-between align-items-center" onClick={() => handleProductSelect(val)}>
+                                      <div className="productOver">
+                                        <Image
+                                          src={val?.image}
+                                          alt="SearchImageIcon"
+                                          className="img-fluid productOverImg"
+                                          width="100"
+                                          height="100"
+                                        />
+                                        <h5 className="payHeading m-0">{val?.name}</h5>
                                       </div>
-                                    )
-                                  })
-                                )
-                                :
-                                  (
-                                    <tbody>
-                                      <tr>
-                                        <td style={{ width: 0, padding: "5px" }}></td>
-                                        <td
-                                          className="colorBlue text text-center py-3"
-                                          colSpan={8}
-                                          style={{ color: "#263682" }}
-                                        >
-                                          <h5>No Data</h5>
-                                        </td>
-                                      </tr>
-                                    </tbody>
+                                      <div>
+                                        <h5 className="cancelOrderText" >${val?.supplies[0]?.cost_price}</h5>
+                                      </div>
+                                    </div>
                                   )
+                                })
+                              )
+                                :
+                                (
+                                  <tbody>
+                                    <tr>
+                                      <td style={{ width: 0, padding: "5px" }}></td>
+                                      <td
+                                        className="colorBlue text text-center py-3"
+                                        colSpan={8}
+                                        style={{ color: "#263682" }}
+                                      >
+                                        <h5>No Data</h5>
+                                      </td>
+                                    </tr>
+                                  </tbody>
+                                )
                               )
                             )
                             // <>
@@ -752,7 +759,7 @@ const Overview = () => {
                             //     </>:
                             //     <div>No Product Found</div>
                             //   }
-              
+
                             // </>
                             // (
                             //   <tbody>
@@ -1086,7 +1093,7 @@ const Overview = () => {
         key={key}
         show={modalDetail.show}
         backdrop="static"
-        showCloseBtn={modalDetail.flag === "productadd"? true: false}
+        showCloseBtn={false}
         isRightSideModal={true}
         mediumWidth={false}
         className={
@@ -1094,17 +1101,20 @@ const Overview = () => {
             ? "commonWidth customContent"
             : ""
         }
-        ids={modalDetail.flag === "trackingmodal" ? "trackingModal" : ""}
+        ids={modalDetail.flag === "trackingmodal" ? "trackingModal" : modalDetail.flag === "productadd" ? "productOverview" : modalDetail.flag === "detailModal" ? "detailModal" : ""}
         child={
           modalDetail.flag === "trackingmodal" ? (
             <SessionModal close={(e) => handleOnCloseModal(e)} />
-          ) : 
-          modalDetail.flag === "productadd" ? (
-            <ProductAddModal close={(e) => handleOnCloseModal(e)} selectedProduct={selectedProduct}/>
-          ) :           
-          (
-            ""
-          )
+          ) :
+            modalDetail.flag === "productadd" ? (
+              <ProductAddModal close={(e) => handleOnCloseModal(e)} selectedProduct={selectedProduct} />
+            ) :
+              modalDetail.flag === "detailModal" ? (
+                <DetailModal close={(e) => handleOnCloseModal(e)} />
+              ) :
+                (
+                  ""
+                )
         }
         header={
           modalDetail.flag === "trackingmodal" ? (
@@ -1117,9 +1127,55 @@ const Overview = () => {
                 />
               </p>
             </>
-          ) : (
-            ""
-          )
+          ) :
+            modalDetail.flag === "productadd" ? (
+              <>
+                <div className="addCustomerBtn  filterBtn productAddHeader">
+                  <button
+                    className="serviceCancel "
+                    type="submit" >
+                    Back To Cart
+                  </button>
+                  <button
+                    className="nextverifyBtn "
+                    type="submit" onClick={() => {
+                      handleUserProfile("detailModal")
+                    }}>
+                    Details
+                  </button>
+                  <button
+                    className="addBtnCart "
+                    type="submit" >
+                    Add To Cart
+                  </button>
+                </div>
+                <p onClick={() => closeModal()} className="modal_cancel">
+                  <Image
+                    src={Images.modalCross}
+                    alt="modalCross"
+                    className="img-fluid"
+                  />
+                </p>
+              </>
+            ) : modalDetail.flag === "detailModal" ? (
+              <>
+              <h5 className="loginMain m-0 text-start">vitamin bottle </h5>
+                <div className="addCustomerBtn  filterBtn productAddHeader">
+                  <button
+                    className="serviceCancel "
+                    type="submit" >
+                    Back
+                  </button>
+                  <button
+                    className="nextverifyBtn "
+                    type="submit">
+                    Add To Cart
+                  </button>
+                </div>
+              </>
+            ) : (
+              ""
+            )
         }
         onCloseModal={(e) => handleOnCloseModal(e)}
       />
