@@ -175,7 +175,7 @@ const Overview = () => {
         ...params,
         async cb(res) {
           if (res.status) {
-            await dispatch(restAllData({skipAuth: true}));
+            await dispatch(restAllData({ skipAuth: true }));
             // await dispatch(posUserLogout());
             // await dispatch(dashboardLogout());
             localStorage.removeItem("authToken");
@@ -236,7 +236,7 @@ const Overview = () => {
 
   const closeModal = async () => {
 
-    await dispatch(restAllData({skipAuth: true}));
+    await dispatch(restAllData({ skipAuth: true }));
 
     // await dispatch(logout());
     // await dispatch(dashboardLogout());
@@ -255,14 +255,14 @@ const Overview = () => {
 
     // To handle return/order invoices
     const keywordArr = keyword.split("_");
-    if(keywordArr?.length && keywordArr.length > 0){
-      keyword = keywordArr[keywordArr.length-1]
+    if (keywordArr?.length && keywordArr.length > 0) {
+      keyword = keywordArr[keywordArr.length - 1]
     }
     else {
       keyword = keywordArr[0];
     }
 
-    if (!(/[a-zA-Z]/.test(keyword))){
+    if (!(/[a-zA-Z]/.test(keyword))) {
       setSearchKeyword(keyword);
     }
   };
@@ -340,7 +340,7 @@ const Overview = () => {
                         authData?.posUserLoginDetails?.payload?.user_profiles
                           ?.profile_photo
                           ? authData?.posUserLoginDetails?.payload
-                              ?.user_profiles?.profile_photo
+                            ?.user_profiles?.profile_photo
                           : Images.userDummy
                       }
                       alt="HomeProfileImage"
@@ -354,16 +354,14 @@ const Overview = () => {
                     authData?.posUserLoginDetails?.payload?.user_profiles
                       ?.lastname
                   )}
-                  <h2 className="loginheading mt-2">{`${
-                    authData?.posUserLoginDetails?.payload?.user_profiles
+                  <h2 className="loginheading mt-2">{`${authData?.posUserLoginDetails?.payload?.user_profiles
                       ?.firstname
-                  } ${
-                    authData?.posUserLoginDetails?.payload?.user_profiles
+                    } ${authData?.posUserLoginDetails?.payload?.user_profiles
                       ?.lastname === null
                       ? ""
                       : authData?.posUserLoginDetails?.payload?.user_profiles
-                          ?.lastname
-                  }`}</h2>
+                        ?.lastname
+                    }`}</h2>
                   <div className="cashBox">
                     <h4 className="cashierHeading">
                       {authData?.posUserLoginDetails?.payload?.user_roles
@@ -410,9 +408,9 @@ const Overview = () => {
                               {data?.mode_of_payment === "jbr"
                                 ? "JBR Coin"
                                 : data?.mode_of_payment
-                                    ?.charAt(0)
-                                    ?.toUpperCase() +
-                                  data?.mode_of_payment?.slice(1)}{" "}
+                                  ?.charAt(0)
+                                  ?.toUpperCase() +
+                                data?.mode_of_payment?.slice(1)}{" "}
                               sales amount
                             </h4>
                             <h4 className="saleHeading text-end">
@@ -460,9 +458,8 @@ const Overview = () => {
                     </div>
                     <div className="flexHeading mt-2">
                       <h4 className="dayTimeText">Session:</h4>
-                      <h4 className="dayTimeText">{`${hours}h:${
-                        minutes < 0 ? 0 : minutes
-                      }m`}</h4>
+                      <h4 className="dayTimeText">{`${hours}h:${minutes < 0 ? 0 : minutes
+                        }m`}</h4>
                     </div>
                   </div>
                 </div>
@@ -477,7 +474,7 @@ const Overview = () => {
                     src={Images.ProductBox}
                     alt="BoxImage"
                     className="img-fluid "
-                    // onClick={() => { handleUserProfile("trackingmodal") }}
+                  // onClick={() => { handleUserProfile("trackingmodal") }}
                   />
                 </div>
                 <div className="lockScreenBox" onClick={() => lockScreen()}>
@@ -508,8 +505,8 @@ const Overview = () => {
                     src={Images.Scan}
                     alt="ScanImage"
                     className="img-fluid scanSearch"
-                    style={{cursor: "pointer"}}
-                    onClick={(e) => {searchInputRef.current.focus()}}
+                    style={{ cursor: "pointer" }}
+                    onClick={(e) => { searchInputRef.current.focus() }}
                   />
                   <Image
                     src={Images.SearchIcon}
@@ -549,7 +546,7 @@ const Overview = () => {
                           ) : (
                             <tbody>
                               {invoiceDetail &&
-                              Object.keys(invoiceDetail).length > 0 ? (
+                                Object.keys(invoiceDetail).length > 0 ? (
                                 <tr
                                   onClick={() => {
                                     router.push(
@@ -571,29 +568,29 @@ const Overview = () => {
                                         {invoiceDetail?.order?.user_details
                                           ?.user_profiles
                                           ? invoiceDetail.order.user_details
-                                              .user_profiles.firstname +
-                                            " " +
-                                            invoiceDetail.order.user_details
-                                              .user_profiles.lastname
+                                            .user_profiles.firstname +
+                                          " " +
+                                          invoiceDetail.order.user_details
+                                            .user_profiles.lastname
                                           : ""}
                                       </h4>
                                       {invoiceDetail?.order?.order_delivery
                                         ?.distance && (
-                                        <div className="flexTable">
-                                          <Image
-                                            src={Images.OrderLocation}
-                                            alt="location Image"
-                                            className="img-fluid ms-1"
-                                          />
-                                          <span className="locateDistance">
-                                            {
-                                              invoiceDetail?.order
-                                                ?.order_delivery?.distance
-                                            }{" "}
-                                            miles
-                                          </span>
-                                        </div>
-                                      )}
+                                          <div className="flexTable">
+                                            <Image
+                                              src={Images.OrderLocation}
+                                              alt="location Image"
+                                              className="img-fluid ms-1"
+                                            />
+                                            <span className="locateDistance">
+                                              {
+                                                invoiceDetail?.order
+                                                  ?.order_delivery?.distance
+                                              }{" "}
+                                              miles
+                                            </span>
+                                          </div>
+                                        )}
                                     </div>
                                   </td>
                                   <td className="homeSubtable">
@@ -633,10 +630,10 @@ const Overview = () => {
                                           <span className="locateDistance">
                                             {
                                               DELIVERY_MODE[
-                                                Number(
-                                                  invoiceDetail.order
-                                                    .delivery_option
-                                                )
+                                              Number(
+                                                invoiceDetail.order
+                                                  .delivery_option
+                                              )
                                               ]
                                             }
                                           </span>
@@ -760,8 +757,8 @@ const Overview = () => {
                                         <h4 className="orderId">
                                           {data?.user_details
                                             ? data?.user_details?.firstname +
-                                              " " +
-                                              data?.user_details?.lastname
+                                            " " +
+                                            data?.user_details?.lastname
                                             : ""}
                                         </h4>
                                         <div className="flexTable">
@@ -800,8 +797,8 @@ const Overview = () => {
                                         <h4 className="orderId">
                                           {data?.delivery_details?.title ? data.delivery_details.title :
                                             data.delivery_option == "1" ? "Delivery" :
-                                            data.delivery_option == "3" ? "Customer Pickup" :
-                                            data?.shipping_details?.title ? data.shipping_details.title : ""
+                                              data.delivery_option == "3" ? "Customer Pickup" :
+                                                data?.shipping_details?.title ? data.shipping_details.title : ""
                                           }
                                         </h4>
                                         {data?.preffered_delivery_start_time &&
