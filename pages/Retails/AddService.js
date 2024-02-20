@@ -379,7 +379,7 @@ const AddService = () => {
                   </p>
                 </div>
                 <div style={{ display: "flex", flexDirection: "column" }}>
-                  <div>
+                  <div className="serviceYear">
                     <ReactSelect
                       options={yearOptions}
                       value={selectedYear}
@@ -388,7 +388,7 @@ const AddService = () => {
                       isSearchable={false}
                     />
                   </div>
-                  <div className="mt-3">
+                  <div className=" serviceYear mt-3">
                     <ReactSelect
                       options={monthOptions}
                       value={selectedMonth}
@@ -455,8 +455,8 @@ const AddService = () => {
                     <div
                       className={
                         item?.completeDate === selectedDate
-                          ? "serviceDate mx-3 active"
-                          : "serviceDate mx-3"
+                          ? "serviceDate mx-3 active pointHand"
+                          : "serviceDate mx-3 pointHand"
                       }
                       // style={{
                       //   backgroundColor:
@@ -513,7 +513,7 @@ const AddService = () => {
                                   : "scheduleTime"
                               }
                             >
-                              <h4 className="addServicePara m-0">
+                              <h4 className="addServicePara m-0 pointHand">
                                 {item?.start_time + " - " + item?.end_time}
                               </h4>
                             </div>

@@ -695,6 +695,7 @@ figure {
 .dividesection {
   padding: 0 30px;
 }
+
 .cartTotalsection {
   padding: 0 25px 25px;
 }
@@ -713,6 +714,7 @@ figure {
 .divideBorder {
   background-color: #e4e6f2;
 }
+
 .subFooter {
   position: fixed;
   margin: 0 auto;
@@ -726,6 +728,7 @@ figure {
   height: 381px;
   overflow-y: scroll;
 }
+
 .addServiceSection {
   padding: 0 24px 0 0;
 }
@@ -755,8 +758,8 @@ figure {
   max-height: 260px;
   width: 100%;
   border-radius: 16px;
-  object-fit: cover;
-  object-position: center;
+  object-fit: fill;
+  /* object-position: center; */
 }
 
 .serviceProfile {
@@ -1221,7 +1224,7 @@ figure {
 }
 
 .serviceDayTime {
-  height: calc(50vh - 80px);
+  height: calc(40vh - 80px);
   overflow-y: scroll;
 }
 
@@ -1582,8 +1585,8 @@ figure {
 
 .confirmStep {
   padding: 0 30px;
-  height: calc(80vh - 110px);
-  overflow-y: scroll;
+  /* height: calc(80vh - 110px);
+  overflow-y: scroll; */
 }
 
 .confirmFirst {
@@ -5749,31 +5752,37 @@ figure {
 .fullCartLeft .addBtnControl {
   padding: 5px 10px !important;
 }
+
 .updateprice .verifyControl {
   padding-left: 41px;
   position: relative;
 }
+
 .updateprice .lockImg {
   left: 41px;
   color: #263682;
 }
+
 .transBox_ .checkbox-cnt input[type="checkbox"]:checked::before {
   top: 10px;
   left: 8px;
 }
+
 .ProductAddCart .cartInfo {
   height: auto;
   display: flex;
   flex-direction: column;
   height: calc(100vh - 265px);
-  align-items: center;
+  /* align-items: center; */
   justify-content: space-between;
   overflow: initial;
 }
+
 .topcartListting {
   height: 391px;
   overflow-y: scroll;
 }
+
 .ProductAddCart .subFooter {
   position: initial;
 }
@@ -5782,4 +5791,136 @@ figure {
   top: 80px;
   right: 16px;
   z-index: 1;
+}
+
+.serviceYear .css-1u9des2-indicatorSeparator {
+  background-color: hsl(214.23deg 73.31% 88.75%) !important;
+}
+
+.fullCartLeft .cartProfileImg {
+  width: 30px;
+  height: 30px;
+}
+
+.quantityText {
+  color: #636e9f;
+  font-size: 14px;
+  font-weight: 400;
+}
+
+.serviceCartSub {
+  min-width: 280px;
+  overflow-x: scroll;
+}
+
+.serviceCartDetail {
+  min-width: 325px;
+}
+
+.serviceCartInfo {
+  min-width: 280px;
+}
+
+.productFullLeft .serviceCartDetail {
+  min-width: 300px;
+}
+
+.productFullLeft .serviceCartInfo {
+  min-width: 325px;
+}
+
+.productOver {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.productOverImg {
+  width: 50px;
+  height: 50px;
+  border-radius: 6px;
+  object-fit: fill;
+}
+
+#productOverview,
+#detailModal {
+  width: 100%;
+  max-width: 600px;
+}
+
+#productOverview .modal-content,
+#detailModal .modal-content {
+  border-radius: 30px !important;
+  background: #fff !important;
+  box-shadow: -3px 6px 7px 0px rgba(52, 79, 117, 0.03),
+    -12px 28px 25px 0px rgba(52, 79, 117, 0.04),
+    -31px 74px 80px 0px rgba(52, 79, 117, 0.07) !important;
+  padding: 24px !important;
+  border: none !important;
+}
+
+#productOverview .modal-header,
+#detailModal .modal-header {
+  border: none;
+}
+
+#productOverview .modal-body,
+#detailModal .modal-body {
+  padding: 0;
+}
+
+.addBtnCart {
+  font-size: 14px;
+  padding: 7px 18px;
+  background: #e4e6f2;
+  border-radius: 30px;
+  font-weight: 400;
+  color: #263682;
+  border: 1px solid #263682;
+}
+
+.productAddHeader {
+  gap: 8px;
+}
+
+.productViewBx {
+  margin: 24px 0;
+}
+
+.productViewBx .loginSub {
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+  width: 100%;
+  max-width: 50ch;
+  margin-top: 6px;
+}
+
+.detailSubBox {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.priceBox {
+  border-radius: 20px;
+  background: #f5f6fc;
+  padding: 16px;
+  margin: 16px 0;
+}
+.detailAvailable{
+    border-radius: 8px;
+    border: 1px solid #e4e6f2;
+    padding: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 10px;
+}
+.availableScroll{
+  height: 48vh;
+  overflow-y: scroll;
+}
+.availableScroll::-webkit-scrollbar{
+  display: none;
 }

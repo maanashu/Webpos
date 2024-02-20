@@ -10,6 +10,7 @@ import {
 import { useDispatch, useSelector } from "react-redux";
 import moment from "moment-timezone";
 import * as Images from "../../../utilities/images";
+import { amountFormat } from '../../../utilities/globalMethods';
 
 const SessionHistory = () => {
   ChartJS.register(...registerables);
@@ -208,34 +209,31 @@ const SessionHistory = () => {
                   // onClick={() => handleNavigateToTrackStatus(item)}
                   className="customers-table-data"
                 >
-                  ${item?.start_tracking_session}
+                  {item?.start_tracking_session ? amountFormat(item.start_tracking_session) : "$0.00"}
                 </td>
                 <td
                   // onClick={() => handleNavigateToTrackStatus(item)}
                   className="customers-table-data"
                 >
-                  {item?.add_cash}
+                  {item?.add_cash ? amountFormat(item.add_cash) : "$0.00"}
                 </td>
                 <td
                   // onClick={() => handleNavigateToTrackStatus(item)}
                   className="customers-table-data"
                 >
-                  ${Number(item?.removed_cash).toFixed(2)}
+                  {item?.removed_cash ? amountFormat(item.removed_cash) : "$0.00"}
                 </td>
                 <td
                   // onClick={() => handleNavigateToTrackStatus(item)}
                   className="customers-table-data"
                 >
-                  {item.counted_cash}
+                  {item?.counted_cash ? amountFormat(item.counted_cash) : "$0.00"}
                 </td>
                 <td
                   // onClick={() => handleNavigateToTrackStatus(item)}
                   className="customers-table-data"
                 >
-                  {item.end_tracking_session < 0 ? "-" : null} $
-                  {item.end_tracking_session < 0
-                    ? Math.abs(item.end_tracking_session)
-                    : item.end_tracking_session}
+                  {item?.end_tracking_session ? amountFormat(item.end_tracking_session) : "$0.00"}
                 </td>
               </tr>
             ))}
@@ -243,7 +241,6 @@ const SessionHistory = () => {
         )}
       </table>
       
-      {console.log(totalItems,  recordsPerPage, "=====recordsPerPage")}
       {totalItems > recordsPerPage && (
         <PaginationFooter
           page={page}
