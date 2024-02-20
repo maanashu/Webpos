@@ -302,7 +302,7 @@ input:checked + .switch-slider:before {
 
 .notesBox {
   border-radius: 12px;
-  background:  #fff;
+  background: #fff;
   padding: 16px 17px;
   box-shadow: -2px 4px 25px 0px rgba(50, 80, 127, 0.02),
     -5px 10px 80px 0px rgba(50, 80, 127, 0.04);
@@ -313,7 +313,7 @@ input:checked + .switch-slider:before {
   border: 1px solid #d7deff !important;
   color: #263682;
 }
-.notesBox::placeholder{
+.notesBox::placeholder {
   color: #263682;
 }
 .selectedFlagDiscount {
@@ -457,9 +457,8 @@ input:checked + .switch-slider:before {
   align-items: center;
   color: #263682;
 }
-.discountInput_::placeholder{
+.discountInput_::placeholder {
   color: #263682;
-
 }
 .discountMain .selectedFlagDiscount {
   padding: 10px 18px 10px 24px;
@@ -1078,6 +1077,15 @@ input:checked + .switch-slider:before {
   justify-content: space-between;
   width: 70%;
 }
+.stockColorBordor {
+  /* border-radius: 10px; */
+  border: 0.5px solid black;
+  padding: 1px;
+  display: flex;
+  align-items: start;
+  justify-content: space-between;
+  width: 70%;
+}
 
 .stockImg {
   width: 42px;
@@ -1359,4 +1367,9 @@ input:checked + .switch-slider:before {
 }
 .line-through {
   text-decoration: line-through;
+}
+.orderPersonImg {
+  border-radius: 50px;
+  width: 50px !important;
+  height: 50px !important;
 }
