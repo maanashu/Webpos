@@ -50,6 +50,11 @@ const SessionModal = (props) => {
             }
             return;
         }
+        else if(Number(amount) < 0) {
+            toast.error("Amount should not be less then $0.00");
+            return false;
+        }
+
         // else if (!notes) {
         //     if (!toast.isActive(toastId.current)) {
         //         toastId.current = toast.error("Please enter note");
