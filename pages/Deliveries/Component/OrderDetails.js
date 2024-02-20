@@ -35,8 +35,22 @@ const OrderDetail = ({
   const authData = useSelector(selectLoginAuth);
   const location =
     authData?.usersInfo?.payload?.user?.user_profiles?.current_address;
-  const latitude = parseFloat(location?.latitude ?? 0.0);
-  const longitude = parseFloat(location?.longitude ?? 0.0);
+  // const latitude = parseFloat(location?.latitude ?? 0.0);
+  // const longitude = parseFloat(location?.longitude ?? 0.0);
+
+  const pickupLatitude = parseFloat(
+    orderData?.order_delivery?.order_pickup_latitude ?? 0.0
+  );
+  const pickupLongitude = parseFloat(
+    orderData?.order_delivery?.order_pickup_longitude ?? 0.0
+  );
+
+  const deliverLatitude = parseFloat(
+    orderData?.order_delivery?.order_pickup_latitude ?? 0.0
+  );
+  const deliverLongitude = parseFloat(
+    orderData?.order_delivery?.order_delivery_longitude ?? 0.0
+  );
 
   const detailView = () => {
     if (
@@ -50,15 +64,17 @@ const OrderDetail = ({
         <div className=" deliveryOuter deliverOrderRight ms-0">
           <div className="orderLeftInfo">
             <div className="flexTable deliverProfileData">
-              <figure className="orderAroundImg">
-                <Image
-                  src={
-                    orderData?.user_details?.profile_photo ?? Images.LoginThird
-                  }
-                  alt="MoneyItemImage "
-                  className="orderPerson"
-                />
-              </figure>
+              {/* <figure className="orderAroundImg"> */}
+              <Image
+                src={
+                  orderData?.user_details?.profile_photo ?? Images.LoginThird
+                }
+                alt="MoneyItemImage "
+                className=" orderPersonImg"
+                width={45}
+                height={45}
+              />
+              {/* </figure> */}
               <div
                 style={{
                   display: "flex",
@@ -327,11 +343,11 @@ const OrderDetail = ({
             </button>
           </div>
           <GoogleMap1
-            latitude={latitude}
-            longitude={longitude}
+            latitude={pickupLatitude}
+            longitude={pickupLongitude}
             destination={{
-              lat: orderData?.coordinates?.[0] ?? 0.0,
-              lng: orderData?.coordinates?.[1] ?? 0.0,
+              lat: deliverLatitude,
+              lng: deliverLongitude,
             }}
           />
           {/* <Image src={Images.map} alt="map Image" className="mapImg" /> */}

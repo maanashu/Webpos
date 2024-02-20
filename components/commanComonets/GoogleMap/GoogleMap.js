@@ -101,11 +101,17 @@ const GoogleMap1 = ({ latitude, longitude, destination, children }) => {
   const [map, setMap] = useState(null);
   const [mapStatus, setMapStatus] = useState(false);
 
+  //Testing
+  // const center = { lat: 30.9004663, lng: 75.7741006 };
+  // const origin = { lat: 30.9004663, lng: 75.7741006 };
+  // const Destination = { lat: 30.6983887, lng: 76.656095 };
+
   const center = { lat: latitude, lng: longitude };
   const origin = { lat: latitude, lng: longitude };
+  const Destination = { lat: destination?.lat, lng: destination?.lng };
 
   const directionsOptions = {
-    destination: destination,
+    destination: Destination,
     origin: origin,
     travelMode: "DRIVING",
   };
@@ -133,28 +139,28 @@ const GoogleMap1 = ({ latitude, longitude, destination, children }) => {
   return (
     <LoadScript googleMapsApiKey="AIzaSyBbytCk92gm3MK3Mrs_374RDKf4bz0X1ck">
       {/* <div className="google-map-container"> */}
-        <GoogleMap
-          center={center}
-          zoom={15}
-          mapContainerStyle={{ width: "100%", height: "100%" }}
-          options={{
-            zoomControl: false,
-            streetViewControl: false,
-            mapTypeControl: false,
-            fullscreenControl: false,
-          }}
-          onLoad={onLoadCallback}
-        >
-          <DirectionsService
-            options={directionsOptions}
-            callback={directionsCallback}
-          />
-          {directionsResponse && (
-            <DirectionsRenderer directions={directionsResponse} />
-          )}
+      <GoogleMap
+        center={center}
+        zoom={15}
+        mapContainerStyle={{ width: "100%", height: "100%" }}
+        options={{
+          zoomControl: false,
+          streetViewControl: false,
+          mapTypeControl: false,
+          fullscreenControl: false,
+        }}
+        onLoad={onLoadCallback}
+      >
+        <DirectionsService
+          options={directionsOptions}
+          callback={directionsCallback}
+        />
+        {directionsResponse && (
+          <DirectionsRenderer directions={directionsResponse} />
+        )}
 
-          {children}
-        </GoogleMap>
+        {children}
+      </GoogleMap>
       {/* </div> */}
     </LoadScript>
   );
