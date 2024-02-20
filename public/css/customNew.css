@@ -2401,7 +2401,7 @@ figure {
   border-radius: 4px;
 }
 
-.checkBlue input:checked+label:after {
+.checkBlue input:checked + label:after {
   content: "";
   display: block;
   position: absolute;
@@ -2426,7 +2426,7 @@ figure {
   background-color: #f5edff;
 }
 
-.checkPurple input:checked+label:after {
+.checkPurple input:checked + label:after {
   border: solid #914beb;
   border-width: 0 2px 2px 0;
 }
@@ -2440,7 +2440,7 @@ figure {
   background-color: #fff7d7;
 }
 
-.checkYellow input:checked+label:after {
+.checkYellow input:checked + label:after {
   border: solid #fdb022;
   border-width: 0 2px 2px 0;
 }
@@ -2454,7 +2454,7 @@ figure {
   background-color: #fee4e2;
 }
 
-.checkRed input:checked+label:after {
+.checkRed input:checked + label:after {
   border: solid #f04438;
   border-width: 0 2px 2px 0;
 }
@@ -3233,7 +3233,8 @@ figure {
 }
 
 .shipImgReturn {
-  filter: invert(50%) sepia(45%) saturate(980%) hue-rotate(102deg) brightness(110%) contrast(66%);
+  filter: invert(50%) sepia(45%) saturate(980%) hue-rotate(102deg)
+    brightness(110%) contrast(66%);
 }
 
 .shipDeliverLeft {
@@ -3363,7 +3364,8 @@ figure {
 
 .settingList.active .SecurityImg,
 .settingList:hover .SecurityImg {
-  filter: invert(19%) sepia(61%) saturate(1030%) hue-rotate(196deg) brightness(55%) contrast(99%);
+  filter: invert(19%) sepia(61%) saturate(1030%) hue-rotate(196deg)
+    brightness(55%) contrast(99%);
 }
 
 .deviceLeft .settingListMain {
@@ -3373,7 +3375,8 @@ figure {
 .deviceRight {
   border-radius: 20px;
   background: #fff;
-  box-shadow: -2px 4px 25px 0px rgb(50 80 127 / 2%), -5px 10px 80px 0px rgb(50 80 127 / 4%);
+  box-shadow: -2px 4px 25px 0px rgb(50 80 127 / 2%),
+    -5px 10px 80px 0px rgb(50 80 127 / 4%);
   padding: 40px 30px 24px 30px;
 }
 
@@ -3410,7 +3413,6 @@ figure {
   box-shadow: -2px 4px 25px 0px rgba(50, 80, 127, 0.02),
     -5px 9px 80px 0px rgba(50, 80, 127, 0.04);
   padding: 40px 40px 24px 40px;
-
 }
 
 .staffListData {
@@ -3917,7 +3919,8 @@ figure {
 .securityRight {
   border-radius: 20px;
   background: #fff;
-  box-shadow: -2px 4px 25px 0px rgb(50 80 127 / 2%), -5px 10px 80px 0px rgb(50 80 127 / 4%);
+  box-shadow: -2px 4px 25px 0px rgb(50 80 127 / 2%),
+    -5px 10px 80px 0px rgb(50 80 127 / 4%);
   padding: 24px 30px;
 }
 
@@ -4040,7 +4043,8 @@ figure {
 .bussinessRight {
   border-radius: 20px;
   background: #fff;
-  box-shadow: -2px 4px 25px 0px rgb(50 80 127 / 2%), -5px 10px 80px 0px rgb(50 80 127 / 4%);
+  box-shadow: -2px 4px 25px 0px rgb(50 80 127 / 2%),
+    -5px 10px 80px 0px rgb(50 80 127 / 4%);
   padding: 40px 40px 24px 40px;
 }
 
@@ -4728,7 +4732,8 @@ figure {
 
 .paginateFlex.active .paginationArrowImg,
 .paginateFlex:hover .paginationArrowImg {
-  filter: invert(65%) sepia(92%) saturate(373%) hue-rotate(163deg) brightness(93%) contrast(95%);
+  filter: invert(65%) sepia(92%) saturate(373%) hue-rotate(163deg)
+    brightness(93%) contrast(95%);
 }
 
 .cashDrawMain {
@@ -4748,7 +4753,6 @@ figure {
   border-radius: 20px;
   background: #fff;
   padding: 24px 40px;
-
 }
 
 .planApps {
@@ -5058,7 +5062,8 @@ figure {
 }
 
 .SoftwareUpdateBx.active .imgSize {
-  filter: invert(40%) sepia(93%) saturate(322%) hue-rotate(150deg) brightness(100%) contrast(95%);
+  filter: invert(40%) sepia(93%) saturate(322%) hue-rotate(150deg)
+    brightness(100%) contrast(95%);
 }
 
 .deviceInfo {
@@ -5425,7 +5430,7 @@ figure {
 .boxbottomTextStyle {
   margin-top: 20px;
   color: var(--Neutrals-N-600, #7e8ac1);
-  font-family: 'Roobert';
+  font-family: "Roobert";
   font-size: 14px;
   font-style: normal;
   font-weight: 400;
@@ -5537,14 +5542,14 @@ figure {
 /**Start css Privacy Policy**/
 
 .refundIntro p {
-  color: #636E9F;
+  color: #636e9f;
   font-size: 16px;
   font-weight: 500;
   margin: 0 0 10px;
 }
 
 .refundIntro ul li {
-  color: #636E9F;
+  color: #636e9f;
   font-size: 15px;
   font-weight: 400;
   line-height: 25px;
@@ -5618,7 +5623,7 @@ figure {
   border-radius: 8px 0px 0 8px;
   padding: 3px 10px;
   border: none;
-  background-color: #E4E6F2;
+  background-color: #e4e6f2;
   color: #263682;
   font-size: 14px;
   font-weight: 500;
@@ -5628,7 +5633,7 @@ figure {
   border-radius: 0px 8px 8px 0px;
   padding: 3px 10px;
   border: none;
-  background-color: #E4E6F2;
+  background-color: #e4e6f2;
   color: #263682;
   font-size: 14px;
   font-weight: 500;
@@ -5707,7 +5712,8 @@ figure {
   justify-content: center !important;
 }
 
-#CartAlert .modal-content ,#ClearCart .modal-content{
+#CartAlert .modal-content,
+#ClearCart .modal-content {
   border-radius: 30px !important;
   background: #fff !important;
   box-shadow: -3px 6px 7px 0px rgba(52, 79, 117, 0.03),
@@ -5770,4 +5776,10 @@ figure {
 }
 .ProductAddCart .subFooter {
   position: initial;
+}
+.isExpandImg {
+  position: absolute;
+  top: 80px;
+  right: 16px;
+  z-index: 1;
 }

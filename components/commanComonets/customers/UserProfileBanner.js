@@ -19,6 +19,7 @@ const UserProfileBanner = ({
   bannerImage,
   isAcceptingMarketing,
   handleToggle,
+  handleUserDetail,
 }) => {
   return (
     <div
@@ -94,7 +95,10 @@ const UserProfileBanner = ({
         }}
         className="flex-row-space-between"
       >
-        <div className="flex-row-space-between gift-card-cnt">
+        <div
+          className="flex-row-space-between gift-card-cnt"
+          onClick={handleUserDetail}
+        >
           <Image src={giftCard} width={24} height={24} />
           <p className="gift-card-points-text">{points} Points</p>
         </div>
