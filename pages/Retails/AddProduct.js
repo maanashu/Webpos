@@ -435,7 +435,7 @@ const AddProduct = () => {
                                     color :
                                   </h4>
                                   <span
-                                    className="productColorBox"
+                                    className="productColorBox stockColorBordor"
                                     style={{
                                       backgroundColor:
                                         productColor?.[0]?.attribute_value_name,

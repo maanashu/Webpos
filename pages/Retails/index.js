@@ -398,7 +398,25 @@ const Retails = () => {
                               <p className="productName">{item.name}</p>
                               <p className="productGender description-container">
                                 {item.sub_category?.name}
+                                <p className="productserviceName">
+                                  {/* <div
+                                  dangerouslySetInnerHTML={{
+                                    __html: services?.description?.slice(
+                                      0,
+                                      200
+                                    ),
+                                  }}
+                                /> */}
+                                  <div className="description-container">
+                                    <div
+                                      dangerouslySetInnerHTML={{
+                                        __html: item?.description,
+                                      }}
+                                    />
+                                  </div>
+                                </p>
                               </p>
+
                               <div className="productCartPrice mt-2">
                                 {item?.supplies?.[0]?.supply_prices?.[0]
                                   ?.offer_price &&
