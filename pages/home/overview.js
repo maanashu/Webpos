@@ -1130,7 +1130,7 @@ const Overview = () => {
           ) :
             modalDetail.flag === "productadd" ? (
               <>
-                <div className="addCustomerBtn  filterBtn productAddHeader">
+                {/* <div className="addCustomerBtn  filterBtn productAddHeader">
                   <button
                     className="serviceCancel "
                     type="submit" >
@@ -1155,7 +1155,7 @@ const Overview = () => {
                     alt="modalCross"
                     className="img-fluid"
                   />
-                </p>
+                </p> */}
               </>
             ) : modalDetail.flag === "detailModal" ? (
               <>
