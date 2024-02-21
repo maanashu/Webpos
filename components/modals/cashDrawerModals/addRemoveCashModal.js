@@ -13,15 +13,14 @@ const addRemoveCashModal = (props) => {
   const [amount, setAmount] = useState("");
   const [notes, setNotes] = useState("");
   const [isLoading, setIsLoading] = useState(false);
-  const digits = /^[0-9]+$/;
 
   const addRemoveCashHandler = async () => {
     if (!amount) {
       toast.error("Please enter amount");
-    } else if (amount && digits.test(amount) === false) {
-      toast.error("Please enter valid amount");
-    } else if (amount <= 0) {
-      toast.error("Please enter valid amount");
+    // } else if (amount && digits.test(amount) === false) {
+    //   toast.error("Please enter valid amount");
+    } else if (Number(amount) <= 0) {
+      toast.error("Amount should be greater then $0.00");
     } else {
       const data =
         props.modalType == "add"

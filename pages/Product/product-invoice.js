@@ -16,7 +16,10 @@ import { useRouter } from "next/router";
 import { toast } from "react-toastify";
 import CustomModal from "../../components/customModal/CustomModal";
 import Manualinvoice from "./manual-entry(search)";
-import { formattedReturnPrice } from "../../utilities/globalMethods";
+import {
+  amountFormat,
+  formattedReturnPrice,
+} from "../../utilities/globalMethods";
 
 const ProductInvoice = () => {
   const dispatch = useDispatch();
@@ -76,7 +79,6 @@ const ProductInvoice = () => {
         ...params,
         cb(resp) {
           if (resp) {
-      
           }
         },
       })
@@ -402,12 +404,13 @@ const ProductInvoice = () => {
                                 className="moneyImg"
                               />
                               <span>
-                                $
-                                {isReturnOrder
-                                  ? SearchInvoiceRespones?.return
-                                      ?.refunded_amount
-                                  : SearchInvoiceRespones?.order
-                                      ?.payable_amount}
+                                {amountFormat(
+                                  isReturnOrder
+                                    ? SearchInvoiceRespones?.return
+                                        ?.refunded_amount
+                                    : SearchInvoiceRespones?.order
+                                        ?.payable_amount
+                                )}
                               </span>
                             </figure>
                           </td>
@@ -668,7 +671,9 @@ const ProductInvoice = () => {
                             </div>
                           </div>
                         </div>
-                        <p className="productPriceinvoice">${data?.price}</p>
+                        <p className="productPriceinvoice">
+                          {amountFormat(data?.price)}
+                        </p>
                         <div className="incrementBtn ">
                           <i
                             onClick={() => updateQuantity("-", idx)}
@@ -688,7 +693,7 @@ const ProductInvoice = () => {
                         </div>
                         {/* <p className="productPriceinvoice">{data?.qty}</p> */}
                         <p className="productPriceinvoice">
-                          ${data?.price * data?.qty}
+                          {amountFormat(data?.price * data?.qty)}
                         </p>
                         <article>
                           <label className="custom-checkbox">
@@ -754,7 +759,7 @@ const ProductInvoice = () => {
                         <div className="flexBox ">
                           <p className="orderHeading">Sub Total</p>
                           <p className="orderSubHeading">
-                            ${getCalculatedAmount.subTotal}
+                            {amountFormat(getCalculatedAmount.subTotal)}
                           </p>
                         </div>
                         {deliveryShippingChargesForNormalSearch().title !=
@@ -764,9 +769,10 @@ const ProductInvoice = () => {
                               {deliveryShippingChargesForNormalSearch().title}
                             </p>
                             <p className="orderSubHeading">
-                              $
-                              {deliveryShippingChargesForNormalSearch()
-                                .deliveryCharges ?? "0"}
+                              {amountFormat(
+                                deliveryShippingChargesForNormalSearch()
+                                  .deliveryCharges ?? "0"
+                              )}
                             </p>
                           </div>
                         )}
@@ -774,22 +780,26 @@ const ProductInvoice = () => {
                         <div className="flexBox">
                           <p className="orderHeading">{"Discount"}</p>
                           <p className="orderSubHeading">
-                            -$
-                            {orderDetails?.discount
-                              ? orderDetails?.discount
-                              : "0.00"}
+                            -
+                            {amountFormat(
+                              orderDetails?.discount
+                                ? orderDetails?.discount
+                                : "0.00"
+                            )}
                           </p>
                         </div>
                         <div className="flexBox">
                           <p className="orderHeading">Other Fees (Tips)</p>
                           <p className="orderSubHeading">
-                            ${orderDetails?.tips ? orderDetails?.tips : "0.00"}
+                            {amountFormat(
+                              orderDetails?.tips ? orderDetails?.tips : "0.00"
+                            )}
                           </p>
                         </div>
                         <div className="flexBox">
                           <p className="orderHeading">Tax</p>
                           <p className="orderSubHeading">
-                            ${getCalculatedAmount.totalTax}
+                            {amountFormat(getCalculatedAmount.totalTax)}
                           </p>
                         </div>
                       </div>
@@ -797,7 +807,7 @@ const ProductInvoice = () => {
                         <div className="flexBox">
                           <p className="priceHeading">Total</p>
                           <p className="priceHeading">
-                            ${getCalculatedAmount.totalAmount}
+                            {amountFormat(getCalculatedAmount.totalAmount)}
                             {/* ${orderDetails?.payable_amount} */}
                           </p>
                         </div>

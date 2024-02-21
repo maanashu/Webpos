@@ -155,7 +155,7 @@ const Retails = () => {
     if (retailData?.productCart?.poscart_products?.length > 0) {
       const cartmatchId = retailData?.productCart?.poscart_products?.map(
         (obj) => ({
-          product_type: "product",
+          product_type: obj.product_type,
           product_id: obj.product_id,
           qty: obj.qty,
           supply_id: obj.supply_id,
@@ -241,14 +241,15 @@ const Retails = () => {
 
   const bulkCart = async () => {
     if (localCartArray.length > 0) {
-      const dataToSend = {
-        seller_id: sellerId,
-        products: localCartArray,
-      };
-
-      try {
-        dispatch(createBulkCart(dataToSend));
-      } catch (error) {}
+      if (localCartArray[0]?.product_type == "product") {
+        const dataToSend = {
+          seller_id: sellerId,
+          products: localCartArray,
+        };
+        try {
+          dispatch(createBulkCart(dataToSend));
+        } catch (error) {}
+      }
     }
   };
   const onClickAddCart = (item, index, cartQty, supplyVarientId) => {
@@ -398,7 +399,25 @@ const Retails = () => {
                               <p className="productName">{item.name}</p>
                               <p className="productGender description-container">
                                 {item.sub_category?.name}
+                                <p className="productserviceName">
+                                  {/* <div
+                                  dangerouslySetInnerHTML={{
+                                    __html: services?.description?.slice(
+                                      0,
+                                      200
+                                    ),
+                                  }}
+                                /> */}
+                                  <div className="description-container">
+                                    <div
+                                      dangerouslySetInnerHTML={{
+                                        __html: item?.description,
+                                      }}
+                                    />
+                                  </div>
+                                </p>
                               </p>
+
                               <div className="productCartPrice mt-2">
                                 {item?.supplies?.[0]?.supply_prices?.[0]
                                   ?.offer_price &&

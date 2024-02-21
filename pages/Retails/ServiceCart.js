@@ -324,7 +324,7 @@ const ServiceCart = () => {
                   <span className="spinner-border spinner-border-sm mx-1"></span>
                 </div>
               ) :  */}
-              {cartDetails?.length == 0 ? (
+              {!cartDetails?.length ? (
                 <div className="mt-5">
                   <h6 className="mt-2 mb-2 text-center">No Carts Found!</h6>
                 </div>
@@ -355,10 +355,7 @@ const ServiceCart = () => {
                             </div>
                             <div className="flexTable mt-1">
                               <Image
-                                src={
-                                  data?.pos_user_details?.user?.user_profiles
-                                    ?.profile_photo
-                                }
+                                src={data?.pos_user_details?.user?.user_profiles?.profile_photo ? data.pos_user_details.user.user_profiles.profile_photo : Images.defaultUser}
                                 alt="cartFoodImg"
                                 className="img-fluid cartProfileImg"
                                 width="100"
@@ -375,16 +372,17 @@ const ServiceCart = () => {
                           </div>
                         </div>
                       </div>
+                      
                       <div className="fullCartInfo w-50 serviceCartInfo">
-                      <div className="unitPriceControl">
-                        {amountFormat(
-                          getProductPrice(
-                            data.product_details?.supply?.supply_offers,
-                            data.product_details?.supply?.supply_prices
-                              ?.selling_price,
-                            data.qty
-                          )
-                        )}
+                        <div className="unitPriceControl">
+                          {amountFormat(
+                            getProductPrice(
+                              data.product_details?.supply?.supply_offers,
+                              data.product_details?.supply?.supply_prices
+                                ?.selling_price,
+                              data.qty
+                            )
+                          )}
                         </div>
                         <p className="quantityText">{data?.qty}</p>
                         {/* <div className="incrementBtn ">

@@ -36,7 +36,7 @@ const ViewSession = () => {
 
   const fetchSessionSummary = () => {
     let params = {
-      drawer_id: drawerSessionDetail.id
+      drawer_id: drawerSessionDetail?.id
     }
     dispatch(
       getSessionSummary({
@@ -335,7 +335,7 @@ const ViewSession = () => {
               fetchSessionSummary(); 
               handleOnCloseModal();
             }}
-            drawerSessionId={drawerSessionDetail.id}
+            drawerSessionId={drawerSessionDetail?.id}
           />
         }
         header={

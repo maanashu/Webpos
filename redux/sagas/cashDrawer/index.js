@@ -64,12 +64,7 @@ function* sendPaymentHistory(action) {
       ApiClient.get,
       `${USER_API_URL_V1}drawer_management/payment/history/send/?${stringifiedQueryParams}`
     );
-    if (resp) {
-      // yield put(setSessionHistory(resp.data));
-      yield call(action.payload.cb, (action.res = resp));
-    } else {
-      throw resp;
-    }
+    yield call(action.payload.cb, (action.res = resp));
   } catch (e) {
     yield put(onErrorStopLoad());
     // toast.error(e?.error?.response?.data?.msg);
@@ -87,12 +82,10 @@ function* getSessionSummary(action) {
       `${USER_API_URL_V1}drawer_management/payment/history?${stringifiedQueryParams}`
     );
     
-    if (resp) {
+    if (resp && resp.status) {
       yield put(setSessionHistory(resp.data));
-      yield call(action.payload.cb, (action.res = resp));
-    } else {
-      throw resp;
     }
+    yield call(action.payload.cb, (action.res = resp));
   } catch (e) {
     yield put(onErrorStopLoad());
     // toast.error(e?.error?.response?.data?.msg);
@@ -131,11 +124,7 @@ function* updateDrawerSession(action) {
       `${USER_API_URL_V1}drawer_management`,
       body
     );
-    if (resp.status) {
-      yield call(action.payload.cb, (action.res = resp));
-    } else {
-      throw resp;
-    }
+    yield call(action.payload.cb, (action.res = resp));
   } catch (e) {
     yield put(onErrorStopLoad());
     // toast.error(e?.error?.response?.data?.msg);
@@ -150,11 +139,9 @@ function* getExpectedCashByDrawerId(action) {
     );
 
     if (resp.status) {
-      yield put(setExpectedCashByDrawerId(resp.data));
-      yield call(action.payload.cb, (action.res = resp));
-    } else {
-      throw resp;
+      yield put(setExpectedCashByDrawerId(resp.data)); 
     }
+    yield call(action.payload.cb, (action.res = resp));
   } catch (e) {
     yield put(onErrorStopLoad());
     // toast.error(e?.error?.response?.data?.msg);

@@ -4,6 +4,7 @@ import * as Images from "../../utilities/images";
 import Image from "next/image";
 import CustomModal from "../../components/customModal/CustomModal";
 import SessionModal from "../../components/modals/homeModals/sessionModal";
+import DetailModal from "../../components/modals/homeModals/service/detailModal";
 import MyTimer from "../../components/commanComonets/MyTimer";
 import { DELIVERY_MODE } from "../../constants/commonConstants";
 import {
@@ -31,6 +32,9 @@ import Login from "../auth/login";
 import moment from "moment-timezone";
 import { toast } from "react-toastify";
 import { amountFormat, getCurrentTimeZone } from '../../utilities/globalMethods';
+import { getMainProduct } from "../../redux/slices/retails";
+import { updateSettings } from "../../redux/slices/setting";
+import ProductAddModal from "../../components/modals/homeModals/productAddModal";
 
 const Overview = () => {
   const searchInputRef = useRef(null);
@@ -50,6 +54,7 @@ const Overview = () => {
   const dispatch = useDispatch();
   const [key, setKey] = useState(Math.random());
   const [orderDeliveriesInfo, setOrderDeliveriesInfo] = useState("");
+  const [productResponse, setProductResponse] = useState([])
   const [pageNumber, setPageNumber] = useState(1);
   const [recordsPerPage, setRecordsPerPage] = useState(10);
   const [totalItems, setTotalItems] = useState(0);
@@ -58,18 +63,24 @@ const Overview = () => {
   const [posLoginDetail, setPosLoginDetail] = useState("");
   const [onlineOrdersCount, setOnlineOrdersCount] = useState(0);
   const [searchKeyword, setSearchKeyword] = useState();
-  const [searchedInput, setSearchedInput] = useState();
   const [isSearching, setIsSearching] = useState(false);
   const [invoiceDetail, setInvoiceDetail] = useState({});
+  const [selectedProduct, setSelectedProduct] = useState("")
   const [displaySearchBox, setDisplaySearchBox] = useState(false);
   const [modalDetail, setModalDetail] = useState({
     show: false,
     title: "",
     flag: "",
   });
+  const handleUserProfile = (flag) => {
 
-  var scannerInputTimeout = null;
-
+    setModalDetail({
+      show: true,
+      flag: flag,
+      type: flag,
+    });
+    setKey(Math.random());
+  };
   // API for get all oder deliveries...............................
   const allOrderDeliveriesInfo = () => {
     let params = {
@@ -175,7 +186,7 @@ const Overview = () => {
         ...params,
         async cb(res) {
           if (res.status) {
-            await dispatch(restAllData({skipAuth: true}));
+            await dispatch(restAllData({ skipAuth: true }));
             // await dispatch(posUserLogout());
             // await dispatch(dashboardLogout());
             localStorage.removeItem("authToken");
@@ -187,29 +198,51 @@ const Overview = () => {
   };
 
   // API for search invoice ...............................
-  const searchInvoice = (invoiceNumber) => {
+  const searchInvoice = (enteredKeyword) => {
     let params = {
-      invoice_number: invoiceNumber,
+      invoice_number: enteredKeyword,
       seller_id: UniqueId,
     };
     dispatch(
       fetchInvoiceDetail({
         ...params,
         cb(res) {
-          if (
-            res.status &&
-            res?.data?.payload &&
-            Object.keys(res.data.payload).length > 0
-          ) {
+          if (res.status && res?.data?.payload && Object.keys(res.data.payload).length > 0) {
             setInvoiceDetail(res.data.payload);
+            setIsSearching(false);
           } else {
             setInvoiceDetail({});
+            searchProduct(enteredKeyword);
+          }
+        },
+      })
+    );
+  };
+
+
+  const searchProduct = (enteredKeyword) => {
+    let params = {
+      seller_id: UniqueId,
+      search: enteredKeyword,
+      // need_invoice_search:true,
+      page: 1,
+      limit: 10
+    };
+    dispatch(
+      getMainProduct({
+        ...params,
+        cb(res) {
+          if (res.status && res?.data?.payload?.data?.length) {
+            setProductResponse(res?.data?.payload?.data)
+          }
+          else {
+            setProductResponse([]);
           }
           setIsSearching(false);
         },
       })
     );
-  };
+  }
 
   // API for get user Pos Login Info...............................
   const userLoginDetails = () => {
@@ -236,7 +269,7 @@ const Overview = () => {
 
   const closeModal = async () => {
 
-    await dispatch(restAllData({skipAuth: true}));
+    await dispatch(restAllData({ skipAuth: true }));
 
     // await dispatch(logout());
     // await dispatch(dashboardLogout());
@@ -255,14 +288,14 @@ const Overview = () => {
 
     // To handle return/order invoices
     const keywordArr = keyword.split("_");
-    if(keywordArr?.length && keywordArr.length > 0){
-      keyword = keywordArr[keywordArr.length-1]
+    if (keywordArr?.length && keywordArr.length > 0) {
+      keyword = keywordArr[keywordArr.length - 1]
     }
     else {
       keyword = keywordArr[0];
     }
 
-    if (!(/[a-zA-Z]/.test(keyword))){
+    if (!(/[a-zA-Z]/.test(keyword))) {
       setSearchKeyword(keyword);
     }
   };
@@ -284,6 +317,25 @@ const Overview = () => {
   const hours = sessionDuration.hours();
   const minutes = sessionDuration.minutes();
 
+  const handleProductSelect = (data) => {
+    setSelectedProduct(data)
+    setModalDetail({
+      show: true,
+      flag: "productadd",
+      type: "productadd",
+    });
+    setKey(Math.random());
+  }
+
+  const getSettingData = () => {
+    dispatch(
+      updateSettings({
+        cb(res) {
+        },
+      })
+    );
+  };
+
   useEffect(() => {
     if (UniqueId && !trackingSession?.start_session) {
       setModalDetail({
@@ -292,6 +344,7 @@ const Overview = () => {
         type: "trackingmodal",
       });
       setKey(Math.random());
+      getSettingData();
     }
   }, []);
 
@@ -318,6 +371,7 @@ const Overview = () => {
         //Your search query and it will run the function after 3secs from user stops typing
         var keyword = searchKeyword.toLowerCase();
         searchInvoice(keyword);
+        // searchProduct(keyword)
       }, 3000);
       return () => clearTimeout(search);
     } else {
@@ -340,7 +394,7 @@ const Overview = () => {
                         authData?.posUserLoginDetails?.payload?.user_profiles
                           ?.profile_photo
                           ? authData?.posUserLoginDetails?.payload
-                              ?.user_profiles?.profile_photo
+                            ?.user_profiles?.profile_photo
                           : Images.userDummy
                       }
                       alt="HomeProfileImage"
@@ -354,16 +408,14 @@ const Overview = () => {
                     authData?.posUserLoginDetails?.payload?.user_profiles
                       ?.lastname
                   )}
-                  <h2 className="loginheading mt-2">{`${
-                    authData?.posUserLoginDetails?.payload?.user_profiles
-                      ?.firstname
-                  } ${
-                    authData?.posUserLoginDetails?.payload?.user_profiles
+                  <h2 className="loginheading mt-2">{`${authData?.posUserLoginDetails?.payload?.user_profiles
+                    ?.firstname
+                    } ${authData?.posUserLoginDetails?.payload?.user_profiles
                       ?.lastname === null
                       ? ""
                       : authData?.posUserLoginDetails?.payload?.user_profiles
-                          ?.lastname
-                  }`}</h2>
+                        ?.lastname
+                    }`}</h2>
                   <div className="cashBox">
                     <h4 className="cashierHeading">
                       {authData?.posUserLoginDetails?.payload?.user_roles
@@ -410,9 +462,9 @@ const Overview = () => {
                               {data?.mode_of_payment === "jbr"
                                 ? "JBR Coin"
                                 : data?.mode_of_payment
-                                    ?.charAt(0)
-                                    ?.toUpperCase() +
-                                  data?.mode_of_payment?.slice(1)}{" "}
+                                  ?.charAt(0)
+                                  ?.toUpperCase() +
+                                data?.mode_of_payment?.slice(1)}{" "}
                               sales amount
                             </h4>
                             <h4 className="saleHeading text-end">
@@ -460,9 +512,8 @@ const Overview = () => {
                     </div>
                     <div className="flexHeading mt-2">
                       <h4 className="dayTimeText">Session:</h4>
-                      <h4 className="dayTimeText">{`${hours}h:${
-                        minutes < 0 ? 0 : minutes
-                      }m`}</h4>
+                      <h4 className="dayTimeText">{`${hours}h:${minutes < 0 ? 0 : minutes
+                        }m`}</h4>
                     </div>
                   </div>
                 </div>
@@ -477,7 +528,7 @@ const Overview = () => {
                     src={Images.ProductBox}
                     alt="BoxImage"
                     className="img-fluid "
-                    // onClick={() => { handleUserProfile("trackingmodal") }}
+                  // onClick={() => { handleUserProfile("trackingmodal") }}
                   />
                 </div>
                 <div className="lockScreenBox" onClick={() => lockScreen()}>
@@ -508,8 +559,8 @@ const Overview = () => {
                     src={Images.Scan}
                     alt="ScanImage"
                     className="img-fluid scanSearch"
-                    style={{cursor: "pointer"}}
-                    onClick={(e) => {searchInputRef.current.focus()}}
+                    style={{ cursor: "pointer" }}
+                    onClick={(e) => { searchInputRef.current.focus() }}
                   />
                   <Image
                     src={Images.SearchIcon}
@@ -546,10 +597,10 @@ const Overview = () => {
                                 <div className="spinner-grow loaderSpinner text-center my-2"></div>
                               </div>
                             </tbody>
-                          ) : (
-                            <tbody>
-                              {invoiceDetail &&
-                              Object.keys(invoiceDetail).length > 0 ? (
+                          )
+                            :
+                            (invoiceDetail && Object.keys(invoiceDetail).length > 0 ? (
+                              <tbody>
                                 <tr
                                   onClick={() => {
                                     router.push(
@@ -571,29 +622,29 @@ const Overview = () => {
                                         {invoiceDetail?.order?.user_details
                                           ?.user_profiles
                                           ? invoiceDetail.order.user_details
-                                              .user_profiles.firstname +
-                                            " " +
-                                            invoiceDetail.order.user_details
-                                              .user_profiles.lastname
+                                            .user_profiles.firstname +
+                                          " " +
+                                          invoiceDetail.order.user_details
+                                            .user_profiles.lastname
                                           : ""}
                                       </h4>
                                       {invoiceDetail?.order?.order_delivery
                                         ?.distance && (
-                                        <div className="flexTable">
-                                          <Image
-                                            src={Images.OrderLocation}
-                                            alt="location Image"
-                                            className="img-fluid ms-1"
-                                          />
-                                          <span className="locateDistance">
-                                            {
-                                              invoiceDetail?.order
-                                                ?.order_delivery?.distance
-                                            }{" "}
-                                            miles
-                                          </span>
-                                        </div>
-                                      )}
+                                          <div className="flexTable">
+                                            <Image
+                                              src={Images.OrderLocation}
+                                              alt="location Image"
+                                              className="img-fluid ms-1"
+                                            />
+                                            <span className="locateDistance">
+                                              {
+                                                invoiceDetail?.order
+                                                  ?.order_delivery?.distance
+                                              }{" "}
+                                              miles
+                                            </span>
+                                          </div>
+                                        )}
                                     </div>
                                   </td>
                                   <td className="homeSubtable">
@@ -633,10 +684,10 @@ const Overview = () => {
                                           <span className="locateDistance">
                                             {
                                               DELIVERY_MODE[
-                                                Number(
-                                                  invoiceDetail.order
-                                                    .delivery_option
-                                                )
+                                              Number(
+                                                invoiceDetail.order
+                                                  .delivery_option
+                                              )
                                               ]
                                             }
                                           </span>
@@ -647,22 +698,197 @@ const Overview = () => {
                                     </div>
                                   </td>
                                 </tr>
-                              ) : (
-                                <tr>
-                                  <td
-                                    style={{ width: 0, padding: "5px" }}
-                                  ></td>
-                                  <td
-                                    className="colorBlue text text-center py-3"
-                                    colSpan={8}
-                                    style={{ color: "#263682" }}
-                                  >
-                                    <h5>No Data</h5>
-                                  </td>
-                                </tr>
-                              )}
-                            </tbody>
-                          )}
+                              </tbody>
+                            )
+                              :
+                              (productResponse?.length > 0 ? (
+                                productResponse?.map((val, index) => {
+                                  return (
+                                    <div key={index} style={{ cursor: "pointer" }} className="d-flex justify-content-between align-items-center" onClick={() => handleProductSelect(val)}>
+                                      <div className="productOver">
+                                        <Image
+                                          src={val?.image}
+                                          alt="SearchImageIcon"
+                                          className="img-fluid productOverImg"
+                                          width="100"
+                                          height="100"
+                                        />
+                                        <h5 className="payHeading m-0">{val?.name}</h5>
+                                      </div>
+                                      <div>
+                                        <h5 className="cancelOrderText" >${val?.supplies[0]?.cost_price}</h5>
+                                      </div>
+                                    </div>
+                                  )
+                                })
+                              )
+                                :
+                                (
+                                  <tbody>
+                                    <tr>
+                                      <td style={{ width: 0, padding: "5px" }}></td>
+                                      <td
+                                        className="colorBlue text text-center py-3"
+                                        colSpan={8}
+                                        style={{ color: "#263682" }}
+                                      >
+                                        <h5>No Data</h5>
+                                      </td>
+                                    </tr>
+                                  </tbody>
+                                )
+                              )
+                            )
+                            // <>
+
+                            //   {
+                            //     productResponse?.length > 0 ?
+                            //     <>
+                            //     {
+                            //       productResponse?.map((val, index) => {
+                            //         return(
+                            //           <div key={index} style={{cursor:"pointer"}} className="d-flex justify-content-between" onClick={() => handleProductSelect(val)}>
+                            //           <div>
+                            //             <Image
+                            //               src={val?.image}
+                            //               alt="SearchImageIcon"
+                            //               className="img-fluid "
+                            //               width="100"
+                            //               height="100"
+                            //             />
+                            //           </div>
+                            //           <div>
+                            //             <h5>{val?.name}</h5>
+                            //           </div>
+                            //           <div>
+                            //             <h5>${val?.supplies[0]?.cost_price}</h5>
+                            //           </div>
+                            //         </div>
+                            //         )
+                            //       })                                           
+                            //     }
+                            //     </>:
+                            //     <div>No Product Found</div>
+                            //   }
+
+                            // </>
+                            // (
+                            //   <tbody>
+                            //     {invoiceDetail && Object.keys(invoiceDetail).length > 0 ? (
+                            //       <tr
+                            //         onClick={() => {
+                            //           router.push(
+                            //             "/invoices/invoices?showInvoiceData=true"
+                            //           );
+                            //         }}
+                            //         style={{ cursor: "pointer" }}
+                            //       >
+                            //         <td className="homeSubtable">
+                            //           <div className="orderFirstId">
+                            //             <h4 className="orderId">
+                            //               #{invoiceDetail?.invoice_number}
+                            //             </h4>
+                            //           </div>
+                            //         </td>
+                            //         <td className="homeSubtable">
+                            //           <div className="nameLocation">
+                            //             <h4 className="orderId">
+                            //               {invoiceDetail?.order?.user_details
+                            //                 ?.user_profiles
+                            //                 ? invoiceDetail.order.user_details
+                            //                     .user_profiles.firstname +
+                            //                   " " +
+                            //                   invoiceDetail.order.user_details
+                            //                     .user_profiles.lastname
+                            //                 : ""}
+                            //             </h4>
+                            //             {invoiceDetail?.order?.order_delivery
+                            //               ?.distance && (
+                            //               <div className="flexTable">
+                            //                 <Image
+                            //                   src={Images.OrderLocation}
+                            //                   alt="location Image"
+                            //                   className="img-fluid ms-1"
+                            //                 />
+                            //                 <span className="locateDistance">
+                            //                   {
+                            //                     invoiceDetail?.order
+                            //                       ?.order_delivery?.distance
+                            //                   }{" "}
+                            //                   miles
+                            //                 </span>
+                            //               </div>
+                            //             )}
+                            //           </div>
+                            //         </td>
+                            //         <td className="homeSubtable">
+                            //           <div className="itemMoney">
+                            //             <h4 className="orderId">
+                            //               {
+                            //                 invoiceDetail?.order?.order_details
+                            //                   ?.length
+                            //               }{" "}
+                            //               items
+                            //             </h4>
+                            //             <div className="flexTable">
+                            //               <Image
+                            //                 src={Images.MoneyItem}
+                            //                 alt="MoneyItemImage "
+                            //                 className="img-fluid ms-1"
+                            //               />
+                            //               <span className="locateDistance">
+                            //                 {invoiceDetail?.order?.payable_amount
+                            //                   ? amountFormat(invoiceDetail.order.payable_amount)
+                            //                   : "$0.00"}
+                            //               </span>
+                            //             </div>
+                            //           </div>
+                            //         </td>
+                            //         <td className="homeSubtable">
+                            //           <div className="itemTime">
+                            //             {/* <h4 className="orderId">Customer:</h4> */}
+                            //             {invoiceDetail?.order
+                            //               ?.delivery_option ? (
+                            //               <div className="flexTable">
+                            //                 <Image
+                            //                   src={Images.Time}
+                            //                   alt="MoneyItemImage "
+                            //                   className="img-fluid ms-1"
+                            //                 />
+                            //                 <span className="locateDistance">
+                            //                   {
+                            //                     DELIVERY_MODE[
+                            //                       Number(
+                            //                         invoiceDetail.order
+                            //                           .delivery_option
+                            //                       )
+                            //                     ]
+                            //                   }
+                            //                 </span>
+                            //               </div>
+                            //             ) : (
+                            //               ""
+                            //             )}
+                            //           </div>
+                            //         </td>
+                            //       </tr>
+                            //     ) : (
+                            //       <tr>
+                            //         <td
+                            //           style={{ width: 0, padding: "5px" }}
+                            //         ></td>
+                            //         <td
+                            //           className="colorBlue text text-center py-3"
+                            //           colSpan={8}
+                            //           style={{ color: "#263682" }}
+                            //         >
+                            //           <h5>No Data</h5>
+                            //         </td>
+                            //       </tr>
+                            //     )}
+                            //   </tbody>
+                            // )
+                          }
                         </table>
                       </div>
                     </div>
@@ -760,8 +986,8 @@ const Overview = () => {
                                         <h4 className="orderId">
                                           {data?.user_details
                                             ? data?.user_details?.firstname +
-                                              " " +
-                                              data?.user_details?.lastname
+                                            " " +
+                                            data?.user_details?.lastname
                                             : ""}
                                         </h4>
                                         <div className="flexTable">
@@ -800,8 +1026,8 @@ const Overview = () => {
                                         <h4 className="orderId">
                                           {data?.delivery_details?.title ? data.delivery_details.title :
                                             data.delivery_option == "1" ? "Delivery" :
-                                            data.delivery_option == "3" ? "Customer Pickup" :
-                                            data?.shipping_details?.title ? data.shipping_details.title : ""
+                                              data.delivery_option == "3" ? "Customer Pickup" :
+                                                data?.shipping_details?.title ? data.shipping_details.title : ""
                                           }
                                         </h4>
                                         {data?.preffered_delivery_start_time &&
@@ -886,13 +1112,20 @@ const Overview = () => {
             ? "commonWidth customContent"
             : ""
         }
-        ids={modalDetail.flag === "trackingmodal" ? "trackingModal" : ""}
+        ids={modalDetail.flag === "trackingmodal" ? "trackingModal" : modalDetail.flag === "productadd" ? "productOverview" : modalDetail.flag === "detailModal" ? "detailModal" : ""}
         child={
           modalDetail.flag === "trackingmodal" ? (
             <SessionModal close={(e) => handleOnCloseModal(e)} />
-          ) : (
-            ""
-          )
+          ) :
+            modalDetail.flag === "productadd" ? (
+              <ProductAddModal close={(e) => handleOnCloseModal(e)} selectedProduct={selectedProduct} />
+            ) :
+              modalDetail.flag === "detailModal" ? (
+                <DetailModal close={(e) => handleOnCloseModal(e)} />
+              ) :
+                (
+                  ""
+                )
         }
         header={
           modalDetail.flag === "trackingmodal" ? (
@@ -905,9 +1138,55 @@ const Overview = () => {
                 />
               </p>
             </>
-          ) : (
-            ""
-          )
+          ) :
+            modalDetail.flag === "productadd" ? (
+              <>
+                {/* <div className="addCustomerBtn  filterBtn productAddHeader">
+                  <button
+                    className="serviceCancel "
+                    type="submit" >
+                    Back To Cart
+                  </button>
+                  <button
+                    className="nextverifyBtn "
+                    type="submit" onClick={() => {
+                      handleUserProfile("detailModal")
+                    }}>
+                    Details
+                  </button>
+                  <button
+                    className="addBtnCart "
+                    type="submit" >
+                    Add To Cart
+                  </button>
+                </div>
+                <p onClick={() => closeModal()} className="modal_cancel">
+                  <Image
+                    src={Images.modalCross}
+                    alt="modalCross"
+                    className="img-fluid"
+                  />
+                </p> */}
+              </>
+            ) : modalDetail.flag === "detailModal" ? (
+              <>
+              <h5 className="appointMain m-0 text-start">vitamin bottle </h5>
+                <div className="addCustomerBtn  filterBtn productAddHeader">
+                  <button
+                    className="serviceCancel "
+                    type="submit" >
+                    Back
+                  </button>
+                  <button
+                    className="nextverifyBtn "
+                    type="submit">
+                    Add To Cart
+                  </button>
+                </div>
+              </>
+            ) : (
+              ""
+            )
         }
         onCloseModal={(e) => handleOnCloseModal(e)}
       />

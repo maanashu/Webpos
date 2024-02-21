@@ -17,7 +17,10 @@ import {
 import { toast } from "react-toastify";
 import { Spinner } from "react-bootstrap";
 import { logout } from "../../redux/slices/auth";
-import { formattedReturnPrice } from "../../utilities/globalMethods";
+import {
+  amountFormat,
+  formattedReturnPrice,
+} from "../../utilities/globalMethods";
 
 const productrefunds = () => {
   const toastId = React.useRef(null);
@@ -485,7 +488,7 @@ const productrefunds = () => {
                         </td>
 
                         <td className="recent_subhead text-center">
-                          <span className="">${data?.price}</span>
+                          <span className="">{amountFormat(data?.price)}</span>
                         </td>
                         <td className="recent_subhead text-center">
                           <input
@@ -516,15 +519,16 @@ const productrefunds = () => {
                           × {data?.qty}
                         </td>
                         <td className="recent_subhead text-center">
-                          ${" "}
-                          {!isNaN(parseFloat(inputValues[idx]?.value)) &&
-                          !isNaN(parseFloat(data?.qty))
-                            ? (parseFloat(inputValues[idx]?.value) >
-                              parseFloat(data?.price)
-                                ? parseFloat(data?.price)
-                                : parseFloat(inputValues[idx]?.value)) *
-                              parseFloat(data?.qty)
-                            : parseFloat(data?.qty) * parseFloat(data?.price)}
+                          {amountFormat(
+                            !isNaN(parseFloat(inputValues[idx]?.value)) &&
+                              !isNaN(parseFloat(data?.qty))
+                              ? (parseFloat(inputValues[idx]?.value) >
+                                parseFloat(data?.price)
+                                  ? parseFloat(data?.price)
+                                  : parseFloat(inputValues[idx]?.value)) *
+                                  parseFloat(data?.qty)
+                              : parseFloat(data?.qty) * parseFloat(data?.price)
+                          )}
                         </td>
                       </tr>
                     );
