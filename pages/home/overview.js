@@ -33,6 +33,7 @@ import moment from "moment-timezone";
 import { toast } from "react-toastify";
 import { amountFormat, getCurrentTimeZone } from '../../utilities/globalMethods';
 import { getMainProduct } from "../../redux/slices/retails";
+import { updateSettings } from "../../redux/slices/setting";
 import ProductAddModal from "../../components/modals/homeModals/productAddModal";
 
 const Overview = () => {
@@ -326,6 +327,15 @@ const Overview = () => {
     setKey(Math.random());
   }
 
+  const getSettingData = () => {
+    dispatch(
+      updateSettings({
+        cb(res) {
+        },
+      })
+    );
+  };
+
   useEffect(() => {
     if (UniqueId && !trackingSession?.start_session) {
       setModalDetail({
@@ -334,6 +344,7 @@ const Overview = () => {
         type: "trackingmodal",
       });
       setKey(Math.random());
+      getSettingData();
     }
   }, []);
 
