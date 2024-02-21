@@ -35,7 +35,7 @@ import Language from "./language";
 import Plan from "./plans";
 import ShippingPickup from "./shipPickup";
 import PlanFit from "./plans/planFit";
-import { getAllPosUser, selectLoginAuth } from "../../redux/slices/auth";
+import { getAllPosUser, getAllPosUserLetest, selectLoginAuth } from "../../redux/slices/auth";
 import { useDispatch, useSelector } from "react-redux";
 import DeviceDetail from "./device/deviceDetail";
 import {
@@ -190,7 +190,7 @@ export default function Settings() {
       seller_id: UniqueId,
     };
     dispatch(
-      getAllPosUser({
+      getAllPosUserLetest({
         ...params,
         cb(res) {
           if (res.status) {

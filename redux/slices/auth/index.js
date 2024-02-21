@@ -35,6 +35,13 @@ export const authSlice = createSlice({
       state.loading = false;
       state.allPosUser = action?.payload;
     },
+    getAllPosUserLetest: (state) => {
+      state.loading = true;
+    },
+    setGetAllPosUserLetest: (state, action) => {
+      state.loading = false;
+      state.allPosUser = action?.payload;
+    },
     posUserLogin: (state) => {
       state.loading = true;
     },
@@ -71,6 +78,8 @@ export const {
   setUserMerchantLogin,
   getAllPosUser,
   setGetAllPosUser,
+  getAllPosUserLetest,
+  setGetAllPosUserLetest,
   posUserLogin,
   setPosUserLogin,
   selectedPosUser,

@@ -95,6 +95,7 @@ function* posUserLogin(action) {
 function* authSaga() {
   yield all([
     takeLatest("auth/userMerchantLogin", userMerchantLogin),
+    takeLatest("auth/getAllPosUserLetest", getAllPosUser),
     takeLatest("auth/getAllPosUser", getAllPosUser),
     takeLatest("auth/posUserLogin", posUserLogin),
   ]);
