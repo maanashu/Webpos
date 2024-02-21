@@ -28,7 +28,7 @@ import {
   formattedPrice,
 } from "../../../../utilities/globalMethods";
 
-const UserProfile = () => {
+const UserDetail = () => {
   const router = useRouter();
   const { query } = router;
   const userUid = query["user-id"];
@@ -42,14 +42,13 @@ const UserProfile = () => {
   const [orderData, setOrderData] = useState([]);
 
   const sellerUid = authData?.usersInfo?.payload?.uniqe_id;
-  const sellerID = authData?.usersInfo?.payload?.id;
 
   const userDetails =
     customersData?.userDetailsAndOrder?.payload?.data?.[0]?.user_details;
 
   const userOrderList = customersData?.userDetailsAndOrder?.payload;
   const storeLocationList = customersData?.storeLocation?.payload?.data;
-  const userMarketingStatus = customersData?.userMarketingStatus?.payload;
+  const userMarketingStatus = customersData?.userMarketingStatus?.payload?.data;
   const [isToggled, setIsToggled] = useState(false);
 
   const [monthSelect, setMonthSelect] = useState("none");
@@ -64,39 +63,32 @@ const UserProfile = () => {
         }))
       : []),
   ];
-
   useEffect(() => {
     const data = {
       user_id: userDetails?.id,
-      seller_id: sellerID,
+      seller_id: sellerUid,
     };
     dispatch(getUserMarketingStatus(data));
-    setIsToggled(userMarketingStatus?.accept ?? false);
-  }, [userDetails?.id, userMarketingStatus?.accept]);
+  }, []);
+  console.log("khaskfhksajfh", customersData?.userMarketingStatus);
+  console.log("sgfjdsgfjsgfjgds", customersData?.updateMarketingStatus);
 
   const toggleHandler = async () => {
-    const data = {
-      seller_id: sellerID.toString(),
-      user_id: userDetails?.id.toString(),
-      accept: !isToggled,
-    };
-    const res = await dispatch(updateUserMarketingStatus(data));
-    if (res) {
-      const data = {
-        user_id: userDetails?.id,
-        seller_id: sellerID,
-      };
-      dispatch(
-        getUserMarketingStatus({
-          ...data,
-          cb(res) {
-            if (res.statusCode == 200) {
-              setIsToggled((prev) => !prev);
-            }
-          },
-        })
-      );
-    }
+    setIsToggled((prev) => !prev);
+    // const data = {
+    //   seller_id: sellerUid.toString(),
+    //   user_id: userDetails?.id,
+    //   accept: !isToggled,
+    // };
+    // const res = await dispatch(updateUserMarketingStatus(data));
+    // if (res) {
+    //   const data = {
+    //     user_id: userDetails?.id,
+    //     seller_id: sellerUid,
+    //   };
+    //   dispatch(getUserMarketingStatus(data));
+    //   setIsToggled((prev) => !prev);
+    // }
   };
 
   useEffect(() => {
@@ -126,6 +118,17 @@ const UserProfile = () => {
     }
   }, [sellerUid, userUid, page, limit, monthSelect, storeSelected]);
 
+  useEffect(() => {
+    if (userDetails?.id) {
+      dispatch(
+        getUserMarketingStatus({
+          user_id: userDetails?.id,
+          seller_id: sellerUid,
+        })
+      );
+    }
+  }, [userDetails?.id, sellerUid]);
+
   const handleNavigateToTrackStatus = (item) => {
     router.push({
       pathname: "/transactions/transactionList/invoice",
@@ -139,10 +142,6 @@ const UserProfile = () => {
     //   "/customers/users/[user-id]/[order-id]",
     //   `/customers/users/${userUid}/${item?.id}`
     // );
-  };
-
-  const handleNavigateToUserDetail = () => {
-    router.push("/customers/users/userDetail");
   };
 
   return (
@@ -165,7 +164,7 @@ const UserProfile = () => {
             }}
             src={RightArrow}
           />
-          <p className="user-profile-title">User Profile</p>
+          <p className="user-profile-title">User Detail</p>
         </div>
         {/* <div
           style={{
@@ -203,7 +202,6 @@ const UserProfile = () => {
         isAcceptingMarketing={isToggled}
         bannerImage={userDetails?.banner_image}
         handleToggle={() => toggleHandler()}
-        // handleUserDetail={() => handleNavigateToUserDetail()}
       />
 
       <PaginationHeader
@@ -420,4 +418,4 @@ const UserProfile = () => {
   );
 };
 
-export default UserProfile;
+export default UserDetail;

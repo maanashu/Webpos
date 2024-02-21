@@ -47,6 +47,7 @@ export default function Layout({ children, isLoggedIn, userType }) {
     "/settings/plans/planFit",
     "/transactions/notification",
     "/transactions/search",
+    "/customers/users/userDetail",
   ];
 
   return (

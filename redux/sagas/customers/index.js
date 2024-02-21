@@ -178,17 +178,17 @@ function* getUserDetailsAndOrders(action) {
 
 function* updateUserMarketingStatus(action) {
   const dataToSend = { ...action.payload };
-  console.log("fgagasjfgsa", dataToSend)
-  const params = new URLSearchParams(dataToSend).toString();
-
+  delete dataToSend.cb;
+  const body = { ...action.payload };
   try {
     const resp = yield call(
       ApiClient.post,
-      `${AUTH_API_URL}/api/v1/marketings?${params}`
+      `${AUTH_API_URL}/api/v1/marketings`,
+      body
     );
     if (resp.status) {
       yield put(setUpdateMarketingStatus(resp.data));
-      // yield call(action.payload.cb, (action.res = resp));
+      yield call(action.payload.cb, (action.res = resp));
     } else {
       throw resp;
     }
@@ -200,6 +200,7 @@ function* updateUserMarketingStatus(action) {
 
 function* getUserMarketingStatus(action) {
   const dataToSend = { ...action.payload };
+  delete dataToSend.cb;
   const params = new URLSearchParams(dataToSend).toString();
 
   try {
@@ -209,7 +210,7 @@ function* getUserMarketingStatus(action) {
     );
     if (resp.status) {
       yield put(setUserMarketingStatus(resp.data));
-      // yield call(action.payload.cb, (action.res = resp));
+      yield call(action.payload.cb, (action.res = resp));
     } else {
       throw resp;
     }

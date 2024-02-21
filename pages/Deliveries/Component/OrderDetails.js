@@ -333,7 +333,7 @@ const OrderDetail = ({
     } else {
       return (
         <div className=" deliveryOuter assignMapRight ms-0">
-          <div className="flexBox ">
+          <div className="flexBox isExpandImg">
             <button
               onClick={() => setShowInvoice(!showInvoice)}
               type="button"
