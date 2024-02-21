@@ -8,6 +8,7 @@ import CashSummary from "./cashSummary";
 import {
   getExpectedCashByDrawerId,
   selectCashDrawerData,
+  updateDrawerSession
 } from "../../../redux/slices/cashDrawer";
 
 
@@ -35,29 +36,52 @@ const EndCashModal = ({  }) => {
   };
 
   const countCashFirst = async () => {
-    if (amount && amount < 0) {
+    dispatch(
+      getExpectedCashByDrawerId({
+        drawer_session_id: drawerSessionDetail?.id,
+        cb(res) {
+          if (res.status) {
+            handleShowModal();
+            setTimeout(() => {
+              setIsLoading(false);
+            }, 200);
+          }
+          else {
+            setIsLoading(false);
+          }
+        },
+      })
+    );
+  };
+
+  const updateCountedCash = () => {
+    if (amount && Number(amount) < 0) {
       toast.error("Amount should not be less then $0.00");
-    } else {
-      // await dispatch(getExpectedCashByDrawerId(drawerSessionDetail?.id));
+    } 
+    else {
+      let params = {
+          drawer_id: drawerSessionDetail?.id,
+          amount: Number(amount),
+          transaction_type: "counted_cash",
+          mode_of_cash: "cash_out"
+      };
+
       setIsLoading(true);
       dispatch(
-        getExpectedCashByDrawerId({
-          drawer_session_id: drawerSessionDetail?.id,
+        updateDrawerSession({
+          ...params,
           cb(res) {
-            if (res.status) {
-              handleShowModal();
-              setTimeout(() => {
-                setIsLoading(false);
-              }, 200);
+            if(res.status){
+              countCashFirst();
             }
             else {
               setIsLoading(false);
             }
-          },
+          }
         })
       );
     }
-  };
+  }
 
   return (
     <>
@@ -93,7 +117,7 @@ const EndCashModal = ({  }) => {
             <button
               className="nextverifyBtn w-100"
               type="button"
-              onClick={() => {!isLoading ? countCashFirst() : false} }
+              onClick={() => {!isLoading ? updateCountedCash() : false} }
             >
               {isLoading ? <span className="spinner-border spinner-border-sm"></span> : 
                 <>
