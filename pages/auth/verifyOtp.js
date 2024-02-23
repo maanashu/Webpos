@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import * as Images from "../../utilities/images";
 import Image from "next/image";
 import OTPInput from "react-otp-input";
@@ -7,6 +7,7 @@ import { toast } from "react-toastify";
 import { useDispatch, useSelector } from "react-redux";
 import { userMerchantLogin, selectLoginAuth } from "../../redux/slices/auth";
 import ProtectedRoute from "../../components/ProtectedRoute";
+import { OTP_INPUT_COUNT } from "../../constants/commonConstants";
 
 const VerifyOtp = () => {
   const authData = useSelector(selectLoginAuth);
@@ -18,6 +19,12 @@ const VerifyOtp = () => {
   const generateRandomName = () => {
     return Math.random().toString(36).substr(2, 10);
   };
+
+  useEffect(() => {
+    if (securityPin?.length == OTP_INPUT_COUNT) {
+      enterOtpSubmit();
+    }
+  }, [securityPin]);
 
   // this is use forget phone number from local storage and send in params...............................
   var getPhoneInfo;
@@ -83,7 +90,7 @@ const VerifyOtp = () => {
                   <div className="verify-box text-center">
                     <div className="pin-box d-flex justify-content-center">
                       <OTPInput
-                        numInputs={4}
+                        numInputs={OTP_INPUT_COUNT}
                         className="input_digits_"
                         value={securityPin}
                         data-cy="pin-field"
@@ -95,7 +102,6 @@ const VerifyOtp = () => {
                           <input {...props} type="password" maxLength={4} />
                         )}
                         onChange={onComplete}
-                        // onComplete={(code) => onComplete(code)}
                       />
                     </div>
                   </div>

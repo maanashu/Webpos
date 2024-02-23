@@ -28,3 +28,5 @@ export const ORDER_STATUS_FLOW_ICONS = [
   { icon: dotOrderDelivered, code: orderStatusCode.READY_TO_PICKUP },
   { icon: dotOrderAccepted, code: orderStatusCode.ACCEPTED },
 ];
+
+export const OTP_INPUT_COUNT = 4;
