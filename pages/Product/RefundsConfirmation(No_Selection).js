@@ -8,6 +8,10 @@ import {
   returnToInventory,
   selectReturnData,
 } from "../../redux/slices/productReturn";
+import {
+  selectCashDrawerData,
+  getExpectedCashByDrawerId
+} from "../../redux/slices/cashDrawer";
 import moment from "moment-timezone";
 import EmailReceiptModal from "../../components/modals/service/emailReceiptModal";
 import CustomModal from "../../components/customModal/CustomModal";
@@ -17,6 +21,8 @@ import { formattedReturnPrice } from "../../utilities/globalMethods";
 const RefundsConfirmation = () => {
   const dispatch = useDispatch();
   const router = useRouter();
+  const sessionData = useSelector(selectCashDrawerData);
+  const trackingSession = sessionData?.drawerSession?.payload;
   const refundDataObj = JSON.parse(router?.query?.refundData ?? "{}");
   const invoiceData = useSelector(selectReturnData);
   const selectedData = invoiceData?.invoiceData;
@@ -97,6 +103,18 @@ const RefundsConfirmation = () => {
         ...params,
         cb(res) {
           if (res) {
+
+            if(orderDetails?.mode_of_payment === "cash" && trackingSession?.id){
+              dispatch(
+                getExpectedCashByDrawerId({
+                  drawer_session_id: trackingSession?.id,
+                  cb(res) {
+                    // 
+                  },
+                })
+              );
+            }
+            
             router.push({
               pathname: "/Product/Confirmation(Success)",
             });

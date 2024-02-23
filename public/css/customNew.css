@@ -313,8 +313,11 @@ figure {
   color: #3caf77;
 }
 
-.itemTime .locateDistance {
+.itemTime .orderId {
   color: #47b0d6;
+}
+.itemTime .locateDistance {
+  color: #2f3552;
 }
 
 .deliveryTime .orderId {
