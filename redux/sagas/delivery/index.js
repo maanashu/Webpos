@@ -113,7 +113,6 @@ function* getPendingOrderCount(action) {
   const dataToSend = { ...action.payload };
   // delete dataToSend.cb;
   const params = new URLSearchParams(dataToSend).toString();
-  console.log("=--=-==-=-=-=-sdghasvduasvd", params);
   try {
     const resp = yield call(
       ApiClient.get,

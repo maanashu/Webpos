@@ -33,6 +33,7 @@ import moment from "moment-timezone";
 import { toast } from "react-toastify";
 import { amountFormat, getCurrentTimeZone } from '../../utilities/globalMethods';
 import { getMainProduct } from "../../redux/slices/retails";
+import { updateSettings } from "../../redux/slices/setting";
 import ProductAddModal from "../../components/modals/homeModals/productAddModal";
 
 const Overview = () => {
@@ -43,6 +44,7 @@ const Overview = () => {
   // const trackingSession = dashboardData?.drawerSession?.payload;
   const sessionData = useSelector(selectCashDrawerData);
   const trackingSession = sessionData?.drawerSession?.payload;
+  const expectedCashByDrawerId = sessionData?.expectedCashByDrawerId?.payload;
   const UniqueId = authData?.usersInfo?.payload?.uniqe_id
     ? authData?.usersInfo?.payload?.uniqe_id
     : "";
@@ -176,7 +178,7 @@ const Overview = () => {
     let params = {
       // pos_user_id: posUserUniqueId,
       drawer_id: trackingSession?.id,
-      amount: Number(trackingSession?.cash_balance),
+      amount: expectedCashByDrawerId?.remainingCash ? Number(expectedCashByDrawerId.remainingCash) : Number(trackingSession?.cash_balance),
       transaction_type: "end_tracking_session",
       mode_of_cash: "cash_out",
     };
@@ -326,6 +328,15 @@ const Overview = () => {
     setKey(Math.random());
   }
 
+  const getSettingData = () => {
+    dispatch(
+      updateSettings({
+        cb(res) {
+        },
+      })
+    );
+  };
+
   useEffect(() => {
     if (UniqueId && !trackingSession?.start_session) {
       setModalDetail({
@@ -334,6 +345,7 @@ const Overview = () => {
         type: "trackingmodal",
       });
       setKey(Math.random());
+      getSettingData();
     }
   }, []);
 
@@ -473,14 +485,12 @@ const Overview = () => {
                       <h4 className="saleHeading">Opening Balance</h4>
                       <h4 className="saleHeading">
                         {amountFormat(trackingSession?.opening_balance)}
-                        {/* ${trackingSession?.opening_balance} */}
                       </h4>
                     </div>
                     <div className="flexHeading mt-2">
                       <h4 className="saleHeading">Closing Balance</h4>
                       <h4 className="saleHeading">
-                        {amountFormat(trackingSession?.cash_balance)}
-                        {/* ${trackingSession?.cash_balance} */}
+                        {expectedCashByDrawerId?.remainingCash ? amountFormat(expectedCashByDrawerId.remainingCash) : amountFormat(trackingSession?.cash_balance)}
                       </h4>
                     </div>
                   </div>

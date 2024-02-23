@@ -36,7 +36,7 @@ const Shipping = () => {
     deliveredOrder: "",
     returnedOrder: "",
     cancelledOrder: "",
-    total: "",
+    total: 0,
   });
   const [todayOrdersCount, setTodayOrdersCount] = useState([]);
   const [currentOrderCount, setcurrentOrderCount] = useState([]);
@@ -77,7 +77,7 @@ const Shipping = () => {
           label: value,
           data: graphData?.datasets ? graphData.datasets[num]?.data : "",
           borderColor: color,
-          cubicInterpolationMode: "monotone"
+          cubicInterpolationMode: "monotone",
         },
       ]);
       console.log(dataSets);
@@ -200,13 +200,13 @@ const Shipping = () => {
             );
             const totalCount =
               cancelledOrder?.count +
-              deliverdOrder?.count +
-              returnedOrder?.count;
+                deliverdOrder?.count +
+                returnedOrder?.count ?? 0;
             setOrderPercentageData({
               deliveredOrder: deliverdOrder,
               returnedOrder: returnedOrder,
               cancelledOrder: cancelledOrder,
-              total: totalCount,
+              total: totalCount ?? 0,
             });
           }
         },
@@ -397,7 +397,7 @@ const Shipping = () => {
                       />
                     </div>
                     <div className="order-progress-value">
-                      <p>{orderPercentageData?.total}</p>
+                      <p>{parseInt(orderPercentageData?.total)}</p>
                     </div>
                   </div>
                 </div>
@@ -459,7 +459,12 @@ const Shipping = () => {
                       id="Order Processing"
                       checked={checked.Delivery}
                       onChange={(e) => {
-                        handelDataSetChange(e, "Order Processing", 1, "#7233C2");
+                        handelDataSetChange(
+                          e,
+                          "Order Processing",
+                          1,
+                          "#7233C2"
+                        );
                         setChecked({
                           ...checked,
                           Delivery: checked.Delivery === true ? false : true,

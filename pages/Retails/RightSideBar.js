@@ -132,13 +132,13 @@ const RightSideBar = ({ props, bulkCartFunction, setSelectedCartItems }) => {
     const params =
       holdProductArray?.length > 0
         ? {
-          status: !holdProductArray?.[0]?.is_on_hold,
-          cartId: holdProductArray?.[0]?.id,
-        }
+            status: !holdProductArray?.[0]?.is_on_hold,
+            cartId: holdProductArray?.[0]?.id,
+          }
         : {
-          status: !retailData?.productCart?.is_on_hold,
-          cartId: bulkId,
-        };
+            status: !retailData?.productCart?.is_on_hold,
+            cartId: bulkId,
+          };
 
     dispatch(
       holdCart({
@@ -162,13 +162,13 @@ const RightSideBar = ({ props, bulkCartFunction, setSelectedCartItems }) => {
     const params =
       holdProductArray?.length > 0
         ? {
-          status: !holdProductArray?.[0]?.is_on_hold,
-          cartId: holdProductArray?.[0]?.id,
-        }
+            status: !holdProductArray?.[0]?.is_on_hold,
+            cartId: holdProductArray?.[0]?.id,
+          }
         : {
-          status: !retailData?.productCart?.is_on_hold,
-          cartId: retailData?.productCart?.id,
-        };
+            status: !retailData?.productCart?.is_on_hold,
+            cartId: retailData?.productCart?.id,
+          };
     dispatch(
       holdCart({
         ...params,
@@ -407,14 +407,14 @@ const RightSideBar = ({ props, bulkCartFunction, setSelectedCartItems }) => {
                   bulkCartFunction(),
                     serviceCart?.length > 0
                       ? (setModalDetail({
-                        show: true,
-                        flag: "CartAlert",
-                      }),
+                          show: true,
+                          flag: "CartAlert",
+                        }),
                         setKey(Math.random()))
                       : setModalDetail({
-                        show: true,
-                        flag: "AddProduct",
-                      });
+                          show: true,
+                          flag: "AddProduct",
+                        });
                   setKey(Math.random());
                   // setCustomProductAdd(true);
                 }}
@@ -530,15 +530,15 @@ const RightSideBar = ({ props, bulkCartFunction, setSelectedCartItems }) => {
                 onClick={() => {
                   productCarts?.length > 0
                     ? (setModalDetail({
-                      show: true,
-                      flag: "CartAlert",
-                    }),
+                        show: true,
+                        flag: "CartAlert",
+                      }),
                       setKey(Math.random()))
                     : //  setCustomServiceAdd(true);
-                    setModalDetail({
-                      show: true,
-                      flag: "ServiceProductAdd",
-                    });
+                      setModalDetail({
+                        show: true,
+                        flag: "ServiceProductAdd",
+                      });
                   setKey(Math.random());
                 }}
               >
@@ -820,10 +820,13 @@ const RightSideBar = ({ props, bulkCartFunction, setSelectedCartItems }) => {
         isRightSideModal={false}
         mediumWidth={false}
         ids={
-          modalDetail.flag === "AddProduct" ? "AddProduct" 
-          : modalDetail.flag === "ServiceProductAdd" ? "ServiceProductAdd" 
-          : modalDetail.flag === "CartAlert" ? "CartAlert" 
-          : ""
+          modalDetail.flag === "AddProduct"
+            ? "AddProduct"
+            : modalDetail.flag === "ServiceProductAdd"
+            ? "ServiceProductAdd"
+            : modalDetail.flag === "CartAlert"
+            ? "CartAlert"
+            : ""
         }
         child={
           modalDetail.flag === "AddProduct" ? (
@@ -895,26 +898,26 @@ const RightSideBar = ({ props, bulkCartFunction, setSelectedCartItems }) => {
           </>
         }
         onCloseModal={() => handleOnCloseModal()}
-      // footer={
-      //   <>
-      //     <div className="modal-footer">
-      //       <button
-      //         className="cancelBtn"
-      //         onClick={() => handleOnCloseModal()}
-      //       >
-      //         Cancel
-      //       </button>
-      //       <button className="ModalBlue">
-      //         Add to the cart
-      //         <Image
-      //           src={Images.plusRound}
-      //           alt="image"
-      //           className="img-fluid BtnIcon"
-      //         />
-      //       </button>
-      //     </div>
-      //   </>
-      // }
+        // footer={
+        //   <>
+        //     <div className="modal-footer">
+        //       <button
+        //         className="cancelBtn"
+        //         onClick={() => handleOnCloseModal()}
+        //       >
+        //         Cancel
+        //       </button>
+        //       <button className="ModalBlue">
+        //         Add to the cart
+        //         <Image
+        //           src={Images.plusRound}
+        //           alt="image"
+        //           className="img-fluid BtnIcon"
+        //         />
+        //       </button>
+        //     </div>
+        //   </>
+        // }
       />
     </>
   );

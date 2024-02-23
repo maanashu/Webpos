@@ -186,7 +186,13 @@ function* productCart(action) {
     if (resp.status) {
       yield put(setProductCart(resp.data));
       if (resp?.data !== "") {
-        yield put(setCartLength(resp?.data?.payload?.poscart_products?.length));
+        if (
+          resp?.data?.payload?.poscart_products[0]?.product_type == "product"
+        ) {
+          yield put(
+            setCartLength(resp?.data?.payload?.poscart_products?.length)
+          );
+        }
       } else {
       }
       // yield put(setCartLength(resp.data));
@@ -530,7 +536,7 @@ function* getProductFilterCategory(action) {
     seller_id: sellerId,
     main_category: true,
     service_type: "product",
-    check_product_existance: true
+    check_product_existance: true,
   };
 
   // If needs searched category
@@ -564,7 +570,7 @@ function* getProductFilterSubCategory(action) {
     seller_id: sellerId,
     need_subcategory: true,
     service_type: "product",
-    check_product_existance: true
+    check_product_existance: true,
   };
 
   // If needs searched subcategory
@@ -596,7 +602,7 @@ function* getProductFilterBrands(action) {
 
   const params = {
     seller_id: sellerId,
-    check_product_existance: true
+    check_product_existance: true,
   };
 
   // If needs searched subcategory
@@ -630,7 +636,7 @@ function* getServiceFilterCategory(action) {
     seller_id: sellerId,
     main_category: true,
     service_type: "service",
-    check_product_existance: true
+    check_product_existance: true,
   };
 
   // If needs searched category
@@ -664,7 +670,7 @@ function* getServiceFilterSubCategory(action) {
     seller_id: sellerId,
     need_subcategory: true,
     service_type: "service",
-    check_product_existance: true
+    check_product_existance: true,
   };
 
   // If needs searched subcategory

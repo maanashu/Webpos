@@ -6,6 +6,7 @@ import { toast } from "react-toastify";
 import {
   selectCashDrawerData,
   updateDrawerSession,
+  getExpectedCashByDrawerId
 } from "../../../redux/slices/cashDrawer";
 
 const addRemoveCashModal = (props) => {
@@ -46,6 +47,14 @@ const addRemoveCashModal = (props) => {
           ...data,
           cb(res) {
             if(res.status){
+              dispatch(
+                getExpectedCashByDrawerId({
+                  drawer_session_id: props.drawerSessionId,
+                  cb(res) {
+                    // 
+                  },
+                })
+              );
               props.close();
             }
             setIsLoading(false);

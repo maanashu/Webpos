@@ -39,7 +39,8 @@ const StaffList = (props) => {
   };
 
   // API for get all POS users...............................
-  const getUserList = () => {
+  const getUserLists = () => {
+    
     let params = {
       seller_id: UniqueId,
     };
@@ -47,7 +48,13 @@ const StaffList = (props) => {
       getAllPosUser({
         ...params,
         cb(res) {
+          console.log("resresresresresres", res);
+
           if (res.status) {
+            console.log(
+              res?.data?.payload?.pos_staff,
+              "res?.data?.payload?.pos_staff"
+            );
             setGetAllStaffList(res?.data?.payload?.pos_staff);
           }
         },
@@ -57,13 +64,13 @@ const StaffList = (props) => {
 
   useEffect(() => {
     if (UniqueId) {
-      getUserList();
+      getUserLists();
     }
   }, [UniqueId]);
 
   useEffect(() => {
-    props?.setShowSideBar(false)
-  },[])
+    props?.setShowSideBar(false);
+  }, []);
 
   return (
     <>
@@ -134,7 +141,9 @@ const StaffList = (props) => {
                       className="staffArrow pointHand"
                       hight={100}
                       width={100}
-                      onClick={() => props?.handleTouch("staffDetail", data?.id)}
+                      onClick={() =>
+                        props?.handleTouch("staffDetail", data?.id)
+                      }
                     />
                   </div>
                 );
@@ -173,7 +182,10 @@ const StaffList = (props) => {
         ids={modalDetail.flag === "addStaff" ? "addStoreModal" : ""}
         child={
           modalDetail.flag === "addStaff" ? (
-            <AddStoreModal getUserList={getUserList} close={() => handleOnCloseModal()} />
+            <AddStoreModal
+              getUserLists={() => getUserLists()}
+              close={() => handleOnCloseModal()}
+            />
           ) : (
             ""
           )

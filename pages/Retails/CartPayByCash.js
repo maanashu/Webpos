@@ -13,6 +13,10 @@ import {
   setCartLength,
   setLocalCart,
 } from "../../redux/slices/retails";
+import {
+  selectCashDrawerData,
+  getExpectedCashByDrawerId
+} from "../../redux/slices/cashDrawer";
 import { useDispatch, useSelector } from "react-redux";
 import {
   amountFormat,
@@ -31,6 +35,8 @@ const CartPayByCash = () => {
   const retailData = useSelector(selectRetailData);
   const cartData = retailData?.productCart;
   const cartAmount = cartData?.amount;
+  const sessionData = useSelector(selectCashDrawerData);
+  const trackingSession = sessionData?.drawerSession?.payload;
   const [selectedCart, setSelectedCart] = useState(null);
   const [selectedId, setSelectedId] = useState(1);
   const [cashRate, setCashRate] = useState();
@@ -111,6 +117,19 @@ const CartPayByCash = () => {
                 },
               })
             );
+            
+            // Get the expected cash in the drawer to update homepage closing balance
+            if(trackingSession?.id){
+              dispatch(
+                getExpectedCashByDrawerId({
+                  drawer_session_id: trackingSession?.id,
+                  cb(res) {
+                    // 
+                  },
+                })
+              );
+            }
+
             router.push({
               pathname: "/Retails/ShowPaidAmountCart",
               query: {

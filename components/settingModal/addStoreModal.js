@@ -13,7 +13,8 @@ import Multiselect from "multiselect-react-dropdown";
 import { ChromePicker } from "react-color";
 import { toast } from "react-toastify";
 
-const AddStoreModal = ({ getUserList, close }) => {
+const AddStoreModal = ({ getUserLists, close }) => {
+  console.log(close,"close");
   const dispatch = useDispatch();
   const toastId = useRef();
   const authData = useSelector(selectLoginAuth);
@@ -127,8 +128,9 @@ const AddStoreModal = ({ getUserList, close }) => {
         cb(res) {
           if (res) {
             if (res?.status) {
+              console.log(res?.status,"res?.status");
               close();
-              getUserList();
+              getUserLists();
               setIsLoading(false);
             }
           }
@@ -216,7 +218,7 @@ const AddStoreModal = ({ getUserList, close }) => {
                 className="form-control nameControl"
                 max={4}
                 type="password"
-                placeholder="Password"
+                placeholder="password"
                 value={staffPassword}
                 onChange={(e) => {
                   const numericValue = e.target.value

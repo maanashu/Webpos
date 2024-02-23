@@ -336,7 +336,7 @@ const ProductAddModal = (props) => {
                 ids={modalDetail.flag === "trackingmodal" ? "trackingModal" : modalDetail.flag === "productadd" ? "productOverview" : modalDetail.flag === "detailModal" ? "detailModal" : ""}
                 child={
                     modalDetail.flag === "detailModal" ? (
-                        <DetailModal close={(e) => handleOnCloseModal(e)} productDetail={productDetail}/>
+                        <DetailModal close={(e) => handleOnCloseModal(e)} productDetail={productDetail} />
                     ) :
                         (
                             ""

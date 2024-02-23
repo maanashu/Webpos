@@ -25,6 +25,7 @@ import {
 const Sidebar = (props) => {
   const dispatch = useDispatch();
   const [activeSidebar, setActiveSidebar] = useState(true);
+  const [userLogoutStatus, setUserLogoutStatus] = useState(false);
   const authData = useSelector(selectLoginAuth);
   const sessionData = useSelector(selectCashDrawerData);
   const trackingSession = sessionData?.drawerSession?.payload;
@@ -61,6 +62,7 @@ const Sidebar = (props) => {
         ...params,
         async cb(res) {
           if (res.status) {
+            setUserLogoutStatus(true);
 
             setTimeout(() => {
               toast.success("Logout successfully");
@@ -118,7 +120,7 @@ const Sidebar = (props) => {
   };
 
   useEffect(() => {
-    if (sellerUid) {
+    if (sellerUid && !userLogoutStatus) {
       getDeliveryPendingOrderCount();
       getAllShippingOrdesCountHandle();
     }
