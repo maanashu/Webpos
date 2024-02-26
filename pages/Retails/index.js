@@ -627,6 +627,9 @@ const Retails = () => {
                                           className="img-fluid CardIcons"
                                           width="100"
                                           height="100"
+                                          style={{
+                                            borderColor: item?.color_code,
+                                          }}
                                         />
                                       );
                                     })}
