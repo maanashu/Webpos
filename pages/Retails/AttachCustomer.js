@@ -228,7 +228,9 @@ const AttachCustomer = ({ crosshandler }) => {
         {retailData?.getUserDetailLoad ? null : userLength > 0 && detailArea ? (
           <p className="quantityText my-2">Already in system</p>
         ) : userLength == 0 && !detailArea ? null : (
-          <p className="quantityText my-2">This phone is not registered in the database</p>
+          <p className="quantityText my-2">
+            This phone is not registered in the database
+          </p>
         )}
       </div>
       {retailData?.getUserDetailLoad ? (
@@ -249,7 +251,7 @@ const AttachCustomer = ({ crosshandler }) => {
                       </label>
                       <div className="flexDiv ">
                         <h4 className="trackingHeading">
-                          +{getuserDetailByNo?.invitation?.phone_code}
+                          {getuserDetailByNo?.invitation?.phone_code}
                           {getuserDetailByNo?.invitation?.phone_no}
                         </h4>
                         <Image
@@ -261,7 +263,7 @@ const AttachCustomer = ({ crosshandler }) => {
                     </div>
                     <div className="emailDetail">
                       <label className="loginSub text-start">
-                        E-mail Addressdddddddd
+                        E-mail Address
                       </label>
                       <input
                         className="form-control nameControl"
