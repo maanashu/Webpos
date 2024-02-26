@@ -76,6 +76,12 @@ const AddDiscount = (props) => {
       setAmount(value);
       setDiscountValue(value);
     } else if (disCountFlag === "percentage") {
+      if (value > 100) {
+        setPercent(`100`);
+        setDiscountValue(`100`);
+        toast.error("Discount can not be greater than 100%");
+        return;
+      }
       setPercent(value);
       setDiscountValue(value);
     } else if (disCountFlag === "code") {
@@ -126,7 +132,7 @@ const AddDiscount = (props) => {
             <input
               className="customdiscount_"
               type="number"
-              placeholder="0.00     % "
+              placeholder="0.00%"
               onChange={handleInputChange}
               value={percent}
               disabled={disCountFlag != "percentage"}
@@ -154,7 +160,9 @@ const AddDiscount = (props) => {
             />
           </div>
           <div>
-            <label className="form-label fw-500 trackingHeading">Discount Title</label>
+            <label className="form-label fw-500 trackingHeading">
+              Discount Title
+            </label>
             <input
               className="customform-control discountInput_"
               placeholder="Discount"
